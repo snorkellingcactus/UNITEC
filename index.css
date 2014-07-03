@@ -1,0 +1,23 @@
+*{border:0px;margin:0px;padding:0px}
+html, .menu>div, .menu>a{width:100%}
+body{margin:0px 1% 0px 1%}
+
+a
+{
+	text-decoration:none;
+	font-family: "Monospace";
+	color:#48a1b5
+}
+
+.menu
+{
+	width:15%;
+	height:auto;
+	border-radius:5px;
+	overflow:hidden
+}
+.menu div
+{
+	text-align:center;
+	border-top:1px solid #8b9191
+}
