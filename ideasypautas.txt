@@ -1,0 +1,55 @@
+Contenido:
+ -Hay novedades (con posibles comentarios) , info contacto (integrantes, mails), sugerencias.
+ -Colores de interfaz en azul verde y negro. Colores vivos en zonas donde se busca el interés del usuario.
+  El tipo de público es un público educativo (maestros, alumnos, chicos chiquitos y discapacitados).
+ -Administrador de contenido (actualiza noticias, comentarios, eventos) destinado a administradores.
+ -Mapa del sitio.
+ 
+-----------------------------------------------------------------------------------------------------------------------------------------
+Minimización del mantenimiento:
+ -Integración de contenido con facebook (novedades).
+ -Integraciones con gmail.
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+Organizar páginas según las ramificaciones:
+
+EDETEC:
+
+  Espacio de Extensión:
+   -Labtic
+   -Late
+   
+  Desarrollo de Tecnologías:
+   -Ling
+   -Lema
+   
+  Educación en Ingeniería:
+   -Litae
+   -Caled
+----------------------------------------------------------------------------------------------------------------------------------------
+Accecibilidad:
+  Pautas:
+    -Buen contraste entre colores
+    -Letras grandes
+    -Zonas detonadoras de acciones grandes
+    -Logos, dibujos o imágenes representativos
+    -Descripciones de texto
+    -Correcta sintaxis xhtml.
+    
+    -Mayor unificación o centralización posible del control de la web. (Opciones juntas, no dispersas).
+    -Evitar contenido ambiguo.
+    -Poder acceder a todas la funciones de la web sin JavaScript.
+    -En caso de contenido audible, proporcionar subtitulos.
+  
+ Ideas según tipo de discapacidad:
+    Alternativas de entradas de teclado y mouse (Requieren JS):
+      -Un teclado tipo tabla con filas y columnas seleccionables con 1 click
+      -Sistema de cartones, para pantallas táctiles o wacom.
+      
+Colores formales base:
+  Color Celeste: #48A1B5
+  Color Gris: #8B9191
+  Color Verde:
+  Blanco.
+  
+--------------------------------------------------------------------------------------------------------------------------------
