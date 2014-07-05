@@ -1,23 +1,48 @@
-*{border:0px;margin:0px;padding:0px}
-html, .menu>div, .menu>a{width:100%}
-body{margin:0px 1% 0px 1%}
-
+*{margin:0px;padding:0px;border:0px} 
+html , body
+{
+	width:100%;
+	background-color:silver;
+	background-image:url("./img/fondo_contenido")
+}
 a
 {
+	font-family:"Lucida Console";
+	font-weight:900;
+	font-size:1em;
 	text-decoration:none;
-	font-family: "Monospace";
-	color:#48a1b5
 }
-
+a:hover
+{
+	color:white;
+}
 .menu
 {
-	width:15%;
-	height:auto;
-	border-radius:5px;
-	overflow:hidden
+	background-color:#DDFFFE;
+	background-image:url("img/fondo_contenido.png");
+	width:20%;
+	overflow:hidden;
+	position:fixed;
 }
 .menu div
 {
-	text-align:center;
-	border-top:1px solid #8b9191
+	width:100%;
+	padding:8% 0px 8% 0px;
+	border-bottom:2px dashed gray;
+}
+.menu a
+{
+	margin-left:5px;
+	color:inherit
+}
+.menu div:hover img
+{
+	opacity:0.8
+}
+.menu div img
+{
+	opacity:0.3;
+	float:right;
+	margin-top:-20px;
+	margin-right:10px
 }
