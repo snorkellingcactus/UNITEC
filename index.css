@@ -7,7 +7,7 @@ html , body
 }
 a
 {
-	font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
+	font-family:"Lucida Console";
 	font-weight:900;
 	font-size:1em;
 	text-decoration:none;
@@ -18,7 +18,7 @@ a:hover
 }
 .menu
 {
-	background-color:#ffffff;
+	background-color:#00D0D0;
 	background-image:url("img/fondo_contenido.png");
 	width:20%;
 	overflow:hidden;
@@ -26,8 +26,7 @@ a:hover
 	margin:1% 0px 1% 1%;
 	border-top-left-radius:5px;
 	float:left;
-	box-shadow:-2px -2px 5px #888888;
-	color:gray;
+	box-shadow:-2px -2px 5px #888888
 }
 .menu div
 {
@@ -60,11 +59,12 @@ a:hover
 	width:100%;
 	margin:3% 0px 3% 0px;
 	margin-left:2%
-	}	/*	Opciones Menu	*/
+}	/*	Opciones Menu	*/
 .menu nav li:hover
 {
-	color:black;
-	
+	background-color:#DDFFFE;
+	background-image:url("img/fondo_contenido.png");
+	border-left:3px solid #025f9f
 }
 .menu nav li:hover img
 {
@@ -84,13 +84,3 @@ a:hover
 	display:table-cell;
 	vertical-align:middle
 }
-.menu nav li>a:focus, .menu nav li>img:focus
-{
-color:black;
-background-color:#929193;
-background-image:url("img/fondo_contenido.png");
-border-left:3px solid #929193;
-}
-	/*background-color:#929193;
-	background-image:url("img/fondo_contenido.png");
-	border-left:3px solid #025f9f;*/
