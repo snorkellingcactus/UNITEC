@@ -49,26 +49,18 @@
 	color:black;
 	
 }
-.menu nav li:hover img
-{
-	opacity:0.8
-}
-.menu nav li img
-{
-	opacity:0.4
-}
 .menu nav a
 {
 	padding-left:5px;
 	color:inherit
 }
-.menu nav a, .menu nav li img
+.menu nav a
 {
 	display:table-cell;
 	vertical-align:middle;
 	padding:5%
 }
-.menu nav li>a:focus, .menu nav li>img:focus
+.menu nav li>a:focus
 {
 color:black;
 background-color:#929193;
