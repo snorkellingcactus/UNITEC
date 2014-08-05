@@ -1,0 +1,37 @@
+#labs
+{
+	width:90%;
+	min-width:35em;
+	margin-left:5%;
+	table-layout:fixed;
+	font-size:1.1em
+}
+#labs td
+{
+	text-align:center;
+}
+#labs img
+{
+	width:3em;
+	height:3em;
+	padding:5% 0px 5% 0%
+}
+.organicaja
+{
+	box-shadow:-0px -0px 5px silver;
+	border-radius:3px;
+	background-image:url("img/fondo_contenido.png");
+	background-color:light;
+	padding:5%;
+}
+#labs thead .organicaja
+{
+	width:70%;
+	margin-left:10%;
+	padding:2.5%;
+}
+#labs tbody .organicaja
+{
+	width:50%;
+	margin-left:20%;
+}

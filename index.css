@@ -16,80 +16,12 @@ a:hover
 {
 	color:white;
 }
-.menu
+/*Tabla con organigrama laboratorios*/
+main
 {
-	background-color:#ffffff;
-	background-image:url("img/fondo_contenido.png");
-	width:20%;
-	overflow:hidden;
-	position:fixed;
-	margin:1% 0px 1% 1%;
-	border-top-left-radius:5px;
-	float:left;
-	box-shadow:-2px -2px 5px #888888;
-	color:gray;
-}
-.menu div
-{
-	margin-top:5%;
-	background-image:url("img/fondo_contenido.png");
-	width:100%;
-	float:left
-}	/*	Menu div es el contenedor del logo	*/
-.menu div img
-{
-	width:80px;
-	height:80px;
-	padding:5% 0px 5% 0px;
-	vertical-align:middle
-}	/*	Logo (imagen)	*/
-.menu div h2
-{
-	color:white;
-	text-align:center
-}	/*	Logo (Letras)	*/
-.menu nav ul
-{
-	display:table;
-	width:100%;
-	list-style:none
-}	/*	Contenedor opciones menu	*/
-.menu nav li
-{
-	display:table-row;
-	width:100%;
-	margin:3% 0px 3% 0px;
-	margin-left:2%
-	}	/*	Opciones Menu	*/
-.menu nav li:hover
-{
-	color:black;
-	
-}
-.menu nav li:hover img
-{
-	opacity:0.8
-}
-.menu nav li img
-{
-	opacity:0.4
-}
-.menu nav a
-{
-	padding-left:5px;
-	color:inherit
-}
-.menu nav a, .menu nav li img
-{
-	display:table-cell;
-	vertical-align:middle
-}
-.menu nav li>a:focus, .menu nav li>img:focus
-{
-color:black;
-background-color:#929193;
-background-image:url("img/fondo_contenido.png");
-border-left:3px solid #929193;
+	width:77%;
+	height:100%;
+	margin-left:22%;
 }
 	/*background-color:#929193;
 	background-image:url("img/fondo_contenido.png");
