@@ -62,8 +62,8 @@
 }
 .menu nav li>a:focus
 {
-color:black;
-background-color:#929193;
-background-image:url("img/fondo_contenido.png");
-border-left:3px solid #929193;
+  color:black;
+  background-color:#929193;
+  background-image:url("img/fondo_contenido.png");
+  border-left:3px solid #929193;
 }
