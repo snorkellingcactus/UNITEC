@@ -65,7 +65,8 @@
 .menu nav a, .menu nav li img
 {
 	display:table-cell;
-	vertical-align:middle
+	vertical-align:middle;
+	padding:5%
 }
 .menu nav li>a:focus, .menu nav li>img:focus
 {
