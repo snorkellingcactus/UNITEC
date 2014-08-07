@@ -1,7 +1,7 @@
 .menu
 {
 	background-color:#ffffff;
-	background-image:url("img/fondo_contenido.png");
+	background-image:url("../img/fondo_contenido.png");
 	width:20%;
 	min-width:14em;
 	overflow:hidden;
@@ -15,14 +15,14 @@
 .menu div
 {
 	margin-top:5%;
-	background-image:url("img/fondo_contenido.png");
+	background-image:url("../img/fondo_contenido.png");
 	width:100%;
 	float:left
 }	/*	Menu div es el contenedor del logo	*/
 .menu div img
 {
 	width:80px;
-	height:80px;
+	height:100px;
 	padding:5% 0px 5% 0px;
 	vertical-align:middle
 }	/*	Logo (imagen)	*/
@@ -60,10 +60,15 @@
 	vertical-align:middle;
 	padding:5%
 }
-.menu nav li>a:focus
+.menu  .resaltaOpc
 {
-  color:black;
-  background-color:#929193;
-  background-image:url("img/fondo_contenido.png");
-  border-left:3px solid #929193;
+color:black;
+background-color:#929193;
+background-image:url("../img/fondo_contenido.png");
+border-left:3px solid #929193;
+}
+.menu nav li>a:focus, .menu nav li>a:hover
+{
+	text-decoration:underline;
+	background-color:silver;
 }
