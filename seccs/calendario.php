@@ -159,19 +159,31 @@ class Cal_Gen_HTML
 	//Genera las celdas para el <thead>
 	function genThead()
 	{
-		$buff	="<tr><th colspan='7'>".$this->mes()."</th></tr><tr>";		//Donde se va a almacenar el resultado.
+		$buff	=
+		"
+		<tr>
+			<th colspan='7'>
+			"
+				.$this->mes().
+			"</th>
+		</tr>
+		<tr>\n";		//Donde se va a almacenar el resultado.
 	
 		for($i=0;$i<count($this->cfg->dias);$i++)
 		{
-			$buff=$buff."<th>".substr
+			$buff=$buff.
+			"<th>"
+			.substr
 			(
 				$this->cfg->dias[$i],
 				0,
 				2
-			)."</th>";
+			).
+			"</th>\n";
 		};
 		
-		$buff=$buff."</tr>";
+		$buff=$buff.
+		"</tr>\n";
 
 		return $buff;
 	}
@@ -184,7 +196,7 @@ class Cal_Gen_HTML
 		//Genera tabla.
 		for($i=0;$i<$this->filas;$i++)
 		{
-			$buff=$buff."<tr>";
+			$buff=$buff."<tr>\n";
 			for($j=0;$j<7;$j++)
 			{
 				$clase="";				//Por si un td (dia) pertenece a una clase CSS en particular.
@@ -215,9 +227,9 @@ class Cal_Gen_HTML
 				};
 				
 				$cuenta++;
-				$buff=$buff."<td".$clase.">".($numDia+1)."</td>";
+				$buff=$buff."<td".$clase.">".($numDia+1)."</td>\n";
 			};
-			$buff=$buff."</tr>";
+			$buff=$buff."</tr>\n";
 		};
 		return $buff;
 	}
@@ -227,19 +239,14 @@ class Cal_Gen_HTML
 		"
 			<table>
 				<thead>
-					<tr>
-						"
-						.$this->genThead().
-						"
-					</tr>
-					<tr>
-
-					</tr>
+					\n"
+					.$this->genThead().
+					"\n
 				</thead>
 				<tbody>
-					"
+					\n"
 					.$this->genTbody().
-					"
+					"\n
                 		</tbody>
 			</table>
 		";

@@ -1,4 +1,4 @@
-<!DOCTYPE html />
+<!DOCTYPE html >
 <?php
 //Precondiciones necesarias.
 if(!isset($num))

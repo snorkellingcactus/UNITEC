@@ -1,8 +1,8 @@
 <!--	:::::::::Organigrama:::::::::	-->
-<table id="labs" name="#espacios">
+<table id="labs">
 	<thead>
 		<tr>
-			<td colspan="6" align="center">
+			<td colspan="6">
 				<div class="organicaja">
 					<p>UNITEC</p>
 				</div>
