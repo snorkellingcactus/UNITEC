@@ -1,4 +1,59 @@
 .calendario
 {
-	
+	max-width:96%;
+	margin-left:2%;
+	margin-top:4%;
+	background-color:lightgray;
+	background-image: url("../img/fondo_contenido.png");
+	border:2px solid gray;
+	border-radius:5px;
+	height:auto;
+}
+.calendario table
+{
+	background-color:silver;
+	table-layout:fixed;
+	font-family:georgia;
+	border-radius:3px;
+	float:left;
+}
+.calendario .muted
+{
+	opacity:0.5;
+}
+.calendario td,.calendario th
+{
+	text-align:center;
+	padding:0px 5px 0px 5px;
+	background-image: url("../img/fondo_contenido.png");
+}
+.calendario tbody td:hover
+{
+	font-weight:bold;
+}
+.calendario .evento
+{
+	background-color:dimgray;
+	border-radius:3px;
+}
+.calendario thead th a
+{
+	border-spacing:20px;
+}
+.ano
+{
+	text-align:right;
+	position:relative;
+	font-family: Georgia;
+	font-size:4em;
+	color:dimgray;
+	margin:3% 2% 1.5% 0%;
+	padding-right:1%;
+	border-bottom-right-radius:10px;
+	border-top-right-radius:10px;
+	border-right:1px solid white;
+}
+.pasado
+{
+	opacity:0.9;
 }

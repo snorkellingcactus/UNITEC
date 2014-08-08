@@ -5,7 +5,6 @@
 	min-width:35em;
 	margin-left:5%;
 	table-layout:fixed;
-	font-size:1.1em
 }
 #labs td
 {
@@ -22,7 +21,6 @@
 	box-shadow:-0px -0px 5px silver;
 	border-radius:3px;
 	background-image:url("../img/fondo_contenido.png");
-	background-color:light;
 	padding:5%;
 }
 #labs thead .organicaja

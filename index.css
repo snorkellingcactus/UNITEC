@@ -1,15 +1,15 @@
-*{margin:0px;padding:0px;border:0px}	/*	Reseteo estilos	*/
+*{margin:0px;padding:0px;border:0px;line-height:1.41;}	/*	Reseteo estilos	*/
 html , body
 {
 	min-width:100%;
-	min-height:100%;
-	background:linear-gradient(to top left ,#00D0D0, #9BA3FF)
+	min-height:150%;
+	background:linear-gradient(to top left ,#00D0D0, #9BA3FF);
+	background-repeat:no-repeat;
 }
 a
 {
 	font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
 	font-weight:900;
-	font-size:1em;
 	text-decoration:none;
 }
 a:hover

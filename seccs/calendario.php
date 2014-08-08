@@ -1,4 +1,3 @@
-<!--	:::::::::Calendario:::::::::	-->
 <?php
 /*:::::::::::RECORDATORIO::::::::::
 "seconds"
@@ -12,141 +11,268 @@
 "weekday"
 "month"
 :::::::::::::::::::::::::::::::::*/
-//Variables Español.
-global $Cal_Dias,$Cal_Meses,$Cal_Fecha;
-$Cal_Tipo=CAL_GREGORIAN;
-$Cal_Dias=["Lunes" , "Martes" , "Miércoles" , "Jueves" , "Viernes" , "Sábado" , "Domingo"];
-$Cal_Meses=	[	"Enero"		,		"Febrero"		,		"Marzo"		,		"Abril"		,
-				"Mayo"		,		"Junio"			,		"Julio"		,		"Agosto"	,
-				"Septiembre"		,"Octubre"		,		"Noviembre"	,		"Diciembre"
-			];
-//Fecha Actual.
-$Cal_Fecha=getdate();
-//:::::::::::::::::::::::::::::
-function Cal_Gen_TBody()
+//::::Variables Globales::::
+global $Cal_Dias,$Cal_Meses,$Cal_Fecha	;
+
+class Cal_Cfg
 {
-//35
-	global $Cal_Fecha,$Cal_Tipo;
-	//Cantidad dias mes actual:
-	$diasMesAct=cal_days_in_month($Cal_Tipo , $Cal_Fecha["mon"] , $Cal_Fecha["year"]);
-	$diasMesAnt=cal_days_in_month($Cal_Tipo , $Cal_Fecha["mon"]-1 , $Cal_Fecha["year"]);
-	
-	$diasDeshab=35-$diasMesAct;
-	
-	$buff="";
-	
-	for($i=0;$i<7;$i++)
+	public $fecha;
+	public $eventos;
+
+	public $tipo	=	CAL_GREGORIAN;
+	public $dias	=	["Domingo","Lunes","Martes","Miércoles","Jueves","Viernes", "Sabado"];
+	public $meses	=
+	[
+	"Enero"		,	"Febrero"	,	"Marzo"		,	"Abril"		,
+	"Mayo"		,	"Junio"		,	"Julio"		,	"Agosto"	,
+	"Septiembre"	,	"Octubre"	,	"Noviembre"	,	"Diciembre"
+	];
+
+	function __construct()
 	{
-		$buff=$buff."<tr>";
-		for($j=0;$j<5;$j++)
+		$this->fecha	=	getdate();
+
+		$args=func_get_args();			//Array con argumentos.
+		//El primer argumento es la fecha en que se basa el calendario.
+		if(count($args))
 		{
-			$cuenta=($i*$j+j);
-			$buff=$buff."<td>";
-			
-			if($cuenta<$diasDeshab)
-			{
-				$buff=$buff.($diasMesAnt-($diasDeshab-$cuenta));
-			}
-			else
-			{
-				$buff=$buff.($cuenta-$diasDeshab);
-			};
-			$buff=$buff."</td>";
+			$this->fecha=$args[0];
 		}
-		$buff=$buff."</tr>";
 	}
-	
-	return $buff;
-};
-function Cal_Gen_THead()
+}
+class Cal_Gen_HTML
 {
-	global $Cal_Dias;		//Se utilizará esta variable global.
-	$buff="";						//Donde se va a almacenar el resultado.
-	
-	for($i=0;$i<count($Cal_Dias);$i++)
+	public $cfg;
+	public $fecha;
+	public $diasAnt;
+	public $diasMesAct;
+	public $diasMesAnt;
+
+	public $celdasMax;
+	public $celdasMin;
+	public $filas=5;			//Cantidad de filas por de fecto (7x5=35).
+
+	function calcCeldas()
 	{
-		$buff=$buff."<th>".substr($Cal_Dias[$i],0,2)."</th>";
-	};
+		$args=func_get_args();
+		$this->celdasMax=$this->filas*7;		//Máximo de celdas que aparentemente se van a mostrar.
+
+		//Cantidad dias mostrados anteriores al mes:
+		$this->diasAnt=getdate
+		(
+			mktime
+			(
+				0,
+				0,
+				0,
+				$this->fecha["mon"],
+				0,
+				$this->fecha["year"]
+			)
+		)["wday"]+1;
+		//Cantidad dias mes actual:
+		$this->diasMesAct=cal_days_in_month
+		(
+			$this->cfg->tipo ,
+			$this->fecha["mon"],
+			$this->fecha["year"]
+		);
+		//Cantidad dias mes anterior:
+		$this->diasMesAnt=cal_days_in_month
+		(
+			$this->cfg->tipo ,
+			$this->fecha["mon"],
+			$this->fecha["year"]
+		);
+
+		//Si se pasa un argumento, se trata de el número de filas.
+		if(count($args) && $args[0]>5)
+		{
+			$this->filas=$args[0];
+		};
+		
+		$this->celdasMin=$this->diasMesAct+$this->diasAnt;	//Cantidad celdas necesarias para mostrar todo el mes.
+		$this->celdasMax=$this->filas*7;			//Actualizo el máximo de celdas.
+
+		//Si el mes tiene 31 o más dias necesito minimo 6 filas.
+		if($this->celdasMin>$this->celdasMax)
+		{
+			$this->filas=6;
+		}
+	}
+	//Setea el mes si se le pasa un argumento, sino lo devuelve.
+	function mes()
+	{
+		$args=func_get_args();
+		if(count($args))
+		{
+			$this->fecha=getdate
+			(
+				mktime
+				(
+					$this->fecha["hours"],
+					$this->fecha["minutes"],
+					$this->fecha["seconds"],
+					$args[0],
+					$this->fecha["mday"],
+					$this->fecha["year"]
+				)
+			);
+			//Refresca cálculos.
+			$this->calcCeldas();
+		}
+		else
+		{
+			return $this->cfg->meses
+			[
+				$this->fecha["mon"]-1
+			];
+		}
+	}
+	//Setea el año si se le pasa un argumento, sino lo devuelve.
+	function ano()
+	{
+		$args=func_get_args();
+		if(count($args))
+		{
+			$this->fecha=getdate
+			(
+				mktime
+				(
+					$this->fecha["hours"],
+					$this->fecha["minutes"],
+					$this->fecha["seconds"],
+					$this->fecha["mon"],
+					$this->fecha["mday"],
+					$args[0]
+				)
+			);
+			//Refresca cálculos.
+			$this->calcCeldas();
+		}
+		else
+		{
+			return $this->fecha["year"];
+		}
+	}
+
+	//Genera las celdas para el <thead>
+	function genThead()
+	{
+		$buff	="<tr><th colspan='7'>".$this->mes()."</th></tr><tr>";		//Donde se va a almacenar el resultado.
 	
-	return $buff;
-};
-?>
-<div class="container calendario">
-	<div class="row">
-		<div class="span12">
-			<table class="table-condensed table-bordered table-striped">
+		for($i=0;$i<count($this->cfg->dias);$i++)
+		{
+			$buff=$buff."<th>".substr
+			(
+				$this->cfg->dias[$i],
+				0,
+				2
+			)."</th>";
+		};
+		
+		$buff=$buff."</tr>";
+
+		return $buff;
+	}
+	//Genera las celdas para el <tbody>.
+	function genTbody()
+	{
+		$buff="";				//Buffer de Respuesta HTML.
+		$cuenta=0;				//Para llevar la cuenta de la celda actual.
+	
+		//Genera tabla.
+		for($i=0;$i<$this->filas;$i++)
+		{
+			$buff=$buff."<tr>";
+			for($j=0;$j<7;$j++)
+			{
+				$clase="";				//Por si un td (dia) pertenece a una clase CSS en particular.
+				$numDia=0;				//El número del dia.
+	
+				if($cuenta<$this->diasAnt)
+				{
+					$numDia=
+					(	
+						$this->diasMesAnt-($this->diasAnt-$cuenta)
+					);
+					$clase=" class='muted'";
+				};
+				if($cuenta>($this->celdasMin))
+				{
+					$numDia=
+					(
+						$cuenta-$this->celdasMin
+					);
+					$clase=" class='muted'";
+				};
+				if($cuenta>=$this->diasAnt && $cuenta<$this->celdasMin)
+				{
+					$numDia=
+					(
+						$cuenta-$this->diasAnt
+					);
+				};
+				
+				$cuenta++;
+				$buff=$buff."<td".$clase.">".($numDia+1)."</td>";
+			};
+			$buff=$buff."</tr>";
+		};
+		return $buff;
+	}
+	function genTable()
+	{
+		$buff=
+		"
+			<table>
 				<thead>
 					<tr>
-						<th colspan="7">
-							<span class="btn-group">
-								<a class="btn"><i class="icon-chevron-left"></i></a>
-								<a class="btn active"><?php
-									echo $Cal_Meses
-									[
-										$Cal_Fecha["mon"]
-									]." ".$Cal_Fecha["year"];
-								?></a>
-								<a class="btn"><i class="icon-chevron-right"></i></a>
-							</span>
-						</th>
+						"
+						.$this->genThead().
+						"
 					</tr>
 					<tr>
-						<?php
-							echo Cal_Gen_THead();
-						?>
+
 					</tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td class="muted">29</td>
-                        <td class="muted">30</td>
-                        <td class="muted">31</td>
-                        <td>1</td>
-                        <td>2</td>
-                        <td>3</td>
-                        <td>4</td>
-                    </tr>
-                    <tr>
-                        <td>5</td>
-                        <td>6</td>
-                        <td>7</td>
-                        <td>8</td>
-                        <td>9</td>
-                        <td>10</td>
-                        <td>11</td>
-                    </tr>
-                    <tr>
-                        <td>12</td>
-                        <td>13</td>
-                        <td>14</td>
-                        <td>15</td>
-                        <td>16</td>
-                        <td>17</td>
-                        <td>18</td>
-                    </tr>
-                    <tr>
-                        <td>19</td>
-                        <td class="btn-primary"><strong>20</strong></td>
-                        <td>21</td>
-                        <td>22</td>
-                        <td>23</td>
-                        <td>24</td>
-                        <td>25</td>
-                    </tr>
-                    <tr>
-                        <td>26</td>
-                        <td>27</td>
-                        <td>28</td>
-                        <td>29</td>
-                        <td class="muted">1</td>
-                        <td class="muted">2</td>
-                        <td class="muted">3</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-	</div>
-</div>
-<?php
-	//calendario();
+				</thead>
+				<tbody>
+					"
+					.$this->genTbody().
+					"
+                		</tbody>
+			</table>
+		";
+
+		return $buff;
+	}
+
+	function genAno()
+	{
+		$buff="";
+		for($i=1;$i<13;$i++)
+		{
+			$this->mes($i);
+			$buff=$buff.$this->genTable();
+		}
+		return $buff;
+	}
+	function __construct($cal_cfg)
+	{
+		$this->cfg=$cal_cfg;
+		$this->fecha=$cal_cfg->fecha;
+		$this->calcCeldas();
+	}
+};
+
+$CalCfg=new Cal_Cfg();
+$GenHTML=new Cal_Gen_HTML($CalCfg);
 ?>
+
+<!--	:::::::::Calendario:::::::::	-->
+<h1 class="ano"><?php echo $GenHTML->ano(); ?></h1>
+<div class="calendario">
+	<?php
+	echo $GenHTML->genTable();
+	?>
+</div>

@@ -1,6 +1,6 @@
 .menu
 {
-	background-color:#ffffff;
+	background-color:lightgray;
 	background-image:url("../img/fondo_contenido.png");
 	width:20%;
 	min-width:14em;
@@ -10,7 +10,6 @@
 	border-top-left-radius:5px;
 	float:left;
 	box-shadow:-2px -2px 5px #888888;
-	color:gray;
 }
 .menu div
 {
@@ -22,7 +21,7 @@
 .menu div img
 {
 	width:80px;
-	height:100px;
+	height:80px;
 	padding:5% 0px 5% 0px;
 	vertical-align:middle
 }	/*	Logo (imagen)	*/
