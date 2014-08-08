@@ -280,6 +280,6 @@ $GenHTML=new Cal_Gen_HTML($CalCfg);
 <h1 class="ano"><?php echo $GenHTML->ano(); ?></h1>
 <div class="calendario">
 	<?php
-	echo $GenHTML->genTable();
+	echo $GenHTML->genAno();
 	?>
 </div>
