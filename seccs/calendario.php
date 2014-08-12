@@ -56,6 +56,7 @@ class Cal_Gen_HTML
 	{
 		$args=func_get_args();
 		$this->celdasMax=$this->filas*7;		//Máximo de celdas que aparentemente se van a mostrar.
+		$this->filas=5;
 
 		//Cantidad dias mostrados anteriores al mes:
 		$this->diasAnt=getdate
@@ -92,7 +93,7 @@ class Cal_Gen_HTML
 		};
 		
 		$this->celdasMin=$this->diasMesAct+$this->diasAnt;	//Cantidad celdas necesarias para mostrar todo el mes.
-		$this->celdasMax=$this->filas*7;			//Actualizo el máximo de celdas.
+		$this->celdasMax=$this->filas*7;					//Actualizo el máximo de celdas.
 
 		//Si el mes tiene 31 o más dias necesito minimo 6 filas.
 		if($this->celdasMin>$this->celdasMax)
@@ -210,7 +211,7 @@ class Cal_Gen_HTML
 					);
 					$clase=" class='muted'";
 				};
-				if($cuenta>($this->celdasMin))
+				if($cuenta>=($this->celdasMin))
 				{
 					$numDia=
 					(
@@ -227,7 +228,7 @@ class Cal_Gen_HTML
 				};
 				
 				$cuenta++;
-				$buff=$buff."<td".$clase.">".($numDia+1)."</td>\n";
+				$buff=$buff."<td".$clase."><p>".($numDia+1)."</p></td>\n";
 			};
 			$buff=$buff."</tr>\n";
 		};

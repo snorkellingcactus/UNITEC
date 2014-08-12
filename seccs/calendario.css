@@ -1,12 +1,12 @@
 .calendario
 {
-	width:96%;
 	margin-left:2%;
 	margin-top:4%;
 	background-image: url("../img/fondo_contenido.png");
 	border:2px solid gray;
 	border-radius:5px;
 	height:auto;
+	display:inline;
 }
 .calendario table
 {
@@ -53,5 +53,10 @@
 }
 .pasado
 {
-	opacity:0.9;
+	color:transparent;
+}
+
+.muted p
+{
+	display:none
 }
