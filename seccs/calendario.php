@@ -14,6 +14,27 @@
 //::::Variables Globales::::
 global $Cal_Dias,$Cal_Meses,$Cal_Fecha	;
 
+class Evento
+{	
+	function __construct($fecha , $desc , $titulo)
+	{	
+		$this->setFecha($fecha);
+		$this->setDesc($desc);
+		$this->setTitulo($titulo);
+	}
+	function setFecha($fecha)
+	{
+		$this->fecha=$fecha;
+	}
+	function setDesc($desc)
+	{
+		$this->desc=$desc;
+	}
+	function setTitulo($titulo)
+	{
+		$this->titulo=$titulo;
+	}
+}
 class Cal_Cfg
 {
 	public $fecha;
@@ -31,6 +52,7 @@ class Cal_Cfg
 	function __construct()
 	{
 		$this->fecha	=	getdate();
+		
 
 		$args=func_get_args();			//Array con argumentos.
 		//El primer argumento es la fecha en que se basa el calendario.
@@ -38,6 +60,11 @@ class Cal_Cfg
 		{
 			$this->fecha=$args[0];
 		}
+	}
+	function nEvento($evento)
+	{
+		$last=count($this->eventos);
+		$this->eventos[$last-1]=$evento;
 	}
 }
 class Cal_Gen_HTML
@@ -191,6 +218,7 @@ class Cal_Gen_HTML
 	//Genera las celdas para el <tbody>.
 	function genTbody()
 	{
+		
 		$buff="";				//Buffer de Respuesta HTML.
 		$cuenta=0;				//Para llevar la cuenta de la celda actual.
 	
@@ -202,7 +230,13 @@ class Cal_Gen_HTML
 			{
 				$clase="";				//Por si un td (dia) pertenece a una clase CSS en particular.
 				$numDia=0;				//El número del dia.
-	
+				
+				for($k=0;$k<count($this->eventos);$k++)
+				{
+					$evtAct=$eventos[$k];
+					
+					if($evtAct->fecha["mon"]&&$evtAct->fecha[""]){};
+				}
 				if($cuenta<$this->diasAnt)
 				{
 					$numDia=
@@ -271,17 +305,38 @@ class Cal_Gen_HTML
 		$this->fecha=$cal_cfg->fecha;
 		$this->calcCeldas();
 	}
-};
-
-$CalCfg=new Cal_Cfg();
-$GenHTML=new Cal_Gen_HTML($CalCfg);
+}
 ?>
 
 <!--	:::::::::Calendario:::::::::	-->
 <section>
-	<h1 class="ano"><?php echo $GenHTML->ano(); ?></h1>
+	<h1 class="ano">
+		<?php
+		$CalCfg=new Cal_Cfg();
+		$GenHTML=new Cal_Gen_HTML($CalCfg);
+		echo $GenHTML->ano(); 
+		?>
+	</h1>
 	<div class="calendario">
 		<?php
+		$CalCfg->nEvento
+		(
+			mktime(0,0,0,3,6),
+			"Hoy , un dia como el resto",
+			"Lorem ipsum dolor is amet..."
+		);
+		$CalCfg->nEvento
+		(
+			mktime(0,0,0,6,12),
+			"Hoy , un dia como el resto",
+			"Lorem ipsum dolor is amet..."
+		);
+		$CalCfg->nEvento
+		(
+			getdate(),
+			"Hoy , un dia como el resto",
+			"Lorem ipsum dolor is amet..."
+		);
 		echo $GenHTML->genAno();
 		?>
 	</div>
