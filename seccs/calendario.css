@@ -1,21 +1,19 @@
 .calendario
 {
+	width:96%;
 	margin-left:2%;
 	margin-top:4%;
-	background-color:lightgray;
 	background-image: url("../img/fondo_contenido.png");
 	border:2px solid gray;
 	border-radius:5px;
 	height:auto;
-	width:auto;
 }
 .calendario table
 {
 	background-color:silver;
-	table-layout:fixed;
 	font-family:georgia;
 	border-radius:3px;
-	display:inline-table;
+	display:inline-block;
 }
 .calendario .muted
 {
