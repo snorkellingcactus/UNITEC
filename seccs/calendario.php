@@ -17,7 +17,7 @@ global $Cal_Dias,$Cal_Meses,$Cal_Fecha	;
 class Evento
 {	
 	function __construct($fecha , $desc , $titulo)
-	{	
+	{
 		$this->setFecha($fecha);
 		$this->setDesc($desc);
 		$this->setTitulo($titulo);
@@ -64,7 +64,7 @@ class Cal_Cfg
 	function nEvento($evento)
 	{
 		$last=count($this->eventos);
-		$this->eventos[$last-1]=$evento;
+		$this->eventos[$last]=$evento;
 	}
 }
 class Cal_Gen_HTML
@@ -230,20 +230,16 @@ class Cal_Gen_HTML
 			{
 				$clase="";				//Por si un td (dia) pertenece a una clase CSS en particular.
 				$numDia=0;				//El número del dia.
+				$mes=0;
 				
-				for($k=0;$k<count($this->eventos);$k++)
-				{
-					$evtAct=$eventos[$k];
-					
-					if($evtAct->fecha["mon"]&&$evtAct->fecha[""]){};
-				}
 				if($cuenta<$this->diasAnt)
 				{
 					$numDia=
 					(	
 						$this->diasMesAnt-($this->diasAnt-$cuenta)
 					);
-					$clase=" class='muted'";
+					$mes=1;
+					$clase=" class='muted";
 				};
 				if($cuenta>=($this->celdasMin))
 				{
@@ -251,7 +247,8 @@ class Cal_Gen_HTML
 					(
 						$cuenta-$this->celdasMin
 					);
-					$clase=" class='muted'";
+					$mes=-1;
+					$clase=" class='muted";
 				};
 				if($cuenta>=$this->diasAnt && $cuenta<$this->celdasMin)
 				{
@@ -261,11 +258,45 @@ class Cal_Gen_HTML
 					);
 				};
 				
+				$k=0;
+				while($k<count($this->cfg->eventos))
+				{
+					
+					$evtAct=$this->cfg->eventos[$k];
+					
+					
+					if
+					(
+						($this->fecha["mon"]==$evtAct->fecha["mon"])	&&
+						($this->fecha["year"]==$evtAct->fecha["year"])	&&
+						($evtAct->fecha["mday"]==($numDia+1))
+					)
+					{
+						if(strlen($clase))
+						{
+							$clase=$clase." evento";
+						}
+						else
+						{
+							$clase=" class='evento";
+						}
+						break;
+					}
+					
+					$k++;
+				}
+				if(strlen($clase))
+				{
+					$clase=$clase."'";
+				}
+				
 				$cuenta++;
 				$buff=$buff."<td".$clase."><p>".($numDia+1)."</p></td>\n";
 			};
 			$buff=$buff."</tr>\n";
 		};
+		
+		
 		return $buff;
 	}
 	function genTable()
@@ -321,21 +352,30 @@ class Cal_Gen_HTML
 		<?php
 		$CalCfg->nEvento
 		(
-			mktime(0,0,0,3,6),
-			"Hoy , un dia como el resto",
-			"Lorem ipsum dolor is amet..."
+			new Evento
+			(
+				getdate(mktime(0,0,0,3,6)),
+				"Hoy , un dia como el resto",
+				"Lorem ipsum dolor is amet..."
+			)
 		);
 		$CalCfg->nEvento
 		(
-			mktime(0,0,0,6,12),
-			"Hoy , un dia como el resto",
-			"Lorem ipsum dolor is amet..."
+			new Evento
+			(
+				getdate(mktime(0,0,0,6,12)),
+				"Hoy , un dia como el resto",
+				"Lorem ipsum dolor is amet..."
+			)
 		);
 		$CalCfg->nEvento
 		(
-			getdate(),
-			"Hoy , un dia como el resto",
-			"Lorem ipsum dolor is amet..."
+			new Evento
+			(
+				getdate(),
+				"Hoy , un dia como el resto",
+				"Lorem ipsum dolor is amet..."
+			)
 		);
 		echo $GenHTML->genAno();
 		?>
