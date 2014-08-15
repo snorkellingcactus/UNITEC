@@ -1,6 +1,6 @@
 <!--	:::::::::Organigrama:::::::::	-->
-<section>
-	<table id="labs">
+<section id="labs">
+	<table>
 		<thead>
 			<tr>
 				<td colspan="6">

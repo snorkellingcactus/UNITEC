@@ -340,7 +340,7 @@ class Cal_Gen_HTML
 ?>
 
 <!--	:::::::::Calendario:::::::::	-->
-<section>
+<section class="calendario">
 	<h1 class="ano">
 		<?php
 		$CalCfg=new Cal_Cfg();
@@ -348,7 +348,6 @@ class Cal_Gen_HTML
 		echo $GenHTML->ano(); 
 		?>
 	</h1>
-	<div class="calendario">
 		<?php
 		$CalCfg->nEvento
 		(
@@ -377,7 +376,18 @@ class Cal_Gen_HTML
 				"Lorem ipsum dolor is amet..."
 			)
 		);
-		echo $GenHTML->genAno();
+		for($m=1;$m<13;$m+=2)
+		{
+			echo "<div>";
+
+			$GenHTML->mes($m);
+			echo $GenHTML->genTable();
+			$GenHTML->mes($m+1);
+			echo $GenHTML->genTable();
+
+			echo "</div>";
+		}
+		
+		
 		?>
-	</div>
 </section>

@@ -1,9 +1,8 @@
 /*:::::ORGANIGRAMA:::::*/
-#labs
+#labs table
 {
-	width:90%;
+	width:100%;
 	min-width:35em;
-	margin-left:5%;
 	table-layout:fixed;
 }
 #labs td
