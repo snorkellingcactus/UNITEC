@@ -340,7 +340,7 @@ class Cal_Gen_HTML
 ?>
 
 <!--	:::::::::Calendario:::::::::	-->
-<section class="calendario">
+<section class="calendario" id="cal">
 	<h1 class="ano">
 		<?php
 		$CalCfg=new Cal_Cfg();

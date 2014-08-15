@@ -5,10 +5,10 @@ html , body
 	min-height:150%;
 	background:linear-gradient(to top left ,#00D0D0, #9BA3FF);
 	background-repeat:no-repeat;
+	font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
 }
 a
 {
-	font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
 	font-weight:900;
 	text-decoration:none;
 }
@@ -46,9 +46,7 @@ main
 }
 section
 {
-	width:95%;
-	margin-left:2%;
-	margin-top:2%;
+	margin-top:1%;
 }
 	/*background-color:#929193;
 	background-image:url("img/fondo_contenido.png");

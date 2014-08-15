@@ -12,6 +12,7 @@
 	width:40%;
 	margin:0px 5% 0px 5%;
 	table-layout:fixed;
+	box-shadow:-1px -1px 5px #888888;
 }
 .calendario .muted
 {

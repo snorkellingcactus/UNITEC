@@ -3,16 +3,16 @@
 	<nav>
 		<ul>			
 			<li>
-				<a href="?OpcSel=0"		<?php resaltaOpcN(0) ;?> >Inicio</a>
+				<a href="?OpcSel=0#sobre"		<?php resaltaOpcN(0) ;?> >Inicio</a>
 			</li>
 			<li>
 				<a href="?OpcSel=1"	<?php resaltaOpcN(1) ;?> >Novedades</a>
 			</li>
 			<li>
-				<a href="?OpcSel=2"	<?php resaltaOpcN(2) ;?> >Espacios de extensión</a>
+				<a href="?OpcSel=2#labs"	<?php resaltaOpcN(2) ;?> >Espacios de extensión</a>
 			</li>
 			<li>
-				<a href="?OpcSel=3"		<?php resaltaOpcN(3) ;?> >Eventos</a>
+				<a href="?OpcSel=3#cal"		<?php resaltaOpcN(3) ;?> >Eventos</a>
 			</li>
 			<li>
 				<a href="?OpcSel=4"		<?php resaltaOpcN(4) ;?> >Galería</a>

@@ -32,6 +32,7 @@ function resaltaOpcN($num)
 		<link rel="stylesheet" type="text/css" href="./seccs/menu.css" />
 		<link rel="stylesheet" type="text/css" href="./seccs/organigrama.css" />
 		<link rel="stylesheet" type="text/css" href="./seccs/calendario.css" />
+		<link rel="stylesheet" type="text/css" href="./seccs/sobre_unitec.css" />
 		<title>Unitec</title>
 	</head>
 <body>
@@ -44,6 +45,7 @@ function resaltaOpcN($num)
 
 <main>
 	<?php
+		include_once("./seccs/sobre_unitec.php");
 		include_once("./seccs/organigrama.php");
 		include_once("./seccs/calendario.php");
 	?>
