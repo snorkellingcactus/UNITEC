@@ -6,6 +6,7 @@ html , body
 	background:linear-gradient(to top left ,#00D0D0, #9BA3FF);
 	background-repeat:no-repeat;
 	font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
+	display:inline-block
 }
 a
 {
@@ -46,12 +47,13 @@ main
 }
 section
 {
-	margin-top:1%;
 	background-image:url("./img/fondo_contenido.png");
 	background-color:lightgray;
 	border-radius:3px;
 	box-shadow:-1px -1px 5px #888888;
 	padding:2%;
+	margin-bottom:5%;
+	display:inline-block;
 }
 	/*background-color:#929193;
 	background-image:url("img/fondo_contenido.png");

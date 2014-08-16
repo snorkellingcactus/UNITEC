@@ -3,14 +3,14 @@
 	background-color:lightgray;
 	background-image:url("../img/fondo_contenido.png");
 	width:20%;
-	min-width:14em;
+	min-width:7em;
 	overflow:hidden;
 	position:fixed;
-	display:block;
 	margin:1% 0px 1% 1%;
 	border-top-left-radius:5px;
 	float:left;
 	box-shadow:-1px -1px 5px #888888;
+	display:inline-block
 }
 .menu div
 {
