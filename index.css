@@ -47,6 +47,11 @@ main
 section
 {
 	margin-top:1%;
+	background-image:url("./img/fondo_contenido.png");
+	background-color:lightgray;
+	border-radius:3px;
+	box-shadow:-1px -1px 5px #888888;
+	padding:2%;
 }
 	/*background-color:#929193;
 	background-image:url("img/fondo_contenido.png");

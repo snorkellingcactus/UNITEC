@@ -10,9 +10,13 @@
 	border-radius:3px;
 	float:left;
 	width:40%;
-	margin:0px 5% 0px 5%;
+	margin:0px 6.66% 0px 6.66%;
 	table-layout:fixed;
 	box-shadow:-1px -1px 5px #888888;
+}
+.calendario table:first-child
+{
+	margin: 0px 0px 0px 6.66%
 }
 .calendario .muted
 {
@@ -51,12 +55,8 @@
 	border-top-right-radius:10px;
 	border-right:1px solid white;
 }
-.pasado
-{
-	color:transparent;
-}
 
 .muted p
 {
-	display:none
+	visibility:hidden
 }

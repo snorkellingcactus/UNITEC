@@ -13,28 +13,6 @@
 :::::::::::::::::::::::::::::::::*/
 //::::Variables Globales::::
 global $Cal_Dias,$Cal_Meses,$Cal_Fecha	;
-
-class Evento
-{	
-	function __construct($fecha , $desc , $titulo)
-	{
-		$this->setFecha($fecha);
-		$this->setDesc($desc);
-		$this->setTitulo($titulo);
-	}
-	function setFecha($fecha)
-	{
-		$this->fecha=$fecha;
-	}
-	function setDesc($desc)
-	{
-		$this->desc=$desc;
-	}
-	function setTitulo($titulo)
-	{
-		$this->titulo=$titulo;
-	}
-}
 class Cal_Cfg
 {
 	public $fecha;
@@ -61,10 +39,11 @@ class Cal_Cfg
 			$this->fecha=$args[0];
 		}
 	}
-	function nEvento($evento)
+	function adEvento()
 	{
+		$args=func_get_args();
 		$last=count($this->eventos);
-		$this->eventos[$last]=$evento;
+		$this->eventos[$last]=[$args[0] , $args[1] , $args[2]];
 	}
 }
 class Cal_Gen_HTML
@@ -77,13 +56,14 @@ class Cal_Gen_HTML
 
 	public $celdasMax;
 	public $celdasMin;
-	public $filas=5;			//Cantidad de filas por de fecto (7x5=35).
+	public $filas;				//Cantidad de filas por de fecto (7x5=35).
 
 	function calcCeldas()
 	{
 		$args=func_get_args();
-		$this->celdasMax=$this->filas*7;		//Máximo de celdas que aparentemente se van a mostrar.
+
 		$this->filas=5;
+		$this->celdasMax=$this->filas*7;		//Máximo de celdas que aparentemente se van a mostrar.
 
 		//Cantidad dias mostrados anteriores al mes:
 		$this->diasAnt=getdate
@@ -117,10 +97,10 @@ class Cal_Gen_HTML
 		if(count($args) && $args[0]>5)
 		{
 			$this->filas=$args[0];
+			$this->celdasMax=$this->filas*7;		//Actualizo el máximo de celdas.
 		};
 		
 		$this->celdasMin=$this->diasMesAct+$this->diasAnt;	//Cantidad celdas necesarias para mostrar todo el mes.
-		$this->celdasMax=$this->filas*7;					//Actualizo el máximo de celdas.
 
 		//Si el mes tiene 31 o más dias necesito minimo 6 filas.
 		if($this->celdasMin>$this->celdasMax)
@@ -161,7 +141,7 @@ class Cal_Gen_HTML
 	function ano()
 	{
 		$args=func_get_args();
-		if(count($args))
+		if(isset($args[0]))
 		{
 			$this->fecha=getdate
 			(
@@ -195,18 +175,20 @@ class Cal_Gen_HTML
 				.$this->mes().
 			"</th>
 		</tr>
-		<tr>\n";		//Donde se va a almacenar el resultado.
-	
-		for($i=0;$i<count($this->cfg->dias);$i++)
+		<tr>\n
+		";		//Donde se va a almacenar el resultado.
+		
+		$cantDias=count($this->cfg->dias);
+		for($i=0;$i<$cantDias;$i++)
 		{
 			$buff=$buff.
 			"<th>"
-			.substr
-			(
-				$this->cfg->dias[$i],
-				0,
-				2
-			).
+				.substr
+				(
+					$this->cfg->dias[$i],
+					0,
+					2
+				).
 			"</th>\n";
 		};
 		
@@ -218,61 +200,67 @@ class Cal_Gen_HTML
 	//Genera las celdas para el <tbody>.
 	function genTbody()
 	{
-		
 		$buff="";				//Buffer de Respuesta HTML.
 		$cuenta=0;				//Para llevar la cuenta de la celda actual.
-	
+		$mes=$this->fecha["mon"];
+		$args=func_get_args();
+
+		if(isset($args[0]))
+		{
+			$mes=$args[0];
+			$this->mes($mes);
+		}
+
 		//Genera tabla.
-		for($i=0;$i<$this->filas;$i++)
+		for($i=0;$i<$this->filas;++$i)
 		{
 			$buff=$buff."<tr>\n";
 			for($j=0;$j<7;$j++)
 			{
 				$clase="";				//Por si un td (dia) pertenece a una clase CSS en particular.
-				$numDia=0;				//El número del dia.
-				$mes=0;
+				$numDia=1;				//El número del dia.
 				
 				if($cuenta<$this->diasAnt)
 				{
-					$numDia=
+					$numDia+=
 					(	
 						$this->diasMesAnt-($this->diasAnt-$cuenta)
 					);
-					$mes=1;
 					$clase=" class='muted";
 				};
 				if($cuenta>=($this->celdasMin))
 				{
-					$numDia=
+					$numDia+=
 					(
 						$cuenta-$this->celdasMin
 					);
-					$mes=-1;
 					$clase=" class='muted";
 				};
 				if($cuenta>=$this->diasAnt && $cuenta<$this->celdasMin)
 				{
-					$numDia=
+					$numDia+=
 					(
 						$cuenta-$this->diasAnt
 					);
 				};
 				
+				//Busco eventos que coincidan con esta fecha.
 				$k=0;
-				while($k<count($this->cfg->eventos))
+				$evts=$this->cfg->eventos;
+				$lastEvt=count($evts);
+				
+				while($k<$lastEvt)
 				{
-					
-					$evtAct=$this->cfg->eventos[$k];
-					
-					
+					$fechaEvtAct=$evts[$k][0];
 					if
 					(
-						($this->fecha["mon"]==$evtAct->fecha["mon"])	&&
-						($this->fecha["year"]==$evtAct->fecha["year"])	&&
-						($evtAct->fecha["mday"]==($numDia+1))
+						($fechaEvtAct["mon"]	==	$mes			)&&
+						($fechaEvtAct["year"]	==	$this->fecha["year"]	)&&
+						($fechaEvtAct["mday"]	==	$numDia			)
 					)
 					{
-						if(strlen($clase))
+						//Si se encontró un evento, le asigno la clase CSS evento al td.
+						if(isset($clase[1]))
 						{
 							$clase=$clase." evento";
 						}
@@ -280,18 +268,19 @@ class Cal_Gen_HTML
 						{
 							$clase=" class='evento";
 						}
-						break;
+
+						break;	//Dejo de buscar eventos, de momento no se contemplan varias coincidencias.
 					}
 					
-					$k++;
+					++$k;
 				}
-				if(strlen($clase))
+				if(isset($clase[1]))
 				{
 					$clase=$clase."'";
 				}
 				
 				$cuenta++;
-				$buff=$buff."<td".$clase."><p>".($numDia+1)."</p></td>\n";
+				$buff=$buff."<td".$clase."><p>".$numDia."</p></td>\n";
 			};
 			$buff=$buff."</tr>\n";
 		};
@@ -319,16 +308,31 @@ class Cal_Gen_HTML
 
 		return $buff;
 	}
-
-	function genAno()
+	//Genera las tablas de los números de meses pasados por argumento.
+	function genMeses()
 	{
 		$buff="";
-		for($i=1;$i<13;$i++)
+		$args=func_get_args();
+		$cantArgs=count($args);
+
+		for($i=0;$i<$cantArgs;$i++)
 		{
-			$this->mes($i);
-			$buff=$buff.$this->genTable();
+			$buff=$buff.$this->genTable($args[$i]);
 		}
 		return $buff;
+	}
+	//Genera todo el año.
+	function genAno()
+	{
+		$ano=$this->fecha["year"];
+		$args=func_get_args();
+
+		if(isset($args[0]))
+		{
+			$ano=$args[0];
+			$this->ano($ano);
+		}
+		return $this->genMeses(1,2,3,4,5,6,7,8,9,10,11,12);
 	}
 	function __construct($cal_cfg)
 	{
@@ -349,32 +353,28 @@ class Cal_Gen_HTML
 		?>
 	</h1>
 		<?php
-		$CalCfg->nEvento
+		$CalCfg->adEvento
 		(
-			new Evento
-			(
-				getdate(mktime(0,0,0,3,6)),
-				"Hoy , un dia como el resto",
-				"Lorem ipsum dolor is amet..."
-			)
+			
+			getdate(mktime(0,0,0,3,6)),
+			"Hoy , un dia como el resto",
+			"Lorem ipsum dolor is amet..."
+			
 		);
-		$CalCfg->nEvento
+		$CalCfg->adEvento
 		(
-			new Evento
-			(
-				getdate(mktime(0,0,0,6,12)),
-				"Hoy , un dia como el resto",
-				"Lorem ipsum dolor is amet..."
-			)
+			
+			getdate(mktime(0,0,0,6,12)),
+			"Hoy , un dia como el resto",
+			"Lorem ipsum dolor is amet..."
+			
 		);
-		$CalCfg->nEvento
+		$CalCfg->adEvento
 		(
-			new Evento
-			(
-				getdate(),
-				"Hoy , un dia como el resto",
-				"Lorem ipsum dolor is amet..."
-			)
+			
+			getdate(),
+			"Hoy , un dia como el resto",
+			"Lorem ipsum dolor is amet..."
 		);
 		for($m=1;$m<13;$m+=2)
 		{

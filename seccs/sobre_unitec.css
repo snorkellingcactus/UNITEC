@@ -1,16 +1,12 @@
 #sobre
 {
-	background-image:url("../img/fondo_contenido.png");
-	background-color:lightgray;
-	padding:0% 0px 0% 0px;
 	line-height:1.5em;
 	font-size:1.2em;
-	box-shadow:-1px -1px 5px #888888;
 }
 #sobre h1
 {
 	font-size:2em;
-	padding:2% 2% 1% 12%;
+	padding:0px 0px 1% 12%;
 }
 #sobre h2
 {
@@ -18,7 +14,7 @@
 }
 #sobre p
 {
-	padding:0px 2% 2% 2%;
+
 }
 #sobre ul
 {
