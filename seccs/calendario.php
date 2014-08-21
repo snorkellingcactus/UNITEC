@@ -376,16 +376,22 @@ class Cal_Gen_HTML
 			"Hoy , un dia como el resto",
 			"Lorem ipsum dolor is amet..."
 		);
-		for($m=1;$m<13;$m+=2)
+		for($m=1;$m<13;$m+=1)
 		{
-			echo "<div>";
+			echo '<div class="col-xs-12 col-sm-6 col-md-4" col-lg-4>';
 
 			$GenHTML->mes($m);
 			echo $GenHTML->genTable();
-			$GenHTML->mes($m+1);
-			echo $GenHTML->genTable();
-
 			echo "</div>";
+			if($m%3==0)
+			{
+				echo '<div class="clearfix visible-md visible-lg"></div>';
+			}
+			if($m%2==0)
+			{
+				echo '<div class="clearfix visible-sm"></div>';
+			}
+			echo '<div class="clearfix visible-xs"></div>';
 		}
 		
 		
