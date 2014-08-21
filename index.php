@@ -49,7 +49,7 @@ function resaltaOpcN($num)
 	<div class="container-fluid" style="padding: 0">
 		
 		<div class="header">
-			<a>Iniciar Sesión</a>
+			<a href="./inicio_sesion.php">Iniciar Sesión</a>
 		</div>
 	</div>
 
