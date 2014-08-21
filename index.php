@@ -47,18 +47,16 @@ function resaltaOpcN($num)
 <body>
 	<!-- usad para utlizar las propiedades responsive de bootstrap -->
 	<div class="container-fluid" style="padding: 0">
+
 		
-		<div class="header">
-			<a href="./inicio_sesion.php">Iniciar Sesión</a>
+		<div class="header hidden-xs">
+		<a href="./inicio_sesion.php">Iniciar Sesión</a>
 		</div>
 	</div>
-
-<div class="col-xs-2 col-sm-2 col-lg-2">
 <?php
 	include_once("./seccs/menu.php");
 ?>
-</div>
-	<main class="col-xs-10 col-sm-10 col-lg-10">
+	<main class="col-xs-12 col-sm-10 col-md-10 col-lg-10">
 	<?php
 		$_GET['mes']=getdate()['mon'];
 		include_once('./seccs/sobre_unitec.php');
@@ -66,5 +64,36 @@ function resaltaOpcN($num)
 		include_once('./seccs/calendario.php');
 	?>
 	</main>
+	<script type="text/javascript">
+	cantidadX=780;
+	
+	puntos=document.createElement('p');
+	puntos.setAttribute("class","puntos")
+	for(var i=0;i<3;i++)
+	{
+		var h1=document.createElement('h1');
+		
+		h1.innerHTML=".";
+		puntos.appendChild(h1);
+	}
+	menu=document.getElementsByClassName('menu')[0];
+	divMenu=menu.parentNode;
+	
+		function esconde()
+		{
+			if(menu.style.display!="none"&&window.innerWidth<cantidadX)
+			{
+				menu.style.display='none';
+				divMenu.appendChild(puntos)
+			}
+			if(window.innerWidth>cantidadX&&menu.style.display=="none")
+			{
+				menu.style.display='';
+				divMenu.removeChild(puntos);
+			}
+		}
+		
+		window.onresize=esconde;
+	</script>
 </html>
 

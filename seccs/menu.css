@@ -3,7 +3,6 @@
 	background-color:lightgray;
 	background-image:url("../img/fondo_contenido.png");
 	width:15.45%;
-	min-width:7em;
 	overflow:hidden;
 	position:fixed;
 	margin:1% 0px 1% 0%;
@@ -71,4 +70,41 @@ border-left:3px solid #929193;
 {
 	text-decoration:underline;
 	background-color:silver;
+}
+.menuSup
+{
+	background-image:url("../img/barra.png");
+	position:fixed;
+	top:0;
+	left:0;
+	z-index:10;
+	padding:0.2% 0.8% 0.2% 0.8%;
+	border-radius:3px;
+	width:100%;
+	
+}
+.menuSup a
+{
+	color:gray;
+	padding:0px 5px 0px 5px;
+	border-right:2px dashed silver;
+}
+.menuSup a:hover, .menuSup .resaltaOpc
+{
+	color:white;
+	text-decoration:underline
+}
+.puntos
+{
+	position:fixed;
+	background-color:silver;
+	left:0;
+}
+.puntos h1
+{
+	padding:0pc
+}
+puntos h1:hover
+{
+	color:white;
 }
