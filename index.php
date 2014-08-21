@@ -60,11 +60,11 @@ function resaltaOpcN($num)
 </div>
 	<main class="col-xs-10 col-sm-10 col-lg-10">
 	<?php
-		include_once("./seccs/sobre_unitec.php");
-		include_once("./seccs/organigrama.php");
-		include_once("./seccs/calendario.php");
+		$_GET['mes']=getdate()['mon'];
+		include_once('./seccs/sobre_unitec.php');
+		include_once('./seccs/organigrama.php');
+		include_once('./seccs/calendario.php');
 	?>
 	</main>
-	</div>
 </html>
 
