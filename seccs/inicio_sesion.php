@@ -1,7 +1,36 @@
 <?php
-	if(isset($_POST['contrasena']))
+	if(isset($_POST['contrasena'])&&isset($_POST['Nombre']))
 	{
-		echo 'Muahahaha, se tu contraseña ('.$_POST['contrasena'].')';
+		include_once("php/conexion.php");	//Me conecto a la db en la tabla unitec.
+		
+		$consulta=mysql_query('select Contrasena from usuarios where Nombre="'.$_POST['Nombre'].'"');
+		
+		if($consulta!=0)
+		{
+			$consulta=mysql_fetch_array($consulta);
+		}
+		
+		mysql_close($Conexion);
+		
+		if($consulta==0)
+		{
+			echo "El usuario no existe.<br>";
+		}
+		else
+		{
+			foreach($consulta as $clave => $valor)
+			{
+				echo "Clave ".$clave." = Valor ".$valor.'<br>';
+			}
+			if(sha1($_POST['contrasena'])==$consulta['Contrasena'])
+			{
+				echo "Datos válidos.<br>";
+			}
+			else
+			{
+				echo sha1($_POST['contrasena']).' != '.$consulta['Contrasena'];
+			}
+		}
 	}
 ?>
 <section>
