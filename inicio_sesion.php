@@ -50,12 +50,6 @@
 						<a href='./index.php'>Ir Atrás</a>
 					</div>
 				</div>
-				
-				<div class="col-xs-2 col-sm-2 col-lg-2">
-					<?php
-					     include_once("./seccs/menu.php");
-					     ?>
-				</div>
 				<main class="col-xs-10 col-sm-10 col-lg-10">
 					<?php
 						include './seccs/inicio_sesion.php';

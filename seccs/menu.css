@@ -87,7 +87,9 @@ border-left:3px solid #929193;
 {
 	color:gray;
 	padding:0px 5px 0px 5px;
-	border-right:2px dashed silver;
+	border-right:1px dashed silver;
+	display:inline-block;
+	font-size:0.8em
 }
 .menuSup a:hover, .menuSup .resaltaOpc
 {

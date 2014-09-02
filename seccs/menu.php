@@ -6,10 +6,10 @@
 		<a href="./index.php?OpcSel=4"		<?php resaltaOpcN(4) ;?> >Galería</a>
 		<a href="./index.php?OpcSel=5"		<?php resaltaOpcN(5) ;?> >Idioma</a>
 		<a href="./index.php?OpcSel=6"		<?php resaltaOpcN(6) ;?> >Accesibilidad</a>
-		<a href="./index.php"		>Iniciar Sesión</a>
+		<a href="./inicio_sesion.php"		>Iniciar Sesión</a>
 </div>
 <div class="col-xs-2 col-sm-2 col-lg-2">
-	<div class="menu">
+	<div class="menu hidden-xs">
 		<!--	:::::::::Menú:::::::::	-->
 		<nav>
 			<ul>			

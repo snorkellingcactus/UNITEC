@@ -50,7 +50,7 @@ function resaltaOpcN($num)
 
 		
 		<div class="header hidden-xs">
-		<a href="./inicio_sesion.php">Iniciar Sesión</a>
+			<a href="./inicio_sesion.php">Iniciar Sesión</a>
 		</div>
 	</div>
 <?php
@@ -64,36 +64,5 @@ function resaltaOpcN($num)
 		include_once('./seccs/calendario.php');
 	?>
 	</main>
-	<script type="text/javascript">
-	cantidadX=780;
-	
-	puntos=document.createElement('p');
-	puntos.setAttribute("class","puntos")
-	for(var i=0;i<3;i++)
-	{
-		var h1=document.createElement('h1');
-		
-		h1.innerHTML=".";
-		puntos.appendChild(h1);
-	}
-	menu=document.getElementsByClassName('menu')[0];
-	divMenu=menu.parentNode;
-	
-		function esconde()
-		{
-			if(menu.style.display!="none"&&window.innerWidth<cantidadX)
-			{
-				menu.style.display='none';
-				divMenu.appendChild(puntos)
-			}
-			if(window.innerWidth>cantidadX&&menu.style.display=="none")
-			{
-				menu.style.display='';
-				divMenu.removeChild(puntos);
-			}
-		}
-		
-		window.onresize=esconde;
-	</script>
 </html>
 
