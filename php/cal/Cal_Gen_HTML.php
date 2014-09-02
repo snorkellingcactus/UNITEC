@@ -196,29 +196,30 @@ class Cal_Gen_HTML
 					(
 						$cuenta-$this->diasAnt
 					);
+					
+					$eventos=$this->cfg->eventoEnFecha
+					(
+						[
+							'mon'=>$mes,
+							'year'=>$this->fecha['year'],
+							'mday'=>$numDia
+						]
+					);
+					//Si hay un evento asigno la clase evento al td.
+					if($eventos!=-1)
+					{
+						if(isset($clase[1]))
+						{
+							$clase=$clase." evento";
+						}
+						else
+						{
+							$clase=" class='evento";
+						}
+					}
 				};
 				
 				//Busco eventos que coincidan con esta fecha.
-				$eventos=$this->cfg->eventoEnFecha
-				(
-					[
-						'mon'=>$mes,
-						'year'=>$this->fecha['year'],
-						'mday'=>$numDia
-					]
-				);
-				//Si hay un evento asigno la clase evento al td.
-				if($eventos!=-1)
-				{
-					if(isset($clase[1]))
-					{
-						$clase=$clase." evento";
-					}
-					else
-					{
-						$clase=" class='evento";
-					}
-				}
 				
 				if(isset($clase[1]))
 				{

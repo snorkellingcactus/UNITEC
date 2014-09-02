@@ -40,11 +40,11 @@ class Cal_Cfg
 
 		if
 		(
-			((!$verif[0])||($fechaEvt["hours"]	==	$fecha['hours']		))&
+			((!$verif[0])||($fechaEvt["hours"]		==	$fecha['hours']		))&
 			((!$verif[1])||($fechaEvt["minutes"]	==	$fecha['minutes']	))&
-			((!$verif[2])||($fechaEvt["mon"]		==	$fecha['mon']	))&
-			((!$verif[3])||($fechaEvt["mday"]	==	$fecha['mday']		))&
-			((!$verif[4])||($fechaEvt["year"]	==	$fecha['year']		))
+			((!$verif[2])||($fechaEvt["mon"]		==	$fecha['mon']		))&
+			((!$verif[3])||($fechaEvt["mday"]		==	$fecha['mday']		))&
+			((!$verif[4])||($fechaEvt["year"]		==	$fecha['year']		))
 		)
 		{
 			return 1;
