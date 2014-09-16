@@ -74,7 +74,6 @@ border-left:3px solid #929193;
 .menuSup
 {
 	background-image:url("../img/barra.png");
-	position:fixed;
 	top:0;
 	left:0;
 	z-index:10;
@@ -106,7 +105,7 @@ border-left:3px solid #929193;
 {
 	padding:0pc
 }
-puntos h1:hover
+.puntos h1:hover
 {
 	color:white;
 }

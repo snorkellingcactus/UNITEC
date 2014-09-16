@@ -1,5 +1,5 @@
 <!--	:::::::::Organigrama:::::::::	-->
-<section id="labs">
+<!--<section id="labs">
 	<table>
 		<thead>
 			<tr>
@@ -56,7 +56,7 @@
 				</td>
 				<td>
 					<div  class="organicaja">
-						<p>LING</p>
+						<p>EDETEC</p>
 					</div>
 				</td>
 				<td>
@@ -77,4 +77,50 @@
 			</tr>
 		</tfoot>
 	</table>
+</section>-->
+<section id="labs">
+
+<div class"container-fluid">
+
+<div class="row">
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12"">
+	<div class="organicaja1" > <h2>UNITEC</h2> </div>
+</div>
+</div>
+	<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+		<div class="organicaja2">Espacios De Extención</div>
+			<div class="row">
+			<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+				<div class="organicaja2">LATE</div>
+			</div>
+			<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+				<div class="organicaja2">LABTIC</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-xs-12 col-sm-4 col-md 4 col-lg-4">
+		<div class="organicaja3">Espacio Desarrollo tecnologías</div>
+			<div class="row">
+			<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+				<div class="organicaja3">EDETEC</div>
+			</div>
+			<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+				<div class="organicaja3">LEMA</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-xs-12 col-sm-4 col-md 4 col-lg-4">
+		<div class="organicaja4">Espacio Educación ingeniería</div>
+			<div class="row">
+			<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+				<div class="organicaja4">LITAE</div>
+			</div>
+			<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+				<div class="organicaja4">CALED</div>
+			</div>
+			</div>
+	</div>
+
+</div>
+
 </section>

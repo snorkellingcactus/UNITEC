@@ -1,5 +1,5 @@
 <section id="sobre">
-		<h1>¿Qué es Unitec?</h1>
+		<h2>¿Qué es Unitec?</h2>
 		<p>
 			Las siglas Unitec provienen de Unidad de Investigación y Desarrollo para la Calidad de la Educación en Ingeniería con orientación al uso de TIC Área Departamental Electrotecnia - Facultad de Ingeniería - UNLP
 		</p>
