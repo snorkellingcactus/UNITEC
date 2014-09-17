@@ -4,17 +4,20 @@
 		[
 			'http://www.nocturnar.com/imagenes/fotos/wallpapers-fondos-de-pantalla-wallpaper-wallpaper-lampadas-wallpapers.jpg',
 			'http://techbeasts.com/wp-content/uploads/2014/04/Wallpaper-HD.jpg',
-			'http://wallpaperswide.com/download/ford_gt40_le_mans_1969-wallpaper-960x600.jpg',
+			'http://www.ghulmil.com/wp-content/uploads/rainy-weather-hd-wallpaper.jpg',
 			'http://cdn.wonderfulengineering.com/wp-content/uploads/2014/01/digital-wallpaper-1.jpg',
 			'http://www.hdwallpapersinn.com/wp-content/uploads/2014/08/8589130446148-3d-view-abstract-blue-black-dark-cubes-reflections-wallpaper-hd.jpg',
 			'http://www.hdwallpapers.in/walls/tron_lamborghini_aventador-HD.jpg'
 		];
-	
-	class GalHTML=
+	class Gal_HTML
 	{
-		$maxCols=10;
-		$bootsTrap=[1,2,3,4]		// xs , sm , md , lg
-		$imgLst=[];
+		public	$maxCols=10;
+		public	$minHeight=200;
+		public	$minWidth=200;
+		public	$width=500;
+		public	$height=500;
+		private	$bootsTrap=[12,6,4,3];		// xs , sm , md , lg
+		public	$imgLst=[];
 		
 		function __construct($imgLst)
 		{
@@ -24,34 +27,49 @@
 		{
 			$buff='';
 			
-			$bootStr="<div class='col-xs-".
-					$bootsTrap[0]." col-sm-".
-					$bootsTrap[1]." col-md-".
-					$bootsTrap[2]." col-lg-".
-					$bootsTrap[3]."'>";
+			$divIni=
+				"<a class='col-xs-".
+				$this->bootsTrap[0].' col-sm-'.
+				$this->bootsTrap[1].' col-md-'.
+				$this->bootsTrap[2].' col-lg-'.
+				$this->bootsTrap[3]."' href=\"";
+			$divFin='" width="'.$this->minWidth.'" height="'.$this->minHeight.'" /></a>';
 			$iMax=$this->maxCols;
 			$jMax=count($this->imgLst);
 			$j=0;
 			
 			while($j<$jMax)
 			{
-				$buff=$buff."<div class='row'>".$bootStr;
+				$buff=$buff."<div class='row'>";
 				
 				for($i=0;$i<$iMax;$i++)
 				{
-					$buff=$buf."<img>"
+					if(isset($this->imgLst[$i]))
+					{
+						$buff=
+							$buff.
+							$divIni.
+							$this->imgLst[$i].
+							'" ><img src="'.
+							$this->imgLst[$i].
+							$divFin."\n";
+					}
+					++$j;
 				}
 				
 				$buff=$buff.'</div>';
 			}
+
+			return $buff;
+		}
+		function minTam($width , $height)
+		{
+			$this->minWidth=$width;
+			$this->minHeight=$height;
 		}
 	}
-		
-		
-		$kMax=count($Img);
-		for($k=0;$k<)
-		{
-			
-		}
+
+	$Gal=new Gal_HTML($Img);
+	echo $Gal->gen();
 	?>
 </section>
