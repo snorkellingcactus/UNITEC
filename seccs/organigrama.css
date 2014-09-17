@@ -1,23 +1,5 @@
 /*:::::ORGANIGRAMA:::::*/
-#labs table
-{
-	width:100%;
-	min-width:35em;
-	table-layout:fixed;
-	box-sizing:auto;
-	text-align:center
-}
-#labs p
-{
-	margin:0px;
-}
-#labs img
-{
-	width:50px;
-	height:70px;
-	padding:10px 0px 10px 0%;
-}
-.organicaja1
+.organicaja
 {
 	box-shadow:-0px -0px 2px #888888;
 	border-radius:3px;
@@ -27,44 +9,17 @@
 	border:1px solid silver;
 	text-align:center;
 }
-#labs thead .organicaja
+.red
 {
-	width:80%;
-	margin-left:5%;
-	padding:1.5%;
-	overflow:hidden;
-}
-#labs tbody .organicaja
-{
-	width:50%;
-	margin-left:25%;
-}
-.organicaja2
-{
-	box-shadow:-0px -0px 2px #888888;
-	border-radius:3px;
-	background-image:url("../img/fondo_contenido.png");
-	padding:5%;
 	background-color:red;
-	border:1px solid silver;
 }
-.organicaja3
+.gold
 {
-	box-shadow:-0px -0px 2px #888888;
-	border-radius:3px;
-	background-image:url("../img/fondo_contenido.png");
-	padding:5%;
 	background-color:gold;
-	border:1px solid silver;
 }
-.organicaja4
+.green
 {
-	box-shadow:-0px -0px 2px #888888;
-	border-radius:3px;
-	background-image:url("../img/fondo_contenido.png");
-	padding:5%;
 	background-color:green;
-	border:1px solid silver;
 }
 #sobre h2
 {
