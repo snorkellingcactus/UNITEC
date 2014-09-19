@@ -1,3 +1,6 @@
+<?php
+	include 'php/Gal_HTML.php';
+?>
 <section id="gal">
 	<?php
 		$Img=
@@ -9,67 +12,8 @@
 			'http://www.hdwallpapersinn.com/wp-content/uploads/2014/08/8589130446148-3d-view-abstract-blue-black-dark-cubes-reflections-wallpaper-hd.jpg',
 			'http://www.hdwallpapers.in/walls/tron_lamborghini_aventador-HD.jpg'
 		];
-	class Gal_HTML
-	{
-		public	$maxCols=10;
-		public	$minHeight=200;
-		public	$minWidth=200;
-		public	$width=500;
-		public	$height=500;
-		private	$bootsTrap=[12,6,4,3];		// xs , sm , md , lg
-		public	$imgLst=[];
-		
-		function __construct($imgLst)
-		{
-			$this->imgLst=$imgLst;
-		}
-		function gen()
-		{
-			$buff='';
-			
-			$divIni=
-				"<a class='col-xs-".
-				$this->bootsTrap[0].' col-sm-'.
-				$this->bootsTrap[1].' col-md-'.
-				$this->bootsTrap[2].' col-lg-'.
-				$this->bootsTrap[3]."' href=\"";
-			$divFin='" width="'.$this->minWidth.'" height="'.$this->minHeight.'" /></a>';
-			$iMax=$this->maxCols;
-			$jMax=count($this->imgLst);
-			$j=0;
-			
-			while($j<$jMax)
-			{
-				$buff=$buff."<div class='row'>";
-				
-				for($i=0;$i<$iMax;$i++)
-				{
-					if(isset($this->imgLst[$i]))
-					{
-						$buff=
-							$buff.
-							$divIni.
-							$this->imgLst[$i].
-							'" ><img src="'.
-							$this->imgLst[$i].
-							$divFin."\n";
-					}
-					++$j;
-				}
-				
-				$buff=$buff.'</div>';
-			}
 
-			return $buff;
-		}
-		function minTam($width , $height)
-		{
-			$this->minWidth=$width;
-			$this->minHeight=$height;
-		}
-	}
-
-	$Gal=new Gal_HTML($Img);
-	echo $Gal->gen();
+		$Gal=new Gal_HTML($Img);
+		echo $Gal->gen();
 	?>
 </section>
