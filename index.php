@@ -61,6 +61,7 @@ function resaltaOpcN($num)
 	<?php
 		$_GET['mes']=getdate()['mon'];	//Acá indicar mes que se muestra por defecto. Va a mostrarse el mes indicado -1.
 		include_once('./seccs/sobre_unitec.php');
+		include_once('./seccs/novedades.php');
 		include_once('./seccs/organigrama.php');
 		include_once('./seccs/calendario.php');
 		include_once('./seccs/galeria.php');

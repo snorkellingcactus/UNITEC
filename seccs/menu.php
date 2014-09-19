@@ -17,7 +17,7 @@
 					<a href="./index.php?OpcSel=0#sobre"		<?php resaltaOpcN(0) ;?> >Inicio</a>
 				</li>
 				<li>
-					<a href="./index.php?OpcSel=1"	<?php resaltaOpcN(1) ;?> >Novedades</a>
+					<a href="./index.php?OpcSel=1#nov"	<?php resaltaOpcN(1) ;?> >Novedades</a>
 				</li>
 				<li>
 					<a href="./index.php?OpcSel=2#labs"	<?php resaltaOpcN(2) ;?> >Espacios de extensión</a>
