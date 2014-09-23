@@ -31,11 +31,11 @@ function resaltaOpcN($num)
 		<link rel="shortcut icon" type="image/ico" href="./img/unitec-favicon.ico"  />
 		<link rel="stylesheet" type="text/css" href="./index.css" />
 		<link rel="stylesheet" type="text/css" href="./header.css" />
+		<link rel="stylesheet" type="text/css" href="./footer.css" />
 		<link rel="stylesheet" type="text/css" href="./seccs/menu.css" />
 		<link rel="stylesheet" type="text/css" href="./seccs/organigrama.css" />
 		<link rel="stylesheet" type="text/css" href="./seccs/calendario.css" />
 		<link rel="stylesheet" type="text/css" href="./seccs/sobre_unitec.css" />
-		<link rel="stylesheet" type="text/css" href="./seccs/galeria.css" />
 		<link rel="stylesheet" type="text/css" href="./bootstrap.min.css" />
 		<title>Unitec</title>
 		<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -46,7 +46,7 @@ function resaltaOpcN($num)
     		<![endif]-->
 	</head>
 <body>
-	<!-- usad para utlizar las propiedades responsive de bootstrap -->
+	<!-- esta para utlizar las propiedades responsive de bootstrap -->
 	<div class="container-fluid" style="padding: 0">
 
 		
@@ -63,8 +63,8 @@ function resaltaOpcN($num)
 		include_once('./seccs/sobre_unitec.php');
 		include_once('./seccs/organigrama.php');
 		include_once('./seccs/calendario.php');
-		include_once('./seccs/galeria.php');
 	?>
 	</main>
+		<div class="footer"> <c> powered by bootstrap </c></div>
 </html>
 
