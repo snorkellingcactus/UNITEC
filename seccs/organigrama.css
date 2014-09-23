@@ -1,45 +1,86 @@
 /*:::::ORGANIGRAMA:::::*/
-.organicaja
+#labs table
+{
+	width:100%;
+	min-width:35em;
+	table-layout:fixed;
+	box-sizing:auto;
+	text-align:center
+}
+#labs p
+{
+	margin:0px;
+}
+#labs img
+{
+	width:50px;
+	height:70px;
+	padding:10px 0px 10px 0%;
+}
+.organicaja1
+{
+	box-shadow:-0px -0px 2px #888888;
+	border-radius:3px;
+	background-image:url("../img/fondo_contenido.png");
+	background-color:silver;
+	border:1px solid silver;
+	text-align:center;
+	margin-left:20%;
+	margin-right:20%;
+}
+#labs thead .organicaja
+{
+	width:80%;
+	margin-left:5%;
+	padding:1.5%;
+	overflow:hidden;
+}
+#labs tbody .organicaja
+{
+	width:50%;
+	margin-left:25%;
+}
+.organicaja2
+{
+	box-shadow:-0px -0px 2px #888888;
+	border-radius:3px;
+	background-image:url("../img/fondo_contenido.png");
+	margin-top:5%;
+	padding:5%;
+	background-color:#FF4000;
+	border:1px solid silver;
+}
+.organicaja3
 {
 	box-shadow:-0px -0px 2px #888888;
 	border-radius:3px;
 	background-image:url("../img/fondo_contenido.png");
 	padding:5%;
-	background-color:silver;
+	margin-top:5%;
+	background-color:#FFBF00;
 	border:1px solid silver;
+}
+.organicaja4
+{
+	box-shadow:-0px -0px 2px #888888;
+	border-radius:3px;
+	background-image:url("../img/fondo_contenido.png");
+	padding:5%;
+	margin-top:5%;
+	background-color:#BFFF00;
+	border:1px solid silver;
+}
+.letra1
+{
 	text-align:center;
+	font-size:4em;
+	color:dimgray;
+	margin-bottom:4%;
 }
-.red
+.letra2
 {
-	background-color:red;
-}
-.gold
-{
-	background-color:gold;
-}
-.green
-{
-	background-color:green;
-}
-#sobre h2
-{
- font:normal 55pt Arial;
- color:#FFFFFF;
- text-shadow: 0 1px 0 #ccc,
- 0 -2px 0 #c9c9c9,
- 0 -3px 0 #bbb,
- 0 -4px 0 #b9b9b9,
- 0 -5px 0 #aaa,
- 0 -6px 1px rgba(0,0,0,.1),
- 0 -0 5px rgba(0,0,0,.1),
- 0 -1px 3px rgba(0,0,0,.3),
- 0 -3px 5px rgba(0,0,0,.2),
- 0 -5px 10px rgba(0,0,0,.25),
- 0 -10px 10px rgba(0,0,0,.2),
- 0 -20px 20px rgba(0,0,0,.15);
-	/*text-shadow: #2c2c2c 3px 3px 5px;
-	color: #222;
-	/*text-shadow: 0px 2px 3px #555;
-	font-size:2em;
-	padding:0px 0px 2% 12%;*/
+	text-align:center;
+	font-size:3em;
+	color:dimgray;
+	margin-bottom:4%;
 }

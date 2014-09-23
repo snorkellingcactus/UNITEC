@@ -18,7 +18,9 @@ $CalCfg=new Cal_Cfg();
 $GenHTML=new Cal_Gen_HTML($CalCfg);
 ?>
 <!--	:::::::::Calendario:::::::::	-->
-<section class='calendario' id='cal'>
+<section class='calendario' style="padding-bottom:20%" id='cal'>
+	<h1 class="ano hidden-xs"> Calendario de Eventos </h1>
+	<h1 class="ano visible-xs" style="font-size: 3em"> Calendario de Eventos </h1>
 	<h1 class='ano'>
 		<?php
 			echo $GenHTML->ano(); 

@@ -26,7 +26,7 @@
 					<a href="./index.php?OpcSel=3#cal"		<?php resaltaOpcN(3) ;?> >Eventos</a>
 				</li>
 				<li>
-					<a href="./index.php?OpcSel=4#gal"		<?php resaltaOpcN(4) ;?> >Galería</a>
+					<a href="./index.php?OpcSel=4"		<?php resaltaOpcN(4) ;?> >Galería</a>
 				</li>
 				<li>
 					<a href="./index.php?OpcSel=5"		<?php resaltaOpcN(5) ;?> >Idioma</a>
