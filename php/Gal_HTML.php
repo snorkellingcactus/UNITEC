@@ -13,6 +13,11 @@ class Gal_HTML
 	{
 		$this->imgLst=$imgLst;
 	}
+	function nImg($img)
+	{
+		$index=count($this->imgLst);
+		$this->imgLst[$index]=$img;
+	}
 	function gen()
 	{
 		$buff='';

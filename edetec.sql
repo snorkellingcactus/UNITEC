@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 25-09-2014 a las 07:06:42
+-- Tiempo de generación: 25-09-2014 a las 14:04:02
 -- Versión del servidor: 5.6.16
 -- Versión de PHP: 5.5.11
 
@@ -28,6 +28,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE IF NOT EXISTS `Comentarios` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `GrupoID` int(11) NOT NULL,
   `IP` int(11) DEFAULT NULL,
   `Usuario` int(11) DEFAULT NULL,
   `Contenido` int(11) DEFAULT NULL,
@@ -46,9 +47,17 @@ CREATE TABLE IF NOT EXISTS `Comentarios` (
 CREATE TABLE IF NOT EXISTS `Contenido` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `Contenido` text COLLATE utf8_unicode_ci,
-  `Lenguaje` varchar(2) COLLATE utf8_unicode_ci DEFAULT NULL,
-  PRIMARY KEY (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+  `Lenguaje` int(11) DEFAULT NULL,
+  PRIMARY KEY (`ID`),
+  KEY `Lenguaje` (`Lenguaje`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=2 ;
+
+--
+-- Volcado de datos para la tabla `Contenido`
+--
+
+INSERT INTO `Contenido` (`ID`, `Contenido`, `Lenguaje`) VALUES
+(1, '<p></p>', NULL);
 
 -- --------------------------------------------------------
 
@@ -65,10 +74,23 @@ CREATE TABLE IF NOT EXISTS `Imagenes` (
   `Titulo` varchar(128) COLLATE utf8_unicode_ci DEFAULT NULL,
   `Contenido` int(11) DEFAULT NULL,
   `Comentarios` int(11) DEFAULT NULL,
-  `Lenguaje` varchar(2) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `Lenguaje` int(11) DEFAULT NULL,
   PRIMARY KEY (`ID`),
   KEY `Contenido` (`Contenido`),
-  KEY `Comentarios` (`Comentarios`)
+  KEY `Comentarios` (`Comentarios`),
+  KEY `Lenguaje` (`Lenguaje`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=6 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `Lenguajes`
+--
+
+CREATE TABLE IF NOT EXISTS `Lenguajes` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `Lenguaje` varchar(5) COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -85,7 +107,14 @@ CREATE TABLE IF NOT EXISTS `Usuarios` (
   `Email` varchar(128) COLLATE utf8_unicode_ci DEFAULT NULL,
   `Baneado` bit(1) NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=2 ;
+
+--
+-- Volcado de datos para la tabla `Usuarios`
+--
+
+INSERT INTO `Usuarios` (`ID`, `Nombre`, `NombreUsuario`, `Contrasena`, `Email`, `Baneado`) VALUES
+(1, 'Gonzalo García', 'snorkellingcactus', 's2r9v3->149', 'snorkellingcactus@gmail.com', b'0');
 
 --
 -- Restricciones para tablas volcadas
@@ -99,9 +128,16 @@ ALTER TABLE `Comentarios`
   ADD CONSTRAINT `Comentarios_ibfk_2` FOREIGN KEY (`Contenido`) REFERENCES `Contenido` (`ID`);
 
 --
+-- Filtros para la tabla `Contenido`
+--
+ALTER TABLE `Contenido`
+  ADD CONSTRAINT `Contenido_ibfk_1` FOREIGN KEY (`Lenguaje`) REFERENCES `Lenguajes` (`ID`);
+
+--
 -- Filtros para la tabla `Imagenes`
 --
 ALTER TABLE `Imagenes`
+  ADD CONSTRAINT `Imagenes_ibfk_3` FOREIGN KEY (`Lenguaje`) REFERENCES `Lenguajes` (`ID`),
   ADD CONSTRAINT `Imagenes_ibfk_1` FOREIGN KEY (`Contenido`) REFERENCES `Contenido` (`ID`),
   ADD CONSTRAINT `Imagenes_ibfk_2` FOREIGN KEY (`Comentarios`) REFERENCES `Comentarios` (`ID`);
 

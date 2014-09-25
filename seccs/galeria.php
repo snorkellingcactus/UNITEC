@@ -3,6 +3,7 @@
 ?>
 <section id="gal">
 	<?php
+		/*
 		$Img=
 		[
 			'http://www.nocturnar.com/imagenes/fotos/wallpapers-fondos-de-pantalla-wallpaper-wallpaper-lampadas-wallpapers.jpg',
@@ -15,7 +16,14 @@
 		];
 
 		$Gal=new Gal_HTML($Img);
-		echo $Gal->gen();
+		echo $Gal->gen();*/
+
+		$con=new Conexion('localhost' , 'root' , 's2r9v3->149' , 'edetec');
+
+		$Imgs=mysqli_fetch_row($con->sql('select Url from Imagenes'));
+		
+		echo '<h1>'.$Imgs[1].'</h1>';
+		
 	
 	?>
 </section>

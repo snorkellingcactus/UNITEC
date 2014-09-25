@@ -1,5 +1,8 @@
 <!DOCTYPE html >
 <?php
+include './php/Conexion.php';
+include './php/Img.php';
+
 //Precondiciones necesarias.
 if(!isset($num))
 {
