@@ -23,10 +23,19 @@ class Conexion
 			$this->name,
 			$this->passwd
 		);
+		$this->selDB();
 	}
-	public function selDB($db)
+	public function selDB()
 	{
+		$db=$this->db;
+		$args=func_get_args();
+
+		if(isset($args[0]))
+		{
+			$db=$args[0];	
+		}
 		mysqli_select_db($this->con , $db);
+		
 	}
 	//Cierra una coneccion con la base de datos.
 	public function close()

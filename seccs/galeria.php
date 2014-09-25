@@ -19,10 +19,19 @@
 		echo $Gal->gen();*/
 
 		$con=new Conexion('localhost' , 'root' , 's2r9v3->149' , 'edetec');
-
-		$Imgs=mysqli_fetch_row($con->sql('select Url from Imagenes'));
+		$con->open();
 		
-		echo '<h1>'.$Imgs[1].'</h1>';
+		$j=0;
+		$Imgs=mysqli_fetch_row(mysqli_query($con->con , 'select Url from Imagenes'));
+		echo '<h1>'.$Imgs[0].'</h1>';
+		
+		while($Imgs=mysqli_fetch_row(mysqli_query($con->con , 'select Url from Imagenes')) && $j<mysqli_affected_rows($con->con))
+		{
+			echo '<h2>'.$Imgs[0].'</h2>';
+			$j++;
+		}
+
+		$con->close();
 		
 	
 	?>
