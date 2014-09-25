@@ -1,76 +1,32 @@
 /*:::::ORGANIGRAMA:::::*/
-#labs table
-{
-	width:100%;
-	min-width:35em;
-	table-layout:fixed;
-	box-sizing:auto;
-	text-align:center
-}
-#labs p
-{
-	margin:0px;
-}
-#labs img
-{
-	width:50px;
-	height:70px;
-	padding:10px 0px 10px 0%;
-}
-.organicaja1
+.organicaja, .organicaja1, .organicaja2, .organicaja3, .organicaja4
 {
 	box-shadow:-0px -0px 2px #888888;
 	border-radius:3px;
 	background-image:url("../img/fondo_contenido.png");
+	padding:5%;
 	background-color:silver;
 	border:1px solid silver;
 	text-align:center;
-	margin-left:20%;
-	margin-right:20%;
+	height:5em;
 }
-#labs thead .organicaja
+.organicaja1
 {
-	width:80%;
-	margin-left:5%;
-	padding:1.5%;
-	overflow:hidden;
-}
-#labs tbody .organicaja
-{
-	width:50%;
-	margin-left:25%;
+	padding:0px;
 }
 .organicaja2
 {
-	box-shadow:-0px -0px 2px #888888;
-	border-radius:3px;
-	background-image:url("../img/fondo_contenido.png");
-	margin-top:5%;
-	padding:5%;
 	background-color:#FF4000;
-	border:1px solid silver;
 }
 .organicaja3
 {
-	box-shadow:-0px -0px 2px #888888;
-	border-radius:3px;
-	background-image:url("../img/fondo_contenido.png");
-	padding:5%;
-	margin-top:5%;
 	background-color:#FFBF00;
-	border:1px solid silver;
 }
 .organicaja4
 {
-	box-shadow:-0px -0px 2px #888888;
-	border-radius:3px;
-	background-image:url("../img/fondo_contenido.png");
-	padding:5%;
-	margin-top:5%;
 	background-color:#BFFF00;
-	border:1px solid silver;
 }
-.letra1
+.letra1, .letra2
 {
 	text-align:center;
 	font-size:4em;
@@ -79,8 +35,5 @@
 }
 .letra2
 {
-	text-align:center;
 	font-size:3em;
-	color:dimgray;
-	margin-bottom:4%;
 }
