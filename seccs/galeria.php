@@ -18,7 +18,7 @@
 		$Gal=new Gal_HTML($Img);
 		echo $Gal->gen();*/
 
-		$con=new Conexion('localhost' , 'root' , 's2r9v3->149' , 'edetec');
+		$con=new Conexion('localhost' , 'root' , '' , 'unitec');
 		$con->open();
 		
 		$j=0;
