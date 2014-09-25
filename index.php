@@ -1,6 +1,6 @@
 <!DOCTYPE html >
 <?php
-include './php/Conexion.php';
+include './php/SQLObj.php';
 include './php/Img.php';
 
 //Precondiciones necesarias.
@@ -50,6 +50,10 @@ function resaltaOpcN($num)
     		<![endif]-->
 	</head>
 <body>
+	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
 	<!-- esta para utlizar las propiedades responsive de bootstrap -->
 	<div class="container-fluid" style="padding: 0">
 

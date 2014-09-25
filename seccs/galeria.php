@@ -1,8 +1,10 @@
 <?php
 	include 'php/Gal_HTML.php';
 ?>
-<link rel
 <section id="gal">
+
+
+
 	<?php
 		/*
 		$Img=
@@ -16,22 +18,33 @@
 			'http://www.hdwallpapers.in/walls/tron_lamborghini_aventador-HD.jpg'
 		];
 
-		$Gal=new Gal_HTML($Img);
-		echo $Gal->gen();*/
+		*/
 
 		$con=new mysqli('localhost' , 'root' , '' , 'unitec');
-		$res=$con->query('select Url from Imagenes');
-		$Imgs=$res->fetch_all(MYSQLI_NUM);
+		$res=$con->query('select * from Imagenes');
+		$Imgs=$res->fetch_all(MYSQLI_ASSOC);
 		
 		$iMax=count($Imgs);
-			for($i=0;$i<$iMax;$i++)
-			{
-				echo '<h2>$Imgs['.$i.'] = '.$Imgs[$i][0].'</h2>';
-			}
+		for($i=0;$i<$iMax;$i++)
+		{
+			$props=$Imgs[$i];
+			$Imgs[$i]=new Img($con , $Imgs[$i]);
+		}
+	
+		$Gal=new Gal_HTML($Imgs);
+		echo $Gal->gen();
 		
-
-		$con->close();
-		
+		$nImg=new Img
+		(
+			$con,
+			[
+				'Url'=>'http://tombraiders.net/stella/images/TRA/tra_mummies.jpg',
+				'Contenido',
+				'Ancho',
+				'Alto',
+				'Titulo',
+			]
+		)
 	
 	?>
 </section>

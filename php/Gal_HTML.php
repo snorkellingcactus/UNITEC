@@ -44,9 +44,9 @@ class Gal_HTML
 					$buff=
 						$buff.
 						$divIni.
-						$this->imgLst[$i].
+						$this->imgLst[$i]->Url.
 						'" ><img src="'.
-						$this->imgLst[$i].
+						$this->imgLst[$i]->Url.
 						$divFin."\n";
 				}
 				++$j;

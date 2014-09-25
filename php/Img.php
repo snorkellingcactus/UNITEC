@@ -4,7 +4,8 @@ class Img extends SQLObj
 {
 	function __construct($con)
 	{
-
+		$nArgs=func_num_args();
+		
 		parent::__construct
 		(
 			$con,
@@ -20,7 +21,11 @@ class Img extends SQLObj
 				'Lenguaje'
 			]
 		);
+		
+		if($nArgs>1)
+		{
+			$this->getAsoc(func_get_args()[1]);
+		}
 	}
 }
-
 ?>

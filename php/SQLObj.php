@@ -14,10 +14,14 @@ class SQLObj
 		$this->con=$con;
 		$this->table=$table;
 		$this->props=$props;
-
+		
+		$this->getAsoc($props);
+	}
+	public function getAsoc($arr)
+	{
 		$this->eachNan
 		(
-			$props,
+			$arr,
 			function($clave , $valor)
 			{
 				$this->conFnA($clave , $valor);
@@ -28,7 +32,6 @@ class SQLObj
 			}
 		);
 	}
-
 	//Si es numero devuelve el numero, sino, devuelve el valor con las comillas ("") agregadas.
 	public function sqlVal($val)
 	{
@@ -106,7 +109,7 @@ class SQLObj
 			//Saco comas finales, cierro parentesis y agrego espacio.
 			$this->buff=substr($this->buff,0,strlen($this->buff)-1).' where ID='.$this->ID;
 			
-			$res=$this->con->sql($buff);
+			$res=$this->con->query($buff);
 
 			$buff='';
 
@@ -114,7 +117,7 @@ class SQLObj
 		}
 		if(isset($this->$prop))
 		{
-			return $this->con->sql
+			return $this->con->query
 			(
 				'update table '.$this->table.' set "'.$prop.'" = '.$this->sqlVal($this->$prop)
 			);
@@ -137,7 +140,7 @@ class SQLObj
 		$this->buff=substr($this->buff,0,strlen($this->buff)-1).' ) ';
 		$this->buffAux=substr($this->buffAux,0,strlen($this->buffAux)-1).' ) ';
 
-		$res=$this->con->sql($this->buff.$this->buffAux);
+		$res=$this->con->query($this->buff.$this->buffAux);
 
 		$this->buff='';
 		$this->buffAux='';
