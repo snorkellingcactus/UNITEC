@@ -1,6 +1,7 @@
 <?php
 	include 'php/Gal_HTML.php';
 ?>
+<link rel
 <section id="gal">
 	<?php
 		/*
@@ -18,18 +19,16 @@
 		$Gal=new Gal_HTML($Img);
 		echo $Gal->gen();*/
 
-		$con=new Conexion('localhost' , 'root' , '' , 'unitec');
-		$con->open();
+		$con=new mysqli('localhost' , 'root' , '' , 'unitec');
+		$res=$con->query('select Url from Imagenes');
+		$Imgs=$res->fetch_all(MYSQLI_NUM);
 		
-		$j=0;
-		$Imgs=mysqli_fetch_row(mysqli_query($con->con , 'select Url from Imagenes'));
-		echo '<h1>'.$Imgs[0].'</h1>';
+		$iMax=count($Imgs);
+			for($i=0;$i<$iMax;$i++)
+			{
+				echo '<h2>$Imgs['.$i.'] = '.$Imgs[$i][0].'</h2>';
+			}
 		
-		while($Imgs=mysqli_fetch_row(mysqli_query($con->con , 'select Url from Imagenes')) && $j<mysqli_affected_rows($con->con))
-		{
-			echo '<h2>'.$Imgs[0].'</h2>';
-			$j++;
-		}
 
 		$con->close();
 		
