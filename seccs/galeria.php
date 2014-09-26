@@ -20,7 +20,7 @@
 
 		*/
 
-		$con=new mysqli('localhost' , 'root' , '' , 'unitec');
+		$con=new mysqli('localhost' , 'root' , 's2r9v3->149' , 'edetec');
 		$res=$con->query('select * from Imagenes');
 		$Imgs=$res->fetch_all(MYSQLI_ASSOC);
 		
@@ -39,12 +39,11 @@
 			$con,
 			[
 				'Url'=>'http://tombraiders.net/stella/images/TRA/tra_mummies.jpg',
-				'Contenido',
-				'Ancho',
-				'Alto',
-				'Titulo',
+				'Ancho'=>500,
+				'Alto'=>500,
+				'Titulo'=>'Hola Mundo'
 			]
-		)
+		);
 	
 	?>
 </section>
