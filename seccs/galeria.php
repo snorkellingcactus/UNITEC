@@ -59,10 +59,12 @@
 					'
 					<div class="difumina"></div>
 					<div class="visor">
-					<a href="index.php#gal">X</a>
+					<a href="index.php#gal" class="cerrar">X</a>
 						<div class="imgCont">
+							<h2>',
+							'</h2>
 							<a href="index.php?gInc=-1&cache='.$_SESSION['cache'].'#gal" ><img src="img/flecha_i.png" /></a>
-							<img width="600" height="600" src="',
+							<img width="570" height="570" src="',
 							'" alt="',
 							'" class="visible-md visible-lg"/>
 							<img width="570" height="570" src="',
@@ -80,6 +82,7 @@
 					
 				],
 				[
+					'Titulo',
 					'Url',
 					'Alt',
 					'Url',
@@ -99,7 +102,8 @@
 			$_SESSION['gImg']=$Gal->incImgN($_GET['gInc']);
 			$Gal->genVisor=1;
 		}
-
+		//Si se especificó un ID de imagen, se selecciona esa imagen para mostrar
+		//En el visor.
 		if(isset($_GET['gImgID']))
 		{
 			$Gal->disc='ID';
@@ -109,6 +113,7 @@
 		//Genero el código HTML de la galería.
 		echo $Gal->gen();
 		
+		$_SESSION['gImg']=$Gal->imgSel;
 		$nImg=new Img
 		(
 			$con,

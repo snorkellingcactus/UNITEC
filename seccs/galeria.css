@@ -1,4 +1,4 @@
-#gal a img
+#gal>a img
 {
 	display:block;
 	margin:auto;
@@ -18,26 +18,39 @@
 .difumina
 {
 	background-color:black;
-	opacity:0.5
+	opacity:0.7
 }
-.imgCont{margin:auto;display:table;background-color:dimgray}
-.imgCont img{float:left}
+.imgCont{margin:auto;display:table}
+.imgCont>img
+{
+	float:left;
+	box-shadow:-0px -0px 5px rgba(255,255,255,0.75);
+}
 .imgCont a
 {
 	float:left;
 	position:relative;
 	top:-55px;
-	margin:50% 20px 0px 10px;
+	margin:50% 10px 0px 20px;
 	display:block;
 	
 }
-.imgCont a:first-child
+.imgCont a:last-child
 {
-	margin:50% 10px 0px 20px;
+	margin:50% 20px 0px 10px;
 }
 .imgCont a img
 {
 	display:block;
 	height:50px;
 	width:30px;
+}
+.imgCont h2{text-align:center;color:white;padding:5px;margin:0px}
+.visor .cerrar
+{
+	float:right;
+	display:inline;
+	font-size:3em;
+	color:white;
+	margin-right:5px;
 }
