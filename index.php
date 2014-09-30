@@ -3,11 +3,10 @@
 include './php/SQLObj.php';
 include './php/Img.php';
 
-//Precondiciones necesarias.
-if(!isset($num))
+if(session_status()==PHP_SESSION_NONE)
 {
-	$num=0;
-};
+	session_start();		
+}
 if(!isset($_GET["OpcSel"]))
 {
 	$_GET["OpcSel"]=0;

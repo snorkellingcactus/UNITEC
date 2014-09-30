@@ -56,6 +56,18 @@ section
 	margin-bottom:5%;
 	overflow:hidden;
 }
+
+.titulo , .subtitulo
+{
+	text-align:center;
+	font-size:4em;
+	color:dimgray;
+	margin-bottom:4%;
+}
+.subtitulo
+{
+	font-size:3em
+}
 main
 {
 	padding-top:1%;

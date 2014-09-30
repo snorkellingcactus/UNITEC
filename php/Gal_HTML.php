@@ -1,4 +1,32 @@
 <?php
+class Mod_HTML
+{
+	public $estructura;
+	public $numVars;
+	public $props;
+	function __construct($estructura , $props)
+	{
+		$this->estructura=$estructura;
+		$this->props=$props;
+
+		$this->numVars=count($estructura)-1;
+	}
+	function gen($obj)
+	{
+		$iMax=$this->numVars;
+
+		$buff='';
+
+		for($i=0;$i<$iMax;$i++)
+		{
+			$prop=$this->props[$i];
+			$buff=$buff.$this->estructura[$i].$obj->$prop;
+		}
+		
+
+		return $buff.$this->estructura[$iMax];
+	}
+}
 class Gal_HTML
 {
 	public	$maxCols=10;
@@ -6,12 +34,27 @@ class Gal_HTML
 	public	$minWidth=200;
 	public	$width=500;
 	public	$height=500;
-	private	$bootsTrap=[12,6,4,3];		// xs , sm , md , lg
 	public	$imgLst=[];
+	public	$genVisor=0;
+	public	$disc='ID';	//Propiedad discriminadora a la hora de buscar u ordenar las imágenes.
+	public  $discVal=8;	//Valor del discriminador.
+	public	$imgSel;	//Imagen coincidente con el valor del discriminador.
+	public	$modGal;
+	public	$modVisor;
 	
 	function __construct($imgLst)
 	{
 		$this->imgLst=$imgLst;
+		$args=func_get_args();
+
+		if(isset($args[1]))
+		{
+			$this->modGal=$args[1];
+		}
+		if(isset($args[2]))
+		{
+			$this->visorMod($args[2]);
+		}
 	}
 	function nImg($img)
 	{
@@ -21,45 +64,51 @@ class Gal_HTML
 	function gen()
 	{
 		$buff='';
-		
-		$divIni=
-			"<a class='col-xs-".
-			$this->bootsTrap[0].' col-sm-'.
-			$this->bootsTrap[1].' col-md-'.
-			$this->bootsTrap[2].' col-lg-'.
-			$this->bootsTrap[3]."' href=\"";
-		$divFin='" width="'.$this->minWidth.'" height="'.$this->minHeight.'" /></a>';
 		$iMax=$this->maxCols;
 		$jMax=count($this->imgLst);
 		$j=0;
 		
 		while($j<$jMax)
 		{
-			$buff=$buff."<div class='row'>";
 			
 			for($i=0;$i<$iMax;$i++)
 			{
 				if(isset($this->imgLst[$i]))
 				{
-					$buff=
-						$buff.
-						$divIni.
-						$this->imgLst[$i]->Url.
-						'" ><img src="'.
-						$this->imgLst[$i]->Url.
-						$divFin."\n";
+					$buff=$buff.$this->modGal->gen($this->imgLst[$i]);
 				}
 				++$j;
 			}
-			
-			$buff=$buff.'</div>';
 		}
-			return $buff;
+		if($this->genVisor)
+		{
+			$buff=$buff.$this->visor();
+		}
+		return $buff;
 	}
-	function minTam($width , $height)
+	function visorMod($modHTML)
 	{
-		$this->minWidth=$width;
-		$this->minHeight=$height;
+		$this->modVisor=$modHTML;
+		$this->genVisor=1;
+	}
+	function visor()
+	{
+		if(func_num_args())
+		{
+			$this->imgSel=$func_get_args()[0];
+		}
+		$this->genVisor=0;
+
+		return $this->modVisor->gen($this->imgLst[$this->imgSel]);
+	}
+	function dspImg($inc)
+	{
+		$num=$this->imgSel+$inc;
+		$max=count($this->imgLst);
+		
+		$this->imgSel=abs($num-intval($num/$max)*$max);
+		
+		return $this->imgSel;
 	}
 }
 ?>
