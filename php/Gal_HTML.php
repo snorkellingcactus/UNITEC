@@ -30,15 +30,11 @@ class Mod_HTML
 class Gal_HTML
 {
 	public	$maxCols=10;
-	public	$minHeight=200;
-	public	$minWidth=200;
-	public	$width=500;
-	public	$height=500;
 	public	$imgLst=[];
 	public	$genVisor=0;
 	public	$disc='ID';	//Propiedad discriminadora a la hora de buscar u ordenar las imágenes.
-	public  $discVal=8;	//Valor del discriminador.
-	public	$imgSel;	//Imagen coincidente con el valor del discriminador.
+	public  $discVal=0;	//Valor del discriminador.
+	public	$imgSel=NULL;	//Imagen coincidente con el valor del discriminador.
 	public	$modGal;
 	public	$modVisor;
 	
@@ -76,6 +72,10 @@ class Gal_HTML
 				if(isset($this->imgLst[$i]))
 				{
 					$buff=$buff.$this->modGal->gen($this->imgLst[$i]);
+					if(isset($this->imgSel))
+					{
+						$this->discImg($i);
+					}
 				}
 				++$j;
 			}
@@ -89,8 +89,8 @@ class Gal_HTML
 	function visorMod($modHTML)
 	{
 		$this->modVisor=$modHTML;
-		$this->genVisor=1;
 	}
+	//Devuelve el código HTML para mostrar la imagen selecionada.
 	function visor()
 	{
 		if(func_num_args())
@@ -101,14 +101,30 @@ class Gal_HTML
 
 		return $this->modVisor->gen($this->imgLst[$this->imgSel]);
 	}
-	function dspImg($inc)
+	//Desplaza la imagen seleccionada para el visor $inc veces.
+	function incImgN($inc)
 	{
 		$num=$this->imgSel+$inc;
+		return $this->selImgN($num);
+	}
+	//Setea la imagen que despliega el visor impidiendo errores con
+	//números fuera de rango.
+	function selImgN($num)
+	{
 		$max=count($this->imgLst);
 		
 		$this->imgSel=abs($num-intval($num/$max)*$max);
 		
 		return $this->imgSel;
+	}
+	//Discrimina una imagen segun el valor de una de sus propiedades.
+	function discImg($nImg)
+	{
+		$prop=$this->disc;
+		if($this->imgLst[$nImg]->$prop==$this->discVal)
+		{
+			$this->imgSel=$nImg;
+		}
 	}
 }
 ?>

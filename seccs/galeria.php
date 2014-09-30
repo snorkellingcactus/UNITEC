@@ -42,13 +42,13 @@
 				[
 					"<a class='col-xs-".$bootstrap[0].' col-sm-'.$bootstrap[1].
 					' col-md-'.$bootstrap[2].' col-lg-'.$bootstrap[3].              
-					"' href=\"",
-					'" ><p>',
+					"' href=\"index.php?gImgID=",
+					'#gal" ><p>',
 					'</p><img src="',
 					'" width="200" height="200" /></a></div>'
 				],
 				[
-					'Url',
+					'ID',
 					'Titulo',
 					'Url'
 				]
@@ -59,6 +59,7 @@
 					'
 					<div class="difumina"></div>
 					<div class="visor">
+					<a href="index.php#gal">X</a>
 						<div class="imgCont">
 							<a href="index.php?gInc=-1&cache='.$_SESSION['cache'].'#gal" ><img src="img/flecha_i.png" /></a>
 							<img width="600" height="600" src="',
@@ -95,7 +96,15 @@
 		//Si se pasó un incremento del número de imagen por GET lo aplico.
 		if(isset($_GET['gInc']))
 		{
-			$_SESSION['gImg']=$Gal->dspImg($_GET['gInc']);
+			$_SESSION['gImg']=$Gal->incImgN($_GET['gInc']);
+			$Gal->genVisor=1;
+		}
+
+		if(isset($_GET['gImgID']))
+		{
+			$Gal->disc='ID';
+			$Gal->discVal=$_GET['gImgID'];
+			$Gal->genVisor=1;
 		}
 		//Genero el código HTML de la galería.
 		echo $Gal->gen();
