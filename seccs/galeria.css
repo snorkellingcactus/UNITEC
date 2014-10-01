@@ -52,6 +52,8 @@
 	height:50%;
 	margin-top:10%;
 }
+.difumina{z-index:5}
+.visor{z-index:10}
 .visor .cerrar
 {
 	float:right;
