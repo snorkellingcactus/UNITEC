@@ -29,7 +29,15 @@
 			$props=$Imgs[$i];
 			$Imgs[$i]=new Img($con , $Imgs[$i]);
 		}
+		if(isset($_POST['Titulo']))
+		{
+			$Imgs[$i]=new Img($con);
+			$Imgs[$i]->Titulo=$_POST['Titulo'];
+			$Imgs[$i]->Url=$_POST['Url'];
+			$Imgs[$i]->Alt=$_POST['Alt'];
 
+			$Imgs[$i]->insSQL();
+		}
 		//Diseño.
 		$bootstrap=[12,6,4,3];		// xs , sm , md , lg
 
@@ -123,7 +131,6 @@
 				'Url'	=>'img/nueva_imagen.png'
 			]
 		);
-
 		$nImgMod=new Mod_HTML
 		(
 			[
@@ -138,17 +145,8 @@
 				'Url'
 			]
 		);
-		
 		echo $nImgMod->gen($nImg);
-		if(isset($_POST['Titulo']))
-		{
-			$nImg=new Img($con);
-			$nImg->Titulo=$_POST['Titulo'];
-			$nImg->Url=$_POST['Url'];
-			$nImg->Alt=$_POST['Alt'];
-
-			echo $Gal->modGal->gen($nImg);
-		}
+		
 		if(isset($_GET['gNImgDiag']))
 		{
 			echo	'

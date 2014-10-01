@@ -142,8 +142,6 @@ class SQLObj
 
 		$res=$this->con->query($this->buff.$this->buffAux);
 
-		echo $this->buff.$this->buffAux;
-
 		$this->buff='';
 		$this->buffAux='';
 
