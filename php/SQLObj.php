@@ -91,13 +91,13 @@ class SQLObj
 	//Actualiza los campos de un registro de este elemento en la base de datos.
 	public function updSQL($prop)
 	{
-		if(!$this->ID)
+		if(!isset($this->ID))
 		{
 			return 0;
 		}
 		if(is_array($prop))
 		{
-			$this->buff='update table '.$this->table.' set ';	//Sentencias SQL para actualizar filas de una tabla.
+			$this->buff='update '.$this->table.' set ';	//Sentencias SQL para actualizar filas de una tabla.
 
 			$this->eachNan
 			(
@@ -119,7 +119,7 @@ class SQLObj
 		{
 			return $this->con->query
 			(
-				'update table '.$this->table.' set "'.$prop.'" = '.$this->sqlVal($this->$prop)
+				'update '.$this->table.' set '.$prop.' = '.$this->sqlVal($this->$prop).' where ID='.$this->ID
 			);
 		}
 	}
@@ -141,6 +141,8 @@ class SQLObj
 		$this->buffAux=substr($this->buffAux,0,strlen($this->buffAux)-1).' ) ';
 
 		$res=$this->con->query($this->buff.$this->buffAux);
+
+		echo $this->buff.$this->buffAux;
 
 		$this->buff='';
 		$this->buffAux='';

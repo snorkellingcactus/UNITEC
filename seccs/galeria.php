@@ -45,7 +45,7 @@
 					"' href=\"index.php?gImgID=",
 					'#gal" ><p>',
 					'</p><img src="',
-					'" width="200" height="200" /></a></div>'
+					'" width="200" height="200" /></a>'
 				],
 				[
 					'ID',
@@ -114,16 +114,87 @@
 		echo $Gal->gen();
 		
 		$_SESSION['gImg']=$Gal->imgSel;
+		
 		$nImg=new Img
 		(
 			$con,
 			[
-				'Url'=>'http://tombraiders.net/stella/images/TRA/tra_mummies.jpg',
-				'Ancho'=>500,
-				'Alto'=>500,
-				'Titulo'=>'Hola Mundo'
+				'Titulo'=>'Nueva Imagen',
+				'Url'	=>'img/nueva_imagen.png'
 			]
 		);
-	
+
+		$nImgMod=new Mod_HTML
+		(
+			[
+				"<a class='col-xs-".$bootstrap[0].' col-sm-'.$bootstrap[1].
+				' col-md-'.$bootstrap[2].' col-lg-'.$bootstrap[3].              
+				"' href=\"index.php?gNImgDiag=1#gal\" ><p>",
+				'</p><img src="',
+				'" width="200" height="200" /></a>'				
+			],
+			[
+				'Titulo',
+				'Url'
+			]
+		);
+		
+		echo $nImgMod->gen($nImg);
+		if(isset($_POST['Titulo']))
+		{
+			$nImg=new Img($con);
+			$nImg->Titulo=$_POST['Titulo'];
+			$nImg->Url=$_POST['Url'];
+			$nImg->Alt=$_POST['Alt'];
+
+			echo $Gal->modGal->gen($nImg);
+		}
+		if(isset($_GET['gNImgDiag']))
+		{
+			echo	'
+				<div class="difumina">
+				</div>
+				<div class="visor">
+						<form method="POST" action="index.php#gal">
+							<p class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+								<label for="Titulo">Titulo:</label>
+							</p>
+							<input type="text" name="Titulo" class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
+							<div class="clearfix"></div>
+
+							<p class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+								<label for="Url">Url:</label>
+							</p>
+							<input type="text" name="Url" class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
+							<div class="clearfix"></div>
+
+							<p class="col-xs-12 col-sm-4 col-md-4 col-lg-4">		
+								<label for="Alt" >Alt:</label>
+							</p>
+							<input type="text" name="Alt" class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
+							<div class="clearfix"></div>
+
+							<p class="col-xs-12 col-sm-4 col-md-4 col-lg-4">		
+								<label for="Lenguaje">Lenguaje:</label>
+							</p>
+							<select name="Lenguaje" class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
+								<option value="es_ar" selected>es_ar</option>
+								<option value="en">en</option>
+							</select>
+							<div class="clearfix"></div>
+
+							<p class="col-xs-12 col-sm-4 col-md-4 col-lg-4">	
+								<label for="Comentarios">Comentarios:</label>
+							</p>
+							<input type="text" name="Comentarios" class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
+							<div class="clearfix"></div>
+							
+							<input type="submit" value="Aceptar" class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+
+							<a href="index.php#gal" class="col-xs-6 col-sm-6 col-md-6 col-lg-6">Cancelar</a>
+						</form>
+				</div>
+				';
+		}
 	?>
 </section>

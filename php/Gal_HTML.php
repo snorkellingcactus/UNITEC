@@ -60,24 +60,18 @@ class Gal_HTML
 	function gen()
 	{
 		$buff='';
-		$iMax=$this->maxCols;
-		$jMax=count($this->imgLst);
-		$j=0;
+		$iMax=count($this->imgLst);
 		
-		while($j<$jMax)
-		{
 			
-			for($i=0;$i<$iMax;$i++)
+		for($i=0;$i<$iMax;$i++)
+		{
+			if(isset($this->imgLst[$i]))
 			{
-				if(isset($this->imgLst[$i]))
+				$buff=$buff.$this->modGal->gen($this->imgLst[$i]);
+				if(isset($this->imgSel))
 				{
-					$buff=$buff.$this->modGal->gen($this->imgLst[$i]);
-					if(isset($this->imgSel))
-					{
-						$this->discImg($i);
-					}
+					$this->discImg($i);
 				}
-				++$j;
 			}
 		}
 		if($this->genVisor)
