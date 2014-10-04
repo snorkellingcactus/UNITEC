@@ -1,16 +1,13 @@
 <?php
 	if(isset($_POST['contrasena'])&&isset($_POST['Nombre']))
 	{
-		include_once("php/conexion.php");	//Me conecto a la db en la tabla unitec.
-		
-		$consulta=mysql_query('select Contrasena from usuarios where Nombre="'.$_POST['Nombre'].'"');
+		$con=new mysqli('localhost' , 'root' , '' , 'unitec');	//Me conecto a la db en la tabla unitec.
+		$consulta=$con->query('select * from Imagenes');
 		
 		if($consulta!=0)
 		{
-			$consulta=mysql_fetch_array($consulta);
+			$consulta=$consulta->fetch_all(MYSQLI_NUM);
 		}
-		
-		mysql_close($Conexion);
 		
 		if($consulta==0)
 		{

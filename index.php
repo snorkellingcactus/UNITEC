@@ -47,6 +47,11 @@ function resaltaOpcN($num)
       		<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       		<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     		<![endif]-->
+		<a href="./index.php?OpcSel=0#sobre" accesskey="i"></a>
+		<a href="./index.php?OpcSel=1#nov" accesskey="n"></a>
+		<a href="./index.php?OpcSel=2#labs" accesskey="l"></a>
+		<a href="./index.php?OpcSel=3#cal" accesskey="c"></a>
+		<a href="./index.php?OpcSel=4#gal" accesskey="g"></a>
 	</head>
 <body>
 		<div class="header hidden-xs">
