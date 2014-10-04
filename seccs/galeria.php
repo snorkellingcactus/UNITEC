@@ -1,5 +1,6 @@
 <?php
 	include 'php/Gal_HTML.php';
+	include	'php/conexion.php';
 
 	//Variable utilizada para corregir un error con enlaces que contienen
 	//anclas y variables get. Si el enlace es siempre el mismo, no refresca
@@ -15,7 +16,6 @@
 	}
 
 	//Obtengo las imágenes.
-	$con=new mysqli('localhost' , 'root' , 's2r9v3->149' , 'edetec');
 	$res=$con->query('select * from Imagenes');
 	$Imgs=$res->fetch_all(MYSQLI_ASSOC);
 ?>
@@ -29,17 +29,22 @@
 			$props=$Imgs[$i];
 			$Imgs[$i]=new Img($con , $Imgs[$i]);
 		}
+		//Se rellenó el formulario de nueva imagen, la agrego a la lista
+		//de imágenes a desplegar.
 		if(isset($_POST['Titulo']))
 		{
+			//Creo la imagen y le asigno las propiedades.
 			$Imgs[$i]=new Img($con);
 			$Imgs[$i]->Titulo=$_POST['Titulo'];
 			$Imgs[$i]->Url=$_POST['Url'];
 			$Imgs[$i]->Alt=$_POST['Alt'];
 
+			//La inserto en la bd.
 			$Imgs[$i]->insSQL();
 		}
-		//Diseño.
-		$bootstrap=[12,6,4,3];		// xs , sm , md , lg
+
+		//:::::::::::::::::::::::::::::::HTML::::::::::::::::::::::::::::::::::::
+		$bootstrap=[12,6,4,3];				// xs , sm , md , lg
 
 		$_SESSION['cache']=!$_SESSION['cache'];		//Si cache era 0 ahora es 1, y viceversa.
 		$Gal=new Gal_HTML
@@ -123,6 +128,7 @@
 		
 		$_SESSION['gImg']=$Gal->imgSel;
 		
+		//Creo el boton nueva imagen.
 		$nImg=new Img
 		(
 			$con,

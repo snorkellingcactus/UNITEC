@@ -108,7 +108,10 @@ class Gal_HTML
 		$max=count($this->imgLst);
 		
 		$this->imgSel=abs($num-intval($num/$max)*$max);
-		
+		if($num<0)
+		{
+			$this->imgSel=$max-$this->imgSel;
+		}
 		return $this->imgSel;
 	}
 	//Discrimina una imagen segun el valor de una de sus propiedades.

@@ -3,15 +3,16 @@
 include './php/SQLObj.php';
 include './php/Img.php';
 
+//Si todavía no se inicio sesion, se inicia.
 if(session_status()==PHP_SESSION_NONE)
 {
 	session_start();		
 }
+//Si no se indicó resaltar ninguna opcion, se resalta el inicio (opcion 0).
 if(!isset($_GET["OpcSel"]))
 {
 	$_GET["OpcSel"]=0;
 }
-
 
 //Resalta la función del menú correspondiente.
 function resaltaOpcN($num)
@@ -40,36 +41,32 @@ function resaltaOpcN($num)
 		<link rel="stylesheet" type="text/css" href="./seccs/sobre_unitec.css" />
 		<link rel="stylesheet" type="text/css" href="./seccs/galeria.css" />
 		<link rel="stylesheet" type="text/css" href="./bootstrap.min.css" />
-		<title>Unitec</title>
-		<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    		<!--[if lt IE 9]>
-      		<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-      		<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    		<![endif]-->
+
+		<!--:::::::::::::::Atajos de teclado:::::::::::::::-->
 		<a href="./index.php?OpcSel=0#sobre" accesskey="i"></a>
 		<a href="./index.php?OpcSel=1#nov" accesskey="n"></a>
 		<a href="./index.php?OpcSel=2#labs" accesskey="l"></a>
 		<a href="./index.php?OpcSel=3#cal" accesskey="c"></a>
 		<a href="./index.php?OpcSel=4#gal" accesskey="g"></a>
+		<title>Unitec</title>
 	</head>
 <body>
-		<div class="header hidden-xs">
-			<a href="./inicio_sesion.php">Iniciar Sesión</a>
-		</div>
-<?php
-	include_once("./seccs/menu.php");
-?>
-	<main class="col-xs-12 col-sm-10 col-md-10 col-lg-10">
+	<div class="header hidden-xs">
+		<a href="./inicio_sesion.php">Iniciar Sesión</a>
+	</div>
 	<?php
-		$_GET['mes']=getdate()['mon'];	//Acá indicar mes que se muestra por defecto. Va a mostrarse el mes indicado -1.
-		include_once('./seccs/sobre_unitec.php');
-		include_once('./seccs/novedades.php');
-		include_once('./seccs/organigrama.php');
-		include_once('./seccs/calendario.php');
-		include_once('./seccs/galeria.php');
+		include_once("./seccs/menu.php");
 	?>
+	<main class="col-xs-12 col-sm-10 col-md-10 col-lg-10">
+		<?php
+			$_GET['mes']=getdate()['mon'];	//Acá indicar mes que se muestra por defecto. Va a mostrarse el mes indicado -1.
+			include_once('./seccs/sobre_unitec.php');
+			include_once('./seccs/novedades.php');
+			include_once('./seccs/organigrama.php');
+			include_once('./seccs/calendario.php');
+			include_once('./seccs/galeria.php');
+		?>
 	</main>
-		<div class="footer"> <c> powered by bootstrap </c></div>
+	<div class="footer"> <c> powered by bootstrap </c></div>
 </html>
 

@@ -1,32 +1,17 @@
 <?php
+include	'php/conexion.php';
 	if(isset($_POST['contrasena'])&&isset($_POST['Nombre']))
 	{
-		$con=new mysqli('localhost' , 'root' , '' , 'unitec');	//Me conecto a la db en la tabla unitec.
-		$consulta=$con->query('select * from Imagenes');
+		$consulta=$con->query('select * from Usuarios where Contrasena="'.sha1($_POST['contrasena']).'"');
 		
-		if($consulta!=0)
+		if($con->affected_rows>0)
 		{
-			$consulta=$consulta->fetch_all(MYSQLI_NUM);
-		}
-		
-		if($consulta==0)
-		{
-			echo "El usuario no existe.<br>";
+			$consulta=$consulta->fetch_all(MYSQLI_NUM)[0];
 		}
 		else
 		{
-			foreach($consulta as $clave => $valor)
-			{
-				echo "Clave ".$clave." = Valor ".$valor.'<br>';
-			}
-			if(sha1($_POST['contrasena'])==$consulta['Contrasena'])
-			{
-				echo "Datos válidos.<br>";
-			}
-			else
-			{
-				echo sha1($_POST['contrasena']).' != '.$consulta['Contrasena'];
-			}
+			echo "El usuario no existe.<br>";
+			echo sha1($_POST['contrasena']);
 		}
 	}
 ?>
