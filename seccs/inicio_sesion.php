@@ -15,8 +15,9 @@ include	'php/conexion.php';
 		}
 	}
 ?>
-<section>
-	<h2>Login:</h2>;
+<div class="container-fluid" style="padding: 0">
+<div class="cacho col-xs-10 col-sm-9 col-md-7 col-lg-7"> 
+	<h2>Login:</h2>
 	<form method="POST" action="#">
 		<p class='col-xs-12 col-sm-4 col-md-4 col-lg-4'>
 			<label for='Nombre (o email)'>Nombre:</label>
@@ -31,4 +32,5 @@ include	'php/conexion.php';
 		<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4"></div>
 		<button type='submit' class='col-xs-6 col-sm-6 col-md-6 col-lg-6'>0K</button>
 	</form>
-</section>
+</div>
+</div>
