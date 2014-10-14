@@ -1,6 +1,7 @@
 <?php
 	include_once 'php/Gal_HTML.php';
 	include_once 'php/conexion.php';
+	include_once 'php/Coment.php';
 
 	//Variable utilizada para corregir un error con enlaces que contienen
 	//anclas y variables get. Si el enlace es siempre el mismo, no refresca
@@ -18,6 +19,11 @@
 	//Obtengo las imágenes.
 	$res=$con->query('select * from Imagenes');
 	$Imgs=$res->fetch_all(MYSQLI_ASSOC);
+	
+	//Obtengo los comentarios.
+	$res=$con->query('select * from Comentarios');
+	$Coments=$res->fetch_all(MYSQLI_ASSOC);
+	
 ?>
 <section id="gal">
 	<h1 class="titulo">Galería de Fotos</h1>
@@ -26,9 +32,16 @@
 		$iMax=count($Imgs);
 		for($i=0;$i<$iMax;$i++)
 		{
-			$props=$Imgs[$i];
 			$Imgs[$i]=new Img($con , $Imgs[$i]);
 		}
+		//Creo objetos Img en base al array asociativo obtenido.
+		$iMax=count($Coments);
+		for($i=0;$i<$iMax;$i++)
+		{
+			$Coments[$i]=new Coment($con , $Coments[$i]);
+			echo '<h2>Obtenido comentario '.$i.'</h2>';
+		}
+		
 		//Se rellenó el formulario de nueva imagen, la agrego a la lista
 		//de imágenes a desplegar.
 		if(isset($_POST['Titulo']))
@@ -145,6 +158,18 @@
 				'Url'	=>'img/nueva_imagen.png'
 			]
 		);
+		$comentsMod=new Mod_HTML
+		(
+			[
+				'<div>
+					<p>',
+					'</p>
+				</div>'
+			],
+			[
+				'Contenido'
+			]
+		);
 		$nImgMod=new Mod_HTML
 		(
 			[
@@ -160,6 +185,10 @@
 			]
 		);
 		echo $nImgMod->gen($nImg);
+		for($i=0;$i<count($Coments);$i++)
+		{
+			echo $comentsMod->gen($Coments[$i]);
+		}
 		
 		if(isset($_GET['gNImgDiag']))
 		{
