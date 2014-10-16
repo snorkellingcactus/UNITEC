@@ -1,64 +1,9 @@
 <?php
-class Arr_Gen_HTML
+require_once	'Obj_Gen_HTML.php';
+include_once	'conexion.php';
+if(isset($_SESSION['vGen']))
 {
-	private $numVars;
-	private	$props;
-
-	function __construct($estructura,$props)
-	{
-		$this->estructura=$estructura;
-		$this->props=$props;
-
-		$this->numVars=count($estructura)-1;
-	}
-	function gen()
-	{
-		return $this->recorre($this->props);
-	}
-	function recorre($obj)
-	{
-
-		$buff='';
-
-		$iMax=$this->numVars;
-
-		for($i=0;$i<$iMax;$i++)
-		{
-			$prop=$this->props[$i];
-
-			//Si se trata de un objeto genHTML lo genero.
-			if(is_object($prop))
-			{
-				$buff=$buff.$this->estructura[$i].$prop->gen();
-				continue;
-			}
-		
-			$buff=$buff.$this->estructura[$i].$this->getProp($obj,$prop);
-		}
-
-		return $buff.$this->estructura[$iMax];
-	}
-	//Obtengo la propiedad de un array.
-	function getProp($obj , $prop)
-	{
-		return $prop;
-	}
-}
-class Obj_Gen_HTML extends Arr_Gen_HTML
-{
-	function __construct($estructura , $props)
-	{
-		parent::__construct($estructura,$props);
-	}
-	function gen($obj)
-	{
-		return $this->recorre($obj);
-	}
-	//Obtengo la propiedad de un objeto.
-	function getProp($obj , $prop)
-	{
-		return $obj->$prop;
-	}
+	include_once 'Gal_HTML_Visor.php';
 }
 //Genera el código HTML de la galería según los parametros dados.
 //$img puede ser el texto de una consulta SQL
@@ -66,14 +11,10 @@ class Obj_Gen_HTML extends Arr_Gen_HTML
 class Gal_HTML
 {
 	private	$con;
-	public	$maxCols=10;
+	private	$modGal;
+	private	$visor;
+
 	public	$imgLst=[];
-	public	$genVisor=0;
-	public	$disc='ID';	//Propiedad discriminadora a la hora de buscar u ordenar las imágenes.
-	public  $discVal=0;	//Valor del discriminador.
-	public	$imgSel=NULL;	//Imagen coincidente con el valor del discriminador.
-	public	$modGal;
-	public	$modVisor;
 	
 	function __construct($img)
 	{
@@ -87,7 +28,7 @@ class Gal_HTML
 		}
 		else
 		{
-			$this->imgLst=$img;	//Sino era una lista de objetos Img, la guardo.
+			$this->imgLst=$img;	//Si era una lista de objetos Img, la guardo.
 		}
 
 		if(isset($args[$nArgs+1]))
@@ -96,8 +37,12 @@ class Gal_HTML
 		}
 		if(isset($args[$nArgs+2]))
 		{
-			$this->visorMod($args[$nArgs+2]);
+			$this->creaVisor($args[$nArgs+2]);
 		}
+	}
+	function creaVisor($modHTML)
+	{
+		$this->visor=new Gal_HTML_Visor($this,$modHTML);
 	}
 	function nImg($img)
 	{
@@ -115,60 +60,20 @@ class Gal_HTML
 			if(isset($this->imgLst[$i]))
 			{
 				$buff=$buff.$this->modGal->gen($this->imgLst[$i]);
-				if(isset($this->imgSel))
+				if(isset($this->visor))
 				{
-					$this->discImg($i);
+					$this->visor->discImg($i);
 				}
 			}
 		}
-		if($this->genVisor)
-		{
-			$buff=$buff.$this->visor();
-		}
-		return $buff;
-	}
-	function visorMod($modHTML)
-	{
-		$this->modVisor=$modHTML;
-	}
-	//Devuelve el código HTML para mostrar la imagen selecionada.
-	function visor()
-	{
-		if(func_num_args())
-		{
-			$this->imgSel=$func_get_args()[0];
-		}
-		$this->genVisor=0;
 
-		return $this->modVisor->gen($this->imgLst[$this->imgSel]);
-	}
-	//Desplaza la imagen seleccionada para el visor $inc veces.
-	function incImgN($inc)
-	{
-		$num=$this->imgSel+$inc;
-		return $this->selImgN($num);
-	}
-	//Setea la imagen que despliega el visor impidiendo errores con
-	//números fuera de rango.
-	function selImgN($num)
-	{
-		$max=count($this->imgLst);
 		
-		$this->imgSel=abs($num-intval($num/$max)*$max);
-		if($num<0)
+		if(isset($this->visor))
 		{
-			$this->imgSel=$max-$this->imgSel;
+			$buff=$buff.$this->visor->gen();
 		}
-		return $this->imgSel;
-	}
-	//Discrimina una imagen segun el valor de una de sus propiedades.
-	function discImg($nImg)
-	{
-		$prop=$this->disc;
-		if($this->imgLst[$nImg]->$prop==$this->discVal)
-		{
-			$this->imgSel=$nImg;
-		}
+
+		return $buff;
 	}
 	//Convierte una consulta SQL en objetos Img.
 	function getSQL($consulta)

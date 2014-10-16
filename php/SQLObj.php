@@ -1,10 +1,27 @@
 <?php
+//Discrimina la clave de un array dependiendo de si es o no un numero, derivando a 
+//fnA($clave , $valor) si es string o fnB($clave , $valor) si es número.
+function eachNan($asoc , $fnA , $fnB)
+{
+	foreach($asoc as $clave=>$valor)
+	{
+		if(is_numeric($clave))
+		{
+			$fnB($clave , $valor);
+		}
+		else
+		{
+			$fnA($clave , $valor);
+		}
+	}
+}
 class SQLObj
 {
-	public $con;
-	public $table;
-	public $props;
-	public $buff;
+	private $con;
+
+	private $table;
+	private $props;
+	private $buff;
 	private $buffAux;
 
 	public $ID;
@@ -19,7 +36,7 @@ class SQLObj
 	}
 	public function getAsoc($arr)
 	{
-		$this->eachNan
+		eachNan
 		(
 			$arr,
 			function($clave , $valor)
@@ -40,21 +57,6 @@ class SQLObj
 			return $val;
 		}
 		return '"'.$val.'"';
-	}
-	//Discrimina la clave de un array dependiendo de si es o no un numero, derivando a distintas funciones en cada caso.
-	private function eachNan($prop , $fnA , $fnB)
-	{
-		foreach($prop as $clave=>$valor)
-		{
-			if(is_numeric($clave))
-			{
-				$fnB($clave , $valor);
-			}
-			else
-			{
-				$fnA($clave , $valor);
-			}
-		}
 	}
 	public function conFnA($clave , $valor)
 	{
@@ -99,7 +101,7 @@ class SQLObj
 		{
 			$this->buff='update '.$this->table.' set ';	//Sentencias SQL para actualizar filas de una tabla.
 
-			$this->eachNan
+			eachNan
 			(
 				$prop,
 				function($clave , $valor){$this->updFnA($clave , $valor);},
@@ -130,7 +132,7 @@ class SQLObj
 		$this->buff=$this->buff.'insert into '.$this->table.' ( ';
 		$this->buffAux=$this->buffAux.' values( ';
 
-		$this->eachNan
+		eachNan
 		(
 			$this->props,
 			function($clave , $valor){$this->insFnA($clave , $valor);},
