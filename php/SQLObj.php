@@ -17,7 +17,7 @@ function eachNan($asoc , $fnA , $fnB)
 }
 class SQLObj
 {
-	private $con;
+	public $con;
 
 	private $table;
 	private $props;
@@ -141,7 +141,7 @@ class SQLObj
 
 		$this->buff=substr($this->buff,0,strlen($this->buff)-1).' ) ';
 		$this->buffAux=substr($this->buffAux,0,strlen($this->buffAux)-1).' ) ';
-
+		echo '<h2>'.$this->buff.$this->buffAux.'</h2>';
 		$res=$this->con->query($this->buff.$this->buffAux);
 
 		$this->buff='';

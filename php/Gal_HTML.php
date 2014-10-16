@@ -12,7 +12,7 @@ class Gal_HTML
 {
 	private	$con;
 	private	$modGal;
-	private	$visor;
+	public	$visor;
 
 	public	$imgLst=[];
 	

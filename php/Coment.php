@@ -1,4 +1,5 @@
 <?php
+require_once 'SQLObj.php';
 class Coment extends SQLObj
 {
 	public $contenidoHTML='';
@@ -34,7 +35,9 @@ class Coment extends SQLObj
 		{
 			return 0;
 		}
-		$this->contenidoHTML=$con->query('select Contenido from Contenidos where ID='.$this->Contenido);
+		
+		$this->contenidoHTML=$this->con->query('SELECT Contenido FROM `contenido` WHERE ID='.$this->Contenido);
+		$this->contenidoHTML=$this->contenidoHTML->fetch_all(MYSQLI_NUM)[0][0];
 
 		return $this->contenidoHTML;
 	}

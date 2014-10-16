@@ -14,11 +14,14 @@ class	Gal_HTML_Visor
 		$this->gal=$gal;
 		$this->modHTML=$modHTML;
 
-		$this->nImgSel=$_SESSION['vImg'];
 		//Variable con el numero de imagen que se va a mostrar.
 		if(!isset($_SESSION['vImg']))
 		{
 			$this->selImgN(0);			//Indico el número de imagen a desplegar.
+		}
+		else
+		{
+			$this->selImgN($_SESSION['vImg']);
 		}
 		//Si se pasó un incremento del número de imagen por GET lo aplico.
 		if(isset($_GET['vInc']))
@@ -55,6 +58,7 @@ class	Gal_HTML_Visor
 
 		$this->imgSel=$this->gal->imgLst[$this->nImgSel];
 
+		$_SESSION['vImgID']=$this->imgSel->ID;
 		$_SESSION['vImg']=$this->nImgSel;
 
 		return $this->nImgSel;
@@ -81,6 +85,7 @@ class	Gal_HTML_Visor
 			$this->nImgSel=$nImg;
 			$this->imgSel=$img;
 
+			$_SESSION['vImgID']=$this->imgSel->ID;
 			$_SESSION['vImg']=$this->nImgSel;
 			return 1;
 		}

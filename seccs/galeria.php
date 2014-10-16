@@ -6,13 +6,18 @@
 	{
 		$_SESSION['cache']=0;
 	}
-	if(isset($_GET['vImgID']))
+	if(isset($_GET['vImgID'])||isset($_SESSION['vImg']))
 	{
 		$_SESSION['vGen']=1;
 	}
 	if(isset($_GET['vCierra']))
 	{
 		unset($_SESSION['vGen']);
+		unset($_SESSION['vImg']);
+	}
+	if(isset($_GET['sesdest']))
+	{
+		session_destroy();
 	}
 	
 	$_SESSION['cache']=!$_SESSION['cache'];		//Si cache era 0 ahora es 1, y viceversa.
@@ -20,9 +25,40 @@
 	include_once 'php/conexion.php';
 	include_once 'php/Gal_HTML.php';
 	include_once 'php/Coment.php';
-	//Obtengo los comentarios.
-	//$Coments=$con->query('select * from Comentarios');
 	
+	if(isset($_SESSION['comContenido']))
+	{
+		if(isset($_SESSION['vGen'])&&isset($_SESSION['vImgID']))
+		{
+			$coment=new Coment($con);
+			$coment->contenidoHTML=$_SESSION['comContenido'];
+			$coment->GrupoID=$_SESSION['vImgID'];
+			$coment->insSQL();
+		}
+	}
+	$comentMod=new Obj_Gen_HTML
+	(
+		[
+			'<p>',
+			'</p>'
+		],
+		[
+			'contenidoHTML'
+		]
+	);
+	$comentBuff='';
+	//Obtengo los comentarios.
+	$consulta=$con->query('select * from Comentarios');
+	$consulta=$consulta->fetch_all(MYSQLI_ASSOC);
+	$Coments=[];
+	$iMax=count($consulta);
+	
+	for($i=0;$i<$iMax;$i++)
+	{
+		$Coments[$i]=new Coment($con,$consulta[$i]);
+		$Coments[$i]->contenido();
+		$comentBuff=$comentBuff.$comentMod->gen($Coments[$i]);
+	}
 ?>
 <section id="gal">
 	<h1 class="titulo">Galería de Fotos</h1>
@@ -110,10 +146,10 @@
 								</div>
 								
 								<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-									<div class="comentarios" > adfyu </div>
+									<div class="comentarios" >
+										'.$comentBuff.'
+									</div>
 								</div>
-							</div>
-						</div>
 						'
 						
 					],
@@ -129,14 +165,20 @@
 				)
 			);
 		}
-		?>
-		
-		<?php
-		
 		//Genero el código HTML de la galería.
 		echo $Gal->gen();
-		
-		
+		if(isset($Gal->visor))
+		{
+		?>
+		<form class="nComentForm" action="index.php#gal" method="POST">
+			<p>Comentá:</p>
+			<input type="text" name="comContenido" />
+			<input type="submit" value="Ok"/>
+		</form>
+	</div>
+</div>
+		<?php
+		}
 		//Creo el boton nueva imagen.
 		$nImg=new Img
 		(
@@ -183,6 +225,10 @@
 		if(isset($_GET['gNImgDiag']))
 		{
 			include_once('forms/nueva_imagen.html');
+		}
+		if(isset($_GET['nComentDiag']))
+		{
+			include_once('forms/nuevo_comentario.html');
 		}
 	?>
 </section>
