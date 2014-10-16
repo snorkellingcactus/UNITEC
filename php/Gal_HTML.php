@@ -1,34 +1,71 @@
 <?php
-class Mod_HTML
+class Arr_Gen_HTML
 {
-	public $estructura;
-	public $numVars;
-	public $props;
-	function __construct($estructura , $props)
+	private $numVars;
+	private	$props;
+
+	function __construct($estructura,$props)
 	{
 		$this->estructura=$estructura;
 		$this->props=$props;
 
 		$this->numVars=count($estructura)-1;
 	}
-	function gen($obj)
+	function gen()
 	{
-		$iMax=$this->numVars;
+		return $this->recorre($this->props);
+	}
+	function recorre($obj)
+	{
 
 		$buff='';
+
+		$iMax=$this->numVars;
 
 		for($i=0;$i<$iMax;$i++)
 		{
 			$prop=$this->props[$i];
-			$buff=$buff.$this->estructura[$i].$obj->$prop;
-		}
+
+			//Si se trata de un objeto genHTML lo genero.
+			if(is_object($prop))
+			{
+				$buff=$buff.$this->estructura[$i].$prop->gen();
+				continue;
+			}
 		
+			$buff=$buff.$this->estructura[$i].$this->getProp($obj,$prop);
+		}
 
 		return $buff.$this->estructura[$iMax];
 	}
+	//Obtengo la propiedad de un array.
+	function getProp($obj , $prop)
+	{
+		return $prop;
+	}
 }
+class Obj_Gen_HTML extends Arr_Gen_HTML
+{
+	function __construct($estructura , $props)
+	{
+		parent::__construct($estructura,$props);
+	}
+	function gen($obj)
+	{
+		return $this->recorre($obj);
+	}
+	//Obtengo la propiedad de un objeto.
+	function getProp($obj , $prop)
+	{
+		return $obj->$prop;
+	}
+}
+//Genera el código HTML de la galería según los parametros dados.
+//$img puede ser el texto de una consulta SQL
+//o una lista de objetos de tipo Img.
 class Gal_HTML
 {
+	private	$con;
 	public	$maxCols=10;
 	public	$imgLst=[];
 	public	$genVisor=0;
@@ -38,18 +75,28 @@ class Gal_HTML
 	public	$modGal;
 	public	$modVisor;
 	
-	function __construct($imgLst)
+	function __construct($img)
 	{
-		$this->imgLst=$imgLst;
 		$args=func_get_args();
+		$nArgs=0;
 
-		if(isset($args[1]))
+		if(gettype($img)==='string')
 		{
-			$this->modGal=$args[1];
+			$nArgs=$nArgs+1;
+			$this->getSQL($img,$args[1]);	//Si era un string se trata de una consulta, la proceso.
 		}
-		if(isset($args[2]))
+		else
 		{
-			$this->visorMod($args[2]);
+			$this->imgLst=$img;	//Sino era una lista de objetos Img, la guardo.
+		}
+
+		if(isset($args[$nArgs+1]))
+		{
+			$this->modGal=$args[$nArgs+1];
+		}
+		if(isset($args[$nArgs+2]))
+		{
+			$this->visorMod($args[$nArgs+2]);
 		}
 	}
 	function nImg($img)
@@ -121,6 +168,26 @@ class Gal_HTML
 		if($this->imgLst[$nImg]->$prop==$this->discVal)
 		{
 			$this->imgSel=$nImg;
+		}
+	}
+	//Convierte una consulta SQL en objetos Img.
+	function getSQL($consulta)
+	{
+		$args=func_get_args();
+
+		if(isset($args[1]))
+		{
+			$this->con=$args[1];
+		}
+
+		$asocLst=$this->con->query($consulta);
+		$asocLst=$asocLst->fetch_all(MYSQLI_ASSOC);	//Respuesta SQL como array asociativo.
+
+		$iMax=count($asocLst);
+
+		for($i=0;$i<$iMax;$i++)
+		{
+			$this->imgLst[$i]=new Img($this->con,$asocLst[$i]);
 		}
 	}
 }

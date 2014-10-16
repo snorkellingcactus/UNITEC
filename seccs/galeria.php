@@ -15,20 +15,16 @@
 	{
 		$_SESSION['gImg']=0;
 	}
-
-	//Obtengo las imágenes.
-	$res=$con->query('select * from Imagenes');
-	$Imgs=$res->fetch_all(MYSQLI_ASSOC);
 	
 	//Obtengo los comentarios.
-	$res=$con->query('select * from Comentarios');
-	$Coments=$res->fetch_all(MYSQLI_ASSOC);
+	//$Coments=$con->query('select * from Comentarios');
 	
 ?>
 <section id="gal">
 	<h1 class="titulo">Galería de Fotos</h1>
 	<?php
 		//Creo objetos Img en base al array asociativo obtenido.
+	/*
 		$iMax=count($Imgs);
 		for($i=0;$i<$iMax;$i++)
 		{
@@ -41,6 +37,7 @@
 			$Coments[$i]=new Coment($con , $Coments[$i]);
 			echo '<h2>Obtenido comentario '.$i.'</h2>';
 		}
+	*/
 		
 		//Se rellenó el formulario de nueva imagen, la agrego a la lista
 		//de imágenes a desplegar.
@@ -57,29 +54,41 @@
 		}
 
 		//:::::::::::::::::::::::::::::::HTML::::::::::::::::::::::::::::::::::::
-		$bootstrap=[12,6,4,3];				// xs , sm , md , lg
+
+		$imgBootstrap=new Arr_Gen_HTML
+		(
+			[
+				' col-xs-',
+				' col-sm-',
+				' col-md-',
+				' col-lg-',
+				''
+			],
+			[12,6,4,3]
+		);
 
 		$_SESSION['cache']=!$_SESSION['cache'];		//Si cache era 0 ahora es 1, y viceversa.
 		$Gal=new Gal_HTML
 		(
-			$Imgs,
-			new Mod_HTML
+			'select * from Imagenes',
+			$con,
+			new Obj_Gen_HTML
 			(
-				[
-					"<a class='col-xs-".$bootstrap[0].' col-sm-'.$bootstrap[1].
-					' col-md-'.$bootstrap[2].' col-lg-'.$bootstrap[3].              
+				[       
+					"<a class='",
 					"' href=\"index.php?gImgID=",
 					'#gal" ><p>',
 					'</p><img src="',
 					'" width="200" height="200" /></a>'
 				],
 				[
+					$imgBootstrap,
 					'ID',
 					'Titulo',
 					'Url'
 				]
 			),
-			new Mod_HTML
+			new Obj_Gen_HTML
 			(
 				[
 					'
@@ -158,7 +167,7 @@
 				'Url'	=>'img/nueva_imagen.png'
 			]
 		);
-		$comentsMod=new Mod_HTML
+		$comentsMod=new Obj_Gen_HTML
 		(
 			[
 				'<div>
@@ -170,7 +179,7 @@
 				'Contenido'
 			]
 		);
-		$nImgMod=new Mod_HTML
+	/*	$nImgMod=new Obj_Gen_HTML
 		(
 			[
 				"<a class='col-xs-".$bootstrap[0].' col-sm-'.$bootstrap[1].
@@ -184,12 +193,14 @@
 				'Url'
 			]
 		);
-		echo $nImgMod->gen($nImg);
+	*/
+	//	echo $nImgMod->gen($nImg);
+	/*
 		for($i=0;$i<count($Coments);$i++)
 		{
 			echo $comentsMod->gen($Coments[$i]);
 		}
-		
+	*/
 		if(isset($_GET['gNImgDiag']))
 		{
 			echo	'

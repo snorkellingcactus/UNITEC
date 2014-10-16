@@ -68,5 +68,6 @@ function resaltaOpcN($num)
 		?>
 	</main>
 	<div class="footer"> <c> powered by bootstrap </c></div>
+</body>
 </html>
 
