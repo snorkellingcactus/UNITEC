@@ -137,7 +137,6 @@
 		echo $Gal->gen();
 		
 		
-		
 		//Creo el boton nueva imagen.
 		$nImg=new Img
 		(
@@ -183,50 +182,7 @@
 	*/
 		if(isset($_GET['gNImgDiag']))
 		{
-			echo	'
-				<div class="difumina">
-				</div>
-				<div class="visor">
-						<form method="POST" action="index.php#gal">
-							<p class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
-								<label for="Titulo">Titulo:</label>
-							</p>
-							<input type="text" name="Titulo" class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
-							<div class="clearfix"></div>
-
-							<p class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
-								<label for="Url">Url:</label>
-							</p>
-							<input type="text" name="Url" class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
-							<div class="clearfix"></div>
-
-							<p class="col-xs-12 col-sm-4 col-md-4 col-lg-4">		
-								<label for="Alt" >Alt:</label>
-							</p>
-							<input type="text" name="Alt" class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
-							<div class="clearfix"></div>
-
-							<p class="col-xs-12 col-sm-4 col-md-4 col-lg-4">		
-								<label for="Lenguaje">Lenguaje:</label>
-							</p>
-							<select name="Lenguaje" class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
-								<option value="es_ar" selected>es_ar</option>
-								<option value="en">en</option>
-							</select>
-							<div class="clearfix"></div>
-
-							<p class="col-xs-12 col-sm-4 col-md-4 col-lg-4">	
-								<label for="Comentarios">Comentarios:</label>
-							</p>
-							<input type="text" name="Comentarios" class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
-							<div class="clearfix"></div>
-							
-							<input type="submit" value="Aceptar" class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-
-							<a href="index.php#gal" class="col-xs-6 col-sm-6 col-md-6 col-lg-6">Cancelar</a>
-						</form>
-				</div>
-				';
+			include_once('forms/nueva_imagen.html');
 		}
 	?>
 </section>
