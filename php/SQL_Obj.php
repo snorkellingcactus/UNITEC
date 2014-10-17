@@ -15,14 +15,17 @@ function eachNan($asoc , $fnA , $fnB)
 		}
 	}
 }
-class SQLObj
+class SQL_Obj
 {
 	public $con;
+	public $actForaneas=true;
 
 	private $table;
 	private $props;
 	private $buff;
 	private $buffAux;
+	private	$foraneasLst=NULL;
+	private $foraneasIndex=0;
 
 	public $ID;
 
@@ -91,11 +94,19 @@ class SQLObj
 	}
 	
 	//Actualiza los campos de un registro de este elemento en la base de datos.
-	public function updSQL($prop)
+	public function updSQL()
 	{
 		if(!isset($this->ID))
 		{
 			return 0;
+		}
+		if(func_num_args())
+		{
+			$prop=func_get_args()[0];
+		}
+		else
+		{
+			$prop=$this->props;
 		}
 		if(is_array($prop))
 		{
@@ -111,7 +122,7 @@ class SQLObj
 			//Saco comas finales, cierro parentesis y agrego espacio.
 			$this->buff=substr($this->buff,0,strlen($this->buff)-1).' where ID='.$this->ID;
 			
-			$res=$this->con->query($buff);
+			$res=$this->con->query($this->buff);
 
 			$buff='';
 
@@ -124,11 +135,14 @@ class SQLObj
 				'update '.$this->table.' set '.$prop.' = '.$this->sqlVal($this->$prop).' where ID='.$this->ID
 			);
 		}
+		$this->foraneas('updSQL');
 	}
 
 	//Crea un nuevo registro de este elemento en la base de datos.
 	public function insSQL()
 	{
+		$this->foraneas('insSQL');
+
 		$this->buff=$this->buff.'insert into '.$this->table.' ( ';
 		$this->buffAux=$this->buffAux.' values( ';
 
@@ -143,9 +157,37 @@ class SQLObj
 		$this->buffAux=substr($this->buffAux,0,strlen($this->buffAux)-1).' ) ';
 		echo '<h2>'.$this->buff.$this->buffAux.'</h2>';
 		$res=$this->con->query($this->buff.$this->buffAux);
+		$this->ID=$this->con->insert_id;
 
 		$this->buff='';
 		$this->buffAux='';
+		return $res;
+	}
+	public function remSQL()
+	{
+		$this->con->query('delete from '.$this->table.' where ID='.$this->ID);
+		$this->foraneas('remSQL');
+	}
+	public function foraneas($opStr)
+	{
+		if(isset($this->foraneasLst)&&$this->actForaneas)
+		{
+			for($i=0;$i<$this->foraneasIndex;$i++)
+			{
+				$this->foraneasLst[$i]->opSQL($opStr);
+			}
+		}
+	}
+	public function insForaneas($sqlObj,$foraneas)
+	{
+		if(!isset($this->foraneasLst))
+		{
+			$this->foraneasLst=[];
+		}
+		
+		$res=$this->foraneasLst[$this->foraneasIndex]=new Foraneas($this , $sqlObj , $foraneas);
+
+		++$this->foraneasIndex;
 
 		return $res;
 	}

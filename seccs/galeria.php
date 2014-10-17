@@ -24,16 +24,37 @@
 
 	include_once 'php/conexion.php';
 	include_once 'php/Gal_HTML.php';
-	include_once 'php/Coment.php';
 	
-	if(isset($_SESSION['comContenido']))
+	if(isset($_POST['comContenido']))
 	{
+		include_once 'php/Coment.php';
+		include_once 'php/Contenido.php';
+		include_once 'php/Foraneas.php';
+
 		if(isset($_SESSION['vGen'])&&isset($_SESSION['vImgID']))
 		{
-			$coment=new Coment($con);
-			$coment->contenidoHTML=$_SESSION['comContenido'];
-			$coment->GrupoID=$_SESSION['vImgID'];
-			$coment->insSQL();
+			$Coment=new Coment
+			(
+				$con,
+				[
+					'GrupoID'=>$_SESSION['vImgID']
+				]
+			);
+			$Coment->insForaneas
+			(
+				new Contenido
+				(
+					$con,
+					[
+						'Contenido'=>htmlentities($_POST['comContenido'])
+					]
+				),
+				[
+					'Contenido'=>'ID'
+				]
+			);
+			
+			$Coment->insSQL();
 		}
 	}
 	$comentMod=new Obj_Gen_HTML
@@ -48,16 +69,15 @@
 	);
 	$comentBuff='';
 	//Obtengo los comentarios.
-	$consulta=$con->query('select * from Comentarios');
+	$consulta=$con->query('select Contenido from Comentarios');
 	$consulta=$consulta->fetch_all(MYSQLI_ASSOC);
-	$Coments=[];
+	$contenido=[];
 	$iMax=count($consulta);
-	
+
 	for($i=0;$i<$iMax;$i++)
 	{
-		$Coments[$i]=new Coment($con,$consulta[$i]);
-		$Coments[$i]->contenido();
-		$comentBuff=$comentBuff.$comentMod->gen($Coments[$i]);
+		$consulta[$i]=$con->query('select Contenido from Contenido where ID='.$consulta[$i]['Contenido']);
+		$comentBuff=$comentBuff.$consulta[$i]->fetch_all(MYSQL_ASSOC)[0]['Contenido'];
 	}
 ?>
 <section id="gal">
@@ -172,8 +192,8 @@
 		?>
 		<form class="nComentForm" action="index.php#gal" method="POST">
 			<p>Comentá:</p>
-			<input type="text" name="comContenido" />
-			<input type="submit" value="Ok"/>
+			<input type="text" name="comContenido" >
+			<input type="submit" value="Ok" >
 		</form>
 	</div>
 </div>
