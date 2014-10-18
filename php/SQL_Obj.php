@@ -15,6 +15,8 @@ function eachNan($asoc , $fnA , $fnB)
 		}
 	}
 }
+//Un objeto que permite realizar operaciónes SQL con
+//Una fila de una tabla.
 class SQL_Obj
 {
 	public $con;
@@ -92,7 +94,6 @@ class SQL_Obj
 			$this->buffAux=$this->buffAux.$this->sqlVal($this->$valor).' ,';
 		}
 	}
-	
 	//Actualiza los campos de un registro de este elemento en la base de datos.
 	public function updSQL()
 	{
@@ -137,7 +138,6 @@ class SQL_Obj
 		}
 		$this->foraneas('updSQL');
 	}
-
 	//Crea un nuevo registro de este elemento en la base de datos.
 	public function insSQL()
 	{
@@ -163,11 +163,14 @@ class SQL_Obj
 		$this->buffAux='';
 		return $res;
 	}
+	//Elimina la fila de la BD.
 	public function remSQL()
 	{
 		$this->con->query('delete from '.$this->table.' where ID='.$this->ID);
 		$this->foraneas('remSQL');
 	}
+	//Realiza la operación SQL pasada como parámetro a todos los
+	//Objetos foráneos que halla.
 	public function foraneas($opStr)
 	{
 		if(isset($this->foraneasLst)&&$this->actForaneas)
@@ -178,6 +181,7 @@ class SQL_Obj
 			}
 		}
 	}
+	//Creo una relación foránea con otro SQL_Obj.
 	public function insForaneas($sqlObj,$foraneas)
 	{
 		if(!isset($this->foraneasLst))

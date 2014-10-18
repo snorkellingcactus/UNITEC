@@ -1,5 +1,4 @@
 <?php
-
 class Img extends SQL_Obj
 {
 	function __construct($con)
