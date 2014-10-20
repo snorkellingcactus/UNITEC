@@ -1,4 +1,11 @@
 <?php
+class NULL_Gen_HTML
+{
+	public function recorre($obj)
+	{
+		return '';
+	}
+}
 class Arr_Gen_HTML
 {
 	private $numVars;
@@ -29,7 +36,7 @@ class Arr_Gen_HTML
 			//Si se trata de un objeto genHTML lo genero.
 			if(is_object($prop))
 			{
-				$buff=$buff.$this->estructura[$i].$prop->gen();
+				$buff=$buff.$this->estructura[$i].$prop->recorre($obj);
 				continue;
 			}
 		

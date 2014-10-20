@@ -6,7 +6,7 @@ include_once 'php/Img.php';
 //Si todavía no se inicio sesion, se inicia.
 if(session_status()==PHP_SESSION_NONE)
 {
-	session_start();		
+	session_start();
 }
 //Si no se indicó resaltar ninguna opcion, se resalta el inicio (opcion 0).
 if(!isset($_GET["OpcSel"]))

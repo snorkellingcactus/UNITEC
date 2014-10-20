@@ -1,19 +1,24 @@
 <!DOCTYPE html >
 <?php
-				//Si se quiere cerrar sesión redirijo.
-				if(isset($_GET['cSesion']))
-				{
-						$_SESSION['adminID']=NULL;	//Modo admin off.
-						
-						//Redirección.
-						header('Location: inicio_sesion.php');
-						die();					//Por un motivo desconocido recomiendan el uso de die()
+	//Si todavía no se inicio sesion, se inicia.
+	if(session_status()==PHP_SESSION_NONE)
+	{
+		session_start();
+	}
+	//Si se quiere cerrar sesión redirijo.
+	if(isset($_GET['cSesion']))
+	{
+		$_SESSION['adminID']=NULL;	//Modo admin off.
+		
+		//Redirección.
+		header('Location: inicio_sesion.php');
+		die();					//Por un motivo desconocido recomiendan el uso de die()
 
-						//NOTA IMPORTANTE: Location en el futuro debe contener una URL
-						//absoluta, o en algunos casos no va a ser efectivo además de
-						//no cumplir con el procedimiento estándar.
-						//http://stackoverflow.com/questions/768431/how-to-make-a-redirect-in-php
-				}
+		//NOTA IMPORTANTE: Location en el futuro debe contener una URL
+		//absoluta, o en algunos casos no va a ser efectivo además de
+		//no cumplir con el procedimiento estándar.
+		//http://stackoverflow.com/questions/768431/how-to-make-a-redirect-in-php
+	}
 ?>
 <html lang="es">
 	<head>

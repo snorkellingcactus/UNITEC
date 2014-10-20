@@ -1,118 +1,148 @@
-<?php
-	//Variable utilizada para corregir un error con enlaces que contienen
-	//anclas y variables get. Si el enlace es siempre el mismo, no refresca
-	//el código PHP. La variable cache alterna entre 0 y 1 para evitar el problema.
-	if(!isset($_SESSION['cache']))
-	{
-		$_SESSION['cache']=0;
-	}
-	if(isset($_GET['vImgID'])||isset($_SESSION['vImg']))
-	{
-		$_SESSION['vGen']=1;
-	}
-	if(isset($_GET['vCierra']))
-	{
-		unset($_SESSION['vGen']);
-		unset($_SESSION['vImg']);
-	}
-	if(isset($_GET['sesdest']))
-	{
-		session_destroy();
-	}
-	
-	$_SESSION['cache']=!$_SESSION['cache'];		//Si cache era 0 ahora es 1, y viceversa.
-
-	include_once 'php/conexion.php';
-	include_once 'php/Gal_HTML.php';
-	
-	if(isset($_SESSION['vGen'])&&isset($_SESSION['vImgID']))
-	{
-		//Includes necesarios para imprimir comentarios.
-		include_once 'php/Coment.php';
-		include_once 'php/Contenido.php';
-
-		//Operaciones cuando se llenó un formulario de nuevo comentario.
-		if(isset($_POST['comContenido']))
-		{
-			//Include necesario para manejar llaves foráneas.
-			include_once 'php/Foraneas.php';
-
-			//Creo un objeto comentario.
-			$Coment=new Coment
-			(
-				$con,
-				[
-					'GrupoID'=>$_SESSION['vImgID']
-				]
-			);
-			//Indico que tiene como foráneo un objeto Contenido.
-			$Coment->insForaneas
-			(
-				new Contenido
-				(
-					$con,
-					[
-						'Contenido'=>htmlentities($_POST['comContenido'])
-					]
-				),
-				[
-					'Contenido'=>'ID'
-				]
-			);
-			//Inserto el comentario en la BD.
-			$Coment->insSQL();
-		}
-
-		$comentMod=new Obj_Gen_HTML
-		(
-			[
-				'<p>',
-				'</p>'
-			],
-			[
-				'contenidoHTML'
-			]
-		);
-		
-		//Obtengo los comentarios.
-		$comentBuff='';
-		$consulta=$con->query('select Contenido from Comentarios where GrupoID='.$_SESSION['vImgID']);
-		$consulta=$consulta->fetch_all(MYSQLI_ASSOC);
-		$contenido=[];
-		$cantidad=count($consulta);
-
-		if(!$cantidad)
-		{
-			$comentBuff='<p>Sin comentarios</p>';
-		}
-		else
-		{
-			for($i=0;$i<$cantidad;$i++)
-			{
-				$consulta[$i]=$con->query('select Contenido from Contenido where ID='.$consulta[$i]['Contenido']);
-				$comentBuff=$comentBuff.$consulta[$i]->fetch_all(MYSQL_ASSOC)[0]['Contenido'];
-			}
-		}
-	}
-?>
 <section id="gal">
 	<h1 class="titulo">Galería de Fotos</h1>
 	<?php
-		
-		//Se rellenó el formulario de nueva imagen, la agrego a la lista
-		//de imágenes a desplegar.
-		if(isset($_POST['Titulo']))
+		//Si todavía no se inicio sesion, se inicia.
+		if(session_status()==PHP_SESSION_NONE)
 		{
-			//Creo la imagen y le asigno las propiedades.
-			$Imgs[$i]=new Img($con);
-			$Imgs[$i]->Titulo=$_POST['Titulo'];
-			$Imgs[$i]->Url=$_POST['Url'];
-			$Imgs[$i]->Alt=$_POST['Alt'];
-
-			//La inserto en la bd.
-			$Imgs[$i]->insSQL();
+			session_start();
 		}
+		$modoAdmin=isset($_SESSION['adminID']);
+		//Cache por defecto vale 0.
+		if(!isset($_SESSION['cache']))
+		{
+			$_SESSION['cache']=0;
+		}
+		//Se está especificada alguna imagen para mostrar, 
+		//indico que se genere el visor.
+		if(isset($_GET['vImgID'])||isset($_SESSION['vImg']))
+		{
+			$_SESSION['vGen']=1;
+		}
+		//El visor no se va a generar.
+		if(isset($_GET['vCierra']))
+		{
+			unset($_SESSION['vGen']);
+			unset($_SESSION['vImg']);
+		}
+		//Para pruebas, destruye la sesión actual.
+		if(isset($_GET['sesdest']))
+		{
+			session_destroy();
+		}
+		//Variable utilizada para corregir un error con enlaces que contienen
+		//anclas y variables get. Si el enlace es siempre el mismo, no refresca
+		//el código PHP. La variable cache alterna entre 0 y 1 para evitar el problema.
+		$_SESSION['cache']=!$_SESSION['cache'];
+	
+		include_once 'php/conexion.php';
+		include_once 'php/Gal_HTML.php';
+		
+		//Genero el visor si hay que hacerlo.
+		if(isset($_SESSION['vGen'])&&isset($_SESSION['vImgID']))
+		{
+			//Includes necesarios para imprimir comentarios.
+			include_once 'php/Coment.php';
+			include_once 'php/Contenido.php';
+	
+			//Operaciones cuando se llenó un formulario de nuevo comentario.
+			if(isset($_POST['comContenido']))
+			{
+				//Include necesario para manejar llaves foráneas.
+				include_once 'php/Foraneas.php';
+	
+				//Creo un objeto comentario.
+				$Coment=new Coment
+				(
+					$con,
+					[
+						'GrupoID'=>$_SESSION['vImgID']
+					]
+				);
+				//Indico que tiene como foráneo un objeto Contenido.
+				$Coment->insForaneas
+				(
+					new Contenido
+					(
+						$con,
+						[
+							'Contenido'=>htmlentities($_POST['comContenido'])
+						]
+					),
+					[
+						'Contenido'=>'ID'
+					]
+				);
+				//Inserto el comentario en la BD.
+				$Coment->insSQL();
+			}
 
+			$comentMod=new Obj_Gen_HTML
+			(
+				[
+					'<p>',
+					'</p>'
+				],
+				[
+					'contenidoHTML'
+				]
+			);
+			
+			//Obtengo los comentarios.
+			$comentBuff='';
+			$consulta=$con->query('select Contenido from Comentarios where GrupoID='.$_SESSION['vImgID']);
+			$consulta=$consulta->fetch_all(MYSQLI_ASSOC);
+			$contenido=[];
+			$cantidad=count($consulta);
+	
+			if(!$cantidad)
+			{
+				$comentBuff='<p>Sin comentarios</p>';
+			}
+			else
+			{
+				for($i=0;$i<$cantidad;$i++)
+				{
+					$consulta[$i]=$con->query('select Contenido from Contenido where ID='.$consulta[$i]['Contenido']);
+					$comentBuff=$comentBuff.$consulta[$i]->fetch_all(MYSQL_ASSOC)[0]['Contenido'];
+				}
+			}
+		}
+		
+		$dImg=new NULL_Gen_HTML();
+		//Diferencias en modo admin.
+		if($modoAdmin)
+		{
+			//Elimina Imagen.
+			if(isset($_GET['eImgID']))
+			{
+				$con->query('delete from Imagenes where ID='.$_GET['eImgID']);
+			}
+			//Se rellenó el formulario de nueva imagen, la inserto en la bd.
+			if(isset($_POST['Titulo']))
+			{
+				
+				//Creo la imagen y le asigno las propiedades.
+				$Img=new Img($con);
+				$Img->Titulo=$_POST['Titulo'];
+				$Img->Url=$_POST['Url'];
+				$Img->Alt=$_POST['Alt'];
+			
+				//La inserto en la bd.
+				$Img->insSQL();
+			}
+
+			//Cruz ( x ) para eliminar imágenes.
+			$dImg=new Obj_Gen_HTML
+			(
+				[
+					'<a class="eImg" href="index.php?eImgID=','#gal">x</a>'
+				],
+				[
+					'ID'
+				]
+			);
+		}
+		
 		//:::::::::::::::::::::::::::::::HTML::::::::::::::::::::::::::::::::::::
 		//Valores para las clases col-xx-xx de las imágenes.
 		$imgBootstrap=new Arr_Gen_HTML
@@ -126,26 +156,31 @@
 			],
 			[12,6,4,3]
 		);
+		$imgMod=new Obj_Gen_HTML
+		(
+			[       
+				'
+				<div class="gImg ','">
+					<a href="index.php?vImgID=','#gal" >
+						<p>','</p>
+						<img src="','" width="200" height="200" />
+					</a>','
+				</div>
+				'
+			],
+			[
+				$imgBootstrap,
+				'ID',
+				'Titulo',
+				'Url',
+				$dImg
+			]
+		);
 		$Gal=new Gal_HTML
 		(
 			'select * from Imagenes',
 			$con,
-			new Obj_Gen_HTML
-			(
-				[       
-					'<a class="','" href="index.php?vImgID=','#gal" >
-						<p>','</p>
-						<img src="','" width="200" height="200" />
-					</a>
-					'
-				],
-				[
-					$imgBootstrap,
-					'ID',
-					'Titulo',
-					'Url'
-				]
-			)
+			$imgMod
 		);
 		if(isset($_SESSION['vGen']))
 		{
@@ -185,6 +220,10 @@
 										'.$comentBuff.'
 									</div>
 								</div>
+								'.file_get_contents('forms/nuevo_coment.php').
+								'
+							</div>
+						</div>
 						'
 						
 					],
@@ -202,63 +241,65 @@
 		}
 		//Genero el código HTML de la galería.
 		echo $Gal->gen();
+
+		//
 		if(isset($Gal->visor))
 		{
-		?>
-		<form class="nComentForm" action="index.php#gal" method="POST">
-			<p>Comentá:</p>
-			<input type="text" name="comContenido" >
-			<input type="submit" value="Ok" >
-		</form>
-	</div>
-</div>
-		<?php
-		}
-		//Creo el boton nueva imagen.
-		$nImg=new Img
-		(
-			$con,
-			[
-				'Titulo'=>'Nueva Imagen',
-				'Url'	=>'img/nueva_imagen.png'
-			]
-		);
-		$comentsMod=new Obj_Gen_HTML
-		(
-			[
-				'<div>
-					<p>',
-					'</p>
-				</div>'
-			],
-			[
-				'Contenido'
-			]
-		);
-		$nImgMod=new Obj_Gen_HTML
-		(
-			[
-				'<a class="',              
-				'" href="index.php?gNImgDiag=1#gal" ><p>',
-				'</p><img src="',
-				'" width="200" height="200" /></a>'				
-			],
-			[
-				$imgBootstrap,
-				'Titulo',
-				'Url'
-			]
-		);
-	
-		echo $nImgMod->gen($nImg);
-
-		if(isset($_GET['gNImgDiag']))
-		{
-			include_once('forms/nueva_imagen.html');
+	?>
+	<?php
 		}
 		if(isset($_GET['nComentDiag']))
 		{
 			include_once('forms/nuevo_comentario.html');
+		}
+		if($modoAdmin)
+		{
+			//Creo el boton nueva imagen.
+			$nImg=new Img
+			(
+				$con,
+				[
+					'Titulo'=>'Nueva Imagen',
+					'Url'	=>'img/nueva_imagen.png'
+				]
+			);
+			$comentsMod=new Obj_Gen_HTML
+			(
+				[
+					'<div>
+						<p>',
+						'</p>
+					</div>'
+				],
+				[
+					'Contenido'
+				]
+			);
+			$nImgMod=new Obj_Gen_HTML
+			(
+				[
+					'<div class="nImg ','" >
+						<a href="index.php?gNImgDiag=1#gal" >',
+							'<img src="','" width="200" height="200" />
+						</a>
+					</div>'			
+				],
+				[
+					$imgBootstrap,
+					'Titulo',
+					'Url'
+				]
+			);
+		
+			echo $nImgMod->gen($nImg);
+	
+			//::::::::Formularios:::::::::::::
+
+			//Nueva Imagen.
+			if(isset($_GET['gNImgDiag']))
+			{
+				include_once('forms/nueva_imagen.html');
+			}
 		}
 	?>
 </section>
