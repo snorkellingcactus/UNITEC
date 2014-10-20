@@ -25,14 +25,19 @@
 	include_once 'php/conexion.php';
 	include_once 'php/Gal_HTML.php';
 	
-	if(isset($_POST['comContenido']))
+	if(isset($_SESSION['vGen'])&&isset($_SESSION['vImgID']))
 	{
+		//Includes necesarios para imprimir comentarios.
 		include_once 'php/Coment.php';
 		include_once 'php/Contenido.php';
-		include_once 'php/Foraneas.php';
 
-		if(isset($_SESSION['vGen'])&&isset($_SESSION['vImgID']))
+		//Operaciones cuando se llenó un formulario de nuevo comentario.
+		if(isset($_POST['comContenido']))
 		{
+			//Include necesario para manejar llaves foráneas.
+			include_once 'php/Foraneas.php';
+
+			//Creo un objeto comentario.
 			$Coment=new Coment
 			(
 				$con,
@@ -40,6 +45,7 @@
 					'GrupoID'=>$_SESSION['vImgID']
 				]
 			);
+			//Indico que tiene como foráneo un objeto Contenido.
 			$Coment->insForaneas
 			(
 				new Contenido
@@ -53,31 +59,40 @@
 					'Contenido'=>'ID'
 				]
 			);
-			
+			//Inserto el comentario en la BD.
 			$Coment->insSQL();
 		}
-	}
-	$comentMod=new Obj_Gen_HTML
-	(
-		[
-			'<p>',
-			'</p>'
-		],
-		[
-			'contenidoHTML'
-		]
-	);
-	$comentBuff='';
-	//Obtengo los comentarios.
-	$consulta=$con->query('select Contenido from Comentarios');
-	$consulta=$consulta->fetch_all(MYSQLI_ASSOC);
-	$contenido=[];
-	$iMax=count($consulta);
 
-	for($i=0;$i<$iMax;$i++)
-	{
-		$consulta[$i]=$con->query('select Contenido from Contenido where ID='.$consulta[$i]['Contenido']);
-		$comentBuff=$comentBuff.$consulta[$i]->fetch_all(MYSQL_ASSOC)[0]['Contenido'];
+		$comentMod=new Obj_Gen_HTML
+		(
+			[
+				'<p>',
+				'</p>'
+			],
+			[
+				'contenidoHTML'
+			]
+		);
+		
+		//Obtengo los comentarios.
+		$comentBuff='';
+		$consulta=$con->query('select Contenido from Comentarios where GrupoID='.$_SESSION['vImgID']);
+		$consulta=$consulta->fetch_all(MYSQLI_ASSOC);
+		$contenido=[];
+		$cantidad=count($consulta);
+
+		if(!$cantidad)
+		{
+			$comentBuff='<p>Sin comentarios</p>';
+		}
+		else
+		{
+			for($i=0;$i<$cantidad;$i++)
+			{
+				$consulta[$i]=$con->query('select Contenido from Contenido where ID='.$consulta[$i]['Contenido']);
+				$comentBuff=$comentBuff.$consulta[$i]->fetch_all(MYSQL_ASSOC)[0]['Contenido'];
+			}
+		}
 	}
 ?>
 <section id="gal">
@@ -236,12 +251,7 @@
 		);
 	
 		echo $nImgMod->gen($nImg);
-	/*
-		for($i=0;$i<count($Coments);$i++)
-		{
-			echo $comentsMod->gen($Coments[$i]);
-		}
-	*/
+
 		if(isset($_GET['gNImgDiag']))
 		{
 			include_once('forms/nueva_imagen.html');
