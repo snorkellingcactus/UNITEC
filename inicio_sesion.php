@@ -1,58 +1,78 @@
 <!DOCTYPE html >
 <?php
-     //Precondiciones necesarias.
-     if(!isset($num))
-     {
-     $num=0;
-     };
-     if(!isset($_GET["OpcSel"]))
-     {
-     $_GET["OpcSel"]=0;
-     }
-     
-     
-     //Resalta la función del menú correspondiente.
-     function resaltaOpcN($num)
-     {
-     if($_GET["OpcSel"]==$num)
-     {
-     echo 'class="resaltaOpc"';
-     }
-     }
-     ?>
+				//Si se quiere cerrar sesión redirijo.
+				if(isset($_GET['cSesion']))
+				{
+						$_SESSION['adminID']=NULL;	//Modo admin off.
+						
+						//Redirección.
+						header('Location: inicio_sesion.php');
+						die();					//Por un motivo desconocido recomiendan el uso de die()
+
+						//NOTA IMPORTANTE: Location en el futuro debe contener una URL
+						//absoluta, o en algunos casos no va a ser efectivo además de
+						//no cumplir con el procedimiento estándar.
+						//http://stackoverflow.com/questions/768431/how-to-make-a-redirect-in-php
+				}
+?>
 <html lang="es">
 	<head>
 		<meta charset="utf-8" />
 		<meta name="description" content="Página principal Unitec." />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-			<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
 				
-				<link rel="icon" type="image/png" href="./img/unitec-favicon.png"  />
-				<link rel="shortcut icon" type="image/ico" href="./img/unitec-favicon.ico"  />
-				<link rel="stylesheet" type="text/css" href="./index.css" />
-				<link rel="stylesheet" type="text/css" href="./header.css" />
-				<link rel="stylesheet" type="text/css" href="./seccs/menu.css" />
-				<link rel="stylesheet" type="text/css" href="./seccs/inicio_sesion.css" />
-				<link rel="stylesheet" type="text/css" href="./bootstrap.min.css" />
-				<title>Unitec</title>
-				<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-				<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-				<!--[if lt IE 9]>
-				<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-				<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-				<![endif]-->
-			</head>
-			<body>
-				<!-- usad para utlizar las propiedades responsive de bootstrap -->
-				<div class="container-fluid" style="padding: 0">
-					
-					<div class="header">
-						<a href='./index.php'>Ir Atrás</a>
-					</div>
-				</div>
-				<main class="col-xs-10 col-sm-10 col-lg-10">
-					<?php
-						include './seccs/inicio_sesion.php';
-					?>
-				</main>
-			</html>
+		<link rel="icon" type="image/png" href="./img/unitec-favicon.png"  />
+		<link rel="shortcut icon" type="image/ico" href="./img/unitec-favicon.ico"  />
+		<link rel="stylesheet" type="text/css" href="./index.css" />
+		<link rel="stylesheet" type="text/css" href="./header.css" />
+		<link rel="stylesheet" type="text/css" href="./seccs/menu.css" />
+		<link rel="stylesheet" type="text/css" href="./seccs/inicio_sesion.css" />
+		<link rel="stylesheet" type="text/css" href="./bootstrap.min.css" />
+		<title>Unitec</title>
+	</head>
+	<body>
+		<div class="container-fluid" style="padding: 0">
+			
+			<div class="header">
+				<a href='./index.php'>Ir al inicio</a>
+			</div>
+		</div>
+		<main class="col-xs-10 col-sm-10 col-lg-10">
+			<?php
+				$msg='';		//Mensaje opcional en el cuadro login.
+
+				//Si se rellenó el formulario login lo valido.
+				if(isset($_POST['contrasena'])&&isset($_POST['Nombre']))
+				{
+					include	'php/conexion.php';
+				
+					//Trato de obtener el usuario.
+					$usuario=$con->query('select * from Usuarios where Contrasena="'.sha1($_POST['contrasena']).'"');
+				
+					//Operaciones a realizar si se obtuvo.
+					if($con->affected_rows>0)
+					{
+						$usuario=$usuario->fetch_all(MYSQLI_ASSOC)[0];
+				
+						//Variable que define el modo administrador.
+						$_SESSION['adminID']=$usuario['ID'];
+					}
+					else
+					{
+						$msg='El usuario no existe';
+					}
+				}
+
+				if(isset($_SESSION['adminID']))
+				{
+					include './seccs/panel_admin.php';	//Incluyo el panel.
+				}
+				else
+				{
+					echo '<h2>'.$msg.'</h2>';		//Despliego mensaje opcional.
+					include './seccs/login.php';		//Formulario login.
+				}
+			?>
+		</main>
+</html>
