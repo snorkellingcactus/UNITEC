@@ -14,7 +14,12 @@
 		}
 		//Se está especificada alguna imagen para mostrar, 
 		//indico que se genere el visor.
-		if(isset($_GET['vImgID'])||isset($_SESSION['vImg']))
+		if(isset($_GET['vImgID']))
+		{
+			$_SESSION['vImgID']=intval($_GET['vImgID']);
+			$_SESSION['vGen']=1;
+		}
+		if(isset($_SESSION['vImg']))
 		{
 			$_SESSION['vGen']=1;
 		}
@@ -38,7 +43,7 @@
 		include_once 'php/Gal_HTML.php';
 		
 		//Genero el visor si hay que hacerlo.
-		if(isset($_SESSION['vGen'])&&isset($_SESSION['vImgID']))
+		if(isset($_SESSION['vGen']))
 		{
 			//Includes necesarios para imprimir comentarios.
 			include_once 'php/Coment.php';
