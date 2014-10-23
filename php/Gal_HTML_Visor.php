@@ -92,4 +92,11 @@ class	Gal_HTML_Visor
 		return 0;
 	}
 }
+class Comentarios
+{
+	public function __construct()
+	{
+		
+	}
+}
 ?>

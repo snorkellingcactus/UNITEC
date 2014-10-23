@@ -42,77 +42,6 @@
 		include_once 'php/conexion.php';
 		include_once 'php/Gal_HTML.php';
 		
-		//Genero el visor si hay que hacerlo.
-		if(isset($_SESSION['vGen']))
-		{
-			//Includes necesarios para imprimir comentarios.
-			include_once 'php/Coment.php';
-			include_once 'php/Contenido.php';
-	
-			//Operaciones cuando se llenó un formulario de nuevo comentario.
-			if(isset($_POST['comContenido']))
-			{
-				//Include necesario para manejar llaves foráneas.
-				include_once 'php/Foraneas.php';
-	
-				//Creo un objeto comentario.
-				$Coment=new Coment
-				(
-					$con,
-					[
-						'GrupoID'=>$_SESSION['vImgID']
-					]
-				);
-				//Indico que tiene como foráneo un objeto Contenido.
-				$Coment->insForaneas
-				(
-					new Contenido
-					(
-						$con,
-						[
-							'Contenido'=>htmlentities($_POST['comContenido'])
-						]
-					),
-					[
-						'Contenido'=>'ID'
-					]
-				);
-				//Inserto el comentario en la BD.
-				$Coment->insSQL();
-			}
-
-			$comentMod=new Obj_Gen_HTML
-			(
-				[
-					'<p>',
-					'</p>'
-				],
-				[
-					'contenidoHTML'
-				]
-			);
-			
-			//Obtengo los comentarios.
-			$comentBuff='';
-			$consulta=$con->query('select Contenido from Comentarios where GrupoID='.$_SESSION['vImgID']);
-			$consulta=$consulta->fetch_all(MYSQLI_ASSOC);
-			$contenido=[];
-			$cantidad=count($consulta);
-	
-			if(!$cantidad)
-			{
-				$comentBuff='<p>Sin comentarios</p>';
-			}
-			else
-			{
-				for($i=0;$i<$cantidad;$i++)
-				{
-					$consulta[$i]=$con->query('select Contenido from Contenido where ID='.$consulta[$i]['Contenido']);
-					$comentBuff=$comentBuff.$consulta[$i]->fetch_all(MYSQL_ASSOC)[0]['Contenido'];
-				}
-			}
-		}
-		
 		$dImg=new NULL_Gen_HTML();
 		//Diferencias en modo admin.
 		if($modoAdmin)
@@ -189,6 +118,55 @@
 		);
 		if(isset($_SESSION['vGen']))
 		{
+			//Includes necesarios para imprimir comentarios.
+			include_once 'php/Coment.php';
+			include_once 'php/Contenido.php';
+			
+			$comentsMod=new Obj_Gen_HTML
+			(
+				[
+					'<div>
+						<p>',
+						'</p>
+					</div>'
+				],
+				[
+					'Contenido'
+				]
+			);
+	
+			//Operaciones cuando se llenó un formulario de nuevo comentario.
+			if(isset($_POST['comContenido']))
+			{
+				//Include necesario para manejar llaves foráneas.
+				include_once 'php/Foraneas.php';
+	
+				//Creo un objeto comentario.
+				$Coment=new Coment
+				(
+					$con,
+					[
+						'GrupoID'=>$_SESSION['vImgID']
+					]
+				);
+				//Indico que tiene como foráneo un objeto Contenido.
+				$Coment->insForaneas
+				(
+					new Contenido
+					(
+						$con,
+						[
+							'Contenido'=>htmlentities($_POST['comContenido'])
+						]
+					),
+					[
+						'Contenido'=>'ID'
+					]
+				);
+				//Inserto el comentario en la BD.
+				$Coment->insSQL();
+			}
+			
 			$Gal->creaVisor
 			(
 				new Obj_Gen_HTML
@@ -266,18 +244,6 @@
 				[
 					'Titulo'=>'Nueva Imagen',
 					'Url'	=>'img/nueva_imagen.png'
-				]
-			);
-			$comentsMod=new Obj_Gen_HTML
-			(
-				[
-					'<div>
-						<p>',
-						'</p>
-					</div>'
-				],
-				[
-					'Contenido'
 				]
 			);
 			$nImgMod=new Obj_Gen_HTML

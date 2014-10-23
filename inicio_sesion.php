@@ -65,7 +65,8 @@
 					}
 					else
 					{
-						$msg='El usuario no existe';
+						$msg='El usuario no existe<br>';
+						echo sha1($_POST['contrasena']);
 					}
 				}
 
