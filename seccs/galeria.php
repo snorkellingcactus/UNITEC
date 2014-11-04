@@ -158,6 +158,18 @@
 			$HTMLBuff=$Gal->gen();
 			
 			//Genero los comentarios.
+			$comentsMod=new Arr_Gen_HTML
+			(
+				[
+					'<div>
+						<p>',
+						'</p>
+					</div>'
+				],
+				[
+					'Contenido'
+				]
+			);
 			$comentBuff='';
 			$consulta=$con->query('select Contenido from Comentarios where GrupoID='.$_SESSION['vImgID']);
 			$consulta=$consulta->fetch_all(MYSQLI_ASSOC);
@@ -173,7 +185,7 @@
 				for($i=0;$i<$cantidad;$i++)
 				{
 					$consulta[$i]=$con->query('select Contenido from Contenido where ID='.$consulta[$i]['Contenido']);
-					$comentBuff=$comentBuff.$consulta[$i]->fetch_all(MYSQL_ASSOC)[0]['Contenido'];
+					$comentBuff=$comentBuff.$comentsMod->recorre($consulta[$i]->fetch_all(MYSQL_ASSOC)[0]);
 				}
 			}
 			
