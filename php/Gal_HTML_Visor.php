@@ -9,10 +9,16 @@ class	Gal_HTML_Visor
 	private	$modHTML;
 	private	$disc=['ID'=>0];	//Propiedades discriminadoras a la hora de determinar una imagen para el visor.
 
-	public function __construct($gal,$modHTML)
+	public function __construct($gal)
 	{
+		$args=func_get_args();
+
+		if(isset($args[1]))
+		{
+			$this->modHTML=$args[1];
+		}
+
 		$this->gal=$gal;
-		$this->modHTML=$modHTML;
 
 		//Variable con el numero de imagen que se va a mostrar.
 		if(!isset($_SESSION['vImg']))
@@ -36,6 +42,12 @@ class	Gal_HTML_Visor
 	}
 	function gen()
 	{
+		$args=func_get_args();
+		if(isset($args[0]))
+		{
+			$this->modHTML=$args[0];
+		}
+
 		return $this->modHTML->gen($this->imgSel);
 	}
 	//Desplaza la imagen seleccionada para el visor $inc veces.

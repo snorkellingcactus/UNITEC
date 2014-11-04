@@ -40,9 +40,11 @@ class Gal_HTML
 			$this->creaVisor($args[$nArgs+2]);
 		}
 	}
-	function creaVisor($modHTML)
+	function creaVisor($modHTML=NULL)
 	{
 		$this->visor=new Gal_HTML_Visor($this,$modHTML);
+
+		return $this->visor;
 	}
 	function nImg($img)
 	{
@@ -65,12 +67,6 @@ class Gal_HTML
 					$this->visor->discImg($i);
 				}
 			}
-		}
-
-		
-		if(isset($this->visor))
-		{
-			$buff=$buff.$this->visor->gen();
 		}
 
 		return $buff;

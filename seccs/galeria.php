@@ -121,20 +121,7 @@
 			//Includes necesarios para imprimir comentarios.
 			include_once 'php/Coment.php';
 			include_once 'php/Contenido.php';
-			
-			$comentsMod=new Obj_Gen_HTML
-			(
-				[
-					'<div>
-						<p>',
-						'</p>
-					</div>'
-				],
-				[
-					'Contenido'
-				]
-			);
-	
+
 			//Operaciones cuando se llenó un formulario de nuevo comentario.
 			if(isset($_POST['comContenido']))
 			{
@@ -167,7 +154,30 @@
 				$Coment->insSQL();
 			}
 			
-			$Gal->creaVisor
+			$Gal->creaVisor();
+			$HTMLBuff=$Gal->gen();
+			
+			//Genero los comentarios.
+			$comentBuff='';
+			$consulta=$con->query('select Contenido from Comentarios where GrupoID='.$_SESSION['vImgID']);
+			$consulta=$consulta->fetch_all(MYSQLI_ASSOC);
+			$contenido=[];
+			$cantidad=count($consulta);
+
+			if(!$cantidad)
+			{
+				$comentBuff='<p>Sin comentarios</p>';
+			}
+			else
+			{
+				for($i=0;$i<$cantidad;$i++)
+				{
+					$consulta[$i]=$con->query('select Contenido from Contenido where ID='.$consulta[$i]['Contenido']);
+					$comentBuff=$comentBuff.$consulta[$i]->fetch_all(MYSQL_ASSOC)[0]['Contenido'];
+				}
+			}
+			
+			echo $HTMLBuff.$Gal->visor->gen
 			(
 				new Obj_Gen_HTML
 				(
@@ -200,7 +210,7 @@
 								
 								<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 									<div class="comentarios" >
-										'.$comentBuff.'
+// 										'.$comentBuff.'
 									</div>
 								</div>
 								'.file_get_contents('forms/nuevo_coment.php').
@@ -220,9 +230,13 @@
 					]
 				)
 			);
+
 		}
-		//Genero el código HTML de la galería.
-		echo $Gal->gen();
+		else
+		{
+			//Genero el código HTML de la galería.
+			echo $Gal->gen();
+		}
 
 		//
 		if(isset($Gal->visor))
