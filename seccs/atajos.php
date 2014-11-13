@@ -21,11 +21,55 @@
 
 	<h1>Atajos</h1>
 	<table class="table table-condensed2">
-		<tr><td><b>	Inicio				</b></td><td>	<?php echo $accesKey ?> + I</td></tr>
-		<tr><td><b>	Novedades			</b></td><td>	<?php echo $accesKey ?> + N</td></tr>
-		<tr><td><b>	Expacio de extensión</b></td><td>	<?php echo $accesKey ?> + L</td></tr>
-		<tr><td><b>	Novedades			</b></td><td>	<?php echo $accesKey ?> + C</td></tr>
-		<tr><td><b>	Galeria				</b></td><td>	<?php echo $accesKey ?> + G</td></tr>		
+		<tr>
+			<td>
+				<b>Inicio</b>
+			</td>
+			<td>
+				<span class="atajo"><?php echo $accesKey ?></span>
+				<span class="mas">+</span>
+				<span class="atajo">I</span>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<b>Novedades</b>
+			</td>
+			<td>
+				<span class="atajo"><?php echo $accesKey ?></span>
+				<span class="mas">+</span>
+				<span class="atajo">N</span>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<b>Expacio de extensión</b>
+			</td>
+			<td>
+				<span class="atajo"><?php echo $accesKey ?></span>
+				<span class="mas">+</span>
+				<span class="atajo">L</span>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<b>Novedades</b>
+			</td>
+			<td>
+				<span class="atajo"><?php echo $accesKey ?></span>
+				<span class="mas">+</span>
+				<span class="atajo">C</span>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<b>Galeria</b>
+			</td>
+			<td>
+				<span class="atajo"><?php echo $accesKey ?></span>
+				<span class="mas">+</span>
+				<span class="atajo">G</span>
+			</td>
+		</tr>		
 	</table>
-
 </section>

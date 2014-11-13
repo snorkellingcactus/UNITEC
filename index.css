@@ -72,3 +72,20 @@ main
 {
 	padding-top:1%;
 }
+.atajo
+{
+	background-color:white;
+	border-radius:2px;
+	text-align:center;
+	min-width:5em;
+	display:inline-block;
+	padding:5px 3px 5px 3px;
+	border:3px outset silver;
+}
+#atajos table .mas
+{
+	display:inline-block;
+	font-weight:bold;
+	font-size:1.4em;
+	vertical-align: middle
+}
