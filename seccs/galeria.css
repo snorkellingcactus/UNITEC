@@ -66,8 +66,23 @@ label{font-size:2em}
 button,form a{display:block;height:3em;background-color:silver}
 .comentarios
 {
-background-color:red;
-border-radius:3px;
+	background-color:#FBF5EF;
+	border-radius:5px 5px 5px;
+}
+texto
+{
+	position: relative;
+	left: 8px;
+	top: -25px;
+	background: #000000;
+	color:#FFFFFF;
+	width: 100px;
+	line-height: 25px;
+	font-weight:bold;
+	font-size: 13px;
+	padding: 3px 10px;
+	border: 2px solid #CC0000;
+	font-family: verdana,arial,helvetica,sans-serif;
 }
 .helper
 {
@@ -82,4 +97,9 @@ border-radius:3px;
 		width:50%;
 		height:50%;
 	}
+}
+.estilo_comentario
+hr { 
+  background-color: black;
+  height: 1px; 
 }

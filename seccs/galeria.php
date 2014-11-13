@@ -158,7 +158,7 @@
 			$HTMLBuff=$Gal->gen();
 			
 			//Genero los comentarios.
-			$comentsMod=new Arr_Gen_HTML
+			$comentsMod=new Obj_Gen_HTML
 			(
 				[
 					'<div>
@@ -185,7 +185,8 @@
 				for($i=0;$i<$cantidad;$i++)
 				{
 					$consulta[$i]=$con->query('select Contenido from Contenido where ID='.$consulta[$i]['Contenido']);
-					$comentBuff=$comentBuff.$comentsMod->recorre($consulta[$i]->fetch_all(MYSQL_ASSOC)[0]);
+					$consulta[$i]=new Coment($con,$consulta[$i]->fetch_all(MYSQL_ASSOC)[0]);
+					$comentBuff=$comentBuff.$comentsMod->recorre($consulta[$i]);
 				}
 			}
 			
@@ -221,12 +222,12 @@
 								</div>
 								
 								<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-									<div class="comentarios" >
-// 										'.$comentBuff.'
+									<div class="comentarios">
+//COMENTARIOS 							'.$comentBuff.'
 									</div>
-								</div>
-								'.file_get_contents('forms/nuevo_coment.php').
-								'
+								</div class="estilo comentario">
+								<hr>' .file_get_contents('forms/nuevo_coment.php').
+								'</hr>
 							</div>
 						</div>
 						'
