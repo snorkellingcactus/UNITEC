@@ -19,6 +19,7 @@
 		}
 
 		include_once 'php/conexion.php';
+		include_once 'php/SQL_Obj.php';
 		include_once 'php/Img.php';
 		include_once 'php/Gal_HTML.php';
 		include_once 'php/Inc_Esq.php';

@@ -1,7 +1,5 @@
 <!DOCTYPE html >
 <?php
-include_once 'php/SQL_Obj.php';
-include_once 'php/Img.php';
 
 //Si todavía no se inicio sesion, se inicia.
 if(session_status()==PHP_SESSION_NONE)
