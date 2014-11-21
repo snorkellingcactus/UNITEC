@@ -1,10 +1,10 @@
 <?php
-	$accesKey='[Alt]';
+	$accesKey=[	'[Alt]'	];
 
 	$navStrings=
 	[
-		'Firefox'	=>'[Alt] [Shift]',
-		'Mac OS X'	=>'[Control] [Alt]'
+		'Firefox'	=>[	'[Alt]'		,	'[Shift]'	],
+		'Mac OS X'	=>[	'[Control]'	,	'[Alt]'		]
 	];
 
 	$agent=$_SERVER['HTTP_USER_AGENT'];
@@ -16,6 +16,13 @@
 			$accesKey=$valor;
 		}
 	}
+
+	$iMax=count($accesKey);
+	$accesStr='';
+	for($i=0;$i<$iMax;$i++)
+	{
+		$accesStr=$accesStr.'<span class="atajo">'.$accesKey[$i].'</span><span class="mas">+</span>';
+	}
 ?>
 <section class="portada" id="atajos">
 
@@ -26,8 +33,7 @@
 				<b>Inicio</b>
 			</td>
 			<td>
-				<span class="atajo"><?php echo $accesKey ?></span>
-				<span class="mas">+</span>
+				<?php echo $accesStr ?>
 				<span class="atajo">I</span>
 			</td>
 		</tr>
@@ -36,8 +42,7 @@
 				<b>Novedades</b>
 			</td>
 			<td>
-				<span class="atajo"><?php echo $accesKey ?></span>
-				<span class="mas">+</span>
+				<?php echo $accesStr ?>
 				<span class="atajo">N</span>
 			</td>
 		</tr>
@@ -46,8 +51,7 @@
 				<b>Expacio de extensión</b>
 			</td>
 			<td>
-				<span class="atajo"><?php echo $accesKey ?></span>
-				<span class="mas">+</span>
+				<?php echo $accesStr ?>
 				<span class="atajo">L</span>
 			</td>
 		</tr>
@@ -56,8 +60,7 @@
 				<b>Novedades</b>
 			</td>
 			<td>
-				<span class="atajo"><?php echo $accesKey ?></span>
-				<span class="mas">+</span>
+				<?php echo $accesStr ?>
 				<span class="atajo">C</span>
 			</td>
 		</tr>
@@ -66,8 +69,7 @@
 				<b>Galeria</b>
 			</td>
 			<td>
-				<span class="atajo"><?php echo $accesKey ?></span>
-				<span class="mas">+</span>
+				<?php echo $accesStr ?>
 				<span class="atajo">G</span>
 			</td>
 		</tr>		

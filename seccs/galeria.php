@@ -68,7 +68,7 @@
 			//Si se clickeó el botón nueva imagen, imprimo el formulario.
 			if(isset($_GET['gNImgDiag']))
 			{
-				echo '<iframe class="visor" width="100%" height="100%" src="forms/nueva_imagen.html"></iframe>';
+				echo '<iframe width="100%" height="100%" src="forms/nueva_imagen.html"></iframe>';
 			}
 		}
 		//Si se pasó por URL un ID de imagen, abro el visor para mostrarla.
@@ -77,7 +77,7 @@
 			$_SESSION['vImgID']		= intval($_GET['vImgID']);		//Trato de pasar el ID de imagen a número.
 			$_SESSION['vImgLst']	= serialize($Gal->imgLst);		//Reestablezco la lista de imágenes.
 
-			echo '<iframe class="visor" width="100%" height="100%" src="./seccs/visor.php"></iframe>';
+			echo '<iframe width="100%" height="100%" src="./seccs/visor.php"></iframe>';
 		}
 	?>
 </section>

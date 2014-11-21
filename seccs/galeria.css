@@ -33,10 +33,11 @@ button,form a{display:block;height:3em;background-color:silver}
 	border-radius:3px;
 }
 
-.visor
+iframe
 {
+	background-color:transparent;
 	position:fixed;
+	overflow:hidden;
 	top:0px;
 	left:0px;
-	background-color:transparent;
 }

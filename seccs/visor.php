@@ -1,8 +1,8 @@
 <html>
 	<head>
 		<link rel="stylesheet" type="text/css" href="../bootstrap.min.css" />
-		<link rel="stylesheet" type="text/css" href="../esq/visor.css" />
-		<link rel="stylesheet" type="text/css" href="./visor.css" />
+		<link rel="stylesheet" type="text/css" href="visor.css" />
+		<link rel="stylesheet" type="text/css" href="visor_form.css" />
 	</head>
 	<body>
 <?php
@@ -67,15 +67,11 @@
 
 	$esq=$Visor->imgSel;
 ?>
-	<div class="visor">
-		<div class="row">
 			<h2 class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 						<?php echo $esq->Titulo ?>
 						<a href="../index.php?&cache=<?php echo $_SESSION['cache']?>#gal" target="_parent" class="cerrar">X</a>
 			</h2>
-		</div>
-		<div class="row">
-			<div class="col-lg-1 col-md-1 col-sm-1 col-xs-2">
+			<div class="col-lg-1 col-md-1 col-sm-1 col-xs-2 flecha">
 				<a href="visor.php?vInc=-1&cache=<?php echo $_SESSION['cache']?>#gal" >
 					<img src="../img/flecha_i.png" />
 				</a>
@@ -85,12 +81,13 @@
 				<img width="100%" height="100%" src="<?php echo $esq->Url ?>" alt="<?php echo $esq->Alt ?>"/>					
 			</div>
 			
-			<div class="col-lg-1 col-md-1 col-sm-1 col-xs-2">
-				<a href="visor.php?vInc=1&cache=<?php echo $_SESSION['cache']?>#gal" ><img src="../img/flecha_d.png" /></a>
+			<div class="col-lg-1 col-md-1 col-sm-1 col-xs-2 flecha">
+				<a href="visor.php?vInc=1&cache=<?php echo $_SESSION['cache']?>#gal" >
+					<img src="../img/flecha_d.png" />
+				</a>
 			</div>
-		</div>	
-			<div class="row">
-				<div class="comentarios col-lg-12 col-md-12 col-sm-12 col-xs-12" >
+				<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+				<div class="comentarios col-lg-10 col-md-10 col-sm-10 col-xs-10" >
 							<?php
 								include_once '../php/Inc_Esq.php';
 
@@ -117,11 +114,10 @@
 									}
 								}
 		
-								echo $comentBuff
+								echo $comentBuff;
+
+								echo file_get_contents('../forms/nuevo_coment.php');
 							?>
 				</div>
-			</div>
-			<?php echo file_get_contents('../forms/nuevo_coment.php') ?>
-	</div>
 	</body>
 </html>
