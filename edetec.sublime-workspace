@@ -12,85 +12,10 @@
 	"buffers":
 	[
 		{
-			"file": "seccs/visor.css",
+			"file": "msg",
 			"settings":
 			{
-				"buffer_size": 724,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "seccs/visor_form.css",
-			"settings":
-			{
-				"buffer_size": 345,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "forms/nueva_imagen.css",
-			"settings":
-			{
-				"buffer_size": 41,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "forms/nueva_imagen.html",
-			"settings":
-			{
-				"buffer_size": 1805,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "seccs/visor.php",
-			"settings":
-			{
-				"buffer_size": 3514,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "forms/nuevo_coment.php",
-			"settings":
-			{
-				"buffer_size": 172,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "index.css",
-			"settings":
-			{
-				"buffer_size": 1761,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"contents": "body,html{background:rgba(0,0,0,0.7);min-height:100%;}\n.difumina{z-index:5}\n.visor{z-index:10}\n.visor form{padding:5%}\n.visor form p{color:black}\n.visor form a\n{\n	color:black;\n	text-decoration:none;\n	text-align:center;\n}\ninput ,button , .visor form a{box-shadow:0px 0px 3px black;border-radius:3px}\ninput,form a{height:3em}\nlabel{font-size:2em}\nbutton,form a{display:block;height:3em;background-color:silver}",
-			"file": "forms/nuevo_coment.css",
-			"file_size": 408,
-			"file_write_time": 1416552361000000,
-			"settings":
-			{
-				"buffer_size": 408,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "seccs/galeria.css",
-			"settings":
-			{
-				"buffer_size": 674,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "seccs/galeria.php",
-			"settings":
-			{
-				"buffer_size": 2108,
+				"buffer_size": 233,
 				"line_ending": "Unix"
 			}
 		}
@@ -119,19 +44,27 @@
 	},
 	"file_history":
 	[
+		"/opt/lampp/htdocs/Web/Pasantía/edetec/seccs/atajos.php",
+		"/opt/lampp/htdocs/Web/Pasantía/edetec/seccs/galeria.php",
+		"/opt/lampp/htdocs/Web/Pasantía/edetec/seccs/visor.php",
+		"/opt/lampp/htdocs/Web/Pasantía/edetec/seccs/atajos.html",
+		"/opt/lampp/htdocs/Web/Pasantía/edetec/forms/nueva_imagen.css",
+		"/opt/lampp/htdocs/Web/Pasantía/edetec/forms/nuevo_coment.php",
+		"/opt/lampp/htdocs/Web/Pasantía/edetec/index.css",
+		"/opt/lampp/htdocs/Web/Pasantía/edetec/forms/nueva_imagen.html",
+		"/opt/lampp/htdocs/Web/Pasantía/edetec/seccs/visor_form.css",
+		"/opt/lampp/htdocs/Web/Pasantía/edetec/seccs/visor.css",
+		"/opt/lampp/htdocs/Web/Pasantía/edetec/forms/nuevo_coment.css",
+		"/opt/lampp/htdocs/Web/Pasantía/edetec/seccs/galeria.css",
 		"/opt/lampp/htdocs/Web/Pasantía/edetec/edetec.sublime-project",
 		"/opt/lampp/htdocs/Web/Pasantía/edetec/esq/nuevo_coment.css",
-		"/opt/lampp/htdocs/Web/Pasantía/edetec/seccs/visor.php",
 		"/opt/lampp/htdocs/Web/Pasantía/edetec/php/conexion.php",
-		"/opt/lampp/htdocs/Web/Pasantía/edetec/seccs/visor.css",
 		"/opt/lampp/htdocs/Web/Pasantía/edetec/esq/visor.css",
-		"/opt/lampp/htdocs/Web/Pasantía/edetec/index.css",
 		"/opt/lampp/htdocs/Web/Pasantía/edetec/inicio_sesion.php",
 		"/opt/lampp/htdocs/Web/Pasantía/edetec/seccs/inicio_sesion.css",
 		"/C/Users/UNITEC-EDETEC 01/Desktop/Labtic/Sublime Text 2.0.2 x64/Data/Packages/User/Preferences.sublime-settings",
 		"/opt/lampp/htdocs/Web/Pasantía/edetec/index.php",
-		"/opt/lampp/htdocs/Web/Pasantía/edetec/msg",
-		"/opt/lampp/htdocs/Web/Pasantía/edetec/seccs/galeria.php"
+		"/opt/lampp/htdocs/Web/Pasantía/edetec/msg"
 	],
 	"find":
 	{
@@ -149,6 +82,7 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"<span class=\"atajo\"><?php echo $accesKey ?></span>",
 			"mtop"
 		],
 		"highlight": true,
@@ -157,6 +91,7 @@
 		"regex": false,
 		"replace_history":
 		[
+			"<?php echo $accesStr ?>"
 		],
 		"reverse": false,
 		"show_context": true,
@@ -167,275 +102,31 @@
 	"groups":
 	[
 		{
-			"selected": 9,
+			"selected": 0,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "seccs/visor.css",
+					"file": "msg",
 					"settings":
 					{
-						"buffer_size": 724,
+						"buffer_size": 233,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								37,
-								37
+								75,
+								75
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/CSS/CSS.tmLanguage",
-							"translate_tabs_to_spaces": false
+							"syntax": "Packages/Text/Plain text.tmLanguage"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "seccs/visor_form.css",
-					"settings":
-					{
-						"buffer_size": 345,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/CSS/CSS.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "forms/nueva_imagen.css",
-					"settings":
-					{
-						"buffer_size": 41,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								20,
-								20
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/CSS/CSS.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "forms/nueva_imagen.html",
-					"settings":
-					{
-						"buffer_size": 1805,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								315,
-								315
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/HTML/HTML.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "seccs/visor.php",
-					"settings":
-					{
-						"buffer_size": 3514,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								65,
-								65
-							],
-							[
-								147,
-								147
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/PHP/PHP.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 5,
-					"file": "forms/nuevo_coment.php",
-					"settings":
-					{
-						"buffer_size": 172,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								31,
-								31
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/PHP/PHP.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 6,
-					"file": "index.css",
-					"settings":
-					{
-						"buffer_size": 1761,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1009,
-								1009
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/CSS/CSS.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 395.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 7,
-					"file": "forms/nuevo_coment.css",
-					"settings":
-					{
-						"buffer_size": 408,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								52,
-								52
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/CSS/CSS.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 8,
-					"file": "seccs/galeria.css",
-					"settings":
-					{
-						"buffer_size": 674,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								650,
-								650
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/CSS/CSS.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 540.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 9,
-					"file": "seccs/galeria.php",
-					"settings":
-					{
-						"buffer_size": 2108,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1717,
-								1717
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/PHP/PHP.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 1026.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -476,7 +167,7 @@
 	"menu_visible": true,
 	"replace":
 	{
-		"height": 0.0
+		"height": 62.0
 	},
 	"save_all_on_build": true,
 	"select_file":
