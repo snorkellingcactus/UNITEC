@@ -1,4 +1,6 @@
 <?php
+require_once('SQL_Obj.php');
+
 class Img extends SQL_Obj
 {
 	function __construct($con)

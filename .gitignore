@@ -4,3 +4,5 @@
 
 msg
 *.session
+*.sublime*
+*.tmTheme

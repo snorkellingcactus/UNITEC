@@ -1,0 +1,15 @@
+body,html{background:rgba(0,0,0,0.7)}
+.difumina{z-index:5}
+.visor{z-index:10}
+.visor form{padding:5%}
+.visor form p{color:white}
+.visor form a
+{
+	color:black;
+	text-decoration:none;
+	text-align:center;
+}
+input ,button , .visor form a{box-shadow:0px 0px 3px white;border-radius:2px}
+input,form a{height:3em}
+label{font-size:2em}
+button,form a{display:block;height:3em;background-color:silver}
