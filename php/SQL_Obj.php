@@ -155,6 +155,7 @@ class SQL_Obj
 
 		$this->buff=substr($this->buff,0,strlen($this->buff)-1).' ) ';
 		$this->buffAux=substr($this->buffAux,0,strlen($this->buffAux)-1).' ) ';
+
 		$res=$this->con->query($this->buff.$this->buffAux);
 		$this->ID=$this->con->insert_id;
 

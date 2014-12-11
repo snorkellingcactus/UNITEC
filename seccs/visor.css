@@ -33,3 +33,4 @@ h2
 }
 .comentarios form{position:relative;bottom:0px;}
 .comentarios, .imgCont>img {box-shadow:-1px -1px 3px #888888;}
+.comAutor{font-weight:bold}

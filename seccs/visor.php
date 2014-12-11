@@ -34,7 +34,7 @@
 		include_once '../php/Foraneas.php';
 
 		//Creo un objeto comentario.
-		$Coment=new Coment
+		$Comentario=new Coment
 		(
 			$con,
 			[
@@ -42,7 +42,7 @@
 			]
 		);
 		//Indico que tiene como foráneo un objeto Contenido.
-		$Coment->insForaneas
+		$Comentario->insForaneas
 		(
 			new Contenido
 			(
@@ -55,8 +55,20 @@
 				'Contenido'=>'ID'
 			]
 		);
+
+		if(isset($_POST['comNomUsuario']))
+		{
+			$Comentario->NombreUsuario=htmlentities($_POST['comNomUsuario']);
+		}
+
 		//Inserto el comentario en la BD.
-		$Coment->insSQL();
+		$Comentario->insSQL();
+	}
+
+	//Elimino comentario.
+	if(isset($_GET['eComID']))
+	{
+		$con->query('delete from Comentarios where ID='.$_GET['eComID']);
 	}
 	
 	$Visor	= new Gal_HTML_Visor
@@ -95,9 +107,8 @@
 								$comentsMod=new Inc_Esq('../esq/coment.php');
 
 								$comentBuff='';
-								$consulta=$con->query('select Contenido from Comentarios where GrupoID='.$_SESSION['vImgID']);
+								$consulta=$con->query('select Contenido,NombreUsuario,ID from Comentarios where GrupoID='.$_SESSION['vImgID']);
 								$consulta=$consulta->fetch_all(MYSQLI_ASSOC);
-								$contenido=[];
 								$cantidad=count($consulta);
 							
 								if(!$cantidad)
@@ -108,8 +119,24 @@
 								{
 									for($i=0;$i<$cantidad;$i++)
 									{
+										$props=[];
+
+										if(isset($consulta[$i]['NombreUsuario']))
+										{
+											$props['NombreUsuario']=$consulta[$i]['NombreUsuario'];
+										}
+										$props['ID']=$consulta[$i]['ID'];
+
 										$consulta[$i]=$con->query('select Contenido from Contenido where ID='.$consulta[$i]['Contenido']);
-										$consulta[$i]=new Coment($con,$consulta[$i]->fetch_all(MYSQL_ASSOC)[0]);
+
+										$props['Contenido']=$consulta[$i]->fetch_all(MYSQLI_ASSOC)[0]['Contenido'];
+
+										$consulta[$i]=new Coment
+										(
+											$con,
+											$props
+										);
+
 										$comentBuff=$comentBuff.$comentsMod->recorre($consulta[$i]);
 									}
 								}

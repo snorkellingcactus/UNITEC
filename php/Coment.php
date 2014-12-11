@@ -15,10 +15,13 @@ class Coment extends SQL_Obj
 				'GrupoID',
 				'IP',
 				'Usuario',
+				'NombreUsuario',
 				'Contenido',
 				'Baneado'
 			]
 		);
+
+		$this->NombreUsuario='Anónimo';
 
 		if($nArgs>1)
 		{
