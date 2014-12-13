@@ -9,7 +9,7 @@
 	if(isset($_SESSION['adminID']))
 	{
 		?>
-		<a class="eImg" href="index.php?eImgID=<?php echo $esq->ID ?>#gal">x</a>
+			<input type="checkbox" class='eImg' name="eImgID[]" value="<?php echo $esq->ID ?>" />
 		<?php
 	}
 	?>

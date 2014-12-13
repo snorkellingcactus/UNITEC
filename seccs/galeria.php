@@ -29,10 +29,15 @@
 		//Diferencias en modo admin.
 		if($modoAdmin)
 		{
-			//Elimina Imagen.
-			if(isset($_GET['eImgID']))
+			//Elimina Imágenes Seleccionadas.
+			if(isset($_POST['eImgID']))
 			{
-				$con->query('delete from Imagenes where ID='.$_GET['eImgID']);
+				$iMax=count($_POST['eImgID']);
+
+				for($i=0;$i<$iMax;$i++)
+				{
+					$con->query('delete from Imagenes where ID='.$_POST['eImgID'][$i]);
+				}
 			}
 			//Se rellenó el formulario de nueva imagen, la inserto en la bd.
 			if(isset($_POST['Titulo']))
@@ -47,6 +52,15 @@
 				//La inserto en la bd.
 				$Img->insSQL();
 			}
+
+			?>
+				<form action='#gal' method='POST'>
+				<div class='acciones'>
+					Acciones:
+					<input type='submit' value='Eliminar' >
+				</div>
+
+			<?php
 		}
 		
 		//:::::::::::::::::::::::::::::::HTML::::::::::::::::::::::::::::::::::::
@@ -70,6 +84,11 @@
 			{
 				echo '<iframe width="100%" height="100%" src="forms/nueva_imagen.html"></iframe>';
 			}
+
+
+			?>
+				</form>
+			<?php
 		}
 		//Si se pasó por URL un ID de imagen, abro el visor para mostrarla.
 		if(isset($_GET['vImgID']))

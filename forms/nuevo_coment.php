@@ -3,7 +3,7 @@
 	<?php
 		if(isset($_SESSION['comNomUsuario']))
 		{
-			if(isset($_SESSION['adminID']) && isset($_SESSION['adminID']))
+			if(isset($_SESSION['adminID']))
 			{
 				?>
 					<p class='comNomAdmin'> <?php echo $_SESSION['comNomUsuario'] ?></p>

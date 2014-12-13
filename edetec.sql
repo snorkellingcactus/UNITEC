@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 11-12-2014 a las 14:10:31
+-- Tiempo de generación: 13-12-2014 a las 10:12:34
 -- Versión del servidor: 5.6.16
 -- Versión de PHP: 5.5.11
 
@@ -29,6 +29,8 @@ SET time_zone = "+00:00";
 CREATE TABLE IF NOT EXISTS `Comentarios` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `GrupoID` int(11) NOT NULL,
+  `GrupoRes` int(11) DEFAULT NULL,
+  `Respondido` bit(1) DEFAULT NULL,
   `IP` int(11) DEFAULT NULL,
   `Usuario` int(11) DEFAULT NULL,
   `Contenido` int(11) DEFAULT NULL,
@@ -37,32 +39,42 @@ CREATE TABLE IF NOT EXISTS `Comentarios` (
   PRIMARY KEY (`ID`),
   KEY `Usuario` (`Usuario`),
   KEY `Contenido` (`Contenido`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=67 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=82 ;
 
 --
 -- Volcado de datos para la tabla `Comentarios`
 --
 
-INSERT INTO `Comentarios` (`ID`, `GrupoID`, `IP`, `Usuario`, `Contenido`, `Baneado`, `NombreUsuario`) VALUES
-(46, 19, NULL, NULL, 30, b'0', NULL),
-(47, 8, NULL, NULL, 31, b'0', NULL),
-(48, 8, NULL, NULL, 32, b'0', NULL),
-(49, 24, NULL, NULL, 33, b'0', NULL),
-(50, 23, NULL, NULL, 34, b'0', NULL),
-(51, 23, NULL, NULL, 35, b'0', NULL),
-(52, 23, NULL, NULL, 36, b'0', NULL),
-(53, 26, NULL, NULL, 37, b'0', NULL),
-(54, 23, NULL, NULL, 38, b'0', NULL),
-(55, 23, NULL, NULL, 39, b'0', NULL),
-(56, 26, NULL, NULL, 40, b'0', NULL),
-(57, 29, NULL, NULL, 41, b'0', NULL),
-(58, 29, NULL, NULL, 42, b'0', NULL),
-(59, 29, NULL, NULL, 43, b'0', NULL),
-(60, 29, NULL, NULL, 44, b'0', 'Hola'),
-(61, 29, NULL, NULL, 45, b'0', 'jjj'),
-(62, 29, NULL, NULL, 46, b'0', 'asx'),
-(63, 29, NULL, NULL, 47, b'0', 'asx2'),
-(64, 29, NULL, NULL, 48, b'0', 'Gonzalo');
+INSERT INTO `Comentarios` (`ID`, `GrupoID`, `GrupoRes`, `Respondido`, `IP`, `Usuario`, `Contenido`, `Baneado`, `NombreUsuario`) VALUES
+(46, 19, NULL, NULL, NULL, NULL, 30, b'0', NULL),
+(47, 8, NULL, NULL, NULL, NULL, 31, b'0', NULL),
+(48, 8, NULL, NULL, NULL, NULL, 32, b'0', NULL),
+(49, 24, NULL, NULL, NULL, NULL, 33, b'0', NULL),
+(50, 23, NULL, NULL, NULL, NULL, 34, b'0', NULL),
+(51, 23, NULL, NULL, NULL, NULL, 35, b'0', NULL),
+(52, 23, NULL, NULL, NULL, NULL, 36, b'0', NULL),
+(53, 26, NULL, NULL, NULL, NULL, 37, b'0', NULL),
+(54, 23, NULL, NULL, NULL, NULL, 38, b'0', NULL),
+(55, 23, NULL, NULL, NULL, NULL, 39, b'0', NULL),
+(56, 26, NULL, NULL, NULL, NULL, 40, b'0', NULL),
+(57, 29, NULL, NULL, NULL, NULL, 41, b'0', NULL),
+(58, 29, NULL, NULL, NULL, NULL, 42, b'0', NULL),
+(59, 29, NULL, NULL, NULL, NULL, 43, b'0', NULL),
+(60, 29, NULL, NULL, NULL, NULL, 44, b'0', 'Hola'),
+(61, 29, NULL, NULL, NULL, NULL, 45, b'0', 'jjj'),
+(62, 29, NULL, NULL, NULL, NULL, 46, b'0', 'asx'),
+(63, 29, NULL, NULL, NULL, NULL, 47, b'0', 'asx2'),
+(64, 29, NULL, NULL, NULL, NULL, 48, b'0', 'Gonzalo'),
+(66, 22, NULL, NULL, NULL, NULL, 52, b'0', 'asxasx'),
+(68, 67, NULL, NULL, NULL, NULL, 54, b'0', 'Res a Lo Que Sea'),
+(74, 27, NULL, NULL, NULL, NULL, 60, b'0', 'Com 1'),
+(75, 27, NULL, b'1', NULL, NULL, 61, b'0', 'Com 2'),
+(76, 27, 75, NULL, NULL, NULL, 62, b'0', 'Com 2.1'),
+(77, 27, NULL, NULL, NULL, NULL, 63, b'0', 'Com 3'),
+(78, 27, NULL, b'1', NULL, NULL, 64, b'0', 'Com 4'),
+(79, 27, 78, NULL, NULL, NULL, 65, b'0', 'Com 4.1'),
+(80, 27, 78, b'1', NULL, NULL, 66, b'0', 'Com 4.1.1'),
+(81, 27, 80, NULL, NULL, NULL, 67, b'0', 'Com 4.2.1');
 
 -- --------------------------------------------------------
 
@@ -76,7 +88,7 @@ CREATE TABLE IF NOT EXISTS `Contenido` (
   `Lenguaje` int(11) DEFAULT NULL,
   PRIMARY KEY (`ID`),
   KEY `Lenguaje` (`Lenguaje`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=51 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=68 ;
 
 --
 -- Volcado de datos para la tabla `Contenido`
@@ -104,7 +116,24 @@ INSERT INTO `Contenido` (`ID`, `Contenido`, `Lenguaje`) VALUES
 (47, 'asx', NULL),
 (48, 'Primer comentario estable', NULL),
 (49, 'Mundo', NULL),
-(50, 'Mundo', NULL);
+(50, 'Mundo', NULL),
+(51, 'asxasx', NULL),
+(52, 'asxasx', NULL),
+(53, 'Hola Mundo', NULL),
+(54, 'Hola Mundo Res', NULL),
+(55, 'Este es el primer comentario', NULL),
+(56, 'Contenido Respuesta al primer comentario', NULL),
+(57, 'Hola', NULL),
+(58, 'asx', NULL),
+(59, 'Mundoo', NULL),
+(60, 'Cont. Com 1', NULL),
+(61, 'Cont Com 2', NULL),
+(62, 'Cont Com 2.1', NULL),
+(63, 'Cont Com 3', NULL),
+(64, 'Cont Com 4', NULL),
+(65, 'Cont Com 4.1', NULL),
+(66, 'Cont Com 4.1.1', NULL),
+(67, 'Cont Com 4.2.1', NULL);
 
 -- --------------------------------------------------------
 
@@ -126,7 +155,7 @@ CREATE TABLE IF NOT EXISTS `Imagenes` (
   KEY `Contenido` (`Contenido`),
   KEY `Comentarios` (`Comentarios`),
   KEY `Lenguaje` (`Lenguaje`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=32 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=33 ;
 
 --
 -- Volcado de datos para la tabla `Imagenes`
@@ -135,8 +164,7 @@ CREATE TABLE IF NOT EXISTS `Imagenes` (
 INSERT INTO `Imagenes` (`ID`, `Url`, `Ancho`, `Alto`, `Alt`, `Titulo`, `Contenido`, `Comentarios`, `Lenguaje`) VALUES
 (22, 'http://localhost/Web/imgsEj/0DA.jpg', NULL, NULL, 'Un ocaso amarillo', 'Ocaso Amarillo', NULL, NULL, NULL),
 (27, 'http://localhost/Web/imgsEj/Mariposa-amarilla.jpg', NULL, NULL, 'Mariposa Amarilla', 'Mariposa Amarilla', NULL, NULL, NULL),
-(29, 'http://localhost/Web/imgsEj/noche-azul-1280x1024-127.jpg', NULL, NULL, '', 'Noche Azul', NULL, NULL, NULL),
-(31, 'http://www.daswallpaper.de/wallpaper/original/hd-wallpaper-5985-6317-hd-wallpapers.jpg', NULL, NULL, '', 'Otra Imagen', NULL, NULL, NULL);
+(32, 'https://newevolutiondesigns.com/images/freebies/retro-wallpaper-35.jpg', NULL, NULL, 'holaMundo', 'Otro', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 

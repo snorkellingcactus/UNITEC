@@ -27,7 +27,7 @@
 	$_SESSION['cache']=!$_SESSION['cache'];
 
 	//Operaciones cuando se llenó un formulario de nuevo comentario.
-	if(isset($_POST['comContenido']))
+	if(!empty($_POST['comContenido']))
 	{
 		//Include necesario para manejar llaves foráneas.
 		include_once '../php/Contenido.php';
@@ -60,7 +60,14 @@
 		{
 			$Comentario->NombreUsuario=htmlentities($_POST['comNomUsuario']);
 		}
+		if(isset($_SESSION['comResID']))
+		{
+			$Comentario->GrupoRes=$_SESSION['comResID'];
 
+			$con->query('update `Comentarios` set Respondido=1 where ID='.$_SESSION['comResID']);
+
+			unset($_SESSION['comResID']);
+		}
 		//Inserto el comentario en la BD.
 		$Comentario->insSQL();
 	}
@@ -101,47 +108,8 @@
 				<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
 				<div class="comentarios col-lg-10 col-md-10 col-sm-10 col-xs-10" >
 							<?php
-								include_once '../php/Inc_Esq.php';
-
 								//Genero los comentarios.
-								$comentsMod=new Inc_Esq('../esq/coment.php');
-
-								$comentBuff='';
-								$consulta=$con->query('select Contenido,NombreUsuario,ID from Comentarios where GrupoID='.$_SESSION['vImgID']);
-								$consulta=$consulta->fetch_all(MYSQLI_ASSOC);
-								$cantidad=count($consulta);
-							
-								if(!$cantidad)
-								{
-									$comentBuff='<p>Sin comentarios</p>';
-								}
-								else
-								{
-									for($i=0;$i<$cantidad;$i++)
-									{
-										$props=[];
-
-										if(isset($consulta[$i]['NombreUsuario']))
-										{
-											$props['NombreUsuario']=$consulta[$i]['NombreUsuario'];
-										}
-										$props['ID']=$consulta[$i]['ID'];
-
-										$consulta[$i]=$con->query('select Contenido from Contenido where ID='.$consulta[$i]['Contenido']);
-
-										$props['Contenido']=$consulta[$i]->fetch_all(MYSQLI_ASSOC)[0]['Contenido'];
-
-										$consulta[$i]=new Coment
-										(
-											$con,
-											$props
-										);
-
-										$comentBuff=$comentBuff.$comentsMod->recorre($consulta[$i]);
-									}
-								}
-		
-								echo $comentBuff;
+								echo GenComGrp($_SESSION['vImgID'] , $con);
 
 								echo file_get_contents('../forms/nuevo_coment.php');
 							?>

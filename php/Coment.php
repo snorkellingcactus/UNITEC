@@ -1,5 +1,6 @@
 <?php
 require_once 'SQL_Obj.php';
+
 class Coment extends SQL_Obj
 {
 
@@ -13,6 +14,8 @@ class Coment extends SQL_Obj
 			'Comentarios',
 			[
 				'GrupoID',
+				'GrupoRes',
+				'Respondido',
 				'IP',
 				'Usuario',
 				'NombreUsuario',
@@ -28,5 +31,93 @@ class Coment extends SQL_Obj
 			$this->getAsoc(func_get_args()[1]);
 		}
 	}
+}
+
+include_once '../php/Inc_Esq.php';
+
+//Genero los comentarios.
+global $comentsMod;
+
+$comentsMod=new Inc_Esq('../esq/coment.php');
+
+function GenCom($conRes , $con)
+{
+	$props=[];
+
+	if(isset($conRes['NombreUsuario']))
+	{
+		$props['NombreUsuario']=$conRes['NombreUsuario'];
+	}
+	$props['ID']=$conRes['ID'];
+
+	$conRes=$con->query('select Contenido from Contenido where ID='.$conRes['Contenido']);
+
+	$props['Contenido']=$conRes->fetch_all(MYSQLI_ASSOC)[0]['Contenido'];
+
+	$conRes=new Coment
+	(
+		$con,
+		$props
+	);
+
+	return $conRes;
+}
+
+function GenComLst($consulta , $con)
+{
+	global $comentsMod;
+
+	$comentBuff='';
+
+	$cantidad=count($consulta);
+
+	if(!$cantidad)
+	{
+		$comentBuff='<p>Sin comentarios</p>';
+	}
+	else
+	{
+		for($i=0;$i<$cantidad;$i++)
+		{
+			$nCom=GenCom($consulta[$i] , $con);
+
+			$nCom=$comentsMod->recorre($nCom);
+
+			$comentBuff=$comentBuff.$nCom;
+
+			if($consulta[$i]['Respondido']=='1')
+			{
+
+				$subCons=$con->query
+				(
+					'select * from Comentarios where GrupoRes='
+					.$consulta[$i]['ID']
+				);
+
+				$subCons=$subCons->fetch_all(MYSQLI_ASSOC);
+
+				$nCom=GenComLst
+				(
+					$subCons,
+					$con
+				);
+
+				$comentBuff=$comentBuff
+				.'<div class="nHilo">'
+				.$nCom
+				.'</div>';
+			}
+		}
+	}
+
+	return $comentBuff;
+}
+
+function GenComGrp($GrupoID , $con)
+{
+	$consulta=$con->query('select * from Comentarios where GrupoID='.$GrupoID.' and GrupoRes is NULL');
+	$consulta=$consulta->fetch_all(MYSQLI_ASSOC);
+
+	return GenComLst($consulta , $con);
 }
 ?>

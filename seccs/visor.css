@@ -31,6 +31,16 @@ h2
 	padding:2%;
 	overflow:hidden;
 }
-.comentarios form{position:relative;bottom:0px;}
+.comentarios div form
+{
+	padding:0px;
+}
+.comentarios div form input
+{
+	height:1em;
+}
+.comCont{clear:both;border-bottom:1px solid silver;padding:10px;}
+.nComentForm{position:relative;bottom:0px;}
 .comentarios, .imgCont>img {box-shadow:-1px -1px 3px #888888;}
-.comAutor{font-weight:bold}
+.comAutor{font-weight:bold;float:left;padding-right:10px;}
+.nHilo{margin-left:20px;border-left:2px solid silver;}
