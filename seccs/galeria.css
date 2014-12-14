@@ -22,16 +22,11 @@
 	right:0.5em;
 	top:0px;
 }
+.gImg a{display:inline;}
 input ,button{box-shadow:0px 0px 3px white;border-radius:2px}
 input,form a{height:3em}
 label{font-size:2em}
 button,form a{display:block;height:3em;background-color:silver}
-
-.comentarios
-{
-	background-color:red;
-	border-radius:3px;
-}
 
 iframe
 {

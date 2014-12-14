@@ -1,5 +1,6 @@
 <section id="gal">
 	<h1 class="titulo">Galería de Fotos</h1>
+	<form action='#gal' method='POST'>
 	<?php
 
 		//Si todavía no se inicio sesion, se inicia.
@@ -54,7 +55,6 @@
 			}
 
 			?>
-				<form action='#gal' method='POST'>
 				<div class='acciones'>
 					Acciones:
 					<input type='submit' value='Eliminar' >
@@ -84,11 +84,6 @@
 			{
 				echo '<iframe width="100%" height="100%" src="forms/nueva_imagen.html"></iframe>';
 			}
-
-
-			?>
-				</form>
-			<?php
 		}
 		//Si se pasó por URL un ID de imagen, abro el visor para mostrarla.
 		if(isset($_GET['vImgID']))
@@ -99,4 +94,5 @@
 			echo '<iframe width="100%" height="100%" src="./seccs/visor.php"></iframe>';
 		}
 	?>
+	</form>
 </section>
