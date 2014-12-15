@@ -1,8 +1,14 @@
-<html>
+<!DOCTYPE HTML>
+<html lang="es">
 	<head>
+		<meta charset="utf-8" />
+		<meta name="description" content="Un visor de imágenes con comentarios." />
+
 		<link rel="stylesheet" type="text/css" href="../bootstrap.min.css" />
 		<link rel="stylesheet" type="text/css" href="visor.css" />
 		<link rel="stylesheet" type="text/css" href="visor_form.css" />
+
+		<title>Visor de imágenes</title>
 	</head>
 	<body>
 <?php
@@ -71,11 +77,32 @@
 		//Inserto el comentario en la BD.
 		$Comentario->insSQL();
 	}
-
-	//Elimino comentario.
-	if(isset($_GET['eComID']))
+	else
 	{
-		$con->query('delete from Comentarios where ID='.$_GET['eComID']);
+		if(isset($_SESSION['comResID']))
+		{
+			unset($_SESSION['comResID']);
+		}
+	}
+
+	//Elimino comentarios seleccionados.
+	if(isset($_POST['comID']))
+	{
+		echo '<h2><font color="white">Hay items seleccionados</font></h2>';
+
+		if(isset($_POST['elimina']))
+		{
+			echo '<h2><font color="white">Elimina comentario</font></h2>';
+
+			$iMax=count($_POST['comID']);
+
+			for($i=0;$i<$iMax;$i++)
+			{
+				echo '<h2><font color="white">Eliminado com ID = '.$_POST['comID'][$i].'</font></h2>';
+
+				$con->query('delete from Comentarios where ID='.$_POST['comID'][$i]);
+			}
+		}
 	}
 	
 	$Visor	= new Gal_HTML_Visor
@@ -85,34 +112,49 @@
 	);
 
 	$esq=$Visor->imgSel;
+
+	if(isset($_POST['comID']))
+	{
+	}
 ?>
 			<h2 class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 						<?php echo $esq->Titulo ?>
-						<a href="../index.php?&cache=<?php echo $_SESSION['cache']?>#gal" target="_parent" class="cerrar">X</a>
+						<a href="../index.php?&amp;cache=<?php echo $_SESSION['cache']?>#gal" target="_parent" class="cerrar">X</a>
 			</h2>
 			<div class="col-lg-1 col-md-1 col-sm-1 col-xs-2 flecha">
-				<a href="visor.php?vInc=-1&cache=<?php echo $_SESSION['cache']?>#gal" >
-					<img src="../img/flecha_i.png" />
+				<a href="visor.php?vInc=-1&amp;cache=<?php echo $_SESSION['cache']?>#gal" >
+					<img src="../img/flecha_i.png" alt="Flecha hacia la izquierda"/>
 				</a>
 			</div>
 			
 			<div class="col-lg-10 col-md-10 col-sm-10 col-xs-8 imgCont">
-				<img width="100%" height="100%" src="<?php echo $esq->Url ?>" alt="<?php echo $esq->Alt ?>"/>					
+				<img src="<?php echo $esq->Url ?>" alt="<?php echo $esq->Alt ?>"/>					
 			</div>
 			
 			<div class="col-lg-1 col-md-1 col-sm-1 col-xs-2 flecha">
-				<a href="visor.php?vInc=1&cache=<?php echo $_SESSION['cache']?>#gal" >
-					<img src="../img/flecha_d.png" />
+				<a href="visor.php?vInc=1&amp;cache=<?php echo $_SESSION['cache']?>#gal" >
+					<img src="../img/flecha_d.png" alt="Flecha hacia la derecha"/>
 				</a>
 			</div>
-				<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+				<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 col-1">jj</div>
 				<div class="comentarios col-lg-10 col-md-10 col-sm-10 col-xs-10" >
+					<form action="visor.php" method="POST" id="comForm"></form>
 							<?php
+								if(isset($_SESSION['adminID']) && $_SESSION['adminID']!==NULL)
+								{
+									?>
+										<p>Acciones:
+											<input type="submit" name="elimina" value="Elimina" form="comForm">
+										</p>
+									<?php
+								}
 								//Genero los comentarios.
 								echo GenComGrp($_SESSION['vImgID'] , $con);
-
-								echo file_get_contents('../forms/nuevo_coment.php');
 							?>
+					
+					<?php
+						include('../forms/nuevo_coment.php');
+					?>
 				</div>
 	</body>
 </html>

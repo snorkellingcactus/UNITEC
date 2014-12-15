@@ -3,7 +3,7 @@
 		<p>
 			<?php echo $esq->Titulo ?>
 		</p>
-		<img src="<?php echo $esq->Url ?>" width="200" height="200" />
+		<img src="<?php echo $esq->Url ?>" alt="<?php echo $esq->Alt ?>" width="200" height="200" />
 	</a>
 	<?php
 	if(isset($_SESSION['adminID']))

@@ -1,4 +1,4 @@
-<!DOCTYPE html >
+<!DOCTYPE HTML >
 <?php
 
 //Si todavía no se inicio sesion, se inicia.
@@ -40,33 +40,35 @@ function resaltaOpcN($num)
 		<link rel="stylesheet" type="text/css" href="./seccs/galeria.css" />
 		<link rel="stylesheet" type="text/css" href="./bootstrap.min.css" />
 
+		<title>Unitec</title>
+	</head>
+	<body>
+
 		<!--:::::::::::::::Atajos de teclado:::::::::::::::-->
 		<a href="./index.php?OpcSel=0#sobre" accesskey="i"></a>
 		<a href="./index.php?OpcSel=1#nov" accesskey="n"></a>
 		<a href="./index.php?OpcSel=2#labs" accesskey="l"></a>
 		<a href="./index.php?OpcSel=3#cal" accesskey="c"></a>
 		<a href="./index.php?OpcSel=4#gal" accesskey="g"></a>
-		<title>Unitec</title>
-	</head>
-<body>
-	<div class="header hidden-xs">
-		<a href="./inicio_sesion.php">Iniciar Sesión</a>
-	</div>
-	<?php
-		include_once("./seccs/menu.php");
-	?>
-	<main class="col-xs-12 col-sm-10 col-md-10 col-lg-10">
+
+		<div class="header hidden-xs">
+			<a href="./inicio_sesion.php">Iniciar Sesión</a>
+		</div>
 		<?php
-			$_GET['mes']=getdate()['mon'];	//Acá indicar mes que se muestra por defecto. Va a mostrarse el mes indicado -1.
-			include_once('./seccs/atajos.php');
-			include_once('./seccs/sobre_unitec.php');
-			include_once('./seccs/novedades.php');
-			include_once('./seccs/organigrama.php');
-			include_once('./seccs/calendario.php');
-			include_once('./seccs/galeria.php');
+			include_once("./seccs/menu.php");
 		?>
-	</main>
-	<div class="footer"> <c> powered by bootstrap </c></div>
-</body>
+		<main class="col-xs-12 col-sm-10 col-md-10 col-lg-10">
+			<?php
+				$_GET['mes']=getdate()['mon'];	//Acá indicar mes que se muestra por defecto. Va a mostrarse el mes indicado -1.
+				include_once('./seccs/atajos.php');
+				include_once('./seccs/sobre_unitec.php');
+				include_once('./seccs/novedades.php');
+				include_once('./seccs/organigrama.php');
+				include_once('./seccs/calendario.php');
+				include_once('./seccs/galeria.php');
+			?>
+		</main>
+		<footer class="footer"><small>powered by bootstrap</small></footer>
+	</body>
 </html>
 

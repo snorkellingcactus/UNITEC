@@ -23,7 +23,7 @@ class Novedad_HTML
 		$this->imgWidth.
 		'" height="'.
 		$this->imgHeight.
-		'" /><div>'.
+		'" alt="" /><div>'.
 		$this->novedad->contenido.
 		'</div></div>';
 

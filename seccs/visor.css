@@ -12,7 +12,8 @@ body,html{background:rgba(0,0,0,0.7);min-height:100%;}
 	opacity:1;
 }
 .flecha a {display:table-cell;vertical-align: middle}
-.imgCont{margin:auto;}
+.imgCont{margin:auto}
+.imgCont img{max-width:100%}
 h2
 {
 	text-align:center;
@@ -33,7 +34,9 @@ h2
 }
 .comentarios div form
 {
+	float:left;
 	padding:0px;
+
 }
 .comentarios div form input
 {
@@ -44,3 +47,7 @@ h2
 .comentarios, .imgCont>img {box-shadow:-1px -1px 3px #888888;}
 .comAutor{font-weight:bold;float:left;padding-right:10px;}
 .nHilo{margin-left:20px;border-left:2px solid silver;}
+.col-1
+{
+	clear:both;
+}

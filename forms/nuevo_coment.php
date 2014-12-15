@@ -12,7 +12,7 @@
 		}
 	?>
 	<p> Nombre: 
-		<input type="text" name="comNomUsuario" defaultValue='Anónimo' >
+		<input type="text" name="comNomUsuario" >
 	</p>
 	<input type="text" name="comContenido" >
 	<input type="submit" value="Ok" >

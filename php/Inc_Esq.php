@@ -1,5 +1,24 @@
 <?php
 include_once("Arr_Gen.php");
+function file_include_contents($ruta)
+{
+	$args=func_get_args();
+
+	if(isset($args[1]))
+	{
+		$esq=$args[1];
+	}
+
+	ob_start();
+	
+	include ($ruta);
+	
+	$res=ob_get_contents();
+
+	ob_end_clean();
+
+	return $res;
+}
 class Inc_Esq extends Arr_Gen
 {
 	function gen($obj)
@@ -8,15 +27,7 @@ class Inc_Esq extends Arr_Gen
 	}
 	function esq($esq,$inc)
 	{
-		ob_start();
-	
-		include ($inc);
-		
-		$res=ob_get_contents();
-	
-		ob_end_clean();
-
-		return $res;
+		file_include_contents($inc);
 	}
 	function recorre($obj)
 	{
@@ -29,7 +40,7 @@ class Inc_Esq extends Arr_Gen
 			$prop->recorre($obj);
 		}
 
-		return $this->esq($obj,$this->getProp($obj,$prop));
+		return file_include_contents($this->getProp($obj,$prop),$obj);
 	}
 }
 ?>
