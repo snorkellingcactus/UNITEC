@@ -1,20 +1,27 @@
 body,html{background:rgba(0,0,0,0.7);min-height:100%;}
-.vCont{height:100%;}
-.flecha{display:table;height:100%;}
-.flecha a img
+
+.flecha{height:100%;width:10%;display:block;float:left;position:absolute;}
+.flecha:last-child{top:0;right:0;}
+
+.flecha img
 {
 	width:100%;
 	-moz-transition:opacity 0.5s;
 	-webkit-transition:opacity 0.5s;
 	opacity:0.7;
+	vertical-align: middle;
+	height:100%;
+	padding-top:150%;
+	padding-bottom:150%;
+
 }
-.flecha a img:hover
+.flecha img:hover
 {
 	opacity:1;
 }
 .flecha a {display:table-cell;vertical-align: middle}
-.imgCont{margin:auto}
-.imgCont img{max-width:100%}
+.imgCont{width:100%;text-align:center;position:relative;}
+.imgCont img{max-width:80%}
 h2
 {
 	text-align:center;

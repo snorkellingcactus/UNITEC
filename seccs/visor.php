@@ -111,37 +111,38 @@
 	{
 	}
 ?>
+			<!-- Título -->
 			<h2 class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 						<?php echo $esq->Titulo ?>
 						<a href="../index.php?&amp;cache=<?php echo $_SESSION['cache']?>#gal" target="_parent" class="cerrar" title="Cerrar Visor">X</a>
 			</h2>
-		<div class='control'>
-			<div class="col-lg-1 col-md-1 col-sm-1 col-xs-2 flecha">
-				<a href="visor.php?vInc=-1&amp;cache=<?php echo $_SESSION['cache']?>#gal" title="Imagen Anterior" >
-					<img src="../img/flecha_i.png" alt="Flecha hacia la izquierda"/>
-				</a>
-			</div>
 			
+			<!-- Imagen y controles -->
 			<div class="col-lg-10 col-md-10 col-sm-10 col-xs-8 imgCont">
-				<img src="<?php echo $esq->Url ?>" alt="<?php echo $esq->Alt ?>"/>					
-			</div>
-			
-			<div class="col-lg-1 col-md-1 col-sm-1 col-xs-2 flecha">
-				<a href="visor.php?vInc=1&amp;cache=<?php echo $_SESSION['cache']?>#gal" >
-					<img src="../img/flecha_d.png" alt="Flecha hacia la derecha"  title="Imagen Siguiente"/>
-				</a>
-			</div>
-		</div>
-				<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 col-1">jj</div>
-				<div class="comentarios col-lg-10 col-md-10 col-sm-10 col-xs-10" >
-					<?php
-						include('../forms/acciones.php');
+					<a href="visor.php?vInc=-1&amp;cache=<?php echo $_SESSION['cache']?>#gal" class="flecha" title="Imagen Anterior" >
+						<img src="../img/flecha_i.png" alt="Flecha hacia la izquierda"/>
+					</a>
 
-						//Genero los comentarios.
-						echo GenComGrp($_SESSION['vImgID'] , $con);
+					<img src="<?php echo $esq->Url ?>" alt="<?php echo $esq->Alt ?>"/>					
 
-						include('../forms/nuevo_coment.php');
-					?>
-				</div>
+					<a href="visor.php?vInc=1&amp;cache=<?php echo $_SESSION['cache']?>#gal"  class="flecha" title="Imagen Siguiente">
+						<img src="../img/flecha_d.png" alt="Flecha hacia la derecha"/>
+					</a>
+			</div>
+
+			<!-- Elemento que actúa de margen para el centrado del contenedor de los comentarios -->
+			<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 col-1"></div>
+
+			<!-- Comentarios -->
+			<div class="comentarios col-lg-10 col-md-10 col-sm-10 col-xs-10" >
+				<?php
+					include('../forms/acciones.php');
+
+					//Genero los comentarios.
+					echo GenComGrp($_SESSION['vImgID'] , $con);
+
+					include('../forms/nuevo_coment.php');
+				?>
+			</div>
 	</body>
 </html>
