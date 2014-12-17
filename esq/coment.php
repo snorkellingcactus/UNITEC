@@ -1,3 +1,9 @@
+<?php
+	if(isset($_POST['comResID'])&&$_POST['comResID']==$esq->ID)
+	{
+		echo '<span id="comRes"></span>';
+	}
+?>
 <div class="comentario">
 	<p class='comAutor'>
 		<?php
@@ -12,7 +18,7 @@
 		?>
 	</p>
 
-	<form action="#" method="POST" class="formRes">
+	<form action="#comRes" method="POST" class="formRes">
 		<input type="hidden" name="comResID" value="<?php echo $esq->ID ?>" >
 	 	<input type="submit" value="↶" title="Responder a <?php echo $esq->NombreUsuario ?>">
 	</form>
@@ -35,7 +41,6 @@
 		if(isset($_POST['comResID'])&&$_POST['comResID']==$esq->ID)
 		{
 			$_SESSION['comResID']=$_POST['comResID'];
-
 			echo file_get_contents("../forms/nuevo_coment.php");
 		}
 	?>

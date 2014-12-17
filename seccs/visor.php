@@ -141,7 +141,10 @@
 					//Genero los comentarios.
 					echo GenComGrp($_SESSION['vImgID'] , $con);
 
-					include('../forms/nuevo_coment.php');
+					if(!isset($_POST['comResID']))
+					{
+						include('../forms/nuevo_coment.php');
+					}
 				?>
 			</div>
 	</body>
