@@ -107,25 +107,24 @@
 
 	$esq=$Visor->imgSel;
 
-	if(isset($_POST['comID']))
-	{
-	}
+	$vImgSig=$Visor->indexImgN($Visor->nImgSel+1);
+	$vImgAnt=$Visor->indexImgN($Visor->nImgSel-1);
 ?>
 			<!-- Título -->
 			<h2 class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 						<?php echo $esq->Titulo ?>
-						<a href="../index.php?&amp;cache=<?php echo $_SESSION['cache']?>#gal" target="_parent" class="cerrar" title="Cerrar Visor">X</a>
+						<a href="../index.php#gal" target="_parent" class="cerrar" title="Cerrar Visor">X</a>
 			</h2>
 			
 			<!-- Imagen y controles -->
 			<div class="col-lg-10 col-md-10 col-sm-10 col-xs-8 imgCont">
-					<a href="visor.php?vInc=-1&amp;cache=<?php echo $_SESSION['cache']?>#gal" class="flecha" title="Imagen Anterior" >
+					<a href="visor.php?vImg=<?php echo $vImgSig ?>#gal" class="flecha" title="Imagen Anterior" >
 						<img src="../img/flecha_i.png" alt="Flecha hacia la izquierda"/>
 					</a>
 
 					<img src="<?php echo $esq->Url ?>" alt="<?php echo $esq->Alt ?>"/>					
 
-					<a href="visor.php?vInc=1&amp;cache=<?php echo $_SESSION['cache']?>#gal"  class="flecha" title="Imagen Siguiente">
+					<a href="visor.php?vImg=<?php echo $vImgAnt ?>#gal"  class="flecha" title="Imagen Siguiente">
 						<img src="../img/flecha_d.png" alt="Flecha hacia la derecha"/>
 					</a>
 			</div>

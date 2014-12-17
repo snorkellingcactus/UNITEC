@@ -1,13 +1,14 @@
 body,html{background:rgba(0,0,0,0.7);min-height:100%;}
 
-.flecha{height:100%;width:10%;display:block;float:left;position:absolute;}
-.flecha:last-child{top:0;right:0;}
+.flecha{height:100%;width:10%;display:block;float:left;position:absolute;top:0;left:0}
+.flecha:last-child{top:0;right:0;left:auto}
 
 .flecha img
 {
 	width:100%;
 	-moz-transition:opacity 0.5s;
 	-webkit-transition:opacity 0.5s;
+	transition:opacity 0.5s;
 	opacity:0.7;
 	vertical-align: middle;
 	height:100%;
@@ -46,7 +47,12 @@ h2
 }
 .formRes input
 {
-	-moz-transition:box-shadow 0.5s;
+	-moz-transition:background-color 0.5s;
+	-webkit-transition:background-color 0.5s;
+	-moz-transition:color 0.5s;
+	-webkit-transition:color 0.5s;
+	transition:background-color 0.5s;
+	transition:color 0.5s;
 	height:auto;
 	width:auto;
 	margin-left:7px;
@@ -57,6 +63,7 @@ h2
 	border-radius:1px solid silver;
 	color:silver;
 	box-shadow: 0px 0px 1px transparent;
+	box-shadow-color
 	margin-right:5px;
 }
 .formRes input:hover , .formRes input:focus
@@ -77,15 +84,15 @@ h2
 	height:auto;
 	width:auto;
 }
-.comentario>p
-{
+.comentario;top:0;left:0p
+left:auto{
 	padding-left:0px;
 }
 .comCont{clear:both}
 .nComentForm{position:relative;bottom:0px;display:inline-block;}
 .nComentForm input:last-child{display:block;clear:both;float:none;width:100%;margin-top:5px;}
 .nComentForm input{margin-bottom:5px;width:100%;}
-
+.nComentForm textarea{width:100%;}
 .comentarios, .imgCont>img {box-shadow:-1px -1px 3px #888888;}
 .comAutor{font-weight:bold;float:left}
 .nHilo
@@ -99,8 +106,12 @@ h2
 }
 .cerrar
 {
-	-moz-transition:background-color 0.5s;
-	-moz-transition:color 0.5s;
+	-moz-transition:background-color 1s;
+	-moz-transition:color 1s;
+	-webkit-transition:background-color 1s;
+	-webkit-transition:color 1s;
+	transition:background-color 1s;
+	transition:color 1s;
 	border-radius:1px;
 	padding:5px;
 	float:right;
