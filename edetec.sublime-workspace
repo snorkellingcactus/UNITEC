@@ -15,15 +15,63 @@
 			"file": "seccs/visor.php",
 			"settings":
 			{
-				"buffer_size": 3889,
+				"buffer_size": 3705,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "seccs/visor.css",
+			"file": "forms/acciones.php",
 			"settings":
 			{
-				"buffer_size": 998,
+				"buffer_size": 283,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "seccs/galeria.php",
+			"settings":
+			{
+				"buffer_size": 2263,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "msg",
+			"settings":
+			{
+				"buffer_size": 48,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "inicio_sesion.php",
+			"settings":
+			{
+				"buffer_size": 2613,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "seccs/inicio_sesion.css",
+			"settings":
+			{
+				"buffer_size": 604,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "esq/gal_img.php",
+			"settings":
+			{
+				"buffer_size": 433,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "esq/gal_nImg.html",
+			"settings":
+			{
+				"buffer_size": 219,
 				"line_ending": "Unix"
 			}
 		},
@@ -31,7 +79,23 @@
 			"file": "esq/coment.php",
 			"settings":
 			{
-				"buffer_size": 693,
+				"buffer_size": 711,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "seccs/visor.css",
+			"settings":
+			{
+				"buffer_size": 1001,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "forms/nuevo_coment.php",
+			"settings":
+			{
+				"buffer_size": 407,
 				"line_ending": "Unix"
 			}
 		},
@@ -40,61 +104,6 @@
 			"settings":
 			{
 				"buffer_size": 345,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"settings":
-			{
-				"buffer_size": 0,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "prueba.html",
-			"settings":
-			{
-				"buffer_size": 2452,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "seccs/galeria.php",
-			"settings":
-			{
-				"buffer_size": 2367,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "forms/nuevo_coment.php",
-			"settings":
-			{
-				"buffer_size": 444,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "php/Coment.php",
-			"settings":
-			{
-				"buffer_size": 1895,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "php/Inc_Esq.php",
-			"settings":
-			{
-				"buffer_size": 619,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "php/Arr_Gen.php",
-			"settings":
-			{
-				"buffer_size": 261,
 				"line_ending": "Unix"
 			}
 		}
@@ -123,29 +132,34 @@
 	},
 	"file_history":
 	[
-		"/opt/lampp/htdocs/Web/Pasantía/edetec/seccs/visor_form.css",
-		"/opt/lampp/htdocs/Web/Pasantía/edetec/php/SQL_Obj.php",
-		"/opt/lampp/htdocs/Web/Pasantía/edetec/php/Coment.php",
-		"/opt/lampp/htdocs/Web/Pasantía/edetec/seccs/visor.css",
-		"/opt/lampp/htdocs/Web/Pasantía/edetec/seccs/visor.php",
-		"/opt/lampp/htdocs/Web/Pasantía/edetec/forms/nuevo_coment.php",
-		"/opt/lampp/htdocs/Web/Pasantía/edetec/prueba.html",
-		"/opt/lampp/htdocs/Web/Pasantía/edetec/esq/gal_img.php",
 		"/opt/lampp/htdocs/Web/Pasantía/edetec/seccs/galeria.php",
 		"/opt/lampp/htdocs/Web/Pasantía/edetec/seccs/galeria.css",
 		"/opt/lampp/htdocs/Web/Pasantía/edetec/msg",
-		"/opt/lampp/htdocs/Web/Pasantía/edetec/esq/coment.php",
+		"/opt/lampp/htdocs/Web/Pasantía/edetec/esq/gal_img.php",
+		"/opt/lampp/htdocs/Web/Pasantía/edetec/php/Novedad.php",
+		"/opt/lampp/htdocs/Web/Pasantía/edetec/seccs/novedades.php",
+		"/opt/lampp/htdocs/Web/Pasantía/edetec/php/Novedad_HTML.php",
 		"/opt/lampp/htdocs/Web/Pasantía/edetec/esq/gal_nImg.html",
+		"/opt/lampp/htdocs/Web/Pasantía/edetec/index.php",
+		"/opt/lampp/htdocs/Web/Pasantía/edetec/index.css",
+		"/opt/lampp/htdocs/Web/Pasantía/edetec/footer.css",
+		"/opt/lampp/htdocs/Web/Pasantía/edetec/php/Arr_Gen.php",
+		"/opt/lampp/htdocs/Web/Pasantía/edetec/php/Inc_Esq.php",
+		"/opt/lampp/htdocs/Web/Pasantía/edetec/php/Coment.php",
+		"/opt/lampp/htdocs/Web/Pasantía/edetec/seccs/visor_form.css",
+		"/opt/lampp/htdocs/Web/Pasantía/edetec/prueba.html",
+		"/opt/lampp/htdocs/Web/Pasantía/edetec/forms/nuevo_coment.php",
+		"/opt/lampp/htdocs/Web/Pasantía/edetec/seccs/visor.php",
+		"/opt/lampp/htdocs/Web/Pasantía/edetec/esq/coment.php",
+		"/opt/lampp/htdocs/Web/Pasantía/edetec/seccs/visor.css",
+		"/opt/lampp/htdocs/Web/Pasantía/edetec/php/SQL_Obj.php",
 		"/opt/lampp/htdocs/Web/Pasantía/edetec/forms/nueva_imagen.css",
 		"/opt/lampp/htdocs/Web/Pasantía/edetec/seccs/visor.css~",
 		"/opt/lampp/htdocs/Web/Pasantía/edetec/php/NULL_Gen_HTML.php",
-		"/opt/lampp/htdocs/Web/Pasantía/edetec/footer.css",
 		"/opt/lampp/htdocs/Web/Pasantía/edetec/php/Img.php",
-		"/opt/lampp/htdocs/Web/Pasantía/edetec/index.php",
 		"/opt/lampp/htdocs/Web/Pasantía/edetec/comentarios.css",
 		"/opt/lampp/htdocs/Web/Pasantía/edetec/forms/responde_coment.php",
 		"/opt/lampp/htdocs/Web/Pasantía/edetec/forms/nueva_imagen.html",
-		"/opt/lampp/htdocs/Web/Pasantía/edetec/php/Inc_Esq.php",
 		"/opt/lampp/htdocs/Web/Pasantía/edetec/inicio_sesion.php",
 		"/opt/lampp/htdocs/Web/Pasantía/edetec/php/Contenido.php",
 		"/opt/lampp/htdocs/Web/Pasantía/edetec/php/Usuario.php",
@@ -160,7 +174,6 @@
 		"/home/cactus/.config/sublime-text-2/Packages/Default/Preferences.sublime-settings",
 		"/home/cactus/.config/sublime-text-2/Packages/User/Preferences.sublime-settings",
 		"/opt/lampp/htdocs/Web/Pasantía/edetec/seccs/atajos.html",
-		"/opt/lampp/htdocs/Web/Pasantía/edetec/index.css",
 		"/opt/lampp/htdocs/Web/Pasantía/edetec/forms/nuevo_coment.css",
 		"/opt/lampp/htdocs/Web/Pasantía/edetec/edetec.sublime-project",
 		"/opt/lampp/htdocs/Web/Pasantía/edetec/esq/nuevo_coment.css",
@@ -184,6 +197,9 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"form=\"comForm\"",
+			"&",
+			"100",
 			"ResID",
 			"comentsMod",
 			"$com",
@@ -199,6 +215,7 @@
 		"regex": false,
 		"replace_history":
 		[
+			"form=\"acciones\"",
 			"<?php echo $accesStr ?>"
 		],
 		"reverse": false,
@@ -210,7 +227,7 @@
 	"groups":
 	[
 		{
-			"selected": 5,
+			"selected": 10,
 			"sheets":
 			[
 				{
@@ -218,15 +235,15 @@
 					"file": "seccs/visor.php",
 					"settings":
 					{
-						"buffer_size": 3889,
+						"buffer_size": 3705,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								3809,
-								3809
+								282,
+								282
 							]
 						],
 						"settings":
@@ -235,52 +252,51 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 2259.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 1,
-					"file": "seccs/visor.css",
+					"file": "forms/acciones.php",
 					"settings":
 					{
-						"buffer_size": 998,
+						"buffer_size": 283,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								697,
-								697
+								172,
+								172
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/CSS/CSS.tmLanguage",
-							"translate_tabs_to_spaces": false
+							"syntax": "Packages/PHP/PHP.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 399.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 2,
-					"file": "esq/coment.php",
+					"file": "seccs/galeria.php",
 					"settings":
 					{
-						"buffer_size": 693,
+						"buffer_size": 2263,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								56,
-								56
+								1267,
+								1267
 							]
 						],
 						"settings":
@@ -289,50 +305,25 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 661.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 3,
-					"file": "seccs/visor_form.css",
+					"file": "msg",
 					"settings":
 					{
-						"buffer_size": 345,
+						"buffer_size": 48,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								59,
-								59
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/CSS/CSS.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"settings":
-					{
-						"buffer_size": 0,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
+								47,
+								47
 							]
 						],
 						"settings":
@@ -346,146 +337,38 @@
 					"type": "text"
 				},
 				{
+					"buffer": 4,
+					"file": "inicio_sesion.php",
+					"settings":
+					{
+						"buffer_size": 2613,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1682,
+								1682
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 562.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
 					"buffer": 5,
-					"file": "prueba.html",
+					"file": "seccs/inicio_sesion.css",
 					"settings":
 					{
-						"buffer_size": 2452,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1143,
-								1143
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/HTML/HTML.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 19.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 6,
-					"file": "seccs/galeria.php",
-					"settings":
-					{
-						"buffer_size": 2367,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								915,
-								915
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/PHP/PHP.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 456.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 7,
-					"file": "forms/nuevo_coment.php",
-					"settings":
-					{
-						"buffer_size": 444,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								87,
-								87
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/PHP/PHP.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 8,
-					"file": "php/Coment.php",
-					"settings":
-					{
-						"buffer_size": 1895,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1229,
-								1229
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/PHP/PHP.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 1250.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 9,
-					"file": "php/Inc_Esq.php",
-					"settings":
-					{
-						"buffer_size": 619,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								5,
-								5
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/PHP/PHP.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 10,
-					"file": "php/Arr_Gen.php",
-					"settings":
-					{
-						"buffer_size": 261,
+						"buffer_size": 604,
 						"regions":
 						{
 						},
@@ -498,8 +381,168 @@
 						],
 						"settings":
 						{
+							"syntax": "Packages/CSS/CSS.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "esq/gal_img.php",
+					"settings":
+					{
+						"buffer_size": 433,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								299,
+								299
+							]
+						],
+						"settings":
+						{
 							"syntax": "Packages/PHP/PHP.tmLanguage",
 							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "esq/gal_nImg.html",
+					"settings":
+					{
+						"buffer_size": 219,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								219,
+								219
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 8,
+					"file": "esq/coment.php",
+					"settings":
+					{
+						"buffer_size": 711,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								142,
+								142
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 9,
+					"file": "seccs/visor.css",
+					"settings":
+					{
+						"buffer_size": 1001,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								825,
+								825
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/CSS/CSS.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 608.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 10,
+					"file": "forms/nuevo_coment.php",
+					"settings":
+					{
+						"buffer_size": 407,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								329,
+								329
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 11,
+					"file": "seccs/visor_form.css",
+					"settings":
+					{
+						"buffer_size": 345,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								21,
+								21
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/CSS/CSS.tmLanguage"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
@@ -551,6 +594,18 @@
 		"height": 0.0,
 		"selected_items":
 		[
+			[
+				"ini",
+				"seccs/inicio_sesion.css"
+			],
+			[
+				"inicio",
+				"inicio_sesion.php"
+			],
+			[
+				"msg",
+				"msg"
+			],
 			[
 				"gale",
 				"seccs/galeria.php"

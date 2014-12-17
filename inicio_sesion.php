@@ -34,7 +34,7 @@
 		<link rel="stylesheet" type="text/css" href="./seccs/menu.css" />
 		<link rel="stylesheet" type="text/css" href="./seccs/inicio_sesion.css" />
 		<link rel="stylesheet" type="text/css" href="./bootstrap.min.css" />
-		<title>Unitec</title>
+		<title>Unitec - Inicio Sesión</title>
 	</head>
 	<body>
 		<div class="container-fluid" style="padding: 0">

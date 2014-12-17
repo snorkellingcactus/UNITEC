@@ -1,30 +1,42 @@
-<div>
+<div class="comentario">
 	<p class='comAutor'>
-		<?php echo $esq->NombreUsuario ?>
-		 Dijo:
+		<?php
+			echo $esq->NombreUsuario;
 
-		 <?php
-			 if(isset($_POST['comRes'])&&$_POST['comResID']==$esq->ID)
-			 {
-			 	$_SESSION['comResID']=$_POST['comResID'];
-
-			 	echo file_get_contents("../forms/nuevo_coment.php");
-			 }
-		 ?>
+			if(isset($esq->NombreDest))
+			{
+				?>
+				<span class="comResTxt">&#8631; <?php echo $esq->NombreDest ?></span>
+				<?php
+			}
+		?>
 	</p>
-	<?php
+
+	<form action="#" method="POST" class="formRes">
+		<input type="hidden" name="comResID" value="<?php echo $esq->ID ?>" >
+	 	<input type="submit" value="↶" title="Responder a <?php echo $esq->NombreUsuario ?>">
+	</form>
+
+ 	<?php
 		if(isset($_SESSION['adminID']) && $_SESSION['adminID']!==NULL)
 		 {
 		 	?>
-			 	<input type="checkbox" name="comID[]" value="<?php echo $esq->ID ?>" form="comForm">
+			 	<input type="checkbox" name="comID[]" value="<?php echo $esq->ID ?>" form="acciones">
 		 	<?php
 		 }
 	?>
 
- 	<input type="hidden" name="comResID" form="comForm" value="<?php echo $esq->ID ?>" >
- 	<input type="submit" name="comRes" form="comForm" value="↶">
 
 	<p class="comCont">
 		<?php echo $esq->Contenido ?>
 	</p>
+
+	<?php
+		if(isset($_POST['comResID'])&&$_POST['comResID']==$esq->ID)
+		{
+			$_SESSION['comResID']=$_POST['comResID'];
+
+			echo file_get_contents("../forms/nuevo_coment.php");
+		}
+	?>
 </div>

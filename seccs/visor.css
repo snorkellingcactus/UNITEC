@@ -1,10 +1,11 @@
 body,html{background:rgba(0,0,0,0.7);min-height:100%;}
+.vCont{height:100%;}
 .flecha{display:table;height:100%;}
 .flecha a img
 {
 	width:100%;
-	-moz-transition:opacity 0.2s;
-	-webkit-transition:opacity 0.2s;
+	-moz-transition:opacity 0.5s;
+	-webkit-transition:opacity 0.5s;
 	opacity:0.7;
 }
 .flecha a img:hover
@@ -24,7 +25,6 @@ h2
 .comentarios
 {
 	background: #00D0D0;
-	border-radius:2px;
 	margin:3% 0px 3% 0px;
 	background-image:url("../img/fondo_contenido.png");
 	background-color:rgba(255, 255, 255, 0.75); 
@@ -32,22 +32,81 @@ h2
 	padding:2%;
 	overflow:hidden;
 }
-.comentarios div form
+.formRes
 {
 	float:left;
 	padding:0px;
-
 }
-.comentarios div form input
+.formRes input
 {
-	height:1em;
+	-moz-transition:box-shadow 0.5s;
+	height:auto;
+	width:auto;
+	margin-left:7px;
+	border:0px solid;
+	box-shadow: none;
+	background-color:#A4A4A4;
+	border:1px solid silver;
+	border-radius:1px solid silver;
+	color:silver;
+	box-shadow: 0px 0px 1px transparent;
+	margin-right:5px;
 }
-.comCont{clear:both;border-bottom:1px solid silver;padding:10px;}
-.nComentForm{position:relative;bottom:0px;}
+.formRes input:hover , .formRes input:focus
+ {
+ 	color:white;
+ 	background-color:gray;
+ 	box-shadow: 0px 0px 1px white;
+ }
+ .comResTxt{color:gray;font-size:90%;}
+.comentario
+{
+	margin-bottom:20px;
+}
+.comentario>input
+{
+	float:left;
+	display:block;
+	height:auto;
+	width:auto;
+}
+.comentario>p
+{
+	padding-left:0px;
+}
+.comCont{clear:both}
+.nComentForm{position:relative;bottom:0px;display:inline-block;}
+.nComentForm input:last-child{display:block;clear:both;float:none;width:100%;margin-top:5px;}
+.nComentForm input{margin-bottom:5px;width:100%;}
+
 .comentarios, .imgCont>img {box-shadow:-1px -1px 3px #888888;}
-.comAutor{font-weight:bold;float:left;padding-right:10px;}
-.nHilo{margin-left:20px;border-left:2px solid silver;}
+.comAutor{font-weight:bold;float:left}
+.nHilo
+{
+	margin-left:20px;
+	padding-left:10px;
+}
 .col-1
 {
 	clear:both;
 }
+.cerrar
+{
+	-moz-transition:background-color 0.5s;
+	-moz-transition:color 0.5s;
+	border-radius:1px;
+	padding:5px;
+	float:right;
+	color:silver;
+	background-color:rgba(255,255,255,0.05); 
+	border-radius:30px;
+	border:1px solid silver;
+}
+.cerrar:hover
+{
+	background-color:rgba(255,255,255,0.15);
+	color:white;
+}
+#acciones{display:none;}
+.acciones input{height:auto;}
+.acciones{margin-bottom:50px;}

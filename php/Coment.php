@@ -71,6 +71,8 @@ function GenComLst($consulta , $con)
 
 	$cantidad=count($consulta);
 
+	$args=func_get_args();
+
 	if(!$cantidad)
 	{
 		$comentBuff='<p>Sin comentarios</p>';
@@ -80,6 +82,11 @@ function GenComLst($consulta , $con)
 		for($i=0;$i<$cantidad;$i++)
 		{
 			$nCom=GenCom($consulta[$i] , $con);
+
+			if(isset($args[2]))
+			{
+				$nCom->NombreDest=$args[2];
+			}
 
 			$nCom=$comentsMod->recorre($nCom);
 
@@ -99,7 +106,8 @@ function GenComLst($consulta , $con)
 				$nCom=GenComLst
 				(
 					$subCons,
-					$con
+					$con,
+					$consulta[$i]['NombreUsuario']
 				);
 
 				$comentBuff=$comentBuff

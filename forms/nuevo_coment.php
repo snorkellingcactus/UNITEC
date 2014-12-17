@@ -1,5 +1,7 @@
 <form class="nComentForm" action="visor.php#gal" method="POST">
-	<p>Comentá:</p>
+	<p>Nombres:</p>
+	<input type="text" name="comNomUsuario" >
+
 	<?php
 		if(isset($_SESSION['comNomUsuario']))
 		{
@@ -11,9 +13,7 @@
 			}
 		}
 	?>
-	<p> Nombre: 
-		<input type="text" name="comNomUsuario" >
-	</p>
-	<input type="text" name="comContenido" >
-	<input type="submit" value="Ok" >
+	<p>Mensaje:</p>
+	<textarea name="comContenido" cols="20" rows="4"></textarea>
+	<input type="submit" value="Publicar" >
 </form>

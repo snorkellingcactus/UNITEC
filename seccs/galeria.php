@@ -1,7 +1,10 @@
 <section id="gal">
 	<h1 class="titulo">Galería de Fotos</h1>
-	<form action='#gal' method='POST'>
+
 	<?php
+		$action='gal';
+
+		include_once 'forms/acciones.php';
 
 		//Si todavía no se inicio sesion, se inicia.
 		if(session_status()==PHP_SESSION_NONE)
@@ -53,14 +56,6 @@
 				//La inserto en la bd.
 				$Img->insSQL();
 			}
-
-			?>
-				<div class='acciones'>
-					Acciones:
-					<input type='submit' value='Eliminar' >
-				</div>
-
-			<?php
 		}
 		
 		//:::::::::::::::::::::::::::::::HTML::::::::::::::::::::::::::::::::::::
@@ -94,5 +89,4 @@
 			echo '<iframe width="100%" height="100%" src="./seccs/visor.php"></iframe>';
 		}
 	?>
-	</form>
 </section>
