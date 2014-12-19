@@ -24,10 +24,11 @@
 		$accesStr=$accesStr.'<span class="atajo">'.$accesKey[$i].'</span><span class="mas">+</span>';
 	}
 ?>
+<span class="hidden-xs">
 <section class="portada" id="atajos">
 
 	<h1>Atajos</h1>
-	<table class="table table-condensed2">
+	<table class="table" >
 		<tr>
 			<td>
 				<b>Inicio</b>
@@ -75,3 +76,4 @@
 		</tr>		
 	</table>
 </section>
+</span>
