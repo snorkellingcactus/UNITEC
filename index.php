@@ -37,6 +37,7 @@ function resaltaOpcN($num)
 		<link rel="stylesheet" type="text/css" href="./seccs/organigrama.css" />
 		<link rel="stylesheet" type="text/css" href="./seccs/calendario.css" />
 		<link rel="stylesheet" type="text/css" href="./seccs/sobre_unitec.css" />
+		<link rel="stylesheet" type="text/css" href="./seccs/novedades.css" />
 		<link rel="stylesheet" type="text/css" href="./seccs/galeria.css" />
 		<link rel="stylesheet" type="text/css" href="./bootstrap.min.css" />
 

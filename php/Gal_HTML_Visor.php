@@ -21,13 +21,9 @@ class	Gal_HTML_Visor
 		$this->imgLst=$imgLst;
 
 		//Variable con el numero de imagen que se va a mostrar.
-		if(!isset($_GET['vImg']))
+		if(isset($_GET['vImg']))
 		{
-			$this->selImgN(0);			//Indico el número de imagen a desplegar.
-		}
-		else
-		{
-			$this->selImgN($_GET['vImg']);
+			$this->selImgN($_GET['vImg']);			//Indico el número de imagen a desplegar.
 		}
 
 		//Si se especificó un ID de imagen, se selecciona esa imagen para mostrar
@@ -36,13 +32,6 @@ class	Gal_HTML_Visor
 			$this->disc['ID']=$_SESSION['vImgID'];
 			$this->discImgLst();
 		}
-		//Si se pasó un incremento del número de imagen por GET lo aplico.
-		/*
-		if(isset($_GET['vInc']))
-		{
-			$this->incImgN($_GET['vInc']);
-		}
-		*/
 	}
 	function gen()
 	{
@@ -64,7 +53,6 @@ class	Gal_HTML_Visor
 		$this->imgSel=$this->imgLst[$this->nImgSel];
 
 		$_SESSION['vImgID']=$this->imgSel->ID;
-		$_SESSION['vImg']=$this->nImgSel;
 
 		return $this->nImgSel;
 	}

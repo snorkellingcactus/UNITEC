@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 13-12-2014 a las 10:12:34
+-- Tiempo de generación: 19-12-2014 a las 22:14:39
 -- Versión del servidor: 5.6.16
 -- Versión de PHP: 5.5.11
 
@@ -39,7 +39,7 @@ CREATE TABLE IF NOT EXISTS `Comentarios` (
   PRIMARY KEY (`ID`),
   KEY `Usuario` (`Usuario`),
   KEY `Contenido` (`Contenido`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=82 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=103 ;
 
 --
 -- Volcado de datos para la tabla `Comentarios`
@@ -65,16 +65,26 @@ INSERT INTO `Comentarios` (`ID`, `GrupoID`, `GrupoRes`, `Respondido`, `IP`, `Usu
 (62, 29, NULL, NULL, NULL, NULL, 46, b'0', 'asx'),
 (63, 29, NULL, NULL, NULL, NULL, 47, b'0', 'asx2'),
 (64, 29, NULL, NULL, NULL, NULL, 48, b'0', 'Gonzalo'),
-(66, 22, NULL, NULL, NULL, NULL, 52, b'0', 'asxasx'),
 (68, 67, NULL, NULL, NULL, NULL, 54, b'0', 'Res a Lo Que Sea'),
-(74, 27, NULL, NULL, NULL, NULL, 60, b'0', 'Com 1'),
-(75, 27, NULL, b'1', NULL, NULL, 61, b'0', 'Com 2'),
 (76, 27, 75, NULL, NULL, NULL, 62, b'0', 'Com 2.1'),
-(77, 27, NULL, NULL, NULL, NULL, 63, b'0', 'Com 3'),
-(78, 27, NULL, b'1', NULL, NULL, 64, b'0', 'Com 4'),
-(79, 27, 78, NULL, NULL, NULL, 65, b'0', 'Com 4.1'),
+(79, 27, 78, b'1', NULL, NULL, 65, b'0', 'Com 4.1'),
 (80, 27, 78, b'1', NULL, NULL, 66, b'0', 'Com 4.1.1'),
-(81, 27, 80, NULL, NULL, NULL, 67, b'0', 'Com 4.2.1');
+(81, 27, 80, NULL, NULL, NULL, 67, b'0', 'Com 4.2.1'),
+(82, 27, 79, NULL, NULL, NULL, 68, b'0', 'Gonzalo'),
+(84, 27, NULL, NULL, NULL, NULL, 70, b'0', 'Gonzalo'),
+(85, 27, NULL, NULL, NULL, NULL, 71, b'0', 'Que'),
+(86, 27, NULL, b'1', NULL, NULL, 72, b'0', 'Hola'),
+(89, 22, NULL, NULL, NULL, NULL, 75, b'0', 'Gonzalo'),
+(90, 22, NULL, NULL, NULL, NULL, 76, b'0', 'Juan'),
+(91, 22, NULL, b'1', NULL, NULL, 77, b'0', 'Pedro'),
+(95, 27, 86, b'1', NULL, NULL, 81, b'0', 'Todo'),
+(96, 22, NULL, NULL, NULL, NULL, 82, b'0', ''),
+(97, 22, 91, b'1', NULL, NULL, 83, b'0', 'Respuesta al 3er comentario'),
+(98, 22, NULL, NULL, NULL, NULL, 84, b'0', 'Hola'),
+(99, 27, 95, NULL, NULL, NULL, 85, b'0', 'Res Hola'),
+(100, 27, NULL, NULL, NULL, NULL, 86, b'0', 'Otro comentario'),
+(101, 22, 97, NULL, NULL, NULL, 87, b'0', 'tycjytc'),
+(102, 22, NULL, NULL, NULL, NULL, 88, b'0', 'Comentario Prueba');
 
 -- --------------------------------------------------------
 
@@ -88,7 +98,7 @@ CREATE TABLE IF NOT EXISTS `Contenido` (
   `Lenguaje` int(11) DEFAULT NULL,
   PRIMARY KEY (`ID`),
   KEY `Lenguaje` (`Lenguaje`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=68 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=95 ;
 
 --
 -- Volcado de datos para la tabla `Contenido`
@@ -133,7 +143,34 @@ INSERT INTO `Contenido` (`ID`, `Contenido`, `Lenguaje`) VALUES
 (64, 'Cont Com 4', NULL),
 (65, 'Cont Com 4.1', NULL),
 (66, 'Cont Com 4.1.1', NULL),
-(67, 'Cont Com 4.2.1', NULL);
+(67, 'Cont Com 4.2.1', NULL),
+(68, 'Que tal', NULL),
+(69, 'asx', NULL),
+(70, 'Hola', NULL),
+(71, 'Tal', NULL),
+(72, 'Mundo', NULL),
+(73, 'Que tal', NULL),
+(74, 'Todo bien', NULL),
+(75, 'El primer comentario', NULL),
+(76, 'El segundo comentario', NULL),
+(77, 'El tercer comentario', NULL),
+(78, 'Respuesta al segundo comentario', NULL),
+(79, 'Me gusta jugar al chacha como una ni&ntilde;a tonta', NULL),
+(80, 'yo le ense&ntilde;e', NULL),
+(81, 'Bien', NULL),
+(82, 'aaaaaaaaaaaaaaaaaaaa', NULL),
+(83, 'Contenido Respuesta al 3er comentario', NULL),
+(84, 'Mundo', NULL),
+(85, 'jj', NULL),
+(86, 'Sin contenido', NULL),
+(87, 'tyjvjyttv', NULL),
+(88, 'Contenido Prueba', NULL),
+(89, 'Hola ', NULL),
+(90, 'Mundo', NULL),
+(91, 'Otra', NULL),
+(92, 'Noticia', NULL),
+(93, 'Otra', NULL),
+(94, 'Noticia', NULL);
 
 -- --------------------------------------------------------
 
@@ -164,7 +201,8 @@ CREATE TABLE IF NOT EXISTS `Imagenes` (
 INSERT INTO `Imagenes` (`ID`, `Url`, `Ancho`, `Alto`, `Alt`, `Titulo`, `Contenido`, `Comentarios`, `Lenguaje`) VALUES
 (22, 'http://localhost/Web/imgsEj/0DA.jpg', NULL, NULL, 'Un ocaso amarillo', 'Ocaso Amarillo', NULL, NULL, NULL),
 (27, 'http://localhost/Web/imgsEj/Mariposa-amarilla.jpg', NULL, NULL, 'Mariposa Amarilla', 'Mariposa Amarilla', NULL, NULL, NULL),
-(32, 'https://newevolutiondesigns.com/images/freebies/retro-wallpaper-35.jpg', NULL, NULL, 'holaMundo', 'Otro', NULL, NULL, NULL);
+(28, 'http://localhost/Web/imgsEj/Awesome%20Abstract%20Wallpapers%2009.jpg', NULL, NULL, 'asxasx', 'Amarillo', NULL, NULL, NULL),
+(29, 'http://localhost/Web/imgsEj/mariposa2.jpg', NULL, NULL, 'asxasx', 'Otra Mariposa', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -177,6 +215,30 @@ CREATE TABLE IF NOT EXISTS `Lenguajes` (
   `Lenguaje` varchar(5) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `Novedades`
+--
+
+CREATE TABLE IF NOT EXISTS `Novedades` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `Imagen` int(11) DEFAULT NULL,
+  `Titulo` int(11) DEFAULT NULL,
+  `Descripcion` int(11) DEFAULT NULL,
+  PRIMARY KEY (`ID`),
+  KEY `Imagen` (`Imagen`),
+  KEY `Titulo` (`Titulo`),
+  KEY `Descripcion` (`Descripcion`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=5 ;
+
+--
+-- Volcado de datos para la tabla `Novedades`
+--
+
+INSERT INTO `Novedades` (`ID`, `Imagen`, `Titulo`, `Descripcion`) VALUES
+(1, 28, 33, 33);
 
 -- --------------------------------------------------------
 
@@ -225,6 +287,14 @@ ALTER TABLE `Imagenes`
   ADD CONSTRAINT `Imagenes_ibfk_1` FOREIGN KEY (`Contenido`) REFERENCES `Contenido` (`ID`),
   ADD CONSTRAINT `Imagenes_ibfk_2` FOREIGN KEY (`Comentarios`) REFERENCES `Comentarios` (`ID`),
   ADD CONSTRAINT `Imagenes_ibfk_3` FOREIGN KEY (`Lenguaje`) REFERENCES `Lenguajes` (`ID`);
+
+--
+-- Filtros para la tabla `Novedades`
+--
+ALTER TABLE `Novedades`
+  ADD CONSTRAINT `Novedades_ibfk_1` FOREIGN KEY (`Imagen`) REFERENCES `Imagenes` (`ID`),
+  ADD CONSTRAINT `Novedades_ibfk_2` FOREIGN KEY (`Titulo`) REFERENCES `Contenido` (`ID`),
+  ADD CONSTRAINT `Novedades_ibfk_3` FOREIGN KEY (`Descripcion`) REFERENCES `Contenido` (`ID`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

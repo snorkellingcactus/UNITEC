@@ -118,13 +118,13 @@
 			
 			<!-- Imagen y controles -->
 			<div class="col-lg-10 col-md-10 col-sm-10 col-xs-8 imgCont">
-					<a href="visor.php?vImg=<?php echo $vImgSig ?>#gal" class="flecha" title="Imagen Anterior" >
+					<a href="visor.php?vImg=<?php echo $vImgAnt ?>#gal" class="flecha" title="Imagen Anterior" >
 						<img src="../img/flecha_i.png" alt="Flecha hacia la izquierda"/>
 					</a>
 
 					<img src="<?php echo $esq->Url ?>" alt="<?php echo $esq->Alt ?>"/>					
 
-					<a href="visor.php?vImg=<?php echo $vImgAnt ?>#gal"  class="flecha" title="Imagen Siguiente">
+					<a href="visor.php?vImg=<?php echo $vImgSig ?>#gal"  class="flecha" title="Imagen Siguiente">
 						<img src="../img/flecha_d.png" alt="Flecha hacia la derecha"/>
 					</a>
 			</div>

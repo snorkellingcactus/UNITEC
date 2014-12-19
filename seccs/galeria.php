@@ -2,9 +2,10 @@
 	<h1 class="titulo">Galería de Fotos</h1>
 
 	<?php
-		$action='gal';
+		$fAction='gal';
+		$fId='accionesGal';
 
-		include_once 'forms/acciones.php';
+		include 'forms/acciones.php';
 
 		//Si todavía no se inicio sesion, se inicia.
 		if(session_status()==PHP_SESSION_NONE)
