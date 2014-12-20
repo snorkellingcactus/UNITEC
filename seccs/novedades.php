@@ -2,6 +2,11 @@
 	<h1 class="titulo">Novedades</h1>
 
 	<?php
+		//Cache por defecto vale 0.
+		if(!isset($_SESSION['cache']))
+		{
+			$_SESSION['cache']=0;
+		}
 		if(!empty($_SESSION['adminID']))
 		{
 				$fAction='nov';
@@ -127,16 +132,21 @@
 
 		if(!empty($_SESSION['adminID']))
 		{
-			?>
-				<form action="#" method="POST">
-					<h2>Nueva Novedad</h2>					
-					Titulo:<input type="text" name="novTitulo" />
-					Descripcion:<input type="text" name="novDescripcion" />
-					Imagen:<input type="text" name="novImagen" />
-
-					<input type="submit" name="novNueva" value="Ok" />
-				</form>
-			<?php
+			if(isset($_POST['gNNovDiag']))
+			{
+				?>
+					<iframe width="100%" height="100%" src="forms/nueva_novedad.php"></iframe>
+				<?php
+			}
+			else
+			{
+				?>
+				
+					<form action="#nov" method="POST">
+						<input type="submit" value="Nueva Novedad" name="gNNovDiag"/>
+					</form>
+				<?php
+			}
 		}
      
 	?>
