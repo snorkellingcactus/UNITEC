@@ -7,24 +7,30 @@
 {
 	border-radius:2px;
 }
+.gImg button
+{
+	text-align:center;
+	display:inline;
+	position:relative;
+	overflow:hidden;
+	height:auto;
+	width:auto;
+	background-color:dimgray;
+	color:white;
+	box-shadow: 0px 0px 3px black;
+	margin:auto;
+}
 .gImg
 {
-	background-color:silver;
 	text-align:center;
-	background-image: url("../img/fondo_contenido.png");
-	box-shadow:-0px -0px 5px rgba(255,255,255,0.75);
-	border-radius:2px;
-	padding-bottom:2em;
 }
 .gImg .eImg
 {
 	position:absolute;
-	right:7px;
+	right:0px;
 	top:0px;
 	height:1em;
 }
-.gImg a{display:inline;}
-
 input ,button{box-shadow:0px 0px 3px white;border-radius:2px}
 input,form a{height:3em}
 label{font-size:2em}

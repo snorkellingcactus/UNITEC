@@ -1,6 +1,6 @@
 <section id="gal">
 	<h1 class="titulo">Galería de Fotos</h1>
-
+	<form id="vImg" method="POST" action="#gal"></form>
 	<?php
 		$fAction='gal';
 		$fId='accionesGal';
@@ -22,6 +22,7 @@
 		{
 			$_SESSION['cache']=0;
 		}
+		$_SESSION['cache']=!$_SESSION['cache'];
 
 		include_once 'php/conexion.php';
 		include_once 'php/SQL_Obj.php';
@@ -73,19 +74,19 @@
 
 		if($modoAdmin)
 		{
-			//Imprimo el boton nueva imagen.
-			include("esq/gal_nImg.html");
 			//Si se clickeó el botón nueva imagen, imprimo el formulario.
-			if(isset($_GET['gNImgDiag']))
+			if(isset($_POST['nueva']))
 			{
-				echo '<iframe width="100%" height="100%" src="forms/nueva_imagen.html"></iframe>';
+				echo '<iframe width="100%" height="100%" src="forms/nueva_imagen.php"></iframe>';
 			}
 		}
 		//Si se pasó por URL un ID de imagen, abro el visor para mostrarla.
-		if(isset($_GET['vImgID']))
+		if(isset($_POST['vImgId']))
 		{
-			$_SESSION['vImgID']		= intval($_GET['vImgID']);		//Trato de pasar el ID de imagen a número.
+			$_SESSION['vImgID']		= intval($_POST['vImgId']);		//Trato de pasar el ID de imagen a número.
 			$_SESSION['vImgLst']	= serialize($Gal->imgLst);		//Reestablezco la lista de imágenes.
+
+			unset($_POST['vImgId']);
 
 			echo '<iframe width="100%" height="100%" src="./seccs/visor.php"></iframe>';
 		}

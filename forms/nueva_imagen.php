@@ -1,3 +1,11 @@
+<?php
+	if(session_status()==PHP_SESSION_NONE)
+	{
+		session_start();
+	}
+
+	$cache=!$_SESSION['cache'];
+?>
 <html>
 	<head>
 		<link rel="stylesheet" type="text/css" href="../bootstrap.min.css" />
@@ -42,7 +50,7 @@
 				
 				<button type="submit" class="col-xs-6 col-sm-6 col-md-6 col-lg-6">Aceptar</button>
 			
-				<a href="../index.php#gal" class="col-xs-6 col-sm-6 col-md-6 col-lg-6" target="_parent">Cancelar</a>
+				<a href="../index.php?cache=<?php echo $cache ?>#gal" class="col-xs-6 col-sm-6 col-md-6 col-lg-6" target="_parent">Cancelar</a>
 			</form>
 	</body>
 </html>

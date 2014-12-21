@@ -7,11 +7,11 @@
 			<?php
 		}
 	?>
-	<a href="index.php?vImgID=<?php echo $esq->ID ?>#gal" >
+	<button type="submit" form="vImg" name="vImgId" value="<?php echo $esq->ID ?>">
 		<p>
 			<?php echo $esq->Titulo ?>
 		</p>
 		<img src="<?php echo $esq->Url ?>" alt="<?php echo $esq->Alt ?>" width="200" height="200" />
-	</a>
+	</button>
 	
 </div>

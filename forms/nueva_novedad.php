@@ -11,24 +11,32 @@
 			{
 				session_start();
 			}
-			if($_SESSION['cache']==0)
-			{
-				$_SESSION['cache']=1;
-			}
-			else
-			{
-				$_SESSION['cache']=0;
-			}
+			$cache=!$_SESSION['cache'];
 		?>
-		<form action="../index.php#nov" method="POST">
-			<h2>Nueva Novedad</h2>					
-			Titulo:<input type="text" name="novTitulo" />
-			Descripcion:<input type="text" name="novDescripcion" />
-			Imagen:<input type="text" name="novImagen" />
+		<form action="../index.php#nov" method="POST">			
+			<p class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+				<label for="Titulo">Titulo:</label>
+			</p>
+			<input type="text" name="novTitulo" class="col-xs-12 col-sm-8 col-md-8 col-lg-8"/>
+			<div class="clearfix"></div>
 
-			<input type="submit" name="novNueva" value="Ok" />
+			<p class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+				<label for="Descripcion">Descripcion:</label>
+			</p>
+			<input type="text" name="novDescripcion" class="col-xs-12 col-sm-8 col-md-8 col-lg-8"/>
+			<div class="clearfix"></div>
 
-			<a href="../index.php?cache=<?php echo $_SESSION['cache'] ?>#nov" class="col-xs-6 col-sm-6 col-md-6 col-lg-6" target="_parent">Cancelar</a>
+			<p class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+				<label for="Imagen">Imagen:</label>
+			</p>
+			<input type="text" name="novImagen" class="col-xs-12 col-sm-8 col-md-8 col-lg-8"/>
+			<div class="clearfix"></div>
+
+			<button type="submit" name="novNueva" class="col-xs-6 col-sm-6 col-md-6 col-lg-6"/>
+			Aceptar
+			</button>
+
+			<a href="../index.php?cache=<?php echo $cache ?>#nov" class="col-xs-6 col-sm-6 col-md-6 col-lg-6" target="_parent">Cancelar</a>
 		</form>
 	</body>
 </html>

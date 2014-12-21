@@ -6,6 +6,9 @@
 			<p class="acciones">Selecci&oacute;n:
 				<input type="submit" name="elimina" value="Elimina" form="<?php echo $fId ?>">
 			</p>
+			<p class="acciones">Otras:
+				<input type="submit" name="nueva" value="Nueva" form="<?php echo $fId ?>">
+			</p>
 		<?php
 	}
 ?>

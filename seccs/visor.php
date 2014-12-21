@@ -27,11 +27,6 @@
 		session_start();
 	}
 
-	//Variable utilizada para corregir un error con enlaces que contienen
-	//anclas y variables get. Si el enlace es siempre el mismo, no refresca
-	//el código PHP. La variable cache alterna entre 0 y 1 para evitar el problema.
-	$_SESSION['cache']=!$_SESSION['cache'];
-
 	//Operaciones cuando se llenó un formulario de nuevo comentario.
 	if(!empty($_POST['comContenido']))
 	{
@@ -113,7 +108,7 @@
 			<!-- Título -->
 			<h2 class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 						<?php echo $esq->Titulo ?>
-						<a href="../index.php#gal" target="_parent" class="cerrar" title="Cerrar Visor">X</a>
+						<a href="../index.php?cache=<?php echo $_SESSION['cache'] ?>#gal" target="_parent" class="cerrar" title="Cerrar Visor">X</a>
 			</h2>
 			
 			<!-- Imagen y controles -->

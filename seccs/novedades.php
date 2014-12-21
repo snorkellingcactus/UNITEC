@@ -2,6 +2,10 @@
 	<h1 class="titulo">Novedades</h1>
 
 	<?php
+		if(session_status()==PHP_SESSION_NONE)
+		{
+			session_start();
+		}
 		//Cache por defecto vale 0.
 		if(!isset($_SESSION['cache']))
 		{
