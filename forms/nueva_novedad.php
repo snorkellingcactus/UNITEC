@@ -11,7 +11,7 @@
 			{
 				session_start();
 			}
-			$cache=!$_SESSION['cache'];
+			$cache=$_SESSION['cache'];
 		?>
 		<form action="../index.php#nov" method="POST">			
 			<p class="col-xs-12 col-sm-4 col-md-4 col-lg-4">

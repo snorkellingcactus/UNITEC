@@ -11,6 +11,10 @@
 		{
 			$_SESSION['cache']=0;
 		}
+		if(isset($_GET['cache']))
+		{
+			$_SESSION['cache']=$_GET['cache']||0;
+		}
 		if(!empty($_SESSION['adminID']))
 		{
 				$fAction='nov';

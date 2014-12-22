@@ -11,6 +11,10 @@ if(!isset($_GET["OpcSel"]))
 {
 	$_GET["OpcSel"]=0;
 }
+if(!isset($_SESSION['cache']))
+{
+	$_SESSION['cache']=0;
+}
 
 //Resalta la función del menú correspondiente.
 function resaltaOpcN($num)

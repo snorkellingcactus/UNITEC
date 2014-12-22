@@ -4,7 +4,7 @@
 		session_start();
 	}
 
-	$cache=!$_SESSION['cache'];
+	$cache=$_SESSION['cache'];
 ?>
 <html>
 	<head>

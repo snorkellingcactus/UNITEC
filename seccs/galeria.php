@@ -22,7 +22,10 @@
 		{
 			$_SESSION['cache']=0;
 		}
-		$_SESSION['cache']=!$_SESSION['cache'];
+		if(isset($_GET['cache']))
+		{
+			$_SESSION['cache']=!$_GET['cache']||0;
+		}
 
 		include_once 'php/conexion.php';
 		include_once 'php/SQL_Obj.php';

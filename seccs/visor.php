@@ -27,6 +27,15 @@
 		session_start();
 	}
 
+	if(!isset($_SESSION['cache']))
+	{
+		$_SESSION['cache']=0;
+	}
+	if(isset($_GET['cache']))
+	{
+		$_SESSION['cache']=!$_GET['cache']||0;
+	}
+
 	//Operaciones cuando se llenó un formulario de nuevo comentario.
 	if(!empty($_POST['comContenido']))
 	{
