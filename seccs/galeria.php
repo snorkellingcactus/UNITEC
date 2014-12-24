@@ -1,6 +1,10 @@
 <section id="gal">
 	<h1 class="titulo">Galería de Fotos</h1>
 	<form id="vImg" method="POST" action="#gal"></form>
+
+	<p class="acciones">Acciones:
+		<input type="submit" name="nueva" value="Nueva" form="<?php echo $fId ?>">
+	</p>
 	<?php
 		$fAction='gal';
 		$fId='accionesGal';

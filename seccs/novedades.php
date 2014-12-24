@@ -13,14 +13,30 @@
 		}
 		if(isset($_GET['cache']))
 		{
-			$_SESSION['cache']=$_GET['cache']||0;
+			$_SESSION['cache']=!$_GET['cache']||0;
 		}
 		if(!empty($_SESSION['adminID']))
 		{
 				$fAction='nov';
 				$fId='accionesNov';
 
-				include 'forms/acciones.php';
+				if(isset($_POST['gNNovDiag']))
+				{
+					?>
+						<iframe width="100%" height="100%" src="forms/nueva_novedad.php"></iframe>
+					<?php
+				}
+				else
+				{
+					?>
+						<p class="acciones">
+							Acciones:
+							<input type="submit" value="nueva" name="gNNovDiag" form="<?php echo $fId ?>"/>
+						</p>
+					<?php
+				}
+
+				include 'forms/acciones.php';				
 		}
 
 		if(isset($_POST['novNueva']))
@@ -137,25 +153,6 @@
 		}
 
 		echo $buff;
-
-		if(!empty($_SESSION['adminID']))
-		{
-			if(isset($_POST['gNNovDiag']))
-			{
-				?>
-					<iframe width="100%" height="100%" src="forms/nueva_novedad.php"></iframe>
-				<?php
-			}
-			else
-			{
-				?>
-				
-					<form action="#nov" method="POST">
-						<input type="submit" value="Nueva Novedad" name="gNNovDiag"/>
-					</form>
-				<?php
-			}
-		}
      
 	?>
 </section>

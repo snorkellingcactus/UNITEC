@@ -80,6 +80,11 @@
 		}
 		//Inserto el comentario en la BD.
 		$Comentario->insSQL();
+
+		//Esto hace que se ancle el comentario al que está siendo respondido.
+		//La idea es que se ancle el comentario recién creado, para lo que
+		//a futuro hay que modificar insSQL() para que actualize el ID.
+		$_SESSION['comRes']=$Comentario->ID;
 	}
 	else
 	{
@@ -139,6 +144,7 @@
 			<!-- Comentarios -->
 			<div class="comentarios col-lg-10 col-md-10 col-sm-10 col-xs-10" >
 				<?php
+					$fId='accionesCom';
 					include('../forms/acciones.php');
 
 					//Genero los comentarios.

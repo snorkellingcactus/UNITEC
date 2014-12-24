@@ -1,7 +1,14 @@
 <?php
-	if(isset($_POST['comResID'])&&$_POST['comResID']==$esq->ID)
+	if
+	(
+		(isset($_POST['comResID'])&&$_POST['comResID']==$esq->ID) ||
+		isset($_SESSION['comRes'])
+	)
 	{
-		echo '<span id="comRes"></span>';
+		unset($_SESSION['comRes']);
+		?>
+			<span id="comRes"></span>
+		<?php
 	}
 ?>
 <div class="comentario">
@@ -12,7 +19,7 @@
 			if(isset($esq->NombreDest))
 			{
 				?>
-				<span class="comResTxt">&#8631; <?php echo $esq->NombreDest ?></span>
+					<span class="comResTxt">&#8631; <?php echo $esq->NombreDest ?></span>
 				<?php
 			}
 		?>
@@ -27,7 +34,7 @@
 		if(isset($_SESSION['adminID']) && $_SESSION['adminID']!==NULL)
 		 {
 		 	?>
-			 	<input type="checkbox" name="comID[]" value="<?php echo $esq->ID ?>" form="acciones">
+			 	<input type="checkbox" name="comID[]" value="<?php echo $esq->ID ?>" form="accionesCom">
 		 	<?php
 		 }
 	?>
