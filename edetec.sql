@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 03-01-2015 a las 08:13:40
+-- Tiempo de generación: 03-01-2015 a las 11:16:58
 -- Versión del servidor: 5.6.16
 -- Versión de PHP: 5.5.11
 
@@ -65,7 +65,7 @@ CREATE TABLE IF NOT EXISTS `Contenido` (
   `Lenguaje` int(11) DEFAULT NULL,
   PRIMARY KEY (`ID`),
   KEY `Lenguaje` (`Lenguaje`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=133 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=157 ;
 
 --
 -- Volcado de datos para la tabla `Contenido`
@@ -82,7 +82,31 @@ INSERT INTO `Contenido` (`ID`, `Contenido`, `Lenguaje`) VALUES
 (129, 'Drog&oacute;n!', NULL),
 (130, 'Giles', NULL),
 (131, 'Hola', NULL),
-(132, 'Nuevo Comentario', NULL);
+(132, 'Nuevo Comentario', NULL),
+(133, 'Hola', NULL),
+(134, 'Mundo', NULL),
+(135, '', NULL),
+(136, '', NULL),
+(137, 'Hola', NULL),
+(138, 'Mundo', NULL),
+(139, 'Hola', NULL),
+(140, 'Mundo', NULL),
+(141, 'Hola', NULL),
+(142, 'Mundo', NULL),
+(143, 'Hola', NULL),
+(144, 'Mundo', NULL),
+(145, 'Que', NULL),
+(146, 'Tal', NULL),
+(147, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', NULL),
+(148, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum', NULL),
+(149, 'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.', NULL),
+(150, 'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?', NULL),
+(151, 'At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque ', NULL),
+(152, 'At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat', NULL),
+(153, 'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.', NULL),
+(154, 'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?', NULL),
+(155, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', NULL),
+(156, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum', NULL);
 
 -- --------------------------------------------------------
 
@@ -104,7 +128,7 @@ CREATE TABLE IF NOT EXISTS `Imagenes` (
   KEY `Contenido` (`Contenido`),
   KEY `Comentarios` (`Comentarios`),
   KEY `Lenguaje` (`Lenguaje`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=43 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=47 ;
 
 --
 -- Volcado de datos para la tabla `Imagenes`
@@ -112,7 +136,8 @@ CREATE TABLE IF NOT EXISTS `Imagenes` (
 
 INSERT INTO `Imagenes` (`ID`, `Url`, `Ancho`, `Alto`, `Alt`, `Titulo`, `Contenido`, `Comentarios`, `Lenguaje`) VALUES
 (41, 'http://localhost/Web/imgsEj/Mariposa-amarilla.jpg', NULL, NULL, 'Mariposa', 'Imagen 1', NULL, NULL, NULL),
-(42, 'http://curiosidades.batanga.com/sites/curiosidades.batanga.com/files/imagecache/completa/como-se-forma-la-lluvia-2.jpg', NULL, NULL, 'Foto de lluvia', 'Lluvia', NULL, NULL, NULL);
+(42, 'http://curiosidades.batanga.com/sites/curiosidades.batanga.com/files/imagecache/completa/como-se-forma-la-lluvia-2.jpg', NULL, NULL, 'Foto de lluvia', 'Lluvia', NULL, NULL, NULL),
+(46, 'http://www.rodriguezpelaezcs.org/lluviaenventana.jpg', NULL, NULL, 'Otra Lluvia', 'Lluvia 2', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -137,11 +162,21 @@ CREATE TABLE IF NOT EXISTS `Novedades` (
   `Imagen` int(11) DEFAULT NULL,
   `Titulo` int(11) DEFAULT NULL,
   `Descripcion` int(11) DEFAULT NULL,
+  `Fecha` date DEFAULT NULL,
   PRIMARY KEY (`ID`),
   KEY `Imagen` (`Imagen`),
   KEY `Titulo` (`Titulo`),
   KEY `Descripcion` (`Descripcion`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=13 ;
+
+--
+-- Volcado de datos para la tabla `Novedades`
+--
+
+INSERT INTO `Novedades` (`ID`, `Imagen`, `Titulo`, `Descripcion`, `Fecha`) VALUES
+(10, 46, 151, 152, '2015-01-03'),
+(11, 42, 153, 154, '2015-01-03'),
+(12, 41, 155, 156, '2015-01-03');
 
 -- --------------------------------------------------------
 
