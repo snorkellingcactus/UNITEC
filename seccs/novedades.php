@@ -52,26 +52,18 @@
 		//Si se rellenó el formulario nueva novedad la envío a la bd.
 		if(isset($_POST['novNueva']))
 		{
+			include_once 'php/conexion.php';
 			include_once 'php/Novedad.php';
 			include_once 'php/Contenido.php';
 			include_once 'php/Img.php';
 			include_once 'php/Foraneas.php';
 
+			$horaLoc=getdate();
+
 			$nov=new Novedad($con);
 
-			$nov->insForaneas
-			(
-				new Img
-				(
-					$con,
-					[
-						'Url'=>$_POST['novImagen']
-					]
-				),
-				[
-					'Imagen'=>'ID'
-				]
-			);
+			$nov->Imagen=$_POST['novImagen'];
+			$nov->Fecha=$horaLoc['year'].'-'.$horaLoc['mon'].'-'.$horaLoc['mday'];
 
 			$nov->insForaneas
 			(
@@ -106,7 +98,7 @@
 		//Acciones con las seleccionadas.
 		if(isset($_POST['novID']))
 		{
-			if(isset($_POST['eliminar']))
+			if(isset($_POST['elimina']))
 			{
 				include_once 'php/conexion.php';
 
@@ -157,7 +149,8 @@
 						'ID'=>$novAct['ID'],
 						'Imagen'=>$imagen,
 						'Titulo'=>$titulo,
-						'Descripcion'=>$descripcion
+						'Descripcion'=>$descripcion,
+						'Fecha'=>$novAct['Fecha']
 					]
 				);
 

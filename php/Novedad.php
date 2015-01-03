@@ -14,7 +14,8 @@ class Novedad extends SQL_Obj
 			[
 				'Imagen',
 				'Titulo',
-				'Descripcion'
+				'Descripcion',
+				'Fecha'
 			]
 		);
 

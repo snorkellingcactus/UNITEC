@@ -3,7 +3,7 @@
 		<link rel="stylesheet" type="text/css" href="../bootstrap.min.css" />
 		<link rel="stylesheet" type="text/css" href="../seccs/visor.css" />
 		<link rel="stylesheet" type="text/css" href="../seccs/visor_form.css" />
-		<link rel="stylesheet" type="text/css" href="nueva_imagen.css" />
+		<link rel="stylesheet" type="text/css" href="nueva_novedad.css" />
 	</head>
 	<body>
 		<?php
@@ -23,13 +23,37 @@
 			<p class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
 				<label for="Descripcion">Descripcion:</label>
 			</p>
-			<input type="text" name="novDescripcion" class="col-xs-12 col-sm-8 col-md-8 col-lg-8"/>
+			<textarea name="novDescripcion" class="col-xs-12 col-sm-8 col-md-8 col-lg-8" rows='7'/></textarea>
 			<div class="clearfix"></div>
 
 			<p class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
 				<label for="Imagen">Imagen:</label>
 			</p>
-			<input type="text" name="novImagen" class="col-xs-12 col-sm-8 col-md-8 col-lg-8"/>
+			<div class="overhidden">
+				<?php
+					include_once '../php/conexion.php';
+
+					$Imgs=$con->query('select * from Imagenes where 1');
+					$Imgs=$Imgs->fetch_all(MYSQLI_ASSOC);
+
+					$cantidad=count($Imgs);
+
+					if($cantidad)
+					{
+
+						for($i=0;$i<$cantidad;$i++)
+						{
+							$Img=$Imgs[$i];
+							?>
+								<div class="col-lg-1 col-md-3 col-sm-6 col-xs-12">
+									<input name="novImagen" type="radio" value="<?php echo $Img['ID'] ?>" <?php if($i===0){echo 'checked="checked"';}?> />
+									<img src="<?php echo $Img['Url']?>" />
+								</div>
+							<?
+						}
+					}
+				?>
+			</div>
 			<div class="clearfix"></div>
 
 			<button type="submit" name="novNueva" class="col-xs-6 col-sm-6 col-md-6 col-lg-6"/>
