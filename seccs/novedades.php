@@ -2,6 +2,7 @@
 	<h1 class="titulo">Novedades</h1>
 
 	<?php
+		//::::::::::Variables de Sesion::::::::::::::
 		if(session_status()==PHP_SESSION_NONE)
 		{
 			session_start();
@@ -11,15 +12,23 @@
 		{
 			$_SESSION['cache']=0;
 		}
+		//Invierto el valor boleano de cache.
 		if(isset($_GET['cache']))
 		{
 			$_SESSION['cache']=!$_GET['cache']||0;
 		}
+
+
+		//:::::::::HTML y Diálogos:::::::::::
+		//Diferencias al ser admin.
 		if(!empty($_SESSION['adminID']))
 		{
+				//De momento se especifica el ancla de la url action del form con la variable
+				//fAction y el id del form con fId.
 				$fAction='nov';
 				$fId='accionesNov';
-
+				
+				//Incluyo el diálogo nueva novedad si se solicitó.
 				if(isset($_POST['gNNovDiag']))
 				{
 					?>
@@ -28,6 +37,7 @@
 				}
 				else
 				{
+					//Incluyo las acciones para las novedades.
 					?>
 						<p class="acciones">
 							Acciones:
@@ -39,6 +49,7 @@
 				include 'forms/acciones.php';				
 		}
 
+		//Si se rellenó el formulario nueva novedad la envío a la bd.
 		if(isset($_POST['novNueva']))
 		{
 			include_once 'php/Novedad.php';
@@ -91,6 +102,8 @@
 
 			$nov->insSQL();
 		}
+
+		//Acciones con las seleccionadas.
 		if(isset($_POST['novID']))
 		{
 			if(isset($_POST['eliminar']))

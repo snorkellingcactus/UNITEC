@@ -16,6 +16,7 @@ class Coment extends SQL_Obj
 				'GrupoID',
 				'GrupoRes',
 				'Respondido',
+				'Fecha',
 				'IP',
 				'Usuario',
 				'NombreUsuario',
@@ -49,6 +50,7 @@ function GenCom($conRes , $con)
 		$props['NombreUsuario']=$conRes['NombreUsuario'];
 	}
 	$props['ID']=$conRes['ID'];
+	$props['Fecha']=$conRes['Fecha'];
 
 	$conRes=$con->query('select Contenido from Contenido where ID='.$conRes['Contenido']);
 

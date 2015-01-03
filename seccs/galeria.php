@@ -2,14 +2,7 @@
 	<h1 class="titulo">Galería de Fotos</h1>
 	<form id="vImg" method="POST" action="#gal"></form>
 
-	<p class="acciones">Acciones:
-		<input type="submit" name="nueva" value="Nueva" form="<?php echo $fId ?>">
-	</p>
 	<?php
-		$fAction='gal';
-		$fId='accionesGal';
-
-		include 'forms/acciones.php';
 
 		//Si todavía no se inicio sesion, se inicia.
 		if(session_status()==PHP_SESSION_NONE)
@@ -42,6 +35,19 @@
 		//Diferencias en modo admin.
 		if($modoAdmin)
 		{
+			//Incluyo las acciones posibles.
+			?>
+				<p class="acciones">Acciones:
+					<input type="submit" name="nueva" value="Nueva" form="<?php echo $fId ?>">
+				</p>
+			<?php
+
+			//Incluyo las acciones para la selección.
+			$fAction='gal';
+			$fId='accionesGal';
+
+			include 'forms/acciones.php';
+
 			//Elimina Imágenes Seleccionadas.
 			if(isset($_POST['eImgID']))
 			{

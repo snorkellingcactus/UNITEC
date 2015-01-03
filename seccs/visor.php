@@ -44,11 +44,20 @@
 		include_once '../php/Foraneas.php';
 
 		//Creo un objeto comentario.
+		$FechaAct=getdate();
+		$Fecha=	$FechaAct['year'].'-'
+				.$FechaAct['mon'].'-'
+				.$FechaAct['mday'].' '
+				.$FechaAct['hours'].':'
+				.$FechaAct['minutes'].':'
+				.$FechaAct['seconds'];
+
 		$Comentario=new Coment
 		(
 			$con,
 			[
-				'GrupoID'=>$_SESSION['vImgID']
+				'GrupoID'=>$_SESSION['vImgID'],
+				'Fecha'=>$Fecha
 			]
 		);
 		//Indico que tiene como foráneo un objeto Contenido.

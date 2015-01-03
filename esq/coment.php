@@ -16,12 +16,38 @@
 		<?php
 			echo $esq->NombreUsuario;
 
+			?>
+				<span class="comResTxt">
+			<?php
+
+			//Nombre de la persona respondida.
 			if(isset($esq->NombreDest))
 			{
 				?>
-					<span class="comResTxt">&#8631; <?php echo $esq->NombreDest ?></span>
+					&#8631; <?php echo $esq->NombreDest ?>
 				<?php
 			}
+
+			//Intervalo de tiempo desde el envío del comentario.
+			
+			$RangoTiempo=['y' , 'm' , 'd' , 'h' , 'i' , 's'];
+			$RTHumano=[' años' , ' meses' , ' dias' , ' horas' , ' minutos' , ' segundos'];
+
+			$Fecha=new DateTime();
+			$Fecha=$Fecha->createFromFormat('Y-m-d H:i:s' , $esq->Fecha);
+			$Fecha=$Fecha->diff(new DateTime() , true);
+
+			$t=0;
+
+			while($Fecha->$RangoTiempo[$t]<=0)
+			{
+				++$t;
+			}
+
+			$buff=' - Hace '.$Fecha->$RangoTiempo[$t].$RTHumano[$t];
+			?>
+				<?php echo $buff ?></span>
+			<?php
 		?>
 	</p>
 
