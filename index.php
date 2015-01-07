@@ -16,6 +16,13 @@ if(!isset($_SESSION['cache']))
 	$_SESSION['cache']=0;
 }
 
+$_SESSION['lang']=1;
+
+if(isset($_POST['lang']))
+{
+	$_SESSION['lang']=$_POST['lang'];
+}
+
 //Resalta la función del menú correspondiente.
 function resaltaOpcN($num)
 {
@@ -58,6 +65,30 @@ function resaltaOpcN($num)
 
 		<div class="header hidden-xs">
 			<a href="./inicio_sesion.php">Iniciar Sesión</a>
+			<ul class="idioma">
+				<form id="lang" action="#" method="POST"></form>
+				<?php
+					include_once('php/conexion.php');
+
+					$consulta=$con->query('select * from Lenguajes');
+					$consulta=$consulta->fetch_all(MYSQLI_ASSOC);
+
+					$iMax=count($consulta);
+
+					for($i=0;$i<$iMax;$i++)
+					{
+
+						?>
+							<li>
+								<button form="lang" type="submit" name="lang" value="<?php echo $consulta[$i]['ID'] ?>">
+									<img src="img/idiomas/<?php echo $consulta[$i]['Pais'].'.png' ?>" alt="" />
+									<?php echo $consulta[$i]['Nombre']?>
+								</button>
+							</li>
+						<?
+					}
+				?>
+			</ul>
 		</div>
 		<?php
 			include_once("./seccs/menu.php");

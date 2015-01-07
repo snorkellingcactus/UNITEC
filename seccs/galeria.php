@@ -35,18 +35,28 @@
 		//Diferencias en modo admin.
 		if($modoAdmin)
 		{
-			//Incluyo las acciones posibles.
-			?>
-				<p class="acciones">Acciones:
-					<input type="submit" name="nueva" value="Nueva" form="<?php echo $fId ?>">
-				</p>
-			<?php
-
 			//Incluyo las acciones para la selección.
 			$fAction='gal';
 			$fId='accionesGal';
 
 			include 'forms/acciones.php';
+
+			//Incluyo las acciones posibles.
+			?>
+				<p class="acciones">Acciones:
+					<select form="<?php echo $fId ?>" name="cantidad">
+						<?php
+							for($i=1;$i<=30;$i++)
+							{
+								?>
+								<option value="<?php echo $i ?>"><?php echo $i ?></option>
+								<?
+							}
+						?>
+					</select>
+					<input type="submit" name="nuevas" value="Nuevas" form="<?php echo $fId ?>">
+				</p>
+			<?php
 
 			//Elimina Imágenes Seleccionadas.
 			if(isset($_POST['eImgID']))
@@ -61,15 +71,19 @@
 			//Se rellenó el formulario de nueva imagen, la inserto en la bd.
 			if(isset($_POST['Titulo']))
 			{
+				$iMax=count($_POST['Titulo']);
 				
-				//Creo la imagen y le asigno las propiedades.
-				$Img=new Img($con);
-				$Img->Titulo=$_POST['Titulo'];
-				$Img->Url=$_POST['Url'];
-				$Img->Alt=$_POST['Alt'];
-			
-				//La inserto en la bd.
-				$Img->insSQL();
+				for($i=0;$i<$iMax;$i++)
+				{
+					//Creo la imagen y le asigno las propiedades.
+					$Img=new Img($con);
+					$Img->Titulo=$_POST['Titulo'][$i];
+					$Img->Url=$_POST['Url'][$i];
+					$Img->Alt=$_POST['Alt'][$i];
+				
+					//La inserto en la bd.
+					$Img->insSQL();
+				}
 			}
 		}
 		
@@ -87,9 +101,9 @@
 
 		if($modoAdmin)
 		{
-			//Si se clickeó el botón nueva imagen, imprimo el formulario.
-			if(isset($_POST['nueva']))
+			if(isset($_POST['nuevas']))
 			{
+				$_SESSION['cantidad']=$_POST['cantidad'];
 				echo '<iframe width="100%" height="100%" src="forms/nueva_imagen.php"></iframe>';
 			}
 		}

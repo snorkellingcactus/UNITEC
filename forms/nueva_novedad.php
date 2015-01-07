@@ -13,7 +13,7 @@
 			}
 			$cache=$_SESSION['cache'];
 		?>
-		<form action="../index.php#nov" method="POST">			
+		<form action="../index.php?cache=<?php echo $_SESSION['cache'] ?>#nov" method="POST" target="_parent">			
 			<p class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
 				<label for="Titulo">Titulo:</label>
 			</p>

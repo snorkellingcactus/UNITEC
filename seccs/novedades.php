@@ -58,6 +58,32 @@
 			include_once 'php/Img.php';
 			include_once 'php/Foraneas.php';
 
+			$grupo=$con->query('select ifnull(max(Grupo),0) as Grupo from Contenido');
+			$grupo=$grupo->fetch_all(MYSQLI_ASSOC)[0]['Grupo']+1;
+
+			$titulo=new Contenido
+			(
+				$con,
+				[
+					'Contenido'=>htmlentities($_POST['novTitulo']),
+					'Grupo'=>$grupo
+				]
+			);
+			$titulo->insSQL();
+
+			$grupo=$con->query('select ifnull(max(Grupo),0) as Grupo from Contenido');
+			$grupo=$grupo->fetch_all(MYSQLI_ASSOC)[0]['Grupo']+1;
+
+			$descripcion=new Contenido
+			(
+				$con,
+				[
+					'Contenido'=>htmlentities($_POST['novDescripcion']),
+					'Grupo'=>$grupo
+				]
+			);
+			$descripcion->insSQL();
+
 			$horaLoc=getdate();
 
 			$nov=new Novedad($con);
@@ -65,32 +91,8 @@
 			$nov->Imagen=$_POST['novImagen'];
 			$nov->Fecha=$horaLoc['year'].'-'.$horaLoc['mon'].'-'.$horaLoc['mday'];
 
-			$nov->insForaneas
-			(
-				new Contenido
-				(
-					$con,
-					[
-						'Contenido'=>$_POST['novTitulo']
-					]
-				),
-				[
-					'Titulo'=>'ID'
-				]
-			);
-			$nov->insForaneas
-			(
-				new Contenido
-				(
-					$con,
-					[
-						'Contenido'=>$_POST['novDescripcion']
-					]
-				),
-				[
-					'Descripcion'=>'ID'
-				]
-			);
+			$nov->Descripcion=$descripcion->Grupo;
+			$nov->Titulo=$titulo->Grupo;
 
 			$nov->insSQL();
 		}
@@ -105,7 +107,11 @@
 				$iMax=count($_POST['novID']);
 				for($i=0;$i<$iMax;$i++)
 				{
+					$contenidos=$con->query('select Titulo , Descripcion from Novedades where ID='.$_POST['novID'][$i]);
+					$contenidos=$contenidos->fetch_all(MYSQLI_ASSOC)[0];
+
 					$con->query('delete from Novedades where ID='.$_POST['novID'][$i]);
+					$con->query('delete from Contenido where Grupo='.$contenidos['Titulo'].' or Grupo='.$contenidos['Descripcion']);
 				}
 			}
 		}
@@ -136,11 +142,39 @@
 				$imagen=$con->query('select Url from Imagenes where ID='.$novAct['Imagen']);
 				$imagen=$imagen->fetch_all(MYSQLI_ASSOC)[0]['Url'];
 
-				$titulo=$con->query('select Contenido from Contenido where ID='.$novAct['Titulo']);
-				$titulo=$titulo->fetch_all(MYSQLI_ASSOC)[0]['Contenido'];
+				$titulo=$con->query
+				(
+					'
+					select Contenido,
+					CASE Lenguaje
+					WHEN '.$_SESSION['lang'].' THEN 0
+					ELSE 1
+					END AS Ord
+					from Contenido
+					where Grupo='.$novAct['Titulo'].
+					'
+					ORDER BY Ord
+					LIMIT 1
+					'
+				);
+				$descripcion=$con->query
+				(
+					'
+					select Contenido,
+					CASE Lenguaje
+					WHEN '.$_SESSION['lang'].' THEN 0
+					ELSE 1
+					END AS Ord
+					from Contenido
+					where Grupo='.$novAct['Descripcion'].
+					'
+					ORDER BY Ord
+					LIMIT 1
+					'
+				);
 
-				$descripcion=$con->query('select Contenido from Contenido where ID='.$novAct['Descripcion']);
 				$descripcion=$descripcion->fetch_all(MYSQLI_ASSOC)[0]['Contenido'];
+				$titulo=$titulo->fetch_all(MYSQLI_ASSOC)[0]['Contenido'];
 
 				$novedad=new Novedad
 				(
