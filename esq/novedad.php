@@ -7,7 +7,7 @@
 			<?php
 		}
 	?>
-	<div class="col-xs-12 col-sm-1 col-md-3 col-lg-3">
+	<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
 		<img src="<?php echo $esq->Imagen ?>" alt="" />
 	</div>
 	<h3><?php echo $esq->Titulo ?></h3>
