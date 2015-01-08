@@ -51,10 +51,10 @@
 
 						$jMax=count($consulta);
 
-						for($j=0;$j<$iMax;$j++)
+						for($j=0;$j<$jMax;$j++)
 						{
 							?>
-								<option value="<?php echo $consulta[$j]['ID'] ?>"><?php echo $consulta[$j]['Nombre'] ?></option>
+								<option value="<?php echo $consulta[$j]['ID'] ?>"><?php echo $consulta[$j]['Nombre'] ;?></option>
 							<?
 						}
 					?>
@@ -68,8 +68,8 @@
 				<div class="clearfix fin"></div>
 			<?php
 			}
+			unset($_SESSION['cantidad']);
 
-			unset $_SESSION['cantidad'];
 			?>
 				
 			<button type="submit" class="col-xs-6 col-sm-6 col-md-6 col-lg-6">Aceptar</button>

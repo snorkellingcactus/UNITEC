@@ -27,38 +27,6 @@
 	},
 	"buffers":
 	[
-		{
-			"file": "forms/acciones.php",
-			"settings":
-			{
-				"buffer_size": 330,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "seccs/visor.css",
-			"settings":
-			{
-				"buffer_size": 2507,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "seccs/visor.php",
-			"settings":
-			{
-				"buffer_size": 4275,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "seccs/novedades.css",
-			"settings":
-			{
-				"buffer_size": 461,
-				"line_ending": "Unix"
-			}
-		}
 	],
 	"build_system": "",
 	"command_palette":
@@ -84,42 +52,48 @@
 	},
 	"file_history":
 	[
+		"/opt/lampp/htdocs/Web/Pasantía/edetec/forms/nueva_imagen.php",
+		"/opt/lampp/htdocs/Web/Pasantía/edetec/esq/gal_img.php",
+		"/opt/lampp/htdocs/Web/Pasantía/edetec/seccs/galeria.css",
+		"/opt/lampp/htdocs/Web/Pasantía/edetec/seccs/novedades.php",
+		"/opt/lampp/htdocs/Web/Pasantía/edetec/esq/novedad.php",
+		"/opt/lampp/htdocs/Web/Pasantía/edetec/msg",
+		"/opt/lampp/htdocs/Web/Pasantía/edetec/calApi/index.css",
+		"/opt/lampp/htdocs/Web/Pasantía/edetec/calApi/index.html",
+		"/opt/lampp/htdocs/Web/Pasantía/edetec/seccs/visor.php",
+		"/opt/lampp/htdocs/Web/Pasantía/edetec/calApi/index.js",
+		"/opt/lampp/htdocs/Web/Pasantía/edetec/esq/coment.php",
+		"/opt/lampp/htdocs/Web/Pasantía/edetec/php/Coment.php",
+		"/opt/lampp/htdocs/Web/Pasantía/edetec/forms/nuevo_coment.php",
+		"/opt/lampp/htdocs/Web/Pasantía/edetec/seccs/galeria.php",
+		"/opt/lampp/htdocs/Web/Pasantía/edetec/php/Contenido.php",
+		"/opt/lampp/htdocs/Web/Pasantía/edetec/index.php",
+		"/opt/lampp/htdocs/Web/Pasantía/edetec/forms/idioma.php",
+		"/opt/lampp/htdocs/Web/Pasantía/edetec/forms/nueva_imagen.css",
+		"/opt/lampp/htdocs/Web/Pasantía/edetec/forms/acciones.php",
+		"/opt/lampp/htdocs/Web/Pasantía/edetec/forms/nueva_novedad.php",
+		"/opt/lampp/htdocs/Web/Pasantía/edetec/php/ComLst.php~",
+		"/opt/lampp/htdocs/Web/Pasantía/edetec/header.css",
+		"/opt/lampp/htdocs/Web/Pasantía/edetec/seccs/novedades.css",
+		"/opt/lampp/htdocs/Web/Pasantía/edetec/seccs/visor.css",
 		"/opt/lampp/htdocs/Web/Pasantía/edetec/php/Foraneas.php",
 		"/opt/lampp/htdocs/Web/Pasantía/edetec/php/Gal_HTML_Visor.php~",
 		"/opt/lampp/htdocs/Web/Pasantía/edetec/seccs/visor_form.css",
-		"/opt/lampp/htdocs/Web/Pasantía/edetec/forms/nueva_novedad.php",
-		"/opt/lampp/htdocs/Web/Pasantía/edetec/esq/novedad.php",
-		"/opt/lampp/htdocs/Web/Pasantía/edetec/forms/nuevo_coment.php",
-		"/opt/lampp/htdocs/Web/Pasantía/edetec/seccs/novedades.php",
 		"/opt/lampp/htdocs/Web/Pasantía/edetec/php/Novedad.php",
-		"/opt/lampp/htdocs/Web/Pasantía/edetec/msg",
-		"/opt/lampp/htdocs/Web/Pasantía/edetec/seccs/novedades.css",
 		"/opt/lampp/htdocs/Web/Pasantía/edetec/forms/nueva_novedad.css",
-		"/opt/lampp/htdocs/Web/Pasantía/edetec/forms/nueva_imagen.css",
 		"/opt/lampp/htdocs/Web/Pasantía/edetec/seccs/menu.css",
 		"/opt/lampp/htdocs/Web/Pasantía/edetec/seccs/menu.php",
 		"/opt/lampp/htdocs/Web/Pasantía/edetec/index.css",
-		"/opt/lampp/htdocs/Web/Pasantía/edetec/index.php",
-		"/opt/lampp/htdocs/Web/Pasantía/edetec/seccs/galeria.php",
 		"/opt/lampp/htdocs/Web/Pasantía/edetec/php/SQL_Obj.php",
-		"/opt/lampp/htdocs/Web/Pasantía/edetec/seccs/visor.css",
-		"/opt/lampp/htdocs/Web/Pasantía/edetec/php/Coment.php",
-		"/opt/lampp/htdocs/Web/Pasantía/edetec/seccs/visor.php",
-		"/opt/lampp/htdocs/Web/Pasantía/edetec/esq/coment.php",
 		"/opt/lampp/htdocs/Web/Pasantía/edetec/seccs/atajos.php",
 		"/opt/lampp/htdocs/Web/Pasantía/edetec/seccs/calendario.php",
-		"/opt/lampp/htdocs/Web/Pasantía/edetec/forms/acciones.php",
-		"/opt/lampp/htdocs/Web/Pasantía/edetec/forms/nueva_imagen.php",
 		"/opt/lampp/htdocs/Web/Pasantía/edetec/php/cal/Cal_Gen_HTML.php",
 		"/opt/lampp/htdocs/Web/Pasantía/edetec/seccs/login.php",
 		"/opt/lampp/htdocs/Web/Pasantía/edetec/seccs/organigrama.php",
 		"/opt/lampp/htdocs/Web/Pasantía/edetec/seccs/sobre_unitec.php",
-		"/opt/lampp/htdocs/Web/Pasantía/edetec/seccs/galeria.css",
-		"/opt/lampp/htdocs/Web/Pasantía/edetec/esq/gal_img.php",
 		"/opt/lampp/htdocs/Web/Pasantía/edetec/php/Gal_HTML_Visor.php",
 		"/opt/lampp/htdocs/Web/Pasantía/edetec/forms/nueva_imagen.html",
 		"/opt/lampp/htdocs/Web/Pasantía/edetec/esq/gal_nImg.html",
-		"/opt/lampp/htdocs/Web/Pasantía/edetec/php/Contenido.php",
 		"/opt/lampp/htdocs/Web/Pasantía/edetec/php/Novedad_HTML.php",
 		"/opt/lampp/htdocs/Web/Pasantía/edetec/php/Img.php",
 		"/opt/lampp/htdocs/Web/Pasantía/edetec/seccs/inicio_sesion.css",
@@ -162,6 +136,8 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"nueva",
+			"limina",
 			"modoAd",
 			"nueva",
 			"cache",
@@ -205,115 +181,8 @@
 	"groups":
 	[
 		{
-			"selected": 2,
 			"sheets":
 			[
-				{
-					"buffer": 0,
-					"file": "forms/acciones.php",
-					"settings":
-					{
-						"buffer_size": 330,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								100,
-								100
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/PHP/PHP.tmLanguage"
-						},
-						"translation.x": 142.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "seccs/visor.css",
-					"settings":
-					{
-						"buffer_size": 2507,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2342,
-								2342
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/CSS/CSS.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 1890.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "seccs/visor.php",
-					"settings":
-					{
-						"buffer_size": 4275,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								4001,
-								4275
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/PHP/PHP.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 2961.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "seccs/novedades.css",
-					"settings":
-					{
-						"buffer_size": 461,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								189,
-								189
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/CSS/CSS.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				}
 			]
 		}
 	],
@@ -359,16 +228,60 @@
 		"selected_items":
 		[
 			[
-				"nov",
-				"seccs/novedades.css"
+				"ms",
+				"msg"
+			],
+			[
+				"no",
+				"esq/novedad.php"
+			],
+			[
+				"nove",
+				"seccs/novedades.php"
+			],
+			[
+				"nueva",
+				"forms/nueva_imagen.php"
+			],
+			[
+				"gal",
+				"seccs/galeria.php"
+			],
+			[
+				"acc",
+				"forms/acciones.php"
+			],
+			[
+				"com",
+				"php/Coment.php"
+			],
+			[
+				"msg",
+				"msg"
 			],
 			[
 				"vis",
 				"seccs/visor.php"
 			],
 			[
-				"msg",
-				"msg"
+				"con",
+				"php/Contenido.php"
+			],
+			[
+				"ind",
+				"index.php"
+			],
+			[
+				"he",
+				"header.css"
+			],
+			[
+				"in",
+				"index.php"
+			],
+			[
+				"nov",
+				"seccs/novedades.css"
 			],
 			[
 				"accion",
@@ -383,24 +296,12 @@
 				"seccs/menu.php"
 			],
 			[
-				"in",
-				"index.css"
-			],
-			[
 				"index",
 				"index.php"
 			],
 			[
-				"gal",
-				"seccs/galeria.php"
-			],
-			[
 				"viso",
 				"seccs/visor.php"
-			],
-			[
-				"nove",
-				"seccs/novedades.php"
 			],
 			[
 				"sql",
@@ -439,10 +340,6 @@
 				"seccs/visor.php"
 			],
 			[
-				"ms",
-				"msg"
-			],
-			[
 				"nim",
 				"esq/gal_nImg.html"
 			],
@@ -453,10 +350,6 @@
 			[
 				"comen",
 				"php/Coment.php"
-			],
-			[
-				"con",
-				"php/conexion.php"
 			],
 			[
 				"inic",
