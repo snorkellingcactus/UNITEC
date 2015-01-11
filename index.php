@@ -15,9 +15,10 @@ if(!isset($_SESSION['cache']))
 {
 	$_SESSION['cache']=0;
 }
-
-$_SESSION['lang']=1;
-
+if(!isset($_SESSION['lang']))
+{
+	$_SESSION['lang']=1;
+}
 if(isset($_POST['lang']))
 {
 	$_SESSION['lang']=$_POST['lang'];
@@ -30,6 +31,13 @@ function resaltaOpcN($num)
 	{
 		echo 'class="resaltaOpc"';
 	}
+}
+function echoLang($langSQLRes)
+{
+	?>
+		<img src="img/idiomas/<?php echo $langSQLRes['Pais'].'.png' ?>" alt="" />
+	<?php 
+		echo $langSQLRes['Nombre'];
 }
 ?>
 <html lang="es">
@@ -65,30 +73,53 @@ function resaltaOpcN($num)
 
 		<div class="header hidden-xs">
 			<a href="./inicio_sesion.php">Iniciar Sesión</a>
-			<ul class="idioma">
-				<form id="lang" action="#" method="POST"></form>
-				<?php
-					include_once('php/conexion.php');
+			<div class="idioma">
+			<?php
+				include_once('php/conexion.php');
 
-					$consulta=$con->query('select * from Lenguajes');
-					$consulta=$consulta->fetch_all(MYSQLI_ASSOC);
+				$consulta=$con->query
+				(
+					'
+						SELECT * ,
+						case ID 
+							when '.$_SESSION['lang'].' then 0 
+							else 1 end as ord FROM `Lenguajes` order by ord
+					'
+				);
 
-					$iMax=count($consulta);
+				$consulta=$consulta->fetch_all(MYSQLI_ASSOC);
 
-					for($i=0;$i<$iMax;$i++)
-					{
+				$defLang=array_shift($consulta);
 
-						?>
-							<li>
-								<button form="lang" type="submit" name="lang" value="<?php echo $consulta[$i]['ID'] ?>">
-									<img src="img/idiomas/<?php echo $consulta[$i]['Pais'].'.png' ?>" alt="" />
-									<?php echo $consulta[$i]['Nombre']?>
-								</button>
-							</li>
-						<?
-					}
-				?>
-			</ul>
+				echoLang($defLang);
+
+				$iMax=count($consulta);
+
+				if($iMax)
+				{
+			?>
+				<div>
+					<form id="lang" action="#" method="POST"></form>
+					<?php
+						for($i=0;$i<$iMax;$i++)
+						{
+
+							?>
+								<p>
+									<button form="lang" type="submit" name="lang" value="<?php echo $consulta[$i]['ID'] ?>">
+										<?php
+											echoLang($consulta[$i]);
+										?>
+									</button>
+								</p>
+							<?
+						}
+					?>
+				</div>
+			</div>
+			<?php
+				}
+			?>
 		</div>
 		<?php
 			include_once("./seccs/menu.php");

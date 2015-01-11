@@ -8,11 +8,11 @@
 	font-size:2em;
 	padding:0px 0px 2% 12%;
 }
-ul li
+#sobre ul li
 {
 	list-style-type: decimal;
 }
-ul:last-child li
+#sobre ul:last-child li
 {
 	list-style-type:none;
 }

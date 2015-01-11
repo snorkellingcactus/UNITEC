@@ -27,6 +27,49 @@
 	},
 	"buffers":
 	[
+		{
+			"file": "calApi/index.css",
+			"settings":
+			{
+				"buffer_size": 418,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "calApi/index.html",
+			"settings":
+			{
+				"buffer_size": 6014,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "calApi/gAuth.js",
+			"settings":
+			{
+				"buffer_size": 363,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "",
+			"file": "calApi/index.js",
+			"file_size": 1089,
+			"file_write_time": 1420784258000000,
+			"settings":
+			{
+				"buffer_size": 0,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "msg",
+			"settings":
+			{
+				"buffer_size": 44,
+				"line_ending": "Unix"
+			}
+		}
 	],
 	"build_system": "",
 	"command_palette":
@@ -52,7 +95,9 @@
 	},
 	"file_history":
 	[
+		"/opt/lampp/htdocs/Web/Pasantía/edetec/calApi/gAuth.js",
 		"/opt/lampp/htdocs/Web/Pasantía/edetec/forms/nueva_imagen.php",
+		"/opt/lampp/htdocs/Web/Pasantía/edetec/calApi/cors.js",
 		"/opt/lampp/htdocs/Web/Pasantía/edetec/esq/gal_img.php",
 		"/opt/lampp/htdocs/Web/Pasantía/edetec/seccs/galeria.css",
 		"/opt/lampp/htdocs/Web/Pasantía/edetec/seccs/novedades.php",
@@ -136,6 +181,9 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"isNaN",
+			".",
+			"caja",
 			"nueva",
 			"limina",
 			"modoAd",
@@ -181,8 +229,143 @@
 	"groups":
 	[
 		{
+			"selected": 1,
 			"sheets":
 			[
+				{
+					"buffer": 0,
+					"file": "calApi/index.css",
+					"settings":
+					{
+						"buffer_size": 418,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								9,
+								9
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/CSS/CSS.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 714.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "calApi/index.html",
+					"settings":
+					{
+						"buffer_size": 6014,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								670,
+								670
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 378.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "calApi/gAuth.js",
+					"settings":
+					{
+						"buffer_size": 363,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								363,
+								363
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "calApi/index.js",
+					"settings":
+					{
+						"buffer_size": 0,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "msg",
+					"settings":
+					{
+						"buffer_size": 44,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								44,
+								44
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
 			]
 		}
 	],
@@ -228,6 +411,14 @@
 		"selected_items":
 		[
 			[
+				"msg",
+				"msg"
+			],
+			[
+				"nue",
+				"forms/nueva_imagen.php"
+			],
+			[
 				"ms",
 				"msg"
 			],
@@ -254,10 +445,6 @@
 			[
 				"com",
 				"php/Coment.php"
-			],
-			[
-				"msg",
-				"msg"
 			],
 			[
 				"vis",

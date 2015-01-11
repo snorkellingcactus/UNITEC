@@ -42,6 +42,44 @@ a:hover
 	color:white;
 	text-decoration:underline
 }
+.idioma
+{
+	text-align:left;
+	font-weight:900;
+	color:white;
+	height:100%;
+	line-height:100%;
+	padding:0.8% 0 0.8% 1%;
+	vertical-align:middle;
+}
+.idioma:hover div
+{
+	visibility:visible;
+}
+.idioma div
+{
+	visibility: hidden;
+	position:absolute;
+	margin-top:0.8%;
+	z-index:5;
+}
+.idioma div p
+{
+	overflow: visible;
+	background-color:rgba(0,0,0,0.7);
+	margin:0px;
+	padding:5px 5px 5px 0px;
+}
+.idioma div p:hover
+{
+	background-color:rgba(0,0,0,0.9);
+}
+.idioma div p button
+{
+	text-align:left;
+	background-color:transparent;
+	box-shadow: none;
+}
 .clearfix {
 	margin-bottom: 35px;
 }
