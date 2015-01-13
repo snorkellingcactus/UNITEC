@@ -17,6 +17,7 @@ a
 {
 	font-weight:900;
 	text-decoration:none;
+	transition:color 0.5s;
 }
 a:hover
 {
@@ -55,14 +56,19 @@ a:hover
 }
 .idioma:hover div
 {
-	visibility:visible;
+	opacity:1;
+	z-index:5;
 }
 .idioma div
 {
-	visibility: hidden;
+	-webkit-transition:opacity 0.5s;
+	-moz-transition:opacity 0.5s;
+	transition:opacity 0.5s;
+	box-shadow:0 0 3px black;
+	opacity:0;
+	z-index:0;
 	position:absolute;
 	margin-top:0.8%;
-	z-index:5;
 }
 .idioma div p
 {
