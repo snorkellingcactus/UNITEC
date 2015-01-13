@@ -116,44 +116,31 @@ class Cal_Gen_HTML
 			return $this->fecha["year"];
 		}
 	}
-
-	//Genera las celdas para el <thead>
-	function genThead()
+	function genTheadTrThMes()
 	{
-		$buff	=
-		"
-		<tr>
-			<th colspan='7'>
-			"
-				.$this->mes().
-			"</th>
-		</tr>
-		<tr>\n
-		";		//Donde se va a almacenar el resultado.
-		
+		$esq=new stdClass();
+
+		$esq->mes=$this->mes();
+
+		include('esq/cal_thead_tr_th_mes.php');
+	}
+	function genTheadTrThDias()
+	{
 		$cantDias=count($this->cfg->dias);
+
 		for($i=0;$i<$cantDias;$i++)
 		{
-			$buff=$buff.
-			"<th>"
-				.substr
-				(
-					$this->cfg->dias[$i],
-					0,
-					2
-				).
-			"</th>\n";
-		};
-		
-		$buff=$buff.
-		"</tr>\n";
+			$esq=new stdClass();
 
-		return $buff;
+			$esq->nomDia=$this->cfg->dias[$i];
+			
+			include('esq/cal_thead_tr_th_dia.php');
+		};
 	}
+	//Genera las celdas para el <thead>
 	//Genera las celdas para el <tbody>.
 	function genTbody()
 	{
-		$buff="";				//Buffer de Respuesta HTML.
 		$cuenta=0;				//Para llevar la cuenta de la celda actual.
 		$mes=$this->fecha["mon"];
 		$args=func_get_args();
@@ -168,10 +155,10 @@ class Cal_Gen_HTML
 		//Genera tabla.
 		for($i=0;$i<$this->filas;++$i)
 		{
-			$buff=$buff."<tr>\n";
+			echo '<tr>';
 			for($j=0;$j<7;$j++)
 			{
-				$clase="";				//Por si un td (dia) pertenece a una clase CSS en particular.
+				$clase=0;				//Por si un td (dia) pertenece a una clase CSS en particular.
 				$numDia=1;				//El número del dia.
 				
 				if($cuenta<$this->diasAnt)
@@ -180,7 +167,7 @@ class Cal_Gen_HTML
 					(	
 						$this->diasMesAnt-($this->diasAnt-$cuenta)
 					);
-					$clase=" class='muted";
+					$clase=1;
 				};
 				if($cuenta>=($this->celdasMin))
 				{
@@ -188,7 +175,7 @@ class Cal_Gen_HTML
 					(
 						$cuenta-$this->celdasMin
 					);
-					$clase=" class='muted";
+					$clase=2;
 				};
 				if($cuenta>=$this->diasAnt && $cuenta<$this->celdasMin)
 				{
@@ -208,52 +195,29 @@ class Cal_Gen_HTML
 					//Si hay un evento asigno la clase evento al td.
 					if($eventos!=-1)
 					{
-						if(isset($clase[1]))
-						{
-							$clase=$clase." evento";
-						}
-						else
-						{
-							$clase=" class='evento";
-						}
+						$clase=3;
 					}
 				};
 				
 				//Busco eventos que coincidan con esta fecha.
 				
-				if(isset($clase[1]))
-				{
-					$clase=$clase."'";
-				}
-				
-				$cuenta++;
-				$buff=$buff."<td".$clase."><p>".$numDia."</p></td>\n";
+				++$cuenta;
+
+				$esq=new stdClass();
+
+				$esq->numDia=$numDia;
+				$esq->clase=$clase;
+
+				include('esq/cal_tbody_tr_td.php');
 			};
-			$buff=$buff."</tr>\n";
+			echo '</tr>';
 		};
-		
-		
-		return $buff;
 	}
 	function genTable()
 	{
-		$buff=
-		"
-			<table>
-				<thead>
-					\n"
-					.$this->genThead().
-					"\n
-				</thead>
-				<tbody>
-					\n"
-					.$this->genTbody().
-					"\n
-                		</tbody>
-			</table>
-		";
+		$esq=$this;
 
-		return $buff;
+		include('esq/cal_table.php');
 	}
 	//Genera las tablas de los números de meses pasados por argumento.
 	function genMeses()

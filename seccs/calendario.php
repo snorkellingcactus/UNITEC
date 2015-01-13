@@ -16,6 +16,11 @@ include 'php/cal/Cal_Gen_HTML.php';
 
 $CalCfg=new Cal_Cfg();
 $GenHTML=new Cal_Gen_HTML($CalCfg);
+
+if(session_status()==PHP_SESSION_NONE)
+{
+	session_start();
+}
 ?>
 <!--	:::::::::Calendario:::::::::	-->
 <section class='calendario' id='cal'>
@@ -26,88 +31,120 @@ $GenHTML=new Cal_Gen_HTML($CalCfg);
 			echo $GenHTML->ano(); 
 		?>
 	</h1>
+
 		<?php
-			//Simulación de eventos.
-			$CalCfg->adEvento
-			(
-				
-				getdate(mktime(0,0,0,3,6)),
-				'Hoy , un dia como el resto',
-				'Lorem ipsum dolor is amet...'
-				
-			);
-			$CalCfg->adEvento
-			(
-				
-				getdate(mktime(0,0,0,8,12)),
-				'Hoy , un dia como el resto',
-				'Lorem ipsum dolor is amet...'
-				
-			);
-			$CalCfg->adEvento
-			(
-				
-				getdate(),
-				'Hoy , otro dia como el resto',
-				'Lorem ipsum dolor is amet...'
-			);
-			
+
+			$consulta='select * from Eventos';
+
 			if(isset($_GET['mes']) && !is_nan(intVal($_GET['mes'])))
 			{
 				$mes=intVal($_GET['mes']);
 				//Seteo el mes en el generador HTML.
 				$GenHTML->mes($mes);
-				
-				echo '<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">';	//Contenedor del mes de la mitad del ancho.
-				echo $GenHTML->genTable();					////Genero la tabla del mes.
-				echo '</div>';
 
 				
-				echo '<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6"><div class="desc">';//Contenedor de la descripción de la mitad del ancho.
-				$CalCfg->verif=[0,0,1,0,1];					//Verifica el mes y el año.
-				$eventos=$CalCfg->eventosEnFecha
-				(
-					[
-						'mon'=>$mes,
-						'year'=>$CalCfg->fecha['year']
-					]
-				);
-				$cantEventos=count($eventos);
-				if($cantEventos)						//Si hay eventos los muestro.
+
+				$fecha=$GenHTML->fecha;
+
+				$mesAct=$fecha['year'].'-'.$fecha['mon'].'-00 00:00:00';
+				$mesSig=$fecha['year'].'-'.($fecha['mon']+1).'-00 00:00:00';
+
+				$consulta=$consulta.' where Tiempo between "'.$mesAct.'" and "'.$mesSig.'"';
+			}
+
+			include('php/conexion.php');
+
+			$eventos=$con->query($consulta.' order by tiempo asc');
+			
+			$eventos=$eventos->fetch_all(MYSQLI_ASSOC);
+
+			$cantEventos=count($eventos);
+
+			if($cantEventos)						//Si hay eventos los muestro.
+			{
+				for($i=0;$i<$cantEventos;$i++)
 				{
-					for($i=0;$i<$cantEventos;$i++)
-					{
-						$evtAct=$eventos[$i];
-						echo '<h3> Dia '.$evtAct[0]['mday'].' : '.$evtAct[1].'</h3>';
-						echo '<p>'.$evtAct[2].'</p>';
-					}
+					$evtAct=$eventos[$i];
+					$fecha=getdate(strtotime($evtAct['Tiempo']));
+
+					//Simulación de eventos.
+					$CalCfg->adEvento
+					(
+						$fecha,
+						htmlentities($evtAct['Nombre']),
+						htmlentities($evtAct['Descripcion'])
+						
+					);
+				}
+
+				if(isset($mes))
+				{
+					?>
+						<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+							<?php $GenHTML->genTable() ?>;
+						</div>
+					<?php
 				}
 				else
 				{
-					echo '<h3>Ningún evento este mes.</h3>';
+					for($m=1;$m<13;$m+=1)
+					{
+						?>
+							<div class="col-xs-12 col-sm-6 col-md-4" col-lg-4>
+								<?php
+
+									$GenHTML->mes($m);
+
+									$GenHTML->genTable();
+						?>
+							</div>
+						<?php
+						if($m%3==0)
+						{
+							?>
+								<div class="clearfix visible-md visible-lg"></div>'
+							<?php
+						}
+						if($m%2==0)
+						{
+							?>
+								<div class="clearfix visible-sm"></div>
+							<?php
+						}
+					}
 				}
-				echo '</div></div>';
+
+				?>
+				<!--Contenedor de la descripción de la mitad del ancho. -->
+				<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+					<div class="desc">
+
+			<?php
+				for($i=0;$i<$cantEventos;$i++)
+				{
+					$evtAct=$eventos[$i];
+					$fecha=getdate(strtotime($evtAct['Tiempo']));
+
+					?>
+						<h3> Dia <?php echo $fecha['mday'] ?>
+						 	:
+							 <?php echo $evtAct['Nombre'] ?>
+						</h3>
+						<p>
+							<?php echo $evtAct['Descripcion'] ?>
+						</p>
+					<?php
+				}
 			}
 			else
 			{
-				//Separadores cada sierto número de tablas dependiendo del tamaño de pantalla.
-				for($m=1;$m<13;$m+=1)
-				{
-					echo '<div class="col-xs-12 col-sm-6 col-md-4" col-lg-4>';
-	
-					$GenHTML->mes($m);
-					echo $GenHTML->genTable();
-					echo '</div>';
-					if($m%3==0)
-					{
-						echo '<div class="clearfix visible-md visible-lg"></div>';
-					}
-					if($m%2==0)
-					{
-						echo '<div class="clearfix visible-sm"></div>';
-					}
-					echo '<div class="clearfix visible-xs"></div>';
-				}	
+				?>
+					<h3>Ningún evento este mes.</h3>
+				<?php
 			}
-		?>
+
+
+			?>
+				</div>
+			</div>
 </section>
