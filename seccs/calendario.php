@@ -39,6 +39,7 @@ if(session_status()==PHP_SESSION_NONE)
 			if(isset($_GET['mes']) && !is_nan(intVal($_GET['mes'])))
 			{
 				$mes=intVal($_GET['mes']);
+
 				//Seteo el mes en el generador HTML.
 				$GenHTML->mes($mes);
 
@@ -62,6 +63,8 @@ if(session_status()==PHP_SESSION_NONE)
 
 			if($cantEventos)						//Si hay eventos los muestro.
 			{
+				$desc='';
+
 				for($i=0;$i<$cantEventos;$i++)
 				{
 					$evtAct=$eventos[$i];
@@ -75,6 +78,21 @@ if(session_status()==PHP_SESSION_NONE)
 						htmlentities($evtAct['Descripcion'])
 						
 					);
+
+
+					ob_start();
+					?>
+							<h3> Dia <?php echo $fecha['mday'] ?>
+							 	:
+								 <?php echo $evtAct['Nombre'] ?>
+							</h3>
+							<p>
+								<?php echo $evtAct['Descripcion'] ?>
+							</p>
+					<?php
+
+					$desc=$desc.ob_get_contents();
+					ob_end_clean();
 				}
 
 				if(isset($mes))
@@ -96,13 +114,13 @@ if(session_status()==PHP_SESSION_NONE)
 									$GenHTML->mes($m);
 
 									$GenHTML->genTable();
-						?>
+								?>
 							</div>
 						<?php
 						if($m%3==0)
 						{
 							?>
-								<div class="clearfix visible-md visible-lg"></div>'
+								<div class="clearfix visible-md visible-lg"></div>
 							<?php
 						}
 						if($m%2==0)
@@ -119,32 +137,18 @@ if(session_status()==PHP_SESSION_NONE)
 				<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
 					<div class="desc">
 
-			<?php
-				for($i=0;$i<$cantEventos;$i++)
+				<?php
+					echo $desc;
+				}
+				else
 				{
-					$evtAct=$eventos[$i];
-					$fecha=getdate(strtotime($evtAct['Tiempo']));
-
 					?>
-						<h3> Dia <?php echo $fecha['mday'] ?>
-						 	:
-							 <?php echo $evtAct['Nombre'] ?>
-						</h3>
-						<p>
-							<?php echo $evtAct['Descripcion'] ?>
-						</p>
+						<h3>Ningún evento este mes.</h3>
 					<?php
 				}
-			}
-			else
-			{
+
+
 				?>
-					<h3>Ningún evento este mes.</h3>
-				<?php
-			}
-
-
-			?>
 				</div>
 			</div>
 </section>
