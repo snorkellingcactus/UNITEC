@@ -15,7 +15,8 @@ form .fecha input
 {
 	width: 100%;
 	color:black;
-	text-align: center
+	text-align: center;
+	display:block;
 }
 form a
 {
