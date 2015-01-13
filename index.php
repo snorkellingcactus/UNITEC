@@ -126,7 +126,7 @@ function echoLang($langSQLRes)
 		?>
 		<main class="col-xs-12 col-sm-10 col-md-10 col-lg-10">
 			<?php
-				//$_GET['mes']=getdate()['mon'];	//Acá indicar mes que se muestra por defecto. Va a mostrarse el mes indicado -1.
+				$_GET['mes']=getdate()['mon'];	//Acá indicar mes que se muestra por defecto. Va a mostrarse el mes indicado -1.
 				include_once('./seccs/atajos.php');
 				include_once('./seccs/sobre_unitec.php');
 				include_once('./seccs/novedades.php');

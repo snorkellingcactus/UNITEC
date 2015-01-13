@@ -4,6 +4,10 @@
 		"selected_items":
 		[
 			[
+				"tex",
+				"text-align"
+			],
+			[
 				"back",
 				"background-color"
 			],
@@ -35,6 +39,38 @@
 	},
 	"buffers":
 	[
+		{
+			"file": "seccs/calendario.php",
+			"settings":
+			{
+				"buffer_size": 4331,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "php/select.php",
+			"settings":
+			{
+				"buffer_size": 252,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "forms/nuevo_evento.php",
+			"settings":
+			{
+				"buffer_size": 3347,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "seccs/visor_form.css",
+			"settings":
+			{
+				"buffer_size": 865,
+				"line_ending": "Unix"
+			}
+		}
 	],
 	"build_system": "",
 	"command_palette":
@@ -60,25 +96,32 @@
 	},
 	"file_history":
 	[
+		"/opt/lampp/htdocs/Web/Pasantía/edetec/php/selector_fecha.php",
+		"/opt/lampp/htdocs/Web/Pasantía/edetec/esq/cal_sel_tbody_tr_td.php",
+		"/opt/lampp/htdocs/Web/Pasantía/edetec/php/cal/Cal_Gen_HTML.php",
+		"/opt/lampp/htdocs/Web/Pasantía/edetec/esq/cal_tbody_tr_td.php",
 		"/opt/lampp/htdocs/Web/Pasantía/edetec/esq/cal_thead_tr_th_mes.php",
 		"/opt/lampp/htdocs/Web/Pasantía/edetec/esq/cal_thead_tr_th_dia.php",
-		"/opt/lampp/htdocs/Web/Pasantía/edetec/php/cal/Cal_Cfg.php",
-		"/opt/lampp/htdocs/Web/Pasantía/edetec/esq/cal_tbody_tr_td.php",
-		"/opt/lampp/htdocs/Web/Pasantía/edetec/esq/cal_table.php",
-		"/opt/lampp/htdocs/Web/Pasantía/edetec/msg",
-		"/opt/lampp/htdocs/Web/Pasantía/edetec/php/cal/Cal_Gen_HTML.php",
-		"/opt/lampp/htdocs/Web/Pasantía/edetec/seccs/calendario.css",
+		"/opt/lampp/htdocs/Web/Pasantía/edetec/seccs/novedades.php",
+		"/opt/lampp/htdocs/Web/Pasantía/edetec/php/Contenido.php",
+		"/opt/lampp/htdocs/Web/Pasantía/edetec/forms/nueva_imagen.php",
 		"/opt/lampp/htdocs/Web/Pasantía/edetec/seccs/galeria.php",
+		"/opt/lampp/htdocs/Web/Pasantía/edetec/forms/acciones.php",
+		"/opt/lampp/htdocs/Web/Pasantía/edetec/forms/nuevo_evento.php",
+		"/opt/lampp/htdocs/Web/Pasantía/edetec/php/Evento.php",
+		"/opt/lampp/htdocs/Web/Pasantía/edetec/msg",
+		"/opt/lampp/htdocs/Web/Pasantía/edetec/forms/nueva_novedad.php",
+		"/opt/lampp/htdocs/Web/Pasantía/edetec/esq/cal_table.php",
+		"/opt/lampp/htdocs/Web/Pasantía/edetec/php/cal/Cal_Cfg.php",
+		"/opt/lampp/htdocs/Web/Pasantía/edetec/index.php",
 		"/opt/lampp/htdocs/Web/Pasantía/edetec/seccs/calendario.php",
+		"/opt/lampp/htdocs/Web/Pasantía/edetec/seccs/calendario.css",
 		"/opt/lampp/htdocs/Web/Pasantía/edetec/seccs/sobre_unitec.css",
 		"/opt/lampp/htdocs/Web/Pasantía/edetec/index.css",
-		"/opt/lampp/htdocs/Web/Pasantía/edetec/index.php",
-		"/opt/lampp/htdocs/Web/Pasantía/edetec/seccs/novedades.php",
 		"/opt/lampp/htdocs/Web/Pasantía/edetec/calApi/index.css",
 		"/opt/lampp/htdocs/Web/Pasantía/edetec/calApi/index.js",
 		"/opt/lampp/htdocs/Web/Pasantía/edetec/calApi/gAuth.js",
 		"/opt/lampp/htdocs/Web/Pasantía/edetec/calApi/index.html",
-		"/opt/lampp/htdocs/Web/Pasantía/edetec/forms/nueva_imagen.php",
 		"/opt/lampp/htdocs/Web/Pasantía/edetec/calApi/cors.js",
 		"/opt/lampp/htdocs/Web/Pasantía/edetec/esq/gal_img.php",
 		"/opt/lampp/htdocs/Web/Pasantía/edetec/seccs/galeria.css",
@@ -87,11 +130,8 @@
 		"/opt/lampp/htdocs/Web/Pasantía/edetec/esq/coment.php",
 		"/opt/lampp/htdocs/Web/Pasantía/edetec/php/Coment.php",
 		"/opt/lampp/htdocs/Web/Pasantía/edetec/forms/nuevo_coment.php",
-		"/opt/lampp/htdocs/Web/Pasantía/edetec/php/Contenido.php",
 		"/opt/lampp/htdocs/Web/Pasantía/edetec/forms/idioma.php",
 		"/opt/lampp/htdocs/Web/Pasantía/edetec/forms/nueva_imagen.css",
-		"/opt/lampp/htdocs/Web/Pasantía/edetec/forms/acciones.php",
-		"/opt/lampp/htdocs/Web/Pasantía/edetec/forms/nueva_novedad.php",
 		"/opt/lampp/htdocs/Web/Pasantía/edetec/php/ComLst.php~",
 		"/opt/lampp/htdocs/Web/Pasantía/edetec/header.css",
 		"/opt/lampp/htdocs/Web/Pasantía/edetec/seccs/novedades.css",
@@ -152,6 +192,14 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"col-xs-12 col-sm-3 col-md-3 col-lg-3",
+			"col-xs-12 col-sm-4 col-md-4 col-lg-4",
+			"include",
+			"this->$raiz",
+			"$raiz",
+			"'];\n",
+			"include($root.'/",
+			"include('",
 			"isNaN",
 			".",
 			"caja",
@@ -188,6 +236,12 @@
 		"regex": false,
 		"replace_history":
 		[
+			"col-xs-12 col-sm-4 col-md-4 col-lg-4",
+			"col-xs-12 col-sm-3 col-md-3 col-lg-3",
+			"$this->raiz",
+			"this->$raiz",
+			"include($raiz.'/",
+			"include($root.'/",
 			"form=\"acciones\"",
 			"<?php echo $accesStr ?>"
 		],
@@ -200,8 +254,117 @@
 	"groups":
 	[
 		{
+			"selected": 2,
 			"sheets":
 			[
+				{
+					"buffer": 0,
+					"file": "seccs/calendario.php",
+					"settings":
+					{
+						"buffer_size": 4331,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								994,
+								994
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 91.0,
+						"translation.y": 682.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "php/select.php",
+					"settings":
+					{
+						"buffer_size": 252,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								20,
+								20
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "forms/nuevo_evento.php",
+					"settings":
+					{
+						"buffer_size": 3347,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								753,
+								753
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 370.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "seccs/visor_form.css",
+					"settings":
+					{
+						"buffer_size": 865,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								137,
+								137
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/CSS/CSS.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
 			]
 		}
 	],
@@ -247,12 +410,60 @@
 		"selected_items":
 		[
 			[
-				"m",
-				"msg"
+				"form",
+				"seccs/visor_form.css"
+			],
+			[
+				"nuevo",
+				"forms/nuevo_evento.php"
+			],
+			[
+				"cal_tb",
+				"esq/cal_tbody_tr_td.php"
+			],
+			[
+				"cal_",
+				"php/cal/Cal_Gen_HTML.php"
 			],
 			[
 				"nove",
 				"seccs/novedades.php"
+			],
+			[
+				"nueva",
+				"forms/nueva_novedad.php"
+			],
+			[
+				"con",
+				"php/Contenido.php"
+			],
+			[
+				"gal",
+				"seccs/galeria.php"
+			],
+			[
+				"acc",
+				"forms/acciones.php"
+			],
+			[
+				"cale",
+				"seccs/calendario.php"
+			],
+			[
+				"calen",
+				"seccs/calendario.css"
+			],
+			[
+				"in",
+				"index.php"
+			],
+			[
+				"ms",
+				"msg"
+			],
+			[
+				"m",
+				"msg"
 			],
 			[
 				"sobr",
@@ -267,24 +478,8 @@
 				"forms/nueva_imagen.php"
 			],
 			[
-				"ms",
-				"msg"
-			],
-			[
 				"no",
 				"esq/novedad.php"
-			],
-			[
-				"nueva",
-				"forms/nueva_imagen.php"
-			],
-			[
-				"gal",
-				"seccs/galeria.php"
-			],
-			[
-				"acc",
-				"forms/acciones.php"
 			],
 			[
 				"com",
@@ -295,20 +490,12 @@
 				"seccs/visor.php"
 			],
 			[
-				"con",
-				"php/Contenido.php"
-			],
-			[
 				"ind",
 				"index.php"
 			],
 			[
 				"he",
 				"header.css"
-			],
-			[
-				"in",
-				"index.php"
 			],
 			[
 				"nov",

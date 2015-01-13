@@ -1,4 +1,6 @@
-<form action="#<?php if(isset($fAction)){echo $fAction;} ?>" method="POST" id="<?php echo $fId ?>"></form>
+<form action="#<?php if(isset($fAction)){echo $fAction;} ?>" method="POST" id="<?php echo $fId ?>">
+	<input type="hidden" name="form" value="<?php echo $fId ?>"/>
+</form>
 <?php
 	if(isset($_SESSION['adminID']) && $_SESSION['adminID']!==NULL)
 	{

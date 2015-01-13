@@ -69,7 +69,12 @@
 				}
 			}
 			//Se rellenó el formulario de nueva imagen, la inserto en la bd.
-			if(isset($_POST['Titulo']))
+			if
+			(
+				isset($_POST['Titulo'])	&&
+				isset($_POST['form'])	&&
+				$_POST['form']==$fId
+			)
 			{
 				$iMax=count($_POST['Titulo']);
 				
@@ -101,10 +106,18 @@
 
 		if($modoAdmin)
 		{
-			if(isset($_POST['nuevas']))
+			if
+			(
+				isset($_POST['nuevas'])	&&
+				isset($_POST['form'])	&&
+				$_POST['form']==$fId
+			)
 			{
 				$_SESSION['cantidad']=$_POST['cantidad'];
-				echo '<iframe width="100%" height="100%" src="forms/nueva_imagen.php"></iframe>';
+				?>
+					<iframe width="100%" height="100%" src="forms/nueva_imagen.php"></iframe>
+				<?php
+
 			}
 		}
 		//Si se pasó por URL un ID de imagen, abro el visor para mostrarla.

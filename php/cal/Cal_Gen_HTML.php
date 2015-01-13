@@ -1,4 +1,5 @@
 <?php
+
 class Cal_Gen_HTML
 {
 	public $cfg;
@@ -10,6 +11,13 @@ class Cal_Gen_HTML
 	public $celdasMax;
 	public $celdasMin;
 	public $filas;				//Cantidad de filas por de fecto (7x5=35).
+	public $rutas=
+	[
+		'table'=>'esq/cal_table.php',
+		'tbody_tr_td'=>'esq/cal_tbody_tr_td.php',
+		'thead_tr_th_mes'=>'esq/cal_thead_tr_th_mes.php',
+		'thead_tr_th_dia'=>'esq/cal_thead_tr_th_dia.php'
+	];
 
 	function calcCeldas()
 	{
@@ -122,7 +130,7 @@ class Cal_Gen_HTML
 
 		$esq->mes=$this->mes();
 
-		include('esq/cal_thead_tr_th_mes.php');
+		include($this->rutas['thead_tr_th_mes']);
 	}
 	function genTheadTrThDias()
 	{
@@ -134,7 +142,7 @@ class Cal_Gen_HTML
 
 			$esq->nomDia=$this->cfg->dias[$i];
 			
-			include('esq/cal_thead_tr_th_dia.php');
+			include($this->rutas['thead_tr_th_dia']);
 		};
 	}
 	//Genera las celdas para el <thead>
@@ -205,10 +213,13 @@ class Cal_Gen_HTML
 
 				$esq=new stdClass();
 
-				$esq->numDia=$numDia;
 				$esq->clase=$clase;
 
-				include('esq/cal_tbody_tr_td.php');
+				$esq->dia=$numDia;
+				$esq->mes=$mes;
+				$esq->ano=$this->fecha['year'];
+
+				include($this->rutas['tbody_tr_td']);
 			};
 			echo '</tr>';
 		};
@@ -217,7 +228,7 @@ class Cal_Gen_HTML
 	{
 		$esq=$this;
 
-		include('esq/cal_table.php');
+		include($this->rutas['table']);
 	}
 	//Genera las tablas de los números de meses pasados por argumento.
 	function genMeses()
@@ -228,7 +239,8 @@ class Cal_Gen_HTML
 
 		for($i=0;$i<$cantArgs;$i++)
 		{
-			$buff=$buff.$this->genTable($args[$i]);
+			$this->mes($args[$i]);
+			$buff=$buff.$this->genTable();
 		}
 		return $buff;
 	}
@@ -250,6 +262,8 @@ class Cal_Gen_HTML
 		$this->cfg=$cal_cfg;
 		$this->fecha=$cal_cfg->fecha;
 		$this->calcCeldas();
+
+		$this->raiz=$_SERVER['DOCUMENT_ROOT'].'/Web/Pasantía/edetec/';
 	}
 }
 ?>

@@ -5,6 +5,6 @@
 ?>
 <td <?php echo $clase ?>>
 	<p>
-		<?php echo $esq->numDia ?>
+		<?php echo $esq->dia ?>
 	</p>
 </td>

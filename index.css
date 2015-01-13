@@ -51,6 +51,7 @@ a:hover
 	line-height:100%;
 	padding:0.8% 0 0.8% 1%;
 	vertical-align:middle;
+	display: inline-block;
 }
 .idioma:hover div
 {
