@@ -237,7 +237,7 @@ if(session_status()==PHP_SESSION_NONE)
 			{
 				?>
 					<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-						<?php $GenHTML->genTable() ?>;
+						<?php $GenHTML->genTable() ?>
 					</div>
 				<?php
 			}

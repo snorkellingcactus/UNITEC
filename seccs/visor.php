@@ -147,10 +147,7 @@
 						<img src="../img/flecha_d.png" alt="Flecha hacia la derecha"/>
 					</a>
 			</div>
-
-			<!-- Elemento que actúa de margen para el centrado del contenedor de los comentarios -->
-			<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 col-1"></div>
-
+			<div class="clearfix"></div>
 			<!-- Comentarios -->
 			<div class="comentarios col-lg-10 col-md-10 col-sm-10 col-xs-10" >
 				<?php
