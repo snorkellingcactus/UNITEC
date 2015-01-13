@@ -97,8 +97,9 @@ if(session_status()==PHP_SESSION_NONE)
 
 							$descripcion->insSQL();
 
-							$fecha=getdate
+							$fecha=date
 							(
+								'Y-m-d H:i:s',
 								mktime
 								(
 									$_POST['Hora'][$i],
@@ -109,13 +110,6 @@ if(session_status()==PHP_SESSION_NONE)
 									$_POST['Ano'][$i]
 								)
 							);
-
-							$fecha=	$fecha['year'].'-'.
-									$fecha['mon'].'-'.
-									$fecha['mday'].' '.
-									$fecha['hours'].':'.
-									$fecha['minutes'].':'.
-									$fecha['seconds'];
 
 							$evento=new Evento
 							(
@@ -145,15 +139,25 @@ if(session_status()==PHP_SESSION_NONE)
 
 				$fecha=$GenHTML->fecha;
 
-				$mesAct=$fecha['year'].'-'.$fecha['mon'].'-00 00:00:00';
-				$mesSig=$fecha['year'].'-'.($fecha['mon']+1).'-00 00:00:00';
+				$mesAct=DateTime::createFromFormat
+				(
+					'Y-m-d',
+					$fecha['year'].'-'.$fecha['mon'].'-01'
+				);
+
+				$mesSig=new DateTime();
+				$mesSig->setTimestamp($mesAct->getTimestamp());
+				$mesSig->add(new DateInterval('P1M'));
+
+				$mesAct=$mesAct->format('Y-m-d H:i:s');
+				$mesSig=$mesSig->format('Y-m-d H:i:s');
 
 				$consulta=$consulta.' where Tiempo between "'.$mesAct.'" and "'.$mesSig.'"';
 			}
 
 			include_once('php/conexion.php');
 
-			$eventos=$con->query($consulta.' order by tiempo asc');
+			$eventos=$con->query($consulta.' order by Tiempo asc');
 			
 			$eventos=$eventos->fetch_all(MYSQLI_ASSOC);
 

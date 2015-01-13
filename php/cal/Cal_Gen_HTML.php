@@ -161,6 +161,8 @@ class Cal_Gen_HTML
 
 		$this->cfg->verif=[0,0,1,1,1];	//Verificar mes dia y año.
 		//Genera tabla.
+		$pasado=0;
+		$f=$this->cfg->fecha;
 		for($i=0;$i<$this->filas;++$i)
 		{
 			echo '<tr>';
@@ -200,6 +202,19 @@ class Cal_Gen_HTML
 							'mday'=>$numDia
 						]
 					);
+					if($pasado=1)
+					{
+						$pasado=2;
+					}
+					if
+					(
+						$f['mon']==$mes&&
+						$f['year']==$this->fecha['year']&&
+						$f['mday']==$numDia
+					)
+					{
+						$pasado=1;
+					}
 					//Si hay un evento asigno la clase evento al td.
 					if($eventos!=-1)
 					{
@@ -218,6 +233,7 @@ class Cal_Gen_HTML
 				$esq->dia=$numDia;
 				$esq->mes=$mes;
 				$esq->ano=$this->fecha['year'];
+				$esq->hoy=$pasado;
 
 				include($this->rutas['tbody_tr_td']);
 			};
