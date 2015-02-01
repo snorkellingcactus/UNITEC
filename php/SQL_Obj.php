@@ -15,15 +15,23 @@ function eachNan($asoc , $fnA , $fnB)
 		}
 	}
 }
+
+function nGrupo($con , $col , $tabla)
+{
+	$grp=$con->query('select ifnull(max('.$col.'),0) as '.$col.' from '.$tabla);
+	
+	return $grp->fetch_all(MYSQLI_ASSOC)[0][$col]+1;
+}
 //Un objeto que permite realizar operaciónes SQL con
 //Una fila de una tabla.
 class SQL_Obj
 {
 	public $con;
 	public $actForaneas=true;
+	public $gupoNom="Grupo";
 
-	private $table;
-	private $props;
+	public $table;
+	public $props;
 	private $buff;
 	private $buffAux;
 	private	$foraneasLst=NULL;
@@ -63,6 +71,12 @@ class SQL_Obj
 		}
 		return '"'.$val.'"';
 	}
+	//Seguridad acá. Improvisar algo con
+	//specialchars o htmlentities o {}
+	public function sqlSpec($val)
+	{
+		return $this->sqlVal($val);
+	}
 	public function conFnA($clave , $valor)
 	{
 		$this->$clave=$valor;
@@ -74,24 +88,39 @@ class SQL_Obj
 	private function updFnA($clave , $valor)
 	{
 		$this->buff=$this->buff.$clave.'=';
-		$this->buff=$this->buff.$this->sqlVal($valor).',';
+		$this->buff=$this->buff.$this->sqlSpec($valor).',';
 	}
 	private function updFnB($clave , $valor)
 	{
 		$this->buff=$this->buff.$valor.'=';
-		$this->buff=$this->buff.$this->sqlVal($this->$valor).',';
+		$this->buff=$this->buff.$this->sqlSpec($this->$valor).',';
+	}
+	private function getFnA($clave , $valor)
+	{
+		$this->buff=$this->buff.$clave.'=';
+		$this->buff=$this->buff.$this->sqlSpec($valor).' and ';
+	}
+	private function getFnB($clave , $valor)
+	{
+		if(!isset($this->$valor))
+		{
+			return;
+		}
+
+		$this->buff=$this->buff.$valor.'=';
+		$this->buff=$this->buff.$this->sqlSpec($this->$valor).' and ';
 	}
 	private function insFnA($clave , $valor)
 	{
 		$this->buff=$this->buff.$clave.' , ';
-		$this->buffAux=$this->buffAux.$this->sqlVal($valor).' ,';
+		$this->buffAux=$this->buffAux.$this->sqlSpec($valor).' ,';
 	}
 	private function insFnB($clave , $valor)
 	{
 		if(isset($this->$valor))
 		{
 			$this->buff=$this->buff.$valor.' ,';
-			$this->buffAux=$this->buffAux.$this->sqlVal($this->$valor).' ,';
+			$this->buffAux=$this->buffAux.$this->sqlSpec($this->$valor).' ,';
 		}
 	}
 	//Actualiza los campos de un registro de este elemento en la base de datos.
@@ -133,7 +162,7 @@ class SQL_Obj
 		{
 			return $this->con->query
 			(
-				'update '.$this->table.' set '.$prop.' = '.$this->sqlVal($this->$prop).' where ID='.$this->ID
+				'update '.$this->table.' set '.$prop.' = '.$this->sqlSpec($this->$prop).' where ID='.$this->ID
 			);
 		}
 		$this->foraneas('updSQL');
@@ -156,6 +185,7 @@ class SQL_Obj
 		$this->buff=substr($this->buff,0,strlen($this->buff)-1).' ) ';
 		$this->buffAux=substr($this->buffAux,0,strlen($this->buffAux)-1).' ) ';
 
+		echo '<h1>'.$this->buff.$this->buffAux.'</h1>';
 		$res=$this->con->query($this->buff.$this->buffAux);
 		$this->ID=$this->con->insert_id;
 
@@ -194,6 +224,30 @@ class SQL_Obj
 		++$this->foraneasIndex;
 
 		return $res;
+	}
+
+	public function getSQL()
+	{
+		$this->buff='select * from '.$this->table.' where ';
+
+		eachNan
+		(
+			$this->props,
+			function($clave , $valor){$this->getFnA($clave , $valor);},
+			function($clave , $valor){$this->getFnB($clave , $valor);}
+		);
+
+		$this->buff=substr($this->buff , 0 , strlen($this->buff)-4).' limit 1';
+
+		$res=$this->con->query($this->buff);
+		$res=$res->fetch_all(MYSQLI_ASSOC)[0];
+
+		foreach($res as $clave=>$valor)
+		{
+			$this->$clave=$valor;
+		}
+
+		$this->buff='';
 	}
 }
 ?>

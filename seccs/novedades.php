@@ -118,7 +118,7 @@
 
 		include_once 'php/conexion.php';
 
-		$novedades=$con->query('select * from Novedades');
+		$novedades=$con->query('select * from Novedades order by Fecha desc');
 		$novedades=$novedades->fetch_all(MYSQLI_ASSOC);
 
 		$cantidad=count($novedades);
