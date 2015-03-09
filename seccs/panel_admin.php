@@ -79,6 +79,7 @@ if(isset($_SESSION['adminID']))
 	<script type="text/javascript" src="js/Caja.js"></script>
 	<script type="text/javascript" src="js/Diag.js"></script>
 	<script type="text/javascript" src="js/XMLObj.js"></script>
+	<script type="text/javascript" src="js/Menu_XML.js"></script>
 	<script type="text/javascript">
 		function nHijo()
 		{
@@ -92,24 +93,6 @@ if(isset($_SESSION['adminID']))
 
 			return i+1;
 		}
-
-		/*
-		titulo.hijo
-		(
-			{
-				tag:'a',
-				innerHTML:'X',
-				forma:
-				{
-					setAttribute:
-					[
-						['id','cerrar'],
-						['href','inicio_sesion.php?cSesion']
-					]
-				}
-			}
-		)
-*/
 
 	document.body.appendChild
 	(
@@ -128,15 +111,14 @@ if(isset($_SESSION['adminID']))
 			}
 		).doc
 	)
-	
-	tipos={}
-	tipos.raiz=function(nHijo)
-	{
-		window.console.log('Raiz');window.console.log(arguments)
 
-		window.panel=new Diag();
-		window.panelCaja=new Caja
-		(
+	menuXML=new MenuXML();
+	menuXML.diag=new Diag();
+	menuXML.tipos=
+	{
+		'raiz':
+		{
+			hijo:
 			{
 				nom:'panel',
 				tag:'div',
@@ -152,111 +134,82 @@ if(isset($_SESSION['adminID']))
 					setAttribute:['id','panel']
 				}
 			}
-		);
-
-		panel.nCaja(panelCaja);
-
-		document.body.appendChild(panelCaja.doc);
-	}
-	tipos.Tit=function(val , n)
-	{
-		window.console.log('Tit');window.console.log(arguments)
-
-		window.titulo=panelCaja.hijo
-		(
-			{
-				nom:'titulo',
-				tag:'h1',
-				forma:
+		},
+		'Tit':
+		{
+			'panel':
+			[
 				{
-					innerHTML:val,
-					style:
-					[
-						['width','100%'],
-						['textAlign','center'],
-						['position','relative']
-					]
+					nom:'titulo',
+					tag:'h1',
+					forma:
+					{
+						style:
+						[
+							['width','100%'],
+							['textAlign','center'],
+							['position','relative']
+						]
+					}
+	
+				},
+				{
+					nom:'pestanas',
+					tag:'div',
+					forma:
+					{
+						style:
+						[
+							['width','100%'],
+							['minHeight','1em'],
+							['border','1px solid gray']
+						],
+						setAttribute:['class','pestanas'],
+					}
 				}
-
-			}
-		)
-		window.barraPes=panelCaja.hijo
-		(
+			],
+			dist:function(caja , val , n)
 			{
-				nom:'pestanas',
+				if(caja.nom=='titulo')
+				{
+					caja.doc.innerHTML=val;
+				}
+			}
+		},
+		'Pes':
+		{
+			'pestanas':
+			{
+				nom:'p',
 				tag:'div',
 				forma:
 				{
-					style:
-					[
-						['width','100%'],
-						['minHeight','1em'],
-						['border','1px solid gray']
-					],
-					setAttribute:['class','pestanas'],
+					setAttribute:['class','pestana'],
+					addEventListener:['click',function(){menuXML.diag.selV('panel','vistaP'+nHijo.bind(this)())}]
 				}
-			}
-		);
-
-		panel.nCajas(titulo , barraPes);
-	}
-	tipos.Pes=function(val , n)
-	{
-		window.console.log('Pes');window.console.log(arguments)
-
-		panel.nCajas
-			(
-				barraPes.hijo
-				(
-					{
-						nom:'p'+n,
-						tag:'div',
-						forma:
-						{
-							setAttribute:['class','pestana'],
-							style:
-							[
-								['width',100/4+'%']
-							],
-							innerHTML:val,
-							addEventListener:['click',function(){panel.selV('panel','vistaP'+nHijo.bind(this)())}]
-						}
-					}
-				),
-				new Caja
-				(
-					{
-						nom:'vistaP'+n,
-						tag:'div',
-						forma:
-						{
-							setAttribute:['class','vista'],
-							innerHTML:'vistaP'+n
-						}
-					}
-				)
-			);
-	}
-
-	function XMLTags(nodo)
-	{
-		for(var i=0;i<nodo.childNodes.length;i++)
-		{
-			var nodoAct=nodo.childNodes[i];
-
-			if(nodoAct.childNodes.length)
+			},
+			'hijo':
 			{
-				if(nodoAct.childNodes[0].nodeName=='#text')
+				nom:'vistaP',
+				tag:'div',
+				forma:
 				{
-					tipos[nodoAct.nodeName](nodoAct.childNodes[0].nodeValue , i);
-					continue;
+					setAttribute:['class','vista'],
+					innerHTML:'vistaP'
 				}
-
-				tipos[nodoAct.nodeName](i);
-
-				XMLTags(nodo.childNodes[i]);
+			},
+			dist:function(caja , val , n)
+			{
+				if(caja.nom=="p")
+				{
+					caja.doc.innerHTML=val;
+				}
+				if(caja.nom=='vistaP')
+				{
+					caja.doc.innerHTML+=n;
+				}
+				caja.nom+=n;
 			}
-
 		}
 	}
 	function XMLToMenu()
@@ -265,9 +218,20 @@ if(isset($_SESSION['adminID']))
 		{
 			var response=this.responseXML.childNodes[0];
 
-			XMLTags(response);
+			menuXML.XMLTags(response);
 
-			panel.selV('panel','vistaP1');
+			//Fix ancho pestañas.
+			var pestanas=menuXML.diag.caja('pestanas').doc.getElementsByTagName('div');
+
+			multipleCSS
+			(
+				{width:(100/pestanas.length)+'%'},
+				pestanas
+			)
+
+			menuXML.diag.selV('panel','vistaP1');
+
+			document.body.appendChild(menuXML.diag.caja('panel').doc);
 		}
 	}
 	MenuReq=new XMLObj
