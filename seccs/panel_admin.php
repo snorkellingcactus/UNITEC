@@ -14,7 +14,7 @@ if(isset($_SESSION['adminID']))
 	<script type="text/javascript" src="js/Caja.js"></script>
 	<script type="text/javascript" src="js/Diag.js"></script>
 	<script type="text/javascript" src="js/XMLObj.js"></script>
-	<script type="text/javascript" src="js/Menu_XML.js"></script>
+	<script type="text/javascript" src="js/MenuProto.js"></script>
 	<script type="text/javascript">
 	function nHijo()
 	{
