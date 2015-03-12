@@ -47,6 +47,81 @@
 	},
 	"buffers":
 	[
+		{
+			"contents": "Opciones:\n	Index:\n		-Lista Secciones (Por ej.):\n			Bienvenida.\n			Noticias.\n			Eventos.\n			Galería.\n			Esp. Extensión.\n			Atajos.\n\n		-Crea.\n\n		-Opciones Seccion (Genérico):\n			-Visible\n			-Modifica\n			-Elimina\n			-Prioridad\n			-------------\n			-Modifica.\n			-Elimina.\n		Idiomas:\n			-Lista Soportados.\n			-Crea\n\n	Sección:\n		Opciones Seccion (Particular):\n			Lista Opciones (Por ej.):\n				(Calendario) :\n					-Sincroniza Con GCalendar.\n					-Apariencia:\n						-Ver año actual.\n						-Ver mes actual.\n					-Lista Eventos:\n						-Crea\n						-Modifica\n						-Elimina\n				(Galería)	:\n					-Lista imágenes.\n\n					-Crea\n\n					Opciones Imagen:\n						-Visible\n						-Modifica\n						-Elimina\n						-Prioridad\n\n						-Ordena Por:\n							-Fecha\n							-Nombre\n							-Prioridad\n\n						-Contenidos:\n							-Alt\n							-Titulo\n							-Descripción.\n								-Lista Idiomas\n								-Agregar traducción\n\n				(Novedades)	:\n					-Lista Novedades:\n\n					-Crea.\n\n					Opciones Novedad:\n						\n\n\n\nTipos para menu:\n	<Principal>:\n 		-Lista contextos (\"Idiomas\" , \"Index\")\n\n 	<Contexto>\n 		-Crea SubContexto.\n\n 		-Lista <SubContexto>\n\n 		-Visible\n		-Prioridad\n\n		-Modifica\n		-Elimina\n\n\n\nSQL:\n\n| ID | \n\nOpciones:\n\n0 general\n1 general.index\n2 general.index.eventos\n6 general.index.eventos.visibilidad\n7 general.index.eventos.prioridad\n8 general.index.eventos.sincroniza\n9 general.index.eventos.sincTiempo\n\n//Menu\n3 general.index.eventos.modulos\n4 general.index.eventos.modulos.sincGCalendar\n3 general.index.eventos.comandos\n4 general.index.eventos.comandos.listaTabla\n4 general.index.eventos.comandos.lista\n\n//MenuXML\n<panelAdmin>\n	<titulo></titulo>\n	<Pes>\n		<nombre>Index</nombre>\n		<lista>\n			<recurso>general.index</recurso>\n		</lista>\n	</Pes>\n</panelAdmin>\nOpciones\n<general>\n	<secciones>\n		<bienvenida>\n				<visibilidad>1</visibilidad>\n				<prioridad>2</prioridad>\n				<url>./sobre_unitec.php</url>\n		</bienvenida>\n		<eventos>\n				<visibilidad>1</visibilidad>\n				<prioridad>5</prioridad>\n				<url>./eventos.php</url>\n		</eventos>\n	</secciones>\n	<idiomas>\n		<idioma>es_Ar</idioma>\n		<idioma>ab_Cd</idioma>\n		<idioma>ac_Bc</idioma>\n	</idiomas>\n</general>\n<panelAdmin>\n	<\n</panelAdmin>\n\nTipos:\n	Titulo - temática\n\n	Subtitulo - opciones particulares.\n-------------------------------------------\n\n	Select	Radio : nombre , idopcion\n		select1	: nombre1 , valor1\n		select2	: nombre2 , valor2\n		select3	: nombre3 , valor3\n		select4	: nombre4 , valor4\n\n	Select Checkbox	: nombre , idopcion\n		select1	: nombre1 , valor1\n		select2	: nombre2 , valor2\n		select3	: nombre3 , valor3\n		select4	: nombre4 , valor4\n\n	Numero	: nombre , idOpcion, max , min\n\n	Letra	: nombre , idOpcion\n\n	Fecha	:nombre , idOpcion, max , min\n\n-----------------------------------\n	fn	: nombreFn\n---------------------------------\n\n\n\n\n\n\n\n",
+			"file": "Opciones",
+			"file_size": 2775,
+			"file_write_time": 1425957541000000,
+			"settings":
+			{
+				"buffer_size": 2772,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "seccs/panel_admin.php",
+			"settings":
+			{
+				"buffer_size": 4759,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "php/SQL_DOM.php",
+			"settings":
+			{
+				"buffer_size": 3579,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "php/getConfig.php",
+			"settings":
+			{
+				"buffer_size": 576,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "js/XMLObj.js",
+			"settings":
+			{
+				"buffer_size": 2147,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/opt/lampp/htdocs/Web/lib/rec/cpArr.js",
+			"settings":
+			{
+				"buffer_size": 375,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "index.php",
+			"settings":
+			{
+				"buffer_size": 3731,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "php/Res_XML.php",
+			"settings":
+			{
+				"buffer_size": 307,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "js/Menu_XML.js",
+			"settings":
+			{
+				"buffer_size": 1371,
+				"line_ending": "Unix"
+			}
+		}
 	],
 	"build_system": "",
 	"command_palette":
@@ -72,6 +147,10 @@
 	},
 	"file_history":
 	[
+		"/opt/lampp/htdocs/Web/lib/rec/rec.js",
+		"/opt/lampp/htdocs/Web/lib/rec/index.html",
+		"/opt/lampp/htdocs/Web/Pasantía/edetec/php/ResXML.php",
+		"/opt/lampp/htdocs/Web/Pasantía/edetec/edetec.sublime-project",
 		"/opt/lampp/htdocs/Web/Pasantía/edetec/msg",
 		"/opt/lampp/htdocs/Web/Pasantía/edetec/php/Foraneas.php",
 		"/opt/lampp/htdocs/Web/Pasantía/edetec/php/SQL_Obj.php",
@@ -161,7 +240,6 @@
 		"/home/cactus/.config/sublime-text-2/Packages/User/Preferences.sublime-settings",
 		"/opt/lampp/htdocs/Web/Pasantía/edetec/seccs/atajos.html",
 		"/opt/lampp/htdocs/Web/Pasantía/edetec/forms/nuevo_coment.css",
-		"/opt/lampp/htdocs/Web/Pasantía/edetec/edetec.sublime-project",
 		"/opt/lampp/htdocs/Web/Pasantía/edetec/esq/nuevo_coment.css",
 		"/opt/lampp/htdocs/Web/Pasantía/edetec/esq/visor.css",
 		"/C/Users/UNITEC-EDETEC 01/Desktop/Labtic/Sublime Text 2.0.2 x64/Data/Packages/User/Preferences.sublime-settings"
@@ -182,6 +260,7 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"arbolGenX",
 			"window.console.log",
 			"vista",
 			"ResX",
@@ -259,8 +338,252 @@
 	"groups":
 	[
 		{
+			"selected": 1,
 			"sheets":
 			[
+				{
+					"buffer": 0,
+					"file": "Opciones",
+					"settings":
+					{
+						"buffer_size": 2772,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2772,
+								2772
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 3078.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "seccs/panel_admin.php",
+					"settings":
+					{
+						"buffer_size": 4759,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3954,
+								3954
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 4435.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "php/SQL_DOM.php",
+					"settings":
+					{
+						"buffer_size": 3579,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 3933.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "php/getConfig.php",
+					"settings":
+					{
+						"buffer_size": 576,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								482,
+								482
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 114.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "js/XMLObj.js",
+					"settings":
+					{
+						"buffer_size": 2147,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2147,
+								2147
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1824.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "/opt/lampp/htdocs/Web/lib/rec/cpArr.js",
+					"settings":
+					{
+						"buffer_size": 375,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "index.php",
+					"settings":
+					{
+						"buffer_size": 3731,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3456,
+								3456
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 2166.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "php/Res_XML.php",
+					"settings":
+					{
+						"buffer_size": 307,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 8,
+					"file": "js/Menu_XML.js",
+					"settings":
+					{
+						"buffer_size": 1371,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1369,
+								1369
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1064.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
 			]
 		}
 	],
