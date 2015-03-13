@@ -49,6 +49,19 @@ html,body {
 	border:2px solid blue;
 	border-radius:3px;
 	overflow:hidden;
+	text-align:center;
+}
+.cuadroOpc>div:last-child
+{
+	background-color:#444444;
+	font-weight: bold;
+	font-size: 1.5em;
+	font-family:impact;
+	color:silver;
+}
+.cuadroOpc>div:last-child:hover
+{
+	background-color:#4E4E4E;	
 }
 .cuadroOpc>div>p
 {
@@ -62,15 +75,19 @@ html,body {
 .cuadroOpc span
 {
 	display:block;
+	overflow:hidden;
 }
 .cuadroOpc span p
 {
+	display:table-cell;
+	vertical-align:middle;
 	width:33.3333%;
 	float:left;
 	background-color:inherit;
 	margin:0px;
 	text-align: center;
-	padding:5px 0px 5px 0px;
+	font-size:1.1em;
+	height:2em;
 }
 .cuadroOpc input
 {
@@ -78,6 +95,6 @@ html,body {
 	box-shadow: none;
 	background-color:transparent;
 	border:none;
-	width:50%;
+	width:80%;
 	margin-left:25%;
 }

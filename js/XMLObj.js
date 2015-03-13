@@ -94,12 +94,20 @@ XMLObj.prototype.encArgs=function(args)
 	{
 		var valor=args[clave];
 
-		res+=clave+'='+valor+'&';
+		if(typeof(valor)==='object')
+	 	{
+	 		for(var i=0;i<valor.length;i++)
+	 		{
+	 			res+=clave+'[]='+valor[i]+'&';
+	 		}
+	 	}
+	 	else
+	 	{
+	 		res+=clave+'='+valor+'&';
+	 	}
 	}
 
 	res=res.substr(0,res.length-1);
-
-	//window.console.log('argsEnc: '+res);
 
 	return res;
 }

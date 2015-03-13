@@ -175,13 +175,29 @@ if(isset($_SESSION['adminID']))
 						}
 					]
 				}
-			}
+			},
+			'cuadroOpc':
+			[
+				{
+					nom:'cfgOpcLst',
+					tag:'div'
+				},
+				{
+					nom:'cfgOpcNue',
+					tag:'div',
+					innerHTML:'+',
+					forma:
+					{
+						addEventListener:['click' , cfgNOpc]
+					}
+				}
+			]
 		},
 		'cfgOpc':
 		{
-			'cuadroOpc':
+			'cfgOpcLst':
 			{
-				nom:'Opc',
+				nom:'cfgOpc',
 				tag:'span',
 				forma:
 				{
@@ -222,9 +238,12 @@ if(isset($_SESSION['adminID']))
 				caja.doc.style.backgroundColor=color;
 				caja.doc.num=n;
 
-				for(var i=0;i<val.length;i++)
+				if(val)
 				{
-					caja.doc.childNodes[i].innerHTML=val[i];
+					for(var i=0;i<val.length;i++)
+					{
+						caja.doc.childNodes[i].innerHTML=val[i];
+					}
 				}
 			}
 		},
@@ -241,6 +260,21 @@ if(isset($_SESSION['adminID']))
 			}
 		}
 	}
+	function cfgNOpc(event)
+	{
+		menuXML.creaTipo('cfgOpc' , false , conf.Opcion.length);
+
+		window.console.log(menuXML.diag.caja('cfgOpc').doc.childNodes);
+		var campos=menuXML.diag.caja('cfgOpc').doc.childNodes;
+
+		var iMax=campos.length-1;
+		for(var i=iMax;i>=0;i--)
+		{
+			var input=mkInput(campos[i]);
+		}
+
+		input.focus();
+	}
 	function thisSel(event)
 	{
 		var ele=event.target.parentNode;
@@ -256,18 +290,108 @@ if(isset($_SESSION['adminID']))
 		window.console.log(ele.style.backgroundColor);
 		ele.style.backgroundColor='blue';
 	}
-	function thisInput(event)
+	function mkInput(ele)
 	{
-		menuXML.valAct=event.target.innerHTML;
-
 		menuXML.creaTipo('opcValInput' , 'text' , 0);
 
+		menuXML.valAct=ele.innerHTML || false;
+
 		var input=menuXML.diag.caja('opcValInput').doc
+			input.addEventListener('keyup',thisInput);
+			input.value=ele.innerHTML||'';
 
-		this.innerHTML='';
-		this.appendChild(input);
+		ele.innerHTML='';
+		ele.appendChild(input);
 
-		input.focus();
+		return input;
+	}
+	function thisInput(event)
+	{
+		if(event.type==='dblclick')
+		{
+			input=mkInput(this);
+
+			input.focus();
+		}
+		if(event.type==='keyup')
+		{
+			//Enter.
+			if(event.keyCode===13)
+			{
+				var padre=this.parentNode;
+
+				padre.innerHTML=this.value||'';
+
+				if(padre===padre.parentNode.lastChild && !conf.Opcion[padre.parentNode.num])
+				{
+					var hermanos=padre.parentNode.childNodes;
+
+					var datos=new Array(3);
+
+					for(var i=0;i<hermanos.length;i++)
+					{
+						var actual=hermanos[i];
+						var text=hermanos[i].childNodes[0];
+						if(!text || text.nodeName!=='#text' || !text.nodeValue.length)
+						{
+							return;
+						}
+
+						datos[i]=actual.innerHTML;
+					}
+
+					cfgOpcBD(0 , datos);
+				}
+				else
+				{
+					var hermanos=padre.parentNode.childNodes;
+
+					var datos=new Array(3);
+
+					for(var i=0;i<hermanos.length;i++)
+					{
+						var actual=hermanos[i];
+						var text=hermanos[i].childNodes[0];
+						if(!text || text.nodeName!=='#text' || !text.nodeValue.length)
+						{
+							return;
+						}
+
+						if(actual===padre)
+						{
+							datos[i]=actual.innerHTML;
+						}
+					}
+
+					//cfgOpcBD(1 , datos);
+				}
+				menuXML.valAct=false;
+			}
+			//Escape.
+			if(event.keyCode===27)
+			{
+				this.parentNode.innerHTML=menuXML.valAct||'';
+
+				menuXML.valAct=false;
+			}
+			if( event.keyCode===9)
+			{
+
+			}
+		}
+	}
+	function cfgOpcBD(accion , datos)
+	{
+		window.req=new XMLObj
+		(
+			{
+				url:'http://localhost/Web/Pasant%C3%ADa/edetec/php/opciones_op.php',
+				args:{'datos':datos,accion:accion},
+				handler:function(){window.console.log('Res: '+this.response)}
+			}
+		)
+
+		req.envia()
 	}
 	function XMLToMenu()
 	{
