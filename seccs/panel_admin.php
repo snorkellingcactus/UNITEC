@@ -86,7 +86,6 @@ if(isset($_SESSION['adminID']))
 							['position','relative']
 						]
 					}
-	
 				},
 				{
 					nom:'pestanas',
@@ -103,6 +102,20 @@ if(isset($_SESSION['adminID']))
 					}
 				}
 			],
+			'titulo':
+				{
+				nom:'cierra',
+				tag:'a',
+				innerHTML:'X',
+				forma:
+				{
+					setAttribute:
+					[
+						['class','cerrar'],
+						['href' , '?cSesion#']
+					]
+				}
+			},
 			dist:function(caja , val , n)
 			{
 				if(caja.nom=='titulo')
@@ -319,53 +332,18 @@ if(isset($_SESSION['adminID']))
 			if(event.keyCode===13)
 			{
 				var padre=this.parentNode;
+				var accion=1;
 
 				padre.innerHTML=this.value||'';
+				menuXML.valAct=false;
+
 
 				if(padre===padre.parentNode.lastChild && !conf.Opcion[padre.parentNode.num])
 				{
-					var hermanos=padre.parentNode.childNodes;
-
-					var datos=new Array(3);
-
-					for(var i=0;i<hermanos.length;i++)
-					{
-						var actual=hermanos[i];
-						var text=hermanos[i].childNodes[0];
-						if(!text || text.nodeName!=='#text' || !text.nodeValue.length)
-						{
-							return;
-						}
-
-						datos[i]=actual.innerHTML;
-					}
-
-					cfgOpcBD(0 , datos);
+					var accion=0;
 				}
-				else
-				{
-					var hermanos=padre.parentNode.childNodes;
 
-					var datos=new Array(3);
-
-					for(var i=0;i<hermanos.length;i++)
-					{
-						var actual=hermanos[i];
-						var text=hermanos[i].childNodes[0];
-						if(!text || text.nodeName!=='#text' || !text.nodeValue.length)
-						{
-							return;
-						}
-
-						if(actual===padre)
-						{
-							datos[i]=actual.innerHTML;
-						}
-					}
-
-					//cfgOpcBD(1 , datos);
-				}
-				menuXML.valAct=false;
+				cfgOpcBD(accion , padre);
 			}
 			//Escape.
 			if(event.keyCode===27)
@@ -380,17 +358,48 @@ if(isset($_SESSION['adminID']))
 			}
 		}
 	}
-	function cfgOpcBD(accion , datos)
+	function cfgOpcBD(accion , padre)
 	{
-		window.req=new XMLObj
+		var hermanos=padre.parentNode.childNodes;
+
+		var datos=new Array(hermanos.length);
+
+		for(var i=0;i<hermanos.length;i++)
+		{
+			var actual=hermanos[i];
+			var text=hermanos[i].childNodes[0];
+			if(!text || text.nodeName!=='#text' || !text.nodeValue.length)
+			{
+				return;
+			}
+
+			if(!accion || actual===padre)
+			{
+				datos[i]=actual.innerHTML;
+			}
+		}
+		var req=new XMLObj
 		(
 			{
 				url:'http://localhost/Web/Pasant%C3%ADa/edetec/php/opciones_op.php',
 				args:{'datos':datos,accion:accion},
-				handler:function(){window.console.log('Res: '+this.response)}
+				handler:function()
+				{
+					xmlObj=this.xmlHttp;
+
+					if(xmlObj.status=200&&xmlObj.readyState==4)
+					{
+						if(xmlObj.responseXML)
+						{
+							this.padre.parentNode.parentNode.removeChild(this.padre.parentNode);
+							getConf.call(this);
+						}
+					}
+				}
 			}
 		)
 
+		req.padre=padre;
 		req.envia()
 	}
 	function XMLToMenu()
@@ -522,41 +531,51 @@ if(isset($_SESSION['adminID']))
 			}
 		}
 	}
+	conf={Opcion:[]};
+	dConf={};
+
+	menuXML.creaTipo('raiz' , 0 , 0);
+	menuXML.creaTipo('Tit' , 'Panel Admin' ,0);
+	menuXML.creaTipo('Pes' , 'Edita Configuración' , 'Cfg');
+	menuXML.creaTipo('cfgEdit' , 'Edita Configuración' , 'Cfg');
+	menuXML.diag.selV('panel','vistaPCfg');
+	document.body.appendChild(menuXML.diag.caja('panel').doc);
 	function getConf()
 	{
-		if(this.readyState==4 && this.status==200)
+		var xmlObj=this.xmlHttp;
+		if(xmlObj.readyState==4 && xmlObj.status==200)
 		{
-			var conf={};
-			var dConf={};
 
-			if(this.responseXML)
+			var nConf={};
+
+			if(xmlObj.responseXML)
 			{
-				XMLToObj(this.responseXML.childNodes[0] , conf);
+				XMLToObj(xmlObj.responseXML.childNodes[0] , nConf);
 			}
-			window.conf=conf;
-
-			window.console.log(window.conf);
-
-			domObj(conf , dConf);
-
-			window.dConf=dConf;
-
-			window.console.log(window.dConf);
-
-
-			menuXML.creaTipo('raiz' , 0 , 0);
-			menuXML.creaTipo('Tit' , 'Panel Admin' ,0);
-			menuXML.creaTipo('Pes' , 'Edita Configuración' , 'Cfg');
-			menuXML.creaTipo('cfgEdit' , 'Edita Configuración' , 'Cfg');
-			menuXML.diag.selV('panel','vistaPCfg');
-
-			for(var i=0;i<conf.Opcion.length;i++)
+			else
 			{
-				var cfg=conf.Opcion[i];
-				menuXML.creaTipo('cfgOpc' , [cfg['Dominio'],cfg['Tipo'],cfg['Valor']] , i);
+				return;
 			}
 
-			document.body.appendChild(menuXML.diag.caja('panel').doc);
+			window.console.log(nConf);
+
+			//domObj(conf , dConf);
+
+			//window.console.log(dConf);
+			//Cuando es un único resultado Opcion, XMLToObj no cree que sea un array, pero debe serlo.
+			if(nConf.Opcion.constructor.toString().indexOf('Array')===-1)
+			{
+				nConf.Opcion=[nConf.Opcion];
+			}
+
+			var n=conf.Opcion.length;
+			for(var i=0;i<nConf.Opcion.length;i++)
+			{
+				var cfg=nConf.Opcion[i];
+
+				menuXML.creaTipo('cfgOpc' , [cfg['Dominio'],cfg['Tipo'],cfg['Valor']] , n+i);
+				conf.Opcion.push(nConf.Opcion[i]);
+			}
 		}
 	}
 	getConfReq=new XMLObj

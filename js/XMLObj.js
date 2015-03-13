@@ -70,7 +70,7 @@ XMLObj.prototype.async=function(async)
 }
 XMLObj.prototype.envia=function()
 {
-	this.xmlHttp.onreadystatechange=this.defHandler;
+	this.xmlHttp.onreadystatechange=this.defHandler.bind(this);
 	//window.console.log('Open:');
 	this.xmlHttp.open(this.defMethod , this.url , this.defAsync);
 	//window.console.log('setHeader:');

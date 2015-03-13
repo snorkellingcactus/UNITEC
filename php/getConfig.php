@@ -4,12 +4,24 @@ if(session_status()==PHP_SESSION_NONE)
 	session_start();
 }
 
-if(isset($_SESSION['adminID'])&&isset($_POST['dom']))
+if(isset($_SESSION['adminID']))
 {
+	if(!(isset($_POST['dom']) || isset($_POST['id'])))
+	{
+		return;
+	}
+	if(isset($_POST['dom']))
+	{
+		$consulta='select * from Opciones where Dominio like "'.$_POST['dom'].'%"';
+	}
+	else
+	{
+		$consulta='select * from Opciones where ID='.$_POST['id'];
+	}
 	include("./conexion.php");
 	include("./Res_XML.php");
 
-	$consulta=$con->query('select * from Opciones where Dominio like "'.$_POST['dom'].'%"');
+	$consulta=$con->query($consulta);
 
 	$consulta=$consulta->fetch_all(MYSQLI_ASSOC);
 
