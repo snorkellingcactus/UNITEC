@@ -38,7 +38,7 @@
 			$Fecha=$Fecha->diff(new DateTime() , true);
 
 			$t=0;
-			$tMax=7;
+			$tMax=5;
 
 			while($Fecha->$RangoTiempo[$t]<=0 && $t<$tMax)
 			{

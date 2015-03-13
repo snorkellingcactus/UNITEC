@@ -1,4 +1,4 @@
-<?
+<?php
 class Res_XML
 {
 	function ini()

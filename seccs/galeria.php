@@ -50,7 +50,7 @@
 							{
 								?>
 								<option value="<?php echo $i ?>"><?php echo $i ?></option>
-								<?
+								<?php
 							}
 						?>
 					</select>
@@ -68,6 +68,7 @@
 					$con->query('delete from Imagenes where ID='.$_POST['eImgID'][$i]);
 				}
 			}
+			//echo '<h2><font color="white">'.$fId.'</font></h2>';
 			//Se rellenó el formulario de nueva imagen, la inserto en la bd.
 			if
 			(

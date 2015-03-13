@@ -209,7 +209,7 @@ if(session_status()==PHP_SESSION_NONE)
 								 {
 								 	?>
 								 		<input type="checkbox" name="evtID[]" value="<?php echo $evtAct['ID']?>" form="<?php echo $fId?>"/>
-								 	<?
+								 	<?php
 								 }
 								 ?>
 

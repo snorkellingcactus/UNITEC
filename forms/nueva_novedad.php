@@ -49,7 +49,7 @@
 									<input name="novImagen" type="radio" value="<?php echo $Img['ID'] ?>" <?php if($i===0){echo 'checked="checked"';}?> />
 									<img src="<?php echo $Img['Url']?>" />
 								</div>
-							<?
+							<?php
 						}
 					}
 				?>

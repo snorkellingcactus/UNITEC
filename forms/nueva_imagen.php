@@ -55,7 +55,7 @@
 						{
 							?>
 								<option value="<?php echo $consulta[$j]['ID'] ?>"><?php echo $consulta[$j]['Nombre'] ;?></option>
-							<?
+							<?php
 						}
 					?>
 				</select>

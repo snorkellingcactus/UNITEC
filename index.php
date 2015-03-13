@@ -38,6 +38,7 @@ function echoLang($langSQLRes)
 		<img src="img/idiomas/<?php echo $langSQLRes['Pais'].'.png' ?>" alt="" />
 	<?php 
 		echo $langSQLRes['Nombre'];
+
 }
 ?>
 <html lang="es">
@@ -112,7 +113,7 @@ function echoLang($langSQLRes)
 										?>
 									</button>
 								</p>
-							<?
+							<?php
 						}
 					?>
 				</div>
@@ -135,7 +136,7 @@ function echoLang($langSQLRes)
 				include_once('./seccs/galeria.php');
 			?>
 		</main>
+
 		<footer class="footer"><small>powered by bootstrap</small></footer>
 	</body>
 </html>
-

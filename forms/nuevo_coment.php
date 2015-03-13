@@ -9,7 +9,7 @@
 			{
 				?>
 					<p class='comNomAdmin'> <?php echo $_SESSION['comNomUsuario'] ?></p>
-				<?
+				<?php
 			}
 		}
 	?>

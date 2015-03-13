@@ -578,10 +578,14 @@ if(isset($_SESSION['adminID']))
 			}
 		}
 	}
+	//LabTIC
+	//'http://localhost/edetec/php/getConfig.php'
+	//Casa
+	//'http://localhost/Web/Pasant%C3%ADa/edetec/php/getConfig.php'
 	getConfReq=new XMLObj
 	(
 		{
-			url:'http://localhost/Web/Pasant%C3%ADa/edetec/php/getConfig.php',
+			url:'http://localhost/edetec/php/getConfig.php',
 			args:{dom:'edetec'},
 			handler:getConf
 		}
