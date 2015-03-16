@@ -73,8 +73,7 @@
 			if
 			(
 				isset($_POST['Titulo'])	&&
-				isset($_POST['form'])	&&
-				$_POST['form']==$fId
+				isset($_POST['nImg'])
 			)
 			{
 				$iMax=count($_POST['Titulo']);

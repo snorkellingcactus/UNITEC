@@ -72,9 +72,8 @@
 
 			?>
 				
-			<button type="submit" class="col-xs-6 col-sm-6 col-md-6 col-lg-6">Aceptar</button>
+			<button type="submit" class="col-xs-6 col-sm-6 col-md-6 col-lg-6" name='nImg'>Aceptar</button>
 		
-			<a href="../index.php?cache=<?php echo $cache ?>#gal" class="col-xs-6 col-sm-6 col-md-6 col-lg-6" target="_parent">Cancelar</a>
-		</form>
+			<a href="../index.php?cache=<?php echo $cache ?>#gal" class="col-xs-6 col-sm-6 col-md-6 col-lg-6" target="_parent">Cancelar</a>		</form>
 	</body>
 </html>
