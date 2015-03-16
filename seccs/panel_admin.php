@@ -201,6 +201,17 @@ if(isset($_SESSION['adminID']))
 					innerHTML:'+',
 					forma:
 					{
+						setAttribute:['class','bottom'],
+						addEventListener:['click' , cfgNOpc]
+					}
+				},
+				{
+					nom:'cfgOpcRem',
+					tag:'div',
+					innerHTML:'-',
+					forma:
+					{
+						setAttribute:['class','bottom'],
 						addEventListener:['click' , cfgNOpc]
 					}
 				}
@@ -582,10 +593,13 @@ if(isset($_SESSION['adminID']))
 	//'http://localhost/edetec/php/getConfig.php'
 	//Casa
 	//'http://localhost/Web/Pasant%C3%ADa/edetec/php/getConfig.php'
+	var url=window.location.toString();
+		url=url.substr(0,url.lastIndexOf('/'));
+	window.console.log(url);
 	getConfReq=new XMLObj
 	(
 		{
-			url:'http://localhost/edetec/php/getConfig.php',
+			url:url+'/php/getConfig.php',
 			args:{dom:'edetec'},
 			handler:getConf
 		}

@@ -51,7 +51,7 @@ html,body {
 	overflow:hidden;
 	text-align:center;
 }
-.cuadroOpc>div:last-child
+.cuadroOpc .bottom
 {
 	background-color:#444444;
 	font-weight: bold;
@@ -59,7 +59,7 @@ html,body {
 	font-family:impact;
 	color:silver;
 }
-.cuadroOpc>div:last-child:hover
+.cuadroOpc .bottom:hover
 {
 	background-color:#4E4E4E;	
 }
