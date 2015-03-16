@@ -212,7 +212,7 @@ if(isset($_SESSION['adminID']))
 					forma:
 					{
 						setAttribute:['class','bottom'],
-						addEventListener:['click' , cfgNOpc]
+						addEventListener:['click' , cfgROpc]
 					}
 				}
 			]
@@ -283,6 +283,11 @@ if(isset($_SESSION['adminID']))
 				caja.doc.setAttribute('type',val);
 			}
 		}
+	}
+	function cfgROpc(event)
+	{
+		menuXML.sel.parentNode.removeChild(menuXML.sel);
+		cfgOpcBD(2);
 	}
 	function cfgNOpc(event)
 	{
@@ -371,35 +376,51 @@ if(isset($_SESSION['adminID']))
 	}
 	function cfgOpcBD(accion , padre)
 	{
-		var hermanos=padre.parentNode.childNodes;
+		var args={};
 
-		var datos=new Array(hermanos.length);
-
-		for(var i=0;i<hermanos.length;i++)
+		if(padre)
 		{
-			var actual=hermanos[i];
-			var text=hermanos[i].childNodes[0];
-			if(!text || text.nodeName!=='#text' || !text.nodeValue.length)
+			var hermanos=padre.parentNode.childNodes;
+
+			var datos=new Array(hermanos.length);
+
+			for(var i=0;i<hermanos.length;i++)
 			{
-				return;
+				var actual=hermanos[i];
+				var text=hermanos[i].childNodes[0];
+				if(!text || text.nodeName!=='#text' || !text.nodeValue.length)
+				{
+					return;
+				}
+
+				if(!accion || actual===padre)
+				{
+					datos[i]=actual.innerHTML;
+				}			 
 			}
 
-			if(!accion || actual===padre)
-			{
-				datos[i]=actual.innerHTML;
-			}
+			args.datos=datos;
 		}
+		if(accion===1 || accion===2)
+		{
+			args.id=conf.Opcion[menuXML.nOpc].ID;
+		}
+
+		args.accion=accion;
+		
+		window.console.log(args);
 		var req=new XMLObj
 		(
 			{
 				url:'http://localhost/Web/Pasant%C3%ADa/edetec/php/opciones_op.php',
-				args:{'datos':datos,accion:accion},
+				args:args,
 				handler:function()
 				{
 					xmlObj=this.xmlHttp;
 
 					if(xmlObj.status=200&&xmlObj.readyState==4)
 					{
+						window.console.log(xmlObj.response);
 						if(xmlObj.responseXML)
 						{
 							this.padre.parentNode.parentNode.removeChild(this.padre.parentNode);

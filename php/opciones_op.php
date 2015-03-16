@@ -9,14 +9,46 @@ if(!empty($_SESSION['adminID']) && isset($_POST['accion']))
 
 	$consulta=false;
 
-	switch($_POST['accion'])
+	if(isset($_POST['datos']))
 	{
-		//Nueva.
-		case 0:
-			$datos=$_POST['datos'];
+		$datos=$_POST['datos'];
+	
+		switch($_POST['accion'])
+		{
+			//Nueva.
+			case 0:
+				$consulta='insert into `Opciones` (Dominio , Tipo , Valor) values ("'.$datos[0].'" , '.$datos[1].' , "'.$datos[2].'")';
+			break;
+			//Actualiza.
+			case 1:
+				$id=$_POST['id'];
+				$claves=['Nombre','Tipo','Valor'];
+				$iMax=count($datos);
 
-			$consulta=$con->query('insert into `Opciones` (Dominio , Tipo , Valor) values ("'.$datos[0].'" , '.$datos[1].' , "'.$datos[2].'")');
-		break;
+				$iAct=0;
+
+				while($datos[$iAct]==='undefined' && $iAct<$iMax)
+				{
+					$iAct++;
+				}
+
+				$consulta='update Opciones set '.$claves[$iAct].' = "'.$datos[$iAct].'" where ID='.$id;
+			break;
+		}
+	}
+	else
+	{
+		if(isset($_POST['id']))
+		{
+			$consulta='delete from Opciones where ID='.$_POST['id'];
+		}
+	}
+
+	
+
+	if($consulta)
+	{
+		$consulta=$con->query($consulta);
 	}
 
 	if($_POST['accion']==0&&$consulta)
