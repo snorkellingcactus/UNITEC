@@ -1,5 +1,5 @@
 .novedad:last-child{border-bottom:0px solid;}
-.novedad img{float:left;border-radius:3px;width:100%}
+.novedad div img{float:left;border-radius:3px;width:100%}
 .novedad>div{padding-top:30px;}
 .novedad{padding-top:1em;border-bottom:1px solid darkgray;}
 .novedad h3{margin-top:0px;padding-top:30px;margin-left:15px;}
@@ -7,6 +7,10 @@
 Por bootstrap, que le da a las imágenes 15px de padding.
 */
 .novedad p{margin-left:15px;}
+.novedad p img{float:none;}
+.novedad p pre.code{float:none;display:block;}
 .novedad .fecha{text-align:right;color:dimgray;clear:both;margin-top:1em}
+.novedad span.center{display:block;width:100%;text-align:center;}
+.novedad font.through{text-decoration:line-through;}
 .novID{float:right;}
 iframe{z-index:5;}

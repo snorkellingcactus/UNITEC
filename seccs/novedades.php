@@ -132,6 +132,8 @@
 		{
 			include_once 'php/Inc_Esq.php';
 			include_once 'php/Novedad.php';
+			include_once 'php/jBBCode1_3_0/JBBCode/Parser.php';
+
 
 			$novedadesHTML=new Inc_Esq('esq/novedad.php');
 
@@ -175,6 +177,47 @@
 
 				$descripcion=$descripcion->fetch_all(MYSQLI_ASSOC)[0]['Contenido'];
 				$titulo=$titulo->fetch_all(MYSQLI_ASSOC)[0]['Contenido'];
+
+				$parser=new JBBCode\Parser();
+				$parser->addCodeDefinitionSet(new JBBCode\DefaultCodeDefinitionSet());
+
+				$builder = new JBBCode\CodeDefinitionBuilder('center', '<span class="center">{param}</span>');
+
+				$parser->addCodeDefinition($builder->build());
+
+				$builder = new JBBCode\CodeDefinitionBuilder('size', '<font size="{option}">{param}</font>');
+				$builder->setUseOption(true);
+
+				$parser->addCodeDefinition($builder->build());
+
+				$builder = new JBBCode\CodeDefinitionBuilder('font', '<font family="{option}">{param}</font>');
+				$builder->setUseOption(true);
+
+				$parser->addCodeDefinition($builder->build());
+
+				$builder = new JBBCode\CodeDefinitionBuilder('sup', '<sup>{param}</sup>');
+
+				$parser->addCodeDefinition($builder->build());
+
+				$builder = new JBBCode\CodeDefinitionBuilder('sub', '<sub>{param}</sub>');
+
+				$parser->addCodeDefinition($builder->build());
+
+				$builder = new JBBCode\CodeDefinitionBuilder('quote', '<blockquote>{param}</blockquote>');
+
+				$parser->addCodeDefinition($builder->build());
+
+				$builder = new JBBCode\CodeDefinitionBuilder('code', '<pre class="code">{param}</pre>');
+
+				$parser->addCodeDefinition($builder->build());
+
+				$builder = new JBBCode\CodeDefinitionBuilder('s', '<font class="through">{param}</font>');
+
+				$parser->addCodeDefinition($builder->build());
+
+				$parser->parse($descripcion);
+
+				$descripcion=$parser->getAsHtml();
 
 				$novedad=new Novedad
 				(

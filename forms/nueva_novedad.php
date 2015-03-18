@@ -4,6 +4,22 @@
 		<link rel="stylesheet" type="text/css" href="../seccs/visor.css" />
 		<link rel="stylesheet" type="text/css" href="../seccs/visor_form.css" />
 		<link rel="stylesheet" type="text/css" href="nueva_novedad.css" />
+
+		<!-- Load jQuery  -->
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+
+		<!-- Load WysiBB JS and Theme -->
+		<script src="http://cdn.wysibb.com/js/jquery.wysibb.min.js"></script>
+		<link rel="stylesheet" href="http://cdn.wysibb.com/css/default/wbbtheme.css" />
+
+		<!-- Init WysiBB BBCode editor -->
+		<script>
+		$(function()
+			{
+				$("#editor").wysibb();
+			}
+		 )
+		</script>
 	</head>
 	<body>
 		<?php
@@ -23,7 +39,8 @@
 			<p class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
 				<label for="Descripcion">Descripcion:</label>
 			</p>
-			<textarea name="novDescripcion" class="col-xs-12 col-sm-8 col-md-8 col-lg-8" rows='7'/></textarea>
+			<div class="clearfix"></div>
+			<textarea id="editor" name="novDescripcion" class="col-xs-12 col-sm-8 col-md-8 col-lg-8" rows='7'/></textarea>
 			<div class="clearfix"></div>
 
 			<p class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
