@@ -215,6 +215,22 @@
 
 				$parser->addCodeDefinition($builder->build());
 
+				$builder = new JBBCode\CodeDefinitionBuilder('table', '<table>{param}</table>');
+
+				$parser->addCodeDefinition($builder->build());
+
+				$builder = new JBBCode\CodeDefinitionBuilder('tr', '<tr>{param}</tr>');
+
+				$parser->addCodeDefinition($builder->build());
+
+				$builder = new JBBCode\CodeDefinitionBuilder('td', '<td>{param}</td>');
+
+				$parser->addCodeDefinition($builder->build());
+
+				$builder = new JBBCode\CodeDefinitionBuilder('video', '<iframe src="https://www.youtube.com/embed/{param}" frameborder="0" allowfullscreen></iframe>');
+
+				$parser->addCodeDefinition($builder->build());				
+
 				$parser->parse($descripcion);
 
 				$descripcion=$parser->getAsHtml();
