@@ -326,7 +326,7 @@ if(isset($_SESSION['adminID']))
 		menuXML.valAct=ele.innerHTML || false;
 
 		var input=menuXML.diag.caja('opcValInput').doc
-			input.addEventListener('keyup',thisInput);
+			input.addEventListener('keydown',thisInput);
 			input.value=ele.innerHTML||'';
 
 		ele.innerHTML='';
@@ -338,14 +338,18 @@ if(isset($_SESSION['adminID']))
 	{
 		if(event.type==='dblclick')
 		{
+			menuXML.saveTxt=false;
+
 			input=mkInput(this);
 
 			input.focus();
 		}
-		if(event.type==='keyup')
+		window.console.log(event.type);
+
+		if(event.type==='keydown')
 		{
 			//Enter.
-			if(event.keyCode===13)
+			if(event.keyCode===13 || event.keyCode===9)
 			{
 				var padre=this.parentNode;
 				var accion=1;
@@ -367,10 +371,6 @@ if(isset($_SESSION['adminID']))
 				this.parentNode.innerHTML=menuXML.valAct||'';
 
 				menuXML.valAct=false;
-			}
-			if( event.keyCode===9)
-			{
-
 			}
 		}
 	}
