@@ -197,11 +197,21 @@ if(session_status()==PHP_SESSION_NONE)
 						htmlentities($evtAct['Descripcion'])
 					);
 
+					$fechaMin=$fecha['minutes'];
+					if(strlen($fechaMin)<2)
+					{
+						$fechaMin='0'.$fechaMin;
+					}
+
+					$fechaText=$CalCfg->dias[$fecha['wday']].' '.$fecha['mday'].' de '.$CalCfg->meses[$fecha['mon']-1].' '.$fecha['hours'].':'.$fechaMin;
 
 					ob_start();
 					?>
-							<h3> <?php echo substr($evtAct['Tiempo'],0,10)?>
-							 	:
+						<li>
+							<p class="fecha">
+									<?php echo $fechaText?>
+							</p>
+							<h3>
 								 <?php
 								 echo htmlentities($evtAct['Nombre']);
 
@@ -217,6 +227,7 @@ if(session_status()==PHP_SESSION_NONE)
 							<p>
 								<?php echo htmlentities($evtAct['Descripcion']) ?>
 							</p>
+						</li>
 					<?php
 
 					$desc=$desc.ob_get_contents();
@@ -270,13 +281,14 @@ if(session_status()==PHP_SESSION_NONE)
 				}
 			}
 				?>
+				<div class="clearfix visible-xs"></div>
 				<!--Contenedor de la descripción de la mitad del ancho. -->
 				<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-					<div class="desc">
+					<ul class="desc">
 
 				<?php
 					echo $desc;
 				?>
-				</div>
+				</ul>
 			</div>
 </section>

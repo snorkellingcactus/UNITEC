@@ -17,7 +17,27 @@
 	box-shadow:-0px -0px 5px rgba(255,255,255,0.75);
 	background-image: url("../img/fondo_contenido.png");
 	padding:7px;
+	list-style: none
 }
+.calendario .desc li
+{
+	border-bottom:2px solid gray;
+}
+.calendario .desc li:last-child
+{
+	border:none;
+}
+.calendario .desc .fecha
+{
+	font-size:0.8em;
+	color:dimgray;
+	margin:0px;
+}
+.calendario .desc h3
+{
+	margin:0px 0px 0px 10px;
+}
+.calendario .desc p{margin-left:2%;}
 .calendario td,.calendario th
 {
 	text-align:center;
