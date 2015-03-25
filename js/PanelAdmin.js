@@ -8,153 +8,73 @@
 //		'bb':2
 //	}	
 //}
-function cfgROpc(event)
+/*
+Pasos:
+//Interfaz: Crea Protos
+//GetBD
+//BD a Obj
+//Interfaz: Crea
+
+//Interaccion:
+//
+
+*/
+//Obtiene un string con el directorio absoluto actual.
+function getUrlDir()
 {
-	menuXML.sel.parentNode.removeChild(menuXML.sel);
-	cfgOpcBD(2);
-}
-function cfgNOpc(event)
-{
-	menuXML.creaTipo('cfgOpc' , false , conf.Opcion.length);
-
-	window.console.log(menuXML.diag.caja('cfgOpc').doc.childNodes);
-	var campos=menuXML.diag.caja('cfgOpc').doc.childNodes;
-
-	var iMax=campos.length-1;
-	for(var i=iMax;i>=0;i--)
-	{
-		var input=mkInput(campos[i]);
-	}
-
-	input.focus();
-}
-function thisSel(event)
-{
-	var ele=event.target.parentNode;
-
-	if(menuXML.sel)
-	{
-		menuXML.sel.style.backgroundColor=menuXML.selBackground;
-	}
-	menuXML.sel=ele;
-	menuXML.nOpc=this.num;
-
-	menuXML.selBackground=ele.style.backgroundColor
-	window.console.log(ele.style.backgroundColor);
-	ele.style.backgroundColor='blue';
-}
-function mkInput(ele)
-{
-	menuXML.creaTipo('opcValInput' , 'text' , 0);
-
-	menuXML.valAct=ele.innerHTML || false;
-
-	var input=menuXML.diag.caja('opcValInput').doc
-		input.addEventListener('keydown',thisInput);
-		input.addEventListener('blur',thisInput);
-		input.value=ele.innerHTML||'';
-
-	ele.innerHTML='';
-	ele.appendChild(input);
-
-	return input;
-}
-function thisInput(event)
-{
-	if(event.type==='dblclick' && (!this.lastChild || this.lastChild.tagName!=='INPUT'))
-	{
-		input=mkInput(this);
-
-		input.focus();
-	}
-	if(event.type==='keydown' || event.type==='blur')
-	{
-		//Enter , TAB o BLUR.
-		if(event.keyCode===13 || event.keyCode===9 || event.type==='blur')
-		{
-			var padre=this.parentNode;
-			var accion=1;
-
-			padre.innerHTML=this.value||'';
-			menuXML.valAct=false;
-
-
-			if(padre===padre.parentNode.lastChild && !conf.Opcion[padre.parentNode.num])
-			{
-				var accion=0;
-			}
-
-			cfgOpcBD(accion , padre);
-		}
-		//Escape.
-		if(event.keyCode===27)
-		{
-			this.parentNode.innerHTML=menuXML.valAct||'';
-
-			menuXML.valAct=false;
-		}
-	}
-}
-function cfgOpcBD(accion , padre)
-{
-	var args={};
-
-	if(padre)
-	{
-		var hermanos=padre.parentNode.childNodes;
-
-		var datos=new Array(hermanos.length);
-
-		for(var i=0;i<hermanos.length;i++)
-		{
-			var actual=hermanos[i];
-			var text=hermanos[i].childNodes[0];
-			if(!text || text.nodeName!=='#text' || !text.nodeValue.length)
-			{
-				return;
-			}
-
-			if(!accion || actual===padre)
-			{
-				datos[i]=actual.innerHTML;
-			}			 
-		}
-
-		args.datos=datos;
-	}
-	if(accion===1 || accion===2)
-	{
-		args.id=conf.Opcion[menuXML.nOpc].ID;
-	}
-
-	args.accion=accion;
+	var url=window.location.toString();
 	
-	window.console.log(args);
-	var req=new XMLObj
-	(
-		{
-			url:getUrl()+'/php/opciones_op.php',
-			args:args,
-			handler:function()
-			{
-				xmlObj=this.xmlHttp;
-
-				if(xmlObj.status===200&&xmlObj.readyState===4)
-				{
-					window.console.log(xmlObj.response);
-					if(xmlObj.responseXML)
-					{
-						this.padre.parentNode.parentNode.removeChild(this.padre.parentNode);
-						getConf.call(this);
-					}
-				}
-			}
-		}
-	)
-
-	req.padre=padre;
-	req.envia()
+	return url.substr(0,url.lastIndexOf('/'));
 }
+//Convierte un XML a un objeto.
+function XMLToObj(nodo , cfg)
+{
+	//var res=this.responseXML.childNodes[0];
+
+	for(var i=0;i<nodo.childNodes.length;i++)
+	{
+		var nodoHijo=nodo.childNodes[i];
+		var nodoNieto=nodoHijo.childNodes[0];
+
+		var clave=nodoHijo.nodeName;
+
+		var cfgMask=cfg;
+		var claveMask=clave;
+
+		if(cfg[clave])
+		{
+			if(cfg[clave].constructor.toString().indexOf('Array')===-1)
+			{
+				cfg[clave]=[cfg[clave]];
+			}
+
+			cfgMask=cfg[clave];
+			claveMask=cfg[clave].length;
+		}
+
+		if(nodoNieto && nodoNieto.nodeName==='#text')
+		{
+			cfgMask[claveMask]=nodoNieto.nodeValue;
+		}
+		else
+		{
+			cfgMask[claveMask]={};
+			XMLToObj(nodoHijo , cfgMask[claveMask]);
+		}
+	}
+}
+//Convierte un string como el siguiente:
+//"jj.bb.aa"
+//En un objeto:
+//{
+//	'jj':
+//	{
+//		'bb':
+//		{
+//			'aa':{}
+//		}
+//	}
+//}	
 function domObj(obj , res)
 {
 	var puntero=res;
@@ -192,12 +112,38 @@ function domObj(obj , res)
 		}
 	}
 }
-//Obtiene un string con el directorio absoluto actual.
-function getUrlDir()
+function domObjStructStr(obj , str)
 {
-	var url=window.location.toString();
-	
-	return url.substr(0,url.lastIndexOf('/'));
+	var puntero=obj;
+	var clave;
+	var intacto=true;
+
+	for(var i=0;i<str.length;i++)
+	{
+		clave=str[i];
+
+		if(!puntero[clave])
+		{
+			puntero[clave]={};
+			intacto=false;
+		}
+
+		if(i<str.length-1)
+		{
+			puntero=puntero[clave];
+		}
+	}
+
+	if(intacto)
+	{
+		if(puntero[clave].constructor.toString().indexOf('Array')===-1)
+		{
+			puntero[clave]=[puntero[clave]];
+		}
+
+		puntero[clave][puntero[clave].length]={};
+	}
+	return puntero[clave];
 }
 PanelAdmin=function()
 {
@@ -209,6 +155,8 @@ PanelAdmin=function()
 	this.proto=new CajaProto();
 	this.diag=new Diag();
 	this.proto.diag=this.diag;
+
+	this.xmlObj=new XMLObj();
 
 	this.proto.tipos=
 	{
@@ -294,7 +242,7 @@ PanelAdmin=function()
 				forma:
 				{
 					setAttribute:['class','pestana'],
-					addEventListener:['click',function(){this.proto.diag.selV('panel','vistaP'+nHijo.bind(this)())}]
+					addEventListener:['click',function(){this.proto.diag.selV('panel','vistaP'+this.intNHermano.bind(this)())}]
 				}
 			},
 			'hijo':
@@ -363,7 +311,7 @@ PanelAdmin=function()
 					forma:
 					{
 						setAttribute:['class','bottom'],
-						addEventListener:['click' , cfgNOpc]
+						addEventListener:['click' , this.intHandNOpc.bind(this)]
 					}
 				},
 				{
@@ -373,7 +321,7 @@ PanelAdmin=function()
 					forma:
 					{
 						setAttribute:['class','bottom'],
-						addEventListener:['click' , cfgROpc]
+						addEventListener:['click' , this.intHandROpc.bind(this)]
 					}
 				}
 			]
@@ -386,7 +334,7 @@ PanelAdmin=function()
 				tag:'span',
 				forma:
 				{
-					addEventListener:['click',thisSel]
+					addEventListener:['click',this.intSel.bind(this)]
 				},
 				hijos:
 				[
@@ -394,21 +342,21 @@ PanelAdmin=function()
 						tag:'p',
 						forma:
 						{
-							addEventListener:['dblclick',thisInput]
+							addEventListener:['dblclick',this.intHandInput.bind(this)]
 						}
 					},
 					{
 						tag:'p',
 						forma:
 						{
-							addEventListener:['dblclick',thisInput]
+							addEventListener:['dblclick',this.intHandInput.bind(this)]
 						}
 					},
 					{
 						tag:'p',
 						forma:
 						{
-							addEventListener:['dblclick',thisInput]
+							addEventListener:['dblclick',this.intHandInput.bind(this)]
 						}
 					}
 				],
@@ -455,102 +403,21 @@ PanelAdmin=function()
 }
 PanelAdmin.prototype.getConf=function()
 {
-	var getConfReq=new XMLObj
+	this.xmlObj.conf
 	(
 		{
 			url:getUrlDir()+this.getConfPath,
 			args:{dom:this.pattern},
-			handler:this.parseConf
+			handler:this.parseConf.bind(this)
 		}
 	);
 
-	getConfReq.envia();
+	this.xmlObj.envia();
 }
-//Convierte un XML a un objeto.
-function XMLToObj(nodo , cfg)
-{
-	//var res=this.responseXML.childNodes[0];
-
-	for(var i=0;i<nodo.childNodes.length;i++)
-	{
-		var nodoHijo=nodo.childNodes[i];
-		var nodoNieto=nodoHijo.childNodes[0];
-
-		var clave=nodoHijo.nodeName;
-
-		var cfgMask=cfg;
-		var claveMask=clave;
-
-		if(cfg[clave])
-		{
-			if(cfg[clave].constructor.toString().indexOf('Array')===-1)
-			{
-				cfg[clave]=[cfg[clave]];
-			}
-
-			cfgMask=cfg[clave];
-			claveMask=cfg[clave].length;
-		}
-
-		if(nodoNieto && nodoNieto.nodeName==='#text')
-		{
-			cfgMask[claveMask]=nodoNieto.nodeValue;
-		}
-		else
-		{
-			cfgMask[claveMask]={};
-			XMLToObj(nodoHijo , cfgMask[claveMask]);
-		}
-	}
-}
-//Convierte un string como el siguiente:
-//"jj.bb.aa"
-//En un objeto:
-//{
-//	'jj':
-//	{
-//		'bb':
-//		{
-//			'aa':{}
-//		}
-//	}
-//}	
-function domObjStructStr(obj , str)
-{
-	var puntero=obj;
-	var clave;
-	var intacto=true;
-
-	for(var i=0;i<str.length;i++)
-	{
-		clave=str[i];
-
-		if(!puntero[clave])
-		{
-			puntero[clave]={};
-			intacto=false;
-		}
-
-		if(i<str.length-1)
-		{
-			puntero=puntero[clave];
-		}
-	}
-
-	if(intacto)
-	{
-		if(puntero[clave].constructor.toString().indexOf('Array')===-1)
-		{
-			puntero[clave]=[puntero[clave]];
-		}
-
-		puntero[clave][puntero[clave].length]={};
-	}
-	return puntero[clave];
-}
+//Convierte el resultado XML en un objeto
 PanelAdmin.prototype.parseConf=function()
 {
-	var xmlObj=this.xmlHttp;
+	var xmlObj=this.xmlObj.xmlHttp;
 	if(xmlObj.readyState===4 && xmlObj.status===200)
 	{
 
@@ -568,7 +435,7 @@ PanelAdmin.prototype.parseConf=function()
 
 		window.console.log(nConf);
 
-		//domObj(conf , dConf);
+		//domObj(this.cfg , dConf);
 
 		//window.console.log(dConf);
 		//Cuando es un único resultado Opcion, XMLToObj no cree que sea un array, pero debe serlo.
@@ -582,8 +449,177 @@ PanelAdmin.prototype.parseConf=function()
 		{
 			var cfg=nConf[i];
 
-			menuXML.creaTipo('cfgOpc' , [cfg['Dominio'],cfg['Tipo'],cfg['Valor']] , n+i);
+			this.proto.creaTipo('cfgOpc' , [cfg['Dominio'],cfg['Tipo'],cfg['Valor']] , n+i);
 			this.cfg.push(nConf[i]);
 		}
 	}
+}
+//Averigua el número de hermano del elemento en la jerarquía.
+PanelAdmin.prototype.intNHermano=function()
+{
+	var hijos=this.parentNode.getElementsByTagName(this.tagName);
+	var i=0;
+	var iMax=20;
+	while(hijos[i]!=this)
+	{
+		i++
+	}
+
+	return i+1;
+}
+//Selecciona opciones de la interfaz.
+PanelAdmin.prototype.intSel=function(event)
+{
+	var ele=event.target.parentNode;
+
+	if(this.diag.sel)
+	{
+		this.diag.sel.style.backgroundColor=this.diag.selBackground;
+	}
+	window.console.log(ele);
+	this.diag.sel=ele;
+	this.diag.nOpc=ele.num;
+
+	this.diag.selBackground=ele.style.backgroundColor
+	window.console.log(ele.style.backgroundColor);
+	ele.style.backgroundColor='blue';
+}
+//Crea un campo.
+PanelAdmin.prototype.intNInput=function(ele)
+{
+	this.proto.creaTipo('opcValInput' , 'text' , 0);
+
+	this.diag.valAct=ele.innerHTML || false;
+
+	var input=this.diag.caja('opcValInput').doc
+		input.addEventListener('keydown',this.intHandInput.bind(this));
+		input.addEventListener('blur',this.intHandInput.bind(this));
+		input.value=ele.innerHTML||'';
+
+	ele.innerHTML='';
+	ele.appendChild(input);
+
+	return input;
+}
+//Handler para eliminar una entrada.
+PanelAdmin.prototype.intHandROpc=function(event)
+{
+	this.diag.sel.parentNode.removeChild(this.diag.sel);
+	this.intHandBD(2);
+}
+//Handler para crear una entrada.
+PanelAdmin.prototype.intHandNOpc=function(event)
+{
+	this.proto.creaTipo('cfgOpc' , false , this.cfg.length);
+
+	window.console.log(this.diag.caja('cfgOpc').doc.childNodes);
+	var campos=this.diag.caja('cfgOpc').doc.childNodes;
+
+	var iMax=campos.length-1;
+	for(var i=iMax;i>=0;i--)
+	{
+		var input=this.intNInput(campos[i]);
+	}
+
+	input.focus();
+}
+//Handler para campos.
+PanelAdmin.prototype.intHandInput=function(event)
+{
+	var ele=event.target;
+
+	if(event.type==='dblclick' && (!ele.lastChild || ele.lastChild.tagName!=='INPUT'))
+	{
+		input=this.intNInput(ele);
+
+		input.focus();
+	}
+	if(event.type==='keydown' || event.type==='blur')
+	{
+		//Enter , TAB o BLUR.
+		if(event.keyCode===13 || event.keyCode===9 || event.type==='blur')
+		{
+			var padre=ele.parentNode;
+			var accion=1;
+
+			padre.innerHTML=ele.value||'';
+			this.diag.valAct=false;
+
+
+			if(padre===padre.parentNode.lastChild && !this.cfg[padre.parentNode.num])
+			{
+				var accion=0;
+			}
+
+			this.intHandBD(accion , padre);
+		}
+		//Escape.
+		if(event.keyCode===27)
+		{
+			ele.parentNode.innerHTML=this.diag.valAct||'';
+
+			this.diag.valAct=false;
+		}
+	}
+}
+//Handler para eiminar, crear o modificar entradas.
+PanelAdmin.prototype.intHandBD=function(accion , padre)
+{
+	var args={};
+
+	if(padre)
+	{
+		var hermanos=padre.parentNode.childNodes;
+
+		var datos=new Array(hermanos.length);
+
+		for(var i=0;i<hermanos.length;i++)
+		{
+			var actual=hermanos[i];
+			var text=hermanos[i].childNodes[0];
+			if(!text || text.nodeName!=='#text' || !text.nodeValue.length)
+			{
+				return;
+			}
+
+			if(!accion || actual===padre)
+			{
+				datos[i]=actual.innerHTML;
+			}			 
+		}
+
+		args.datos=datos;
+	}
+	if(accion===1 || accion===2)
+	{
+		args.id=this.cfg[this.diag.nOpc].ID;
+	}
+
+	args.accion=accion;
+	
+	window.console.log(args);
+	var req=new XMLObj
+	(
+		{
+			url:getUrlDir()+'/php/opciones_op.php',
+			args:args,
+			handler:function()
+			{
+				xmlObj=this.xmlObj;
+
+				if(xmlObj.status===200&&xmlObj.readyState===4)
+				{
+					window.console.log(xmlObj.response);
+					if(xmlObj.responseXML)
+					{
+						this.padre.parentNode.parentNode.removeChild(this.padre.parentNode);
+						getConf.call(this);
+					}
+				}
+			}.bind(this)
+		}
+	)
+
+	req.padre=padre;
+	req.envia()
 }

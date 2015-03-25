@@ -35,8 +35,8 @@ XMLObj=function()
 	}
 	else
 	{
-		this.url=arguments[0];
-		this.handler=arguments[1];
+		this.defUrl=arguments[0];
+		this.defHandler=arguments[1];
 
 		if(arguments[2])
 		{
@@ -54,7 +54,7 @@ XMLObj.prototype.method=function(method)
 }
 XMLObj.prototype.url=function(url)
 {
-	this.url=url;
+	this.defUrl=url;
 }
 XMLObj.prototype.handler=function(handler)
 {
@@ -70,9 +70,9 @@ XMLObj.prototype.async=function(async)
 }
 XMLObj.prototype.envia=function()
 {
-	this.xmlHttp.onreadystatechange=this.defHandler.bind(this);
+	this.xmlHttp.onreadystatechange=this.defHandler;
 	//window.console.log('Open:');
-	this.xmlHttp.open(this.defMethod , this.url , this.defAsync);
+	this.xmlHttp.open(this.defMethod , this.defUrl , this.defAsync);
 	//window.console.log('setHeader:');
 	this.xmlHttp.setRequestHeader(this.defHeader[0] , this.defHeader[1])
 	//window.console.log('Send:');
@@ -83,6 +83,7 @@ XMLObj.prototype.conf=function(cfg)
 {
 	for(var clave in cfg)
 	{
+		window.console.log(clave);
 		this[clave](cfg[clave]);
 	}
 }

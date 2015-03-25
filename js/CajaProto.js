@@ -1,19 +1,9 @@
-/*Ej:
-Tipos: ['titulo' , 'barraPes' ,'pes']
-tiposCfg:
-{
-	nomPadre1: hijo,
-	nomPadre2:hijo,
-	dist:function,
-	hijo:hijo
-}
-*/
-MenuProto=function()
+CajaProto=function()
 {
 	this.tipos={};
 	this.diag={};
 }
-MenuProto.prototype.creaTipo=function(tipoNom , val , n)
+CajaProto.prototype.creaTipo=function(tipoNom , val , n)
 {
 	var tipo=this.tipos[tipoNom];
 	var dist=function(){};
@@ -61,25 +51,3 @@ MenuProto.prototype.creaTipo=function(tipoNom , val , n)
 		}
 	}
 }
-/*
-MenuProto.prototype.XMLTags=function(nodo)
-{
-	for(var i=0;i<nodo.childNodes.length;i++)
-	{
-		var nodoAct=nodo.childNodes[i];
-
-		if(nodoAct.childNodes.length)
-		{
-			if(nodoAct.childNodes[0].nodeName=='#text')
-			{
-				this.creaTipo(nodoAct.nodeName , nodoAct.childNodes[0].nodeValue , i);
-				continue;
-			}
-
-			this.creaTipo(nodoAct.nodeName ,undefined, i);
-
-			this.XMLTags(nodo.childNodes[i]);
-		}
-	}
-}
-*/

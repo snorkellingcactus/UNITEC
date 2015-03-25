@@ -1,4 +1,5 @@
 <?php
+//Inicio Sesión.
 if(session_status()==PHP_SESSION_NONE)
 {
 	session_start();
@@ -6,8 +7,10 @@ if(session_status()==PHP_SESSION_NONE)
 
 if(isset($_SESSION['adminID']))
 {
+	//Configura peticion.
 	if(!(isset($_POST['dom']) || isset($_POST['id'])))
 	{
+		echo 'nada';
 		return;
 	}
 	if(isset($_POST['dom']))
@@ -18,12 +21,16 @@ if(isset($_SESSION['adminID']))
 	{
 		$consulta='select * from Opciones where ID='.$_POST['id'];
 	}
+
+	//Hago la peticion.
 	include("./conexion.php");
 	include("./Res_XML.php");
 
 	$consulta=$con->query($consulta);
 
 	$consulta=$consulta->fetch_all(MYSQLI_ASSOC);
+
+	//Escribo la respuesta.
 
 	$res=new Res_XML();
 
