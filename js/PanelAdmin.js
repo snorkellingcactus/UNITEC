@@ -242,7 +242,7 @@ PanelAdmin=function()
 				forma:
 				{
 					setAttribute:['class','pestana'],
-					addEventListener:['click',function(){this.proto.diag.selV('panel','vistaP'+this.intNHermano.bind(this)())}]
+					addEventListener:['click',this.intVista.bind(this)]
 				}
 			},
 			'hijo':
@@ -251,19 +251,15 @@ PanelAdmin=function()
 				tag:'div',
 				forma:
 				{
-					setAttribute:['class','vista'],
-					innerHTML:'vistaP'
+					setAttribute:['class','vista']
 				}
 			},
 			dist:function(caja , val , n)
 			{
-				if(caja.nom=="p")
+				if(caja.nom==="p")
 				{
 					caja.doc.innerHTML=val;
-				}
-				if(caja.nom=='vistaP')
-				{
-					caja.doc.innerHTML+=n;
+					caja.doc.setAttribute('vista','vistaP'+n);
 				}
 				caja.nom+=n;
 			}
@@ -396,23 +392,17 @@ PanelAdmin=function()
 
 	this.proto.creaTipo('raiz' , 0 , 0);
 	this.proto.creaTipo('Tit' , 'Panel Admin' ,0);
-	this.proto.creaTipo('Pes' , 'Edita Configuración' , 'Cfg');
-	this.proto.creaTipo('cfgEdit' , 'Edita Configuración' , 'Cfg');
-
-	this.diag.selV('panel','vistaPCfg');
 }
-PanelAdmin.prototype.getConf=function()
+PanelAdmin.prototype.prepareXmlHttp=function()
 {
 	this.xmlObj.conf
 	(
 		{
 			url:getUrlDir()+this.getConfPath,
 			args:{dom:this.pattern},
-			handler:this.parseConf.bind(this)
+			handler:this.xmlToCfg.bind(this)
 		}
 	);
-
-	this.xmlObj.envia();
 }
 PanelAdmin.prototype.parseConf=function()
 {
@@ -466,17 +456,9 @@ PanelAdmin.prototype.cfgToInt=function()
 	}
 }
 //Averigua el número de hermano del elemento en la jerarquía.
-PanelAdmin.prototype.intNHermano=function()
+PanelAdmin.prototype.intVista=function(event)
 {
-	var hijos=this.parentNode.getElementsByTagName(this.tagName);
-	var i=0;
-	var iMax=20;
-	while(hijos[i]!=this)
-	{
-		i++
-	}
-
-	return i+1;
+	this.proto.diag.selV('panel',event.target.getAttribute('vista'));
 }
 //Selecciona opciones de la interfaz.
 PanelAdmin.prototype.intSel=function(event)
