@@ -8,10 +8,9 @@ if(session_status()==PHP_SESSION_NONE)
 if(isset($_SESSION['adminID']))
 {
 	//Configura peticion.
-	if(!(isset($_POST['dom']) || isset($_POST['id'])))
+	if(!(empty($_POST['dom']) || isset($_POST['id'])))
 	{
-		echo 'nada';
-		return;
+		$consulta='select * from Opciones';
 	}
 	if(isset($_POST['dom']))
 	{

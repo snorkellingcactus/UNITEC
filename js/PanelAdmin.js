@@ -147,7 +147,7 @@ function domObjStructStr(obj , str)
 }
 PanelAdmin=function()
 {
-	this.pattern='edetec';
+	this.pattern='';
 	this.lab='edetec';
 	this.getConfPath='/php/getConfig.php';
 	this.cfg=[];
@@ -375,6 +375,7 @@ PanelAdmin=function()
 				{
 					for(var i=0;i<val.length;i++)
 					{
+						window.console.log(val[i]);
 						caja.doc.childNodes[i].innerHTML=val[i];
 					}
 				}
@@ -433,8 +434,6 @@ PanelAdmin.prototype.parseConf=function()
 			return;
 		}
 
-		window.console.log(nConf);
-
 		//domObj(this.cfg , dConf);
 
 		//window.console.log(dConf);
@@ -443,6 +442,8 @@ PanelAdmin.prototype.parseConf=function()
 		{
 			nConf=[nConf];
 		}
+
+		window.console.log(nConf);
 
 		var n=this.cfg.length;
 		for(var i=0;i<nConf.length;i++)

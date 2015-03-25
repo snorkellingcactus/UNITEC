@@ -76,6 +76,7 @@ html,body {
 {
 	display:block;
 	overflow:hidden;
+	clear:both;
 }
 .cuadroOpc span p
 {
