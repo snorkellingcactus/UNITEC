@@ -483,6 +483,11 @@ PanelAdmin.prototype.intSel=function(event)
 {
 	var ele=event.target.parentNode;
 
+	if(ele.lastChild&&ele.lastChild.tagName==='INPUT')
+	{
+		return;
+	}
+
 	if(this.diag.sel)
 	{
 		this.diag.sel.style.backgroundColor=this.diag.selBackground;
