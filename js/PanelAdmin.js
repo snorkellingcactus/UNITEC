@@ -375,7 +375,6 @@ PanelAdmin=function()
 				{
 					for(var i=0;i<val.length;i++)
 					{
-						window.console.log(val[i]);
 						caja.doc.childNodes[i].innerHTML=val[i];
 					}
 				}
@@ -415,8 +414,13 @@ PanelAdmin.prototype.getConf=function()
 
 	this.xmlObj.envia();
 }
-//Convierte el resultado XML en un objeto
 PanelAdmin.prototype.parseConf=function()
+{
+	this.xmlToCfg();
+	this.cfgToInt();
+}
+//Convierte el resultado XML en un objeto
+PanelAdmin.prototype.xmlToCfg=function()
 {
 	var xmlObj=this.xmlObj.xmlHttp;
 	if(xmlObj.readyState===4 && xmlObj.status===200)
@@ -445,14 +449,20 @@ PanelAdmin.prototype.parseConf=function()
 
 		window.console.log(nConf);
 
-		var n=this.cfg.length;
 		for(var i=0;i<nConf.length;i++)
 		{
 			var cfg=nConf[i];
 
-			this.proto.creaTipo('cfgOpc' , [cfg['Dominio'],cfg['Tipo'],cfg['Valor']] , n+i);
 			this.cfg.push(nConf[i]);
 		}
+	}
+}
+PanelAdmin.prototype.cfgToInt=function()
+{
+	for(var i=0;i<this.cfg.length;i++)
+	{
+		var cfg=this.cfg[i];
+		this.proto.creaTipo('cfgOpc' , [cfg['Dominio'],cfg['Tipo'],cfg['Valor']] , i);
 	}
 }
 //Averigua el número de hermano del elemento en la jerarquía.
@@ -477,12 +487,12 @@ PanelAdmin.prototype.intSel=function(event)
 	{
 		this.diag.sel.style.backgroundColor=this.diag.selBackground;
 	}
-	window.console.log(ele);
 	this.diag.sel=ele;
 	this.diag.nOpc=ele.num;
 
+	window.console.log('Seleccionado ele N '+ele.num);
+
 	this.diag.selBackground=ele.style.backgroundColor
-	window.console.log(ele.style.backgroundColor);
 	ele.style.backgroundColor='blue';
 }
 //Crea un campo.
@@ -566,6 +576,9 @@ PanelAdmin.prototype.intHandInput=function(event)
 //Handler para eiminar, crear o modificar entradas.
 PanelAdmin.prototype.intHandBD=function(accion , padre)
 {
+	var log=['Nueva','Modifica','Elimina'];
+	window.console.log('Accion = '+log[accion]);
+
 	var args={};
 
 	if(padre)
@@ -593,34 +606,39 @@ PanelAdmin.prototype.intHandBD=function(accion , padre)
 	}
 	if(accion===1 || accion===2)
 	{
+		window.console.log(this.diag.nOpc)
+
 		args.id=this.cfg[this.diag.nOpc].ID;
+
+		window.console.log('ID '+args.id);
 	}
 
 	args.accion=accion;
 	
-	window.console.log(args);
-	var req=new XMLObj
+	this.xmlObj.conf
 	(
 		{
 			url:getUrlDir()+'/php/opciones_op.php',
 			args:args,
 			handler:function()
 			{
-				xmlObj=this.xmlObj;
+				xmlObj=this.xmlObj.xmlHttp;
 
 				if(xmlObj.status===200&&xmlObj.readyState===4)
 				{
-					window.console.log(xmlObj.response);
 					if(xmlObj.responseXML)
 					{
-						this.padre.parentNode.parentNode.removeChild(this.padre.parentNode);
-						getConf.call(this);
+						if(this.xmlObj.args.accion===2)
+						{
+							this.diag.sel.parentNode.removeChild(this.diag.sel);
+						}
+						this.xmlToCfg();
 					}
 				}
 			}.bind(this)
 		}
 	)
 
-	req.padre=padre;
-	req.envia()
+	this.xmlObj.padre=padre;
+	this.xmlObj.envia()
 }

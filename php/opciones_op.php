@@ -22,7 +22,7 @@ if(!empty($_SESSION['adminID']) && isset($_POST['accion']))
 			//Actualiza.
 			case 1:
 				$id=$_POST['id'];
-				$claves=['Nombre','Tipo','Valor'];
+				$claves=['Dominio','Tipo','Valor'];
 				$iMax=count($datos);
 
 				$iAct=0;
@@ -49,14 +49,14 @@ if(!empty($_SESSION['adminID']) && isset($_POST['accion']))
 	if($consulta)
 	{
 		$consulta=$con->query($consulta);
-	}
 
-	if($_POST['accion']==0&&$consulta)
-	{
-		$_POST['id']=$con->insert_id;
+		if($_POST['accion']==0)
+		{
+			$_POST['id']=$con->insert_id;
+		}
+
 		include("./getConfig.php");
 	}
-
 }
 
 ?>

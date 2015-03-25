@@ -83,7 +83,7 @@ XMLObj.prototype.conf=function(cfg)
 {
 	for(var clave in cfg)
 	{
-		window.console.log(clave);
+		//window.console.log(clave);
 		this[clave](cfg[clave]);
 	}
 }

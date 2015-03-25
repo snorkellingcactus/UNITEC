@@ -25,9 +25,18 @@ if(isset($_SESSION['adminID']))
 	include("./conexion.php");
 	include("./Res_XML.php");
 
+	$old=$consulta;
+
 	$consulta=$con->query($consulta);
 
 	$consulta=$consulta->fetch_all(MYSQLI_ASSOC);
+
+	if(!count($consulta))
+	{
+		echo $old;
+
+		return;
+	}
 
 	//Escribo la respuesta.
 
