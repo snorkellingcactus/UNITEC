@@ -3,7 +3,7 @@
 		if(isset($_SESSION['adminID']))
 		{
 			?>
-				<input type="checkbox" class='eImg' name="eImgID[]" form="accionesGal" value="<?php echo $esq->ID ?>" />
+				<input type="checkbox" class='eImg' name="eImgID[]" form="reloadGal" value="<?php echo $esq->ID ?>" />
 			<?php
 		}
 	?>

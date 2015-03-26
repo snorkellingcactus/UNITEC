@@ -3,13 +3,13 @@ require_once('Obj_Gen_HTML.php');
 
 class	Gal_HTML_Visor
 {
-	private	$imgLst;
+	private	$imgLst=[];
 	public	$nImgSel=NULL;		//Número de Imagen coincidente con el valor del discriminador.
 	public	$imgSel=NULL;		//Objeto imagen seleccionado.
 	private	$modHTML;
 	private	$disc=['ID'=>0];	//Propiedades discriminadoras a la hora de determinar una imagen para el visor.
 
-	public function __construct($imgLst)
+	public function __construct($imgLst=false , $con=false)
 	{
 		$args=func_get_args();
 
@@ -17,16 +17,39 @@ class	Gal_HTML_Visor
 		{
 			$this->modHTML=$args[1];
 		}
+		if(!isset($_SESSION['imgLst']))
+		{
+			if($con)
+			{
+				$asocLst=$con->query($imgLst);
+				$asocLst=$asocLst->fetch_all(MYSQLI_ASSOC);	//Respuesta SQL como array asociativo.
 
-		$this->imgLst=$imgLst;
+				$iMax=count($asocLst);
 
+				for($i=0;$i<$iMax;$i++)
+				{
+					$this->imgLst[$i]=new Img($con,$asocLst[$i]);
+				}
+			}
+
+			$_SESSION['imgLst']=serialize($this->imgLst);
+		}
+		else
+		{
+			$this->imgLst=unserialize($_SESSION['imgLst']);
+
+			//unset($_SESSION['imgLst']);
+		}
 		//Variable con el numero de imagen que se va a mostrar.
 		if(isset($_GET['vImg']))
 		{
 			$this->selImgN($_GET['vImg']);			//Indico el número de imagen a desplegar.
 		}
-
 		//Si se especificó un ID de imagen, se selecciona esa imagen para mostrar
+		if(isset($_POST['vImgId']))
+		{
+			$_SESSION['vImgID']=intval($_POST['vImgId']);
+		}
 		if(isset($_SESSION['vImgID']))
 		{
 			$this->disc['ID']=$_SESSION['vImgID'];

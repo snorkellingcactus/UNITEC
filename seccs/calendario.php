@@ -24,6 +24,9 @@ if(session_status()==PHP_SESSION_NONE)
 ?>
 <!--	:::::::::Calendario:::::::::	-->
 <section class='calendario' id='cal'>
+	<form id="accionesCal" action="php/accion.php" method="POST">
+		<input type="hidden" name="form" value="accionesCal"></input>
+	</form>
 	<h1 class="titulo hidden-xs"> Calendario de Eventos </h1>
 	<h1 class="subtitulo visible-xs"> Calendario de Eventos </h1>
 	<h1 class='titulo'>
@@ -37,7 +40,7 @@ if(session_status()==PHP_SESSION_NONE)
 			{
 				//Incluyo las acciones para la selección.
 				$fAction='cal';
-				$fId='accionesCal';
+				$fId='reloadCal';
 
 				include 'forms/acciones.php';
 
@@ -45,83 +48,75 @@ if(session_status()==PHP_SESSION_NONE)
 				?>
 					<p class="acciones">Acciones:
 						<?php include ('php/select.php') ?>
-						<input type="submit" name="nuevas" value="Nuevas" form="<?php echo $fId ?>">
+						<input type="submit" name="nuevas" value="Nuevas" form="accionesCal">
 					</p>
 				<?php
 
+				if(isset($_POST['nEvt']))
+				{
 
+					include_once('php/conexion.php');
+					include_once('php/SQL_Obj.php');
+					include_once('php/Contenido.php');
+					include_once('php/Evento.php');
+
+					$fallas=[];
+					$fallasLn=0;
+
+					$cantidad=count($_POST['Titulo']);
+
+					for($i=0;$i<$cantidad;$i++)
+					{
+						$grupo=$con->query('select ifnull(max(Grupo),0) as Grupo from Contenido');
+						$grupo=$grupo->fetch_all(MYSQLI_ASSOC)[0]['Grupo']+1;
+
+						$descripcion=new Contenido
+						(
+							$con,
+							[
+								'Contenido'=>htmlentities($_POST['Descripcion'][$i]),
+								'Leguaje'=>$_POST['Lenguaje'][$i],
+								'Grupo'=>$grupo
+							]
+						);
+
+						$descripcion->insSQL();
+
+						$fecha=date
+						(
+							'Y-m-d H:i:s',
+							mktime
+							(
+								$_POST['Horas'][$i],
+								$_POST['Minutos'][$i],
+								0,
+								$_POST['Mes'][$i],
+								$_POST['Dia'][$i],
+								$_POST['Ano'][$i]
+							)
+						);
+
+						$evento=new Evento
+						(
+							$con,
+							[
+								'Descripcion'=>$descripcion->Grupo,
+								'Nombre'=>htmlentities($_POST['Titulo'][$i]),
+								'Tiempo'=>$fecha
+							]
+						);
+
+						$evento->insSQL();
+					}
+				}
 				if(isset($_POST['form'])&&$_POST['form']==$fId)
 				{
-					if(isset($_POST['nuevas']))
-					{
-						$_SESSION['cantidad']=$_POST['cantidad'];
-						?>
-							<iframe width="100%" height="100%" src="forms/nuevo_evento.php"></iframe>
-						<?php
-					}
 					if(isset($_POST['elimina']))
 					{
 						$iMax=count($_POST['evtID']);
 						for($i=0;$i<$iMax;$i++)
 						{
 							$con->query('delete from Eventos where ID='.$_POST['evtID'][$i]);
-						}
-					}
-					if(isset($_POST['Titulo']))
-					{
-
-						include_once('php/conexion.php');
-						include_once('php/SQL_Obj.php');
-						include_once('php/Contenido.php');
-						include_once('php/Evento.php');
-
-						$fallas=[];
-						$fallasLn=0;
-
-						$cantidad=count($_POST['Titulo']);
-
-						for($i=0;$i<$cantidad;$i++)
-						{
-							$grupo=$con->query('select ifnull(max(Grupo),0) as Grupo from Contenido');
-							$grupo=$grupo->fetch_all(MYSQLI_ASSOC)[0]['Grupo']+1;
-
-							$descripcion=new Contenido
-							(
-								$con,
-								[
-									'Contenido'=>htmlentities($_POST['Descripcion'][$i]),
-									'Leguaje'=>$_POST['Lenguaje'][$i],
-									'Grupo'=>$grupo
-								]
-							);
-
-							$descripcion->insSQL();
-
-							$fecha=date
-							(
-								'Y-m-d H:i:s',
-								mktime
-								(
-									$_POST['Hora'][$i],
-									$_POST['Minuto'][$i],
-									0,
-									$_POST['Mes'][$i],
-									$_POST['Dia'][$i],
-									$_POST['Ano'][$i]
-								)
-							);
-
-							$evento=new Evento
-							(
-								$con,
-								[
-									'Descripcion'=>$descripcion->Grupo,
-									'Nombre'=>htmlentities($_POST['Titulo'][$i]),
-									'Tiempo'=>$fecha
-								]
-							);
-
-							$evento->insSQL();
 						}
 					}
 				}

@@ -1,6 +1,9 @@
 <section id='nov'>
 	<h1 class="titulo">Novedades</h1>
 
+	<form id="accionesNov" method="POST" action="php/accion.php" target="_blank">
+		<input type="hidden" name="form" value="accionesNov"/>
+	</form>
 	<?php
 		//::::::::::Variables de Sesion::::::::::::::
 		if(session_status()==PHP_SESSION_NONE)
@@ -17,84 +20,75 @@
 		{
 			$_SESSION['cache']=!$_GET['cache']||0;
 		}
-
-
 		//:::::::::HTML y Diálogos:::::::::::
 		//Diferencias al ser admin.
 		if(!empty($_SESSION['adminID']))
 		{
 				//De momento se especifica el ancla de la url action del form con la variable
 				//fAction y el id del form con fId.
-				$fAction='nov';
-				$fId='accionesNov';
+				$fAction='#nov';
+				$fId='reloadNov';
 				
-				//Incluyo el diálogo nueva novedad si se solicitó.
-				if(isset($_POST['gNNovDiag']))
-				{
-					?>
-						<iframe width="100%" height="100%" src="forms/nueva_novedad.php"></iframe>
-					<?php
-				}
-				else
-				{
-					//Incluyo las acciones para las novedades.
-					?>
-						<p class="acciones">
-							Acciones:
-							<input type="submit" value="nueva" name="gNNovDiag" form="<?php echo $fId ?>"/>
-						</p>
-					<?php
-				}
+				//Incluyo las acciones para las novedades.
+				?>
+					<p class="acciones">
+						Acciones:
+						<input type="submit" value="nueva" name="nuevas" form="accionesNov"/>
+					</p>
+				<?php
 
 				include 'forms/acciones.php';				
 		}
 
 		//Si se rellenó el formulario nueva novedad la envío a la bd.
-		if(isset($_POST['novNueva']))
+		if(isset($_POST['nNov']))
 		{
 			include_once 'php/conexion.php';
 			include_once 'php/Novedad.php';
 			include_once 'php/Contenido.php';
 			include_once 'php/Img.php';
 			include_once 'php/Foraneas.php';
+			$iMax=count('nNov');
+			for($i=0;$i<$iMax;$i++)
+			{
+				$grupo=$con->query('select ifnull(max(Grupo),0) as Grupo from Contenido');
+				$grupo=$grupo->fetch_all(MYSQLI_ASSOC)[0]['Grupo']+1;
 
-			$grupo=$con->query('select ifnull(max(Grupo),0) as Grupo from Contenido');
-			$grupo=$grupo->fetch_all(MYSQLI_ASSOC)[0]['Grupo']+1;
+				$titulo=new Contenido
+				(
+					$con,
+					[
+						'Contenido'=>htmlentities($_POST['Titulo'][$i]),
+						'Grupo'=>$grupo
+					]
+				);
+				$titulo->insSQL();
 
-			$titulo=new Contenido
-			(
-				$con,
-				[
-					'Contenido'=>htmlentities($_POST['novTitulo']),
-					'Grupo'=>$grupo
-				]
-			);
-			$titulo->insSQL();
+				$grupo=$con->query('select ifnull(max(Grupo),0) as Grupo from Contenido');
+				$grupo=$grupo->fetch_all(MYSQLI_ASSOC)[0]['Grupo']+1;
 
-			$grupo=$con->query('select ifnull(max(Grupo),0) as Grupo from Contenido');
-			$grupo=$grupo->fetch_all(MYSQLI_ASSOC)[0]['Grupo']+1;
+				$descripcion=new Contenido
+				(
+					$con,
+					[
+						'Contenido'=>htmlentities($_POST['Descripcion'][$i]),
+						'Grupo'=>$grupo
+					]
+				);
+				$descripcion->insSQL();
 
-			$descripcion=new Contenido
-			(
-				$con,
-				[
-					'Contenido'=>htmlentities($_POST['novDescripcion']),
-					'Grupo'=>$grupo
-				]
-			);
-			$descripcion->insSQL();
+				$horaLoc=getdate();
 
-			$horaLoc=getdate();
+				$nov=new Novedad($con);
 
-			$nov=new Novedad($con);
+				$nov->Imagen=$_POST['Imagen'][$i];
+				$nov->Fecha=$horaLoc['year'].'-'.$horaLoc['mon'].'-'.$horaLoc['mday'];
 
-			$nov->Imagen=$_POST['novImagen'];
-			$nov->Fecha=$horaLoc['year'].'-'.$horaLoc['mon'].'-'.$horaLoc['mday'];
+				$nov->Descripcion=$descripcion->Grupo;
+				$nov->Titulo=$titulo->Grupo;
 
-			$nov->Descripcion=$descripcion->Grupo;
-			$nov->Titulo=$titulo->Grupo;
-
-			$nov->insSQL();
+				$nov->insSQL();
+			}
 		}
 
 		//Acciones con las seleccionadas.
@@ -142,7 +136,14 @@
 				$novAct=$novedades[$i];
 
 				$imagen=$con->query('select Url from Imagenes where ID='.$novAct['Imagen']);
-				$imagen=$imagen->fetch_all(MYSQLI_ASSOC)[0]['Url'];
+				if($imagen)
+				{
+					$imagen=$imagen->fetch_all(MYSQLI_ASSOC)[0]['Url'];
+				}
+				else
+				{
+					$imagen='http://loquesea';
+				}
 
 				$titulo=$con->query
 				(

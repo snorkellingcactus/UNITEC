@@ -116,10 +116,12 @@
 			}
 		}
 	}
+	//unset($_POST['vImgId']);
 	
 	$Visor	= new Gal_HTML_Visor
 	(
-		unserialize($_SESSION['vImgLst']),
+		'select * from Imagenes',
+		$con,
 		new NULL_Gen_HTML()
 	);
 
@@ -132,7 +134,7 @@
 			<h2 class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 						<?php echo $esq->Titulo ?>
 						<!-- Botón Cerrar -->
-			<a href="../index.php?cache=<?php echo $_SESSION['cache'] ?>#gal" target="_parent" class="cerrar" title="Cerrar Visor">X</a>
+			<a href="../index.php#gal" target="_parent" class="cerrar" title="Cerrar Visor">X</a>
 			</h2>
 			
 			<!-- Imagen y controles -->

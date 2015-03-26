@@ -3,7 +3,7 @@
 		if(!empty($_SESSION['adminID']))
 		{
 			?>
-				<input type="checkbox" class="novID" name="novID[]" form="accionesNov" value="<?php echo $esq->ID ?>"/>
+				<input type="checkbox" class="novID" name="novID[]" form="reloadNov" value="<?php echo $esq->ID ?>"/>
 			<?php
 		}
 	?>
