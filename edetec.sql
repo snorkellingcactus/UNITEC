@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 12-03-2015 a las 09:00:26
+-- Tiempo de generación: 26-03-2015 a las 06:31:32
 -- Versión del servidor: 5.6.16
 -- Versión de PHP: 5.5.11
 
@@ -40,20 +40,21 @@ CREATE TABLE IF NOT EXISTS `Comentarios` (
   PRIMARY KEY (`ID`),
   KEY `Usuario` (`Usuario`),
   KEY `Contenido` (`Contenido`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=18 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=26 ;
 
 --
 -- Volcado de datos para la tabla `Comentarios`
 --
 
 INSERT INTO `Comentarios` (`ID`, `GrupoID`, `GrupoRes`, `Respondido`, `Fecha`, `IP`, `Usuario`, `Contenido`, `Baneado`, `NombreUsuario`) VALUES
-(11, 42, NULL, NULL, '2015-01-07 17:22:12', NULL, NULL, 212, b'0', 'asxasx'),
-(12, 42, NULL, NULL, '2015-01-07 17:22:24', NULL, NULL, 213, b'0', 'asxasx'),
 (13, 46, NULL, b'1', '2015-01-07 18:47:04', NULL, NULL, 214, b'0', 'kkk'),
 (14, 46, 13, NULL, '2015-01-07 18:47:20', NULL, NULL, 215, b'0', 'komokmok'),
 (15, 47, NULL, NULL, '2015-01-11 01:34:49', NULL, NULL, 216, b'0', 'Lorem ipsum dolor'),
 (16, 47, NULL, b'1', '2015-01-11 01:35:41', NULL, NULL, 217, b'0', 'perspiciatis unde'),
-(17, 47, 16, NULL, '2015-01-11 01:36:32', NULL, NULL, 218, b'0', 'perspiciatis unde');
+(17, 47, 16, NULL, '2015-01-11 01:36:32', NULL, NULL, 218, b'0', 'perspiciatis unde'),
+(22, 53, NULL, NULL, '2015-03-25 14:38:45', NULL, NULL, 302, b'0', 'asx'),
+(23, 53, NULL, b'1', '2015-03-25 14:41:22', NULL, NULL, 303, b'0', 'asx'),
+(24, 53, 23, NULL, '2015-03-25 14:41:30', NULL, NULL, 304, b'0', 'asx');
 
 -- --------------------------------------------------------
 
@@ -68,7 +69,7 @@ CREATE TABLE IF NOT EXISTS `Contenido` (
   `Lenguaje` int(11) DEFAULT NULL,
   PRIMARY KEY (`ID`),
   KEY `Lenguaje` (`Lenguaje`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=283 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=334 ;
 
 --
 -- Volcado de datos para la tabla `Contenido`
@@ -140,11 +141,22 @@ INSERT INTO `Contenido` (`ID`, `Contenido`, `Grupo`, `Lenguaje`) VALUES
 (275, 'asxs', 53, NULL),
 (276, 'asxs', 54, NULL),
 (277, 'Lorem ipsum dolor sit amet', 55, NULL),
-(278, 'asxasxasx', 56, NULL),
-(279, 'asxasx', 57, NULL),
 (280, 'asx', 58, NULL),
 (281, 'as', 59, NULL),
-(282, 'asxasx', 60, NULL);
+(282, 'asxasx', 60, NULL),
+(283, 'mundo', NULL, NULL),
+(284, 'assas', 61, NULL),
+(299, 'Genial', NULL, NULL),
+(300, 'asx', NULL, NULL),
+(301, 'asxasx', NULL, NULL),
+(302, 'asx', NULL, NULL),
+(303, 'asx', NULL, NULL),
+(304, 'asx', NULL, NULL),
+(327, 'munndo', NULL, NULL),
+(330, 'asx', 62, NULL),
+(331, 'asx', 63, NULL),
+(332, 'asx', 64, NULL),
+(333, 'asx', 65, NULL);
 
 -- --------------------------------------------------------
 
@@ -157,18 +169,25 @@ CREATE TABLE IF NOT EXISTS `Eventos` (
   `Tiempo` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `Nombre` varchar(128) COLLATE utf8_unicode_ci DEFAULT NULL,
   `Descripcion` int(11) DEFAULT NULL,
+  `Visible` tinyint(1) NOT NULL DEFAULT '1',
+  `Prioridad` int(11) NOT NULL DEFAULT '1',
   PRIMARY KEY (`ID`),
   KEY `Descripcion` (`Descripcion`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=63 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=68 ;
 
 --
 -- Volcado de datos para la tabla `Eventos`
 --
 
-INSERT INTO `Eventos` (`ID`, `Tiempo`, `Nombre`, `Descripcion`) VALUES
-(34, '2014-12-12 13:12:00', 'asx', 26),
-(35, '2015-02-13 05:00:00', 'Hola', 27),
-(62, '2015-03-06 06:06:00', 'asxasx', 58);
+INSERT INTO `Eventos` (`ID`, `Tiempo`, `Nombre`, `Descripcion`, `Visible`, `Prioridad`) VALUES
+(34, '2014-12-12 13:12:00', 'asx', 26, 1, 1),
+(35, '2015-02-13 05:00:00', 'Hola', 27, 1, 1),
+(62, '2015-03-06 06:06:00', 'asxasx', 58, 1, 1),
+(63, '2015-03-17 05:00:00', 'Hola Mundo', 61, 1, 1),
+(64, '2000-03-27 00:00:00', 'asx', 62, 1, 1),
+(65, '2000-03-27 00:00:00', 'asx', 63, 1, 1),
+(66, '2015-03-27 22:00:00', 'sx', 64, 1, 1),
+(67, '2015-03-27 22:00:00', 'sx', 65, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -186,21 +205,26 @@ CREATE TABLE IF NOT EXISTS `Imagenes` (
   `Contenido` int(11) DEFAULT NULL,
   `Comentarios` int(11) DEFAULT NULL,
   `Lenguaje` int(11) DEFAULT NULL,
+  `Visible` tinyint(1) NOT NULL DEFAULT '1',
+  `Prioridad` int(11) NOT NULL DEFAULT '1',
   PRIMARY KEY (`ID`),
   KEY `Contenido` (`Contenido`),
   KEY `Comentarios` (`Comentarios`),
   KEY `Lenguaje` (`Lenguaje`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=49 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=55 ;
 
 --
 -- Volcado de datos para la tabla `Imagenes`
 --
 
-INSERT INTO `Imagenes` (`ID`, `Url`, `Ancho`, `Alto`, `Alt`, `Titulo`, `Contenido`, `Comentarios`, `Lenguaje`) VALUES
-(42, 'http://curiosidades.batanga.com/sites/curiosidades.batanga.com/files/imagecache/completa/como-se-forma-la-lluvia-2.jpg', NULL, NULL, 'Foto de lluvia', 'Lluvia', NULL, NULL, NULL),
-(46, 'http://www.rodriguezpelaezcs.org/lluviaenventana.jpg', NULL, NULL, 'Otra Lluvia', 'Lluvia 2', NULL, NULL, NULL),
-(47, 'http://www.angelroman.net/wp-content/uploads/2013/07/aprendiendo-de-la-observacion-de-la-naturaleza.jpg', NULL, NULL, 'Picaflor', 'Picaflor', NULL, NULL, NULL),
-(48, 'http://varyedades.com/wp-content/uploads/2009/08/naturaleza-1.jpg', NULL, NULL, 'Abeja', 'Abeja', NULL, NULL, NULL);
+INSERT INTO `Imagenes` (`ID`, `Url`, `Ancho`, `Alto`, `Alt`, `Titulo`, `Contenido`, `Comentarios`, `Lenguaje`, `Visible`, `Prioridad`) VALUES
+(42, 'http://curiosidades.batanga.com/sites/curiosidades.batanga.com/files/imagecache/completa/como-se-forma-la-lluvia-2.jpg', NULL, NULL, 'Foto de lluvia', 'Lluvia', NULL, NULL, NULL, 1, 1),
+(46, 'http://www.rodriguezpelaezcs.org/lluviaenventana.jpg', NULL, NULL, 'Otra Lluvia', 'Lluvia 2', NULL, NULL, NULL, 1, 1),
+(47, 'http://www.angelroman.net/wp-content/uploads/2013/07/aprendiendo-de-la-observacion-de-la-naturaleza.jpg', NULL, NULL, 'Picaflor', 'Picaflor', NULL, NULL, NULL, 1, 1),
+(48, 'http://varyedades.com/wp-content/uploads/2009/08/naturaleza-1.jpg', NULL, NULL, 'Abeja', 'Abeja', NULL, NULL, NULL, 1, 1),
+(50, 'https://defensoresdosanimais.files.wordpress.com/2010/08/sapo2.jpg', NULL, NULL, 'Un Sapo', 'Sapo', NULL, NULL, NULL, 1, 1),
+(51, 'http://www.hdwallpapersinn.com/wp-content/uploads/2014/09/nature-insect-chameleon-branch.jpg', NULL, NULL, 'Camaleon', 'Camaleon', NULL, NULL, NULL, 1, 1),
+(54, 'http://img.wikinut.com/img/2f7mi4qzi5xyvogd/jpeg/0/Dark-Angel.jpeg', NULL, NULL, 'Angel', 'Angel Oscuro', NULL, NULL, NULL, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -237,20 +261,21 @@ CREATE TABLE IF NOT EXISTS `Novedades` (
   `Titulo` int(11) DEFAULT NULL,
   `Descripcion` int(11) DEFAULT NULL,
   `Fecha` date DEFAULT NULL,
+  `Visible` tinyint(1) DEFAULT '1',
+  `Prioridad` int(11) DEFAULT '1',
   PRIMARY KEY (`ID`),
   KEY `Titulo` (`Titulo`),
   KEY `Descripcion` (`Descripcion`),
   KEY `Novedades_ibfk_2` (`Imagen`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=34 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=52 ;
 
 --
 -- Volcado de datos para la tabla `Novedades`
 --
 
-INSERT INTO `Novedades` (`ID`, `Imagen`, `Titulo`, `Descripcion`, `Fecha`) VALUES
-(29, 47, 1, 2, '2015-01-07'),
-(32, 42, 3, 4, '2015-01-07'),
-(33, 46, 56, 57, '2015-01-29');
+INSERT INTO `Novedades` (`ID`, `Imagen`, `Titulo`, `Descripcion`, `Fecha`, `Visible`, `Prioridad`) VALUES
+(29, 47, 1, 2, '2015-01-07', 1, 1),
+(32, 42, 3, 4, '2015-01-07', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -265,7 +290,7 @@ CREATE TABLE IF NOT EXISTS `Opciones` (
   `Valor` varchar(256) COLLATE utf8_unicode_ci DEFAULT NULL,
   `Pred` varchar(256) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=40 ;
 
 --
 -- Volcado de datos para la tabla `Opciones`
@@ -273,9 +298,28 @@ CREATE TABLE IF NOT EXISTS `Opciones` (
 
 INSERT INTO `Opciones` (`ID`, `Dominio`, `Tipo`, `Valor`, `Pred`) VALUES
 (1, 'edetec.def.idioma', 0, 'es_AR', NULL),
-(2, 'edetec.idioma', 0, 'es_AR', NULL),
-(3, 'edetec.idioma', 0, 'es_ES', NULL),
-(4, 'edetec.idioma', 0, 'en_US', NULL);
+(27, 'edetec.idioma.0', 0, 'es_AR', NULL),
+(28, 'edetec.idioma.1', 0, 'en_US', NULL),
+(36, 'edetec.seccion.sobreunitec', 0, 'sobre_unitec.php', NULL),
+(37, 'edetec.seccion.sobreunitec.orden', 0, '0', NULL),
+(38, 'edetec.seccion.sobreunitec.contenido', 0, '47', NULL),
+(39, 'edetec.seccion.sobreunitec.visible', 0, '1', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `Secciones`
+--
+
+CREATE TABLE IF NOT EXISTS `Secciones` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `Contenido` int(11) DEFAULT NULL,
+  `Visible` tinyint(1) DEFAULT NULL,
+  `Prioridad` int(11) DEFAULT NULL,
+  `Archivo` varchar(128) COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`ID`),
+  KEY `Contenido` (`Contenido`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -357,6 +401,12 @@ ALTER TABLE `Imagenes`
 --
 ALTER TABLE `Novedades`
   ADD CONSTRAINT `Novedades_ibfk_2` FOREIGN KEY (`Imagen`) REFERENCES `Imagenes` (`ID`);
+
+--
+-- Filtros para la tabla `Secciones`
+--
+ALTER TABLE `Secciones`
+  ADD CONSTRAINT `Secciones_ibfk_1` FOREIGN KEY (`Contenido`) REFERENCES `Contenido` (`ID`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
