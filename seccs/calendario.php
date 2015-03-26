@@ -24,7 +24,7 @@ if(session_status()==PHP_SESSION_NONE)
 ?>
 <!--	:::::::::Calendario:::::::::	-->
 <section class='calendario' id='cal'>
-	<form id="accionesCal" action="php/accion.php" method="POST">
+	<form id="accionesCal" action="php/accion.php" method="POST" target="_blank">
 		<input type="hidden" name="form" value="accionesCal"></input>
 	</form>
 	<h1 class="titulo hidden-xs"> Calendario de Eventos </h1>
