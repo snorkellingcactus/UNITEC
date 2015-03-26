@@ -58,7 +58,7 @@
 }
 #sobre p
 {
-
+ margin-left:15px;
 }
 #sobre ul
 {
@@ -67,5 +67,4 @@
 #sobre ul
 {
 	list-style-position:inside;
-	margin-left:2%;
 }

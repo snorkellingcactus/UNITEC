@@ -1,12 +1,12 @@
 .novedad:last-child{border-bottom:0px solid;}
 .novedad div img{float:left;border-radius:3px;width:100%}
-.novedad>div{padding-top:30px;}
-.novedad{padding-top:1em;border-bottom:1px solid darkgray;}
-.novedad h3{margin-top:0px;padding-top:30px;margin-left:15px;}
+.novedad>div{}
+div.novedad{padding:3em 0px 1em 0px;border-bottom:1px solid darkgray}
+.novedad h3{margin:0px 0px 10px 15px;padding-top:0px;clear:right;}
 /*
 Por bootstrap, que le da a las imágenes 15px de padding.
 */
-.novedad p{margin-left:15px;}
+.novedad p{margin-left:15px;margin-top:0px;}
 .novedad p img{float:none;}
 .novedad p pre.code{float:none;display:block;}
 .novedad table{border:1px solid gray;}
@@ -15,4 +15,5 @@ Por bootstrap, que le da a las imágenes 15px de padding.
 .novedad span.center{display:block;width:100%;text-align:center;}
 .novedad font.through{text-decoration:line-through;}
 .novID{float:right;}
-iframe{z-index:5;}
+
+.novedad input[type="checkbox"]{position:absolute;right:0;top:0}

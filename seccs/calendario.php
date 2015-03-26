@@ -39,7 +39,7 @@ if(session_status()==PHP_SESSION_NONE)
 			if(!empty($_SESSION['adminID']))
 			{
 				//Incluyo las acciones para la selección.
-				$fAction='cal';
+				$fAction='#cal';
 				$fId='reloadCal';
 
 				include 'forms/acciones.php';
