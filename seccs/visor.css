@@ -1,4 +1,5 @@
-body,html{background:rgba(0,0,0,0.7);min-height:100%;}
+body,html{min-height:100%}
+body{background:rgba(0,0,0,0.9)}
 
 .flecha{height:100%;width:10%;display:block;float:left;position:absolute;top:0;left:0}
 .flecha:last-child{top:0;right:0;left:auto}
