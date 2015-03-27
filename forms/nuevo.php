@@ -80,7 +80,7 @@
 			unset($_SESSION['cantidad']);
 
 			?>
-			<button type="submit" class="col-xs-12 col-sm-12 col-md-12 col-lg-12" name='<?php echo $for ?>'>Aceptar</button>
+			<input type="submit" class="col-xs-12 col-sm-12 col-md-12 col-lg-12" name='<?php echo $for ?>' value="Aceptar">
 		</form>
 		<div class="clearfix"></div>
 	</body>
