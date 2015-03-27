@@ -11,7 +11,7 @@
 		</p>
 		<input type='password' name='contrasena' class='col-xs-12 col-sm-7 col-md-7 col-lg-7'>
 		<div class="clearfix col-xs-12 col-sm-12 col-md-12 col-lg-12"></div>
-		<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4"></div>
-		<button type='submit' class='col-xs-6 col-sm-6 col-md-6 col-lg-6'>0K</button>
+		<div class="hidden-xs col-sm-4 col-md-4 col-lg-4"></div>
+		<input type='submit' value="0K" class='col-xs-12 col-sm-7 col-md-7 col-lg-7' />
 	</form>
 </div>

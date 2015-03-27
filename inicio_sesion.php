@@ -32,6 +32,7 @@
 		<link rel="stylesheet" type="text/css" href="./index.css" />
 		<link rel="stylesheet" type="text/css" href="./header.css" />
 		<link rel="stylesheet" type="text/css" href="./seccs/menu.css" />
+		<link rel="stylesheet" type="text/css" href="./forms/forms.css" />
 		<link rel="stylesheet" type="text/css" href="./seccs/inicio_sesion.css" />
 		<link rel="stylesheet" type="text/css" href="./bootstrap.min.css" />
 		<title>Unitec - Inicio Sesión</title>

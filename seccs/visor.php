@@ -6,7 +6,7 @@
 
 		<link rel="stylesheet" type="text/css" href="../bootstrap.min.css" />
 		<link rel="stylesheet" type="text/css" href="visor.css" />
-		<link rel="stylesheet" type="text/css" href="visor_form.css" />
+		<link rel="stylesheet" type="text/css" href="../forms/forms.css" />
 
 		<title>Visor de imágenes</title>
 	</head>

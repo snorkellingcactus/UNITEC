@@ -1,7 +1,6 @@
-input ,button{box-shadow:10px 4px 10px grey;border-radius:2px}
 input{height:3em}
-label{font-size:2em}
-button{display:block;height:3em;border: groove; box-shadow: 5px 1px 5px grey;}
+label{font-size:1.5em;color:black;}
+input[type="button"]{width:100%;}
 .cacho { 
 	background:rgba(255, 255, 255, 0.35)  no-repeat left top;
 	border-radius:3px;

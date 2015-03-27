@@ -1,3 +1,59 @@
- label{color:white;}
- .fin{margin:50px 0px 50px 0px;border-bottom:2px solid dimgray;}
- input[type="radio"]{max-height:1em;}
+.fin{margin:50px 0px 50px 0px;border-bottom:2px solid dimgray;}
+
+form .fecha
+{
+	margin-bottom: 1%
+}
+form .fecha label
+{
+	color:white;
+	text-align:center;
+	display:block;
+	font-size:1em;
+}
+form .fecha input
+{
+	width: 100%;
+	color:black;
+	text-align: center;
+	display:block;
+}
+form a
+{
+	color:black;
+	text-decoration:none;
+	text-align:center;
+}
+form p{color:black}
+label{font-size:2em;color:white;margin-top:5px;}
+input,form a , button, textarea{height:auto;box-shadow:0px 0px 3px black;border-radius:3px;border:none;}
+button,form a{background-color:silver;font-family:sans-serif;vertical-align:middle;line-height:3em;color:black;}
+textarea{height:auto}
+
+input , textarea
+{
+	-moz-transition:background-color 0.5s;
+	-webkit-transition:background-color 0.5s;
+	background-color:#F0F8FF;
+}
+input[type="radio"]{max-height:1em;}
+input[type="submit"]{font-family:"Monospace";padding:0px 5px 0px 5px;}
+input:hover , textarea:hover , input:focus , textarea:focus
+{
+	background-color:#D8F3FF;
+}
+.overhidden
+{
+	overflow:auto;
+	width:100%;
+	max-height:100%;
+	margin-bottom:1em;
+}
+.overhidden div img
+{
+	width:100%;
+}
+.overhidden div input
+{
+	width:100%;
+}

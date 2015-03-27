@@ -51,6 +51,7 @@ function echoLang($langSQLRes)
 		<link rel="icon" type="image/png" href="./img/unitec-favicon.png"  />
 		<link rel="shortcut icon" type="image/ico" href="./img/unitec-favicon.ico"  />
 		<link rel="stylesheet" type="text/css" href="./index.css" />
+		<link rel="stylesheet" type="text/css" href="./forms/forms.css" />
 		<link rel="stylesheet" type="text/css" href="./header.css" />
 		<link rel="stylesheet" type="text/css" href="./footer.css" />
 		<link rel="stylesheet" type="text/css" href="./seccs/menu.css" />
