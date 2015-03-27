@@ -133,8 +133,6 @@
 			<!-- Título -->
 			<h2 class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 						<?php echo $esq->Titulo ?>
-						<!-- Botón Cerrar -->
-			<a href="../index.php#gal" target="_parent" class="cerrar" title="Cerrar Visor">X</a>
 			</h2>
 			
 			<!-- Imagen y controles -->
@@ -153,8 +151,8 @@
 			<!-- Comentarios -->
 			<div class="comentarios col-lg-10 col-md-10 col-sm-10 col-xs-10" >
 				<?php
-					$fId='accionesCom';
-					include('../forms/acciones.php');
+					$fId='Com';
+					include('../forms/seleccion.php');
 
 					//Genero los comentarios.
 					echo GenComGrp($_SESSION['vImgID'] , $con);
@@ -165,5 +163,6 @@
 					}
 				?>
 			</div>
+			<div class="clearfix"></div>
 	</body>
 </html>

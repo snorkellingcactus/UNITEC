@@ -57,3 +57,7 @@ input:hover , textarea:hover , input:focus , textarea:focus
 {
 	width:100%;
 }
+.disabled{pointer-events:none;opacity:0.5;}
+
+.tresem input, .tresem select{height:3em;}
+.nuevo{width:90%;margin-left:5%;padding-top:50px;}

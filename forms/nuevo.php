@@ -15,7 +15,7 @@
 	<head>
 		<link rel="stylesheet" type="text/css" href="../bootstrap.min.css" />
 		<link rel="stylesheet" type="text/css" href="../seccs/visor.css" />
-		<link rel="stylesheet" type="text/css" href="../seccs/visor_form.css" />
+		<link rel="stylesheet" type="text/css" href="../forms/forms.css" />
 
 		<meta charset="utf-8" />
 
@@ -48,7 +48,7 @@
 	</head>
 	<body>
 
-			<form method="POST" action="<?php echo $url ?>" target="_parent">
+			<form method="POST" class="tresem nuevo" action="<?php echo $url ?>" target="_parent">
 			<?php
 				$iMax=$_SESSION['cantidad'];
 				$lMax=count($labels);
@@ -80,9 +80,8 @@
 			unset($_SESSION['cantidad']);
 
 			?>
-			<button type="submit" class="col-xs-6 col-sm-6 col-md-6 col-lg-6" name='<?php echo $for ?>'>Aceptar</button>
-
-			<a href="<?php echo $url ?>" class="col-xs-6 col-sm-6 col-md-6 col-lg-6" target="_parent">Cancelar</a>
+			<button type="submit" class="col-xs-12 col-sm-12 col-md-12 col-lg-12" name='<?php echo $for ?>'>Aceptar</button>
 		</form>
+		<div class="clearfix"></div>
 	</body>
 </html>

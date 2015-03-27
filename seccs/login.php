@@ -1,6 +1,6 @@
 <div class="cacho col-xs-10 col-sm-9 col-md-7 col-lg-7"> 
 	<h2>Login:</h2>
-	<form method="POST" action="#">
+	<form method="POST" action="#" class="tresem">
 		<p class='col-xs-12 col-sm-4 col-md-4 col-lg-4'>
 			<label for='Nombre (o email)'>Nombre:</label>
 		</p>

@@ -1,6 +1,4 @@
-input{height:3em}
 label{font-size:1.5em;color:black;}
-input[type="button"]{width:100%;}
 .cacho { 
 	background:rgba(255, 255, 255, 0.35)  no-repeat left top;
 	border-radius:3px;

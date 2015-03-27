@@ -83,7 +83,7 @@ h2
 .comCont{clear:both}
 .nComentForm{position:relative;bottom:0px;display:inline-block;}
 .nComentForm input:last-child{display:block;clear:both;float:none;width:100%;margin-top:5px;}
-.nComentForm input{margin-bottom:5px;width:100%; height:3em;}
+.nComentForm input{margin-bottom:5px;width:100%}
 .nComentForm textarea{width:100%;}
 .comentarios, .imgCont>img {box-shadow:-1px -1px 3px #888888;}
 .comAutor{font-weight:bold;float:left}
@@ -116,6 +116,3 @@ h2{position:relative;display:inline}
 	background-color:rgba(255,255,255,0.15);
 	color:white;
 }
-#acciones{display:none;}
-.acciones input{height:auto;}
-.acciones{margin-bottom:50px;}

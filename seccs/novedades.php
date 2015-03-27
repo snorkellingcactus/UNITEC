@@ -1,8 +1,5 @@
 <section id='nov'>
 	<h1 class="titulo">Novedades</h1>
-	<form id="accionesNov" method="POST" action="php/accion.php" target="_blank">
-		<input type="hidden" name="form" value="accionesNov"/>
-	</form>
 	<?php
 		//::::::::::Variables de Sesion::::::::::::::
 		if(session_status()==PHP_SESSION_NONE)
@@ -25,18 +22,13 @@
 		{
 				//De momento se especifica el ancla de la url action del form con la variable
 				//fAction y el id del form con fId.
-				$fAction='#nov';
-				$fId='reloadNov';
-
-				include 'forms/acciones.php';
+				$fAction='index.php#nov';
+				$fId='Nov';
+				$cMax=0;
 				
 				//Incluyo las acciones para las novedades.
-				?>
-					<p class="acciones">
-						Acciones:
-						<input type="submit" value="Nueva" name="nuevas" form="accionesNov"/>
-					</p>
-				<?php
+				include 'forms/seleccion.php';
+				include 'forms/acciones.php';
 		}
 
 		//Si se rellenó el formulario nueva novedad la envío a la bd.

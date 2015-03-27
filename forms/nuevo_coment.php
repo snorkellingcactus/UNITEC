@@ -1,4 +1,4 @@
-<form class="nComentForm" action="visor.php#comRes" method="POST">
+<form class="nComentForm tresem" action="visor.php#comRes" method="POST">
 	<p>Nombres:</p>
 	<input type="text" name="comNomUsuario" >
 

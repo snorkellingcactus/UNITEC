@@ -24,9 +24,6 @@ if(session_status()==PHP_SESSION_NONE)
 ?>
 <!--	:::::::::Calendario:::::::::	-->
 <section class='calendario' id='cal'>
-	<form id="accionesCal" action="php/accion.php" method="POST" target="_blank">
-		<input type="hidden" name="form" value="accionesCal"></input>
-	</form>
 	<h1 class="titulo hidden-xs"> Calendario de Eventos </h1>
 	<h1 class="subtitulo visible-xs"> Calendario de Eventos </h1>
 	<h1 class='titulo'>
@@ -40,17 +37,13 @@ if(session_status()==PHP_SESSION_NONE)
 			{
 				//Incluyo las acciones para la selección.
 				$fAction='#cal';
-				$fId='reloadCal';
-
-				include 'forms/acciones.php';
+				$fId='Cal';
+				$cMax=30;
 
 				//Incluyo las acciones posibles.
-				?>
-					<p class="acciones">Acciones:
-						<?php include ('php/select.php') ?>
-						<input type="submit" name="nuevas" value="Nuevas" form="accionesCal">
-					</p>
-				<?php
+				include 'forms/seleccion.php';
+				include 'forms/acciones.php';
+			
 
 				if(isset($_POST['nEvt']))
 				{
@@ -109,7 +102,7 @@ if(session_status()==PHP_SESSION_NONE)
 						$evento->insSQL();
 					}
 				}
-				if(isset($_POST['form'])&&$_POST['form']==$fId)
+				if(isset($_POST['evtID']))
 				{
 					if(isset($_POST['elimina']))
 					{
@@ -213,7 +206,7 @@ if(session_status()==PHP_SESSION_NONE)
 								 if(!empty($_SESSION['adminID']))
 								 {
 								 	?>
-								 		<input type="checkbox" name="evtID[]" value="<?php echo $evtAct['ID']?>" form="<?php echo $fId?>"/>
+								 		<input type="checkbox" name="evtID[]" value="<?php echo $evtAct['ID']?>" form="reloadCal"/>
 								 	<?php
 								 }
 								 ?>

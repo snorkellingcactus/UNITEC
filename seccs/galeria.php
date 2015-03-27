@@ -73,27 +73,12 @@
 				}
 			}
 			//Incluyo las acciones para la selección.
-			$fAction='index.php?cache='.$_SESSION['cache'].'#gal';
-			$fId='reloadGal';
+			$fAction='index.php#gal';
+			$fId='Gal';
+			$cMax=30;
 
+			include 'forms/seleccion.php';
 			include 'forms/acciones.php';
-
-			//Incluyo las acciones posibles.
-			?>
-				<p class="acciones">Acciones:
-					<select form="accionesGal" name="cantidad">
-						<?php
-							for($i=1;$i<=30;$i++)
-							{
-								?>
-								<option value="<?php echo $i ?>"><?php echo $i ?></option>
-								<?php
-							}
-						?>
-					</select>
-					<input type="submit" name="nuevas" value="Nuevas" form="accionesGal">
-				</p>
-			<?php
 		}
 		
 		//:::::::::::::::::::::::::::::::HTML::::::::::::::::::::::::::::::::::::
