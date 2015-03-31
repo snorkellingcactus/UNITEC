@@ -36,6 +36,21 @@ if(isset($_SESSION['adminID']))
 		).doc
 	)
 
+	function actPanel()
+	{
+		if(this.status==200 && this.readyState===4)
+		{
+			panel.parseConf.bind(panel)();
+
+
+			conf=XMLToDOM(panel.cfg);
+
+			for(var clave in conf.edetec.seccion)
+			{
+				window.console.log(conf.edetec.seccion[clave]);
+			}
+		}
+	}
 	panel=new PanelAdmin();
 
 	panel.proto.creaTipo('Pes' , 'Secciones' , 'Sec');
@@ -44,7 +59,7 @@ if(isset($_SESSION['adminID']))
 	panel.proto.creaTipo('cfgEdit' , 'Edita Configuración' , 0);
 	panel.diag.selV('panel','vistaPCfg');
 	panel.prepareXmlHttp();
-	panel.xmlObj.conf({handler:panel.parseConf.bind(panel)});
+	panel.xmlObj.conf({handler:actPanel});
 	panel.xmlObj.envia();
 
 	document.body.appendChild(panel.diag.caja('panel').doc);

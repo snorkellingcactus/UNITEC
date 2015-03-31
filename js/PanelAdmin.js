@@ -145,6 +145,16 @@ function domObjStructStr(obj , str)
 	}
 	return puntero[clave];
 }
+function XMLToDOM(xmlObj)
+{
+	res={};
+	for(var i=0;i<xmlObj.length;i++)
+	{
+		domObj(xmlObj[i],res);
+	}
+
+	return res;
+}
 PanelAdmin=function()
 {
 	this.pattern='';

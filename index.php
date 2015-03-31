@@ -158,47 +158,52 @@ function echoLang($langSQLRes)
 
 					return $res;
 				}
+
+				//Convierte un string como el siguiente:
+				//"jj.bb.aa"
+				//En un objeto:
+				//[
+				//	'jj'=>
+				//	[
+				//		'bb'=>
+				//		[
+				//			'aa'=>[]
+				//		]
+				//	]
+				//]
 				function &strStructObj($str , & $obj)
 				{
 					$sMax=count($str);
 					$intacto=true;
 
-					//echo '<h3>'.$sMax.'</h3>';
 					for($s=0;$s<$sMax;$s++)
 					{
 						$clave=$str[$s];
 
 						if(!isset($obj[$clave]))
 						{
-							//echo '<h2>Obj['.$clave.'] = array()</h2>';
 							$obj[$clave]=array();
 							$intacto=false;
 						}
 						if($s<$sMax-1)
 						{
-							//echo '<h2>Obj = Obj['.$clave.']</h2>';
 							$obj=& $obj[$clave];
 						}
 					}
 					if($intacto)
 					{
-						if(gettype($obj[$clave])!=='array')
+						if(!isset($obj[$clave][0]))
 						{
-							//echo '<h2><font color="white">'.$clave.' Ya existe, haciendo un array</font></h2>';
 							$obj[$clave]=array($obj[$clave]);
 						}
 
-						//echo '<h2><font color="white">Obj['.$clave.']['.count($obj[$clave]).'] = array()</font></h2>';
 						$obj[$clave][count($obj[$clave])]=array();
 					}
-					else
-					{
-						//echo '<h2><font color="white">Array Moificado</font></h2>';
-					}
 
-					//echo '<h2><font color="white">return Obj['.$clave.']</font></h2>';
 					return $obj[$clave];
 				}
+				//Sirve como complemento a un array tratado con strStructObj.
+				//En el futuro se mezclará con strStructObj.
 				function domObj($obj , & $res)
 				{
 					$puntero=$res;
@@ -206,10 +211,7 @@ function echoLang($langSQLRes)
 					if(isset($obj['Dominio']))
 					{
 						$puntero=&strStructObj(separa('.',$obj['Dominio']) , $res);
-
-						//print_r($res);
 					}
-					//echo '<h2>------------</h2>';
 					foreach($obj as $clave=>$valor)
 					{
 						if($clave==='Dominio')
@@ -218,15 +220,91 @@ function echoLang($langSQLRes)
 						}
 						else
 						{
-							//echo '<h2><font color="white">Puntero['.$clave.'] = '.$valor.'</font></h2>';
-							$puntero[$clave]=$valor;
+							if(isset($puntero['0']))
+							{
+								$puntero[count($puntero)-1][$clave]=$valor;
+							}
+							else
+							{
+								$puntero[$clave]=$valor;
+							}
 						}
 					}
-					//echo '<h2>------------</h2>';
 				}
 
+				//Devuelve el contenido al pasarle su ID.
+				function getCont($contID)
+				{
+					global $con;
 
-				$Opciones=$con->query('select Dominio,Valor from Opciones where Dominio like "edetec.seccion%"');
+					$contenido=$con->query('select Contenido from Contenido where ID='.$contID);
+
+					if($contenido)
+					{
+						$contenido=$contenido->fetch_all(MYSQLI_NUM)[0][0];
+
+						return $contenido;
+					}
+
+					return '';
+				}
+
+				//Incluye dinamicamente secciones.
+				function incluye($includes)
+				{
+					$orden=[];
+
+					foreach($includes as $clave=>$valor)
+					{
+						if(isset($valor['orden']))
+						{
+							$orden[$valor['orden']['Valor']]=$valor;
+						}
+					}
+
+					$jMax=count($orden);
+
+					for($j=0;$j<$jMax;$j++)
+					{
+						$incAct=$orden[$j];
+
+						if($incAct['visible']['Valor']==='1')
+						{
+							$tipo=$incAct['Tipo'];
+							$valor=$incAct['Valor'];
+
+							switch($tipo)
+							{
+								case '0':
+									if(isset($incAct['css_id']['Valor']))
+									{
+										$id=$incAct['css_id']['Valor']
+										?>
+											<section id="<?php echo $id?>">
+										<?php
+											if(isset($incAct['inc']))
+											{
+												incluye($incAct['inc']);
+											}
+										?>
+											</section>
+										<?php
+									}
+								break;
+								case '1':
+									global $con;
+									include($valor);
+								break;
+								case '2':
+									echo getCont($valor);
+								break;
+							}
+						}
+					}
+				}
+
+				//Obtengo las opciones.
+				$Opciones=$con->query('select Dominio,Valor,Tipo from Opciones where Dominio like "edetec.seccion%"');
 
 				if($Opciones)
 				{
@@ -240,43 +318,10 @@ function echoLang($langSQLRes)
 					{
 						domObj($Opciones[$i] , $cfg);
 					}
-					echo '<h2><font color="white">Get edetec.seccion.*</font></h2><pre>';
-					print_r($cfg);
-					echo '</pre>';
-					
-					$orden=[];
 
-					$secciones=&strStructObj(['edetec','seccion'] , $cfg);
+					$secciones=$cfg['edetec']['seccion'];
 
-					foreach($secciones as $clave=>$valor)
-					{
-						if(isset($valor['orden']))
-						{
-							$orden[$valor['orden']['Valor']]=$valor;
-						}
-					}
-
-					echo '<h2><font color="white">Array de secciones ordenadas</font></h2><pre>';
-					print_r($orden);
-					echo '</pre>';
-
-					$iMax=count($orden);
-					for($i=0;$i<$iMax;$i++)
-					{
-						$seccAct=$orden[$i];
-
-						if($seccAct['visible']['Valor']==='1')
-						{
-							if(isset($seccAct['contenido']))
-							{
-
-							}
-							if(isset($seccAct['archivo']['Valor']))
-							{
-								include_once($seccAct['archivo']['Valor']);
-							}
-						}
-					}
+					incluye($secciones);
 				}
 
 
