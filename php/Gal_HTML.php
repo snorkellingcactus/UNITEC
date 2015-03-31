@@ -13,6 +13,7 @@ class Gal_HTML
 	private	$con;
 	private	$modGal;
 	public	$visor;
+	public	$mkFlechas=true;
 
 	public	$imgLst=[];
 	

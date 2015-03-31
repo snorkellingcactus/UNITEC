@@ -1,3 +1,4 @@
+
 <!DOCTYPE html >
 <?php
 //Solo si se está en modo administrador.
@@ -39,12 +40,12 @@ if(isset($_SESSION['adminID']))
 
 	panel.proto.creaTipo('Pes' , 'Secciones' , 'Sec');
 
-	//panel.proto.creaTipo('Pes' , 'Edita Configuración' , 'Cfg');
-	//panel.proto.creaTipo('cfgEdit' , 'Edita Configuración' , 0);
-	panel.diag.selV('panel','vistaPSec');
-	//panel.prepareXmlHttp();
-	//panel.xmlObj.conf({handler:panel.parseConf.bind(panel)});
-	//panel.xmlObj.envia();
+	panel.proto.creaTipo('Pes' , 'Edita Configuración' , 'Cfg');
+	panel.proto.creaTipo('cfgEdit' , 'Edita Configuración' , 0);
+	panel.diag.selV('panel','vistaPCfg');
+	panel.prepareXmlHttp();
+	panel.xmlObj.conf({handler:panel.parseConf.bind(panel)});
+	panel.xmlObj.envia();
 
 	document.body.appendChild(panel.diag.caja('panel').doc);
 
