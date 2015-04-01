@@ -249,8 +249,7 @@ function echoLang($langSQLRes)
 					return '';
 				}
 
-				//Incluye dinamicamente secciones.
-				function incluye($includes)
+				function ordIncludes($includes)
 				{
 					$orden=[];
 
@@ -258,14 +257,26 @@ function echoLang($langSQLRes)
 					{
 						if(isset($valor['orden']))
 						{
-							$orden[$valor['orden']['Valor']]=$valor;
+							$orden[intVal($valor['orden']['Valor'])]=$valor;
 						}
 					}
 
+					return $orden;
+				}
+				//Incluye dinamicamente secciones.
+				function incluye($includes , $orden)
+				{
+					//echo '<pre>';print_r($orden);echo '</pre>';
 					$jMax=count($orden);
 
 					for($j=0;$j<$jMax;$j++)
 					{
+						if(!isset($orden[$j]))
+						{
+							++$jMax;
+							continue;
+						}
+
 						$incAct=$orden[$j];
 
 						if($incAct['visible']['Valor']==='1')
@@ -281,12 +292,13 @@ function echoLang($langSQLRes)
 										$id=$incAct['css_id']['Valor']
 										?>
 											<section id="<?php echo $id?>">
-										<?php
-											if(isset($incAct['inc']))
-											{
-												incluye($incAct['inc']);
-											}
-										?>
+											<?php
+												include('forms/seccion.php');
+												if(isset($incAct['inc']))
+												{
+													incluye($incAct['inc'] , ordIncludes($incAct['inc']));
+												}
+											?>
 											</section>
 										<?php
 									}
@@ -302,26 +314,123 @@ function echoLang($langSQLRes)
 						}
 					}
 				}
-
-				//Obtengo las opciones.
-				$Opciones=$con->query('select Dominio,Valor,Tipo from Opciones where Dominio like "edetec.seccion%"');
-
-				if($Opciones)
+				function sqlResToCfg($sqlRes)
 				{
-					$Opciones=$Opciones->fetch_all(MYSQLI_ASSOC);
+					$sqlRes=$sqlRes->fetch_all(MYSQLI_ASSOC);
 
-					$iMax=count($Opciones);
+					$iMax=count($sqlRes);
 
 					$cfg=array();
 
 					for($i=0;$i<$iMax;$i++)
 					{
-						domObj($Opciones[$i] , $cfg);
+						domObj($sqlRes[$i] , $cfg);
 					}
 
-					$secciones=$cfg['edetec']['seccion'];
+					return $cfg;
+				}
+				function nSec($nombre , $visible , $orden)
+				{
+					global $con;
+					//A futuro: Generar IDs únicos cuando $nombre esté vacio.
+					$dom='insert into Opciones (Dominio , Tipo , Valor) values ("edetec.seccion.'.$nombre;
 
-					incluye($secciones);
+					$con->query($dom.'" , 0 , NULL)');
+					$con->query($dom.'.css_id" , 0 , "'.$nombre.'")');
+					$con->query($dom.'.visible" , 0 , "'.$visible.'")');
+					$con->query($dom.'.orden" , 0 , "'.$orden.'")');
+/*
+					echo '<h2>'.$dom.'" , 0 , NULL)'.'</h2>';
+					echo '<h2>'.$dom.'.css_id" , 0 , "'.$nombre.'")'.'</h2>';
+					echo '<h2>'.$dom.'.visible" , 0 , "'.$visible.'")'.'</h2>';
+					echo '<h2>'.$dom.'.orden" , 0 , "'.$orden.'")'.'</h2>';
+*/
+				}
+
+				
+				if(isset($_POST['form']))
+				{
+					echo '<pre>';
+					print_r($_POST['form'])	;
+					echo '</pre>';
+				}
+				if(isset($_SESSION['adminID']))
+				{
+					if(isset($_POST['form']) && $_POST['form']=='accionesSec' && isset($_POST['elimina']))
+					{
+						$con->query('delete from Opciones where Dominio like "edetec.seccion.'.$_POST['secID'].'.%"');
+						$con->query('delete from Opciones where Dominio like "edetec.seccion.'.$_POST['secID'].'"');
+					}
+					if(isset($_POST['nSec']))
+					{
+						//Buscar en el futuro la forma de no repetir este código:
+
+						$Opciones=$con->query('select * from Opciones where Dominio like "edetec.seccion%"');
+
+						$lugar=$_POST['Lugar'];
+
+						$prefijo=$lugar[0];
+						$pOrden=intVal(substr($lugar , 1));
+						$nOrden=0;
+
+						if($con->affected_rows)
+						{
+
+							$cfg=sqlResToCfg($Opciones);
+
+							$secciones=$cfg['edetec']['seccion'];
+							$orden=ordIncludes($secciones);
+
+							$oMax=count($orden);
+							if($prefijo=='b')
+							{
+								//El último + 1.
+								$nOrden=$oMax+1;
+							}
+							else
+							{
+								//Si alguna seccion ocupa el lugar de la nueva la muevo a ella y
+								//en el caso de que sea necesario a sus siguientes.
+
+								$j=$pOrden;
+
+								while(isset($orden[$j]) && $j<$oMax)
+								{
+									$nID=$orden[$j]['ID'];
+
+									$consulta='update Opciones set Value='.($j+1).' where ID='.$nID;
+
+									$con->query($consulta);
+
+									echo '<h2>'.$consulta.'</h2>';
+
+									++$j;
+								}
+
+								$nOrden=$pOrden;
+							}
+						}
+
+						nSec($_POST['Identificador'][0] , $_POST['Visible'][0] , $nOrden);
+					}
+				}
+
+				//Obtengo las opciones.
+				$Opciones=$con->query('select * from Opciones where Dominio like "edetec.seccion.%"');
+
+				if($con->affected_rows)
+				{
+					$cfg=sqlResToCfg($Opciones);
+
+					$secciones=$cfg['edetec']['seccion'];
+					$orden=ordIncludes($secciones);
+
+					incluye($secciones , $orden);
+				}
+
+				if(isset($_SESSION['adminID']))
+				{
+					include('esq/nSec.php');
 				}
 
 

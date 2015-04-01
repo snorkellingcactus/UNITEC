@@ -90,6 +90,54 @@ switch ($tipo)
 			</div>
 		<?php
 	break;
+	case 'orden':
+
+		$jMax=0;
+		if(isset($_POST['lleno']))
+		{
+			$orden=$_POST['lleno'];
+
+			$jMax=count($orden);
+
+			echo '<pre>jMax: '.$jMax;
+
+			echo '</pre>';
+		}
+		?>
+			<select name="<?php echo $labelName ?>" class="orden col-xs-12 col-sm-8 col-md-8 col-lg-8" size="<?php echo $jMax*2+1?>">
+				<?php
+					if(isset($orden))
+					{
+						for($j=0;$j<$jMax;$j++)
+						{
+							/*
+							if(!isset($orden[$j]))
+							{
+								continue;
+							}*/
+
+							?>
+								<option value="<?php echo 't'.$j?>"></option>
+								<option class="lleno"><?php echo $j?></option>
+							<?php
+						}
+					}
+				?>
+				<option value="b" selected="selected"></option>
+			</select>
+		<?php
+	break;
+	case 'file':
+		
+	break;
+	case 'SiNo':
+		?>
+		<select name="<?php echo $labelName ?>[]" class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
+			<option value="1">Si</option>
+			<option value="0">No</option>
+		</select>
+		<?php
+	break;
 	default:
 	?>
 		<input type="text" name="<?php echo $labelName ?>[]" class="col-xs-12 col-sm-8 col-md-8 col-lg-8">

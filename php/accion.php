@@ -107,6 +107,30 @@ if(isset($_SESSION['adminID']))
 					]
 				];
 			break;
+			case 'accionesSec':
+				$includes=
+				[
+					'../forms/forms.css'
+				];
+				$ancla='#nSec';
+				$action='../index.php';
+				$for='nSec';
+				$labels=
+				[
+					[
+						'text',
+						'Identificador'
+					],
+					[
+						'orden',
+						'Lugar'
+					],
+					[
+						'SiNo',
+						'Visible'
+					]
+				];
+			break;
 		}
 		include ('../forms/nuevo.php');
 	}

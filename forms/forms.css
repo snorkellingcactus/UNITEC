@@ -63,3 +63,7 @@ input:hover , textarea:hover ,select:hover, input:focus , textarea:focus
 
 .tresem input, .tresem select{height:3em;}
 .nuevo{width:90%;margin-left:5%;padding-top:50px;padding-bottom:70px;}
+
+select.orden{height:auto;margin-bottom:20px;}
+select.orden option{height:2em;text-align:center;background-color:#F0F8FF;}
+select.orden .lleno{cursor:default;pointer-events:none;background-color:silver;}
