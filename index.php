@@ -281,6 +281,11 @@ function echoLang($langSQLRes)
 
 						if($incAct['visible']['Valor']==='1')
 						{
+							/*
+							echo '<pre>';
+							print_r($incAct);
+							echo '</pre>';
+							*/
 							$tipo=$incAct['Tipo'];
 							$valor=$incAct['Valor'];
 
@@ -396,9 +401,9 @@ function echoLang($langSQLRes)
 
 								while(isset($orden[$j]) && $j<$oMax)
 								{
-									$nID=$orden[$j]['ID'];
+									$nID=$orden[$j]['orden']['ID'];
 
-									$consulta='update Opciones set Value='.($j+1).' where ID='.$nID;
+									$consulta='update Opciones set Valor='.($j+1).' where ID='.$nID;
 
 									$con->query($consulta);
 
