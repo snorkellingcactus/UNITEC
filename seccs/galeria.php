@@ -1,4 +1,3 @@
-<h1 class="titulo">Galería de Fotos</h1>
 <form id="vImg" method="POST" action="seccs/visor.php" target="_blank"></form>
 <form id="accionesGal" method="POST" action="php/accion.php" target="_blank">
 	<input type="hidden" name="form" value="accionesGal"/>

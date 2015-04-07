@@ -138,6 +138,11 @@ switch ($tipo)
 		</select>
 		<?php
 	break;
+	case 'post':
+		?>
+		<input type="hidden" name="<?php echo $labelName ?>" value="<?php echo $_POST[$labelName]?>" class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
+		<?php
+	break;
 	default:
 	?>
 		<input type="text" name="<?php echo $labelName ?>[]" class="col-xs-12 col-sm-8 col-md-8 col-lg-8">

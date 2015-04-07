@@ -264,7 +264,7 @@ function echoLang($langSQLRes)
 					return $orden;
 				}
 				//Incluye dinamicamente secciones.
-				function incluye($includes , $orden)
+				function incluye($includes , $orden , $padre=null)
 				{
 					//echo '<pre>';print_r($orden);echo '</pre>';
 					$jMax=count($orden);
@@ -289,6 +289,8 @@ function echoLang($langSQLRes)
 							$tipo=$incAct['Tipo'];
 							$valor=$incAct['Valor'];
 
+
+
 							switch($tipo)
 							{
 								case '0':
@@ -299,9 +301,12 @@ function echoLang($langSQLRes)
 											<section id="<?php echo $id?>">
 											<?php
 												include('forms/seccion.php');
+												include('esq/nCon.php');
+
 												if(isset($incAct['inc']))
 												{
-													incluye($incAct['inc'] , ordIncludes($incAct['inc']));
+													//echo '<pre>';print_r($incAct['inc']);echo '</pre>';
+													incluye($incAct['inc'] , ordIncludes($incAct['inc']) , $incAct);
 												}
 											?>
 											</section>
@@ -311,9 +316,30 @@ function echoLang($langSQLRes)
 								case '1':
 									global $con;
 									include($valor);
+									?>
+										<input type="hidden" name="lleno[]" value="<?php echo $i?>" form="nCon<?php echo $padre['ID'] ?>">
+									<?php
 								break;
 								case '2':
-									echo getCont($valor);
+									include_once 'php/jBBCode1_3_0/JBBCode/Parser.php';
+
+									$parser=new JBBCode\Parser();
+				
+									include('php/parser_definiciones.php');
+
+									$parser->parse(getCont($valor));
+
+									?>
+										<div class="contenido">
+										<?php
+											echo $parser->getAsHtml();
+										?>
+										</div>
+									<?php
+
+									?>
+										<input type="hidden" name="lleno[]" value="<?php echo $i?>" form="nCon<?php echo $padre['ID'] ?>">
+									<?php
 								break;
 							}
 						}
@@ -334,43 +360,70 @@ function echoLang($langSQLRes)
 
 					return $cfg;
 				}
-				function nSec($nombre , $visible , $orden)
+				function nSec($nombre , $visible , $orden , $tipo , $valor)
 				{
 					global $con;
 					//A futuro: Generar IDs únicos cuando $nombre esté vacio.
 					$dom='insert into Opciones (Dominio , Tipo , Valor) values ("edetec.seccion.'.$nombre;
 
-					$con->query($dom.'" , 0 , NULL)');
+					$con->query($dom.'" , '.$tipo.' , "'.$valor.'")');
 					$con->query($dom.'.css_id" , 0 , "'.$nombre.'")');
 					$con->query($dom.'.visible" , 0 , "'.$visible.'")');
 					$con->query($dom.'.orden" , 0 , "'.$orden.'")');
 /*
-					echo '<h2>'.$dom.'" , 0 , NULL)'.'</h2>';
+					echo '<h2>'.$dom.'" , '.$tipo.' , "'.$valor.'")'.'</h2>';
 					echo '<h2>'.$dom.'.css_id" , 0 , "'.$nombre.'")'.'</h2>';
 					echo '<h2>'.$dom.'.visible" , 0 , "'.$visible.'")'.'</h2>';
 					echo '<h2>'.$dom.'.orden" , 0 , "'.$orden.'")'.'</h2>';
 */
 				}
 
-				
-				if(isset($_POST['form']))
-				{
-					echo '<pre>';
-					print_r($_POST['form'])	;
-					echo '</pre>';
-				}
 				if(isset($_SESSION['adminID']))
 				{
 					if(isset($_POST['form']) && $_POST['form']=='accionesSec' && isset($_POST['elimina']))
 					{
+						$contenidos=$con->query('select Valor from Opciones where Dominio like "edetec.seccion.'.$_POST['secID'].'.inc%" and Tipo=2');
+
+						$contenidos=$contenidos->fetch_all(MYSQLI_NUM);
+						$cMax=count($contenidos);
+						for($c=0;$c<$cMax;$c++)
+						{
+							$con->query('delete from Contenido where ID='.$contenidos[$c][0]);
+						}
+
 						$con->query('delete from Opciones where Dominio like "edetec.seccion.'.$_POST['secID'].'.%"');
 						$con->query('delete from Opciones where Dominio like "edetec.seccion.'.$_POST['secID'].'"');
 					}
-					if(isset($_POST['nSec']))
+
+					if(isset($_POST['nSec']) || isset($_POST['nCon']))
 					{
 						//Buscar en el futuro la forma de no repetir este código:
+						$inc='';
+						$tipo=0;
+						$valor=NULL;
 
-						$Opciones=$con->query('select * from Opciones where Dominio like "edetec.seccion%"');
+						if(isset($_POST['secID']))
+						{
+							if(isset($_POST['Descripcion']))
+							{
+								$valor=htmlentities($_POST['Descripcion'][0]);
+
+								$con->query('insert into Contenido (Contenido , Lenguaje) values ("'.$valor.'" , '.$_POST['Lenguaje'][0].')');
+
+								$valor=$con->insert_id;
+
+								$tipo=2;
+							}
+							else
+							{
+								$valor=$_POST['Archivo'][0];
+								$tipo=1;
+							}
+
+							$inc=$_POST['secID'].'.inc.';
+						}
+
+						$Opciones=$con->query('select * from Opciones where Dominio like "edetec.seccion.'.$inc.'%"');
 
 						$lugar=$_POST['Lugar'];
 
@@ -384,6 +437,12 @@ function echoLang($langSQLRes)
 							$cfg=sqlResToCfg($Opciones);
 
 							$secciones=$cfg['edetec']['seccion'];
+
+							if($tipo)
+							{
+								$secciones=$secciones[$_POST['secID']]['inc'];
+							}
+
 							$orden=ordIncludes($secciones);
 
 							$oMax=count($orden);
@@ -407,7 +466,7 @@ function echoLang($langSQLRes)
 
 									$con->query($consulta);
 
-									echo '<h2>'.$consulta.'</h2>';
+									//echo '<h2>'.$consulta.'</h2>';
 
 									++$j;
 								}
@@ -416,7 +475,7 @@ function echoLang($langSQLRes)
 							}
 						}
 
-						nSec($_POST['Identificador'][0] , $_POST['Visible'][0] , $nOrden);
+						nSec($inc.$_POST['Identificador'][0] , $_POST['Visible'][0] , $nOrden , $tipo , $valor);
 					}
 				}
 

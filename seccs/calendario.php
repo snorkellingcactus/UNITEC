@@ -23,7 +23,7 @@ if(session_status()==PHP_SESSION_NONE)
 }
 ?>
 <!--	:::::::::Calendario:::::::::	-->
-<section class='calendario' id='cal'>
+<div class='calendario' id='cal'>
 	<h1 class="titulo hidden-xs"> Calendario de Eventos </h1>
 	<h1 class="subtitulo visible-xs"> Calendario de Eventos </h1>
 	<h1 class='titulo'>
@@ -279,4 +279,4 @@ if(session_status()==PHP_SESSION_NONE)
 				?>
 				</ul>
 			</div>
-</section>
+</div>

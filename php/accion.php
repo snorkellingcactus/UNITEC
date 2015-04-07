@@ -131,6 +131,64 @@ if(isset($_SESSION['adminID']))
 					]
 				];
 			break;
+			case 'accionesCon':
+				$includes=
+				[
+					'../forms/forms.css',
+					'//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js',
+					'http://cdn.wysibb.com/js/jquery.wysibb.min.js',
+					'http://cdn.wysibb.com/css/default/wbbtheme.css',
+					'../js/wysibbInc.js'
+				];
+				$ancla='#nCon';
+				$action='../index.php';
+				$for='nCon';
+				$labels=
+				[
+					[
+						'text',
+						'Identificador'
+					],
+					[
+						'orden',
+						'Lugar'
+					],
+					[
+						'SiNo',
+						'Visible'
+					],
+					[
+						'post',
+						'secID'
+					]
+				];
+
+
+				if($_POST['Tipo']==='con')
+				{
+					$lMax=count($labels);
+
+					$labels[$lMax]=
+					[
+						'langs',
+						'Lenguaje'
+					];
+
+					$labels[$lMax+1]=
+					[
+						'editor',
+						'Contenido'
+					];
+				}
+				else
+				{
+					$labels[count($labels)]=
+					[
+						'text',
+						'Archivo'
+					];
+				}
+			break;
 		}
 		include ('../forms/nuevo.php');
 	}

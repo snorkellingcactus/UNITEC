@@ -67,3 +67,6 @@ input:hover , textarea:hover ,select:hover, input:focus , textarea:focus
 select.orden{height:auto;margin-bottom:20px;}
 select.orden option{height:2em;text-align:center;background-color:#F0F8FF;}
 select.orden .lleno{cursor:default;pointer-events:none;background-color:silver;}
+
+section form.nCon{float:right;}
+section form.accionesSec{float:left;}

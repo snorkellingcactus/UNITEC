@@ -12,8 +12,6 @@ Por bootstrap, que le da a las imágenes 15px de padding.
 .novedad table{border:1px solid gray;}
 .novedad iframe{position:static;}
 .novedad .fecha{text-align:right;color:dimgray;clear:both;margin-top:1em}
-.novedad span.center{display:block;width:100%;text-align:center;}
-.novedad font.through{text-decoration:line-through;}
 .novID{float:right;}
 
 .novedad input[type="checkbox"]{position:absolute;right:0;top:0}
