@@ -77,6 +77,7 @@ function echoLang($langSQLRes)
 			<a href="./inicio_sesion.php">Iniciar Sesión</a>
 			<div class="idioma">
 			<?php
+				global $afectado;
 				include_once('php/conexion.php');
 
 				$consulta=$con->query
@@ -233,17 +234,19 @@ function echoLang($langSQLRes)
 				}
 
 				//Devuelve el contenido al pasarle su ID.
-				function getCont($contID)
+				function getCont($contID , &$id)
 				{
 					global $con;
 
-					$contenido=$con->query('select Contenido from Contenido where ID='.$contID);
+					$contenido=$con->query('select Contenido,ID from Contenido where ID='.$contID);
 
 					if($contenido)
 					{
-						$contenido=$contenido->fetch_all(MYSQLI_NUM)[0][0];
+						$contenido=$contenido->fetch_all(MYSQLI_NUM)[0];
 
-						return $contenido;
+						$id=$contenido[1];
+
+						return $contenido[0];
 					}
 
 					return '';
@@ -296,7 +299,16 @@ function echoLang($langSQLRes)
 								case '0':
 									if(isset($incAct['css_id']['Valor']))
 									{
-										$id=$incAct['css_id']['Valor']
+										$id=$incAct['css_id']['Valor'];
+
+										global $afectado;
+
+										if(isset($_POST['nSec']) && $afectado==$incAct['ID'])
+										{
+											?>
+												<span id="nSec"></span>
+											<?
+										}
 										?>
 											<section id="<?php echo $id?>">
 											<?php
@@ -314,7 +326,14 @@ function echoLang($langSQLRes)
 									}
 								break;
 								case '1':
-									global $con;
+									global $con,$afectado;
+
+									if($afectado===$valor)
+									{
+										?>
+											<span id="nCon"></span>
+										<?
+									}
 									include($valor);
 									?>
 										<input type="hidden" name="lleno[]" value="<?php echo $i?>" form="nCon<?php echo $padre['ID'] ?>">
@@ -327,10 +346,22 @@ function echoLang($langSQLRes)
 				
 									include('php/parser_definiciones.php');
 
-									$parser->parse(getCont($valor));
+									$id=0;
+									$parser->parse(getCont($valor ,$id));
+
+									global $afectado;
+
+									if(isset($_POST['nCon']) && $afectado==$id)
+									{
+										$id='id="nCon"';
+									}
+									else
+									{
+										$id='';
+									}
 
 									?>
-										<div class="contenido">
+										<div class="contenido" <?php echo $id?> >
 										<?php
 											echo $parser->getAsHtml();
 										?>
@@ -362,14 +393,25 @@ function echoLang($langSQLRes)
 				}
 				function nSec($nombre , $visible , $orden , $tipo , $valor)
 				{
-					global $con;
+					global $con , $afectado;
 					//A futuro: Generar IDs únicos cuando $nombre esté vacio.
 					$dom='insert into Opciones (Dominio , Tipo , Valor) values ("edetec.seccion.'.$nombre;
 
 					$con->query($dom.'" , '.$tipo.' , "'.$valor.'")');
+					$id=$con->insert_id;
+
 					$con->query($dom.'.css_id" , 0 , "'.$nombre.'")');
 					$con->query($dom.'.visible" , 0 , "'.$visible.'")');
 					$con->query($dom.'.orden" , 0 , "'.$orden.'")');
+
+					if($tipo===0)
+					{
+						$afectado=$id;
+					}
+					if($tipo===1)
+					{
+						$afectado=$valor;
+					}
 /*
 					echo '<h2>'.$dom.'" , '.$tipo.' , "'.$valor.'")'.'</h2>';
 					echo '<h2>'.$dom.'.css_id" , 0 , "'.$nombre.'")'.'</h2>';
@@ -410,7 +452,9 @@ function echoLang($langSQLRes)
 
 								$con->query('insert into Contenido (Contenido , Lenguaje) values ("'.$valor.'" , '.$_POST['Lenguaje'][0].')');
 
-								$valor=$con->insert_id;
+								global $afectado;
+
+								$afectado=$valor=$con->insert_id;
 
 								$tipo=2;
 							}
@@ -487,6 +531,7 @@ function echoLang($langSQLRes)
 					$cfg=sqlResToCfg($Opciones);
 
 					$secciones=$cfg['edetec']['seccion'];
+
 					$orden=ordIncludes($secciones);
 
 					incluye($secciones , $orden);

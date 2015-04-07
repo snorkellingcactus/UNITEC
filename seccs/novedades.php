@@ -1,5 +1,4 @@
-<section id='nov'>
-	<h1 class="titulo">Novedades</h1>
+<div class="novedades">
 	<?php
 		//::::::::::Variables de Sesion::::::::::::::
 		if(session_status()==PHP_SESSION_NONE)
@@ -197,4 +196,4 @@
 		echo $buff;
      
 	?>
-</section>
+</div>
