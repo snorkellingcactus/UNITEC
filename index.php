@@ -303,7 +303,7 @@ function echoLang($langSQLRes)
 
 										global $afectado;
 
-										if(isset($_POST['nSec']) && $afectado==$incAct['ID'])
+										if(isset($_SESSION['adminID'])&&isset($_POST['nSec']) && $afectado==$incAct['ID'])
 										{
 											?>
 												<span id="nSec"></span>
@@ -311,9 +311,14 @@ function echoLang($langSQLRes)
 										}
 										?>
 											<section id="<?php echo $id?>">
+
+											<div class="clearfix">
 											<?php
 												include('forms/seccion.php');
 												include('esq/nCon.php');
+											?>
+											</div>
+											<?php
 
 												if(isset($incAct['inc']))
 												{
