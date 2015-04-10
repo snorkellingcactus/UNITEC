@@ -19,7 +19,7 @@ if(isset($_SESSION['adminID']))
 		$fId='class="sinId"';
 	}
 	?>
-		<form <?php echo $fId ?> method="POST" action="php/accion.php" target="_blank">
+		<form <?php echo $fId ?> method="POST" action="php/accion.php">
 		<input type="hidden" name="form" value="<?php echo 'acciones'.$fNom ?>" >
 		<p class="acciones">Acciones:
 			<?php

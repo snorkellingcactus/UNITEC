@@ -42,7 +42,7 @@
 			for($i=0;$i<$iMax;$i++)
 			{
 				$grupo=$con->query('select ifnull(max(Grupo),0) as Grupo from Contenido');
-				$grupo=$grupo->fetch_all(MYSQLI_ASSOC)[0]['Grupo']+1;
+				$grupo=$grupo->fetch_all(MYSQLI_NUM)[0][0]+1;
 
 				$titulo=new Contenido
 				(

@@ -1,0 +1,28 @@
+<?php
+	$includes=
+	[
+		'../forms/forms.css'
+	];
+	$ancla='#cal';
+	$action='../index.php';
+	$for='nEvt';
+	$labels=
+	[
+		[
+			'selector_fecha.php',
+			'Fecha'
+		],
+		[
+			'input_text.php',
+			'Titulo'
+		],
+		[
+			'input_text.php',
+			'Descripcion'
+		],
+		[
+			'selector_lenguaje.php',
+			'Lenguaje'
+		]
+	];
+?>

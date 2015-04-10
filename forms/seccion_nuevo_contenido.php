@@ -6,7 +6,7 @@
 	if(isset($_SESSION['adminID']))
 	{
 		?>
-			<form class="nCon" id="nCon<?php echo $incAct['ID'] ?>" action="php/accion.php" method="POST" target="_blank">
+			<form class="nCon" id="nCon<?php echo $incAct['ID'] ?>" action="php/accion.php" method="POST">
 			<input type="hidden" name="form" value="accionesCon">
 			<input type="hidden" name="secID" value="<?php echo $incAct['css_id']['Valor'] ?>">
 

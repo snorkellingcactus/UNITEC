@@ -1,196 +1,127 @@
 <?php
+//Incluyo los tags <link> y <script> según un array con rutas de archivos.
+function head_includes($includes)
+{
+	$iMax=count($includes);
+	for($i=0;$i<$iMax;$i++)
+	{
+		$str=$includes[$i];
+		$pos=strrpos( $str , '.');
+
+		if($pos)
+		{
+			$tipo=substr($str , $pos+1);
+
+			switch($tipo)
+			{
+				case 'css':
+				?>
+					<link rel="stylesheet" type="text/css" href="<?php echo $str?>" />
+				<?
+				break;
+				case 'js':
+				?>
+					<script type="text/javascript" src="<?php echo $str ?>"></script>
+				<?php
+			}
+		}
+	}
+
+	unset($iMax , $pos , $tipo , $str);
+}
+//Construyo el formulario con la configuración dada y lo devuelvo como string.
+function crea_form($labels)
+{
+	$lMax=count($labels);
+
+	$buff='';
+	for($l=0;$l<$lMax;$l++)
+	{
+		$labelAct=$labels[$l];
+
+		$tipo=$labelAct[0];
+		$labelName=$labelAct[1];
+
+		ob_start();
+		
+		?>
+			<p class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+				<label for="<?php echo $labelName ?>"><?php echo $labelName ?>:</label>
+			</p>
+
+			<?php include('../forms/'.$tipo); ?>
+
+			<div class="clearfix"></div>
+
+		<?php
+
+		$buff=$buff.ob_get_contents();
+		ob_end_clean();
+	}
+
+	unset($l , $labelName , $labelAct , $labels);
+
+	return $buff;
+}
 if(session_status()===PHP_SESSION_NONE)
 {
 	session_start();
 }
 if(isset($_SESSION['adminID']))
 {
+	$_SESSION['cantidad']=1;
+
 	if(isset($_POST['cantidad']))
 	{
 		$_SESSION['cantidad']=$_POST['cantidad'];
 	}
-	else
+	
+	if( isset($_POST['nuevas'])	&& isset($_POST['form']) )
 	{
-		$_SESSION['cantidad']=1;
-	}
-	//echo '<h2><font color="white">'.$fId.'</font></h2>';
-	if
-	(
-		isset($_POST['nuevas'])	&&
-		isset($_POST['form'])
-	)
-	{
-		switch($_POST['form'])
-		{
-			case 'accionesGal':
-				$includes=['../forms/forms.css'];
-				$ancla='#gal';
-				$action='../index.php';
-				$for='nImg';
-				$labels=
-				[
-					[
-						'text',
-						'Titulo'
-					],
-					[
-						'text',
-						'Url'
-					],
-					[
-						'text',
-						'Alt'
-					],
-					[
-						'langs',
-						'Lenguaje'
-					],
-					[
-						'text',
-						'Comentario'
-					]
-				];
-			break;
-			case 'accionesNov':
-				$includes=
-				[
-					'../forms/forms.css',
-					'//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js',
-					'http://cdn.wysibb.com/js/jquery.wysibb.min.js',
-					'http://cdn.wysibb.com/css/default/wbbtheme.css',
-					'../js/wysibbInc.js'
-				];
-				$ancla='#nov';
-				$action='../index.php';
-				$for='nNov';
-				$labels=
-				[
-					[
-						'text',
-						'Titulo'
-					],
-					[
-						'editor',
-						'Descripcion'
-					],
-					[
-						'imgs',
-						'Imagen'
-					]
-				];
-			break;
-			case 'accionesCal':
-				$includes=
-				[
-					'../forms/forms.css'
-				];
-				$ancla='#cal';
-				$action='../index.php';
-				$for='nEvt';
-				$labels=
-				[
-					[
-						'date',
-						'Fecha'
-					],
-					[
-						'text',
-						'Titulo'
-					],
-					[
-						'text',
-						'Descripcion'
-					],
-					[
-						'langs',
-						'Lenguaje'
-					]
-				];
-			break;
-			case 'accionesSec':
-				$includes=
-				[
-					'../forms/forms.css'
-				];
-				$ancla='#nSec';
-				$action='../index.php';
-				$for='nSec';
-				$labels=
-				[
-					[
-						'text',
-						'Identificador'
-					],
-					[
-						'orden',
-						'Lugar'
-					],
-					[
-						'SiNo',
-						'Visible'
-					]
-				];
-			break;
-			case 'accionesCon':
-				$includes=
-				[
-					'../forms/forms.css',
-					'//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js',
-					'http://cdn.wysibb.com/js/jquery.wysibb.min.js',
-					'http://cdn.wysibb.com/css/default/wbbtheme.css',
-					'../js/wysibbInc.js'
-				];
-				$ancla='#nCon';
-				$action='../index.php';
-				$for='nCon';
-				$labels=
-				[
-					[
-						'text',
-						'Identificador'
-					],
-					[
-						'orden',
-						'Lugar'
-					],
-					[
-						'SiNo',
-						'Visible'
-					],
-					[
-						'post',
-						'secID'
-					]
-				];
+		//Incluyo la configuración del formulario en cuestión.
+		include ('../forms/config/'.$_POST['form'].'.php');
 
+		//Url de acción con caché para recargar el destino.
+		$url=$action.'?cache='.$_SESSION['cache'].$ancla;
+		?>
+			<html>
+				<head>
+					<meta charset="utf-8" />
 
-				if($_POST['Tipo']==='con')
-				{
-					$lMax=count($labels);
+					<!--::::::Includes comunes a todos los formularios::::::-->
+					<link rel="stylesheet" type="text/css" href="../bootstrap.min.css" />
+					<link rel="stylesheet" type="text/css" href="../seccs/visor.css" />
+					<link rel="stylesheet" type="text/css" href="../forms/forms.css" />
 
-					$labels[$lMax]=
-					[
-						'langs',
-						'Lenguaje'
-					];
+					<!--::::::Includes variables pasados por parametro::::::-->
+					<?php head_includes($includes) ?>
 
-					$labels[$lMax+1]=
-					[
-						'editor',
-						'Contenido'
-					];
-				}
-				else
-				{
-					$labels[count($labels)]=
-					[
-						'text',
-						'Archivo'
-					];
-				}
-			break;
-		}
-		include ('../forms/nuevo.php');
+				</head>
+				<body>
+						<form method="POST" class="tresem nuevo" action="<?php echo $url ?>">
+						<?php
+
+							$buff=crea_form($labels);
+
+							$iMax=$_SESSION['cantidad'];
+							for($i=0;$i<$iMax;$i++)
+							{
+								echo $buff;
+
+								?>
+									<div class="clearfix fin"></div>
+								<?php
+							}
+
+							unset($_SESSION['cantidad'] , $i , $iMax);
+
+						?>
+						<input type="submit" class="col-xs-12 col-sm-12 col-md-12 col-lg-12" name='<?php echo $for ?>' value="Aceptar">
+					</form>
+					<div class="clearfix"></div>
+				</body>
+			</html>
+		<?php
 	}
 }
 ?>

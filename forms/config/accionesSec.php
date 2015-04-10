@@ -1,0 +1,24 @@
+<?php
+	$includes=
+	[
+		'../forms/forms.css'
+	];
+	$ancla='#nSec';
+	$action='../index.php';
+	$for='nSec';
+	$labels=
+	[
+		[
+			'input_text.php',
+			'Identificador'
+		],
+		[
+			'selector_orden.php',
+			'Lugar'
+		],
+		[
+			'selector_si_no.php',
+			'Visible'
+		]
+	];
+?>

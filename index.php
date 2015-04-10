@@ -293,6 +293,13 @@ function echoLang($langSQLRes)
 							$tipo=$incAct['Tipo'];
 							$valor=$incAct['Valor'];
 
+							$clase='';
+
+							if($visible==='0')
+							{
+								$clase='oculta';
+							}
+
 							switch($tipo)
 							{
 								case '0':
@@ -302,8 +309,6 @@ function echoLang($langSQLRes)
 
 										global $afectado;
 
-										$clase='';
-
 										if(isset($_SESSION['adminID']))
 										{
 											if(isset($_POST['nSec']) && $afectado==$incAct['ID'])
@@ -312,10 +317,10 @@ function echoLang($langSQLRes)
 													<span id="nSec"></span>
 												<?php
 											}
-											if($visible==='0')
-											{
-												$clase=' class="oculta"';
-											}
+										}
+										if($visible==='0')
+										{
+											$clase='class="oculta"';
 										}
 										?>
 											<section id="<?php echo $id?>" <?php echo $clase?>>
@@ -341,6 +346,13 @@ function echoLang($langSQLRes)
 								case '1':
 									global $con,$afectado;
 
+									if($visible==='0')
+									{
+										?>
+											<span class="oculta">
+										<?php
+									}
+
 									include('forms/elimina_dominio.php');
 
 									if(isset($_SESSION['adminID']) && $afectado===$valor)
@@ -350,6 +362,12 @@ function echoLang($langSQLRes)
 										<?php
 									}
 									include($valor);
+									if($visible==='0')
+									{
+										?>
+											</span>
+										<?php
+									}
 									?>
 										<input type="hidden" name="lleno[]" value="<?php echo $i?>" form="nCon<?php echo $padre['ID'] ?>">
 									<?php
@@ -377,7 +395,7 @@ function echoLang($langSQLRes)
 									}
 
 									?>
-										<div class="contenido" <?php echo $id?> >
+										<div class="contenido <?php echo $clase?>" <?php echo $id?> >
 										<?php
 											echo $parser->getAsHtml();
 										?>
