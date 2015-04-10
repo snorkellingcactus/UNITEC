@@ -1,8 +1,1 @@
 .gitignore
-*~
-*.webprj
-
-msg
-*.session
-*.sublime*
-*.tmTheme

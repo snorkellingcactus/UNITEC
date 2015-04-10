@@ -1,9 +1,0 @@
-{
-	"folders":
-	[
-		{
-			"path": "/opt/lampp/htdocs/Web/Pasantía/edetec",
-			"file_exclude_patterns":["*~","*sublime-project","*sublime-workspace","*.session","*.webprj",".gitignore"]
-		}
-	]
-}
