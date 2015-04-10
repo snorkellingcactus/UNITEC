@@ -11,7 +11,7 @@ if(isset($_SESSION['adminID']))
 	$usuario=$usuario->fetch_all(MYSQLI_ASSOC)[0];
 ?>
 
-<div class 'panelAdmin'>
+<div class="panelAdmin">
 	<script type="text/javascript" src="js/Caja.js"></script>
 	<script type="text/javascript" src="js/Diag.js"></script>
 	<script type="text/javascript" src="js/XMLObj.js"></script>
@@ -62,7 +62,7 @@ if(isset($_SESSION['adminID']))
 	panel.xmlObj.conf({handler:actPanel});
 	panel.xmlObj.envia();
 
-	document.body.appendChild(panel.diag.caja('panel').doc);
+	document.getElementsByTagName('main')[0].appendChild(panel.diag.caja('panel').doc);
 
 	</script>
 	<h1>Bienvenido <?php echo $usuario['Nombre'] ?></h1>

@@ -1,9 +1,13 @@
 *{margin:0px;padding:0px;border:0px;line-height:1.41;}	/*	Reseteo estilos	*/
 html , body
 {
-	min-width:100%;
-	min-height:150%;
+	height:100%;
 	background: #00D0D0;
+	font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
+	overflow: auto
+}
+body
+{
 	background: linear-gradient(to top left ,#00D0D0, #9BA3FF);
 	background: -webkit-linear-gradient(to top left, #00D0D0 0%, #9BA3FF 100%);
 	background: -moz-linear-gradient(to top left, #00D0D0 0%, #9BA3FF 100%);
@@ -11,7 +15,6 @@ html , body
 	background: -ms-linear-gradient(to top left, #00D0D0 0%, #9BA3FF 100%);
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00D0D0', endColorstr='#9BA3FF',GradientType=0 ); /* IE6-9 */
 	background-repeat:no-repeat;
-	font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
 }
 a
 {
@@ -111,9 +114,10 @@ section, .seccion
 {
 	font-size:3em
 }
-main
+main.col-lg-10,main.col-md-10,main.col-sm-10,main.col-xs-12
 {
 	padding-top:1%;
+	min-height: 100%
 }
 .atajo
 {
