@@ -91,9 +91,4 @@
 	);
 	//Genero el código HTML de la galería.
 	echo $Gal->gen();
-
-	if($modoAdmin)
-	{
-		
-	}
 ?>
