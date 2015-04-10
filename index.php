@@ -293,8 +293,6 @@ function echoLang($langSQLRes)
 							$tipo=$incAct['Tipo'];
 							$valor=$incAct['Valor'];
 
-
-
 							switch($tipo)
 							{
 								case '0':
@@ -312,7 +310,7 @@ function echoLang($langSQLRes)
 											{
 												?>
 													<span id="nSec"></span>
-												<?
+												<?php
 											}
 											if($visible==='0')
 											{
@@ -324,8 +322,8 @@ function echoLang($langSQLRes)
 
 											<div class="clearfix">
 											<?php
-												include('forms/seccion.php');
-												include('esq/nCon.php');
+												include('forms/elimina_dominio.php');
+												include('forms/seccion_nuevo_contenido.php');
 											?>
 											</div>
 											<?php
@@ -343,11 +341,13 @@ function echoLang($langSQLRes)
 								case '1':
 									global $con,$afectado;
 
-									if($afectado===$valor)
+									include('forms/elimina_dominio.php');
+
+									if(isset($_SESSION['adminID']) && $afectado===$valor)
 									{
 										?>
 											<span id="nCon"></span>
-										<?
+										<?php
 									}
 									include($valor);
 									?>
@@ -366,6 +366,7 @@ function echoLang($langSQLRes)
 
 									global $afectado;
 
+									include('forms/elimina_dominio.php');
 									if(isset($_POST['nCon']) && $afectado==$id)
 									{
 										$id='id="nCon"';
@@ -437,7 +438,7 @@ function echoLang($langSQLRes)
 
 				if(isset($_SESSION['adminID']))
 				{
-					if(isset($_POST['form']) && $_POST['form']=='accionesSec' && isset($_POST['elimina']))
+					if(isset($_POST['secID']) && isset($_POST['elimina']))
 					{
 						$contenidos=$con->query('select Valor from Opciones where Dominio like "edetec.seccion.'.$_POST['secID'].'.inc%" and Tipo=2');
 
@@ -450,6 +451,21 @@ function echoLang($langSQLRes)
 
 						$con->query('delete from Opciones where Dominio like "edetec.seccion.'.$_POST['secID'].'.%"');
 						$con->query('delete from Opciones where Dominio like "edetec.seccion.'.$_POST['secID'].'"');
+					}
+					if(isset($_POST['conID']) && isset($_POST['elimina']))
+					{
+						$dom=$con->query('select Dominio from Opciones where Valor="'.$_POST['conID'].'"');
+						$dom=$dom->fetch_all(MYSQLI_NUM)[0][0];
+
+						$con->query('delete from Opciones where Dominio like "'.$dom.'"');
+						$con->query('delete from Opciones where Dominio like "'.$dom.'.%"');
+/*
+						echo '<pre>';
+						echo 'delete from Opciones where Dominio like "'.$dom.'"';
+						echo '<br>';
+						echo 'delete from Opciones where Dominio like "'.$dom.'.%"';
+						echo '</pre>';
+*/
 					}
 
 					if(isset($_POST['nSec']) || isset($_POST['nCon']))
