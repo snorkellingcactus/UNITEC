@@ -281,8 +281,9 @@ function echoLang($langSQLRes)
 						}
 
 						$incAct=$orden[$j];
+						$visible=$incAct['visible']['Valor'];
 
-						if($incAct['visible']['Valor']==='1')
+						if($visible==='1' || isset($_SESSION['adminID']))
 						{
 							/*
 							echo '<pre>';
@@ -303,14 +304,23 @@ function echoLang($langSQLRes)
 
 										global $afectado;
 
-										if(isset($_SESSION['adminID'])&&isset($_POST['nSec']) && $afectado==$incAct['ID'])
+										$clase='';
+
+										if(isset($_SESSION['adminID']))
 										{
-											?>
-												<span id="nSec"></span>
-											<?
+											if(isset($_POST['nSec']) && $afectado==$incAct['ID'])
+											{
+												?>
+													<span id="nSec"></span>
+												<?
+											}
+											if($visible==='0')
+											{
+												$clase=' class="oculta"';
+											}
 										}
 										?>
-											<section id="<?php echo $id?>">
+											<section id="<?php echo $id?>" <?php echo $clase?>>
 
 											<div class="clearfix">
 											<?php

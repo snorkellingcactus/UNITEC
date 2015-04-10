@@ -102,7 +102,11 @@ section, .seccion
 	margin-bottom:5%;
 	overflow:hidden;
 }
-
+section.oculta
+{
+	visibility:visible;
+	opacity:0.7;
+}
 .titulo , .subtitulo
 {
 	text-align:center;
