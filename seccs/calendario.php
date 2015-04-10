@@ -59,7 +59,7 @@ if(session_status()==PHP_SESSION_NONE)
 					for($i=0;$i<$cantidad;$i++)
 					{
 						$grupo=$con->query('select ifnull(max(Grupo),0) as Grupo from Contenido');
-						$grupo=$grupo->fetch_all(MYSQLI_ASSOC)[0]['Grupo']+1;
+						$grupo=fetch_all($grupo , MYSQLI_ASSOC)[0]['Grupo']+1;
 
 						$descripcion=new Contenido
 						(
@@ -145,7 +145,7 @@ if(session_status()==PHP_SESSION_NONE)
 
 			$eventos=$con->query($consulta.' order by Tiempo asc');
 			
-			$eventos=$eventos->fetch_all(MYSQLI_ASSOC);
+			$eventos=fetch_all($eventos , MYSQLI_ASSOC);
 
 			$cantEventos=count($eventos);
 
@@ -173,7 +173,7 @@ if(session_status()==PHP_SESSION_NONE)
 						LIMIT 1
 						'
 					);
-					$evtAct['Descripcion']=$evtAct['Descripcion']->fetch_all(MYSQLI_NUM)[0][0];
+					$evtAct['Descripcion']=fetch_all($evtAct['Descripcion'] , MYSQLI_NUM)[0][0];
 
 					//Simulación de eventos.
 					$CalCfg->adEvento

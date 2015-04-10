@@ -54,7 +54,7 @@ function GenCom($conRes , $con)
 
 	$conRes=$con->query('select Contenido from Contenido where ID='.$conRes['Contenido']);
 
-	$props['Contenido']=$conRes->fetch_all(MYSQLI_ASSOC)[0]['Contenido'];
+	$props['Contenido']=fetch_all($conRes , MYSQLI_ASSOC)[0]['Contenido'];
 
 	$conRes=new Coment
 	(
@@ -103,7 +103,7 @@ function GenComLst($consulta , $con)
 					.$consulta[$i]['ID']
 				);
 
-				$subCons=$subCons->fetch_all(MYSQLI_ASSOC);
+				$subCons=fetch_all($subCons , MYSQLI_ASSOC);
 
 				$nCom=GenComLst
 				(
@@ -126,7 +126,7 @@ function GenComLst($consulta , $con)
 function GenComGrp($GrupoID , $con)
 {
 	$consulta=$con->query('select * from Comentarios where GrupoID='.$GrupoID.' and GrupoRes is NULL');
-	$consulta=$consulta->fetch_all(MYSQLI_ASSOC);
+	$consulta=fetch_all($consulta , MYSQLI_ASSOC);
 
 	return GenComLst($consulta , $con);
 }

@@ -90,7 +90,7 @@ function echoLang($langSQLRes)
 					'
 				);
 
-				$consulta=$consulta->fetch_all(MYSQLI_ASSOC);
+				$consulta=fetch_all($consulta , MYSQLI_ASSOC);
 
 				$defLang=array_shift($consulta);
 
@@ -242,7 +242,7 @@ function echoLang($langSQLRes)
 
 					if($contenido)
 					{
-						$contenido=$contenido->fetch_all(MYSQLI_NUM)[0];
+						$contenido=fetch_all($contenido , MYSQLI_NUM)[0];
 
 						$id=$contenido[1];
 
@@ -412,7 +412,7 @@ function echoLang($langSQLRes)
 				}
 				function sqlResToCfg($sqlRes)
 				{
-					$sqlRes=$sqlRes->fetch_all(MYSQLI_ASSOC);
+					$sqlRes=fetch_all($sqlRes , MYSQLI_ASSOC);
 
 					$iMax=count($sqlRes);
 
@@ -460,7 +460,7 @@ function echoLang($langSQLRes)
 					{
 						$contenidos=$con->query('select Valor from Opciones where Dominio like "edetec.seccion.'.$_POST['secID'].'.inc%" and Tipo=2');
 
-						$contenidos=$contenidos->fetch_all(MYSQLI_NUM);
+						$contenidos=fetch_all($contenidos , MYSQLI_NUM);
 						$cMax=count($contenidos);
 						for($c=0;$c<$cMax;$c++)
 						{
@@ -473,7 +473,7 @@ function echoLang($langSQLRes)
 					if(isset($_POST['conID']) && isset($_POST['elimina']))
 					{
 						$dom=$con->query('select Dominio from Opciones where Valor="'.$_POST['conID'].'"');
-						$dom=$dom->fetch_all(MYSQLI_NUM)[0][0];
+						$dom=fetch_all($dom , MYSQLI_NUM)[0][0];
 
 						$con->query('delete from Opciones where Dominio like "'.$dom.'"');
 						$con->query('delete from Opciones where Dominio like "'.$dom.'.%"');

@@ -42,7 +42,7 @@
 			for($i=0;$i<$iMax;$i++)
 			{
 				$grupo=$con->query('select ifnull(max(Grupo),0) as Grupo from Contenido');
-				$grupo=$grupo->fetch_all(MYSQLI_NUM)[0][0]+1;
+				$grupo=fetch_all($grupo , MYSQLI_NUM)[0][0]+1;
 
 				$titulo=new Contenido
 				(
@@ -55,7 +55,7 @@
 				$titulo->insSQL();
 
 				$grupo=$con->query('select ifnull(max(Grupo),0) as Grupo from Contenido');
-				$grupo=$grupo->fetch_all(MYSQLI_ASSOC)[0]['Grupo']+1;
+				$grupo=fetch_all($grupo , MYSQLI_ASSOC)[0]['Grupo']+1;
 
 				$descripcion=new Contenido
 				(
@@ -92,7 +92,7 @@
 				for($i=0;$i<$iMax;$i++)
 				{
 					$contenidos=$con->query('select Titulo , Descripcion from Novedades where ID='.$_POST['novID'][$i]);
-					$contenidos=$contenidos->fetch_all(MYSQLI_ASSOC)[0];
+					$contenidos=fetch_all($contenidos , MYSQLI_ASSOC)[0];
 
 					$con->query('delete from Novedades where ID='.$_POST['novID'][$i]);
 					$con->query('delete from Contenido where Grupo='.$contenidos['Titulo'].' or Grupo='.$contenidos['Descripcion']);
@@ -103,7 +103,7 @@
 		include_once 'php/conexion.php';
 
 		$novedades=$con->query('select * from Novedades order by Fecha desc');
-		$novedades=$novedades->fetch_all(MYSQLI_ASSOC);
+		$novedades=fetch_all($novedades , MYSQLI_ASSOC);
 
 		$cantidad=count($novedades);
 		$buff='';
@@ -128,7 +128,7 @@
 				$imagen=$con->query('select Url from Imagenes where ID='.$novAct['Imagen']);
 				if($imagen)
 				{
-					$imagen=$imagen->fetch_all(MYSQLI_ASSOC)[0]['Url'];
+					$imagen=fetch_all($imagen , MYSQLI_ASSOC)[0]['Url'];
 				}
 				else
 				{
@@ -166,8 +166,8 @@
 					'
 				);
 
-				$descripcion=$descripcion->fetch_all(MYSQLI_ASSOC)[0]['Contenido'];
-				$titulo=$titulo->fetch_all(MYSQLI_ASSOC)[0]['Contenido'];
+				$descripcion=fetch_all($descripcion , MYSQLI_ASSOC)[0]['Contenido'];
+				$titulo=fetch_all($titulo , MYSQLI_ASSOC)[0]['Contenido'];
 
 				$parser=new JBBCode\Parser();
 				

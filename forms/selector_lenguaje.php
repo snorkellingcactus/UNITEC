@@ -3,7 +3,7 @@
 		include_once('../php/conexion.php');
 
 		$consulta=$con->query('select * from Lenguajes');
-		$consulta=$consulta->fetch_all(MYSQLI_ASSOC);
+		$consulta=fetch_all($consulta , MYSQLI_ASSOC);
 
 		$jMax=count($consulta);
 

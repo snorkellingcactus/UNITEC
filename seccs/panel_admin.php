@@ -8,7 +8,7 @@ if(isset($_SESSION['adminID']))
 	include_once 'php/SQL_DOM.php';
 
 	$usuario=$con->query('select * from Usuarios where ID='.$_SESSION['adminID']);
-	$usuario=$usuario->fetch_all(MYSQLI_ASSOC)[0];
+	$usuario=fetch_all($usuario , MYSQLI_ASSOC)[0];
 ?>
 
 <div class="panelAdmin">

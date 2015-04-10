@@ -59,7 +59,7 @@
 					//Operaciones a realizar si se obtuvo.
 					if($con->affected_rows>0)
 					{
-						$usuario=$usuario->fetch_all(MYSQLI_ASSOC)[0];
+						$usuario=fetch_all($usuario , MYSQLI_ASSOC)[0];
 				
 						//Variable que define el modo administrador.
 						$_SESSION['adminID']=$usuario['ID'];

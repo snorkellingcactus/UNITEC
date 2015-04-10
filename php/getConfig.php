@@ -29,7 +29,7 @@ if(isset($_SESSION['adminID']))
 
 	$consulta=$con->query($consulta);
 
-	$consulta=$consulta->fetch_all(MYSQLI_ASSOC);
+	$consulta=fetch_all($consulta , MYSQLI_ASSOC);
 
 	if(!count($consulta))
 	{

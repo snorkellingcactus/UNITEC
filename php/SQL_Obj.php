@@ -20,7 +20,7 @@ function nGrupo($con , $col , $tabla)
 {
 	$grp=$con->query('select ifnull(max('.$col.'),0) as '.$col.' from '.$tabla);
 	
-	return $grp->fetch_all(MYSQLI_ASSOC)[0][$col]+1;
+	return fetch_all($grp , MYSQLI_ASSOC)[0][$col]+1;
 }
 //Un objeto que permite realizar operaciónes SQL con
 //Una fila de una tabla.
@@ -240,7 +240,7 @@ class SQL_Obj
 		$this->buff=substr($this->buff , 0 , strlen($this->buff)-4).' limit 1';
 
 		$res=$this->con->query($this->buff);
-		$res=$res->fetch_all(MYSQLI_ASSOC)[0];
+		$res=fetch_all($res , MYSQLI_ASSOC)[0];
 
 		foreach($res as $clave=>$valor)
 		{

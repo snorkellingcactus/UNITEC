@@ -83,7 +83,7 @@ class Gal_HTML
 		}
 
 		$asocLst=$this->con->query($consulta);
-		$asocLst=$asocLst->fetch_all(MYSQLI_ASSOC);	//Respuesta SQL como array asociativo.
+		$asocLst=fetch_all($asocLst , MYSQLI_ASSOC);	//Respuesta SQL como array asociativo.
 
 		$iMax=count($asocLst);
 

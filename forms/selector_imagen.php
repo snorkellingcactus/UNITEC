@@ -3,7 +3,7 @@
 		include_once '../php/conexion.php';
 
 		$Imgs=$con->query('select * from Imagenes where 1');
-		$Imgs=$Imgs->fetch_all(MYSQLI_ASSOC);
+		$Imgs=fetch_all($Imgs , MYSQLI_ASSOC);
 
 		$cantidad=count($Imgs);
 

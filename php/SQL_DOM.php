@@ -129,7 +129,7 @@ class SQL_DOM extends SQL_Obj
 		if(isset($this->Hijos))
 		{
 			$hijos=$this->con->query("select * from ".$this->table." where Grp=".$this->Hijos);
-			$hijos=$hijos->fetch_all(MYSQLI_ASSOC);
+			$hijos=fetch_all($hijos , MYSQLI_ASSOC);
 
 			$hijosLen=count($hijos);
 			for($i=0;$i<$hijosLen;$i++)
