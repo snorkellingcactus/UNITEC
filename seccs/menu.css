@@ -59,14 +59,14 @@
 	vertical-align:middle;
 	padding:5%
 }
-.menu  .resaltaOpc
+.menu  #resaltaOpc, .menu nav li>a:focus, .menu nav li>a:active
 {
-color:black;
-background-color:#929193;
-background-image:url("../img/fondo_contenido.png");
-border-left:3px solid #929193;
-}
-.menu nav li>a:focus, .menu nav li>a:hover
+	color:black;
+	background-color:#929193;
+	background-image:url("../img/fondo_contenido.png");
+	border-left:3px solid #929193;
+	}
+.menu nav li>a:hover
 {
 	text-decoration:underline;
 	background-color:silver;
@@ -90,7 +90,7 @@ border-left:3px solid #929193;
 	display:inline-block;
 	font-size:0.8em
 }
-.menuSup a:hover, .menuSup .resaltaOpc
+.menuSup a:hover, .menuSup #resaltaOpc
 {
 	color:white;
 	text-decoration:underline

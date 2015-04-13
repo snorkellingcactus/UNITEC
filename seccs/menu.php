@@ -1,12 +1,12 @@
 <div class='menuSup visible-xs'>
-		<a href="./index.php?OpcSel=0#sobre"	<?php resaltaOpcN(0) ;?> >Inicio</a>
-		<a href="./index.php?OpcSel=1#nov"	<?php resaltaOpcN(1) ;?> >Novedades</a>
-		<a href="./index.php?OpcSel=2#labs"	<?php resaltaOpcN(2) ;?> >Espacios de extensión</a>
-		<a href="./index.php?OpcSel=3#cal"	<?php resaltaOpcN(3) ;?> >Eventos</a>
-		<a href="./index.php?OpcSel=4#gal"	<?php resaltaOpcN(4) ;?> >Galería</a>
-		<a href="./index.php?OpcSel=5"		<?php resaltaOpcN(5) ;?> >Idioma</a>
-		<a href="./index.php?OpcSel=6"		<?php resaltaOpcN(6) ;?> >Accesibilidad</a>
-		<a href="./inicio_sesion.php"		>Iniciar Sesión</a>
+		<a href="#sobre">Inicio</a>
+		<a href="#nov"	>Novedades</a>
+		<a href="#labs"	>Espacios de extensión</a>
+		<a href="#cal"	>Eventos</a>
+		<a href="#gal"	>Galería</a>
+		<a href="#"		>Idioma</a>
+		<a href="#"		>Accesibilidad</a>
+		<a href="#"		>Iniciar Sesión</a>
 </div>
 <div class="col-xs-2 col-sm-2 col-lg-2">
 	<div class="menu hidden-xs">
@@ -14,25 +14,25 @@
 		<nav>
 			<ul>			
 				<li>
-					<a href="./index.php?OpcSel=0#sobre"		<?php resaltaOpcN(0) ;?> >Inicio</a>
+					<a href="#sobre">Inicio</a>
 				</li>
 				<li>
-					<a href="./index.php?OpcSel=1#nov"	<?php resaltaOpcN(1) ;?> >Novedades</a>
+					<a href="#nov"	>Novedades</a>
 				</li>
 				<li>
-					<a href="./index.php?OpcSel=2#labs"	<?php resaltaOpcN(2) ;?> >Espacios de extensión</a>
+					<a href="#labs"	>Espacios de extensión</a>
 				</li>
 				<li>
-					<a href="./index.php?OpcSel=3#cal"		<?php resaltaOpcN(3) ;?> >Eventos</a>
+					<a href="#cal"	>Eventos</a>
 				</li>
 				<li>
-					<a href="./index.php?OpcSel=4#gal"		<?php resaltaOpcN(4) ;?> >Galería</a>
+					<a href="#gal"	>Galería</a>
 				</li>
 				<li>
-					<a href="./index.php?OpcSel=5"		<?php resaltaOpcN(5) ;?> >Idioma</a>
+					<a href="#"		>Idioma</a>
 				</li>
 				<li>
-					<a href="./index.php?OpcSel=6"		<?php resaltaOpcN(6) ;?> >Accesibilidad</a>
+					<a href="#"		>Accesibilidad</a>
 				</li>
 			</ul>
 		</nav>
