@@ -62,9 +62,93 @@ function echoLang($langSQLRes)
 		<link rel="stylesheet" type="text/css" href="./seccs/galeria.css" />
 		<link rel="stylesheet" type="text/css" href="./bootstrap.min.css" />
 
+		<script type="text/javascript">
+			function rmAttr(obj , attr , valor)
+			{
+				var clases=obj.getAttribute(attr).split(' ');
+				var str='';
+
+				for(var i=0;i<clases.length;i++)
+				{
+					var clase=clases[i];
+
+					if(clase!==valor && clase!=='null')
+					{
+						str+=clase+' ';
+					}
+				}
+
+				obj.removeAttribute(attr);
+				if(str)
+				{
+					obj.setAttribute(attr,str);
+				}
+			}
+			function resalta(event)
+			{
+				var ele=event.target;
+
+				var eleAnt=document.getElementsByClassName('resalta')[0];
+
+				if(eleAnt)
+				{
+					rmAttr(eleAnt , 'class' , 'resalta');
+				}
+
+				ele.setAttribute('class',ele.getAttribute('class')||''+' resalta');
+			}
+			function menuOpcFocus()
+			{
+				window.console.log('focus!');
+				window.console.log(this);
+				this.focus();
+			}
+			function cargaMenu()
+			{
+				var navs=document.getElementsByTagName('nav');
+				for(var i=0;i<navs.length;i++)
+				{
+					/*if(navs[i].offsetHeight===0)
+					{
+						continue;
+					}
+					*/
+					var links=navs[i].getElementsByTagName('a');
+					var hash=window.location.hash;
+
+					resalta({target:links[0]});
+
+					if(hash.length)
+					{
+						var j=0;
+						var link=links[j];
+
+						while(j<links.length && link.getAttribute('href').indexOf(hash)===-1)
+						{
+							link=links[j];
+
+							++j;
+						}
+
+						links[j].focus();
+					}
+					else
+					{
+						for(var j=0;j<links.length;j++)
+						{
+							var link=links[j];
+
+							link.addEventListener('click',resalta);
+						}
+					}
+				}
+
+			}
+		</script>
+
 		<title>Unitec</title>
 	</head>
-	<body>
+	<body onLoad="JavaScript:cargaMenu()">
 
 		<!--:::::::::::::::Atajos de teclado:::::::::::::::-->
 		<a href="./index.php?OpcSel=0#sobre" accesskey="i"></a>

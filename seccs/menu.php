@@ -1,4 +1,4 @@
-<div class='menuSup visible-xs'>
+<nav class='menuSup visible-xs'>
 		<a href="#sobre">Inicio</a>
 		<a href="#nov"	>Novedades</a>
 		<a href="#labs"	>Espacios de extensión</a>
@@ -7,7 +7,7 @@
 		<a href="#"		>Idioma</a>
 		<a href="#"		>Accesibilidad</a>
 		<a href="#"		>Iniciar Sesión</a>
-</div>
+</nav>
 <div class="col-xs-2 col-sm-2 col-lg-2">
 	<div class="menu hidden-xs">
 		<!--	:::::::::Menú:::::::::	-->

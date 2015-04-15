@@ -52,14 +52,11 @@
 	padding-left:5px;
 	color:inherit;
 	font-family: Georgia;
-}
-.menu nav a
-{
 	display:table-cell;
 	vertical-align:middle;
 	padding:5%
 }
-.menu  #resaltaOpc, .menu nav li>a:focus, .menu nav li>a:active
+.menu .resalta , .menu nav li>a:focus, .menu nav li>a:active
 {
 	color:black;
 	background-color:#929193;
