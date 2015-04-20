@@ -1,4 +1,4 @@
-<form class="nSec" action="php/accion.php" method="POST" target="_blank">
+<form class="nSec" action="php/accion.php" method="POST" >
 	<?php
 		if(isset($orden))
 		{

@@ -56,17 +56,21 @@
 	vertical-align:middle;
 	padding:5%
 }
-.menu .resalta , .menu nav li>a:focus, .menu nav li>a:active
+.menu .resalta , .menu nav li>a:active , .menu nav li>a:focus.resalta
 {
 	color:black;
 	background-color:#929193;
 	background-image:url("../img/fondo_contenido.png");
 	border-left:3px solid #929193;
 	}
-.menu nav li>a:hover
+.menu nav li>a:hover , .menu nav li>a:focus
 {
 	text-decoration:underline;
 	background-color:silver;
+}
+.menu nav li>a:hover.resalta
+{
+	background-color:#929193;
 }
 .menuSup
 {

@@ -1,6 +1,6 @@
 <!DOCTYPE HTML >
 <?php
-error_reporting(E_ALL & ~E_DEPRECATED & ~E_STRICT );
+//error_reporting(E_ALL & ~E_DEPRECATED & ~E_STRICT );
 //Si todavía no se inicio sesion, se inicia.
 if(session_status()==PHP_SESSION_NONE)
 {
@@ -62,89 +62,7 @@ function echoLang($langSQLRes)
 		<link rel="stylesheet" type="text/css" href="./seccs/galeria.css" />
 		<link rel="stylesheet" type="text/css" href="./bootstrap.min.css" />
 
-		<script type="text/javascript">
-			function rmAttr(obj , attr , valor)
-			{
-				var clases=obj.getAttribute(attr).split(' ');
-				var str='';
-
-				for(var i=0;i<clases.length;i++)
-				{
-					var clase=clases[i];
-
-					if(clase!==valor && clase!=='null')
-					{
-						str+=clase+' ';
-					}
-				}
-
-				obj.removeAttribute(attr);
-				if(str)
-				{
-					obj.setAttribute(attr,str);
-				}
-			}
-			function resalta(event)
-			{
-				var ele=event.target;
-
-				var eleAnt=document.getElementsByClassName('resalta')[0];
-
-				if(eleAnt)
-				{
-					rmAttr(eleAnt , 'class' , 'resalta');
-				}
-
-				ele.setAttribute('class',ele.getAttribute('class')||''+' resalta');
-			}
-			function menuOpcFocus()
-			{
-				window.console.log('focus!');
-				window.console.log(this);
-				this.focus();
-			}
-			function cargaMenu()
-			{
-				var navs=document.getElementsByTagName('nav');
-				for(var i=0;i<navs.length;i++)
-				{
-					/*if(navs[i].offsetHeight===0)
-					{
-						continue;
-					}
-					*/
-					var links=navs[i].getElementsByTagName('a');
-					var hash=window.location.hash;
-
-					resalta({target:links[0]});
-
-					if(hash.length)
-					{
-						var j=0;
-						var link=links[j];
-
-						while(j<links.length && link.getAttribute('href').indexOf(hash)===-1)
-						{
-							link=links[j];
-
-							++j;
-						}
-
-						links[j].focus();
-					}
-					else
-					{
-						for(var j=0;j<links.length;j++)
-						{
-							var link=links[j];
-
-							link.addEventListener('click',resalta);
-						}
-					}
-				}
-
-			}
-		</script>
+		<script type="text/javascript" src="index.js"></script>
 
 		<title>Unitec</title>
 	</head>
@@ -338,22 +256,21 @@ function echoLang($langSQLRes)
 
 				function ordIncludes($includes)
 				{
-					$orden=[];
+					$ordenA=[];
 
 					foreach($includes as $clave=>$valor)
 					{
 						if(isset($valor['orden']))
 						{
-							$orden[intVal($valor['orden']['Valor'])]=$valor;
+							$ordenA[intVal($valor['orden']['Valor'])]=$valor;
 						}
 					}
 
-					return $orden;
+					return $ordenA;
 				}
 				//Incluye dinamicamente secciones.
 				function incluye($includes , $orden , $padre=null)
 				{
-					//echo '<pre>';print_r($orden);echo '</pre>';
 					$jMax=count($orden);
 
 					for($j=0;$j<$jMax;$j++)
@@ -509,6 +426,13 @@ function echoLang($langSQLRes)
 
 					return $cfg;
 				}
+				function getDomFromID($id)
+				{
+					global $con;
+					$dom=$con->query('select Dominio from Opciones where ID="'.$id.'"');
+
+					return fetch_all($dom , MYSQLI_NUM)[0][0];
+				}
 				function nSec($nombre , $visible , $orden , $tipo , $valor)
 				{
 					global $con , $afectado;
@@ -530,44 +454,52 @@ function echoLang($langSQLRes)
 					{
 						$afectado=$valor;
 					}
-/*
-					echo '<h2>'.$dom.'" , '.$tipo.' , "'.$valor.'")'.'</h2>';
-					echo '<h2>'.$dom.'.css_id" , 0 , "'.$nombre.'")'.'</h2>';
-					echo '<h2>'.$dom.'.visible" , 0 , "'.$visible.'")'.'</h2>';
-					echo '<h2>'.$dom.'.orden" , 0 , "'.$orden.'")'.'</h2>';
-*/
+
+					echo	'<pre>'
+								.$dom.'" , '.$tipo.' , "'.$valor.'")'.'<br> ;'
+					 			.$dom.'.css_id" , 0 , "'.$nombre.'")'.'<br> ;'
+					 			.$dom.'.visible" , 0 , "'.$visible.'")'.'<br> ;'
+					 			.$dom.'.orden" , 0 , "'.$orden.'")'.';'.
+							'</pre>';
+
 				}
 
 				if(isset($_SESSION['adminID']))
 				{
-					if(isset($_POST['secID']) && isset($_POST['elimina']))
+					if(isset($_POST['elimina']))
 					{
-						$contenidos=$con->query('select Valor from Opciones where Dominio like "edetec.seccion.'.$_POST['secID'].'.inc%" and Tipo=2');
+						echo '<pre>Elimina:<br>';
 
-						$contenidos=fetch_all($contenidos , MYSQLI_NUM);
-						$cMax=count($contenidos);
-						for($c=0;$c<$cMax;$c++)
+						$tipo=isset($_POST['conID']);
+						$dom='conID';
+
+						if(!$tipo)
 						{
-							$con->query('delete from Contenido where ID='.$contenidos[$c][0]);
+							$dom='secID';
 						}
 
-						$con->query('delete from Opciones where Dominio like "edetec.seccion.'.$_POST['secID'].'.%"');
-						$con->query('delete from Opciones where Dominio like "edetec.seccion.'.$_POST['secID'].'"');
-					}
-					if(isset($_POST['conID']) && isset($_POST['elimina']))
-					{
-						$dom=$con->query('select Dominio from Opciones where Valor="'.$_POST['conID'].'"');
-						$dom=fetch_all($dom , MYSQLI_NUM)[0][0];
+						$dom=getDomFromID($_POST[$dom]);
 
-						$con->query('delete from Opciones where Dominio like "'.$dom.'"');
+						echo 'Dominio: '.$dom.'<br>';
+
+						if(!$tipo)
+						{
+							$contenidos=$con->query('select Valor from Opciones where Dominio like "'.$dom.'.inc%" and Tipo=2');
+
+							$contenidos=fetch_all($contenidos , MYSQLI_NUM);
+							$cMax=count($contenidos);
+							for($c=0;$c<$cMax;$c++)
+							{
+								$con->query('delete from Contenido where ID='.$contenidos[$c][0]);
+							}
+						}
+
 						$con->query('delete from Opciones where Dominio like "'.$dom.'.%"');
-/*
-						echo '<pre>';
-						echo 'delete from Opciones where Dominio like "'.$dom.'"';
-						echo '<br>';
-						echo 'delete from Opciones where Dominio like "'.$dom.'.%"';
+						$con->query('delete from Opciones where Dominio like "'.$dom.'"');
+
+						echo 'Consulta : '.'delete from Opciones where Dominio like "'.$dom.'.%" <br>';
+						echo 'Consulta : '.'delete from Opciones where Dominio like "'.$dom.'"';
 						echo '</pre>';
-*/
 					}
 
 					if(isset($_POST['nSec']) || isset($_POST['nCon']))
@@ -623,6 +555,8 @@ function echoLang($langSQLRes)
 							$orden=ordIncludes($secciones);
 
 							$oMax=count($orden);
+
+							echo '<pre>Lugar: ';print_r($lugar);echo '</pre>';
 							if($prefijo=='b')
 							{
 								//El último + 1.
@@ -635,7 +569,9 @@ function echoLang($langSQLRes)
 
 								$j=$pOrden;
 
-								while(isset($orden[$j]) && $j<$oMax)
+								//echo '<pre>';print_r($orden);echo '</pre>';
+
+								while(isset($orden[$j]) && $j<=$oMax)
 								{
 									$nID=$orden[$j]['orden']['ID'];
 
@@ -643,7 +579,8 @@ function echoLang($langSQLRes)
 
 									$con->query($consulta);
 
-									//echo '<h2>'.$consulta.'</h2>';
+									echo '<pre>Orden:';print_r($orden[$j]['orden']['Valor']);echo '</pre>';
+									echo '<pre>';print_r($consulta);echo '</pre>';
 
 									++$j;
 								}
@@ -667,6 +604,10 @@ function echoLang($langSQLRes)
 
 					$orden=ordIncludes($secciones);
 
+					
+					//echo '<pre>';print_r($cfg);echo '</pre>';
+					
+
 					incluye($secciones , $orden);
 				}
 
@@ -674,16 +615,6 @@ function echoLang($langSQLRes)
 				{
 					include('esq/nSec.php');
 				}
-
-
-				/*
-				include_once('./seccs/atajos.php');
-				include_once('./seccs/sobre_unitec.php');
-				include_once('./seccs/novedades.php');
-				include_once('./seccs/organigrama.php');
-				include_once('./seccs/calendario.php');
-				include_once('./seccs/galeria.php');
-				*/
 			?>
 		</main>
 

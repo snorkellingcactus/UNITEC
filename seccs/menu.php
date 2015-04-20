@@ -14,25 +14,25 @@
 		<nav>
 			<ul>			
 				<li>
-					<a href="#sobre">Inicio</a>
+					<a href="#sobre" tabindex="1">Inicio</a>
 				</li>
 				<li>
-					<a href="#nov"	>Novedades</a>
+					<a href="#nov"	 tabindex="1">Novedades</a>
 				</li>
 				<li>
-					<a href="#labs"	>Espacios de extensión</a>
+					<a href="#labs"	 tabindex="1">Espacios de extensión</a>
 				</li>
 				<li>
-					<a href="#cal"	>Eventos</a>
+					<a href="#cal"	 tabindex="1">Eventos</a>
 				</li>
 				<li>
-					<a href="#gal"	>Galería</a>
+					<a href="#gal"	 tabindex="1">Galería</a>
 				</li>
 				<li>
-					<a href="#"		>Idioma</a>
+					<a href="#"		 tabindex="1">Idioma</a>
 				</li>
 				<li>
-					<a href="#"		>Accesibilidad</a>
+					<a href="#"		 tabindex="1">Accesibilidad</a>
 				</li>
 			</ul>
 		</nav>
