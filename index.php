@@ -1,6 +1,6 @@
 <!DOCTYPE HTML >
 <?php
-//error_reporting(E_ALL & ~E_DEPRECATED & ~E_STRICT );
+error_reporting(E_ALL & ~E_DEPRECATED & ~E_STRICT );
 //Si todavía no se inicio sesion, se inicia.
 if(session_status()==PHP_SESSION_NONE)
 {
@@ -468,7 +468,7 @@ function echoLang($langSQLRes)
 				{
 					if(isset($_POST['elimina']))
 					{
-						echo '<pre>Elimina:<br>';
+						//echo '<pre>Elimina:<br>';
 
 						$tipo=isset($_POST['conID']);
 						$dom='conID';
@@ -480,7 +480,7 @@ function echoLang($langSQLRes)
 
 						$dom=getDomFromID($_POST[$dom]);
 
-						echo 'Dominio: '.$dom.'<br>';
+						//echo 'Dominio: '.$dom.'<br>';
 
 						if(!$tipo)
 						{
@@ -497,9 +497,9 @@ function echoLang($langSQLRes)
 						$con->query('delete from Opciones where Dominio like "'.$dom.'.%"');
 						$con->query('delete from Opciones where Dominio like "'.$dom.'"');
 
-						echo 'Consulta : '.'delete from Opciones where Dominio like "'.$dom.'.%" <br>';
-						echo 'Consulta : '.'delete from Opciones where Dominio like "'.$dom.'"';
-						echo '</pre>';
+						//echo 'Consulta : '.'delete from Opciones where Dominio like "'.$dom.'.%" <br>';
+						//echo 'Consulta : '.'delete from Opciones where Dominio like "'.$dom.'"';
+						//echo '</pre>';
 					}
 
 					if(isset($_POST['nSec']) || isset($_POST['nCon']))
@@ -556,7 +556,7 @@ function echoLang($langSQLRes)
 
 							$oMax=count($orden);
 
-							echo '<pre>Lugar: ';print_r($lugar);echo '</pre>';
+							//echo '<pre>Lugar: ';print_r($lugar);echo '</pre>';
 							if($prefijo=='b')
 							{
 								//El último + 1.
@@ -579,8 +579,8 @@ function echoLang($langSQLRes)
 
 									$con->query($consulta);
 
-									echo '<pre>Orden:';print_r($orden[$j]['orden']['Valor']);echo '</pre>';
-									echo '<pre>';print_r($consulta);echo '</pre>';
+									//echo '<pre>Orden:';print_r($orden[$j]['orden']['Valor']);echo '</pre>';
+									//echo '<pre>';print_r($consulta);echo '</pre>';
 
 									++$j;
 								}
