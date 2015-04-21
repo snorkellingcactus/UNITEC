@@ -12,7 +12,7 @@
     <div id="panel_ruta" class="col-xs-12 col-sm-12 col-md-5 col-lg-5"></div>
 
     <div class="clearfix visible-xs visible-sm"></div>
-    
+
     <div class="left col-xs-12 col-sm-12 col-md-7 col-lg-7">
         <label for="modo_viaje"  class="col-xs-12 col-sm-12 col-md-6 col-lg-6">Movilidad</label>
         <select id="modo_viaje" class="opciones_ruta col-xs-12 col-sm-12 col-md-6 col-lg-6" >
@@ -25,8 +25,8 @@
 
         <label for="unidad"  class="col-xs-12 col-sm-12 col-md-6 col-lg-6">Medir en</label>
         <select id="tipo_sistema"  class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-            <option value="METRIC" selected="selected">Distancia</option>
-            <option value="IMPERIAL">Tiempo</option>
+            <option value="METRIC" selected="selected">Metros</option>
+            <option value="IMPERIAL">Imperial</option>
         </select>
 
         <div class="clearfix"></div>
