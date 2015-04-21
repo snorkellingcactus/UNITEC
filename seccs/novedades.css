@@ -7,7 +7,7 @@ div.novedad{padding:3em 0px 1em 0px;border-bottom:1px solid darkgray}
 /*
 Por bootstrap, que le da a las imágenes 15px de padding.
 */
-.novedad p{margin-left:15px;margin-top:0px;}
+.novedad p{margin-left:15px;margin-top:0px;font-size:1.2em;font-color:black;}
 .novedad p img{float:none;}
 .novedad p pre.code{float:none;display:block;}
 .novedad table{border:1px solid gray;}

@@ -11,6 +11,6 @@
 		<img src="<?php echo $esq->Imagen ?>" alt="" />
 	</div>
 	<h3><?php echo $esq->Titulo ?></h3>
-	<p><?php echo $esq->Descripcion ?></p>
+	<p><?php echo $esq->Descripcion ?> <a href="#">[...]</a></p>
 	<p class="fecha">Escrito el <?php echo $esq->Fecha ?></p>
 </div>

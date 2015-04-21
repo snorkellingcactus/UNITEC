@@ -153,7 +153,7 @@
 				$descripcion=$con->query
 				(
 					'
-					select Contenido,
+					select left(Contenido , 500),
 					CASE Lenguaje
 					WHEN '.$_SESSION['lang'].' THEN 0
 					ELSE 1
@@ -166,7 +166,7 @@
 					'
 				);
 
-				$descripcion=fetch_all($descripcion , MYSQLI_ASSOC)[0]['Contenido'];
+				$descripcion=fetch_all($descripcion , MYSQLI_NUM)[0][0];
 				$titulo=fetch_all($titulo , MYSQLI_ASSOC)[0]['Contenido'];
 
 				$parser=new JBBCode\Parser();
@@ -175,7 +175,7 @@
 
 				$parser->parse($descripcion);
 
-				$descripcion=$parser->getAsHtml();
+				$descripcion=$parser->getAsText();
 
 				$novedad=new Novedad
 				(
