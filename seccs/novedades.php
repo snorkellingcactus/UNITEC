@@ -121,10 +121,6 @@
 
 			$novedadesHTML=new Inc_Esq('esq/novedad.php');
 
-			$parser=new JBBCode\Parser();
-				
-			include_once('php/parser_definiciones.php');
-
 			for($i=0;$i<$cantidad;$i++)
 			{
 				$novAct=$novedades[$i];
@@ -172,6 +168,10 @@
 
 				$descripcion=fetch_all($descripcion , MYSQLI_ASSOC)[0]['Contenido'];
 				$titulo=fetch_all($titulo , MYSQLI_ASSOC)[0]['Contenido'];
+
+				$parser=new JBBCode\Parser();
+				
+				include('php/parser_definiciones.php');
 
 				$parser->parse($descripcion);
 

@@ -60,6 +60,7 @@ function echoLang($langSQLRes)
 		<link rel="stylesheet" type="text/css" href="./seccs/sobre_unitec.css" />
 		<link rel="stylesheet" type="text/css" href="./seccs/novedades.css" />
 		<link rel="stylesheet" type="text/css" href="./seccs/galeria.css" />
+		<link rel="stylesheet" type="text/css" href="./seccs/mapa.css" />
 		<link rel="stylesheet" type="text/css" href="./bootstrap.min.css" />
 
 		<script type="text/javascript" src="index.js"></script>
