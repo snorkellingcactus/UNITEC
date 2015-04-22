@@ -3,6 +3,12 @@
 	{
 		$res=[];
 		$j=0;
+
+		if(!$mysqliObj)
+		{
+			return $res;
+		}
+		
 		while($row=$mysqliObj->fetch_array($modo))
 		{
 			$res[$j]=$row;

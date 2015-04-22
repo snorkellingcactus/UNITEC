@@ -158,7 +158,7 @@ function XMLToDOM(xmlObj)
 PanelAdmin=function()
 {
 	this.pattern='';
-	this.lab='edetec';
+	this.lab='e';
 	this.getConfPath='/php/getConfig.php';
 	this.cfg=[];
 
@@ -273,135 +273,8 @@ PanelAdmin=function()
 				}
 				caja.nom+=n;
 			}
-		},
-		'cfgEdit':
-		{
-			'vistaPCfg':
-			{
-				nom:'cuadroOpc',
-				tag:'div',
-				forma:
-				{
-					setAttribute:['class','cuadroOpc']
-				},
-				hijo:
-				{
-					tag:'div',
-					hijos:
-					[
-						{
-							tag:'p',
-							innerHTML:'Nombre'
-						},
-						{
-							tag:'p',
-							innerHTML:'Tipo'
-						},
-						{
-							tag:'p',
-							innerHTML:'Valor'
-						}
-					]
-				}
-			},
-			'cuadroOpc':
-			[
-				{
-					nom:'cfgOpcLst',
-					tag:'div'
-				},
-				{
-					nom:'cfgOpcNue',
-					tag:'div',
-					innerHTML:'+',
-					forma:
-					{
-						setAttribute:['class','bottom'],
-						addEventListener:['click' , this.intHandNOpc.bind(this)]
-					}
-				},
-				{
-					nom:'cfgOpcRem',
-					tag:'div',
-					innerHTML:'-',
-					forma:
-					{
-						setAttribute:['class','bottom'],
-						addEventListener:['click' , this.intHandROpc.bind(this)]
-					}
-				}
-			]
-		},
-		'cfgOpc':
-		{
-			'cfgOpcLst':
-			{
-				nom:'cfgOpc',
-				tag:'span',
-				forma:
-				{
-					addEventListener:['click',this.intSel.bind(this)]
-				},
-				hijos:
-				[
-					{
-						tag:'p',
-						forma:
-						{
-							addEventListener:['dblclick',this.intHandInput.bind(this)]
-						}
-					},
-					{
-						tag:'p',
-						forma:
-						{
-							addEventListener:['dblclick',this.intHandInput.bind(this)]
-						}
-					},
-					{
-						tag:'p',
-						forma:
-						{
-							addEventListener:['dblclick',this.intHandInput.bind(this)]
-						}
-					}
-				],
-			},
-			dist:function(caja , val , n)
-			{
-				var color='dimgray';
-				if(n%2===0)
-				{
-					color='gray';
-				}
-				caja.doc.style.backgroundColor=color;
-				caja.doc.num=n;
-
-				if(val)
-				{
-					for(var i=0;i<val.length;i++)
-					{
-						caja.doc.childNodes[i].innerHTML=val[i];
-					}
-				}
-			}
-		},
-		'opcValInput':
-		{
-			'hijo':
-			{
-				nom:'opcValInput',
-				tag:'input'
-			},
-			dist:function(caja , val , n)
-			{
-				caja.doc.setAttribute('type',val);
-			}
 		}
 	}
-
-	this.proto.creaTipo('raiz' , 0 , 0);
-	this.proto.creaTipo('Tit' , 'Panel Admin' ,0);
 }
 PanelAdmin.prototype.prepareXmlHttp=function()
 {
@@ -414,9 +287,11 @@ PanelAdmin.prototype.prepareXmlHttp=function()
 		}
 	);
 }
-PanelAdmin.prototype.parseConf=function()
+PanelAdmin.prototype.getConf=function(handler)
 {
 	this.xmlToCfg();
+
+	return;
 	this.cfgToInt();
 }
 //Convierte el resultado XML en un objeto
@@ -457,6 +332,7 @@ PanelAdmin.prototype.xmlToCfg=function()
 		}
 	}
 }
+/*
 PanelAdmin.prototype.cfgToInt=function()
 {
 	for(var i=0;i<this.cfg.length;i++)
@@ -465,6 +341,7 @@ PanelAdmin.prototype.cfgToInt=function()
 		this.proto.creaTipo('cfgOpc' , [cfg['Dominio'],cfg['Tipo'],cfg['Valor']] , i);
 	}
 }
+*/
 //Averigua el número de hermano del elemento en la jerarquía.
 PanelAdmin.prototype.intVista=function(event)
 {

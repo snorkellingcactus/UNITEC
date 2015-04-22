@@ -13,9 +13,6 @@ class Img extends SQL_Obj
 			'Imagenes',
 			[
 				'Url',
-				'Contenido',
-				'Ancho',
-				'Alto',
 				'Alt',
 				'Titulo',
 				'Comentarios',
@@ -23,6 +20,7 @@ class Img extends SQL_Obj
 			]
 		);
 		
+		$this->grupoNom='GrupoID';
 		if($nArgs>1)
 		{
 			$this->getAsoc(func_get_args()[1]);

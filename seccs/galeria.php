@@ -61,13 +61,15 @@
 			for($i=0;$i<$iMax;$i++)
 			{
 				//Creo la imagen y le asigno las propiedades.
-				$Img=new Img($con);
-				$Img->Titulo=$_POST['Titulo'][$i];
-				$Img->Url=$_POST['Url'][$i];
-				$Img->Alt=$_POST['Alt'][$i];
+				$img=new Img($con);
+				$img->Titulo=$_POST['Titulo'][$i];
+				$img->Url=$_POST['Url'][$i];
+				$img->Alt=$_POST['Alt'][$i];
 			
 				//La inserto en la bd.
-				$Img->insSQL();
+				$img->insSQL();
+
+				//echo '<pre>';echo print_r($img);echo '</pre>';
 			}
 		}
 		//Incluyo las acciones para la selección.

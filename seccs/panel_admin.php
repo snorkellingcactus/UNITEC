@@ -40,24 +40,24 @@ if(isset($_SESSION['adminID']))
 	{
 		if(this.status==200 && this.readyState===4)
 		{
-			panel.parseConf.bind(panel)();
+			panel.getConf.bind(panel)();
 
 
 			conf=XMLToDOM(panel.cfg);
 
-			for(var clave in conf.edetec.seccion)
-			{
-				window.console.log(conf.edetec.seccion[clave]);
-			}
+			window.console.log(conf);
 		}
 	}
 	panel=new PanelAdmin();
 
-	panel.proto.creaTipo('Pes' , 'Secciones' , 'Sec');
+	panel.proto.creaTipo('raiz' , 0 , 0);
+	panel.proto.creaTipo('Tit' , 'Panel Admin' ,0);
 
-	panel.proto.creaTipo('Pes' , 'Edita Configuración' , 'Cfg');
-	panel.proto.creaTipo('cfgEdit' , 'Edita Configuración' , 0);
-	panel.diag.selV('panel','vistaPCfg');
+	panel.proto.creaTipo('Pes' , 'Modulos' , 'Sec');
+
+	//panel.proto.creaTipo('Pes' , 'Edita Configuración' , 'Cfg');
+	//panel.proto.creaTipo('cfgEdit' , 'Edita Configuración' , 0);
+	//panel.diag.selV('panel','vistaPCfg');
 	panel.prepareXmlHttp();
 	panel.xmlObj.conf({handler:actPanel});
 	panel.xmlObj.envia();

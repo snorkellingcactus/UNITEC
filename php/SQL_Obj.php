@@ -151,6 +151,8 @@ class SQL_Obj
 
 			//Saco comas finales, cierro parentesis y agrego espacio.
 			$this->buff=substr($this->buff,0,strlen($this->buff)-1).' where ID='.$this->ID;
+
+			echo '<pre>'.$this->buff.'</pre>';
 			
 			$res=$this->con->query($this->buff);
 
@@ -160,6 +162,7 @@ class SQL_Obj
 		}
 		if(isset($this->$prop))
 		{
+			echo '<pre>'.'update '.$this->table.' set '.$prop.' = '.$this->sqlSpec($this->$prop).' where ID='.$this->ID.'</pre>';
 			return $this->con->query
 			(
 				'update '.$this->table.' set '.$prop.' = '.$this->sqlSpec($this->$prop).' where ID='.$this->ID
@@ -189,6 +192,8 @@ class SQL_Obj
 		$res=$this->con->query($this->buff.$this->buffAux);
 		$this->ID=$this->con->insert_id;
 
+		echo '<pre>'.$this->buff.$this->buffAux.'</pre>';
+		
 		$this->buff='';
 		$this->buffAux='';
 		return $res;

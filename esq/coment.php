@@ -14,7 +14,7 @@
 <div class="comentario">
 	<p class='comAutor'>
 		<?php
-			echo $esq->NombreUsuario;
+			echo $esq->Nombre;
 
 			?>
 				<span class="comResTxt">
@@ -54,7 +54,7 @@
 
 	<form action="#comRes" method="POST" class="formRes">
 		<input type="hidden" name="comResID" value="<?php echo $esq->ID ?>" >
-	 	<input type="submit" value="↶" title="Responder a <?php echo $esq->NombreUsuario ?>">
+	 	<input type="submit" value="↶" title="Responder a <?php echo $esq->Nombre ?>">
 	</form>
 
  	<?php

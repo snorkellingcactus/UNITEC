@@ -35,6 +35,15 @@
 	{
 		$_SESSION['cache']=!$_GET['cache']||0;
 	}
+	
+	$Visor	= new Gal_HTML_Visor
+	(
+		'select * from Imagenes',
+		$con,
+		new NULL_Gen_HTML()
+	);
+
+	$esq=$Visor->imgSel;
 
 	//Operaciones cuando se llenó un formulario de nuevo comentario.
 	if(!empty($_POST['comContenido']))
@@ -52,11 +61,21 @@
 				.$FechaAct['minutes'].':'
 				.$FechaAct['seconds'];
 
+		if(!isset($esq->Comentarios))
+		{
+			$grupoCom=$con->query('select ifnull(max(GrupoID),0) as GrupoID from Comentarios');
+			$grupoCom=fetch_all($grupoCom , MYSQLI_ASSOC)[0]['GrupoID']+1;
+		}
+		else
+		{
+			$grupoCom=$esq->Comentarios;
+		}
+		
 		$Comentario=new Coment
 		(
 			$con,
 			[
-				'GrupoID'=>$_SESSION['vImgID'],
+				'GrupoID'=>$grupoCom,
 				'Fecha'=>$Fecha
 			]
 		);
@@ -77,7 +96,7 @@
 
 		if(isset($_POST['comNomUsuario']))
 		{
-			$Comentario->NombreUsuario=htmlentities($_POST['comNomUsuario']);
+			$Comentario->Nombre=htmlentities($_POST['comNomUsuario']);
 		}
 		if(isset($_SESSION['comResID']))
 		{
@@ -89,6 +108,13 @@
 		}
 		//Inserto el comentario en la BD.
 		$Comentario->insSQL();
+
+		if(!isset($esq->Comentarios))
+		{
+			$esq->Comentarios=$grupoCom;
+
+			$esq->updSQL('Comentarios');
+		}
 
 		//Esto hace que se ancle el comentario al que está siendo respondido.
 		//La idea es que se ancle el comentario recién creado, para lo que
@@ -117,15 +143,6 @@
 		}
 	}
 	//unset($_POST['vImgId']);
-	
-	$Visor	= new Gal_HTML_Visor
-	(
-		'select * from Imagenes',
-		$con,
-		new NULL_Gen_HTML()
-	);
-
-	$esq=$Visor->imgSel;
 
 	$vImgSig=$Visor->indexImgN($Visor->nImgSel+1);
 	$vImgAnt=$Visor->indexImgN($Visor->nImgSel-1);
@@ -155,7 +172,7 @@
 					include('../forms/seleccion.php');
 
 					//Genero los comentarios.
-					echo GenComGrp($_SESSION['vImgID'] , $con);
+					echo GenComGrp($esq->Comentarios , $con);
 
 					if(!isset($_POST['comResID']))
 					{

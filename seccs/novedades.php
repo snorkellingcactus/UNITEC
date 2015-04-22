@@ -57,6 +57,9 @@
 				$grupo=$con->query('select ifnull(max(Grupo),0) as Grupo from Contenido');
 				$grupo=fetch_all($grupo , MYSQLI_ASSOC)[0]['Grupo']+1;
 
+				$grupoCom=$con->query('select ifnull(max(GrupoID),0) as GrupoID from Comentarios');
+				$grupoCom=fetch_all($grupoCom , MYSQLI_ASSOC)[0]['GrupoID']+1;
+
 				$descripcion=new Contenido
 				(
 					$con,
@@ -73,6 +76,7 @@
 
 				$nov->Imagen=$_POST['Imagen'][$i];
 				$nov->Fecha=$horaLoc['year'].'-'.$horaLoc['mon'].'-'.$horaLoc['mday'];
+				$nov->Comentarios=$grupoCom;
 
 				$nov->Descripcion=$descripcion->Grupo;
 				$nov->Titulo=$titulo->Grupo;

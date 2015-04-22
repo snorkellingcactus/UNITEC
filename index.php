@@ -1,6 +1,6 @@
 <!DOCTYPE HTML >
 <?php
-error_reporting(E_ALL & ~E_DEPRECATED & ~E_STRICT );
+//error_reporting(E_ALL & ~E_DEPRECATED & ~E_STRICT );
 //Si todavía no se inicio sesion, se inicia.
 if(session_status()==PHP_SESSION_NONE)
 {
@@ -455,13 +455,14 @@ function echoLang($langSQLRes)
 					{
 						$afectado=$valor;
 					}
-
+/*
 					echo	'<pre>'
 								.$dom.'" , '.$tipo.' , "'.$valor.'")'.'<br> ;'
 					 			.$dom.'.css_id" , 0 , "'.$nombre.'")'.'<br> ;'
 					 			.$dom.'.visible" , 0 , "'.$visible.'")'.'<br> ;'
 					 			.$dom.'.orden" , 0 , "'.$orden.'")'.';'.
 							'</pre>';
+*/
 
 				}
 

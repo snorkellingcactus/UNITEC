@@ -10,15 +10,15 @@ if(isset($_SESSION['adminID']))
 	//Configura peticion.
 	if(!(empty($_POST['dom']) || isset($_POST['id'])))
 	{
-		$consulta='select * from Opciones';
+		$consulta='select * from Opciones2';
 	}
 	if(isset($_POST['dom']))
 	{
-		$consulta='select * from Opciones where Dominio like "'.$_POST['dom'].'%"';
+		$consulta='select * from Opciones2 where Dominio like "'.$_POST['dom'].'%"';
 	}
 	else
 	{
-		$consulta='select * from Opciones where ID='.$_POST['id'];
+		$consulta='select * from Opciones2 where ID='.$_POST['id'];
 	}
 
 	//Hago la peticion.

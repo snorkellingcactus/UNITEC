@@ -17,9 +17,7 @@ class Coment extends SQL_Obj
 				'GrupoRes',
 				'Respondido',
 				'Fecha',
-				'IP',
-				'Usuario',
-				'NombreUsuario',
+				'Nombre',
 				'Contenido',
 				'Baneado'
 			]
@@ -45,9 +43,9 @@ function GenCom($conRes , $con)
 {
 	$props=[];
 
-	if(isset($conRes['NombreUsuario']))
+	if(isset($conRes['Nombre']))
 	{
-		$props['NombreUsuario']=$conRes['NombreUsuario'];
+		$props['Nombre']=$conRes['Nombre'];
 	}
 	$props['ID']=$conRes['ID'];
 	$props['Fecha']=$conRes['Fecha'];
@@ -109,7 +107,7 @@ function GenComLst($consulta , $con)
 				(
 					$subCons,
 					$con,
-					$consulta[$i]['NombreUsuario']
+					$consulta[$i]['Nombre']
 				);
 
 				$comentBuff=$comentBuff
@@ -126,6 +124,7 @@ function GenComLst($consulta , $con)
 function GenComGrp($GrupoID , $con)
 {
 	$consulta=$con->query('select * from Comentarios where GrupoID='.$GrupoID.' and GrupoRes is NULL');
+	
 	$consulta=fetch_all($consulta , MYSQLI_ASSOC);
 
 	return GenComLst($consulta , $con);
