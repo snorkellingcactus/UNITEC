@@ -150,3 +150,20 @@ font.through{text-decoration:line-through;}
 
 .sep{height:1px;border-top:2px dashed gray;}
 .sep:first-of-type{border:0px solid;}
+:target
+{
+	animation-name:sectionBackground;
+	animation-duration:2s;
+	background-color:rgba(255, 255, 255, 0.75)
+}
+@keyframes sectionBackground
+{
+	from
+	{
+		background-color:yellow;
+	}
+	to
+	{
+		background-color:rgba(255, 255, 255, 0.75)
+	}
+}

@@ -1,8 +1,7 @@
 <?php
 	if
 	(
-		(isset($_POST['comResID'])&&$_POST['comResID']==$esq->ID) ||
-		isset($_SESSION['comRes'])
+		(isset($_POST['comConID'])&&$_POST['comConID']==$esq['Contenido'])
 	)
 	{
 		unset($_SESSION['comRes']);
@@ -14,17 +13,17 @@
 <div class="comentario">
 	<p class='comAutor'>
 		<?php
-			echo $esq->Nombre;
+			echo $esq['Nombre'];
 
 			?>
 				<span class="comResTxt">
 			<?php
 
 			//Nombre de la persona respondida.
-			if(isset($esq->NombreDest))
+			if(isset($esq['NombreDest']))
 			{
 				?>
-					&#8631; <?php echo $esq->NombreDest ?>
+					&#8631; <?php echo $esq['NombreDest'] ?>
 				<?php
 			}
 
@@ -34,7 +33,7 @@
 			$RTHumano=[' años' , ' meses' , ' dias' , ' horas' , ' minutos' , ' segundos'];
 
 			$Fecha=new DateTime();
-			$Fecha=$Fecha->createFromFormat('Y-m-d H:i:s' , $esq->Fecha);
+			$Fecha=$Fecha->createFromFormat('Y-m-d H:i:s' , $esq['Fecha']);
 			$Fecha=$Fecha->diff(new DateTime() , true);
 
 			$t=0;
@@ -53,28 +52,28 @@
 	</p>
 
 	<form action="#comRes" method="POST" class="formRes">
-		<input type="hidden" name="comResID" value="<?php echo $esq->ID ?>" >
-	 	<input type="submit" value="↶" title="Responder a <?php echo $esq->Nombre ?>">
+		<input type="hidden" name="comConID" value="<?php echo $esq['Contenido'] ?>" >
+	 	<input type="submit" value="↶" title="Responder a <?php echo $esq['Nombre'] ?>">
 	</form>
 
  	<?php
 		if(isset($_SESSION['adminID']) && $_SESSION['adminID']!==NULL)
 		 {
 		 	?>
-			 	<input type="checkbox" name="comID[]" value="<?php echo $esq->ID ?>" form="reloadCom">
+			 	<input type="checkbox" name="comConID[]" value="<?php echo $esq['Contenido'] ?>" form="reloadCom">
 		 	<?php
 		 }
 	?>
 
 
 	<p class="comCont">
-		<?php echo $esq->Contenido ?>
+		<?php echo $esq['ValorCont'] ?>
 	</p>
 
 	<?php
-		if(isset($_POST['comResID'])&&$_POST['comResID']==$esq->ID)
+		if(isset($_POST['comConID'])&&$_POST['comConID']==$esq['Contenido'])
 		{
-			$_SESSION['comResID']=$_POST['comResID'];
+			$_SESSION['comConID']=$_POST['comConID'];
 			echo file_get_contents("../forms/nuevo_coment.php");
 		}
 	?>

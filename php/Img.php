@@ -15,12 +15,12 @@ class Img extends SQL_Obj
 				'Url',
 				'Alt',
 				'Titulo',
-				'Comentarios',
-				'Lenguaje'
+				'Lenguaje',
+				'Visible',
+				'Prioridad'
 			]
 		);
-		
-		$this->grupoNom='GrupoID';
+
 		if($nArgs>1)
 		{
 			$this->getAsoc(func_get_args()[1]);

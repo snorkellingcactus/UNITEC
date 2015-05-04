@@ -55,12 +55,40 @@ function echoLang($langSQLRes)
 		<link rel="stylesheet" type="text/css" href="./header.css" />
 		<link rel="stylesheet" type="text/css" href="./footer.css" />
 		<link rel="stylesheet" type="text/css" href="./seccs/menu.css" />
-		<link rel="stylesheet" type="text/css" href="./seccs/organigrama.css" />
-		<link rel="stylesheet" type="text/css" href="./seccs/calendario.css" />
-		<link rel="stylesheet" type="text/css" href="./seccs/sobre_unitec.css" />
-		<link rel="stylesheet" type="text/css" href="./seccs/novedades.css" />
-		<link rel="stylesheet" type="text/css" href="./seccs/galeria.css" />
-		<link rel="stylesheet" type="text/css" href="./seccs/mapa.css" />
+		
+		<?php
+			include_once('php/conexion.php');
+			include_once('php/head_include.php');
+			
+			$headers=$con->query
+			(
+				'
+					SELECT Modulos.Archivo FROM Modulos ,
+					(
+						SELECT Secciones.Modulo FROM `Secciones` , 
+						(
+							SELECT ID from Secciones
+							WHERE Padre IS NULL
+						) AS Secs
+						WHERE Secciones.Padre=Secs.ID 
+						AND Secciones.Modulo IS NOT NULL
+					) AS sub 
+					WHERE Modulos.Padre=sub.Modulo
+				'
+			);
+			$headers=fetch_all($headers , MYSQLI_NUM);
+/*
+			echo '<pre>Archivos de cabecera:';
+			print_r($headers);
+			echo '</pre>';
+*/
+			$hMax=count($headers);
+
+			for($h=0;$h<$hMax;$h++)
+			{
+				head_include($header=$headers[$h][0]);
+			}
+		?>
 		<link rel="stylesheet" type="text/css" href="./bootstrap.min.css" />
 
 		<script type="text/javascript" src="index.js"></script>
@@ -134,107 +162,7 @@ function echoLang($langSQLRes)
 			<?php
 				$_GET['mes']=getdate()['mon'];	//Acá indicar mes que se muestra por defecto. Va a mostrarse el mes indicado -1.
 
-				function separa($match , $str)
-				{
-					$max=strLen($str);
-					$res=array();
-					$len=0;
-					$buff='';
-
-					for($i=0;$i<$max;$i++)
-					{
-						$letra=$str[$i];
-
-						if($letra===$match)
-						{
-							$res[$len]=$buff;
-
-							$buff='';
-							++$len;
-						}
-						else
-						{
-							$buff=$buff.$letra;
-						}
-					}
-
-					$res[$len]=$buff;
-
-					return $res;
-				}
-
-				//Convierte un string como el siguiente:
-				//"jj.bb.aa"
-				//En un objeto:
-				//[
-				//	'jj'=>
-				//	[
-				//		'bb'=>
-				//		[
-				//			'aa'=>[]
-				//		]
-				//	]
-				//]
-				function &strStructObj($str , & $obj)
-				{
-					$sMax=count($str);
-					$intacto=true;
-
-					for($s=0;$s<$sMax;$s++)
-					{
-						$clave=$str[$s];
-
-						if(!isset($obj[$clave]))
-						{
-							$obj[$clave]=array();
-							$intacto=false;
-						}
-						if($s<$sMax-1)
-						{
-							$obj=& $obj[$clave];
-						}
-					}
-					if($intacto)
-					{
-						if(!isset($obj[$clave][0]))
-						{
-							$obj[$clave]=array($obj[$clave]);
-						}
-
-						$obj[$clave][count($obj[$clave])]=array();
-					}
-
-					return $obj[$clave];
-				}
-				//Sirve como complemento a un array tratado con strStructObj.
-				//En el futuro se mezclará con strStructObj.
-				function domObj($obj , & $res)
-				{
-					$puntero=$res;
-
-					if(isset($obj['Dominio']))
-					{
-						$puntero=&strStructObj(separa('.',$obj['Dominio']) , $res);
-					}
-					foreach($obj as $clave=>$valor)
-					{
-						if($clave==='Dominio')
-						{
-							continue;
-						}
-						else
-						{
-							if(isset($puntero['0']))
-							{
-								$puntero[count($puntero)-1][$clave]=$valor;
-							}
-							else
-							{
-								$puntero[$clave]=$valor;
-							}
-						}
-					}
-				}
+				
 
 				//Devuelve el contenido al pasarle su ID.
 				function getCont($contID , &$id)
@@ -254,254 +182,70 @@ function echoLang($langSQLRes)
 
 					return '';
 				}
-
-				function ordIncludes($includes)
-				{
-					$ordenA=[];
-
-					foreach($includes as $clave=>$valor)
-					{
-						if(isset($valor['orden']))
-						{
-							$ordenA[intVal($valor['orden']['Valor'])]=$valor;
-						}
-					}
-
-					return $ordenA;
-				}
-				//Incluye dinamicamente secciones.
-				function incluye($includes , $orden , $padre=null)
-				{
-					$jMax=count($orden);
-
-					for($j=0;$j<$jMax;$j++)
-					{
-						if(!isset($orden[$j]))
-						{
-							++$jMax;
-							continue;
-						}
-
-						$incAct=$orden[$j];
-						$visible=$incAct['visible']['Valor'];
-
-						if($visible==='1' || isset($_SESSION['adminID']))
-						{
-							/*
-							echo '<pre>';
-							print_r($incAct);
-							echo '</pre>';
-							*/
-							$tipo=$incAct['Tipo'];
-							$valor=$incAct['Valor'];
-
-							$clase='';
-
-							if($visible==='0')
-							{
-								$clase='oculta';
-							}
-
-							switch($tipo)
-							{
-								case '0':
-									if(isset($incAct['css_id']['Valor']))
-									{
-										$id=$incAct['css_id']['Valor'];
-
-										global $afectado;
-
-										if(isset($_SESSION['adminID']))
-										{
-											if(isset($_POST['nSec']) && $afectado==$incAct['ID'])
-											{
-												?>
-													<span id="nSec"></span>
-												<?php
-											}
-										}
-										if($visible==='0')
-										{
-											$clase='class="oculta"';
-										}
-										?>
-											<section id="<?php echo $id?>" <?php echo $clase?>>
-
-											<div class="clearfix">
-											<?php
-												include('forms/elimina_dominio.php');
-												include('forms/seccion_nuevo_contenido.php');
-											?>
-											</div>
-											<?php
-
-												if(isset($incAct['inc']))
-												{
-													//echo '<pre>';print_r($incAct['inc']);echo '</pre>';
-													incluye($incAct['inc'] , ordIncludes($incAct['inc']) , $incAct);
-												}
-											?>
-											</section>
-										<?php
-									}
-								break;
-								case '1':
-									global $con,$afectado;
-
-									if($visible==='0')
-									{
-										?>
-											<span class="oculta">
-										<?php
-									}
-
-									include('forms/elimina_dominio.php');
-
-									if(isset($_SESSION['adminID']) && $afectado===$valor)
-									{
-										?>
-											<span id="nCon"></span>
-										<?php
-									}
-									include($valor);
-									if($visible==='0')
-									{
-										?>
-											</span>
-										<?php
-									}
-									?>
-										<input type="hidden" name="lleno[]" value="<?php echo $i?>" form="nCon<?php echo $padre['ID'] ?>">
-									<?php
-								break;
-								case '2':
-									include_once 'php/jBBCode1_3_0/JBBCode/Parser.php';
-
-									$parser=new JBBCode\Parser();
 				
-									include('php/parser_definiciones.php');
-
-									$id=0;
-									$parser->parse(getCont($valor ,$id));
-
-									global $afectado;
-
-									include('forms/elimina_dominio.php');
-									if(isset($_POST['nCon']) && $afectado==$id)
-									{
-										$id='id="nCon"';
-									}
-									else
-									{
-										$id='';
-									}
-
-									?>
-										<div class="contenido <?php echo $clase?>" <?php echo $id?> >
-										<?php
-											echo $parser->getAsHtml();
-										?>
-										</div>
-									<?php
-
-									?>
-										<input type="hidden" name="lleno[]" value="<?php echo $i?>" form="nCon<?php echo $padre['ID'] ?>">
-									<?php
-								break;
-							}
-						}
-					}
-				}
-				function sqlResToCfg($sqlRes)
+				function nSec($visible , $orden , $tipo , $valor)
 				{
-					$sqlRes=fetch_all($sqlRes , MYSQLI_ASSOC);
-
-					$iMax=count($sqlRes);
-
-					$cfg=array();
-
-					for($i=0;$i<$iMax;$i++)
-					{
-						domObj($sqlRes[$i] , $cfg);
-					}
-
-					return $cfg;
-				}
-				function getDomFromID($id)
-				{
-					global $con;
-					$dom=$con->query('select Dominio from Opciones where ID="'.$id.'"');
-
-					return fetch_all($dom , MYSQLI_NUM)[0][0];
-				}
-				function nSec($nombre , $visible , $orden , $tipo , $valor)
-				{
+					include_once('php/SQL_Obj.php');
 					global $con , $afectado;
+
+					$TSec=new SQL_Obj($con, 'Secciones', ['Visible','Prioridad','Modulo','Contenido','Padre']);
+
+					if(isset($_POST['secID']))
+					{
+						$TSec->Padre=$_POST['secID'];
+					}
+					if($tipo===1)
+					{
+						$TSec->Modulo=$valor;
+					}
+					if($tipo===2)
+					{
+						$TSec->Contenido=$valor;
+					}
+
+					$TSec->Prioridad=$orden;
+					$TSec->Visible=$visible;
+
+					echo '<pre>Consulta Secciones: ';print_r($TSec);echo '</pre>';
+
+					$TSec->insSQL();
+					//return;
+
+
 					//A futuro: Generar IDs únicos cuando $nombre esté vacio.
-					$dom='insert into Opciones (Dominio , Tipo , Valor) values ("edetec.seccion.'.$nombre;
-
-					$con->query($dom.'" , '.$tipo.' , "'.$valor.'")');
-					$id=$con->insert_id;
-
-					$con->query($dom.'.css_id" , 0 , "'.$nombre.'")');
-					$con->query($dom.'.visible" , 0 , "'.$visible.'")');
-					$con->query($dom.'.orden" , 0 , "'.$orden.'")');
 
 					if($tipo===0)
 					{
-						$afectado=$id;
+						$afectado=$TSec->ID;
 					}
 					if($tipo===1)
 					{
 						$afectado=$valor;
 					}
-/*
-					echo	'<pre>'
-								.$dom.'" , '.$tipo.' , "'.$valor.'")'.'<br> ;'
-					 			.$dom.'.css_id" , 0 , "'.$nombre.'")'.'<br> ;'
-					 			.$dom.'.visible" , 0 , "'.$visible.'")'.'<br> ;'
-					 			.$dom.'.orden" , 0 , "'.$orden.'")'.';'.
-							'</pre>';
-*/
 
+					unset($TSec);
 				}
 
 				if(isset($_SESSION['adminID']))
 				{
-					if(isset($_POST['elimina']))
+					if(isset($_POST['elimina']) && (isset($_POST['secID'])||isset($_POST['conID'])))
 					{
 						//echo '<pre>Elimina:<br>';
 
 						$tipo=isset($_POST['conID']);
-						$dom='conID';
 
-						if(!$tipo)
+						if($tipo)
 						{
-							$dom='secID';
+							$consulta='delete from Secciones where ID='.$_POST['conID'];
+						}
+						else
+						{
+							$consulta='delete from Secciones where ID='.$_POST['secID'];
 						}
 
-						$dom=getDomFromID($_POST[$dom]);
+						echo '<pre>Elimina : '.$consulta.'</pre>';
 
-						//echo 'Dominio: '.$dom.'<br>';
-
-						if(!$tipo)
-						{
-							$contenidos=$con->query('select Valor from Opciones where Dominio like "'.$dom.'.inc%" and Tipo=2');
-
-							$contenidos=fetch_all($contenidos , MYSQLI_NUM);
-							$cMax=count($contenidos);
-							for($c=0;$c<$cMax;$c++)
-							{
-								$con->query('delete from Contenido where ID='.$contenidos[$c][0]);
-							}
-						}
-
-						$con->query('delete from Opciones where Dominio like "'.$dom.'.%"');
-						$con->query('delete from Opciones where Dominio like "'.$dom.'"');
-
-						//echo 'Consulta : '.'delete from Opciones where Dominio like "'.$dom.'.%" <br>';
-						//echo 'Consulta : '.'delete from Opciones where Dominio like "'.$dom.'"';
-						//echo '</pre>';
+						$con->query($consulta);
 					}
 
 					if(isset($_POST['nSec']) || isset($_POST['nCon']))
@@ -527,14 +271,19 @@ function echoLang($langSQLRes)
 							}
 							else
 							{
-								$valor=$_POST['Archivo'][0];
+								$valor=$_POST['Modulo'];
 								$tipo=1;
 							}
-
-							$inc=$_POST['secID'].'.inc.';
 						}
 
-						$Opciones=$con->query('select * from Opciones where Dominio like "edetec.seccion.'.$inc.'%"');
+						if($tipo)
+						{
+							$condicion=' Padre='.$_POST['secID'];
+						}
+						else
+						{
+							$condicion=' Contenido IS NULL AND Modulo IS NULL';
+						}
 
 						$lugar=$_POST['Lugar'];
 
@@ -542,75 +291,203 @@ function echoLang($langSQLRes)
 						$pOrden=intVal(substr($lugar , 1));
 						$nOrden=0;
 
-						if($con->affected_rows)
+						$oMax=fetch_all($con->query('select max(Prioridad) from Secciones WHERE'.$condicion) , MYSQLI_NUM)[0][0];
+
+						echo '<pre>Lugar: ';print_r($lugar);echo '</pre>';
+						echo '<pre>Maxima Prioridad: ';print_r($oMax);echo '</pre>';
+
+						if($prefijo=='b')
 						{
+							//El último + 1.
+							$nOrden=$oMax+1;
+						}
+						else
+						{
+							$secciones=$con->query('SELECT * FROM Secciones WHERE Prioridad  >= '.$pOrden.' AND'.$condicion);
+							$secciones=fetch_all($secciones , MYSQLI_ASSOC);
+							//Si alguna seccion ocupa el lugar de la nueva la muevo a ella y
+							//en el caso de que sea necesario a sus siguientes.
 
-							$cfg=sqlResToCfg($Opciones);
+							$j=$pOrden;
 
-							$secciones=$cfg['edetec']['seccion'];
+							echo '<pre>Secciones a actualizar: ';print_r($secciones);echo '</pre>';
 
-							if($tipo)
+							while(isset($secciones[$j-$pOrden]) && $secciones[$j-$pOrden]['Prioridad']==$j && $j<=$oMax)
 							{
-								$secciones=$secciones[$_POST['secID']]['inc'];
+								echo '<pre>J: '.$j.'</pre>';
+								$nID=$secciones[$j-$pOrden]['ID'];
+
+								$consulta='update Secciones set Prioridad='.($j+1).' where ID='.$nID;
+
+								$con->query($consulta);
+
+								echo '<pre>Actualiza Prioridades: ';print_r($consulta);echo '</pre>';
+
+								++$j;
 							}
 
-							$orden=ordIncludes($secciones);
-
-							$oMax=count($orden);
-
-							//echo '<pre>Lugar: ';print_r($lugar);echo '</pre>';
-							if($prefijo=='b')
-							{
-								//El último + 1.
-								$nOrden=$oMax+1;
-							}
-							else
-							{
-								//Si alguna seccion ocupa el lugar de la nueva la muevo a ella y
-								//en el caso de que sea necesario a sus siguientes.
-
-								$j=$pOrden;
-
-								//echo '<pre>';print_r($orden);echo '</pre>';
-
-								while(isset($orden[$j]) && $j<=$oMax)
-								{
-									$nID=$orden[$j]['orden']['ID'];
-
-									$consulta='update Opciones set Valor='.($j+1).' where ID='.$nID;
-
-									$con->query($consulta);
-
-									//echo '<pre>Orden:';print_r($orden[$j]['orden']['Valor']);echo '</pre>';
-									//echo '<pre>';print_r($consulta);echo '</pre>';
-
-									++$j;
-								}
-
-								$nOrden=$pOrden;
-							}
+							$nOrden=$pOrden;
 						}
 
-						nSec($inc.$_POST['Identificador'][0] , $_POST['Visible'][0] , $nOrden , $tipo , $valor);
+
+						echo '<pre> Propiedades determinadas:</pre>';
+						echo '<pre>Prioridad:'	;	print_r($nOrden)				;	echo '</pre>';
+						echo '<pre>Visible:'	;	print_r($_POST['Visible'][0])	;	echo '</pre>';
+						echo '<pre>Tipo:'		;	print_r($tipo)					;	echo '</pre>';
+
+						nSec($_POST['Visible'][0] , $nOrden , $tipo , $valor);
 					}
 				}
 
 				//Obtengo las opciones.
-				$Opciones=$con->query('select * from Opciones where Dominio like "edetec.seccion.%"');
+				$secciones=$con->query
+				(
+					'
+						SELECT ID,Visible,Prioridad
+						FROM Secciones
+						WHERE Padre IS NULL
+						ORDER BY Prioridad asc
+					'
+				);
+				$secciones=fetch_all($secciones , MYSQLI_ASSOC);
 
-				if($con->affected_rows)
+				$sMax=count($secciones);
+
+				//SELECT s.ID as SecID,s.Modulo as ModID, m.Archivo as Modulo FROM `Secciones` as s , `Modulos` as m WHERE s.Modulo = m.ID 
+				//SELECT s.Contenido as ConID, m.Contenido as Con FROM `Secciones` as s , `Contenido` as m WHERE s.Contenido = m.ID
+					//$cfg=sqlResToCfg($Opciones);
+
+				for($s=0;$s<$sMax;$s++)
 				{
-					$cfg=sqlResToCfg($Opciones);
+					global $afectado;
 
-					$secciones=$cfg['edetec']['seccion'];
+					$seccion=$secciones[$s];
 
-					$orden=ordIncludes($secciones);
+					$id=$seccion['ID'];
+					$clase='';
+					$tipo=0;
 
-					
-					//echo '<pre>';print_r($cfg);echo '</pre>';
-					
+					if(isset($_SESSION['adminID']) && isset($_POST['nSec']) && $afectado==$seccion['ID'])
+					{
+						?>
+							<span id="nSec"></span>
+						<?php
+					}
+/*							if($visible==='0')
+					{
+						$clase='class="oculta"';
+					}
+*/
+					?>
+						<section id="<?php echo $id?>" <?php echo $clase?>>
 
-					incluye($secciones , $orden);
+						<div class="clearfix">
+							<?php
+								include('forms/elimina_dominio.php');
+								include('forms/seccion_nuevo_contenido.php');
+							?>
+						</div>
+					<?php
+
+					$includes=$con->query
+					(
+						'
+						SELECT Secciones.ID , Secciones.Visible , Secciones.Prioridad , Modulos.Archivo, Contenido.Contenido
+                        FROM Secciones
+                        left outer JOIN Modulos
+                        ON Modulos.ID = Secciones.Modulo
+                        left outer JOIN Contenido
+                        ON Contenido.ID = Secciones.Contenido
+                        WHERE Secciones.Padre='.$seccion['ID'].'
+                        order by Prioridad asc
+						'
+					);
+					$includes=fetch_all($includes , MYSQLI_ASSOC);
+/*
+					echo '<pre>Includes: ';
+					print_r($includes);
+					echo '</pre>';
+*/
+
+					$fMax=count($includes);
+
+					for($f=0;$f<$fMax;$f++)
+					{
+						//echo '<pre>Include N '.$f.'</pre>';
+						$include=$includes[$f];
+						if($include['Contenido']!==NULL)
+						{
+							$tipo=2;
+							$id=$include['ID'];
+
+							include_once 'php/jBBCode1_3_0/JBBCode/Parser.php';
+
+							$parser=new JBBCode\Parser();
+		
+							include('php/parser_definiciones.php');
+
+							$parser->parse($include['Contenido']);
+
+							global $afectado;
+
+							include('forms/elimina_dominio.php');
+							$clase='';
+/*									if(isset($_POST['nCon']) && $afectado==$id)
+							{
+								$id='id="nCon"';
+							}
+							else
+							{
+								$id='';
+							}
+*/
+							?>
+								<div class="contenido <?php echo $clase?>" <?php echo $id?> >
+									<?php
+										echo $parser->getAsHtml();
+									?>
+								</div>
+								<input type="hidden" name="lleno[]" value="<?php echo $f?>" form="nCon<?php echo $seccion['ID'] ?>">
+							<?php
+						}
+						if($include['Archivo']!==NULL)
+						{
+							$tipo=1;
+							$id=$include['ID'];
+
+							global $con,$afectado;
+
+							/*if($visible==='0')
+							{
+								?>
+									<span class="oculta">
+								<?php
+							}*/
+
+							include('forms/elimina_dominio.php');
+
+							if(isset($_SESSION['adminID']) && $afectado===$include['Archivo'])
+							{
+								?>
+									<span id="nCon"></span>
+								<?php
+							}
+							include($include['Archivo']);
+							/*if($visible==='0')
+							{
+								?>
+									</span>
+								<?php
+							}*/
+							?>
+								<input type="hidden" name="lleno[]" value="<?php echo $f?>" form="nCon<?php echo $seccion['ID'] ?>">
+								<div class="clearfix"></div>
+							<?php
+						}
+					}
+					?>
+						</section>
+					<?php
 				}
 
 				if(isset($_SESSION['adminID']))

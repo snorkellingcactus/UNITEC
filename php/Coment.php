@@ -13,17 +13,15 @@ class Coment extends SQL_Obj
 			$con,
 			'Comentarios',
 			[
-				'GrupoID',
-				'GrupoRes',
-				'Respondido',
-				'Fecha',
-				'Nombre',
 				'Contenido',
-				'Baneado'
+				'Raiz',
+				'Padre',
+				'Baneado',
+				'Nombre'
 			]
 		);
 
-		$this->NombreUsuario='Anónimo';
+		$this->Nombre='Anónimo';
 
 		if($nArgs>1)
 		{
@@ -32,101 +30,113 @@ class Coment extends SQL_Obj
 	}
 }
 
-include_once '../php/Inc_Esq.php';
-
-//Genero los comentarios.
-global $comentsMod;
-
-$comentsMod=new Inc_Esq('../esq/coment.php');
-
-function GenCom($conRes , $con)
+function incToStr($ruta , $esq)
 {
-	$props=[];
+	$res='';
 
-	if(isset($conRes['Nombre']))
-	{
-		$props['Nombre']=$conRes['Nombre'];
-	}
-	$props['ID']=$conRes['ID'];
-	$props['Fecha']=$conRes['Fecha'];
+	ob_start();
 
-	$conRes=$con->query('select Contenido from Contenido where ID='.$conRes['Contenido']);
+	include($ruta);
 
-	$props['Contenido']=fetch_all($conRes , MYSQLI_ASSOC)[0]['Contenido'];
+	$res=ob_get_contents();
 
-	$conRes=new Coment
-	(
-		$con,
-		$props
-	);
+	ob_end_clean();
 
-	return $conRes;
+	return $res;
 }
-
-function GenComLst($consulta , $con)
+function genComLst($main , $mLen , $dep , $NombreDest=NULL)
 {
-	global $comentsMod;
-
-	$comentBuff='';
-
-	$cantidad=count($consulta);
-
-	$args=func_get_args();
-
-	if(!$cantidad)
+	for($i=0;$i<$mLen;$i++)
 	{
-		$comentBuff='<p>Sin comentarios</p>';
-	}
-	else
-	{
-		for($i=0;$i<$cantidad;$i++)
+		$nodo=& $dep[$main[$i]];
+
+		$esq=$nodo[0];
+		$hijos=$nodo[1];
+
+		$esq['NombreDest']=$NombreDest;
+
+		include ('../esq/coment.php');
+
+		$hMax=count($hijos);
+
+		if($hMax)
 		{
-			$nCom=GenCom($consulta[$i] , $con);
+			$nom=$esq['Nombre'];
 
-			if(isset($args[2]))
-			{
-				$nCom->NombreDest=$args[2];
-			}
-
-			$nCom=$comentsMod->recorre($nCom);
-
-			$comentBuff=$comentBuff.$nCom;
-
-			if($consulta[$i]['Respondido']=='1')
-			{
-
-				$subCons=$con->query
-				(
-					'select * from Comentarios where GrupoRes='
-					.$consulta[$i]['ID']
-				);
-
-				$subCons=fetch_all($subCons , MYSQLI_ASSOC);
-
-				$nCom=GenComLst
-				(
-					$subCons,
-					$con,
-					$consulta[$i]['Nombre']
-				);
-
-				$comentBuff=$comentBuff
-				.'<div class="nHilo">'
-				.$nCom
-				.'</div>';
-			}
+			?>
+				<div class="nHilo">
+					<?php
+						genComLst($hijos , $hMax , $dep , $nom);
+					?>
+				</div>
+			<?php
 		}
 	}
-
-	return $comentBuff;
 }
-
-function GenComGrp($GrupoID , $con)
+function GenComGrp($ContID , $con)
 {
-	$consulta=$con->query('select * from Comentarios where GrupoID='.$GrupoID.' and GrupoRes is NULL');
+	$consulta=$con->query
+	(
+		'	SELECT Contenido.Contenido as ValorCont,Contenido.Fecha,Contenido.Lenguaje, Comentarios.*
+			FROM Contenido
+			JOIN Comentarios
+			ON Comentarios.Contenido = Contenido.ID
+			WHERE Comentarios.Raiz ='.$ContID.
+		'	ORDER BY Fecha asc'
+	);
 	
 	$consulta=fetch_all($consulta , MYSQLI_ASSOC);
 
-	return GenComLst($consulta , $con);
+	$cLen=count($consulta);
+
+	if($cLen===0)
+	{
+		?>
+			<p>Sin Comentarios</p>
+		<?
+	}
+
+	$dep=[];
+	$main=[];
+	$mLen=0;
+
+	$i=0;
+	while($i<$cLen)
+	{
+		$com=$consulta[$i];
+		$padreID=$com['Padre'];
+		$conID=$com['Contenido'];
+
+		++$i;
+
+		//echo '<pre>Padre : '.$padreID.' ; Contenido : '.$conID.'</pre>';
+		if(!isset($dep[$conID]))
+		{
+			$dep[$conID]=[$com,[]];
+		}
+		else
+		{
+			$dep[$conID][0]=$com;
+		}
+
+		if($padreID==$ContID)
+		{
+			$main[$mLen]=$conID;
+			++$mLen;
+		}
+		else
+		{
+			if(!isset($dep[$padreID]))
+			{
+				$dep[$padreID]=[false,[$conID]];
+			}
+
+			$depAct=& $dep[$padreID][1];
+
+			$depAct[count($depAct)]=$conID;
+		}
+	}
+
+	genComLst($main , $mLen , $dep);
 }
 ?>

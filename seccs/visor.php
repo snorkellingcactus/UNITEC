@@ -38,7 +38,9 @@
 	
 	$Visor	= new Gal_HTML_Visor
 	(
-		'select * from Imagenes',
+		'	SELECT Imagenes.* , Contenido.Contenido
+			FROM Imagenes join Contenido ON Contenido.ID=Imagenes.Titulo
+		',
 		$con,
 		new NULL_Gen_HTML()
 	);
@@ -60,25 +62,8 @@
 				.$FechaAct['hours'].':'
 				.$FechaAct['minutes'].':'
 				.$FechaAct['seconds'];
-
-		if(!isset($esq->Comentarios))
-		{
-			$grupoCom=$con->query('select ifnull(max(GrupoID),0) as GrupoID from Comentarios');
-			$grupoCom=fetch_all($grupoCom , MYSQLI_ASSOC)[0]['GrupoID']+1;
-		}
-		else
-		{
-			$grupoCom=$esq->Comentarios;
-		}
 		
-		$Comentario=new Coment
-		(
-			$con,
-			[
-				'GrupoID'=>$grupoCom,
-				'Fecha'=>$Fecha
-			]
-		);
+		$Comentario=new Coment($con);
 		//Indico que tiene como foráneo un objeto Contenido.
 		$Comentario->insForaneas
 		(
@@ -86,7 +71,9 @@
 			(
 				$con,
 				[
-					'Contenido'=>htmlentities($_POST['comContenido'])
+					'Contenido'=>htmlentities($_POST['comContenido']),
+					'Fecha'=>$Fecha,
+					'Lenguaje'=>$_SESSION['lang']
 				]
 			),
 			[
@@ -98,23 +85,25 @@
 		{
 			$Comentario->Nombre=htmlentities($_POST['comNomUsuario']);
 		}
-		if(isset($_SESSION['comResID']))
+		if(isset($_SESSION['comConID']))
 		{
-			$Comentario->GrupoRes=$_SESSION['comResID'];
+			$Comentario->Padre=$_SESSION['comConID'];
 
-			$con->query('update `Comentarios` set Respondido=1 where ID='.$_SESSION['comResID']);
-
-			unset($_SESSION['comResID']);
+			unset($_SESSION['comConID']);
 		}
+		else
+		{
+			$Comentario->Padre=$esq->Titulo;
+		}
+		$Comentario->Raiz=$esq->Titulo;
+/*
+		echo '<pre>A insertar:';
+		print_r('<br>Comentario : ');
+		print_r($Comentario);
+		echo '</pre>';
+*/
 		//Inserto el comentario en la BD.
 		$Comentario->insSQL();
-
-		if(!isset($esq->Comentarios))
-		{
-			$esq->Comentarios=$grupoCom;
-
-			$esq->updSQL('Comentarios');
-		}
 
 		//Esto hace que se ancle el comentario al que está siendo respondido.
 		//La idea es que se ancle el comentario recién creado, para lo que
@@ -123,23 +112,22 @@
 	}
 	else
 	{
-		if(isset($_SESSION['comResID']))
+		if(isset($_SESSION['comConID']))
 		{
-			unset($_SESSION['comResID']);
+			unset($_SESSION['comConID']);
 		}
 	}
 
 	//Elimino comentarios seleccionados.
-	if(isset($_POST['comID']))
+	if(isset($_POST['form']) && $_POST['form']==='accionesCom')
 	{
-		if(isset($_POST['elimina']))
-		{
-			$iMax=count($_POST['comID']);
+		$conID=$_POST['comConID'];
+		$iMax=count($conID);
 
-			for($i=0;$i<$iMax;$i++)
-			{
-				$con->query('delete from Comentarios where ID='.$_POST['comID'][$i]);
-			}
+		for($i=0;$i<$iMax;$i++)
+		{
+			$con->query('delete from Comentarios where Contenido='.$conID[$i]);
+			$con->query('delete from Contenido where ID='.$conID[$i]);
 		}
 	}
 	//unset($_POST['vImgId']);
@@ -149,7 +137,7 @@
 ?>
 			<!-- Título -->
 			<h2 class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-						<?php echo $esq->Titulo ?>
+						<?php echo $esq->Contenido ?>
 			</h2>
 			
 			<!-- Imagen y controles -->
@@ -172,9 +160,9 @@
 					include('../forms/seleccion.php');
 
 					//Genero los comentarios.
-					echo GenComGrp($esq->Comentarios , $con);
+					GenComGrp($esq->Titulo , $con);
 
-					if(!isset($_POST['comResID']))
+					if(!isset($_POST['comConID']))
 					{
 						include('../forms/nuevo_coment.php');
 					}

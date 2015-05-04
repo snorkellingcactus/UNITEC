@@ -27,6 +27,7 @@ form a
 select option{background-color:white;}
 form p{color:black}
 label{font-size:2em;color:white;margin-top:5px;}
+label[for="secID"]{display:none;}
 input,form a , button, textarea, select{height:auto;box-shadow:0px 0px 3px black;border-radius:3px;border:none;}
 button,form a{background-color:silver;font-family:sans-serif;vertical-align:middle;line-height:3em;color:black;}
 textarea{height:auto}

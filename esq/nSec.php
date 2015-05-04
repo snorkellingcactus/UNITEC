@@ -1,18 +1,13 @@
 <form class="nSec" action="php/accion.php" method="POST" >
 	<?php
-		if(isset($orden))
+		if(isset($secciones))
 		{
-			$iMax=count($orden);
+			$iMax=count($secciones);
 
 			for($i=0;$i<$iMax;$i++)
 			{
-				if(!isset($orden[$i]))
-				{
-					++$iMax;
-					continue;
-				}
 				?>
-					<input type="hidden" name="lleno[]" value="<?php echo $i?>" >
+					<input type="hidden" name="lleno[]" value="<?php echo $secciones[$i]['Prioridad']?>" >
 				<?php
 			}
 		}

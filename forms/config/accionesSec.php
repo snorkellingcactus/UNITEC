@@ -9,10 +9,6 @@
 	$labels=
 	[
 		[
-			'input_text.php',
-			'Identificador'
-		],
-		[
 			'selector_orden.php',
 			'Lugar'
 		],

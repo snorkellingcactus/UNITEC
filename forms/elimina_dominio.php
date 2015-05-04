@@ -14,7 +14,7 @@ if(isset($_SESSION['adminID']))
 	?>
 		<div class="sep"></div>
 		<form method="POST" class="right" action="index.php">
-			<input type="hidden" name="<?php echo $tNom ?>" value="<?php echo $incAct['ID']?>"/>
+			<input type="hidden" name="<?php echo $tNom ?>" value="<?php echo $id?>"/>
 			<input type="submit" name="elimina" value="Eliminar" />
 		</form>
 	<?php

@@ -36,28 +36,103 @@ if(isset($_SESSION['adminID']))
 		).doc
 	)
 
+
 	function actPanel()
 	{
 		if(this.status==200 && this.readyState===4)
 		{
-			panel.getConf.bind(panel)();
+			conf=panel.xmlObj.xmlHttp.responseXML.childNodes[0];
+
+			var nombres=conf.getElementsByTagName('Nombre');
+			var padres=conf.getElementsByTagName('Padre');
+
+			for(var i=0;i<nombres.length;i++)
+			{
+				if(padres[i].childNodes[0].nodeValue!=='null')
+				{
+					
+				}
+				var nombre=nombres[i];
+				var val='?';
 
 
-			conf=XMLToDOM(panel.cfg);
+				if(nombre.childNodes[0])
+				{
+					val=nombre.childNodes[0].nodeValue;
+				}
+
+				panel.proto.creaTipo('tModulosTr' ,['Nombre' , val] , 0);
+			}
+			//conf=XMLToDOM(panel.cfg);
 
 			window.console.log(conf);
 		}
 	}
 	panel=new PanelAdmin();
 
+	panel.proto.tipos.tModulos=
+	{
+		hijo:
+		{
+			nom:'tModulos',
+			tag:'table',
+			forma:
+			{
+				setAttribute:['class','tabla1']
+			},
+			hijos:
+			[
+				{
+					tag:'th',
+					innerHTML:'Modulo'
+				},
+				{
+					tag:'th',
+					innerHTML:'Requiere'
+				}
+			]
+		}
+	};
+	panel.proto.tipos.tModulosTr=
+	{
+		'tModulos':
+		{
+			nom:'tModulosTr',
+			tag:'tr'
+		},
+		dist:function(caja , val , n)
+		{
+			var doc=caja.doc.childNodes;
+
+			for(var i=0;i<val.length;i++)
+			{
+				caja.hijo
+				(
+					{
+						tag:'td'
+					}
+				).doc.innerHTML=val[i];
+			}
+			
+		}
+	}
+
 	panel.proto.creaTipo('raiz' , 0 , 0);
 	panel.proto.creaTipo('Tit' , 'Panel Admin' ,0);
 
-	panel.proto.creaTipo('Pes' , 'Modulos' , 'Sec');
+	panel.proto.creaTipo('Pes' , 'Modulos' , 'Mod');
+	panel.proto.creaTipo('tModulos' , 'vistaPMod' , 0);
+
+	panel.diag.caja('vistaPMod').doc.appendChild(panel.diag.caja('tModulos').doc)
 
 	//panel.proto.creaTipo('Pes' , 'Edita Configuración' , 'Cfg');
 	//panel.proto.creaTipo('cfgEdit' , 'Edita Configuración' , 0);
-	//panel.diag.selV('panel','vistaPCfg');
+
+	panel.diag.selV('panel','vistaPMod');
+
+
+	panel.getConfPath='/php/mkCon.php'
+	panel.pattern='select * from Modulos where 1';
 	panel.prepareXmlHttp();
 	panel.xmlObj.conf({handler:actPanel});
 	panel.xmlObj.envia();

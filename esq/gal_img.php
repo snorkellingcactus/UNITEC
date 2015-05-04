@@ -3,13 +3,13 @@
 		if(isset($_SESSION['adminID']))
 		{
 			?>
-				<input type="checkbox" class='eImg' name="eImgID[]" form="reloadGal" value="<?php echo $esq->ID ?>" />
+				<input type="checkbox" class='eImg' name="eConID[]" form="reloadGal" value="<?php echo $esq->Titulo ?>" />
 			<?php
 		}
 	?>
 	<button type="submit" form="vImg" name="vImgId" value="<?php echo $esq->ID ?>">
 		<p>
-			<?php echo $esq->Titulo ?>
+			<?php echo $esq->TituloCon ?>
 		</p>
 		<img src="<?php echo $esq->Url ?>" alt="<?php echo $esq->Alt ?>" width="200" height="200" />
 	</button>

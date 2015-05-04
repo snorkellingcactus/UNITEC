@@ -7,7 +7,7 @@ class Contenido extends SQL_Obj
 	{
 		$nArgs=func_num_args();
 
-		parent::__construct($con, 'Contenido',['Contenido','Grupo','Lenguaje']);
+		parent::__construct($con, 'Contenido',['Contenido','Fecha','Lenguaje']);
 
 		if($nArgs>1)
 		{

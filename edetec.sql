@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 22-04-2015 a las 19:48:39
+-- Tiempo de generación: 04-05-2015 a las 19:14:31
 -- Versión del servidor: 5.6.16
 -- Versión de PHP: 5.5.11
 
@@ -28,29 +28,32 @@ SET time_zone = "+00:00";
 
 CREATE TABLE IF NOT EXISTS `Comentarios` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
-  `GrupoID` int(11) NOT NULL,
-  `GrupoRes` int(11) DEFAULT NULL,
-  `Respondido` bit(1) DEFAULT NULL,
-  `Fecha` datetime DEFAULT NULL,
   `Contenido` int(11) DEFAULT NULL,
+  `Raiz` int(11) NOT NULL,
+  `Padre` int(11) DEFAULT NULL,
   `Baneado` bit(1) NOT NULL,
   `Nombre` varchar(128) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`ID`),
   KEY `Contenido` (`Contenido`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=12 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=30 ;
 
 --
 -- Volcado de datos para la tabla `Comentarios`
 --
 
-INSERT INTO `Comentarios` (`ID`, `GrupoID`, `GrupoRes`, `Respondido`, `Fecha`, `Contenido`, `Baneado`, `Nombre`) VALUES
-(1, 0, NULL, NULL, '2015-04-22 16:46:41', 334, b'0', 'asx'),
-(2, 1, NULL, NULL, '2015-04-22 16:47:06', 335, b'0', 'asx'),
-(3, 2, NULL, NULL, '2015-04-22 16:49:11', 336, b'0', 'asx'),
-(4, 3, NULL, NULL, '2015-04-22 16:52:47', 337, b'0', 'asx'),
-(5, 4, NULL, NULL, '2015-04-22 16:53:26', 338, b'0', 'asx'),
-(6, 5, NULL, NULL, '2015-04-22 16:54:11', 339, b'0', 'asx'),
-(9, 8, NULL, NULL, '2015-04-22 16:59:37', 342, b'0', 'asx');
+INSERT INTO `Comentarios` (`ID`, `Contenido`, `Raiz`, `Padre`, `Baneado`, `Nombre`) VALUES
+(13, 388, 211, 211, b'0', 'Hola'),
+(14, 191, 211, 211, b'0', 'ComenanteA'),
+(16, 197, 211, 211, b'0', 'ComenanteC'),
+(17, 198, 211, 191, b'0', 'ComentanteA1'),
+(18, 215, 211, 192, b'0', 'ComentanteB1'),
+(19, 212, 211, 197, b'0', 'ComentanteC1'),
+(20, 236, 211, 191, b'0', 'ComentarioA2'),
+(21, 237, 211, 198, b'0', 'ComentarioA1A'),
+(26, 393, 211, 198, b'0', 'ComentanteA1B'),
+(27, 398, 211, 236, b'0', 'hhhh'),
+(28, 399, 211, 236, b'0', 'onono'),
+(29, 400, 211, 197, b'0', 'asxasx');
 
 -- --------------------------------------------------------
 
@@ -61,87 +64,85 @@ INSERT INTO `Comentarios` (`ID`, `GrupoID`, `GrupoRes`, `Respondido`, `Fecha`, `
 CREATE TABLE IF NOT EXISTS `Contenido` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `Contenido` text COLLATE utf8_unicode_ci,
-  `Grupo` int(11) DEFAULT NULL,
+  `Fecha` datetime DEFAULT NULL,
   `Lenguaje` int(11) DEFAULT NULL,
   PRIMARY KEY (`ID`),
   KEY `Lenguaje` (`Lenguaje`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=347 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=401 ;
 
 --
 -- Volcado de datos para la tabla `Contenido`
 --
 
-INSERT INTO `Contenido` (`ID`, `Contenido`, `Grupo`, `Lenguaje`) VALUES
-(187, 'The standard Lorem Ipsum passage, used since the 1500s', 1, 1),
-(188, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', 2, 1),
-(191, 'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.', 3, 1),
-(192, '&quot;Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?&quot;', 4, 1),
-(197, 'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. (En ingles)', 3, 2),
-(198, '&quot;Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?&quot; (en ingles)', 4, 2),
+INSERT INTO `Contenido` (`ID`, `Contenido`, `Fecha`, `Lenguaje`) VALUES
+(187, 'The standard Lorem Ipsum passage, used since the 1500s', NULL, 1),
+(188, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', NULL, 1),
+(197, 'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. (En ingles)', '2015-04-29 00:00:00', 2),
+(198, '&quot;Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?&quot; (en ingles)', '2015-04-28 00:00:00', 2),
 (211, 'asx', NULL, NULL),
-(212, 'asxasx', NULL, NULL),
+(212, 'asxasx', '2015-04-29 00:00:00', NULL),
 (213, 'asxasx', NULL, NULL),
 (214, '&quot;Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?&quot;\r\n', NULL, NULL),
-(215, '&quot;Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?&quot;\r\n', NULL, NULL),
+(215, '&quot;Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?&quot;\r\n', '2015-04-28 00:00:00', NULL),
 (216, '&quot;Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?&quot; ', NULL, NULL),
 (217, '&quot;Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?&quot; ', NULL, NULL),
 (218, 'But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure itself, because it is pleasure, but because those who do not know how to pursue pleasure rationally encounter consequences that are extremely painful. Nor again is there anyone who loves or pursues or desires to obtain pain of itself, because it is pain, but because occasionally circumstances occur in which toil and pain can procure him some great pleasure. To take a trivial example, which of us ever undertakes laborious physical exercise, except to obtain some advantage from it? But who has any right to find fault with a man who chooses to enjoy a pleasure that has no annoying consequences, or one who avoids a pain that produces no resultant pleasure?', NULL, NULL),
-(227, 'wedwed', 5, NULL),
-(228, 'wedwed', 6, NULL),
-(229, 'wedwed', 7, NULL),
-(230, 'Mundo', 8, NULL),
-(231, 'Mundo', 9, NULL),
-(232, 'Mundo', 10, NULL),
-(233, 'Lo que sea', 11, NULL),
-(234, 'Este evento', 12, NULL),
-(235, '', 13, NULL),
-(236, 'Lo que sea', 14, NULL),
-(237, 'Este evento', 15, NULL),
-(238, '', 16, NULL),
-(239, 'Lo que sea', 17, NULL),
-(240, 'Este evento', 18, NULL),
-(241, '', 19, NULL),
-(242, 'Lorem Ipsum dolor sit amet', 20, NULL),
-(243, 'asx', 21, NULL),
-(244, 'asx', 22, NULL),
-(245, 'asx', 23, NULL),
-(246, 'asx', 24, NULL),
-(247, 'asx', 25, NULL),
-(248, 'asx', 26, NULL),
-(249, 'Mundo', 27, NULL),
-(250, '', 28, NULL),
-(251, 'Lorem ipsum dolor sit amet', 29, NULL),
-(252, 'asxs', 30, NULL),
-(253, 'asxs', 31, NULL),
-(254, 'asxs', 32, NULL),
-(255, 'asxs', 33, NULL),
-(256, 'asxs', 34, NULL),
-(257, 'asxs', 35, NULL),
-(258, 'asxs', 36, NULL),
-(259, 'asxs', 37, NULL),
-(260, 'asxs', 38, NULL),
-(261, 'asxs', 39, NULL),
-(262, 'asxs', 40, NULL),
-(263, 'asxs', 41, NULL),
-(264, 'asxs', 42, NULL),
-(265, 'asxs', 43, NULL),
-(266, 'asxs', 44, NULL),
-(267, 'asxs', 45, NULL),
-(268, 'asxs', 46, NULL),
-(269, 'asxs', 47, NULL),
-(270, 'asxs', 48, NULL),
-(271, 'asxs', 49, NULL),
-(272, 'asxs', 50, NULL),
-(273, 'asxs', 51, NULL),
-(274, 'asxs', 52, NULL),
-(275, 'asxs', 53, NULL),
-(276, 'asxs', 54, NULL),
-(277, 'Lorem ipsum dolor sit amet', 55, NULL),
-(280, 'asx', 58, NULL),
-(281, 'as', 59, NULL),
-(282, 'asxasx', 60, NULL),
+(227, 'wedwed', NULL, NULL),
+(228, 'wedwed', NULL, NULL),
+(229, 'wedwed', NULL, NULL),
+(230, 'Mundo', NULL, NULL),
+(231, 'Mundo', NULL, NULL),
+(232, 'Mundo', NULL, NULL),
+(233, 'Lo que sea', NULL, NULL),
+(234, 'Este evento', NULL, NULL),
+(235, '', NULL, NULL),
+(236, 'Lo que sea', '2015-04-29 00:00:00', NULL),
+(237, 'Este evento', '2015-04-29 00:00:00', NULL),
+(238, '', NULL, NULL),
+(239, 'Lo que sea', NULL, NULL),
+(240, 'Este evento', NULL, NULL),
+(241, '', NULL, NULL),
+(242, 'Lorem Ipsum dolor sit amet', NULL, NULL),
+(243, 'asx', NULL, NULL),
+(244, 'asx', NULL, NULL),
+(245, 'asx', NULL, NULL),
+(246, 'asx', NULL, NULL),
+(247, 'asx', NULL, NULL),
+(248, 'asx', NULL, NULL),
+(249, 'Mundo', NULL, NULL),
+(250, '', NULL, NULL),
+(251, 'Lorem ipsum dolor sit amet', NULL, NULL),
+(252, 'asxs', NULL, NULL),
+(253, 'asxs', NULL, NULL),
+(254, 'asxs', NULL, NULL),
+(255, 'asxs', NULL, NULL),
+(256, 'asxs', NULL, NULL),
+(257, 'asxs', NULL, NULL),
+(258, 'asxs', NULL, NULL),
+(259, 'asxs', NULL, NULL),
+(260, 'asxs', NULL, NULL),
+(261, 'asxs', NULL, NULL),
+(262, 'asxs', NULL, NULL),
+(263, 'asxs', NULL, NULL),
+(264, 'asxs', NULL, NULL),
+(265, 'asxs', NULL, NULL),
+(266, 'asxs', NULL, NULL),
+(267, 'asxs', NULL, NULL),
+(268, 'asxs', NULL, NULL),
+(269, 'asxs', NULL, NULL),
+(270, 'asxs', NULL, NULL),
+(271, 'asxs', NULL, NULL),
+(272, 'asxs', NULL, NULL),
+(273, 'asxs', NULL, NULL),
+(274, 'asxs', NULL, NULL),
+(275, 'asxs', NULL, NULL),
+(276, 'asxs', NULL, NULL),
+(277, 'Lorem ipsum dolor sit amet', NULL, NULL),
+(280, 'asx', NULL, NULL),
+(281, 'as', NULL, NULL),
+(282, 'asxasx', NULL, NULL),
 (283, 'mundo', NULL, NULL),
-(284, 'assas', 61, NULL),
+(284, 'assas', NULL, NULL),
 (299, 'Genial', NULL, NULL),
 (300, 'asx', NULL, NULL),
 (301, 'asxasx', NULL, NULL),
@@ -149,10 +150,10 @@ INSERT INTO `Contenido` (`ID`, `Contenido`, `Grupo`, `Lenguaje`) VALUES
 (303, 'asx', NULL, NULL),
 (304, 'asx', NULL, NULL),
 (327, 'munndo', NULL, NULL),
-(330, 'asx', 62, NULL),
-(331, 'asx', 63, NULL),
-(332, 'asx', 64, NULL),
-(333, 'asx', 65, NULL),
+(330, 'asx', NULL, NULL),
+(331, 'asx', NULL, NULL),
+(332, 'asx', NULL, NULL),
+(333, 'asx', NULL, NULL),
 (334, 'Hola', NULL, NULL),
 (335, 'Hola', NULL, NULL),
 (336, 'Hola', NULL, NULL),
@@ -164,8 +165,60 @@ INSERT INTO `Contenido` (`ID`, `Contenido`, `Grupo`, `Lenguaje`) VALUES
 (342, 'Hola', NULL, NULL),
 (343, 'hh', NULL, NULL),
 (344, 'mundo', NULL, NULL),
-(345, 'Nueva Novedad', 66, NULL),
-(346, 'Con contenido de prueba', 67, NULL);
+(345, 'Nueva Novedad', NULL, NULL),
+(346, 'Con contenido de prueba', NULL, NULL),
+(347, 'asxasxasx', NULL, 1),
+(348, 'asxasxasx', NULL, 1),
+(349, 'asxasxasx', NULL, 1),
+(350, 'asxasxasx', NULL, 1),
+(351, 'asxasxasx', NULL, 1),
+(352, 'asxasxasx', NULL, 1),
+(353, 'asxasxasx', NULL, 1),
+(354, 'asxasxasx', NULL, 1),
+(355, 'asxasxasx', NULL, 1),
+(356, 'asxasxasx', NULL, 1),
+(357, 'asxasxasx', NULL, 1),
+(358, 'asxasxasx', NULL, 1),
+(359, 'asxasxasx', NULL, 1),
+(360, 'asxasxasx', NULL, 1),
+(361, 'asxasxasx', NULL, 1),
+(362, 'asxasxasx', NULL, 1),
+(363, 'asxasxasx', NULL, 1),
+(364, 'asxasxasx', NULL, 1),
+(365, 'asxasxasx', NULL, 1),
+(366, 'asxasxasx', NULL, 1),
+(367, 'asxasxasx', NULL, 1),
+(368, 'asxasxasx', NULL, 1),
+(369, 'asxasxas', NULL, 1),
+(370, '[center][size=200][b]Galeria[/b][/size][/center]', NULL, 1),
+(371, 'Jueves', NULL, 1),
+(372, 'jueves', NULL, 1),
+(373, 'jueves', NULL, 1),
+(374, 'asxasxasxsax', NULL, 1),
+(375, 'asx', NULL, 1),
+(376, 'asx', NULL, 1),
+(377, 'Lunes', NULL, 1),
+(378, '[center][size=200][b]Galer&iacute;a[/b][/size][/center]', NULL, 1),
+(379, 'asx', NULL, 1),
+(380, 'asxa', NULL, 1),
+(381, 'jueves1', NULL, 1),
+(382, 'jueves2', NULL, 1),
+(383, '[center][size=200][b]Galer&iacute;a[/b][/size][/center]', NULL, 1),
+(384, 'Hola', '2015-04-29 00:00:00', 1),
+(385, 'Hola', '2015-04-29 00:00:00', 1),
+(386, 'sxsdc', '2015-04-29 00:00:00', 1),
+(387, 'mundo', '2015-04-29 00:00:00', 1),
+(388, 'Mundo', '2015-04-29 00:00:00', 1),
+(389, 'asxasxas', '2015-04-30 11:28:43', 1),
+(390, 'asxasxas', '2015-04-30 11:32:00', 1),
+(391, 'asxasx', '2015-04-30 11:32:18', 1),
+(392, 'Los comentaios funkan', '2015-05-01 07:33:11', 1),
+(393, 'asxas', '2015-05-01 07:41:43', 1),
+(394, 'Array', NULL, NULL),
+(397, 'Mariposa', NULL, NULL),
+(398, 'kjkjnkjn', '2015-05-01 09:55:07', 1),
+(399, 'onono', '2015-05-01 09:55:52', 1),
+(400, 'asxasx', '2015-05-04 06:03:31', 1);
 
 -- --------------------------------------------------------
 
@@ -208,22 +261,21 @@ CREATE TABLE IF NOT EXISTS `Imagenes` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `Url` varchar(512) COLLATE utf8_unicode_ci DEFAULT NULL,
   `Alt` varchar(128) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `Titulo` varchar(128) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `Comentarios` int(11) DEFAULT NULL,
+  `Titulo` int(11) NOT NULL,
   `Lenguaje` int(11) DEFAULT NULL,
   `Visible` tinyint(1) NOT NULL DEFAULT '1',
   `Prioridad` int(11) NOT NULL DEFAULT '1',
   PRIMARY KEY (`ID`),
-  KEY `Comentarios` (`Comentarios`),
   KEY `Lenguaje` (`Lenguaje`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=87 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=91 ;
 
 --
 -- Volcado de datos para la tabla `Imagenes`
 --
 
-INSERT INTO `Imagenes` (`ID`, `Url`, `Alt`, `Titulo`, `Comentarios`, `Lenguaje`, `Visible`, `Prioridad`) VALUES
-(86, 'http://localhost/Web/imgsEj/Mariposa-amarilla.jpg', 'asxasx', 'asx', 7, NULL, 1, 1);
+INSERT INTO `Imagenes` (`ID`, `Url`, `Alt`, `Titulo`, `Lenguaje`, `Visible`, `Prioridad`) VALUES
+(86, 'http://localhost/Web/imgsEj/Mariposa-amarilla.jpg', 'asxasx', 211, NULL, 1, 1),
+(90, 'http://localhost/Web/imgsEj/brown-butterfly-wallpaper-2.jpg', 'Mariposa', 397, NULL, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -251,6 +303,31 @@ INSERT INTO `Lenguajes` (`ID`, `Nombre`, `Pais`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `Modulos`
+--
+
+CREATE TABLE IF NOT EXISTS `Modulos` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `Nombre` varchar(128) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `Archivo` varchar(256) COLLATE utf8_unicode_ci NOT NULL,
+  `Descripcion` text COLLATE utf8_unicode_ci,
+  `Padre` int(11) DEFAULT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=6 ;
+
+--
+-- Volcado de datos para la tabla `Modulos`
+--
+
+INSERT INTO `Modulos` (`ID`, `Nombre`, `Archivo`, `Descripcion`, `Padre`) VALUES
+(1, 'Galeria', 'seccs/galeria.php', 'Una galería de fotos', NULL),
+(2, NULL, 'seccs/galeria.css', NULL, 1),
+(4, '', 'seccs/sobre_unitec.php', 'El archivo del inicio', NULL),
+(5, NULL, 'seccs/sobre_unitec.css', NULL, 4);
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `Novedades`
 --
 
@@ -259,8 +336,6 @@ CREATE TABLE IF NOT EXISTS `Novedades` (
   `Imagen` int(11) DEFAULT NULL,
   `Titulo` int(11) DEFAULT NULL,
   `Descripcion` int(11) DEFAULT NULL,
-  `Fecha` date DEFAULT NULL,
-  `Comentarios` int(11) NOT NULL,
   `Visible` tinyint(1) DEFAULT '1',
   `Prioridad` int(11) DEFAULT '1',
   PRIMARY KEY (`ID`),
@@ -273,8 +348,8 @@ CREATE TABLE IF NOT EXISTS `Novedades` (
 -- Volcado de datos para la tabla `Novedades`
 --
 
-INSERT INTO `Novedades` (`ID`, `Imagen`, `Titulo`, `Descripcion`, `Fecha`, `Comentarios`, `Visible`, `Prioridad`) VALUES
-(1, 86, 66, 67, '2015-04-22', 9, 1, 1);
+INSERT INTO `Novedades` (`ID`, `Imagen`, `Titulo`, `Descripcion`, `Visible`, `Prioridad`) VALUES
+(1, 86, 66, 67, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -289,7 +364,7 @@ CREATE TABLE IF NOT EXISTS `Opciones` (
   `Valor` varchar(256) COLLATE utf8_unicode_ci DEFAULT NULL,
   `Pred` varchar(256) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=56 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -302,25 +377,23 @@ CREATE TABLE IF NOT EXISTS `Secciones` (
   `Contenido` int(11) DEFAULT NULL,
   `Visible` tinyint(1) DEFAULT NULL,
   `Prioridad` int(11) DEFAULT NULL,
-  `Archivo` varchar(128) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `Modulo` int(128) DEFAULT NULL,
+  `Padre` int(11) DEFAULT NULL,
   PRIMARY KEY (`ID`),
   KEY `Contenido` (`Contenido`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=29 ;
 
 --
--- Estructura de tabla para la tabla `SecInc`
+-- Volcado de datos para la tabla `Secciones`
 --
 
-CREATE TABLE IF NOT EXISTS `SecInc` (
-  `ID` int(11) NOT NULL AUTO_INCREMENT,
-  `Archivo` varchar(128) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `Contenido` int(11) DEFAULT NULL,
-  `Orden` int(11) NOT NULL,
-  PRIMARY KEY (`ID`),
-  KEY `Contenido` (`Contenido`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+INSERT INTO `Secciones` (`ID`, `Contenido`, `Visible`, `Prioridad`, `Modulo`, `Padre`) VALUES
+(10, NULL, 1, 1, NULL, NULL),
+(11, NULL, 1, 1, 4, 10),
+(19, NULL, 1, 2, 1, 3),
+(25, 383, 1, 0, NULL, 3),
+(27, NULL, 1, 0, NULL, NULL),
+(28, NULL, 1, 1, 1, 27);
 
 -- --------------------------------------------------------
 
@@ -372,12 +445,6 @@ ALTER TABLE `Novedades`
 --
 ALTER TABLE `Secciones`
   ADD CONSTRAINT `Secciones_ibfk_1` FOREIGN KEY (`Contenido`) REFERENCES `Contenido` (`ID`);
-
---
--- Filtros para la tabla `SecInc`
---
-ALTER TABLE `SecInc`
-  ADD CONSTRAINT `SecInc_ibfk_1` FOREIGN KEY (`Contenido`) REFERENCES `Contenido` (`ID`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

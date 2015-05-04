@@ -31,6 +31,8 @@
 	include_once 'php/conexion.php';
 	include_once 'php/SQL_Obj.php';
 	include_once 'php/Img.php';
+	include_once 'php/Contenido.php';
+	include_once 'php/Foraneas.php';
 	include_once 'php/Gal_HTML.php';
 	include_once 'php/Inc_Esq.php';
 	
@@ -39,22 +41,23 @@
 	//Diferencias en modo admin.
 	if($modoAdmin)
 	{
-		//Elimina Imágenes Seleccionadas.
-		if(isset($_POST['eImgID']))
+		if(isset($_POST['form']) && $_POST['form']==='accionesGal')
 		{
-			$iMax=count($_POST['eImgID']);
-
-			for($i=0;$i<$iMax;$i++)
+			//Elimina Imágenes Seleccionadas.
+			if(isset($_POST['eConID']))
 			{
-				$con->query('delete from Imagenes where ID='.$_POST['eImgID'][$i]);
+				$iMax=count($_POST['eConID']);
+
+				for($i=0;$i<$iMax;$i++)
+				{
+					$con->query('delete from Imagenes where Titulo='.$_POST['eConID'][$i]);
+					$con->query('delete from Contenido where ID='.$_POST['eConID'][$i]);
+				}
 			}
 		}
+
 		//Se rellenó el formulario de nueva imagen, la inserto en la bd.
-		if
-		(
-			isset($_POST['Titulo'])	&&
-			isset($_POST['nImg'])
-		)
+		if(isset($_POST['nImg']))
 		{
 			$iMax=count($_POST['Titulo']);
 			
@@ -62,9 +65,21 @@
 			{
 				//Creo la imagen y le asigno las propiedades.
 				$img=new Img($con);
-				$img->Titulo=$_POST['Titulo'][$i];
+//				$img->Titulo=$_POST['Titulo'][$i];
 				$img->Url=$_POST['Url'][$i];
 				$img->Alt=$_POST['Alt'][$i];
+
+				$img->insForaneas
+				(
+					new Contenido
+					(
+						$con,
+						['Contenido'=>$_POST['Titulo'][$i]]
+					),
+					[
+						'Titulo'=>'ID'
+					]
+				);
 			
 				//La inserto en la bd.
 				$img->insSQL();
@@ -87,7 +102,11 @@
 
 	$Gal=new Gal_HTML
 	(
-		'select * from Imagenes where 1',
+		'	SELECT Imagenes.* , Contenido.Contenido AS TituloCon
+			FROM Imagenes
+			JOIN Contenido ON Imagenes.Titulo=Contenido.ID
+			WHERE 1
+		',
 		$con,
 		$imgEsq
 	);

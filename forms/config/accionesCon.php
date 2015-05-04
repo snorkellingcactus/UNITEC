@@ -13,10 +13,6 @@
 	$labels=
 	[
 		[
-			'input_text.php',
-			'Identificador'
-		],
-		[
 			'selector_orden.php',
 			'Lugar'
 		],
@@ -49,9 +45,10 @@
 	}
 	else
 	{
+		//Actualizar, con lo de los módulos se convierte en un select.
 		$labels[count($labels)]=
 		[
-			'input_text.php',
+			'selector_modulo.php',
 			'Archivo'
 		];
 	}

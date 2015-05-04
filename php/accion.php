@@ -1,34 +1,5 @@
 <?php
-//Incluyo los tags <link> y <script> según un array con rutas de archivos.
-function head_includes($includes)
-{
-	$iMax=count($includes);
-	for($i=0;$i<$iMax;$i++)
-	{
-		$str=$includes[$i];
-		$pos=strrpos( $str , '.');
-
-		if($pos)
-		{
-			$tipo=substr($str , $pos+1);
-
-			switch($tipo)
-			{
-				case 'css':
-				?>
-					<link rel="stylesheet" type="text/css" href="<?php echo $str?>" />
-				<?
-				break;
-				case 'js':
-				?>
-					<script type="text/javascript" src="<?php echo $str ?>"></script>
-				<?php
-			}
-		}
-	}
-
-	unset($iMax , $pos , $tipo , $str);
-}
+include_once('head_include.php');
 //Construyo el formulario con la configuración dada y lo devuelvo como string.
 function crea_form($labels)
 {
@@ -94,7 +65,14 @@ if(isset($_SESSION['adminID']))
 					<link rel="stylesheet" type="text/css" href="../forms/forms.css" />
 
 					<!--::::::Includes variables pasados por parametro::::::-->
-					<?php head_includes($includes) ?>
+					<?php
+						$iMax=count($includes);
+						for($i=0;$i<$iMax;$i++)
+						{
+							head_include($includes[$i]);
+						}
+						unset($iMax);
+					?>
 
 				</head>
 				<body>
