@@ -119,7 +119,7 @@ if(isset($_SESSION['adminID']))
 
 	panel.proto.creaTipo('raiz' , 0 , 0);
 	panel.proto.creaTipo('Tit' , 'Panel Admin' ,0);
-
+/*
 	panel.proto.creaTipo('Pes' , 'Modulos' , 'Mod');
 	panel.proto.creaTipo('tModulos' , 'vistaPMod' , 0);
 
@@ -136,7 +136,7 @@ if(isset($_SESSION['adminID']))
 	panel.prepareXmlHttp();
 	panel.xmlObj.conf({handler:actPanel});
 	panel.xmlObj.envia();
-
+*/
 	document.getElementsByTagName('main')[0].appendChild(panel.diag.caja('panel').doc);
 
 	</script>

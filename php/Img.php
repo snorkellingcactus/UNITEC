@@ -14,8 +14,8 @@ class Img extends SQL_Obj
 			[
 				'Url',
 				'Alt',
-				'Titulo',
-				'Lenguaje',
+				'TituloID',
+				'LenguajeID',
 				'Visible',
 				'Prioridad'
 			]

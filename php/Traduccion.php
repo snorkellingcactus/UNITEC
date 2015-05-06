@@ -1,13 +1,13 @@
 <?php
 require_once 'SQL_Obj.php';
 
-class Contenido extends SQL_Obj
+class Traduccion extends SQL_Obj
 {
 	public function __construct($con)
 	{
 		$nArgs=func_num_args();
 
-		parent::__construct($con, 'Contenidos' , []);
+		parent::__construct($con, 'Traducciones',['ContenidoID','LenguajeID','Texto']);
 
 		if($nArgs>1)
 		{

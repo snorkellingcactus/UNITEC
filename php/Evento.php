@@ -7,7 +7,7 @@ class Evento extends SQL_Obj
 	{
 		$nArgs=func_num_args();
 
-		parent::__construct($con, 'Eventos',['Tiempo','Nombre','Descripcion']);
+		parent::__construct($con, 'Eventos',['Tiempo','Nombre','DescripcionID','Visible','Prioridad']);
 
 		if($nArgs>1)
 		{

@@ -1,7 +1,7 @@
 <?php
 require_once 'SQL_Obj.php';
 
-class Coment extends SQL_Obj
+class Comentario extends SQL_Obj
 {
 
 	function __construct($con)
@@ -13,9 +13,10 @@ class Coment extends SQL_Obj
 			$con,
 			'Comentarios',
 			[
-				'Contenido',
-				'Raiz',
-				'Padre',
+				'ContenidoID',
+				'RaizID',
+				'PadreID',
+				'Fecha',
 				'Baneado',
 				'Nombre'
 			]
@@ -29,21 +30,6 @@ class Coment extends SQL_Obj
 		}
 	}
 }
-
-function incToStr($ruta , $esq)
-{
-	$res='';
-
-	ob_start();
-
-	include($ruta);
-
-	$res=ob_get_contents();
-
-	ob_end_clean();
-
-	return $res;
-}
 function genComLst($main , $mLen , $dep , $NombreDest=NULL)
 {
 	for($i=0;$i<$mLen;$i++)
@@ -54,6 +40,9 @@ function genComLst($main , $mLen , $dep , $NombreDest=NULL)
 		$hijos=$nodo[1];
 
 		$esq['NombreDest']=$NombreDest;
+
+		include_once('getTraduccion.php');
+		$esq['ValorCont']=getTraduccion($esq['ContenidoID'] , $_SESSION['lang']);
 
 		include ('../esq/coment.php');
 
@@ -77,14 +66,12 @@ function GenComGrp($ContID , $con)
 {
 	$consulta=$con->query
 	(
-		'	SELECT Contenido.Contenido as ValorCont,Contenido.Fecha,Contenido.Lenguaje, Comentarios.*
-			FROM Contenido
-			JOIN Comentarios
-			ON Comentarios.Contenido = Contenido.ID
-			WHERE Comentarios.Raiz ='.$ContID.
-		'	ORDER BY Fecha asc'
+		'	SELECT *
+			FROM Comentarios
+			WHERE Comentarios.RaizID ='.$ContID.
+		'	ORDER BY Fecha ASC'
 	);
-	
+
 	$consulta=fetch_all($consulta , MYSQLI_ASSOC);
 
 	$cLen=count($consulta);
@@ -104,8 +91,8 @@ function GenComGrp($ContID , $con)
 	while($i<$cLen)
 	{
 		$com=$consulta[$i];
-		$padreID=$com['Padre'];
-		$conID=$com['Contenido'];
+		$padreID=$com['PadreID'];
+		$conID=$com['ContenidoID'];
 
 		++$i;
 

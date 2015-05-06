@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 04-05-2015 a las 19:14:31
+-- Tiempo de generación: 06-05-2015 a las 10:03:24
 -- Versión del servidor: 5.6.16
 -- Versión de PHP: 5.5.11
 
@@ -28,197 +28,80 @@ SET time_zone = "+00:00";
 
 CREATE TABLE IF NOT EXISTS `Comentarios` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
-  `Contenido` int(11) DEFAULT NULL,
-  `Raiz` int(11) NOT NULL,
-  `Padre` int(11) DEFAULT NULL,
+  `ContenidoID` int(11) DEFAULT NULL,
+  `RaizID` int(11) NOT NULL,
+  `PadreID` int(11) DEFAULT NULL,
+  `Fecha` datetime NOT NULL,
   `Baneado` bit(1) NOT NULL,
   `Nombre` varchar(128) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`ID`),
-  KEY `Contenido` (`Contenido`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=30 ;
-
---
--- Volcado de datos para la tabla `Comentarios`
---
-
-INSERT INTO `Comentarios` (`ID`, `Contenido`, `Raiz`, `Padre`, `Baneado`, `Nombre`) VALUES
-(13, 388, 211, 211, b'0', 'Hola'),
-(14, 191, 211, 211, b'0', 'ComenanteA'),
-(16, 197, 211, 211, b'0', 'ComenanteC'),
-(17, 198, 211, 191, b'0', 'ComentanteA1'),
-(18, 215, 211, 192, b'0', 'ComentanteB1'),
-(19, 212, 211, 197, b'0', 'ComentanteC1'),
-(20, 236, 211, 191, b'0', 'ComentarioA2'),
-(21, 237, 211, 198, b'0', 'ComentarioA1A'),
-(26, 393, 211, 198, b'0', 'ComentanteA1B'),
-(27, 398, 211, 236, b'0', 'hhhh'),
-(28, 399, 211, 236, b'0', 'onono'),
-(29, 400, 211, 197, b'0', 'asxasx');
+  KEY `Comentarios_ibfk_3` (`ContenidoID`),
+  KEY `Comentarios_ibfk_2` (`RaizID`),
+  KEY `Comentarios_ibfk_4` (`PadreID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=12 ;
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `Contenido`
+-- Estructura de tabla para la tabla `Contenidos`
 --
 
-CREATE TABLE IF NOT EXISTS `Contenido` (
+CREATE TABLE IF NOT EXISTS `Contenidos` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
-  `Contenido` text COLLATE utf8_unicode_ci,
-  `Fecha` datetime DEFAULT NULL,
-  `Lenguaje` int(11) DEFAULT NULL,
-  PRIMARY KEY (`ID`),
-  KEY `Lenguaje` (`Lenguaje`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=401 ;
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=67 ;
 
 --
--- Volcado de datos para la tabla `Contenido`
+-- Volcado de datos para la tabla `Contenidos`
 --
 
-INSERT INTO `Contenido` (`ID`, `Contenido`, `Fecha`, `Lenguaje`) VALUES
-(187, 'The standard Lorem Ipsum passage, used since the 1500s', NULL, 1),
-(188, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', NULL, 1),
-(197, 'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. (En ingles)', '2015-04-29 00:00:00', 2),
-(198, '&quot;Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?&quot; (en ingles)', '2015-04-28 00:00:00', 2),
-(211, 'asx', NULL, NULL),
-(212, 'asxasx', '2015-04-29 00:00:00', NULL),
-(213, 'asxasx', NULL, NULL),
-(214, '&quot;Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?&quot;\r\n', NULL, NULL),
-(215, '&quot;Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?&quot;\r\n', '2015-04-28 00:00:00', NULL),
-(216, '&quot;Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?&quot; ', NULL, NULL),
-(217, '&quot;Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?&quot; ', NULL, NULL),
-(218, 'But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure itself, because it is pleasure, but because those who do not know how to pursue pleasure rationally encounter consequences that are extremely painful. Nor again is there anyone who loves or pursues or desires to obtain pain of itself, because it is pain, but because occasionally circumstances occur in which toil and pain can procure him some great pleasure. To take a trivial example, which of us ever undertakes laborious physical exercise, except to obtain some advantage from it? But who has any right to find fault with a man who chooses to enjoy a pleasure that has no annoying consequences, or one who avoids a pain that produces no resultant pleasure?', NULL, NULL),
-(227, 'wedwed', NULL, NULL),
-(228, 'wedwed', NULL, NULL),
-(229, 'wedwed', NULL, NULL),
-(230, 'Mundo', NULL, NULL),
-(231, 'Mundo', NULL, NULL),
-(232, 'Mundo', NULL, NULL),
-(233, 'Lo que sea', NULL, NULL),
-(234, 'Este evento', NULL, NULL),
-(235, '', NULL, NULL),
-(236, 'Lo que sea', '2015-04-29 00:00:00', NULL),
-(237, 'Este evento', '2015-04-29 00:00:00', NULL),
-(238, '', NULL, NULL),
-(239, 'Lo que sea', NULL, NULL),
-(240, 'Este evento', NULL, NULL),
-(241, '', NULL, NULL),
-(242, 'Lorem Ipsum dolor sit amet', NULL, NULL),
-(243, 'asx', NULL, NULL),
-(244, 'asx', NULL, NULL),
-(245, 'asx', NULL, NULL),
-(246, 'asx', NULL, NULL),
-(247, 'asx', NULL, NULL),
-(248, 'asx', NULL, NULL),
-(249, 'Mundo', NULL, NULL),
-(250, '', NULL, NULL),
-(251, 'Lorem ipsum dolor sit amet', NULL, NULL),
-(252, 'asxs', NULL, NULL),
-(253, 'asxs', NULL, NULL),
-(254, 'asxs', NULL, NULL),
-(255, 'asxs', NULL, NULL),
-(256, 'asxs', NULL, NULL),
-(257, 'asxs', NULL, NULL),
-(258, 'asxs', NULL, NULL),
-(259, 'asxs', NULL, NULL),
-(260, 'asxs', NULL, NULL),
-(261, 'asxs', NULL, NULL),
-(262, 'asxs', NULL, NULL),
-(263, 'asxs', NULL, NULL),
-(264, 'asxs', NULL, NULL),
-(265, 'asxs', NULL, NULL),
-(266, 'asxs', NULL, NULL),
-(267, 'asxs', NULL, NULL),
-(268, 'asxs', NULL, NULL),
-(269, 'asxs', NULL, NULL),
-(270, 'asxs', NULL, NULL),
-(271, 'asxs', NULL, NULL),
-(272, 'asxs', NULL, NULL),
-(273, 'asxs', NULL, NULL),
-(274, 'asxs', NULL, NULL),
-(275, 'asxs', NULL, NULL),
-(276, 'asxs', NULL, NULL),
-(277, 'Lorem ipsum dolor sit amet', NULL, NULL),
-(280, 'asx', NULL, NULL),
-(281, 'as', NULL, NULL),
-(282, 'asxasx', NULL, NULL),
-(283, 'mundo', NULL, NULL),
-(284, 'assas', NULL, NULL),
-(299, 'Genial', NULL, NULL),
-(300, 'asx', NULL, NULL),
-(301, 'asxasx', NULL, NULL),
-(302, 'asx', NULL, NULL),
-(303, 'asx', NULL, NULL),
-(304, 'asx', NULL, NULL),
-(327, 'munndo', NULL, NULL),
-(330, 'asx', NULL, NULL),
-(331, 'asx', NULL, NULL),
-(332, 'asx', NULL, NULL),
-(333, 'asx', NULL, NULL),
-(334, 'Hola', NULL, NULL),
-(335, 'Hola', NULL, NULL),
-(336, 'Hola', NULL, NULL),
-(337, 'Hola', NULL, NULL),
-(338, 'Hola', NULL, NULL),
-(339, 'Hola', NULL, NULL),
-(340, 'Hola', NULL, NULL),
-(341, 'Hola', NULL, NULL),
-(342, 'Hola', NULL, NULL),
-(343, 'hh', NULL, NULL),
-(344, 'mundo', NULL, NULL),
-(345, 'Nueva Novedad', NULL, NULL),
-(346, 'Con contenido de prueba', NULL, NULL),
-(347, 'asxasxasx', NULL, 1),
-(348, 'asxasxasx', NULL, 1),
-(349, 'asxasxasx', NULL, 1),
-(350, 'asxasxasx', NULL, 1),
-(351, 'asxasxasx', NULL, 1),
-(352, 'asxasxasx', NULL, 1),
-(353, 'asxasxasx', NULL, 1),
-(354, 'asxasxasx', NULL, 1),
-(355, 'asxasxasx', NULL, 1),
-(356, 'asxasxasx', NULL, 1),
-(357, 'asxasxasx', NULL, 1),
-(358, 'asxasxasx', NULL, 1),
-(359, 'asxasxasx', NULL, 1),
-(360, 'asxasxasx', NULL, 1),
-(361, 'asxasxasx', NULL, 1),
-(362, 'asxasxasx', NULL, 1),
-(363, 'asxasxasx', NULL, 1),
-(364, 'asxasxasx', NULL, 1),
-(365, 'asxasxasx', NULL, 1),
-(366, 'asxasxasx', NULL, 1),
-(367, 'asxasxasx', NULL, 1),
-(368, 'asxasxasx', NULL, 1),
-(369, 'asxasxas', NULL, 1),
-(370, '[center][size=200][b]Galeria[/b][/size][/center]', NULL, 1),
-(371, 'Jueves', NULL, 1),
-(372, 'jueves', NULL, 1),
-(373, 'jueves', NULL, 1),
-(374, 'asxasxasxsax', NULL, 1),
-(375, 'asx', NULL, 1),
-(376, 'asx', NULL, 1),
-(377, 'Lunes', NULL, 1),
-(378, '[center][size=200][b]Galer&iacute;a[/b][/size][/center]', NULL, 1),
-(379, 'asx', NULL, 1),
-(380, 'asxa', NULL, 1),
-(381, 'jueves1', NULL, 1),
-(382, 'jueves2', NULL, 1),
-(383, '[center][size=200][b]Galer&iacute;a[/b][/size][/center]', NULL, 1),
-(384, 'Hola', '2015-04-29 00:00:00', 1),
-(385, 'Hola', '2015-04-29 00:00:00', 1),
-(386, 'sxsdc', '2015-04-29 00:00:00', 1),
-(387, 'mundo', '2015-04-29 00:00:00', 1),
-(388, 'Mundo', '2015-04-29 00:00:00', 1),
-(389, 'asxasxas', '2015-04-30 11:28:43', 1),
-(390, 'asxasxas', '2015-04-30 11:32:00', 1),
-(391, 'asxasx', '2015-04-30 11:32:18', 1),
-(392, 'Los comentaios funkan', '2015-05-01 07:33:11', 1),
-(393, 'asxas', '2015-05-01 07:41:43', 1),
-(394, 'Array', NULL, NULL),
-(397, 'Mariposa', NULL, NULL),
-(398, 'kjkjnkjn', '2015-05-01 09:55:07', 1),
-(399, 'onono', '2015-05-01 09:55:52', 1),
-(400, 'asxasx', '2015-05-04 06:03:31', 1);
+INSERT INTO `Contenidos` (`ID`) VALUES
+(5),
+(6),
+(7),
+(8),
+(9),
+(10),
+(11),
+(12),
+(13),
+(14),
+(16),
+(17),
+(18),
+(19),
+(20),
+(21),
+(22),
+(23),
+(24),
+(25),
+(26),
+(27),
+(28),
+(29),
+(30),
+(31),
+(33),
+(34),
+(35),
+(37),
+(38),
+(39),
+(40),
+(41),
+(42),
+(43),
+(44),
+(49),
+(52),
+(53),
+(54),
+(55),
+(56),
+(57),
+(62),
+(63);
 
 -- --------------------------------------------------------
 
@@ -230,26 +113,12 @@ CREATE TABLE IF NOT EXISTS `Eventos` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `Tiempo` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `Nombre` varchar(128) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `Descripcion` int(11) DEFAULT NULL,
+  `DescripcionID` int(11) DEFAULT NULL,
   `Visible` tinyint(1) NOT NULL DEFAULT '1',
   `Prioridad` int(11) NOT NULL DEFAULT '1',
   PRIMARY KEY (`ID`),
-  KEY `Descripcion` (`Descripcion`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=68 ;
-
---
--- Volcado de datos para la tabla `Eventos`
---
-
-INSERT INTO `Eventos` (`ID`, `Tiempo`, `Nombre`, `Descripcion`, `Visible`, `Prioridad`) VALUES
-(34, '2014-12-12 13:12:00', 'asx', 26, 1, 1),
-(35, '2015-02-13 05:00:00', 'Hola', 27, 1, 1),
-(62, '2015-03-06 06:06:00', 'asxasx', 58, 1, 1),
-(63, '2015-03-17 05:00:00', 'Hola Mundo', 61, 1, 1),
-(64, '2000-03-27 00:00:00', 'asx', 62, 1, 1),
-(65, '2000-03-27 00:00:00', 'asx', 63, 1, 1),
-(66, '2015-03-27 22:00:00', 'sx', 64, 1, 1),
-(67, '2015-03-27 22:00:00', 'sx', 65, 1, 1);
+  KEY `Eventos_ibfk_1` (`DescripcionID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=81 ;
 
 -- --------------------------------------------------------
 
@@ -261,21 +130,22 @@ CREATE TABLE IF NOT EXISTS `Imagenes` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `Url` varchar(512) COLLATE utf8_unicode_ci DEFAULT NULL,
   `Alt` varchar(128) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `Titulo` int(11) NOT NULL,
-  `Lenguaje` int(11) DEFAULT NULL,
+  `TituloID` int(11) NOT NULL,
+  `LenguajeID` int(11) DEFAULT NULL,
   `Visible` tinyint(1) NOT NULL DEFAULT '1',
   `Prioridad` int(11) NOT NULL DEFAULT '1',
   PRIMARY KEY (`ID`),
-  KEY `Lenguaje` (`Lenguaje`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=91 ;
+  KEY `LenguajeID` (`LenguajeID`),
+  KEY `Imagenes_ibfk_1` (`TituloID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=99 ;
 
 --
 -- Volcado de datos para la tabla `Imagenes`
 --
 
-INSERT INTO `Imagenes` (`ID`, `Url`, `Alt`, `Titulo`, `Lenguaje`, `Visible`, `Prioridad`) VALUES
-(86, 'http://localhost/Web/imgsEj/Mariposa-amarilla.jpg', 'asxasx', 211, NULL, 1, 1),
-(90, 'http://localhost/Web/imgsEj/brown-butterfly-wallpaper-2.jpg', 'Mariposa', 397, NULL, 1, 1);
+INSERT INTO `Imagenes` (`ID`, `Url`, `Alt`, `TituloID`, `LenguajeID`, `Visible`, `Prioridad`) VALUES
+(95, 'http://localhost/Web/imgsEj/brown-butterfly-wallpaper-2.jpg', 'sax', 37, NULL, 1, 1),
+(96, 'http://localhost/Web/imgsEj/Mariposa-amarilla.jpg', 'U', 49, NULL, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -311,19 +181,27 @@ CREATE TABLE IF NOT EXISTS `Modulos` (
   `Nombre` varchar(128) COLLATE utf8_unicode_ci DEFAULT NULL,
   `Archivo` varchar(256) COLLATE utf8_unicode_ci NOT NULL,
   `Descripcion` text COLLATE utf8_unicode_ci,
-  `Padre` int(11) DEFAULT NULL,
-  PRIMARY KEY (`ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=6 ;
+  `PadreID` int(11) DEFAULT NULL,
+  PRIMARY KEY (`ID`),
+  KEY `Padre` (`PadreID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=15 ;
 
 --
 -- Volcado de datos para la tabla `Modulos`
 --
 
-INSERT INTO `Modulos` (`ID`, `Nombre`, `Archivo`, `Descripcion`, `Padre`) VALUES
+INSERT INTO `Modulos` (`ID`, `Nombre`, `Archivo`, `Descripcion`, `PadreID`) VALUES
 (1, 'Galeria', 'seccs/galeria.php', 'Una galería de fotos', NULL),
 (2, NULL, 'seccs/galeria.css', NULL, 1),
-(4, '', 'seccs/sobre_unitec.php', 'El archivo del inicio', NULL),
-(5, NULL, 'seccs/sobre_unitec.css', NULL, 4);
+(6, 'Inicio', 'seccs/sobre_unitec.php', NULL, NULL),
+(7, NULL, 'seccs/sobre_unitec.css', NULL, 6),
+(8, 'Calendario', 'seccs/calendario.php', NULL, NULL),
+(9, NULL, 'seccs/calendario.css', NULL, 8),
+(10, 'Atajos', 'seccs/atajos.php', NULL, NULL),
+(11, 'Mapa', 'seccs/mapa.php', NULL, NULL),
+(12, 'Novedades', 'seccs/novedades.php', NULL, NULL),
+(13, NULL, 'seccs/novedades.css', NULL, 12),
+(14, NULL, 'seccs/mapa.css', NULL, 11);
 
 -- --------------------------------------------------------
 
@@ -333,23 +211,24 @@ INSERT INTO `Modulos` (`ID`, `Nombre`, `Archivo`, `Descripcion`, `Padre`) VALUES
 
 CREATE TABLE IF NOT EXISTS `Novedades` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
-  `Imagen` int(11) DEFAULT NULL,
-  `Titulo` int(11) DEFAULT NULL,
-  `Descripcion` int(11) DEFAULT NULL,
+  `ImagenID` int(11) DEFAULT NULL,
+  `TituloID` int(11) DEFAULT NULL,
+  `DescripcionID` int(11) DEFAULT NULL,
+  `Fecha` date NOT NULL,
   `Visible` tinyint(1) DEFAULT '1',
   `Prioridad` int(11) DEFAULT '1',
   PRIMARY KEY (`ID`),
-  KEY `Titulo` (`Titulo`),
-  KEY `Descripcion` (`Descripcion`),
-  KEY `Novedades_ibfk_2` (`Imagen`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=2 ;
+  KEY `Novedades_ibfk_1` (`ImagenID`),
+  KEY `Novedades_ibfk_2` (`TituloID`),
+  KEY `Novedades_ibfk_3` (`DescripcionID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=8 ;
 
 --
 -- Volcado de datos para la tabla `Novedades`
 --
 
-INSERT INTO `Novedades` (`ID`, `Imagen`, `Titulo`, `Descripcion`, `Visible`, `Prioridad`) VALUES
-(1, 86, 66, 67, 1, 1);
+INSERT INTO `Novedades` (`ID`, `ImagenID`, `TituloID`, `DescripcionID`, `Fecha`, `Visible`, `Prioridad`) VALUES
+(7, 95, 63, 62, '2015-05-06', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -374,26 +253,102 @@ CREATE TABLE IF NOT EXISTS `Opciones` (
 
 CREATE TABLE IF NOT EXISTS `Secciones` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
-  `Contenido` int(11) DEFAULT NULL,
+  `ContenidoID` int(11) DEFAULT NULL,
+  `ModuloID` int(128) DEFAULT NULL,
+  `PadreID` int(11) DEFAULT NULL,
   `Visible` tinyint(1) DEFAULT NULL,
   `Prioridad` int(11) DEFAULT NULL,
-  `Modulo` int(128) DEFAULT NULL,
-  `Padre` int(11) DEFAULT NULL,
   PRIMARY KEY (`ID`),
-  KEY `Contenido` (`Contenido`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=29 ;
+  KEY `ModuloID` (`ModuloID`),
+  KEY `Secciones_ibfk_1` (`ContenidoID`),
+  KEY `Secciones_ibfk_3` (`PadreID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=157 ;
 
 --
 -- Volcado de datos para la tabla `Secciones`
 --
 
-INSERT INTO `Secciones` (`ID`, `Contenido`, `Visible`, `Prioridad`, `Modulo`, `Padre`) VALUES
-(10, NULL, 1, 1, NULL, NULL),
-(11, NULL, 1, 1, 4, 10),
-(19, NULL, 1, 2, 1, 3),
-(25, 383, 1, 0, NULL, 3),
-(27, NULL, 1, 0, NULL, NULL),
-(28, NULL, 1, 1, 1, 27);
+INSERT INTO `Secciones` (`ID`, `ContenidoID`, `ModuloID`, `PadreID`, `Visible`, `Prioridad`) VALUES
+(140, NULL, NULL, NULL, 1, 1),
+(141, 31, NULL, 140, 1, 1),
+(145, NULL, 1, 140, 1, 2),
+(146, NULL, NULL, NULL, 1, 2),
+(147, NULL, 12, 146, 1, 1),
+(148, NULL, NULL, NULL, 1, 3),
+(149, NULL, 8, 148, 1, 1),
+(151, NULL, NULL, NULL, 1, 4),
+(152, NULL, 11, 151, 1, 1),
+(153, NULL, NULL, NULL, 1, 5),
+(154, NULL, 6, 153, 1, 1),
+(155, NULL, NULL, NULL, 1, 6),
+(156, NULL, 10, 155, 1, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `Traducciones`
+--
+
+CREATE TABLE IF NOT EXISTS `Traducciones` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `ContenidoID` int(11) NOT NULL,
+  `LenguajeID` int(11) NOT NULL,
+  `Texto` text COLLATE utf8_unicode_ci,
+  PRIMARY KEY (`ID`),
+  KEY `LenguajeID` (`LenguajeID`),
+  KEY `Traducciones_ibfk_1` (`ContenidoID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=73 ;
+
+--
+-- Volcado de datos para la tabla `Traducciones`
+--
+
+INSERT INTO `Traducciones` (`ID`, `ContenidoID`, `LenguajeID`, `Texto`) VALUES
+(12, 5, 1, 'Seccion 1'),
+(13, 6, 1, 'Seccion 2'),
+(14, 7, 1, 'Seccion 1 Bis'),
+(15, 8, 1, 'Seccion 1'),
+(16, 9, 1, 'Seccion2'),
+(17, 10, 1, 'Seccion 1 bis'),
+(18, 11, 1, 'Seccion1'),
+(19, 12, 1, 'Seccion2'),
+(20, 13, 1, 'Seccion1'),
+(21, 14, 1, 'Seccion2'),
+(23, 16, 1, 'Seccion1'),
+(24, 17, 1, 'Seccion2'),
+(25, 18, 1, 'Seccion1'),
+(26, 19, 1, 'Seccion2'),
+(27, 20, 1, 'Seccion1 bis'),
+(28, 21, 1, 'Seccion1'),
+(29, 22, 1, 'Seccion2'),
+(30, 23, 1, 'Seccion1'),
+(31, 24, 1, 'Seccion2'),
+(32, 25, 1, 'Seccion1'),
+(33, 26, 1, 'Seccion2'),
+(34, 27, 1, '1'),
+(35, 28, 1, '2'),
+(36, 29, 1, '1 bis'),
+(37, 30, 1, 'pre 2'),
+(38, 31, 1, '[center][size=200]INICIO[/size][/center]'),
+(40, 34, 1, 'Hola'),
+(41, 35, 1, 'Hola'),
+(43, 37, 1, 'axasx'),
+(44, 38, 1, 'Mundo\r\n'),
+(45, 39, 1, 'mundo'),
+(46, 40, 1, 'mundo'),
+(47, 41, 1, 'asx'),
+(48, 42, 1, 'asx'),
+(49, 43, 1, 'as'),
+(50, 44, 1, 'as'),
+(55, 49, 1, 'Mariposa Amarilla'),
+(58, 52, 1, 'lkmlkm'),
+(59, 53, 1, 'lkmlkm'),
+(60, 54, 1, 'Mundo'),
+(61, 55, 1, 'Hola'),
+(62, 56, 1, '[list][*]asxsax\r\n[/*][/list]'),
+(63, 57, 1, 'asx'),
+(68, 62, 1, 'asx'),
+(69, 63, 1, 'asx');
 
 -- --------------------------------------------------------
 
@@ -423,28 +378,54 @@ INSERT INTO `Usuarios` (`ID`, `Nombre`, `NombreUsuario`, `Contrasena`, `Email`, 
 --
 
 --
--- Filtros para la tabla `Contenido`
+-- Filtros para la tabla `Comentarios`
 --
-ALTER TABLE `Contenido`
-  ADD CONSTRAINT `Contenido_ibfk_1` FOREIGN KEY (`Lenguaje`) REFERENCES `Lenguajes` (`ID`);
+ALTER TABLE `Comentarios`
+  ADD CONSTRAINT `Comentarios_ibfk_2` FOREIGN KEY (`RaizID`) REFERENCES `Contenidos` (`ID`) ON DELETE CASCADE,
+  ADD CONSTRAINT `Comentarios_ibfk_3` FOREIGN KEY (`ContenidoID`) REFERENCES `Contenidos` (`ID`) ON DELETE CASCADE,
+  ADD CONSTRAINT `Comentarios_ibfk_4` FOREIGN KEY (`PadreID`) REFERENCES `Contenidos` (`ID`) ON DELETE CASCADE;
+
+--
+-- Filtros para la tabla `Eventos`
+--
+ALTER TABLE `Eventos`
+  ADD CONSTRAINT `Eventos_ibfk_1` FOREIGN KEY (`DescripcionID`) REFERENCES `Contenidos` (`ID`) ON DELETE CASCADE;
 
 --
 -- Filtros para la tabla `Imagenes`
 --
 ALTER TABLE `Imagenes`
-  ADD CONSTRAINT `Imagenes_ibfk_3` FOREIGN KEY (`Lenguaje`) REFERENCES `Lenguajes` (`ID`);
+  ADD CONSTRAINT `Imagenes_ibfk_1` FOREIGN KEY (`TituloID`) REFERENCES `Contenidos` (`ID`) ON DELETE CASCADE,
+  ADD CONSTRAINT `Imagenes_ibfk_2` FOREIGN KEY (`LenguajeID`) REFERENCES `Lenguajes` (`ID`);
+
+--
+-- Filtros para la tabla `Modulos`
+--
+ALTER TABLE `Modulos`
+  ADD CONSTRAINT `Modulos_ibfk_1` FOREIGN KEY (`PadreID`) REFERENCES `Modulos` (`ID`);
 
 --
 -- Filtros para la tabla `Novedades`
 --
 ALTER TABLE `Novedades`
-  ADD CONSTRAINT `Novedades_ibfk_2` FOREIGN KEY (`Imagen`) REFERENCES `Imagenes` (`ID`);
+  ADD CONSTRAINT `Novedades_ibfk_3` FOREIGN KEY (`DescripcionID`) REFERENCES `Contenidos` (`ID`) ON DELETE CASCADE,
+  ADD CONSTRAINT `Novedades_ibfk_1` FOREIGN KEY (`ImagenID`) REFERENCES `Imagenes` (`ID`) ON DELETE CASCADE,
+  ADD CONSTRAINT `Novedades_ibfk_2` FOREIGN KEY (`TituloID`) REFERENCES `Contenidos` (`ID`) ON DELETE CASCADE;
 
 --
 -- Filtros para la tabla `Secciones`
 --
 ALTER TABLE `Secciones`
-  ADD CONSTRAINT `Secciones_ibfk_1` FOREIGN KEY (`Contenido`) REFERENCES `Contenido` (`ID`);
+  ADD CONSTRAINT `Secciones_ibfk_3` FOREIGN KEY (`PadreID`) REFERENCES `Secciones` (`ID`) ON DELETE CASCADE,
+  ADD CONSTRAINT `Secciones_ibfk_1` FOREIGN KEY (`ContenidoID`) REFERENCES `Contenidos` (`ID`) ON DELETE CASCADE,
+  ADD CONSTRAINT `Secciones_ibfk_2` FOREIGN KEY (`ModuloID`) REFERENCES `Modulos` (`ID`);
+
+--
+-- Filtros para la tabla `Traducciones`
+--
+ALTER TABLE `Traducciones`
+  ADD CONSTRAINT `Traducciones_ibfk_1` FOREIGN KEY (`ContenidoID`) REFERENCES `Contenidos` (`ID`) ON DELETE CASCADE,
+  ADD CONSTRAINT `Traducciones_ibfk_2` FOREIGN KEY (`LenguajeID`) REFERENCES `Lenguajes` (`ID`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

@@ -12,11 +12,12 @@ class Novedad extends SQL_Obj
 			$con,
 			'Novedades',
 			[
-				'Imagen',
-				'Titulo',
-				'Descripcion',
+				'ImagenID',
+				'TituloID',
+				'DescripcionID',
 				'Fecha',
-				'Comentarios'
+				'Visible',
+				'Prioridad'
 			]
 		);
 

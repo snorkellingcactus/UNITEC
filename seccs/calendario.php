@@ -50,6 +50,7 @@ if(session_status()==PHP_SESSION_NONE)
 					include_once('php/SQL_Obj.php');
 					include_once('php/Contenido.php');
 					include_once('php/Evento.php');
+					include_once('php/nTraduccion.php');
 
 					$fallas=[];
 					$fallasLn=0;
@@ -58,20 +59,9 @@ if(session_status()==PHP_SESSION_NONE)
 
 					for($i=0;$i<$cantidad;$i++)
 					{
-						$grupo=$con->query('select ifnull(max(Grupo),0) as Grupo from Contenido');
-						$grupo=fetch_all($grupo , MYSQLI_ASSOC)[0]['Grupo']+1;
-
-						$descripcion=new Contenido
-						(
-							$con,
-							[
-								'Contenido'=>htmlentities($_POST['Descripcion'][$i]),
-								'Leguaje'=>$_POST['Lenguaje'][$i],
-								'Grupo'=>$grupo
-							]
-						);
-
-						$descripcion->insSQL();
+						//$grupo=$con->query('select ifnull(max(Grupo),0) as Grupo from Contenido');
+						
+						//$grupo=fetch_all($grupo , MYSQLI_ASSOC)[0]['Grupo']+1;
 
 						$fecha=date
 						(
@@ -91,24 +81,33 @@ if(session_status()==PHP_SESSION_NONE)
 						(
 							$con,
 							[
-								'Descripcion'=>$descripcion->Grupo,
+								
 								'Nombre'=>htmlentities($_POST['Titulo'][$i]),
 								'Tiempo'=>$fecha
+							]
+						);
+						$evento->insForaneas
+						(
+
+							nTraduccion
+							(
+								$_POST['Descripcion'][$i],
+								$_POST['Lenguaje'][$i]
+							),
+							[
+								'DescripcionID'=>'ContenidoID'
 							]
 						);
 
 						$evento->insSQL();
 					}
 				}
-				if(isset($_POST['evtID']))
+				if(isset($_POST['form']) && $_POST['form']==='accionesCal' && isset($_POST['elimina']))
 				{
-					if(isset($_POST['elimina']))
+					$iMax=count($_POST['conID']);
+					for($i=0;$i<$iMax;$i++)
 					{
-						$iMax=count($_POST['evtID']);
-						for($i=0;$i<$iMax;$i++)
-						{
-							$con->query('delete from Eventos where ID='.$_POST['evtID'][$i]);
-						}
+						$con->query('delete from Contenidos where ID='.$_POST['conID'][$i]);
 					}
 				}
 			}
@@ -158,29 +157,18 @@ if(session_status()==PHP_SESSION_NONE)
 					$evtAct=$eventos[$i];
 					$fecha=getdate(strtotime($evtAct['Tiempo']));
 
-					$evtAct['Descripcion']=$con->query
+					$evtAct['Descripcion']=getTraduccion
 					(
-						'
-						select Contenido,
-						CASE Lenguaje
-						WHEN '.$_SESSION['lang'].' THEN 0
-						ELSE 1
-						END AS Ord
-						from Contenido
-						where Grupo='.$evtAct['Descripcion'].
-						'
-						ORDER BY Ord
-						LIMIT 1
-						'
+						$evtAct['DescripcionID'],
+						$_SESSION['lang']
 					);
-					$evtAct['Descripcion']=fetch_all($evtAct['Descripcion'] , MYSQLI_NUM)[0][0];
 
 					//Simulación de eventos.
 					$CalCfg->adEvento
 					(
 						$fecha,
 						htmlentities($evtAct['Nombre']),
-						htmlentities($evtAct['Descripcion'])
+						$evtAct['Descripcion']
 					);
 
 					$fechaMin=$fecha['minutes'];
@@ -204,14 +192,14 @@ if(session_status()==PHP_SESSION_NONE)
 								 if(!empty($_SESSION['adminID']))
 								 {
 								 	?>
-								 		<input type="checkbox" name="evtID[]" value="<?php echo $evtAct['ID']?>" form="reloadCal"/>
+								 		<input type="checkbox" name="conID[]" value="<?php echo $evtAct['DescripcionID']?>" form="reloadCal"/>
 								 	<?php
 								 }
 								 ?>
 
 							</h3>
 							<p>
-								<?php echo htmlentities($evtAct['Descripcion']) ?>
+								<?php echo $evtAct['Descripcion'] ?>
 							</p>
 						</li>
 					<?php

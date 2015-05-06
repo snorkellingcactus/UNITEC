@@ -1,16 +1,18 @@
+<div class="comentario"
 <?php
 	if
 	(
-		(isset($_POST['comConID'])&&$_POST['comConID']==$esq['Contenido'])
+		(isset($_SESSION['comConID'])&&$_SESSION['comConID']==$esq['ContenidoID'])
 	)
 	{
-		unset($_SESSION['comRes']);
+		unset($_SESSION['comConID']);
+
 		?>
-			<span id="comRes"></span>
+			id="comRes" 
 		<?php
 	}
 ?>
-<div class="comentario">
+>
 	<p class='comAutor'>
 		<?php
 			echo $esq['Nombre'];
@@ -52,7 +54,7 @@
 	</p>
 
 	<form action="#comRes" method="POST" class="formRes">
-		<input type="hidden" name="comConID" value="<?php echo $esq['Contenido'] ?>" >
+		<input type="hidden" name="comConID" value="<?php echo $esq['ContenidoID'] ?>" >
 	 	<input type="submit" value="↶" title="Responder a <?php echo $esq['Nombre'] ?>">
 	</form>
 
@@ -60,7 +62,7 @@
 		if(isset($_SESSION['adminID']) && $_SESSION['adminID']!==NULL)
 		 {
 		 	?>
-			 	<input type="checkbox" name="comConID[]" value="<?php echo $esq['Contenido'] ?>" form="reloadCom">
+			 	<input type="checkbox" name="comConID[]" value="<?php echo $esq['ContenidoID'] ?>" form="reloadCom">
 		 	<?php
 		 }
 	?>
@@ -71,7 +73,7 @@
 	</p>
 
 	<?php
-		if(isset($_POST['comConID'])&&$_POST['comConID']==$esq['Contenido'])
+		if(isset($_POST['comConID'])&&$_POST['comConID']==$esq['ContenidoID'])
 		{
 			$_SESSION['comConID']=$_POST['comConID'];
 			echo file_get_contents("../forms/nuevo_coment.php");

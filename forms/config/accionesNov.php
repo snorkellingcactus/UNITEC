@@ -12,6 +12,10 @@
 	$labels=
 	[
 		[
+			'selector_lenguaje.php',
+			'Lenguaje'
+		],
+		[
 			'input_text.php',
 			'Titulo'
 		],

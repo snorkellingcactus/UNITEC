@@ -1,11 +1,7 @@
 <?php
 	$includes=
 	[
-		'../forms/forms.css',
-		'//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js',
-		'http://cdn.wysibb.com/js/jquery.wysibb.min.js',
-		'http://cdn.wysibb.com/css/default/wbbtheme.css',
-		'../js/wysibbInc.js'
+		'../forms/forms.css'
 	];
 	$ancla='#nCon';
 	$action='../index.php';
@@ -42,6 +38,22 @@
 			'editor.php',
 			'Contenido'
 		];
+
+		$conInc=
+		[
+			'//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js',
+			'http://cdn.wysibb.com/js/jquery.wysibb.min.js',
+			'http://cdn.wysibb.com/css/default/wbbtheme.css',
+			'../js/wysibbInc.js'
+		];
+
+		$pLen=count($conInc);
+		$iLen=count($includes);
+		$pMax=$iLen+$pLen;
+		for($p=$iLen;$p<$pMax;$p++)
+		{
+			$includes[$p]=$conInc[$p-$iLen];
+		}
 	}
 	else
 	{

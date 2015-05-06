@@ -25,7 +25,7 @@
 	}
 ?>
 <span class="hidden-xs">
-<section class="portada" id="atajos">
+<div class="portada" id="atajos">
 
 	<h1>Atajos</h1>
 	<table class="table" >
@@ -75,5 +75,5 @@
 			</td>
 		</tr>		
 	</table>
-</section>
+</div>
 </span>

@@ -35,54 +35,30 @@
 		{
 			include_once 'php/conexion.php';
 			include_once 'php/Novedad.php';
-			include_once 'php/Contenido.php';
 			include_once 'php/Img.php';
-			include_once 'php/Foraneas.php';
+			include_once 'php/nTraduccion.php';
+
 			$iMax=count('nNov');
 			for($i=0;$i<$iMax;$i++)
 			{
-				$grupo=$con->query('select ifnull(max(Grupo),0) as Grupo from Contenido');
-				$grupo=fetch_all($grupo , MYSQLI_NUM)[0][0]+1;
+				$titulo=nTraduccion($_POST['Titulo'][$i] , $_POST['Lenguaje'][$i]);
 
-				$titulo=new Contenido
-				(
-					$con,
-					[
-						'Contenido'=>htmlentities($_POST['Titulo'][$i]),
-						'Grupo'=>$grupo
-					]
-				);
-				$titulo->insSQL();
-
-				$grupo=$con->query('select ifnull(max(Grupo),0) as Grupo from Contenido');
-				$grupo=fetch_all($grupo , MYSQLI_ASSOC)[0]['Grupo']+1;
-
-				$grupoCom=$con->query('select ifnull(max(GrupoID),0) as GrupoID from Comentarios');
-				$grupoCom=fetch_all($grupoCom , MYSQLI_ASSOC)[0]['GrupoID']+1;
-
-				$descripcion=new Contenido
-				(
-					$con,
-					[
-						'Contenido'=>htmlentities($_POST['Descripcion'][$i]),
-						'Grupo'=>$grupo
-					]
-				);
-				$descripcion->insSQL();
+				$descripcion=nTraduccion($_POST['Descripcion'][$i] , $_POST['Lenguaje'][$i]);
 
 				$horaLoc=getdate();
 
 				$nov=new Novedad($con);
 
-				$nov->Imagen=$_POST['Imagen'][$i];
+				$nov->ImagenID=$_POST['Imagen'][$i];
 				$nov->Fecha=$horaLoc['year'].'-'.$horaLoc['mon'].'-'.$horaLoc['mday'];
-				$nov->Comentarios=$grupoCom;
 
-				$nov->Descripcion=$descripcion->Grupo;
-				$nov->Titulo=$titulo->Grupo;
+				$nov->insForaneas($descripcion , ['DescripcionID'=>'ContenidoID']);
+				$nov->insForaneas($titulo , ['TituloID'=>'ContenidoID']);
 
 				$nov->insSQL();
 			}
+
+			unset($nov , $titulo , $descripcion , $horaLoc , $iMax , $i , $_POST['Titulo'] , $_POST['Descripcion'] , $_POST['Lenguaje'] , $_POST['nNov']);
 		}
 
 		//Acciones con las seleccionadas.
@@ -95,11 +71,11 @@
 				$iMax=count($_POST['novID']);
 				for($i=0;$i<$iMax;$i++)
 				{
-					$contenidos=$con->query('select Titulo , Descripcion from Novedades where ID='.$_POST['novID'][$i]);
+					$contenidos=$con->query('select TituloID , DescripcionID from Novedades where ID='.$_POST['novID'][$i]);
 					$contenidos=fetch_all($contenidos , MYSQLI_ASSOC)[0];
 
 					$con->query('delete from Novedades where ID='.$_POST['novID'][$i]);
-					$con->query('delete from Contenido where Grupo='.$contenidos['Titulo'].' or Grupo='.$contenidos['Descripcion']);
+					$con->query('delete from Contenidos where ID='.$contenidos['TituloID'].' or ID='.$contenidos['DescripcionID']);
 				}
 			}
 		}
@@ -120,6 +96,7 @@
 		{
 			include_once 'php/Inc_Esq.php';
 			include_once 'php/Novedad.php';
+			include_once 'php/getTraduccion.php';
 			include_once 'php/jBBCode1_3_0/JBBCode/Parser.php';
 
 
@@ -129,7 +106,7 @@
 			{
 				$novAct=$novedades[$i];
 
-				$imagen=$con->query('select Url from Imagenes where ID='.$novAct['Imagen']);
+				$imagen=$con->query('select Url from Imagenes where ID='.$novAct['ImagenID']);
 				if($imagen)
 				{
 					$imagen=fetch_all($imagen , MYSQLI_ASSOC)[0]['Url'];
@@ -139,39 +116,8 @@
 					$imagen='http://loquesea';
 				}
 
-				$titulo=$con->query
-				(
-					'
-					select Contenido,
-					CASE Lenguaje
-					WHEN '.$_SESSION['lang'].' THEN 0
-					ELSE 1
-					END AS Ord
-					from Contenido
-					where Grupo='.$novAct['Titulo'].
-					'
-					ORDER BY Ord
-					LIMIT 1
-					'
-				);
-				$descripcion=$con->query
-				(
-					'
-					select left(Contenido , 500),
-					CASE Lenguaje
-					WHEN '.$_SESSION['lang'].' THEN 0
-					ELSE 1
-					END AS Ord
-					from Contenido
-					where Grupo='.$novAct['Descripcion'].
-					'
-					ORDER BY Ord
-					LIMIT 1
-					'
-				);
-
-				$descripcion=fetch_all($descripcion , MYSQLI_NUM)[0][0];
-				$titulo=fetch_all($titulo , MYSQLI_ASSOC)[0]['Contenido'];
+				$titulo=getTraduccion($novAct['TituloID'] , $_SESSION['lang']);
+				$descripcion=getTraduccion($novAct['DescripcionID'] , $_SESSION['lang']);
 
 				$parser=new JBBCode\Parser();
 				

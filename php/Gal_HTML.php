@@ -87,9 +87,20 @@ class Gal_HTML
 
 		$iMax=count($asocLst);
 
+		include_once('php/getTraduccion.php');
+
+		if(session_status()===PHP_SESSION_NONE)
+		{
+			session_start();
+		}
+
 		for($i=0;$i<$iMax;$i++)
 		{
-			$this->imgLst[$i]=new Img($this->con,$asocLst[$i]);
+			$nImg=$asocLst[$i];
+
+			$nImg['TituloCon']=getTraduccion($nImg['TituloID'] , $_SESSION['lang']);
+
+			$this->imgLst[$i]=new Img($this->con, $nImg);
 		}
 	}
 }

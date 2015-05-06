@@ -69,6 +69,7 @@ if(isset($_SESSION['adminID']))
 						$iMax=count($includes);
 						for($i=0;$i<$iMax;$i++)
 						{
+							//echo '<pre>Include'.$includes[$i].'</pre>';
 							head_include($includes[$i]);
 						}
 						unset($iMax);

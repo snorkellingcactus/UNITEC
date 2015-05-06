@@ -24,11 +24,22 @@ class	Gal_HTML_Visor
 				$asocLst=$con->query($imgLst);
 				$asocLst=fetch_all($asocLst , MYSQLI_ASSOC);	//Respuesta SQL como array asociativo.
 
+				include_once('getTraduccion.php');
+
+				if(session_status()===PHP_SESSION_NONE)
+				{
+					session_start();
+				}
+
 				$iMax=count($asocLst);
 
 				for($i=0;$i<$iMax;$i++)
 				{
-					$this->imgLst[$i]=new Img($con,$asocLst[$i]);
+					$nImg=$asocLst[$i];
+
+					$nImg['TituloCon']=getTraduccion($nImg['TituloID'] , $_SESSION['lang']);
+
+					$this->imgLst[$i]=new Img($con,$nImg);
 				}
 			}
 

@@ -12,14 +12,16 @@
 	</head>
 	<body>
 <?php
+	global $raiz;
+	$raiz=realpath($_SERVER['DOCUMENT_ROOT']).'/Web/Pasantía/edetec/';
 
-	include_once '../php/conexion.php';
-	include_once '../php/SQL_Obj.php';
-	include_once '../php/Img.php';
-	include_once '../php/Coment.php';
-	include_once '../php/Gal_HTML.php';
-	include_once '../php/Gal_HTML_Visor.php';
-	include_once '../php/NULL_Gen_HTML.php';
+	include_once $raiz.'php/conexion.php';
+	include_once $raiz.'php/SQL_Obj.php';
+	include_once $raiz.'php/Img.php';
+	include_once $raiz.'php/Comentario.php';
+	include_once $raiz.'php/Gal_HTML.php';
+	include_once $raiz.'php/Gal_HTML_Visor.php';
+	include_once $raiz.'php/NULL_Gen_HTML.php';
 
 	//Si todavía no se inicio sesion, se inicia.
 	if(session_status()==PHP_SESSION_NONE)
@@ -38,8 +40,9 @@
 	
 	$Visor	= new Gal_HTML_Visor
 	(
-		'	SELECT Imagenes.* , Contenido.Contenido
-			FROM Imagenes join Contenido ON Contenido.ID=Imagenes.Titulo
+		'	SELECT *
+			FROM Imagenes
+			WHERE 1
 		',
 		$con,
 		new NULL_Gen_HTML()
@@ -51,8 +54,9 @@
 	if(!empty($_POST['comContenido']))
 	{
 		//Include necesario para manejar llaves foráneas.
-		include_once '../php/Contenido.php';
-		include_once '../php/Foraneas.php';
+		include_once $raiz.'php/Contenido.php';
+		include_once $raiz.'php/Foraneas.php';
+		include_once $raiz.'php/nTraduccion.php';
 
 		//Creo un objeto comentario.
 		$FechaAct=getdate();
@@ -63,21 +67,17 @@
 				.$FechaAct['minutes'].':'
 				.$FechaAct['seconds'];
 		
-		$Comentario=new Coment($con);
+		$Comentario=new Comentario($con);
 		//Indico que tiene como foráneo un objeto Contenido.
 		$Comentario->insForaneas
 		(
-			new Contenido
+			nTraduccion
 			(
-				$con,
-				[
-					'Contenido'=>htmlentities($_POST['comContenido']),
-					'Fecha'=>$Fecha,
-					'Lenguaje'=>$_SESSION['lang']
-				]
+				$_POST['comContenido'],
+				$_SESSION['lang']
 			),
 			[
-				'Contenido'=>'ID'
+				'ContenidoID'=>'ContenidoID'
 			]
 		);
 
@@ -87,15 +87,16 @@
 		}
 		if(isset($_SESSION['comConID']))
 		{
-			$Comentario->Padre=$_SESSION['comConID'];
+			$Comentario->PadreID=$_SESSION['comConID'];
 
 			unset($_SESSION['comConID']);
 		}
 		else
 		{
-			$Comentario->Padre=$esq->Titulo;
+			$Comentario->PadreID=$esq->TituloID;
 		}
-		$Comentario->Raiz=$esq->Titulo;
+		$Comentario->RaizID=$esq->TituloID;
+		$Comentario->Fecha=$Fecha;
 /*
 		echo '<pre>A insertar:';
 		print_r('<br>Comentario : ');
@@ -108,7 +109,7 @@
 		//Esto hace que se ancle el comentario al que está siendo respondido.
 		//La idea es que se ancle el comentario recién creado, para lo que
 		//a futuro hay que modificar insSQL() para que actualize el ID.
-		$_SESSION['comRes']=$Comentario->ID;
+		$_SESSION['comConID']=$Comentario->ContenidoID;
 	}
 	else
 	{
@@ -126,9 +127,12 @@
 
 		for($i=0;$i<$iMax;$i++)
 		{
-			$con->query('delete from Comentarios where Contenido='.$conID[$i]);
-			$con->query('delete from Contenido where ID='.$conID[$i]);
+			$con->query('DELETE FROM Contenidos WHERE ID='.$conID[$i]);
+
+			echo '<pre>'.'DELETE FROM Contenidos WHERE ID='.$conID[$i].'</pre>';
 		}
+
+		unset($_POST['comConID']);
 	}
 	//unset($_POST['vImgId']);
 
@@ -137,7 +141,7 @@
 ?>
 			<!-- Título -->
 			<h2 class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-						<?php echo $esq->Contenido ?>
+					<?php echo $esq->TituloCon ?>
 			</h2>
 			
 			<!-- Imagen y controles -->
@@ -157,14 +161,14 @@
 			<div class="comentarios col-lg-10 col-md-10 col-sm-10 col-xs-10" >
 				<?php
 					$fId='Com';
-					include('../forms/seleccion.php');
+					include($raiz.'forms/seleccion.php');
 
 					//Genero los comentarios.
-					GenComGrp($esq->Titulo , $con);
+					GenComGrp($esq->TituloID , $con);
 
 					if(!isset($_POST['comConID']))
 					{
-						include('../forms/nuevo_coment.php');
+						include($raiz.'forms/nuevo_coment.php');
 					}
 				?>
 			</div>

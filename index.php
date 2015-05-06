@@ -2,6 +2,7 @@
 <?php
 //error_reporting(E_ALL & ~E_DEPRECATED & ~E_STRICT );
 //Si todavía no se inicio sesion, se inicia.
+
 if(session_status()==PHP_SESSION_NONE)
 {
 	session_start();
@@ -40,6 +41,199 @@ function echoLang($langSQLRes)
 		echo $langSQLRes['Nombre'];
 
 }
+
+global $raiz;
+
+$raiz=realpath($_SERVER['DOCUMENT_ROOT']).'/Web/Pasantía/edetec/';
+
+include_once($raiz.'php/conexion.php');
+
+//Devuelve el contenido al pasarle su ID.
+function getCont($contID , &$id)
+{
+	global $con;
+
+	$contenido=$con->query('select Contenido,ID from Contenido where ID='.$contID);
+
+	if($contenido)
+	{
+		$contenido=fetch_all($contenido , MYSQLI_NUM)[0];
+
+		$id=$contenido[1];
+
+		return $contenido[0];
+	}
+
+	return '';
+}
+
+function nSec($visible , $orden , $tipo , $valor)
+{
+	global $con , $afectado, $raiz;
+	
+	include_once($raiz.'php/SQL_Obj.php');
+
+	$TSec=new SQL_Obj($con, 'Secciones', ['Visible','Prioridad','ModuloID','ContenidoID','PadreID']);
+
+	if(isset($_POST['secID']))
+	{
+		$TSec->PadreID=$_POST['secID'];
+	}
+	if($tipo===1)
+	{
+		$TSec->ModuloID=$valor;
+	}
+	if($tipo===2)
+	{
+		$TSec->ContenidoID=$valor;
+	}
+
+	$TSec->Prioridad=$orden;
+	$TSec->Visible=$visible;
+
+	//echo '<pre>Consulta Secciones: ';print_r($TSec);echo '</pre>';
+
+	$TSec->insSQL();
+	//return;
+
+
+	//A futuro: Generar IDs únicos cuando $nombre esté vacio.
+
+	if($tipo===0)
+	{
+		$afectado=$TSec->ID;
+	}
+	if($tipo===1)
+	{
+		$afectado=$valor;
+	}
+
+	unset($TSec);
+}
+
+if(isset($_SESSION['adminID']))
+{
+	if(isset($_POST['form']) && $_POST['form']==='accionesSec')
+	{
+		//echo '<pre>Elimina:<br>';
+
+		$tipo=isset($_POST['conID']);
+		$secID=NULL;
+
+		if($tipo)
+		{
+			$contenidoID=fetch_all
+			(
+				$con->query('SELECT ContenidoID FROM Secciones WHERE ID='.$_POST['conID']),
+				MYSQLI_NUM
+			)[0][0];
+
+			if($contenidoID!==NULL)
+			{
+				//Existe una relacion ON DELETE CASCADE entre las tablas 
+				//secciones->contenidos y traducciones->contenidos, de manera
+				//que eliminando el contenido, automáticamente se elimina la sección
+				//y las traducciones relacionadas.
+				$con->query('DELETE FROM Contenidos WHERE ID='.$contenidoID);
+
+				echo '<pre>'.'DELETE FROM Contenidos WHERE ID='.$contenidoID.'</pre>';
+			}
+			else
+			{
+				$secID=$_POST['conID'];
+			}
+		}
+		else
+		{
+			$secID=$_POST['secID'];
+		}
+		if($secID!==NULL)
+		{
+			$con->query('DELETE FROM Secciones WHERE ID='.$secID);
+
+			echo '<pre>'.'DELETE FROM Secciones WHERE ID='.$secID.'</pre>';
+		}
+	}
+
+	if(isset($_POST['nSec']) || isset($_POST['nCon']))
+	{
+		//Buscar en el futuro la forma de no repetir este código:
+		$inc='';
+		$tipo=0;
+		$valor=NULL;
+
+		if(isset($_POST['secID']))
+		{
+			if(isset($_POST['Descripcion']))
+			{
+				include($raiz.'php/nTraduccion.php');
+
+				$descripcion=nTraduccion($_POST['Descripcion'][0] , $_POST['Lenguaje'][0]);
+
+				$descripcion->insSQL();
+
+				global $afectado;
+
+				$afectado=$valor=$descripcion->ContenidoID;
+
+				$tipo=2;
+			}
+			else
+			{
+				$valor=$_POST['Modulo'];
+				$tipo=1;
+			}
+		}
+
+		if($tipo)
+		{
+			$condicion=' PadreID='.$_POST['secID'];
+		}
+		else
+		{
+			$condicion=' ContenidoID IS NULL AND ModuloID IS NULL';
+		}
+
+		$lugar=$_POST['Lugar'];
+
+		$prefijo=$lugar[0];
+		$pOrden=intVal(substr($lugar , 1));
+		$nOrden=0;
+
+		if($prefijo=='b')
+		{
+			//El último + 1.
+			$nOrden=fetch_all($con->query('select max(Prioridad) from Secciones WHERE'.$condicion) , MYSQLI_NUM)[0][0]+1;
+		}
+		else
+		{
+			$secciones=$con->query('SELECT * FROM Secciones WHERE '.$condicion.' ORDER BY Prioridad ASC');
+			$secciones=fetch_all($secciones , MYSQLI_ASSOC);
+			//Si alguna seccion ocupa el lugar de la nueva la muevo a ella y
+			//en el caso de que sea necesario a sus siguientes.
+
+			$j=$pOrden;
+			$nOrden=intVal($secciones[$pOrden]['Prioridad']);
+			$sMax=count($secciones);
+
+			while($j<$sMax && $secciones[$j]['Prioridad']==($nOrden+$j-$pOrden))
+			{
+
+				$nID=$secciones[$j]['ID'];
+
+				$consulta='update Secciones set Prioridad='.(intVal($secciones[$j]['Prioridad'])+1).' where ID='.$nID;
+
+				$con->query($consulta);
+
+				++$j;
+			}
+
+			$nOrden=$nOrden;
+		}
+
+		nSec($_POST['Visible'][0] , $nOrden , $tipo , $valor);
+	}
+}
 ?>
 <html lang="es">
 	<head>
@@ -57,23 +251,22 @@ function echoLang($langSQLRes)
 		<link rel="stylesheet" type="text/css" href="./seccs/menu.css" />
 		
 		<?php
-			include_once('php/conexion.php');
-			include_once('php/head_include.php');
+			include_once($raiz.'php/conexion.php');
+			include_once($raiz.'php/head_include.php');
 			
 			$headers=$con->query
 			(
-				'
-					SELECT Modulos.Archivo FROM Modulos ,
-					(
-						SELECT Secciones.Modulo FROM `Secciones` , 
+				'	SELECT Modulos.Archivo FROM Modulos ,
 						(
-							SELECT ID from Secciones
-							WHERE Padre IS NULL
-						) AS Secs
-						WHERE Secciones.Padre=Secs.ID 
-						AND Secciones.Modulo IS NOT NULL
-					) AS sub 
-					WHERE Modulos.Padre=sub.Modulo
+							SELECT Secciones.ModuloID FROM `Secciones` , 
+							(
+								SELECT ID from Secciones
+								WHERE PadreID IS NULL
+							) AS Secs
+							WHERE Secciones.PadreID=Secs.ID
+							AND Secciones.ModuloID IS NOT NULL
+						) AS sub 
+						WHERE Modulos.PadreID=sub.ModuloID
 				'
 			);
 			$headers=fetch_all($headers , MYSQLI_NUM);
@@ -109,15 +302,15 @@ function echoLang($langSQLRes)
 			<div class="idioma">
 			<?php
 				global $afectado;
-				include_once('php/conexion.php');
 
 				$consulta=$con->query
 				(
-					'
-						SELECT * ,
-						case ID 
-							when '.$_SESSION['lang'].' then 0 
-							else 1 end as ord FROM `Lenguajes` order by ord
+					'	SELECT * , 
+						CASE ID
+						WHEN '.$_SESSION['lang'].' THEN 0
+						ELSE 1 END AS ord
+						FROM `Lenguajes`
+						ORDER BY ord
 					'
 				);
 
@@ -162,190 +355,13 @@ function echoLang($langSQLRes)
 			<?php
 				$_GET['mes']=getdate()['mon'];	//Acá indicar mes que se muestra por defecto. Va a mostrarse el mes indicado -1.
 
-				
-
-				//Devuelve el contenido al pasarle su ID.
-				function getCont($contID , &$id)
-				{
-					global $con;
-
-					$contenido=$con->query('select Contenido,ID from Contenido where ID='.$contID);
-
-					if($contenido)
-					{
-						$contenido=fetch_all($contenido , MYSQLI_NUM)[0];
-
-						$id=$contenido[1];
-
-						return $contenido[0];
-					}
-
-					return '';
-				}
-				
-				function nSec($visible , $orden , $tipo , $valor)
-				{
-					include_once('php/SQL_Obj.php');
-					global $con , $afectado;
-
-					$TSec=new SQL_Obj($con, 'Secciones', ['Visible','Prioridad','Modulo','Contenido','Padre']);
-
-					if(isset($_POST['secID']))
-					{
-						$TSec->Padre=$_POST['secID'];
-					}
-					if($tipo===1)
-					{
-						$TSec->Modulo=$valor;
-					}
-					if($tipo===2)
-					{
-						$TSec->Contenido=$valor;
-					}
-
-					$TSec->Prioridad=$orden;
-					$TSec->Visible=$visible;
-
-					echo '<pre>Consulta Secciones: ';print_r($TSec);echo '</pre>';
-
-					$TSec->insSQL();
-					//return;
-
-
-					//A futuro: Generar IDs únicos cuando $nombre esté vacio.
-
-					if($tipo===0)
-					{
-						$afectado=$TSec->ID;
-					}
-					if($tipo===1)
-					{
-						$afectado=$valor;
-					}
-
-					unset($TSec);
-				}
-
-				if(isset($_SESSION['adminID']))
-				{
-					if(isset($_POST['elimina']) && (isset($_POST['secID'])||isset($_POST['conID'])))
-					{
-						//echo '<pre>Elimina:<br>';
-
-						$tipo=isset($_POST['conID']);
-
-						if($tipo)
-						{
-							$consulta='delete from Secciones where ID='.$_POST['conID'];
-						}
-						else
-						{
-							$consulta='delete from Secciones where ID='.$_POST['secID'];
-						}
-
-						echo '<pre>Elimina : '.$consulta.'</pre>';
-
-						$con->query($consulta);
-					}
-
-					if(isset($_POST['nSec']) || isset($_POST['nCon']))
-					{
-						//Buscar en el futuro la forma de no repetir este código:
-						$inc='';
-						$tipo=0;
-						$valor=NULL;
-
-						if(isset($_POST['secID']))
-						{
-							if(isset($_POST['Descripcion']))
-							{
-								$valor=htmlentities($_POST['Descripcion'][0]);
-
-								$con->query('insert into Contenido (Contenido , Lenguaje) values ("'.$valor.'" , '.$_POST['Lenguaje'][0].')');
-
-								global $afectado;
-
-								$afectado=$valor=$con->insert_id;
-
-								$tipo=2;
-							}
-							else
-							{
-								$valor=$_POST['Modulo'];
-								$tipo=1;
-							}
-						}
-
-						if($tipo)
-						{
-							$condicion=' Padre='.$_POST['secID'];
-						}
-						else
-						{
-							$condicion=' Contenido IS NULL AND Modulo IS NULL';
-						}
-
-						$lugar=$_POST['Lugar'];
-
-						$prefijo=$lugar[0];
-						$pOrden=intVal(substr($lugar , 1));
-						$nOrden=0;
-
-						$oMax=fetch_all($con->query('select max(Prioridad) from Secciones WHERE'.$condicion) , MYSQLI_NUM)[0][0];
-
-						echo '<pre>Lugar: ';print_r($lugar);echo '</pre>';
-						echo '<pre>Maxima Prioridad: ';print_r($oMax);echo '</pre>';
-
-						if($prefijo=='b')
-						{
-							//El último + 1.
-							$nOrden=$oMax+1;
-						}
-						else
-						{
-							$secciones=$con->query('SELECT * FROM Secciones WHERE Prioridad  >= '.$pOrden.' AND'.$condicion);
-							$secciones=fetch_all($secciones , MYSQLI_ASSOC);
-							//Si alguna seccion ocupa el lugar de la nueva la muevo a ella y
-							//en el caso de que sea necesario a sus siguientes.
-
-							$j=$pOrden;
-
-							echo '<pre>Secciones a actualizar: ';print_r($secciones);echo '</pre>';
-
-							while(isset($secciones[$j-$pOrden]) && $secciones[$j-$pOrden]['Prioridad']==$j && $j<=$oMax)
-							{
-								echo '<pre>J: '.$j.'</pre>';
-								$nID=$secciones[$j-$pOrden]['ID'];
-
-								$consulta='update Secciones set Prioridad='.($j+1).' where ID='.$nID;
-
-								$con->query($consulta);
-
-								echo '<pre>Actualiza Prioridades: ';print_r($consulta);echo '</pre>';
-
-								++$j;
-							}
-
-							$nOrden=$pOrden;
-						}
-
-
-						echo '<pre> Propiedades determinadas:</pre>';
-						echo '<pre>Prioridad:'	;	print_r($nOrden)				;	echo '</pre>';
-						echo '<pre>Visible:'	;	print_r($_POST['Visible'][0])	;	echo '</pre>';
-						echo '<pre>Tipo:'		;	print_r($tipo)					;	echo '</pre>';
-
-						nSec($_POST['Visible'][0] , $nOrden , $tipo , $valor);
-					}
-				}
-
 				//Obtengo las opciones.
 				$secciones=$con->query
 				(
 					'
 						SELECT ID,Visible,Prioridad
 						FROM Secciones
-						WHERE Padre IS NULL
+						WHERE PadreID IS NULL
 						ORDER BY Prioridad asc
 					'
 				);
@@ -356,6 +372,8 @@ function echoLang($langSQLRes)
 				//SELECT s.ID as SecID,s.Modulo as ModID, m.Archivo as Modulo FROM `Secciones` as s , `Modulos` as m WHERE s.Modulo = m.ID 
 				//SELECT s.Contenido as ConID, m.Contenido as Con FROM `Secciones` as s , `Contenido` as m WHERE s.Contenido = m.ID
 					//$cfg=sqlResToCfg($Opciones);
+
+				include_once($raiz.'php/getTraduccion.php');
 
 				for($s=0;$s<$sMax;$s++)
 				{
@@ -383,23 +401,22 @@ function echoLang($langSQLRes)
 
 						<div class="clearfix">
 							<?php
-								include('forms/elimina_dominio.php');
-								include('forms/seccion_nuevo_contenido.php');
+								include($raiz.'forms/elimina_dominio.php');
+								include($raiz.'forms/seccion_nuevo_contenido.php');
 							?>
 						</div>
 					<?php
 
 					$includes=$con->query
 					(
-						'
-						SELECT Secciones.ID , Secciones.Visible , Secciones.Prioridad , Modulos.Archivo, Contenido.Contenido
-                        FROM Secciones
-                        left outer JOIN Modulos
-                        ON Modulos.ID = Secciones.Modulo
-                        left outer JOIN Contenido
-                        ON Contenido.ID = Secciones.Contenido
-                        WHERE Secciones.Padre='.$seccion['ID'].'
-                        order by Prioridad asc
+						'	SELECT Secciones.ID , Secciones.Visible , Secciones.Prioridad , Modulos.Archivo, Contenidos.ID as ContenidoID
+							FROM Secciones
+							left outer JOIN Modulos
+							ON Modulos.ID = Secciones.ModuloID
+							left outer JOIN Contenidos
+							ON Contenidos.ID = Secciones.ContenidoID
+							WHERE Secciones.PadreID='.$seccion['ID'].'
+							ORDER BY Prioridad asc
 						'
 					);
 					$includes=fetch_all($includes , MYSQLI_ASSOC);
@@ -415,7 +432,7 @@ function echoLang($langSQLRes)
 					{
 						//echo '<pre>Include N '.$f.'</pre>';
 						$include=$includes[$f];
-						if($include['Contenido']!==NULL)
+						if($include['ContenidoID']!==NULL)
 						{
 							$tipo=2;
 							$id=$include['ID'];
@@ -424,13 +441,16 @@ function echoLang($langSQLRes)
 
 							$parser=new JBBCode\Parser();
 		
-							include('php/parser_definiciones.php');
+							include($raiz.'php/parser_definiciones.php');
 
-							$parser->parse($include['Contenido']);
+							$parser->parse
+							(
+								getTraduccion($include['ContenidoID'] , $_SESSION['lang'])
+							);
 
 							global $afectado;
 
-							include('forms/elimina_dominio.php');
+							include($raiz.'forms/elimina_dominio.php');
 							$clase='';
 /*									if(isset($_POST['nCon']) && $afectado==$id)
 							{
@@ -464,7 +484,7 @@ function echoLang($langSQLRes)
 								<?php
 							}*/
 
-							include('forms/elimina_dominio.php');
+							include($raiz.'forms/elimina_dominio.php');
 
 							if(isset($_SESSION['adminID']) && $afectado===$include['Archivo'])
 							{
@@ -492,7 +512,7 @@ function echoLang($langSQLRes)
 
 				if(isset($_SESSION['adminID']))
 				{
-					include('esq/nSec.php');
+					include($raiz.'esq/nSec.php');
 				}
 			?>
 		</main>

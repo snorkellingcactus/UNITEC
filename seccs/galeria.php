@@ -28,13 +28,16 @@
 		$_SESSION['cache']=!$_GET['cache']||0;
 	}
 
-	include_once 'php/conexion.php';
-	include_once 'php/SQL_Obj.php';
-	include_once 'php/Img.php';
-	include_once 'php/Contenido.php';
-	include_once 'php/Foraneas.php';
-	include_once 'php/Gal_HTML.php';
-	include_once 'php/Inc_Esq.php';
+	global $raiz;
+
+	include_once $raiz.'php/conexion.php';
+	include_once $raiz.'php/SQL_Obj.php';
+	include_once $raiz.'php/Img.php';
+	include_once $raiz.'php/Contenido.php';
+	include_once $raiz.'php/Foraneas.php';
+	include_once $raiz.'php/Gal_HTML.php';
+	include_once $raiz.'php/Inc_Esq.php';
+	include_once $raiz.'php/nTraduccion.php';
 	
 	$modoAdmin=isset($_SESSION['adminID']);
 
@@ -50,8 +53,7 @@
 
 				for($i=0;$i<$iMax;$i++)
 				{
-					$con->query('delete from Imagenes where Titulo='.$_POST['eConID'][$i]);
-					$con->query('delete from Contenido where ID='.$_POST['eConID'][$i]);
+					$con->query('delete from Contenidos where ID='.$_POST['eConID'][$i]);
 				}
 			}
 		}
@@ -71,13 +73,13 @@
 
 				$img->insForaneas
 				(
-					new Contenido
+					nTraduccion
 					(
-						$con,
-						['Contenido'=>$_POST['Titulo'][$i]]
+						$_POST['Titulo'][$i],
+						$_POST['Lenguaje'][$i]
 					),
 					[
-						'Titulo'=>'ID'
+						'TituloID'=>'ContenidoID'
 					]
 				);
 			
@@ -92,8 +94,8 @@
 		$fId='Gal';
 		$cMax=30;
 
-		include 'forms/seleccion.php';
-		include 'forms/acciones.php';
+		include $raiz.'forms/seleccion.php';
+		include $raiz.'forms/acciones.php';
 	}
 	
 	//:::::::::::::::::::::::::::::::HTML::::::::::::::::::::::::::::::::::::
@@ -102,9 +104,8 @@
 
 	$Gal=new Gal_HTML
 	(
-		'	SELECT Imagenes.* , Contenido.Contenido AS TituloCon
+		'	SELECT Imagenes.*
 			FROM Imagenes
-			JOIN Contenido ON Imagenes.Titulo=Contenido.ID
 			WHERE 1
 		',
 		$con,
