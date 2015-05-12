@@ -1,4 +1,8 @@
 <?php
+	if(isset($_POST['Titulo']))
+	{
+		$_SESSION['cantidad']=$_POST['Titulo'];
+	}
 	$includes=
 	[
 		'//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js',

@@ -32,6 +32,7 @@
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/Foraneas.php';
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/Gal_HTML.php';
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/Inc_Esq.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/Traduccion.php';
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/nTraduccion.php';
 	
 	$modoAdmin=isset($_SESSION['adminID']);
@@ -44,43 +45,36 @@
 		{
 			$iMax=count($_POST['Titulo']);
 
-			if(isset($_SESSION['edita']))
+			if(isset($_SESSION['accion'])  && $_SESSION['accion']==='edita')
 			{
-				echo '<pre>';
-				print_r($_POST);
-				echo '</pre>';
-				echo '<pre>';
-				print_r($_SESSION);
-				echo '</pre>';
-/*
+				$nImg=new Img($con);
+				$titulo=new Traduccion($con);
+
 				for($i=0;$i<$iMax;$i++)
 				{
 
-					$nImg=new Img
+					$nImg->getAsoc
 					(
 						[
 							'Url'=>$_POST['Url'][$i],
 							'Alt'=>$_POST['Alt'][$i],
 							'Prioridad'=>$_POST['Prioridad'][$i],
-							'Visible'=>$_POST['Visible'][$i]
+							'Visible'=>$_POST['Visible'][$i],
 							'TituloID'=>$_SESSION['conID'][$i]
 						]
 					);
-					$titulo=new Traduccion
+					$titulo->getAsoc
 					(
 						[
 							'Texto'=>$_POST['Titulo'][$i],
-							'ContenidoID'=>$_SESSION['conID'],
+							'ContenidoID'=>$_SESSION['conID'][$i],
 							'LenguajeID'=>$_POST['Lenguaje'][$i]
 						]
-					)
+					);
 
-					$nImg->updSQL('TituloID');
-					$titulo->updSQL('ContenidoID')
-
+					$nImg->updSQL(false , ['TituloID']);
+					$titulo->updSQL(false , ['ContenidoID']);
 				}
-*/
-				unset($_SESSION['edita']);
 			}
 			else
 			{
@@ -115,7 +109,7 @@
 
 			unset($_SESSION['form']);
 		}
-		if(isset($_SESSION['form']) && $_SESSION['form']==='accionesGal')
+		if(isset($_SESSION['form']) && $_SESSION['form']==='accionesGal' && $_SESSION['accion']==='elimina')
 		{
 			//Elimina Imágenes Seleccionadas.
 			$iMax=count($_SESSION['conID']);
@@ -125,7 +119,7 @@
 				$con->query('delete from Contenidos where ID='.$_SESSION['conID'][$i]);
 			}
 
-			unset($_SESSION['conID'] , $_SESSION['form'] , $_SESSION['elimina']);
+			unset($_SESSION['conID'] , $_SESSION['form'] , $_SESSION['accion']);
 		}
 		//Incluyo las acciones para la selección.
 		$fAction='index.php#gal';

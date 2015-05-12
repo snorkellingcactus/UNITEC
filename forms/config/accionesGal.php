@@ -1,4 +1,8 @@
 <?php
+	if(isset($_POST['conID']))
+	{
+		$_SESSION['cantidad']=count($_POST['conID']);
+	}
 	$includes=['../forms/forms.css'];
 	$ancla='#gal';
 	$action='../index.php';
@@ -20,6 +24,14 @@
 		[
 			'selector_lenguaje.php',
 			'Lenguaje'
+		],
+		[
+			'input_text.php',
+			'Prioridad'
+		],
+		[
+			'selector_si_no.php',
+			'Visible'
 		],
 		[
 			'input_text.php',

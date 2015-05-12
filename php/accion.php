@@ -6,7 +6,7 @@ if(session_status()===PHP_SESSION_NONE)
 if(isset($_POST['elimina']))
 {
 	$_SESSION['form']=$_POST['form'];
-	$_SESSION['elimina']=1;
+	$_SESSION['accion']='elimina';
 	$_SESSION['conID']=$_POST['conID'];
 
 	echo '<pre>FORM : ';echo $_SESSION['form'];echo '</pre>';
@@ -19,7 +19,7 @@ if(isset($_POST['elimina']))
 if(isset($_POST['edita']))
 {
 	$_SESSION['form']=$_POST['form'];
-	$_SESSION['edita']=1;
+	$_SESSION['accion']='edita';
 	$_SESSION['conID']=$_POST['conID'];
 }
 

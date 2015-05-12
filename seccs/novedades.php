@@ -35,33 +35,58 @@
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/conexion.php';
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/Novedad.php';
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/Img.php';
+			include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/Traduccion.php';
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/nTraduccion.php';
 
 			$iMax=count('nNov');
-			for($i=0;$i<$iMax;$i++)
+
+			echo '<pre>POST:';
+			print_r($_POST);
+			echo '</pre>';
+			echo '<pre>SESSIOJN:';
+			print_r($_SESSION);
+			echo '</pre>';
+
+			$titulo=new Traduccion($con);
+
+			if(isset($_SESSION['accion'])  && $_SESSION['accion']==='edita')
 			{
-				$titulo=nTraduccion($_POST['Titulo'][$i] , $_POST['Lenguaje'][$i]);
+				unset($_SESSION['accion']);
+			/*
+				$nNov=new Novedad($con);
 
-				$descripcion=nTraduccion($_POST['Descripcion'][$i] , $_POST['Lenguaje'][$i]);
+				for($i=0;$i<$iMax;$i++)
+				{
 
-				$horaLoc=getdate();
-
-				$nov=new Novedad($con);
-
-				$nov->ImagenID=$_POST['Imagen'][$i];
-				$nov->Fecha=$horaLoc['year'].'-'.$horaLoc['mon'].'-'.$horaLoc['mday'];
-
-				$nov->insForaneas($descripcion , ['DescripcionID'=>'ContenidoID']);
-				$nov->insForaneas($titulo , ['TituloID'=>'ContenidoID']);
-
-				$nov->insSQL();
+				}
+				*/
 			}
+			else
+			{
+				for($i=0;$i<$iMax;$i++)
+				{
+					$titulo=nTraduccion($_POST['Titulo'][$i] , $_POST['Lenguaje'][$i]);
 
+					$descripcion=nTraduccion($_POST['Descripcion'][$i] , $_POST['Lenguaje'][$i]);
+
+					$horaLoc=getdate();
+
+					$nov=new Novedad($con);
+
+					$nov->ImagenID=$_POST['Imagen'][$i];
+					$nov->Fecha=$horaLoc['year'].'-'.$horaLoc['mon'].'-'.$horaLoc['mday'];
+
+					$nov->insForaneas($descripcion , ['DescripcionID'=>'ContenidoID']);
+					$nov->insForaneas($titulo , ['TituloID'=>'ContenidoID']);
+
+					$nov->insSQL();
+				}
+			}
 			unset($nov , $titulo , $descripcion , $horaLoc , $iMax , $i , $_POST['Titulo'] , $_POST['Descripcion'] , $_POST['Lenguaje'] , $_POST['nNov']);
 		}
 
 		//Acciones con las seleccionadas.
-		if(isset($_SESSION['form']) && $_SESSION['form']==='accionesNov')
+		if(isset($_SESSION['form']) && $_SESSION['form']==='accionesNov' && isset($_SESSION['accion']) && $_SESSION['accion']==='elimina')
 		{
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/conexion.php';
 

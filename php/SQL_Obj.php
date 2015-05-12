@@ -242,12 +242,11 @@ class SQL_Obj
 
 		$this->buff=$this->buff.' where ';
 
-		$this->where($this->data);
+		$this->where($data);
 
 
 		echo '<pre>updSQL: '.$this->buff.'</pre>';
 
-		/*
 		$res=$this->con->query($this->buff);
 
 		$buff='';
@@ -255,7 +254,6 @@ class SQL_Obj
 		return $res;
 
 		$this->foraneas('updSQL');
-		*/
 	}
 	//Realiza la operación SQL pasada como parámetro a todos los
 	//Objetos foráneos que halla.
