@@ -15,23 +15,14 @@ function eachNan($asoc , $fnA , $fnB)
 		}
 	}
 }
-
-function nGrupo($con , $col , $tabla)
-{
-	$grp=$con->query('select ifnull(max('.$col.'),0) as '.$col.' from '.$tabla);
-	
-	return $grp->fetch_all(MYSQLI_ASSOC)[0][$col]+1;
-}
 //Un objeto que permite realizar operaciónes SQL con
 //Una fila de una tabla.
 class SQL_Obj
 {
 	public $con;
 	public $actForaneas=true;
-	public $gupoNom="Grupo";
 
 	public $table;
-	public $props;
 	public $omiteNULL=true;
 	public $primary='ID';
 
@@ -45,7 +36,6 @@ class SQL_Obj
 	{
 		$this->con=$con;
 		$this->table=$table;
-		$this->props=$props;
 		
 		$this->getAsoc($props);
 	}
@@ -179,29 +169,23 @@ class SQL_Obj
 		//Saco comas finales, cierro parentesis y agrego espacio.
 		return $this->buff=substr($this->buff,0,strlen($this->buff)-1);
 	}
-	//Actualiza los campos de un registro de este elemento en la base de datos.
-	public function updSQL($disc=false , $data=false)
+	public function getSQL($data=false)
 	{
-		$this->buff='update '.$this->table.' set ';	//Sentencias SQL para actualizar filas de una tabla.
+		$this->buff='select * from '.$this->table.' where ';
 
-		$this->update($disc);
+		$this->buff=$this->where($data).' limit 1';
 
-		$this->buff=$this->buff.' where ';
+		echo '<pre>'.$this->buff.'</pre>';
 
-		$this->where($this->data);
-
-
-		echo '<pre>updSQL: '.$this->buff.'</pre>';
-
-		/*
 		$res=$this->con->query($this->buff);
+		$res=$res->fetch_all(MYSQLI_ASSOC)[0];
 
-		$buff='';
+		foreach($res as $clave=>$valor)
+		{
+			$this->$clave=$valor;
+		}
 
-		return $res;
-
-		$this->foraneas('updSQL');
-		*/
+		$this->buff='';
 	}
 	//Crea un nuevo registro de este elemento en la base de datos.
 	public function insSQL($data=false)
@@ -249,6 +233,30 @@ class SQL_Obj
 
 		$this->foraneas('remSQL');
 	}
+	//Actualiza los campos de un registro de este elemento en la base de datos.
+	public function updSQL($disc=false , $data=false)
+	{
+		$this->buff='update '.$this->table.' set ';	//Sentencias SQL para actualizar filas de una tabla.
+
+		$this->update($disc);
+
+		$this->buff=$this->buff.' where ';
+
+		$this->where($this->data);
+
+
+		echo '<pre>updSQL: '.$this->buff.'</pre>';
+
+		/*
+		$res=$this->con->query($this->buff);
+
+		$buff='';
+
+		return $res;
+
+		$this->foraneas('updSQL');
+		*/
+	}
 	//Realiza la operación SQL pasada como parámetro a todos los
 	//Objetos foráneos que halla.
 	public function foraneas($opStr)
@@ -274,25 +282,6 @@ class SQL_Obj
 		++$this->foraneasIndex;
 
 		return $res;
-	}
-
-	public function getSQL($data=false)
-	{
-		$this->buff='select * from '.$this->table.' where ';
-
-		$this->buff=$this->where($data).' limit 1';
-
-		echo '<pre>'.$this->buff.'</pre>';
-
-		$res=$this->con->query($this->buff);
-		$res=$res->fetch_all(MYSQLI_ASSOC)[0];
-
-		foreach($res as $clave=>$valor)
-		{
-			$this->$clave=$valor;
-		}
-
-		$this->buff='';
 	}
 	public function __set($nombre , $valor)
 	{

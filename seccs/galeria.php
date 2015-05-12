@@ -151,3 +151,4 @@
 	//Genero el código HTML de la galería.
 	echo $Gal->gen();
 ?>
+<div class="clearfix"></div>

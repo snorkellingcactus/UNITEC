@@ -3,7 +3,7 @@
 //error_reporting(E_ALL & ~E_DEPRECATED & ~E_STRICT );
 //Si todavía no se inicio sesion, se inicia.
 
-error_reporting(E_ALL);
+error_reporting(E_ALL & ~E_DEPRECATED  & ~E_STRICT);
 ini_set("display_errors", "On");
 
 if(session_status()==PHP_SESSION_NONE)
@@ -58,28 +58,19 @@ function nSec($visible , $orden , $tipo , $valor)
 	$nSec->Visible=$visible;
 
 	$nSec->insSQL();
-	//return;
 
+	$afectado=$nSec->ID;
 
-	//A futuro: Generar IDs únicos cuando $nombre esté vacio.
-
-	if($tipo===0)
-	{
-		$afectado=$nSec->ID;
-	}
-	if($tipo===1)
-	{
-		$afectado=$valor;
-	}
+	echo '<pre>Afectado = '.$afectado.'</pre>';
 }
 
 if(isset($_SESSION['adminID']))
 {
-	if(isset($_POST['form']) && $_POST['form']==='accionesSec')
+	if(isset($_POST['form']) && ($_POST['form']==='accionesSec' || $_POST['form']==='accionesCon'))
 	{
 		//echo '<pre>Elimina:<br>';
 
-		$tipo=isset($_SESSION['conID']);
+		$tipo=isset($_POST['conID']);
 		$secID=NULL;
 
 		if($tipo)
@@ -134,9 +125,7 @@ if(isset($_SESSION['adminID']))
 
 				$descripcion->insSQL();
 
-				global $afectado;
-
-				$afectado=$valor=$descripcion->ContenidoID;
+				$valor=$descripcion->ContenidoID;
 
 				$tipo=2;
 			}
@@ -361,11 +350,12 @@ if(isset($_SESSION['adminID']))
 
 					if(isset($_SESSION['adminID']) && isset($_POST['nSec']) && $afectado==$seccion['ID'])
 					{
+						$clase='class="target"';
 						?>
-							<span id="nSec"></span>
+							<span id='nSec'></span>
 						<?php
 					}
-/*							if($visible==='0')
+/*					if($visible==='0')
 					{
 						$clase='class="oculta"';
 					}
@@ -394,8 +384,8 @@ if(isset($_SESSION['adminID']))
 						'
 					);
 					$includes=fetch_all($includes , MYSQLI_ASSOC);
-/*
-					echo '<pre>Includes: ';
+
+/*					echo '<pre>Includes: ';
 					print_r($includes);
 					echo '</pre>';
 */
@@ -406,10 +396,11 @@ if(isset($_SESSION['adminID']))
 					{
 						//echo '<pre>Include N '.$f.'</pre>';
 						$include=$includes[$f];
+						$id=$include['ID'];
 						if($include['ContenidoID']!==NULL)
 						{
 							$tipo=2;
-							$id=$include['ID'];
+
 
 							include_once 'php/jBBCode1_3_0/JBBCode/Parser.php';
 
@@ -425,18 +416,23 @@ if(isset($_SESSION['adminID']))
 							global $afectado;
 
 							include($_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/forms/elimina_dominio.php');
+
 							$clase='';
-/*									if(isset($_POST['nCon']) && $afectado==$id)
+
+							if
+							(
+								isset($_SESSION['adminID'])		&&
+								isset($_POST['nCon'])			&&
+								$afectado==$include['ID'])
 							{
-								$id='id="nCon"';
+								$clase='target';
+								?>
+									<span id='nCon'></span>
+								<?php
 							}
-							else
-							{
-								$id='';
-							}
-*/
+
 							?>
-								<div class="contenido <?php echo $clase?>" <?php echo $id?> >
+								<div class="contenido <?php echo $clase?>">
 									<?php
 										echo $parser->getAsHtml();
 									?>
@@ -447,7 +443,6 @@ if(isset($_SESSION['adminID']))
 						if($include['Archivo']!==NULL)
 						{
 							$tipo=1;
-							$id=$include['ID'];
 
 							global $con,$afectado;
 
@@ -460,13 +455,29 @@ if(isset($_SESSION['adminID']))
 
 							include($_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/forms/elimina_dominio.php');
 
-							if(isset($_SESSION['adminID']) && $afectado===$include['Archivo'])
+							//echo '<pre>ModID = '.$id.'</pre>';
+
+							$clase='';
+
+							if
+							(
+								isset($_SESSION['adminID'])			&&
+								isset($_POST['nCon'])				&&
+								$afectado==$include['ID'])
 							{
+								$clase='target';
+
 								?>
-									<span id="nCon"></span>
+									<span id='nCon'></span>
 								<?php
 							}
-							include($include['Archivo']);
+							?>
+								<div class="modulo <?php echo $clase?>" >
+									<?php
+										include($include['Archivo']);
+									?>
+								</div>
+							<?php
 							/*if($visible==='0')
 							{
 								?>
