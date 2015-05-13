@@ -11,8 +11,8 @@
 			<input type="hidden" name="secID" value="<?php echo $seccion['ID']?>">
 
 			<select name="Tipo">
-				<option value="con">Contenido</option>
-				<option value="inc">Archivo</option>
+				<option value="con">Texto</option>
+				<option value="inc">Modulo</option>
 			</select>
 			<input type="submit" name="nuevas" value="Nuevo">
 		</form>

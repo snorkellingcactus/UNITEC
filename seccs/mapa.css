@@ -5,5 +5,5 @@
 #gmapsDiag .adp{background-color:white;}
 #gmapsDiag{clear:both;}
 #gmapsDiag #buscar{width:100%;}
-#map-canvas{border-radius:3px;margin-top:5px;width:100%;min-width:auto;}
+#map-canvas{border-radius:3px;margin-top:5px;width:100%;min-width:auto;min-height:500px}
 #panel_ruta{float:right}

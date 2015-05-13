@@ -7,8 +7,8 @@ if(!empty($_SESSION['adminID']))
 {
 	$raiz=$_POST['raiz'];
 
-	include_once('./conexion.php');
-	include_once('./SQL_DOM.php');
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/conexion.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/SQL_DOM.php';
 
 	$SQLDOM=new SQL_DOM
 	(

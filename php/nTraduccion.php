@@ -3,11 +3,10 @@
 	function nTraduccion($contenido , $lenguaje)
 	{
 		global $con, $raiz;
-		echo '<pre>'.$raiz.'</pre>';
 
-		include_once $raiz.'php/Contenido.php';
-		include_once $raiz.'php/Traduccion.php';
-		include_once $raiz.'php/Foraneas.php';
+		include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/Contenido.php';
+		include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/Traduccion.php';
+		include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/Foraneas.php';
 
 		$traduccion=new Traduccion
 		(

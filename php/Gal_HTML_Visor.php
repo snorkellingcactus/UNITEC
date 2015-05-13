@@ -1,5 +1,5 @@
 <?php
-require_once('Obj_Gen_HTML.php');
+require_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/Obj_Gen_HTML.php';
 
 class	Gal_HTML_Visor
 {
@@ -24,7 +24,7 @@ class	Gal_HTML_Visor
 				$asocLst=$con->query($imgLst);
 				$asocLst=fetch_all($asocLst , MYSQLI_ASSOC);	//Respuesta SQL como array asociativo.
 
-				include_once('getTraduccion.php');
+				include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/getTraduccion.php';
 
 				if(session_status()===PHP_SESSION_NONE)
 				{

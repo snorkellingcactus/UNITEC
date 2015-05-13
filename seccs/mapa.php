@@ -1,8 +1,6 @@
+<div class="clearfix"></div>
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
 <script type="text/javascript" src="js/mapa.js"></script>
-	<style>
-		#map-canvas{min-height:500px;}
-	</style>
   <!-- Sacado de http://jafrancov.com/2011/12/trazar-rutas-gmaps-api-v3/ -->
 
 <div id="map-canvas"></div>

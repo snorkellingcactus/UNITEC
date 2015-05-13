@@ -1,5 +1,5 @@
 <?php
-require_once 'SQL_Obj.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/SQL_Obj.php';
 
 class Comentario extends SQL_Obj
 {
@@ -13,6 +13,7 @@ class Comentario extends SQL_Obj
 			$con,
 			'Comentarios',
 			[
+				'ID',
 				'ContenidoID',
 				'RaizID',
 				'PadreID',
@@ -41,10 +42,11 @@ function genComLst($main , $mLen , $dep , $NombreDest=NULL)
 
 		$esq['NombreDest']=$NombreDest;
 
-		include_once('getTraduccion.php');
+		include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/getTraduccion.php';
+
 		$esq['ValorCont']=getTraduccion($esq['ContenidoID'] , $_SESSION['lang']);
 
-		include ('../esq/coment.php');
+		include $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/esq/coment.php';
 
 		$hMax=count($hijos);
 

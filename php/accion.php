@@ -1,7 +1,31 @@
 <?php
-include_once('head_include.php');
+if(session_status()===PHP_SESSION_NONE)
+{
+	session_start();
+}
+if(isset($_POST['elimina']))
+{
+	$_SESSION['form']=$_POST['form'];
+	$_SESSION['elimina']=1;
+	$_SESSION['conID']=$_POST['conID'];
+
+	echo '<pre>FORM : ';echo $_SESSION['form'];echo '</pre>';
+	echo '<pre>conID: ';print_r ($_POST);echo '</pre>';
+
+	header('Location: '.$_SERVER['HTTP_REFERER']);
+
+	die();
+}
+if(isset($_POST['edita']))
+{
+	$_SESSION['form']=$_POST['form'];
+	$_SESSION['edita']=1;
+	$_SESSION['conID']=$_POST['conID'];
+}
+
+include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/head_include.php';
 //Construyo el formulario con la configuración dada y lo devuelvo como string.
-function crea_form($labels)
+function crea_form($labels , $autocomp)
 {
 	$lMax=count($labels);
 
@@ -20,7 +44,7 @@ function crea_form($labels)
 				<label for="<?php echo $labelName ?>"><?php echo $labelName ?>:</label>
 			</p>
 
-			<?php include('../forms/'.$tipo); ?>
+			<?php include $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/forms/'.$tipo; ?>
 
 			<div class="clearfix"></div>
 
@@ -30,13 +54,9 @@ function crea_form($labels)
 		ob_end_clean();
 	}
 
-	unset($l , $labelName , $labelAct , $labels);
+	//unset($l , $labelName , $labelAct , $labels);
 
 	return $buff;
-}
-if(session_status()===PHP_SESSION_NONE)
-{
-	session_start();
 }
 if(isset($_SESSION['adminID']))
 {
@@ -47,10 +67,10 @@ if(isset($_SESSION['adminID']))
 		$_SESSION['cantidad']=$_POST['cantidad'];
 	}
 	
-	if( isset($_POST['nuevas'])	&& isset($_POST['form']) )
+	if( isset($_POST['form']) )
 	{
 		//Incluyo la configuración del formulario en cuestión.
-		include ('../forms/config/'.$_POST['form'].'.php');
+		include $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/forms/config/'.$_POST['form'].'.php';
 
 		//Url de acción con caché para recargar el destino.
 		$url=$action.'?cache='.$_SESSION['cache'].$ancla;
@@ -77,16 +97,22 @@ if(isset($_SESSION['adminID']))
 
 				</head>
 				<body>
-						<form method="POST" class="tresem nuevo" action="<?php echo $url ?>">
+					<form method="POST" class="tresem nuevo" action="<?php echo $url ?>">
 						<?php
 
-							$buff=crea_form($labels);
-
 							$iMax=$_SESSION['cantidad'];
+
 							for($i=0;$i<$iMax;$i++)
 							{
-								echo $buff;
+								$autocomp=[];
 
+								if(isset($_POST['edita']) && isset($_POST['conID']))
+								{
+									$conIDAct=$_POST['conID'][$i];
+									include $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/forms/config/'.$_POST['form'].'Autocomp.php';
+								}
+
+								echo crea_form($labels , $autocomp);
 								?>
 									<div class="clearfix fin"></div>
 								<?php

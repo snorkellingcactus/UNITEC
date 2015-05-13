@@ -1,5 +1,5 @@
 <?php
-include_once("Arr_Gen.php");
+include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/Arr_Gen.php';
 
 class Arr_Gen_HTML extends Arr_Gen
 {

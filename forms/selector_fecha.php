@@ -1,6 +1,12 @@
 <?php
 	$tiempos=['Año','Mes','Dia','Horas','Minutos'];
+	$times=['Y','m','d','H','i','s'];
 	$jMax=count($tiempos);
+	if(isset($autocomp[$labelName]))
+	{
+		$fecha=$autocomp[$labelName];
+		$fecha=new DateTime($fecha);
+	}
 ?>
 <div class="fecha col-xs-12 col-sm-8 col-md-8 col-lg-8">
 	<?php
@@ -20,7 +26,16 @@
 		?>
 			<div class="<?php echo $cols ?>">
 				<label for="<?php echo $tAct ?>"><?php echo $tAct ?></label>
-				<input type="number" name="<?php echo $fix ?>[]"/>
+				<input type="number" name="<?php echo $fix ?>[]" 
+				<?php
+					if(isset($fecha))
+					{
+						?>
+						 value="<?php echo $fecha->format($times[$j]);?>"
+						<?php
+					}
+				?>
+				>
 			</div>
 		<?php
 	}

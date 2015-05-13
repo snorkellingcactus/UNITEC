@@ -1,5 +1,6 @@
 <?php
-include_once("Arr_Gen.php");
+include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/Arr_Gen.php';
+
 function file_include_contents($ruta)
 {
 	$args=func_get_args();
@@ -11,7 +12,7 @@ function file_include_contents($ruta)
 
 	ob_start();
 	
-	include ($ruta);
+	include $ruta;
 	
 	$res=ob_get_contents();
 

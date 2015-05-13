@@ -62,7 +62,7 @@
 		if(isset($_SESSION['adminID']) && $_SESSION['adminID']!==NULL)
 		 {
 		 	?>
-			 	<input type="checkbox" name="comConID[]" value="<?php echo $esq['ContenidoID'] ?>" form="reloadCom">
+			 	<input type="checkbox" name="conID[]" value="<?php echo $esq['ContenidoID'] ?>" form="accionesCom">
 		 	<?php
 		 }
 	?>

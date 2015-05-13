@@ -26,17 +26,16 @@
 				$cMax=0;
 				
 				//Incluyo las acciones para las novedades.
-				include 'forms/seleccion.php';
-				include 'forms/acciones.php';
+				include $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/forms/acciones.php';
 		}
 
 		//Si se rellenó el formulario nueva novedad la envío a la bd.
 		if(isset($_POST['nNov']))
 		{
-			include_once 'php/conexion.php';
-			include_once 'php/Novedad.php';
-			include_once 'php/Img.php';
-			include_once 'php/nTraduccion.php';
+			include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/conexion.php';
+			include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/Novedad.php';
+			include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/Img.php';
+			include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/nTraduccion.php';
 
 			$iMax=count('nNov');
 			for($i=0;$i<$iMax;$i++)
@@ -62,25 +61,24 @@
 		}
 
 		//Acciones con las seleccionadas.
-		if(isset($_POST['novID']))
+		if(isset($_SESSION['form']) && $_SESSION['form']==='accionesNov')
 		{
-			if(isset($_POST['elimina']))
+			include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/conexion.php';
+
+			$iMax=count($_SESSION['conID']);
+			for($i=0;$i<$iMax;$i++)
 			{
-				include_once 'php/conexion.php';
+				$contenidos=$con->query('select TituloID , DescripcionID from Novedades where ID='.$_SESSION['conID'][$i]);
+				$contenidos=fetch_all($contenidos , MYSQLI_ASSOC)[0];
 
-				$iMax=count($_POST['novID']);
-				for($i=0;$i<$iMax;$i++)
-				{
-					$contenidos=$con->query('select TituloID , DescripcionID from Novedades where ID='.$_POST['novID'][$i]);
-					$contenidos=fetch_all($contenidos , MYSQLI_ASSOC)[0];
-
-					$con->query('delete from Novedades where ID='.$_POST['novID'][$i]);
-					$con->query('delete from Contenidos where ID='.$contenidos['TituloID'].' or ID='.$contenidos['DescripcionID']);
-				}
+				$con->query('delete from Novedades where ID='.$_SESSION['conID'][$i]);
+				$con->query('delete from Contenidos where ID='.$contenidos['TituloID'].' or ID='.$contenidos['DescripcionID']);
 			}
+
+			unset($_SESSION['conID'] , $_SESSION['form'] , $_SESSION['elimina']);
 		}
 
-		include_once 'php/conexion.php';
+		include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/conexion.php';
 
 		$novedades=$con->query('select * from Novedades order by Fecha desc');
 		$novedades=fetch_all($novedades , MYSQLI_ASSOC);
@@ -94,10 +92,10 @@
 		}
 		else
 		{
-			include_once 'php/Inc_Esq.php';
-			include_once 'php/Novedad.php';
-			include_once 'php/getTraduccion.php';
-			include_once 'php/jBBCode1_3_0/JBBCode/Parser.php';
+			include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/Inc_Esq.php';
+			include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/Novedad.php';
+			include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/getTraduccion.php';
+			include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/jBBCode1_3_0/JBBCode/Parser.php';
 
 
 			$novedadesHTML=new Inc_Esq('esq/novedad.php');
@@ -121,7 +119,7 @@
 
 				$parser=new JBBCode\Parser();
 				
-				include('php/parser_definiciones.php');
+				include $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/parser_definiciones.php';
 
 				$parser->parse($descripcion);
 

@@ -5,7 +5,7 @@ if(session_status()===PHP_SESSION_NONE)
 }
 if(!empty($_SESSION['adminID']) && isset($_POST['accion']))
 {
-	include("./conexion.php");
+	include $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/conexion.php';
 
 	$consulta=false;
 
@@ -55,7 +55,7 @@ if(!empty($_SESSION['adminID']) && isset($_POST['accion']))
 			$_POST['id']=$con->insert_id;
 		}
 
-		include("./getConfig.php");
+		include $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/getConfig.php';
 	}
 }
 

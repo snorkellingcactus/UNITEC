@@ -22,8 +22,8 @@ if(isset($_SESSION['adminID']))
 	}
 
 	//Hago la peticion.
-	include("./conexion.php");
-	include("./Res_XML.php");
+	include $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/conexion.php';
+	include $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/Res_XML.php';
 
 	$old=$consulta;
 

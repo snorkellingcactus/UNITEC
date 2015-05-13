@@ -1,9 +1,9 @@
 <?php
-require_once	'Obj_Gen_HTML.php';
-include_once	'conexion.php';
+require_once	$_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/Obj_Gen_HTML.php';
+include_once	$_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/conexion.php';
 if(isset($_SESSION['vGen']))
 {
-	include_once 'Gal_HTML_Visor.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/Gal_HTML_Visor.php';
 }
 //Genera el código HTML de la galería según los parametros dados.
 //$img puede ser el texto de una consulta SQL
@@ -87,7 +87,7 @@ class Gal_HTML
 
 		$iMax=count($asocLst);
 
-		include_once('php/getTraduccion.php');
+		include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/getTraduccion.php';
 
 		if(session_status()===PHP_SESSION_NONE)
 		{

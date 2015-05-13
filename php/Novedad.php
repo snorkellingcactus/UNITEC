@@ -1,5 +1,5 @@
 <?php
-include_once('SQL_Obj.php');
+include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/SQL_Obj.php';
 
 class Novedad extends SQL_Obj
 {
@@ -12,6 +12,7 @@ class Novedad extends SQL_Obj
 			$con,
 			'Novedades',
 			[
+				'ID',
 				'ImagenID',
 				'TituloID',
 				'DescripcionID',

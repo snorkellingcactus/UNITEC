@@ -1,5 +1,5 @@
 <?php
-require_once 'SQL_Obj.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/SQL_Obj.php';
 
 class Contenido extends SQL_Obj
 {
@@ -7,7 +7,7 @@ class Contenido extends SQL_Obj
 	{
 		$nArgs=func_num_args();
 
-		parent::__construct($con, 'Contenidos' , []);
+		parent::__construct($con, 'Contenidos' , ['ID']);
 
 		if($nArgs>1)
 		{

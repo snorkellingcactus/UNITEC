@@ -11,8 +11,8 @@
 "weekday"
 "month"
 :::::::::::::::::::::::::::::::::*/
-include 'php/cal/Cal_Cfg.php';
-include 'php/cal/Cal_Gen_HTML.php';
+include $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/cal/Cal_Cfg.php';
+include $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/cal/Cal_Gen_HTML.php';
 
 $CalCfg=new Cal_Cfg();
 $GenHTML=new Cal_Gen_HTML($CalCfg);
@@ -39,18 +39,17 @@ if(session_status()==PHP_SESSION_NONE)
 				$cMax=30;
 
 				//Incluyo las acciones posibles.
-				include 'forms/seleccion.php';
-				include 'forms/acciones.php';
+				include $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/forms/acciones.php';
 			
 
 				if(isset($_POST['nEvt']))
 				{
 
-					include_once('php/conexion.php');
-					include_once('php/SQL_Obj.php');
-					include_once('php/Contenido.php');
-					include_once('php/Evento.php');
-					include_once('php/nTraduccion.php');
+					include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/conexion.php';
+					include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/SQL_Obj.php';
+					include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/Contenido.php';
+					include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/Evento.php';
+					include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/nTraduccion.php';
 
 					$fallas=[];
 					$fallasLn=0;
@@ -102,13 +101,15 @@ if(session_status()==PHP_SESSION_NONE)
 						$evento->insSQL();
 					}
 				}
-				if(isset($_POST['form']) && $_POST['form']==='accionesCal' && isset($_POST['elimina']))
+				if(isset($_SESSION['form']) && $_SESSION['form']==='accionesCal')
 				{
-					$iMax=count($_POST['conID']);
+					$iMax=count($_SESSION['conID']);
 					for($i=0;$i<$iMax;$i++)
 					{
-						$con->query('delete from Contenidos where ID='.$_POST['conID'][$i]);
+						$con->query('delete from Contenidos where ID='.$_SESSION['conID'][$i]);
 					}
+
+					unset($_SESSION['conID'] , $_SESSION['form'] , $_SESSION['elimina']);
 				}
 			}
 			$consulta='select * from Eventos';
@@ -140,7 +141,7 @@ if(session_status()==PHP_SESSION_NONE)
 				$consulta=$consulta.' where Tiempo between "'.$mesAct.'" and "'.$mesSig.'"';
 			}
 
-			include_once('php/conexion.php');
+			include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/conexion.php';
 
 			$eventos=$con->query($consulta.' order by Tiempo asc');
 			
@@ -192,7 +193,7 @@ if(session_status()==PHP_SESSION_NONE)
 								 if(!empty($_SESSION['adminID']))
 								 {
 								 	?>
-								 		<input type="checkbox" name="conID[]" value="<?php echo $evtAct['DescripcionID']?>" form="reloadCal"/>
+								 		<input type="checkbox" name="conID[]" value="<?php echo $evtAct['DescripcionID']?>" form="accionesCal"/>
 								 	<?php
 								 }
 								 ?>

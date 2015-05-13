@@ -1,5 +1,5 @@
 <?php
-require_once('SQL_Obj.php');
+require_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/SQL_Obj.php';
 
 class Img extends SQL_Obj
 {
@@ -12,6 +12,7 @@ class Img extends SQL_Obj
 			$con,
 			'Imagenes',
 			[
+				'ID',
 				'Url',
 				'Alt',
 				'TituloID',

@@ -51,7 +51,7 @@
 				//Si se rellenó el formulario login lo valido.
 				if(isset($_POST['contrasena'])&&isset($_POST['Nombre']))
 				{
-					include	'php/conexion.php';
+					include	$_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/conexion.php';
 				
 					//Trato de obtener el usuario.
 					$usuario=$con->query('select * from Usuarios where Contrasena="'.sha1($_POST['contrasena']).'"');
@@ -73,12 +73,12 @@
 
 				if(isset($_SESSION['adminID']))
 				{
-					include './seccs/panel_admin.php';	//Incluyo el panel.
+					include $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/seccs/panel_admin.php';	//Incluyo el panel.
 				}
 				else
 				{
 					echo '<h2>'.$msg.'</h2>';		//Despliego mensaje opcional.
-					include './seccs/login.php';		//Formulario login.
+					include $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/seccs/login.php';		//Formulario login.
 				}
 			?>
 		</main>

@@ -14,22 +14,22 @@
 		<nav>
 			<ul>			
 				<li>
-					<a href="#sobre" tabindex="1">Inicio</a>
+					<a href="#29" tabindex="1">Inicio</a>
 				</li>
 				<li>
-					<a href="#nov"	 tabindex="1">Novedades</a>
+					<a href="#33"	 tabindex="1">Novedades</a>
 				</li>
 				<li>
 					<a href="#labs"	 tabindex="1">Espacios de extensión</a>
 				</li>
 				<li>
-					<a href="#cal"	 tabindex="1">Eventos</a>
+					<a href="#35"	 tabindex="1">Eventos</a>
 				</li>
 				<li>
-					<a href="#gal"	 tabindex="1">Galería</a>
+					<a href="#37"	 tabindex="1">Galería</a>
 				</li>
 				<li>
-					<a href="#"		 tabindex="1">Idioma</a>
+					<a href="#39"	 tabindex="1">Mapa</a>
 				</li>
 				<li>
 					<a href="#"		 tabindex="1">Accesibilidad</a>

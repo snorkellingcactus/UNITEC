@@ -20,7 +20,7 @@ function nGrupo($con , $col , $tabla)
 {
 	$grp=$con->query('select ifnull(max('.$col.'),0) as '.$col.' from '.$tabla);
 	
-	return fetch_all($grp , MYSQLI_ASSOC)[0][$col]+1;
+	return $grp->fetch_all(MYSQLI_ASSOC)[0][$col]+1;
 }
 //Un objeto que permite realizar operaciónes SQL con
 //Una fila de una tabla.
@@ -32,12 +32,14 @@ class SQL_Obj
 
 	public $table;
 	public $props;
+	public $omiteNULL=true;
+	public $primary='ID';
+
 	private $buff;
 	private $buffAux;
 	private	$foraneasLst=NULL;
 	private $foraneasIndex=0;
-
-	public $ID;
+	private $data=array();
 
 	public function __construct($con , $table , $props)
 	{
@@ -62,145 +64,189 @@ class SQL_Obj
 			}
 		);
 	}
+	//Seguridad acá. Improvisar algo con
+	//specialchars o htmlentities o {}
 	//Si es numero devuelve el numero, sino, devuelve el valor con las comillas ("") agregadas.
 	public function sqlVal($val)
 	{
+		if($val===NULL)
+		{
+			return 'NULL';
+		}
 		if(is_numeric($val))
 		{
 			return $val;
 		}
 		return '"'.$val.'"';
 	}
-	//Seguridad acá. Improvisar algo con
-	//specialchars o htmlentities o {}
-	public function sqlSpec($val)
-	{
-		return $this->sqlVal($val);
-	}
 	public function conFnA($clave , $valor)
 	{
-		$this->$clave=$valor;
+		$this->data[$clave]=$valor;
 	}
 	public function conFnB($clave , $valor)
 	{
-		$this->$valor=NULL;
+		$this->data[$valor]=NULL;
 	}
 	private function updFnA($clave , $valor)
 	{
+		if($this->omiteNULL===true && $valor===NULL)
+		{
+			return;
+		}
+
 		$this->buff=$this->buff.$clave.'=';
-		$this->buff=$this->buff.$this->sqlSpec($valor).',';
+		$this->buff=$this->buff.$this->sqlVal($valor).',';
 	}
 	private function updFnB($clave , $valor)
 	{
-		$this->buff=$this->buff.$valor.'=';
-		$this->buff=$this->buff.$this->sqlSpec($this->$valor).',';
-	}
-	private function getFnA($clave , $valor)
-	{
-		$this->buff=$this->buff.$clave.'=';
-		$this->buff=$this->buff.$this->sqlSpec($valor).' and ';
-	}
-	private function getFnB($clave , $valor)
-	{
-		if(!isset($this->$valor))
+		if($this->omiteNULL && $this->data[$valor]===NULL)
 		{
 			return;
 		}
 
 		$this->buff=$this->buff.$valor.'=';
-		$this->buff=$this->buff.$this->sqlSpec($this->$valor).' and ';
+		$this->buff=$this->buff.$this->sqlVal($this->$valor).',';
+	}
+	private function getFnA($clave , $valor)
+	{
+		if($this->omiteNULL===true && $valor===NULL)
+		{
+			return;
+		}
+
+		$this->buff=$this->buff.$clave.'=';
+		$this->buff=$this->buff.$this->sqlVal($valor).' and ';
+	}
+	private function getFnB($clave , $valor)
+	{
+		if($this->omiteNULL && $this->data[$valor]===NULL)
+		{
+			return;
+		}
+
+		$this->buff=$this->buff.$valor.'=';
+		$this->buff=$this->buff.$this->sqlVal($this->data[$valor]).' and ';
 	}
 	private function insFnA($clave , $valor)
 	{
+		if($this->omiteNULL && $valor === NULL)
+		{
+			return;
+		}
+
 		$this->buff=$this->buff.$clave.' , ';
-		$this->buffAux=$this->buffAux.$this->sqlSpec($valor).' ,';
+		$this->buffAux=$this->buffAux.$this->sqlVal($valor).' ,';
 	}
 	private function insFnB($clave , $valor)
 	{
-		if(isset($this->$valor))
+		if($this->omiteNULL && $this->data[$valor]===NULL)
 		{
-			$this->buff=$this->buff.$valor.' ,';
-			$this->buffAux=$this->buffAux.$this->sqlSpec($this->$valor).' ,';
+			return;
 		}
+		$this->buff=$this->buff.$valor.' ,';
+		$this->buffAux=$this->buffAux.$this->sqlVal($this->$valor).' ,';
 	}
-	//Actualiza los campos de un registro de este elemento en la base de datos.
-	public function updSQL()
+	public function where($data=false)
 	{
-		if(!isset($this->ID))
+		if(!$data)
 		{
-			return 0;
+			$data=$this->data;
 		}
-		if(func_num_args())
-		{
-			$prop=func_get_args()[0];
-		}
-		else
-		{
-			$prop=$this->props;
-		}
-		if(is_array($prop))
-		{
-			$this->buff='update '.$this->table.' set ';	//Sentencias SQL para actualizar filas de una tabla.
-
-			eachNan
-			(
-				$prop,
-				function($clave , $valor){$this->updFnA($clave , $valor);},
-				function($clave , $valor){$this->updFnB($clave , $valor);}
-			);
-
-			//Saco comas finales, cierro parentesis y agrego espacio.
-			$this->buff=substr($this->buff,0,strlen($this->buff)-1).' where ID='.$this->ID;
-
-			echo '<pre>'.$this->buff.'</pre>';
-			
-			$res=$this->con->query($this->buff);
-
-			$buff='';
-
-			return $res;
-		}
-		if(isset($this->$prop))
-		{
-			echo '<pre>'.'update '.$this->table.' set '.$prop.' = '.$this->sqlSpec($this->$prop).' where ID='.$this->ID.'</pre>';
-			return $this->con->query
-			(
-				'update '.$this->table.' set '.$prop.' = '.$this->sqlSpec($this->$prop).' where ID='.$this->ID
-			);
-		}
-		$this->foraneas('updSQL');
-	}
-	//Crea un nuevo registro de este elemento en la base de datos.
-	public function insSQL()
-	{
-		$this->foraneas('insSQL');
-
-		$this->buff=$this->buff.'insert into '.$this->table.' ( ';
-		$this->buffAux=$this->buffAux.' values( ';
 
 		eachNan
 		(
-			$this->props,
+			$data,
+			function($clave , $valor){$this->getFnA($clave , $valor);},
+			function($clave , $valor){$this->getFnB($clave , $valor);}
+		);
+
+		$this->buff=substr($this->buff , 0 , strlen($this->buff)-4);
+	}
+	public function update($data=false)
+	{
+		if(!$data)
+		{
+			$data=$this->data;
+		}
+
+		eachNan
+		(
+			$data,
+			function($clave , $valor){$this->updFnA($clave , $valor);},
+			function($clave , $valor){$this->updFnB($clave , $valor);}
+		);
+
+		//Saco comas finales, cierro parentesis y agrego espacio.
+		return $this->buff=substr($this->buff,0,strlen($this->buff)-1);
+	}
+	//Actualiza los campos de un registro de este elemento en la base de datos.
+	public function updSQL($disc=false , $data=false)
+	{
+		$this->buff='update '.$this->table.' set ';	//Sentencias SQL para actualizar filas de una tabla.
+
+		$this->update($disc);
+
+		$this->buff=$this->buff.' where ';
+
+		$this->where($this->data);
+
+
+		echo '<pre>updSQL: '.$this->buff.'</pre>';
+
+		/*
+		$res=$this->con->query($this->buff);
+
+		$buff='';
+
+		return $res;
+
+		$this->foraneas('updSQL');
+		*/
+	}
+	//Crea un nuevo registro de este elemento en la base de datos.
+	public function insSQL($data=false)
+	{
+		$this->foraneas('insSQL');
+
+		$this->buff=$this->buff.'insert into '.$this->table.' (  ';
+		$this->buffAux=$this->buffAux.' values( ';
+
+		if($data===false)
+		{
+			$data=$this->data;
+		}
+
+		eachNan
+		(
+			$data,
 			function($clave , $valor){$this->insFnA($clave , $valor);},
 			function($clave , $valor){$this->insFnB($clave , $valor);}
 		);
 
-		$this->buff=substr($this->buff,0,strlen($this->buff)-1).' ) ';
+		$this->buff=substr($this->buff,0,strlen($this->buff)-2).' ) ';
 		$this->buffAux=substr($this->buffAux,0,strlen($this->buffAux)-1).' ) ';
 
-		$res=$this->con->query($this->buff.$this->buffAux);
-		$this->ID=$this->con->insert_id;
-
 		echo '<pre>'.$this->buff.$this->buffAux.'</pre>';
-		
+		$res=$this->con->query($this->buff.$this->buffAux);
+
+		if(array_key_exists($this->primary , $this->data))
+		{
+			$this->data[$this->primary]=$this->con->insert_id;
+		}
 		$this->buff='';
 		$this->buffAux='';
 		return $res;
+
 	}
 	//Elimina la fila de la BD.
-	public function remSQL()
+	public function remSQL($data=false)
 	{
-		$this->con->query('delete from '.$this->table.' where ID='.$this->ID);
+		$this->where($data);
+
+		echo '<pre>'.'delete from '.$this->table.' where '.$this->buff.'</pre>';
+
+		$this->con->query('delete from '.$this->table.' where '.$this->buff);
+
 		$this->foraneas('remSQL');
 	}
 	//Realiza la operación SQL pasada como parámetro a todos los
@@ -230,21 +276,16 @@ class SQL_Obj
 		return $res;
 	}
 
-	public function getSQL()
+	public function getSQL($data=false)
 	{
 		$this->buff='select * from '.$this->table.' where ';
 
-		eachNan
-		(
-			$this->props,
-			function($clave , $valor){$this->getFnA($clave , $valor);},
-			function($clave , $valor){$this->getFnB($clave , $valor);}
-		);
+		$this->buff=$this->where($data).' limit 1';
 
-		$this->buff=substr($this->buff , 0 , strlen($this->buff)-4).' limit 1';
+		echo '<pre>'.$this->buff.'</pre>';
 
 		$res=$this->con->query($this->buff);
-		$res=fetch_all($res , MYSQLI_ASSOC)[0];
+		$res=$res->fetch_all(MYSQLI_ASSOC)[0];
 
 		foreach($res as $clave=>$valor)
 		{
@@ -252,6 +293,25 @@ class SQL_Obj
 		}
 
 		$this->buff='';
+	}
+	public function __set($nombre , $valor)
+	{
+		if(array_key_exists($nombre , $this->data))
+		{
+			$this->data[$nombre]=$valor;
+		}
+		else
+		{
+			$this->$nombre=$valor;
+		}
+	}
+	public function __get($nombre)
+	{
+		if(array_key_exists($nombre, $this->data))
+		{
+			return $this->data[$nombre];
+		}
+		return $this->$nombre;
 	}
 }
 ?>

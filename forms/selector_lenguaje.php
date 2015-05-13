@@ -2,6 +2,8 @@
 	<?php
 		include_once('../php/conexion.php');
 
+		global $con;
+
 		$consulta=$con->query('select * from Lenguajes');
 		$consulta=fetch_all($consulta , MYSQLI_ASSOC);
 

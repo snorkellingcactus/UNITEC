@@ -12,16 +12,14 @@
 	</head>
 	<body>
 <?php
-	global $raiz;
-	$raiz=realpath($_SERVER['DOCUMENT_ROOT']).'/Web/Pasantía/edetec/';
 
-	include_once $raiz.'php/conexion.php';
-	include_once $raiz.'php/SQL_Obj.php';
-	include_once $raiz.'php/Img.php';
-	include_once $raiz.'php/Comentario.php';
-	include_once $raiz.'php/Gal_HTML.php';
-	include_once $raiz.'php/Gal_HTML_Visor.php';
-	include_once $raiz.'php/NULL_Gen_HTML.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/conexion.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/SQL_Obj.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/Img.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/Comentario.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/Gal_HTML.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/Gal_HTML_Visor.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/NULL_Gen_HTML.php';
 
 	//Si todavía no se inicio sesion, se inicia.
 	if(session_status()==PHP_SESSION_NONE)
@@ -54,9 +52,9 @@
 	if(!empty($_POST['comContenido']))
 	{
 		//Include necesario para manejar llaves foráneas.
-		include_once $raiz.'php/Contenido.php';
-		include_once $raiz.'php/Foraneas.php';
-		include_once $raiz.'php/nTraduccion.php';
+		include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/Contenido.php';
+		include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/Foraneas.php';
+		include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/nTraduccion.php';
 
 		//Creo un objeto comentario.
 		$FechaAct=getdate();
@@ -120,11 +118,11 @@
 	}
 
 	//Elimino comentarios seleccionados.
-	if(isset($_POST['form']) && $_POST['form']==='accionesCom')
+	if(isset($_SESSION['form']) && $_SESSION['form']==='accionesCom' && isset($_SESSION['conID']))
 	{
-		$conID=$_POST['comConID'];
-		$iMax=count($conID);
+		$conID=$_SESSION['conID'];
 
+		$iMax=count($conID);
 		for($i=0;$i<$iMax;$i++)
 		{
 			$con->query('DELETE FROM Contenidos WHERE ID='.$conID[$i]);
@@ -132,7 +130,7 @@
 			echo '<pre>'.'DELETE FROM Contenidos WHERE ID='.$conID[$i].'</pre>';
 		}
 
-		unset($_POST['comConID']);
+		unset($_SESSION['conID'] , $_SESSION['form']);
 	}
 	//unset($_POST['vImgId']);
 
@@ -161,14 +159,16 @@
 			<div class="comentarios col-lg-10 col-md-10 col-sm-10 col-xs-10" >
 				<?php
 					$fId='Com';
-					include($raiz.'forms/seleccion.php');
+					$omitirNuevas=true;
+
+					include($_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/forms/acciones.php');
 
 					//Genero los comentarios.
 					GenComGrp($esq->TituloID , $con);
 
 					if(!isset($_POST['comConID']))
 					{
-						include($raiz.'forms/nuevo_coment.php');
+						include($_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/forms/nuevo_coment.php');
 					}
 				?>
 			</div>

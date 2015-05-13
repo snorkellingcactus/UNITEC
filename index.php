@@ -3,14 +3,12 @@
 //error_reporting(E_ALL & ~E_DEPRECATED & ~E_STRICT );
 //Si todavía no se inicio sesion, se inicia.
 
+error_reporting(E_ALL);
+ini_set("display_errors", "On");
+
 if(session_status()==PHP_SESSION_NONE)
 {
 	session_start();
-}
-//Si no se indicó resaltar ninguna opcion, se resalta el inicio (opcion 0).
-if(!isset($_GET["OpcSel"]))
-{
-	$_GET["OpcSel"]=0;
 }
 if(!isset($_SESSION['cache']))
 {
@@ -24,76 +22,42 @@ if(isset($_POST['lang']))
 {
 	$_SESSION['lang']=$_POST['lang'];
 }
-
-//Resalta la función del menú correspondiente.
-function resaltaOpcN($num)
-{
-	if($_GET["OpcSel"]==$num)
-	{
-		echo 'class="resaltaOpc"';
-	}
-}
 function echoLang($langSQLRes)
 {
 	?>
 		<img src="img/idiomas/<?php echo $langSQLRes['Pais'].'.png' ?>" alt="" />
 	<?php 
-		echo $langSQLRes['Nombre'];
 
+	echo $langSQLRes['Nombre'];
 }
 
-global $raiz;
-
-$raiz=realpath($_SERVER['DOCUMENT_ROOT']).'/Web/Pasantía/edetec/';
-
-include_once($raiz.'php/conexion.php');
-
-//Devuelve el contenido al pasarle su ID.
-function getCont($contID , &$id)
-{
-	global $con;
-
-	$contenido=$con->query('select Contenido,ID from Contenido where ID='.$contID);
-
-	if($contenido)
-	{
-		$contenido=fetch_all($contenido , MYSQLI_NUM)[0];
-
-		$id=$contenido[1];
-
-		return $contenido[0];
-	}
-
-	return '';
-}
+include_once($_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/conexion.php');
 
 function nSec($visible , $orden , $tipo , $valor)
 {
-	global $con , $afectado, $raiz;
+	global $con , $afectado;
 	
-	include_once($raiz.'php/SQL_Obj.php');
+	include_once($_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/SQL_Obj.php');
 
-	$TSec=new SQL_Obj($con, 'Secciones', ['Visible','Prioridad','ModuloID','ContenidoID','PadreID']);
+	$nSec=new SQL_Obj($con, 'Secciones', ['ID','Visible','Prioridad','ModuloID','ContenidoID','PadreID']);
 
 	if(isset($_POST['secID']))
 	{
-		$TSec->PadreID=$_POST['secID'];
+		$nSec->PadreID=$_POST['secID'];
 	}
 	if($tipo===1)
 	{
-		$TSec->ModuloID=$valor;
+		$nSec->ModuloID=$valor;
 	}
 	if($tipo===2)
 	{
-		$TSec->ContenidoID=$valor;
+		$nSec->ContenidoID=$valor;
 	}
 
-	$TSec->Prioridad=$orden;
-	$TSec->Visible=$visible;
+	$nSec->Prioridad=$orden;
+	$nSec->Visible=$visible;
 
-	//echo '<pre>Consulta Secciones: ';print_r($TSec);echo '</pre>';
-
-	$TSec->insSQL();
+	$nSec->insSQL();
 	//return;
 
 
@@ -101,14 +65,12 @@ function nSec($visible , $orden , $tipo , $valor)
 
 	if($tipo===0)
 	{
-		$afectado=$TSec->ID;
+		$afectado=$nSec->ID;
 	}
 	if($tipo===1)
 	{
 		$afectado=$valor;
 	}
-
-	unset($TSec);
 }
 
 if(isset($_SESSION['adminID']))
@@ -117,7 +79,7 @@ if(isset($_SESSION['adminID']))
 	{
 		//echo '<pre>Elimina:<br>';
 
-		$tipo=isset($_POST['conID']);
+		$tipo=isset($_SESSION['conID']);
 		$secID=NULL;
 
 		if($tipo)
@@ -166,7 +128,7 @@ if(isset($_SESSION['adminID']))
 		{
 			if(isset($_POST['Descripcion']))
 			{
-				include($raiz.'php/nTraduccion.php');
+				include($_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/nTraduccion.php');
 
 				$descripcion=nTraduccion($_POST['Descripcion'][0] , $_POST['Lenguaje'][0]);
 
@@ -251,8 +213,8 @@ if(isset($_SESSION['adminID']))
 		<link rel="stylesheet" type="text/css" href="./seccs/menu.css" />
 		
 		<?php
-			include_once($raiz.'php/conexion.php');
-			include_once($raiz.'php/head_include.php');
+			include_once($_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/conexion.php');
+			include_once($_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/head_include.php');
 			
 			$headers=$con->query
 			(
@@ -302,7 +264,20 @@ if(isset($_SESSION['adminID']))
 			<div class="idioma">
 			<?php
 				global $afectado;
+/*
+				include_once($_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/Contenido.php');
 
+				$jj=new Contenido($con);
+
+				$jj->insSQL();
+				$jj->insSQL(['ID'=>5]);
+
+				//$jj->omiteNULL=TRUE;
+
+				echo '<pre>';
+				//print_r($jj->remSQL());
+				echo '</pre>';
+*/
 				$consulta=$con->query
 				(
 					'	SELECT * , 
@@ -358,8 +333,7 @@ if(isset($_SESSION['adminID']))
 				//Obtengo las opciones.
 				$secciones=$con->query
 				(
-					'
-						SELECT ID,Visible,Prioridad
+					'	SELECT ID,Visible,Prioridad
 						FROM Secciones
 						WHERE PadreID IS NULL
 						ORDER BY Prioridad asc
@@ -373,7 +347,7 @@ if(isset($_SESSION['adminID']))
 				//SELECT s.Contenido as ConID, m.Contenido as Con FROM `Secciones` as s , `Contenido` as m WHERE s.Contenido = m.ID
 					//$cfg=sqlResToCfg($Opciones);
 
-				include_once($raiz.'php/getTraduccion.php');
+				include_once($_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/getTraduccion.php');
 
 				for($s=0;$s<$sMax;$s++)
 				{
@@ -401,8 +375,8 @@ if(isset($_SESSION['adminID']))
 
 						<div class="clearfix">
 							<?php
-								include($raiz.'forms/elimina_dominio.php');
-								include($raiz.'forms/seccion_nuevo_contenido.php');
+								include($_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/forms/elimina_dominio.php');
+								include($_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/forms/seccion_nuevo_contenido.php');
 							?>
 						</div>
 					<?php
@@ -441,7 +415,7 @@ if(isset($_SESSION['adminID']))
 
 							$parser=new JBBCode\Parser();
 		
-							include($raiz.'php/parser_definiciones.php');
+							include($_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/parser_definiciones.php');
 
 							$parser->parse
 							(
@@ -450,7 +424,7 @@ if(isset($_SESSION['adminID']))
 
 							global $afectado;
 
-							include($raiz.'forms/elimina_dominio.php');
+							include($_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/forms/elimina_dominio.php');
 							$clase='';
 /*									if(isset($_POST['nCon']) && $afectado==$id)
 							{
@@ -484,7 +458,7 @@ if(isset($_SESSION['adminID']))
 								<?php
 							}*/
 
-							include($raiz.'forms/elimina_dominio.php');
+							include($_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/forms/elimina_dominio.php');
 
 							if(isset($_SESSION['adminID']) && $afectado===$include['Archivo'])
 							{
@@ -512,7 +486,7 @@ if(isset($_SESSION['adminID']))
 
 				if(isset($_SESSION['adminID']))
 				{
-					include($raiz.'esq/nSec.php');
+					include($_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/esq/nSec.php');
 				}
 			?>
 		</main>
