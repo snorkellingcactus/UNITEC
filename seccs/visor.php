@@ -132,7 +132,7 @@
 
 		unset($_SESSION['conID'] , $_SESSION['form']);
 	}
-	//unset($_POST['vImgId']);
+	unset($_POST['vImgId']);
 
 	$vImgSig=$Visor->indexImgN($Visor->nImgSel+1);
 	$vImgAnt=$Visor->indexImgN($Visor->nImgSel-1);

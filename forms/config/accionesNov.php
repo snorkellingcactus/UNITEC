@@ -1,7 +1,7 @@
 <?php
 	if(isset($_POST['Titulo']))
 	{
-		$_SESSION['cantidad']=$_POST['Titulo'];
+		$cantidad=$_POST['Titulo'];
 	}
 	$includes=
 	[

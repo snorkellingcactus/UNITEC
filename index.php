@@ -3,7 +3,7 @@
 //error_reporting(E_ALL & ~E_DEPRECATED & ~E_STRICT );
 //Si todavía no se inicio sesion, se inicia.
 
-error_reporting(E_ALL & ~E_DEPRECATED  & ~E_STRICT);
+//error_reporting(E_ALL & ~E_DEPRECATED  & ~E_STRICT);
 ini_set("display_errors", "On");
 
 if(session_status()==PHP_SESSION_NONE)
@@ -317,6 +317,15 @@ if(isset($_SESSION['adminID']))
 		?>
 		<main class="col-xs-12 col-sm-10 col-md-10 col-lg-10">
 			<?php
+
+				echo '<pre>SESSION: ';
+				print_r($_SESSION);
+				echo '</pre>';
+
+				echo '<pre>POST: ';
+				print_r($_POST);
+				echo '</pre>';
+
 				$_GET['mes']=getdate()['mon'];	//Acá indicar mes que se muestra por defecto. Va a mostrarse el mes indicado -1.
 
 				//Obtengo las opciones.

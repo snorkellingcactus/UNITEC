@@ -15,6 +15,11 @@
 			MYSQLI_ASSOC
 		)[0];
 
+		
+		echo '<pre>Imagen: ';
+		print_r($imagen);
+		echo '</pre>';
+
 		$autocomp['Url']=$imagen['Url'];
 		$autocomp['Lenguaje']=$imagen['LenguajeID'];
 		$autocomp['Visible']=$imagen['Visible'];

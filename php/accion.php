@@ -22,7 +22,7 @@ if(isset($_POST['edita']))
 	$_SESSION['accion']='edita';
 	$_SESSION['conID']=$_POST['conID'];
 }
-
+include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/conexion.php';
 include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/head_include.php';
 //Construyo el formulario con la configuración dada y lo devuelvo como string.
 function crea_form($labels , $autocomp)
@@ -60,11 +60,11 @@ function crea_form($labels , $autocomp)
 }
 if(isset($_SESSION['adminID']))
 {
-	$_SESSION['cantidad']=1;
+	$cantidad=1;
 
 	if(isset($_POST['cantidad']))
 	{
-		$_SESSION['cantidad']=$_POST['cantidad'];
+		$cantidad=$_POST['cantidad'];
 	}
 	
 	if( isset($_POST['form']) )
@@ -100,7 +100,7 @@ if(isset($_SESSION['adminID']))
 					<form method="POST" class="tresem nuevo" action="<?php echo $url ?>">
 						<?php
 
-							$iMax=$_SESSION['cantidad'];
+							$iMax=$cantidad;
 
 							for($i=0;$i<$iMax;$i++)
 							{
@@ -118,7 +118,7 @@ if(isset($_SESSION['adminID']))
 								<?php
 							}
 
-							unset($_SESSION['cantidad'] , $i , $iMax);
+							unset($cantidad , $i , $iMax);
 
 						?>
 						<input type="submit" class="col-xs-12 col-sm-12 col-md-12 col-lg-12" name='<?php echo $for ?>' value="Aceptar">

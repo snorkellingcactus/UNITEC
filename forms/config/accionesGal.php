@@ -1,7 +1,7 @@
 <?php
 	if(isset($_POST['conID']))
 	{
-		$_SESSION['cantidad']=count($_POST['conID']);
+		$cantidad=count($_POST['conID']);
 	}
 	$includes=['../forms/forms.css'];
 	$ancla='#gal';
