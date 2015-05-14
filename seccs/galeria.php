@@ -138,6 +138,7 @@
 		'	SELECT Imagenes.*
 			FROM Imagenes
 			WHERE 1
+			ORDER BY Prioridad
 		',
 		$con,
 		$imgEsq

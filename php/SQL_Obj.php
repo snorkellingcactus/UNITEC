@@ -150,7 +150,7 @@ class SQL_Obj
 			function($clave , $valor){$this->getFnB($clave , $valor);}
 		);
 
-		$this->buff=substr($this->buff , 0 , strlen($this->buff)-4);
+		return $this->buff=substr($this->buff , 0 , strlen($this->buff)-4);
 	}
 	public function update($data=false)
 	{

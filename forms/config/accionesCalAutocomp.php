@@ -20,5 +20,7 @@
 		$autocomp['Titulo']=$evento['Nombre'];
 		$autocomp['Fecha']=$evento['Tiempo'];
 		$autocomp['Descripcion']=getTraduccion($evento['DescripcionID'] , $_SESSION['lang']);
+
+		echo '<pre>Evento:';print_r($evento);echo '</pre>';
 	}
 ?>

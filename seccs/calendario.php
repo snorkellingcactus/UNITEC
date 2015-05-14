@@ -49,6 +49,7 @@ if(session_status()==PHP_SESSION_NONE)
 					include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/SQL_Obj.php';
 					include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/Contenido.php';
 					include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/Evento.php';
+					include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/Traduccion.php';
 					include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/nTraduccion.php';
 
 					$fallas=[];
@@ -56,60 +57,107 @@ if(session_status()==PHP_SESSION_NONE)
 
 					$cantidad=count($_POST['Titulo']);
 
-					for($i=0;$i<$cantidad;$i++)
+					if(isset($_SESSION['accion'])  && $_SESSION['accion']==='edita')
 					{
-						//$grupo=$con->query('select ifnull(max(Grupo),0) as Grupo from Contenido');
-						
-						//$grupo=fetch_all($grupo , MYSQLI_ASSOC)[0]['Grupo']+1;
+						$descripcion=new Traduccion($con);
+						$evento=new Evento($con);
 
-						$fecha=date
-						(
-							'Y-m-d H:i:s',
-							mktime
+						for($i=0;$i<$cantidad;$i++)
+						{
+							$descripcion->getAsoc
 							(
-								$_POST['Horas'][$i],
-								$_POST['Minutos'][$i],
-								0,
-								$_POST['Mes'][$i],
-								$_POST['Dia'][$i],
-								$_POST['Ano'][$i]
-							)
-						);
+								[
+									'LenguajeID'=>$_POST['Lenguaje'][$i],
+									'Texto'=>$_POST['Titulo'][$i]
+								]
+							);
 
-						$evento=new Evento
-						(
-							$con,
-							[
-								
-								'Nombre'=>htmlentities($_POST['Titulo'][$i]),
-								'Tiempo'=>$fecha
-							]
-						);
-						$evento->insForaneas
-						(
-
-							nTraduccion
+							$evento->getAsoc
 							(
-								$_POST['Descripcion'][$i],
-								$_POST['Lenguaje'][$i]
-							),
-							[
-								'DescripcionID'=>'ContenidoID'
-							]
-						);
+								[
+									'Tiempo'=>$_POST['Ano'][$i].'-'.$_POST['Mes'][$i].'-'.$_POST['Dia'][$i].' '.$_POST['Horas'][$i].':'.$_POST['Minutos'][$i],
+									'Nombre'=>$_POST['Titulo'][$i],
+									'Visible'=>$_POST['Visible'][$i],
+									'Prioridad'=>$_POST['Prioridad'][$i]
+								]
+							);
 
-						$evento->insSQL();
+							echo '<pre>A insertar: ';print_r($evento);echo '</pre>';
+							$descripcion->updSQL
+							(
+								false,
+								[
+									'ID'=>$_SESSION['conID'][$i]
+								]
+							);
+							$evento->updSQL
+							(
+								false,
+								[
+									'DescripcionID'=>$_SESSION['conID'][$i]
+								]
+							);
+						}
 					}
-				}
-				if(isset($_SESSION['form']) && $_SESSION['form']==='accionesCal')
-				{
-					$iMax=count($_SESSION['conID']);
-					for($i=0;$i<$iMax;$i++)
+					else
 					{
-						$con->query('delete from Contenidos where ID='.$_SESSION['conID'][$i]);
+						for($i=0;$i<$cantidad;$i++)
+						{
+							//$grupo=$con->query('select ifnull(max(Grupo),0) as Grupo from Contenido');
+							
+							//$grupo=fetch_all($grupo , MYSQLI_ASSOC)[0]['Grupo']+1;
+
+							$fecha=date
+							(
+								'Y-m-d H:i:s',
+								mktime
+								(
+									$_POST['Horas'][$i],
+									$_POST['Minutos'][$i],
+									0,
+									$_POST['Mes'][$i],
+									$_POST['Dia'][$i],
+									$_POST['Ano'][$i]
+								)
+							);
+
+							$evento=new Evento
+							(
+								$con,
+								[
+									
+									'Nombre'=>htmlentities($_POST['Titulo'][$i]),
+									'Tiempo'=>$fecha
+								]
+							);
+							$evento->insForaneas
+							(
+
+								nTraduccion
+								(
+									$_POST['Descripcion'][$i],
+									$_POST['Lenguaje'][$i]
+								),
+								[
+									'DescripcionID'=>'ContenidoID'
+								]
+							);
+
+							$evento->insSQL();
+						}
+					}
+					if(isset($_SESSION['form']) && $_SESSION['form']==='accionesCal' && $_SESSION['accion']==='elimina')
+					{
+						$iMax=count($_SESSION['conID']);
+						for($i=0;$i<$iMax;$i++)
+						{
+							$con->query('delete from Contenidos where ID='.$_SESSION['conID'][$i]);
+						}
+
+						unset($_SESSION['conID'] , $_SESSION['form'] , $_SESSION['elimina']);
 					}
 
-					unset($_SESSION['conID'] , $_SESSION['form'] , $_SESSION['elimina']);
+					unset($_SESSION['accion'] , $_SESSION['conID']);
 				}
 			}
 			$consulta='select * from Eventos';

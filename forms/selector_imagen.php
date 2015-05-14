@@ -2,7 +2,14 @@
 	<?php
 		include_once '../php/conexion.php';
 
-		$Imgs=$con->query('select * from Imagenes where 1');
+		$Imgs=$con->query
+		(
+			'	SELECT Imagenes.*
+				FROM Imagenes
+				WHERE 1
+				ORDER BY Prioridad
+			'
+		);
 		$Imgs=fetch_all($Imgs , MYSQLI_ASSOC);
 
 		$cantidad=count($Imgs);

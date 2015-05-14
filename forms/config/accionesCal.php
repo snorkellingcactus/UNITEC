@@ -1,4 +1,9 @@
 <?php
+	if(isset($_POST['Titulo']))
+	{
+		$cantidad=$_POST['Titulo'];
+	}
+
 	$includes=
 	[
 		'../forms/forms.css'
@@ -23,6 +28,14 @@
 		[
 			'selector_lenguaje.php',
 			'Lenguaje'
+		],
+		[
+			'selector_si_no.php',
+			'Visible'
+		],
+		[
+			'input_text.php',
+			'Prioridad'
 		]
 	];
 ?>
