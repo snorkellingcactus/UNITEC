@@ -40,26 +40,58 @@
 
 			$iMax=count('nNov');
 
-			echo '<pre>POST:';
-			print_r($_POST);
-			echo '</pre>';
-			echo '<pre>SESSIOJN:';
-			print_r($_SESSION);
-			echo '</pre>';
-
-			$titulo=new Traduccion($con);
-
 			if(isset($_SESSION['accion'])  && $_SESSION['accion']==='edita')
 			{
 				unset($_SESSION['accion']);
-			/*
+			
 				$nNov=new Novedad($con);
+				$titulo=new Traduccion($con);
+				$descripcion=new Traduccion($con);
 
 				for($i=0;$i<$iMax;$i++)
 				{
+					$nNov->getSQL
+					(
+						[
+							'ID'=>$_SESSION['conID'][$i]
+						]
+					);
+					$titulo->getAsoc
+					(
+						[
+							'Texto'=>$_POST['Titulo'][$i],
+							'LenguajeID'=>$_POST['Lenguaje'][$i]
+						]
+					);
+					$descripcion->getAsoc
+					(
+						[
+							'Texto'=>$_POST['Descripcion'][$i],
+							'LenguajeID'=>$_POST['Lenguaje'][$i]
+						]
+					);
 
+					$nNov->ImagenID=$_POST['Imagen'][$i];
+					$nNov->Visible=$_POST['Visible'][$i];
+
+					$titulo->updSQL
+					(
+						false,
+						[
+							'ContenidoID'=>$nNov->TituloID,
+							'LenguajeID'=>$_POST['Lenguaje'][$i]
+						]
+					);
+					$descripcion->updSQL
+					(
+						false,
+						[
+							'ContenidoID'=>$nNov->DescripcionID,
+							'LenguajeID'=>$_POST['Lenguaje'][$i]
+						]
+					);
+					$nNov->updSQL(false , ['ID']);
 				}
-				*/
 			}
 			else
 			{
@@ -82,7 +114,7 @@
 					$nov->insSQL();
 				}
 			}
-			unset($nov , $titulo , $descripcion , $horaLoc , $iMax , $i , $_POST['Titulo'] , $_POST['Descripcion'] , $_POST['Lenguaje'] , $_POST['nNov']);
+			unset($nov , $titulo , $descripcion , $horaLoc , $iMax , $i , $_POST['Titulo'] , $_POST['Descripcion'] , $_POST['Lenguaje'] , $_POST['nNov'] , $_SESSION['conID']);
 		}
 
 		//Acciones con las seleccionadas.

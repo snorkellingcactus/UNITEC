@@ -30,6 +30,10 @@
 		[
 			'selector_imagen.php',
 			'Imagen'
+		],
+		[
+			'selector_si_no.php',
+			'Visible'
 		]
 	];
 ?>

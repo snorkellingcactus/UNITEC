@@ -8,6 +8,7 @@
 		{
 			return $res;
 		}
+		
 		while($row=$mysqliObj->fetch_array($modo))
 		{
 			$res[$j]=$row;
@@ -17,5 +18,5 @@
 		return $res;
 	}
 	
-	$con=new mysqli('localhost','root','s2r9v3->149','edetec');	//Casa Gonza.
+	//$con=new mysqli('host','usuario','passwd','bd');	//Casa Gonza.
 ?>
