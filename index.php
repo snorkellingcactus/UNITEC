@@ -66,46 +66,55 @@ function nSec($visible , $orden , $tipo , $valor)
 
 if(isset($_SESSION['adminID']))
 {
-	if(isset($_POST['form']) && ($_POST['form']==='accionesSec' || $_POST['form']==='accionesCon'))
+	if(isset($_SESSION['form']) && ($_SESSION['form']==='accionesSec' || $_SESSION['form']==='accionesCon'))
 	{
-		//echo '<pre>Elimina:<br>';
-
-		$tipo=isset($_POST['conID']);
-		$secID=NULL;
-
-		if($tipo)
+		if($_SESSION['accion']==='elimina')
 		{
-			$contenidoID=fetch_all
-			(
-				$con->query('SELECT ContenidoID FROM Secciones WHERE ID='.$_POST['conID']),
-				MYSQLI_NUM
-			)[0][0];
+			//echo '<pre>Elimina:<br>';
 
-			if($contenidoID!==NULL)
+			$tipo=isset($_SESSION['conID']);
+			$secID=NULL;
+
+			if($tipo)
 			{
-				//Existe una relacion ON DELETE CASCADE entre las tablas 
-				//secciones->contenidos y traducciones->contenidos, de manera
-				//que eliminando el contenido, automáticamente se elimina la sección
-				//y las traducciones relacionadas.
-				$con->query('DELETE FROM Contenidos WHERE ID='.$contenidoID);
+				$contenidoID=fetch_all
+				(
+					$con->query('SELECT ContenidoID FROM Secciones WHERE ID='.$_SESSION['conID']),
+					MYSQLI_NUM
+				)[0][0];
 
-				echo '<pre>'.'DELETE FROM Contenidos WHERE ID='.$contenidoID.'</pre>';
+				if($contenidoID!==NULL)
+				{
+					//Existe una relacion ON DELETE CASCADE entre las tablas 
+					//secciones->contenidos y traducciones->contenidos, de manera
+					//que eliminando el contenido, automáticamente se elimina la sección
+					//y las traducciones relacionadas.
+					$con->query('DELETE FROM Contenidos WHERE ID='.$contenidoID);
+
+					echo '<pre>'.'DELETE FROM Contenidos WHERE ID='.$contenidoID.'</pre>';
+				}
+				else
+				{
+					$secID=$_SESSION['conID'];
+				}
 			}
 			else
 			{
-				$secID=$_POST['conID'];
+				$secID=$_SESSION['secID'];
+			}
+			if($secID!==NULL)
+			{
+				$con->query('DELETE FROM Secciones WHERE ID='.$secID);
+
+				echo '<pre>'.'DELETE FROM Secciones WHERE ID='.$secID.'</pre>';
 			}
 		}
 		else
 		{
-			$secID=$_POST['secID'];
+			echo '<pre>Nuevo Menu';echo '</pre>';
 		}
-		if($secID!==NULL)
-		{
-			$con->query('DELETE FROM Secciones WHERE ID='.$secID);
 
-			echo '<pre>'.'DELETE FROM Secciones WHERE ID='.$secID.'</pre>';
-		}
+		unset($_SESSION['accion'] , $_SESSION['form'] , $_SESSION['conID']);
 	}
 
 	if(isset($_POST['nSec']) || isset($_POST['nCon']))

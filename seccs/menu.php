@@ -1,3 +1,25 @@
+<?
+	function cargaMenu()
+	{
+		include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/conexion.php';
+
+		global $con;
+
+		$secciones=$con->query
+		(
+			'	SELECT * FROM Secciones
+				WHERE MenuID IS NOT NULL 
+				ORDER BY Prioridad ASC
+			'
+		);
+
+		$secciones=fetch_all($secciones);
+
+		$sMax=count($secciones);
+
+		echo '<pre>sMax : '.$sMax;echo '</pre>';
+	}
+?>
 <nav class='menuSup visible-xs'>
 		<a href="#sobre">Inicio</a>
 		<a href="#nov"	>Novedades</a>

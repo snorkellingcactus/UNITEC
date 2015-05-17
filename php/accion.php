@@ -7,10 +7,24 @@ if(isset($_POST['elimina']))
 {
 	$_SESSION['form']=$_POST['form'];
 	$_SESSION['accion']='elimina';
-	$_SESSION['conID']=$_POST['conID'];
+	
+	header('Location: '.$_SERVER['HTTP_REFERER']);
 
-	echo '<pre>FORM : ';echo $_SESSION['form'];echo '</pre>';
-	echo '<pre>conID: ';print_r ($_POST);echo '</pre>';
+	die();
+}
+if(isset($_POST['nMenu']))
+{
+	$_SESSION['accion']='nMenu';
+	$_SESSION['form']=$_POST['form'];
+
+	if(isset($_POST['secID']))
+	{
+		$_SESSION['secID']=$_POST['secID'];
+	}
+	else
+	{
+		$_SESSION['conID']=$_POST['conID'];
+	}
 
 	header('Location: '.$_SERVER['HTTP_REFERER']);
 

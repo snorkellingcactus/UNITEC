@@ -15,10 +15,11 @@ if(isset($_SESSION['adminID']))
 	}
 	?>
 		<div class="sep"></div>
-		<form method="POST" class="right" action="index.php">
+		<form method="POST" class="right" action="php/accion.php">
 			<input type="hidden" name="form" value="<?php echo $fNom?>"/>
 			<input type="hidden" name="<?php echo $tNom ?>" value="<?php echo $id?>"/>
 			<input type="submit" name="elimina" value="Eliminar" />
+			<input type="submit" name="nMenu" value="Agregar al menú" />
 		</form>
 	<?php
 }
