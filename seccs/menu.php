@@ -20,18 +20,7 @@
 		echo '<pre>sMax : '.$sMax;echo '</pre>';
 	}
 ?>
-<nav class='menuSup visible-xs'>
-		<a href="#sobre">Inicio</a>
-		<a href="#nov"	>Novedades</a>
-		<a href="#labs"	>Espacios de extensión</a>
-		<a href="#cal"	>Eventos</a>
-		<a href="#gal"	>Galería</a>
-		<a href="#"		>Idioma</a>
-		<a href="#"		>Accesibilidad</a>
-		<a href="#"		>Iniciar Sesión</a>
-</nav>
-<div class="col-xs-2 col-sm-2 col-lg-2">
-	<div class="menu hidden-xs">
+<div class="menu col-xs-12 col-md-2 col-sm-2 col-lg-2">
 		<!--	:::::::::Menú:::::::::	-->
 		<nav>
 			<ul>			
@@ -59,11 +48,10 @@
 			</ul>
 		</nav>
 		<!-- Logo -->
-		<div>
+		<div class="hidden-xs">
 			<h2>
 				<img src="img/logo_unitec.png" alt="Unitec Logo" width="80" height="80"/>
 				UNITEC
 			</h2>
 		</div>
-	</div>
 </div>

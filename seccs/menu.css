@@ -1,14 +1,15 @@
-.menu
+div.menu
 {
 	background-color:lightgray;
 	background-image:url("../img/fondo_contenido.png");
 	width:15.45%;
 	overflow:hidden;
 	position:fixed;
-	margin:1% 0px 1% 0%;
+	margin:1% 0px 1% 10px;
 	border-top-left-radius:5px;
 	box-shadow:-1px -1px 5px #888888;
-	display:inline-block
+	display:inline-block;
+	padding:0px;
 }
 .menu div
 {
@@ -72,30 +73,6 @@
 {
 	background-color:#929193;
 }
-.menuSup
-{
-	background-image:url("../img/barra.png");
-	top:0;
-	left:0;
-	z-index:10;
-	padding:0.2% 0.8% 0.2% 0.8%;
-	border-radius:3px;
-	width:100%;
-	
-}
-.menuSup a
-{
-	color:gray;
-	padding:0px 5px 0px 5px;
-	border-right:1px dashed silver;
-	display:inline-block;
-	font-size:0.8em
-}
-.menuSup a:hover, .menuSup #resaltaOpc
-{
-	color:white;
-	text-decoration:underline
-}
 .puntos
 {
 	position:fixed;
@@ -104,9 +81,54 @@
 }
 .puntos h1
 {
-	padding:0pc
+	padding:0px
 }
 .puntos h1:hover
 {
 	color:white;
+}
+
+@media screen and (max-width:768px){
+	div.menu
+	{
+		background:url("../img/barra.png");
+		top:0;
+		left:0;
+		z-index:10;
+		padding:0.2% 0.8% 0.2% 0.8%;
+		border-radius:3px;
+		width:100%;
+		margin:0px;
+		position:static;
+	}
+	div.menu nav li
+	{
+		padding:0px 5px 0px 5px;
+		border-right:1px dashed silver;
+		display:inline-block;
+		font-size:0.8em;
+		width:auto;
+		margin-left:0%;
+	}
+	div.menu nav a
+	{
+		color:gray;
+		display:inline;
+		padding:0px;
+		text-align:center;
+	}
+	div.menu ul
+	{
+		margin-bottom:0px;
+	}
+	div.menu nav li a:hover, .menu nav li a:focus, .menu nav li> a:focus.resalta, .menu .resalta
+	{
+		color:white;
+		text-decoration:underline;
+		background:transparent;
+	}
+	div.menu .resalta
+	{
+		background-color:transparent;
+	}
 }

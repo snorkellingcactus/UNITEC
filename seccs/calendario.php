@@ -146,18 +146,19 @@ if(session_status()==PHP_SESSION_NONE)
 							$evento->insSQL();
 						}
 					}
-					if(isset($_SESSION['form']) && $_SESSION['form']==='accionesCal' && $_SESSION['accion']==='elimina')
-					{
-						$iMax=count($_SESSION['conID']);
-						for($i=0;$i<$iMax;$i++)
-						{
-							$con->query('delete from Contenidos where ID='.$_SESSION['conID'][$i]);
-						}
+					unset($_SESSION['accion'] , $_SESSION['conID']);
+				}
 
-						unset($_SESSION['conID'] , $_SESSION['form'] , $_SESSION['elimina']);
+				if(isset($_SESSION['form']) && $_SESSION['form']==='accionesCal' && $_SESSION['accion']==='elimina')
+				{
+					$iMax=count($_SESSION['conID']);
+					for($i=0;$i<$iMax;$i++)
+					{
+						echo '<pre>Elimina Evento: '.'delete from Contenidos where ID='.$_SESSION['conID'][$i].'</pre>';
+						$con->query('delete from Contenidos where ID='.$_SESSION['conID'][$i]);
 					}
 
-					unset($_SESSION['accion'] , $_SESSION['conID']);
+					unset($_SESSION['conID'] , $_SESSION['form'] , $_SESSION['elimina']);
 				}
 			}
 			$consulta='select * from Eventos';

@@ -121,7 +121,8 @@ section, .seccion
 main.col-lg-10,main.col-md-10,main.col-sm-10,main.col-xs-12
 {
 	padding-top:1%;
-	min-height: 100%
+	min-height: 100%;
+	float:right;
 }
 .atajo
 {
