@@ -1,0 +1,29 @@
+<?php
+	if(isset($_POST['conID']))
+	{
+		$cantidad=count($_POST['conID']);
+	}
+	$includes=['../forms/forms.css'];
+	$ancla='#nOpc';
+	$action='../index.php';
+	$for='nMenu';
+	$labels=
+	[
+		[
+			'input_text.php',
+			'Titulo'
+		],
+		[
+			'input_text.php',
+			'Url'
+		],
+		[
+			'input_text.php',
+			'Prioridad'
+		],
+		[
+			'selector_si_no.php',
+			'Visible'
+		]
+	];
+?>

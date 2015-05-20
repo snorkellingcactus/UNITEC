@@ -21,7 +21,6 @@
 		echo '</pre>';
 
 		$autocomp['Url']=$imagen['Url'];
-		$autocomp['Lenguaje']=$imagen['LenguajeID'];
 		$autocomp['Visible']=$imagen['Visible'];
 		$autocomp['Prioridad']=$imagen['Prioridad'];
 		$autocomp['Titulo']=getTraduccion($imagen['TituloID'] , $imagen['LenguajeID']);
