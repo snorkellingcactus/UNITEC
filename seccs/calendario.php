@@ -50,28 +50,20 @@ if(session_status()==PHP_SESSION_NONE)
 					include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/Contenido.php';
 					include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/Evento.php';
 					include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/Traduccion.php';
+					include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/updTraduccion.php';
 					include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/nTraduccion.php';
 
-					$fallas=[];
-					$fallasLn=0;
+					//$fallas=[];
+					//$fallasLn=0;
 
 					$cantidad=count($_POST['Titulo']);
 
 					if(isset($_SESSION['accion'])  && $_SESSION['accion']==='edita')
 					{
-						$descripcion=new Traduccion($con);
 						$evento=new Evento($con);
 
 						for($i=0;$i<$cantidad;$i++)
 						{
-							$descripcion->getAsoc
-							(
-								[
-									'LenguajeID'=>$_POST['Lenguaje'][$i],
-									'Texto'=>$_POST['Titulo'][$i]
-								]
-							);
-
 							$evento->getAsoc
 							(
 								[
@@ -82,14 +74,10 @@ if(session_status()==PHP_SESSION_NONE)
 								]
 							);
 
+							updTraduccion($_POST['Descripcion'][$i] , $_SESSION['conID'][$i] , $_SESSION['lang']);
+
 							echo '<pre>A insertar: ';print_r($evento);echo '</pre>';
-							$descripcion->updSQL
-							(
-								false,
-								[
-									'ID'=>$_SESSION['conID'][$i]
-								]
-							);
+
 							$evento->updSQL
 							(
 								false,
@@ -146,7 +134,7 @@ if(session_status()==PHP_SESSION_NONE)
 							$evento->insSQL();
 						}
 					}
-					unset($_SESSION['accion'] , $_SESSION['conID']);
+					unset($_SESSION['conID'] , $_SESSION['form'] , $_SESSION['accion']);
 				}
 
 				if(isset($_SESSION['form']) && $_SESSION['form']==='accionesCal' && $_SESSION['accion']==='elimina')

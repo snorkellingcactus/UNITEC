@@ -18,11 +18,15 @@ if(isset($_SESSION['adminID']))
 		}
 		$fId='class="sinId"';
 	}
+	if(!isset($fType))
+	{
+		$fType=$fNom;
+	}
 
 	$raiz='http://' . $_SERVER['SERVER_NAME'] . '/Web/Pasantía/edetec/';
 	?>
 		<form <?php echo $fId ?> method="POST" action="<?php echo $raiz?>php/accion.php">
-		<input type="hidden" name="form" value="<?php echo 'acciones'.$fNom ?>" >
+		<input type="hidden" name="form" value="<?php echo 'acciones'.$fType ?>" >
 		<p class="acciones">Selecci&oacute;n:
 				<input type="submit" name="elimina" value="Eliminar">
 				<input type="submit" name="edita" value="Editar">
@@ -60,4 +64,5 @@ if(isset($_SESSION['adminID']))
 		<?php } ?>
 		</form>
 	<?php
+	unset($fType);
 }

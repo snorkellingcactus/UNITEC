@@ -1,6 +1,7 @@
 <div class="overhidden">
 	<?php
-		include_once '../php/conexion.php';
+		include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/conexion.php';
+		global $con;
 
 		$Imgs=$con->query
 		(

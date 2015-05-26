@@ -10,12 +10,15 @@ class Novedad extends SQL_Obj
 		parent::__construct
 		(
 			$con,
-			'Menu',
+			'Novedades',
 			[
 				'ID',
-				'ContenidoID',
-				'Prioridad',
-				'Visible'
+				'ImagenID',
+				'TituloID',
+				'DescripcionID',
+				'Fecha',
+				'Visible',
+				'Prioridad'
 			]
 		);
 

@@ -23,7 +23,7 @@
 		$autocomp['Url']=$imagen['Url'];
 		$autocomp['Visible']=$imagen['Visible'];
 		$autocomp['Prioridad']=$imagen['Prioridad'];
-		$autocomp['Titulo']=getTraduccion($imagen['TituloID'] , $imagen['LenguajeID']);
+		$autocomp['Titulo']=getTraduccion($imagen['TituloID'] , $_SESSION['lang']);
 
 		echo '<pre>';
 		print_r($autocomp);

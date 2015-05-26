@@ -8,14 +8,7 @@ if(isset($_POST['elimina']))
 	$_SESSION['form']=$_POST['form'];
 	$_SESSION['accion']='elimina';
 
-	if(isset($_POST['secID']))
-	{
-		$_SESSION['secID']=$_POST['secID'];
-	}
-	else
-	{
-		$_SESSION['conID']=$_POST['conID'];
-	}
+	$_SESSION['conID']=$_POST['conID'];
 	
 	header('Location: '.$_SERVER['HTTP_REFERER']);
 
@@ -25,15 +18,7 @@ if(isset($_POST['nMenu']))
 {
 	$_SESSION['accion']='nMenu';
 	$_SESSION['form']=$_POST['form'];
-
-	if(isset($_POST['secID']))
-	{
-		$_SESSION['secID']=$_POST['secID'];
-	}
-	else
-	{
-		$_SESSION['conID']=$_POST['conID'];
-	}
+	$_SESSION['conID']=$_POST['conID'];
 
 	header('Location: '.$_SERVER['HTTP_REFERER']);
 
@@ -120,7 +105,7 @@ if(isset($_SESSION['adminID']))
 
 				</head>
 				<body>
-					<form method="POST" class="tresem nuevo" action="<?php echo $url ?>">
+					<form method="POST" class="tresem nuevo" action="<?php echo $url ?>" target="_parent">
 						<?php
 
 							$iMax=$cantidad;
@@ -144,7 +129,9 @@ if(isset($_SESSION['adminID']))
 							unset($cantidad , $i , $iMax);
 
 						?>
-						<input type="submit" class="col-xs-12 col-sm-12 col-md-12 col-lg-12" name='<?php echo $for ?>' value="Aceptar">
+						<input type="submit" class="col-xs-12 col-sm-5 col-md-5 col-lg-5" name='<?php echo $for ?>' value="Aceptar">
+						<span class='hidden-xs col-sm-2 col-md-2 col-lg-2 '></span>
+						<input type="submit" class="col-xs-12 col-sm-5 col-md-5 col-lg-5" name='Cancela' value="Cancelar">
 					</form>
 					<div class="clearfix"></div>
 				</body>

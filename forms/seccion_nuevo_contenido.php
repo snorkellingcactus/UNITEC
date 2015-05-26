@@ -6,9 +6,9 @@
 	if(isset($_SESSION['adminID']))
 	{
 		?>
-			<form class="nCon" id="nCon<?php echo $seccion['ID'] ?>" action="php/accion.php" method="POST">
+			<form class="nCon" action="php/accion.php" method="POST" id="nCon<?php echo $s?>">
 			<input type="hidden" name="form" value="accionesCon">
-			<input type="hidden" name="secID" value="<?php echo $seccion['ID']?>">
+			<input type="hidden" name="conID" value="<?php echo $seccion['ID']?>">
 
 			<select name="Tipo">
 				<option value="con">Texto</option>

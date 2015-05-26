@@ -37,6 +37,7 @@
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/Img.php';
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/Traduccion.php';
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/nTraduccion.php';
+			include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/updTraduccion.php';
 
 			$iMax=count('nNov');
 
@@ -45,8 +46,6 @@
 				unset($_SESSION['accion']);
 			
 				$nNov=new Novedad($con);
-				$titulo=new Traduccion($con);
-				$descripcion=new Traduccion($con);
 
 				for($i=0;$i<$iMax;$i++)
 				{
@@ -56,50 +55,22 @@
 							'ID'=>$_SESSION['conID'][$i]
 						]
 					);
-					$titulo->getAsoc
-					(
-						[
-							'Texto'=>$_POST['Titulo'][$i],
-							'LenguajeID'=>$_POST['Lenguaje'][$i]
-						]
-					);
-					$descripcion->getAsoc
-					(
-						[
-							'Texto'=>$_POST['Descripcion'][$i],
-							'LenguajeID'=>$_POST['Lenguaje'][$i]
-						]
-					);
 
 					$nNov->ImagenID=$_POST['Imagen'][$i];
 					$nNov->Visible=$_POST['Visible'][$i];
-
-					$titulo->updSQL
-					(
-						false,
-						[
-							'ContenidoID'=>$nNov->TituloID,
-							'LenguajeID'=>$_POST['Lenguaje'][$i]
-						]
-					);
-					$descripcion->updSQL
-					(
-						false,
-						[
-							'ContenidoID'=>$nNov->DescripcionID,
-							'LenguajeID'=>$_POST['Lenguaje'][$i]
-						]
-					);
 					$nNov->updSQL(false , ['ID']);
+
+					updTraduccion($_POST['Descripcion'][$i] , $nNov->DescripcionID , $_SESSION['lang']);
+					updTraduccion($_POST['Titulo'][$i] , $nNov->TituloID , $_SESSION['lang']);
 				}
 			}
 			else
 			{
 				for($i=0;$i<$iMax;$i++)
 				{
-					$titulo=nTraduccion($_POST['Titulo'][$i] , $_POST['Lenguaje'][$i]);
+					$titulo=nTraduccion($_POST['Titulo'][$i] , $_SESSION['lang']);
 
-					$descripcion=nTraduccion($_POST['Descripcion'][$i] , $_POST['Lenguaje'][$i]);
+					$descripcion=nTraduccion($_POST['Descripcion'][$i] , $_SESSION['lang']);
 
 					$horaLoc=getdate();
 
@@ -114,7 +85,7 @@
 					$nov->insSQL();
 				}
 			}
-			unset($nov , $titulo , $descripcion , $horaLoc , $iMax , $i , $_POST['Titulo'] , $_POST['Descripcion'] , $_POST['Lenguaje'] , $_POST['nNov'] , $_SESSION['conID']);
+			unset($nov , $titulo , $descripcion , $horaLoc , $iMax , $i , $_POST['Titulo'] , $_POST['Descripcion'] , $_POST['Lenguaje'] , $_POST['nNov'] , $_SESSION['conID'] , $_SESSION['form']);
 		}
 
 		//Acciones con las seleccionadas.

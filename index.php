@@ -33,7 +33,7 @@ function echoLang($langSQLRes)
 
 include_once($_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/conexion.php');
 
-function nSec($visible , $orden , $tipo , $valor)
+function nSec($visible , $orden , $tipo , $valor , $edita=false)
 {
 	global $con , $afectado;
 	
@@ -41,9 +41,9 @@ function nSec($visible , $orden , $tipo , $valor)
 
 	$nSec=new SQL_Obj($con, 'Secciones', ['ID','Visible','Prioridad','ModuloID','ContenidoID','PadreID']);
 
-	if(isset($_POST['secID']))
+	if(isset($_POST['conID']))
 	{
-		$nSec->PadreID=$_POST['secID'];
+		$nSec->PadreID=$_POST['conID'];
 	}
 	if($tipo===1)
 	{
@@ -57,7 +57,15 @@ function nSec($visible , $orden , $tipo , $valor)
 	$nSec->Prioridad=$orden;
 	$nSec->Visible=$visible;
 
-	$nSec->insSQL();
+	if($edita!==false)
+	{
+		$nSec->updSQL(false,['ID'=>$edita]);
+		$nSec->ID=$edita;
+	}
+	else
+	{
+		$nSec->insSQL();
+	}
 
 	$afectado=$nSec->ID;
 
@@ -66,77 +74,60 @@ function nSec($visible , $orden , $tipo , $valor)
 
 if(isset($_SESSION['adminID']))
 {
-	if(isset($_SESSION['form']) && ($_SESSION['form']==='accionesSec' || $_SESSION['form']==='accionesCon'))
-	{
-		if($_SESSION['accion']==='elimina')
-		{
-			//echo '<pre>Elimina:<br>';
+/*
+	echo '<pre>SESSION: ';
+	print_r($_SESSION);
+	echo '</pre>';
 
-			$tipo=isset($_SESSION['conID']);
-			$secID=NULL;
-
-			if($tipo)
-			{
-				$contenidoID=fetch_all
-				(
-					$con->query('SELECT ContenidoID FROM Secciones WHERE ID='.$_SESSION['conID']),
-					MYSQLI_NUM
-				)[0][0];
-
-				if($contenidoID!==NULL)
-				{
-					//Existe una relacion ON DELETE CASCADE entre las tablas 
-					//secciones->contenidos y traducciones->contenidos, de manera
-					//que eliminando el contenido, automáticamente se elimina la sección
-					//y las traducciones relacionadas.
-					$con->query('DELETE FROM Contenidos WHERE ID='.$contenidoID);
-
-					echo '<pre>'.'DELETE FROM Contenidos WHERE ID='.$contenidoID.'</pre>';
-				}
-				else
-				{
-					$secID=$_SESSION['conID'];
-				}
-			}
-			else
-			{
-				$secID=$_SESSION['secID'];
-			}
-			if($secID!==NULL)
-			{
-				$con->query('DELETE FROM Secciones WHERE ID='.$secID);
-
-				echo '<pre>'.'DELETE FROM Secciones WHERE ID='.$secID.'</pre>';
-			}
-		}
-		else
-		{
-			echo '<pre>Nuevo Menu';echo '</pre>';
-		}
-
-		unset($_SESSION['accion'] , $_SESSION['form'] , $_SESSION['conID']);
-	}
-
+	echo '<pre>POST: ';
+	print_r($_POST);
+	echo '</pre>';
+*/
 	if(isset($_POST['nSec']) || isset($_POST['nCon']))
 	{
+		$lugar=$_POST['Lugar'];
+		$prefijo=$lugar[0];
+		$pOrden=intVal(substr($lugar , 1));
+
+		$edita=isset($_SESSION['accion']) && $_SESSION['accion']==='edita';
+
 		//Buscar en el futuro la forma de no repetir este código:
 		$inc='';
 		$tipo=0;
 		$valor=NULL;
 
-		if(isset($_POST['secID']))
+		if(isset($_POST['nCon']))
 		{
 			if(isset($_POST['Descripcion']))
 			{
-				include($_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/nTraduccion.php');
+				if($edita)
+				{
+					$contenido=fetch_all
+					(
+						$con->query
+						(
+							'	SELECT ContenidoID
+								FROM Secciones
+								WHERE ID='.$_SESSION['conID']
+						),
+						MYSQLI_NUM
+					)[0][0];
+					include($_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/updTraduccion.php');
 
-				$descripcion=nTraduccion($_POST['Descripcion'][0] , $_POST['Lenguaje'][0]);
+					updTraduccion($_POST['Descripcion'][0] , $contenido , $_SESSION['lang']);
+				}
+				else
+				{
+					include($_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/nTraduccion.php');
 
-				$descripcion->insSQL();
+					$descripcion=nTraduccion($_POST['Descripcion'][0] , $_SESSION['lang']);
 
-				$valor=$descripcion->ContenidoID;
+					$descripcion->insSQL();
 
-				$tipo=2;
+					$valor=$descripcion->ContenidoID;
+
+					$tipo=2;
+				}
 			}
 			else
 			{
@@ -144,20 +135,32 @@ if(isset($_SESSION['adminID']))
 				$tipo=1;
 			}
 		}
-
-		if($tipo)
+		if($edita)
 		{
-			$condicion=' PadreID='.$_POST['secID'];
+			$padreID=fetch_all
+			(
+				$con->query
+				(
+					'	SELECT PadreID
+						FROM Secciones
+						WHERE ID='.$_SESSION['conID']
+				),
+				MYSQLI_NUM
+			)[0][0];
+		}
+		else
+		{
+			$padreID=$_POST['conID'];
+		}
+		if($tipo)
+		{	
+			$condicion=' PadreID='.$padreID;
 		}
 		else
 		{
 			$condicion=' ContenidoID IS NULL AND ModuloID IS NULL';
 		}
 
-		$lugar=$_POST['Lugar'];
-
-		$prefijo=$lugar[0];
-		$pOrden=intVal(substr($lugar , 1));
 		$nOrden=0;
 
 		if($prefijo=='b')
@@ -179,20 +182,92 @@ if(isset($_SESSION['adminID']))
 			while($j<$sMax && $secciones[$j]['Prioridad']==($nOrden+$j-$pOrden))
 			{
 
+				if($edita && $secciones[$j]['ID']===$_SESSION['conID'])
+				{
+					$j++;
+					continue;
+				}
 				$nID=$secciones[$j]['ID'];
 
 				$consulta='update Secciones set Prioridad='.(intVal($secciones[$j]['Prioridad'])+1).' where ID='.$nID;
 
 				$con->query($consulta);
 
+				echo '<pre>';
+				print_r($consulta);
+				echo '</pre>';
+
 				++$j;
+
+				if($j>20)
+				{
+					die('fail');
+				}
 			}
 
 			$nOrden=$nOrden;
 		}
-
-		nSec($_POST['Visible'][0] , $nOrden , $tipo , $valor);
+		if($edita)
+		{
+			$edita=$_SESSION['conID'];
+			$_POST['conID']=$padreID;
+		}
+		nSec($_POST['Visible'][0] , $nOrden , $tipo , $valor , $edita);
+		
 	}
+
+	if
+	(
+		isset($_SESSION['form']) &&
+		(
+			$_SESSION['form']==='accionesSec' ||
+			$_SESSION['form']==='accionesCon'
+		) &&
+		$_SESSION['accion']==='elimina'
+	)
+	{
+		//echo '<pre>Elimina:<br>';
+
+		$tipo=isset($_SESSION['conID']);
+		$secID=NULL;
+
+		if($tipo)
+		{
+			$contenidoID=fetch_all
+			(
+				$con->query('SELECT ContenidoID FROM Secciones WHERE ID='.$_SESSION['conID']),
+				MYSQLI_NUM
+			)[0][0];
+
+			if($contenidoID!==NULL)
+			{
+				//Existe una relacion ON DELETE CASCADE entre las tablas 
+				//secciones->contenidos y traducciones->contenidos, de manera
+				//que eliminando el contenido, automáticamente se elimina la sección
+				//y las traducciones relacionadas.
+				$con->query('DELETE FROM Contenidos WHERE ID='.$contenidoID);
+
+				echo '<pre>'.'DELETE FROM Contenidos WHERE ID='.$contenidoID.'</pre>';
+			}
+			else
+			{
+				$secID=$_SESSION['conID'];
+			}
+			unset($_SESSION['conID']);
+		}
+		else
+		{
+			$secID=$_SESSION['secID'];
+			unset($_SESSION['secID']);
+		}
+		if($secID!==NULL)
+		{
+			$con->query('DELETE FROM Secciones WHERE ID='.$secID);
+
+			echo '<pre>'.'DELETE FROM Secciones WHERE ID='.$secID.'</pre>';
+		}
+	}
+	unset($_SESSION['accion'] , $_SESSION['form'] , $_SESSION['conID']);
 }
 ?>
 <html lang="es">
@@ -327,14 +402,6 @@ if(isset($_SESSION['adminID']))
 		<main class="col-xs-12 col-sm-10 col-md-10 col-lg-10">
 			<?php
 
-				echo '<pre>SESSION: ';
-				print_r($_SESSION);
-				echo '</pre>';
-
-				echo '<pre>POST: ';
-				print_r($_POST);
-				echo '</pre>';
-
 				$_GET['mes']=getdate()['mon'];	//Acá indicar mes que se muestra por defecto. Va a mostrarse el mes indicado -1.
 
 				//Obtengo las opciones.
@@ -343,7 +410,7 @@ if(isset($_SESSION['adminID']))
 					'	SELECT ID,Visible,Prioridad
 						FROM Secciones
 						WHERE PadreID IS NULL
-						ORDER BY Prioridad asc
+						ORDER BY Prioridad ASC
 					'
 				);
 				$secciones=fetch_all($secciones , MYSQLI_ASSOC);
@@ -383,6 +450,7 @@ if(isset($_SESSION['adminID']))
 
 						<div class="clearfix">
 							<?php
+								$Orden=$s;
 								include($_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/forms/elimina_dominio.php');
 								include($_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/forms/seccion_nuevo_contenido.php');
 							?>
@@ -415,9 +483,13 @@ if(isset($_SESSION['adminID']))
 						//echo '<pre>Include N '.$f.'</pre>';
 						$include=$includes[$f];
 						$id=$include['ID'];
+						$Orden=$f;
+
 						if($include['ContenidoID']!==NULL)
 						{
 							$tipo=2;
+
+							include($_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/forms/elimina_dominio.php');
 
 
 							include_once 'php/jBBCode1_3_0/JBBCode/Parser.php';
@@ -432,8 +504,6 @@ if(isset($_SESSION['adminID']))
 							);
 
 							global $afectado;
-
-							include($_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/forms/elimina_dominio.php');
 
 							$clase='';
 
@@ -455,7 +525,7 @@ if(isset($_SESSION['adminID']))
 										echo $parser->getAsHtml();
 									?>
 								</div>
-								<input type="hidden" name="lleno[]" value="<?php echo $f?>" form="nCon<?php echo $seccion['ID'] ?>">
+								<input type="hidden" name="lleno[]" value="<?php echo $f?>" form="nCon<?php echo $s ?>">
 							<?php
 						}
 						if($include['Archivo']!==NULL)
@@ -503,7 +573,7 @@ if(isset($_SESSION['adminID']))
 								<?php
 							}*/
 							?>
-								<input type="hidden" name="lleno[]" value="<?php echo $f?>" form="nCon<?php echo $seccion['ID'] ?>">
+								<input type="hidden" name="lleno[]" value="<?php echo $f?>" form="nCon<?php echo $s ?>">
 								<div class="clearfix"></div>
 							<?php
 						}

@@ -43,12 +43,13 @@
 		//Se rellenó el formulario de nueva imagen, la inserto en la bd.
 		if(isset($_POST['nImg']))
 		{
+			include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/updTraduccion.php';
+
 			$iMax=count($_POST['Titulo']);
 
 			if(isset($_SESSION['accion'])  && $_SESSION['accion']==='edita')
 			{
 				$nImg=new Img($con);
-				$titulo=new Traduccion($con);
 
 				for($i=0;$i<$iMax;$i++)
 				{
@@ -63,17 +64,10 @@
 							'TituloID'=>$_SESSION['conID'][$i]
 						]
 					);
-					$titulo->getAsoc
-					(
-						[
-							'Texto'=>$_POST['Titulo'][$i],
-							'ContenidoID'=>$_SESSION['conID'][$i],
-							'LenguajeID'=>$_POST['Lenguaje'][$i]
-						]
-					);
 
 					$nImg->updSQL(false , ['TituloID']);
-					$titulo->updSQL(false , ['ContenidoID']);
+
+					updTraduccion($_POST['Titulo'][$i] , $nImg->TituloID , $_SESSION['lang']);
 				}
 			}
 			else

@@ -72,54 +72,9 @@
 
 			if($_SESSION['accion']==='edita')
 			{
-				include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/Traduccion.php';
+				include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/updTraduccion.php';
 
-				for($s=0;$s<$sMax;$s++)
-				{
-					$traduccion=$con->query
-					(
-						'	SELECT ID
-							FROM Traducciones
-							WHERE ContenidoID='.$_SESSION['conID'][$s].	
-						'	AND LenguajeID='.$_SESSION['lang']
-					);
-					echo '<pre>'.'	SELECT ID
-							FROM Traducciones
-							WHERE ContenidoID='.$_SESSION['conID'][$s].	
-						'	AND LenguajeID='.$_SESSION['lang'].'</pre>';
-					if($traduccion->num_rows)
-					{
-						echo '<pre>Existe una traduccion para este idioma, se actualizará</pre>';
-
-						$traduccion=fetch_all($traduccion , MYSQLI_NUM);
-
-						$con->query
-						(
-							'	UPDATE Traducciones
-								SET Texto="'.$_POST['Titulo'][$s].'"
-								WHERE ID='.$traduccion[0][0]
-						);
-
-						echo '<pre>'.'	UPDATE Traducciones
-								SET Texto="'.$_POST['Titulo'][$s].'"
-								WHERE ID='.$traduccion[0][0].'</pre>';
-					}
-					else
-					{
-						include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/Traduccion.php';
-
-						$traduccion=new Traduccion
-						(
-							$con,
-							[
-								'ContenidoID'=>$_SESSION['conID'][$s],
-								'LenguajeID'=>$_SESSION['lang'],
-								'Texto'=>$_POST['Titulo'][$s]
-							]
-						);
-						$traduccion->insSQL();
-					}
-				}
+				updTraducciones($_POST['Titulo'] , $_SESSION['conID'] , $_SESSION['lang']);
 			}
 
 			unset($_SESSION['form'] , $_SESSION['accion'] , $_SESSION['conID'] , $sMax);
