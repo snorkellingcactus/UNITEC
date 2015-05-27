@@ -217,7 +217,8 @@ if(isset($_SESSION['adminID']))
 			$_POST['conID']=$padreID;
 		}
 		nSec($_POST['Visible'][0] , $nOrden , $tipo , $valor , $edita);
-		
+
+		unset($_SESSION['accion'] , $_SESSION['form'] , $_SESSION['conID']);
 	}
 
 	if

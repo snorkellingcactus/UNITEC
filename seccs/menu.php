@@ -74,7 +74,34 @@
 			{
 				include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/updTraduccion.php';
 
-				updTraducciones($_POST['Titulo'] , $_SESSION['conID'] , $_SESSION['lang']);
+				$iMax=count($_POST['Titulo']);
+				for($i=0;$i<$iMax;$i++)
+				{
+					updTraduccion($_POST['Titulo'][$i] , $_SESSION['conID'][$i] , $_SESSION['lang']);
+					$nMenu=new SQL_Obj
+					(
+						$con,
+						'Menu',
+						[
+							'ID',
+							'ContenidoID',
+							'SeccionID',
+							'Url',
+							'Prioridad',
+							'Visible'
+						]
+					);
+					$nMenu->getAsoc
+					(
+						[
+							'Prioridad'=>$_POST['Prioridad'][$i],
+							'Url'=>$_POST['Url'][$i],
+							'Visible'=>$_POST['Visible'][$i]
+						]
+					);
+
+					$nMenu->updSQL(false , ['ContenidoID'=>$_SESSION['conID'][$i]]);
+				}
 			}
 
 			unset($_SESSION['form'] , $_SESSION['accion'] , $_SESSION['conID'] , $sMax);
