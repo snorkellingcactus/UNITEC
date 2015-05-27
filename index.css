@@ -2,12 +2,13 @@
 html , body
 {
 	height:100%;
-	background: #00D0D0;
+	background-color: #00D0D0;
 	font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
 	overflow: auto
 }
-body
+html body
 {
+	background: #6DB0F1;
 	background: linear-gradient(to top left ,#00D0D0, #9BA3FF);
 	background: -webkit-linear-gradient(to top left, #00D0D0 0%, #9BA3FF 100%);
 	background: -moz-linear-gradient(to top left, #00D0D0 0%, #9BA3FF 100%);
