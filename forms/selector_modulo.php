@@ -26,7 +26,14 @@
 
 		?>
 
-			<option value="<?php echo $modulo['ID']?>" <?php if($m===0){echo 'selected="selected"';}?>>
+			<option value="<?php echo $modulo['ID']?>" 
+				<?php 
+					if((isset($autocomp[$labelName]) && $autocomp[$labelName]===$modulo['ID']) || (!isset($autocomp[$labelName]) && $m===0))
+					{
+						echo 'selected="selected"';
+					}
+				?>
+			>
 				<?php echo $nombre?>
 			</option>
 		<?php

@@ -54,6 +54,19 @@
 			)[0][0];
 			$autocomp['Contenido']=getTraduccion($contenido , $_SESSION['lang']);
 		}
+		else
+		{
+			$autocomp['Archivo']=fetch_all
+			(
+				$con->query
+				(
+					'	SELECT ModuloID
+						FROM Secciones
+						WHERE ID='.$_POST['conID']
+				),
+				MYSQLI_NUM
+			)[0][0];
+		}
 
 		echo '<pre>';
 		print_r($autocomp);

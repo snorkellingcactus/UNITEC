@@ -106,7 +106,7 @@ if(isset($_SESSION['adminID']))
 			{
 				if($edita)
 				{
-					$contenido=fetch_all
+					$valor=fetch_all
 					(
 						$con->query
 						(
@@ -118,7 +118,7 @@ if(isset($_SESSION['adminID']))
 					)[0][0];
 					include($_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/updTraduccion.php');
 
-					updTraduccion($_POST['Descripcion'][0] , $contenido , $_SESSION['lang']);
+					updTraduccion($_POST['Descripcion'][0] , $valor , $_SESSION['lang']);
 				}
 				else
 				{
@@ -129,9 +129,8 @@ if(isset($_SESSION['adminID']))
 					$descripcion->insSQL();
 
 					$valor=$descripcion->ContenidoID;
-
-					$tipo=2;
 				}
+				$tipo=2;
 			}
 			else
 			{
@@ -156,7 +155,7 @@ if(isset($_SESSION['adminID']))
 		{
 			$padreID=$_POST['conID'];
 		}
-		if($tipo)
+		if($tipo!==0)
 		{	
 			$condicion=' PadreID='.$padreID;
 		}
