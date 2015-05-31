@@ -15,10 +15,9 @@
 
 	$rw=1;
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/conexion.php';
-	include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/SQL_Obj.php';
-	include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/Img.php';
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/Comentario.php';
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/Visor.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/getTraduccion.php';
 
 	//Si todavía no se inicio sesion, se inicia.
 	if(session_status()==PHP_SESSION_NONE)
@@ -35,18 +34,32 @@
 		$_SESSION['cache']=!$_GET['cache']||0;
 	}
 	
-	$Visor	= new Gal_HTML_Visor
+	$visor	= new Visor
 	(
 		fetch_all
 		(
 			$con->query
 			(
-
-			)
+				'	SELECT TituloID, Url,ID
+					FROM Imagenes
+					WHERE 1
+					ORDER BY Prioridad ASC
+				'
+			),
+			MYSQLI_ASSOC
 		)
 	);
 
-	$esq=$Visor->imgSel;
+	$iMax=count($visor->recLst);
+	for($i=0;$i<$iMax;$i++)
+	{
+		$img=& $visor->recLst[$i];
+		$img['TituloCon']=getTraduccion($img['TituloID'] , $_SESSION['lang']);
+
+
+	}
+
+	$esq=$visor->recSel;
 
 	//Operaciones cuando se llenó un formulario de nuevo comentario.
 	if(!empty($_POST['comContenido']))
@@ -91,9 +104,9 @@
 		}
 		else
 		{
-			$Comentario->PadreID=$esq->TituloID;
+			$Comentario->PadreID=$esq['TituloID'];
 		}
-		$Comentario->RaizID=$esq->TituloID;
+		$Comentario->RaizID=$esq['TituloID'];
 		$Comentario->Fecha=$Fecha;
 /*
 		echo '<pre>A insertar:';
@@ -134,23 +147,23 @@
 	}
 	unset($_POST['vImgId']);
 
-	$vImgSig=$Visor->indexImgN($Visor->nImgSel+1);
-	$vImgAnt=$Visor->indexImgN($Visor->nImgSel-1);
+	$vImgSig=$visor->indexRecN($visor->nRecSel+1);
+	$vImgAnt=$visor->indexRecN($visor->nRecSel-1);
 ?>
 			<!-- Título -->
 			<h2 class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-					<?php echo $esq->TituloCon ?>
+					<?php echo $esq['TituloCon'] ?>
 			</h2>
 			
 			<!-- Imagen y controles -->
 			<div class="col-lg-10 col-md-10 col-sm-10 col-xs-8 imgCont">
-					<a href="visor.php?vImg=<?php echo $vImgAnt ?>#gal" class="flecha" title="Imagen Anterior" >
+					<a href="visor.php?vRec=<?php echo $vImgAnt ?>" class="flecha" title="Imagen Anterior" >
 						<img src="../img/flecha_i.png" alt="Flecha hacia la izquierda"/>
 					</a>
 
-					<img src="<?php echo $esq->Url ?>" alt="<?php echo $esq->Alt ?>"/>					
+					<img src="<?php echo $esq['Url'] ?>" alt="<?php echo $esq['Alt'] ?>"/>					
 
-					<a href="visor.php?vImg=<?php echo $vImgSig ?>#gal"  class="flecha" title="Imagen Siguiente">
+					<a href="visor.php?vRec=<?php echo $vImgSig ?>"  class="flecha" title="Imagen Siguiente">
 						<img src="../img/flecha_d.png" alt="Flecha hacia la derecha"/>
 					</a>
 			</div>
@@ -164,7 +177,7 @@
 					include($_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/forms/acciones.php');
 
 					//Genero los comentarios.
-					GenComGrp($esq->TituloID , $con);
+					GenComGrp($esq['TituloID'] , $con);
 
 					if(!isset($_POST['comConID']))
 					{

@@ -1,36 +1,36 @@
 <?php
-require_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/Obj_Gen_HTML.php';
 
 class Visor
 {
-	private	$recLst=[];
+	public	$recLst=[];
 	public	$nRecSel=NULL;		//Número de Imagen coincidente con el valor del discriminador.
 	public	$recSel=NULL;		//Objeto imagen seleccionado.
 	private	$include;
 	private	$disc=['ID'=>0];	//Propiedades discriminadoras a la hora de determinar una imagen para el visor.
+	public $fin=false;
 
 	public function __construct($recLst=false , $include=false)
 	{
-		$args=func_get_args();
-
 		if($include!==false)
 		{
 			$this->include=$args[1];
 		}
+		$this->recLst=$recLst;
 		//Variable con el numero de imagen que se va a mostrar.
 		if(isset($_GET['vRec']))
 		{
 			$this->selRecN($_GET['vRec']);			//Indico el número de imagen a desplegar.
 		}
 		//Si se especificó un ID de imagen, se selecciona esa imagen para mostrar
-		if(isset($_POST['vRecId']))
+		//Temporal. En el futuro utilizar solo vRec
+		if(isset($_POST['vRecID']))
 		{
-			$_SESSION['vRecID']=intval($_POST['vRecId']);
+			$_SESSION['vRecID']=intval($_POST['vRecID']);
 		}
 		//Si se especificó un ID de imagen, se selecciona esa imagen para mostrar
-		if(isset($_GET['vRecId']))
+		if(isset($_GET['vRecID']))
 		{
-			$_SESSION['vRecID']=intval($_GET['vRecId']);
+			$_SESSION['vRecID']=intval($_GET['vRecID']);
 		}
 		if(isset($_SESSION['vRecID']))
 		{
@@ -40,7 +40,7 @@ class Visor
 	}
 	function gen($include=false)
 	{
-		if($include!===false)
+		if($include!==false)
 		{
 			$this->include=$args[0];
 		}
@@ -56,9 +56,9 @@ class Visor
 	{
 		$this->nRecSel=$this->indexRecN($num);
 
-		$this->recSel=$this->recLst[$this->nRecSel];
+		$this->recSel=& $this->recLst[$this->nRecSel];
 
-		$_SESSION['vRecID']=$this->recSel->ID;
+		$_SESSION['vRecID']=$this->recSel['ID'];
 
 		return $this->nRecSel;
 	}
@@ -66,6 +66,13 @@ class Visor
 	function indexRecN($num)
 	{
 		$max=count($this->recLst);
+
+		$this->fin=false;
+
+		if($num===$max)
+		{
+			$this->fin=true;
+		}
 		
 		$nRecSel=abs($num-intval($num/$max)*$max);
 
@@ -79,7 +86,7 @@ class Visor
 	//Devuelve el objeto almacenado en la posición especificada.
 	function RecN($num)
 	{
-		return $this->imgLst
+		return $this->recLst
 		[
 			$this->indexRecN($num)
 		];
@@ -94,7 +101,7 @@ class Visor
 		//Si alguno de los valores es distinto no se selecciona.
 		foreach($props as $clave => $valor)
 		{
-			if($rec->$clave!=$valor)
+			if($rec[$clave]!=$valor)
 			{
 				$disc=false;
 				break;
@@ -110,7 +117,7 @@ class Visor
 	}
 	function discRecLst()
 	{
-		$iMax=count($this->imgLst);
+		$iMax=count($this->recLst);
 
 		for($i=0;$i<$iMax;$i++)
 		{

@@ -7,7 +7,7 @@
 			<?php
 		}
 	?>
-	<a href="seccs/visor.php?vImgId=<?php echo $esq->ID ?>">
+	<a href="seccs/visor.php?vRecID=<?php echo $esq->ID ?>">
 		<p>
 			<?php echo $esq->TituloCon ?>
 		</p>
