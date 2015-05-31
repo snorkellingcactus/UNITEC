@@ -7,11 +7,11 @@
 			<?php
 		}
 	?>
-	<button type="submit" form="vImg" name="vImgId" value="<?php echo $esq->ID ?>">
+	<a href="seccs/visor.php?vImgId=<?php echo $esq->ID ?>">
 		<p>
 			<?php echo $esq->TituloCon ?>
 		</p>
 		<img src="<?php echo $esq->Url ?>" alt="<?php echo $esq->Alt ?>" width="200" height="200" />
-	</button>
+	</a>
 	
 </div>

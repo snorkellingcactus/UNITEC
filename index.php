@@ -24,7 +24,7 @@ if(isset($_POST['lang']))
 }
 if(isset($_POST['Cancela']))
 {
-	unset($_SESSION['form'] , $_SESSION['nCon'] , $_SESSION['accion']);
+	unset($_SESSION['form'] , $_SESSION['conID'] , $_SESSION['accion']);
 }
 function echoLang($langSQLRes)
 {

@@ -41,6 +41,7 @@
 		'	SELECT *
 			FROM Imagenes
 			WHERE 1
+			ORDER BY Prioridad
 		',
 		$con,
 		new NULL_Gen_HTML()

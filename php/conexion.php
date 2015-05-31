@@ -20,6 +20,14 @@
 	
 	global $con;
 
+	$usuario='ro';
+	if(isset($_SESSION['adminID']))
+	{
+		$usuario='root';
+	}
+
 	//$con=new mysqli('host','usuario','passwd','bd');	//Casa Gonza.
-	$con=new mysqli('localhost','root','s2r9v3->149','edetec');	//Casa Gonza.
+	$con=new mysqli('localhost',$usuario,'s2r9v3->149','edetec');	//Casa Gonza.
+
+	unset($usuario);
 ?>

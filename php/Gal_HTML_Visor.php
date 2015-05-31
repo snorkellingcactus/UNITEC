@@ -61,6 +61,11 @@ class	Gal_HTML_Visor
 		{
 			$_SESSION['vImgID']=intval($_POST['vImgId']);
 		}
+		//Si se especificó un ID de imagen, se selecciona esa imagen para mostrar
+		if(isset($_GET['vImgId']))
+		{
+			$_SESSION['vImgID']=intval($_GET['vImgId']);
+		}
 		if(isset($_SESSION['vImgID']))
 		{
 			$this->disc['ID']=$_SESSION['vImgID'];
