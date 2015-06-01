@@ -18,9 +18,7 @@
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/SQL_Obj.php';
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/Img.php';
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/Comentario.php';
-	include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/Gal_HTML.php';
-	include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/Gal_HTML_Visor.php';
-	include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/NULL_Gen_HTML.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/Visor.php';
 
 	//Si todavía no se inicio sesion, se inicia.
 	if(session_status()==PHP_SESSION_NONE)
@@ -39,13 +37,13 @@
 	
 	$Visor	= new Gal_HTML_Visor
 	(
-		'	SELECT *
-			FROM Imagenes
-			WHERE 1
-			ORDER BY Prioridad
-		',
-		$con,
-		new NULL_Gen_HTML()
+		fetch_all
+		(
+			$con->query
+			(
+
+			)
+		)
 	);
 
 	$esq=$Visor->imgSel;
