@@ -21,7 +21,7 @@
 	global $con;
 
 	$usuario='ro';
-	if(isset($_SESSION['adminID']))
+	if(isset($_SESSION['adminID']) || !empty($rw))
 	{
 		$usuario='root';
 	}

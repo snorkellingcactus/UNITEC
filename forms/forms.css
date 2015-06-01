@@ -74,7 +74,7 @@ section form.accionesSec , section form.accionesCon, section form.nCon{float:lef
 section form.right{right:40px; position:absolute}
 
 
-.comentario:target
+:target
 {
 	animation-name:comentBackground;
 	animation-duration:2s;

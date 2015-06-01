@@ -1,4 +1,13 @@
-<form class="nComentForm tresem" action="visor.php#comRes" method="POST">
+<form class="nComentForm tresem" action="visor.php#comRes" method="POST"
+<?php
+if(isset($_POST['comConID']))
+{
+	?>
+	id="comRes"
+	<?php
+}
+?>
+>
 	<p>Nombres:</p>
 	<input type="text" name="comNomUsuario" >
 

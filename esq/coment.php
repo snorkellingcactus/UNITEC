@@ -76,7 +76,7 @@
 		if(isset($_POST['comConID'])&&$_POST['comConID']==$esq['ContenidoID'])
 		{
 			$_SESSION['comConID']=$_POST['comConID'];
-			echo file_get_contents("../forms/nuevo_coment.php");
+			include "../forms/nuevo_coment.php";
 		}
 	?>
 </div>
