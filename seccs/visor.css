@@ -22,24 +22,27 @@ body{background:rgba(0,0,0,0.9)}
 .flecha a {display:table-cell;vertical-align: middle}
 .imgCont{width:100%;text-align:center;position:relative;}
 .imgCont img{max-width:80%}
-h2
+h2,h1
 {
 	text-align:center;
 	color:white;
 	padding:5px;
 	margin:0px
 }
-.comentarios
+.comentarios, .novedades
 {
-	background: #00D0D0;
+	background: #D3E6F4;
 	margin:3% auto 3% auto;
 	background-image:url("../img/fondo_contenido.png");
-	background-color:rgba(255, 255, 255, 0.75); 
 	border-radius:3px;
 	float:none;
 	overflow: hidden;
 	z-index: 6;
+}
+.comentarios
+{
 	padding-top:20px;
+	background-color:rgba(255, 255, 255, 0.75); 
 }
 .formRes
 {
@@ -86,7 +89,7 @@ h2
 .nComentForm input:last-child{display:block;clear:both;float:none;width:100%;margin-top:5px;}
 .nComentForm input{margin-bottom:5px;width:100%}
 .nComentForm textarea{width:100%;}
-.comentarios, .imgCont>img {box-shadow:-1px -1px 3px #888888;}
+.comentarios, .imgCont>img , .novedades{box-shadow:-1px -1px 3px #888888;}
 .comAutor{font-weight:bold;float:left}
 .nHilo
 {
@@ -117,3 +120,28 @@ h2{position:relative;display:inline}
 	background-color:rgba(255,255,255,0.15);
 	color:white;
 }
+
+
+.novedades
+{
+	margin:3% auto 0 auto;
+	padding:20px;
+}
+.novedades p{font-size:1.2em;letter-spacing:1px;word-spacing:3px;}
+.novedades h1{color:#F5F5F5;text-shadow: 0px 0px 2px black;}
+.novedades img
+{
+	box-shadow:0px 0px 5px black;
+	padding:0px;
+	margin-right:15px;
+	display:block;
+}
+p.sangria::first-letter
+{
+	float:left;
+	margin:6px 15px 0px 0px;
+	font-size:400%;
+	font-weight:bold;
+	color:#F5F5F5;
+	text-transform:uppercase;
+	text-shadow:0px 0px 2px black;

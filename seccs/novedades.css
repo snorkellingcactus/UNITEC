@@ -1,13 +1,12 @@
-.novedades{overflow: hidden}
 .novedad:last-child{border-bottom:0px solid;}
-.novedad div img{float:left;border-radius:3px;width:100%}
+.novedad div img{float:left;border-radius:3px;width:100%;box-shadow:0px 0px 5px black;}
 .novedad>div{}
 div.novedad{padding:3em 0px 1em 0px;border-bottom:1px solid darkgray}
-.novedad h3{margin:0px 0px 10px 15px;padding-top:0px;clear:right;}
+.novedad h2{margin:0px 0px 10px 15px;padding-top:0px;clear:right;color:#F5F5F5;text-shadow: 0px 0px 2px black;}
 /*
 Por bootstrap, que le da a las imágenes 15px de padding.
 */
-.novedad p{margin-left:15px;margin-top:0px;font-size:1.2em;font-color:black;}
+.novedad p{margin-left:15px;margin-top:0px;font-size:1.2em;letter-spacing:1px;word-spacing:3px;}
 .novedad p img{float:none;}
 .novedad p pre.code{float:none;display:block;}
 .novedad table{border:1px solid gray;}
@@ -16,3 +15,8 @@ Por bootstrap, que le da a las imágenes 15px de padding.
 .novID{float:right;}
 
 .novedad input[type="checkbox"]{position:absolute;right:0;top:0}
+.novedad p.sangria::first-letter
+{
+	margin:6px 15px 0px 0px;
+	text-shadow:0px 0px 2px black;
+}

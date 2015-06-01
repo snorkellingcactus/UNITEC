@@ -1,4 +1,4 @@
-<div id="nov" class="novedades">
+<div class="novedades">
 	<?php
 		//::::::::::Variables de Sesion::::::::::::::
 		if(session_status()==PHP_SESSION_NONE)
@@ -160,7 +160,7 @@
 						'ID'=>$novAct['ID'],
 						'Imagen'=>$imagen,
 						'Titulo'=>$titulo,
-						'Descripcion'=>$descripcion,
+						'Descripcion'=>substr($descripcion , 0 , 500),
 						'Fecha'=>$novAct['Fecha']
 					]
 				);

@@ -1,5 +1,5 @@
 <?php
-	function getTraduccion($contenidoID , $lenguajeID)
+	function getTraduccion($contenidoID , $lenguajeID , $limite=false)
 	{
 		global $con;
 

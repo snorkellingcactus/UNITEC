@@ -37,6 +37,10 @@ class Visor
 			$this->disc['ID']=$_SESSION['vRecID'];
 			$this->discRecLst();
 		}
+		if($this->recSel===NULL && isset($this->recLst[0]))
+		{
+			$this->selRecN(0);
+		}
 	}
 	function gen($include=false)
 	{

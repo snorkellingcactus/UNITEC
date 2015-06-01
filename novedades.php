@@ -9,20 +9,18 @@
 		?>
 
 		<link rel="stylesheet" type="text/css" href="<?php echo $raiz ?>bootstrap.min.css" />
-		<link rel="stylesheet" type="text/css" href="<?php echo $raiz ?>seccs/visor.css" />
 		<link rel="stylesheet" type="text/css" href="<?php echo $raiz ?>forms/forms.css" />
+		<link rel="stylesheet" type="text/css" href="<?php echo $raiz ?>seccs/visor.css" />
 
-		<title>Visor de imágenes</title>
+		<title>visor de imágenes</title>
 	</head>
 	<body>
 <?php
 
-	$rw=1;
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/conexion.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/SQL_Obj.php';
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/Comentario.php';
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/Visor.php';
-	include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/getTraduccion.php';
-
 	//Si todavía no se inicio sesion, se inicia.
 	if(session_status()==PHP_SESSION_NONE)
 	{
@@ -37,33 +35,6 @@
 	{
 		$_SESSION['cache']=!$_GET['cache']||0;
 	}
-	
-	$visor	= new Visor
-	(
-		fetch_all
-		(
-			$con->query
-			(
-				'	SELECT TituloID, Url,ID
-					FROM Imagenes
-					WHERE 1
-					ORDER BY Prioridad ASC
-				'
-			),
-			MYSQLI_ASSOC
-		)
-	);
-
-	$iMax=count($visor->recLst);
-	for($i=0;$i<$iMax;$i++)
-	{
-		$img=& $visor->recLst[$i];
-		$img['TituloCon']=getTraduccion($img['TituloID'] , $_SESSION['lang']);
-
-
-	}
-
-	$esq=$visor->recSel;
 
 	//Operaciones cuando se llenó un formulario de nuevo comentario.
 	if(!empty($_POST['comContenido']))
@@ -108,9 +79,9 @@
 		}
 		else
 		{
-			$Comentario->PadreID=$esq['TituloID'];
+			$Comentario->PadreID=$esq->TituloID;
 		}
-		$Comentario->RaizID=$esq['TituloID'];
+		$Comentario->RaizID=$esq->TituloID;
 		$Comentario->Fecha=$Fecha;
 /*
 		echo '<pre>A insertar:';
@@ -150,25 +121,68 @@
 		unset($_SESSION['conID'] , $_SESSION['form']);
 	}
 
-	$vImgSig=$visor->indexRecN($visor->nRecSel+1);
-	$vImgAnt=$visor->indexRecN($visor->nRecSel-1);
+	$visor	= new Visor
+	(
+		fetch_all
+		(
+			$con->query
+			(
+				'	SELECT *
+					FROM Novedades
+					WHERE 1
+					ORDER BY Prioridad
+				'
+			),
+			MYSQLI_ASSOC
+		)
+	);
+
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/getTraduccion.php';
+
+	$iMax=count($visor->recLst);
+	for($i=0;$i<$iMax;$i++)
+	{
+		$nov=& $visor->recLst[$i];
+		$nov['TituloCon']=getTraduccion($nov['TituloID'],$_SESSION['lang']);
+		$nov['ImagenUrl']=fetch_all
+		(
+			$con->query
+			(
+				'	SELECT Url
+					FROM Imagenes
+					WHERE ID='.$nov['ImagenID']
+			),
+			MYSQLI_NUM
+		)[0][0];
+	}
+	$esq=$visor->recSel;
+
+	$esq['DescripcionCon']=getTraduccion($esq['DescripcionID'],$_SESSION['lang']);
+
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/jBBCode1_3_0/JBBCode/Parser.php';
+
+	$parser=new JBBCode\Parser();
+
+	include $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/parser_definiciones.php';
+
+	$parser->parse($esq['DescripcionCon']);
+
+	$esq['DescripcionCon']=$parser->getAsHtml();
+
+	$vNotSig=$visor->indexRecN($visor->nRecSel+1);
+	$vNotAnt=$visor->indexRecN($visor->nRecSel-1);
 ?>
-			<!-- Título -->
-			<h2 class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-					<?php echo $esq['TituloCon'] ?>
-			</h2>
-			
-			<!-- Imagen y controles -->
-			<div class="col-lg-10 col-md-10 col-sm-10 col-xs-8 imgCont">
-					<a href="visor.php?vRec=<?php echo $vImgAnt ?>" class="flecha" title="Imagen Anterior" >
-						<img src="../img/flecha_i.png" alt="Flecha hacia la izquierda"/>
-					</a>
+			<div class="novedades col-lg-10 col-md-10 col-sm-10 col-xs-10">
+				<!-- Imagen -->
+				<img src="<?php echo $esq['ImagenUrl']?>" class="col-xs-12 col-sm-5 col-md-5 col-lg-5">
 
-					<img src="<?php echo $esq['Url'] ?>" alt="<?php echo $esq['Alt'] ?>"/>					
-
-					<a href="visor.php?vRec=<?php echo $vImgSig ?>"  class="flecha" title="Imagen Siguiente">
-						<img src="../img/flecha_d.png" alt="Flecha hacia la derecha"/>
-					</a>
+				<!-- Título -->
+				<h1>
+						<?php echo $esq['TituloCon'] ?>
+				</h1>
+				<p class="sangria">
+					<?php echo $esq['DescripcionCon'];?>
+				</p>
 			</div>
 			<div class="clearfix"></div>
 			<!-- Comentarios -->
