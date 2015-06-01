@@ -134,6 +134,8 @@ main.col-lg-10,main.col-md-10,main.col-sm-10,main.col-xs-12
 	padding-top:1%;
 	min-height: 100%;
 	float:right;
+	animation-name:main;
+	animation-duration:1s;
 }
 .atajo
 {
@@ -193,5 +195,18 @@ section.target
 	to
 	{
 		background-color:transparent
+	}
+}
+@keyframes main
+{
+	from
+	{
+		opacity:0;
+		margin-right:-200px;
+	}
+	to
+	{
+		opacity:1;
+		margin-right:0px;
 	}
 }

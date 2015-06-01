@@ -10,6 +10,8 @@ div.menu
 	box-shadow:-1px -1px 5px #888888;
 	display:inline-block;
 	padding:0px;
+	animation-name:menu;
+	animation-duration:1s;
 }
 .menu div
 {
@@ -130,5 +132,18 @@ div.menu
 	div.menu .resalta
 	{
 		background-color:transparent;
+	}
+}
+@keyframes menu
+{
+	from
+	{
+		opacity:0;
+		margin-left:-20px;
+	}
+	to
+	{
+		opacity:1;
+		margin-left:10px;
 	}
 }
