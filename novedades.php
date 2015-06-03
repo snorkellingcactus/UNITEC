@@ -163,18 +163,18 @@
 
 	$parser=new JBBCode\Parser();
 
-	include $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/parser_definiciones.php';
+	$parser->addCodeDefinitionSet(new JBBCode\MainCodeDefinitionSet());
 
 	$parser->parse($esq['DescripcionCon']);
 
-	$esq['DescripcionCon']=$parser->getAsHtml();
+	$esq['DescripcionCon']=str_replace("\n" , "<br>" , $parser->getAsHtml());
 
 	$vNotSig=$visor->indexRecN($visor->nRecSel+1);
 	$vNotAnt=$visor->indexRecN($visor->nRecSel-1);
 ?>
 			<div class="novedades col-lg-10 col-md-10 col-sm-10 col-xs-10">
 				<!-- Imagen -->
-				<img src="<?php echo $esq['ImagenUrl']?>" class="col-xs-12 col-sm-5 col-md-5 col-lg-5">
+				<img src="<?php echo $esq['ImagenUrl']?>" class="shadow col-xs-12 col-sm-5 col-md-5 col-lg-5">
 
 				<!-- Título -->
 				<h1>

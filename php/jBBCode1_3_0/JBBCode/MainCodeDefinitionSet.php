@@ -68,6 +68,10 @@ class MainCodeDefinitionSet implements CodeDefinitionSet
         $builder = new CodeDefinitionBuilder('center', '<span class="center">{param}</span>');
         array_push($this->definitions, $builder->build());
 
+        //::::::::::LEFT:::::::::::::::
+        $builder = new CodeDefinitionBuilder('left', '<span class="left">{param}</span>');
+        array_push($this->definitions, $builder->build());
+
         //::::::::::SIZE:::::::::::::::
         $builder = new CodeDefinitionBuilder('size', '<font style="font-size:{option}px">{param}</font>');
         $builder->setUseOption(true)->setOptionParser(new \JBBCode\validators\SizeParser());
@@ -92,7 +96,7 @@ class MainCodeDefinitionSet implements CodeDefinitionSet
         array_push($this->definitions, $builder->build());
 
         //::::::::::CODE:::::::::::::::
-        $builder = new CodeDefinitionBuilder('code', '<pre class="code">{param}</pre>');
+        $builder = new CodeDefinitionBuilder('code', '<code>{param}</code>');
         array_push($this->definitions, $builder->build());
 
         //::::::::::S:::::::::::::::

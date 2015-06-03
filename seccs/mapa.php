@@ -11,7 +11,7 @@
 
     <div class="clearfix visible-xs visible-sm"></div>
 
-    <div class="left col-xs-12 col-sm-12 col-md-7 col-lg-7">
+    <div class="right col-xs-12 col-sm-12 col-md-7 col-lg-7">
         <label for="modo_viaje"  class="col-xs-12 col-sm-12 col-md-6 col-lg-6">Movilidad</label>
         <select id="modo_viaje" class="opciones_ruta col-xs-12 col-sm-12 col-md-6 col-lg-6" >
             <option value="DRIVING" selected="selected">Auto</option>
