@@ -19,6 +19,7 @@ class CodeDefinitionBuilder
     protected $parseContent = true;
     protected $nestLimit = -1;
     protected $optionValidator = array();
+    protected $optionParser = array();
     protected $bodyValidator = null;
 
     /**
@@ -96,6 +97,15 @@ class CodeDefinitionBuilder
         return $this;
     }
 
+    public function setOptionParser(\JBBCode\OptionParser $parser, $option=null)
+    {
+        if(empty($option))
+        {
+            $option=$this->tagName;
+        }
+        $this->optionParser[$option] = $parser;
+        return $this;
+    }
     /**
      * Sets the InputValidator that option arguments should be validated with.
      *
@@ -131,6 +141,15 @@ class CodeDefinitionBuilder
     }
 
     /**
+     * Removes the attached option validator if one is attached.
+     */
+    public function removeOptionParser()
+    {
+        $this->optionParser = array();
+        return $this;
+    }
+
+    /**
      * Removes the attached body validator if one is attached.
      */
     public function removeBodyValidator()
@@ -152,6 +171,7 @@ class CodeDefinitionBuilder
                                                 $this->parseContent,
                                                 $this->nestLimit,
                                                 $this->optionValidator,
+                                                $this->optionParser,
                                                 $this->bodyValidator);
         return $definition;
     }

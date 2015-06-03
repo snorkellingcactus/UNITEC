@@ -4,7 +4,7 @@ namespace JBBCode;
 
 require_once 'ElementNode.php';
 require_once 'TextNode.php';
-require_once 'DefaultCodeDefinitionSet.php';
+require_once 'MainCodeDefinitionSet.php';
 require_once 'DocumentElement.php';
 require_once 'CodeDefinition.php';
 require_once 'CodeDefinitionBuilder.php';
@@ -14,6 +14,7 @@ require_once 'ParserException.php';
 require_once 'Tokenizer.php';
 require_once 'visitors/NestLimitVisitor.php';
 require_once 'InputValidator.php';
+require_once 'OptionParser.php';
 
 use JBBCode\CodeDefinition;
 
@@ -66,7 +67,7 @@ class Parser
      * @return Parser
      */
     public function addBBCode($tagName, $replace, $useOption = false, $parseContent = true, $nestLimit = -1,
-                              InputValidator $optionValidator = null, InputValidator $bodyValidator = null)
+                              InputValidator $optionValidator = null, OptionParser $optionParser=null , InputValidator $bodyValidator = null)
     {
         $builder = new CodeDefinitionBuilder($tagName, $replace);
 
@@ -76,6 +77,11 @@ class Parser
 
         if ($optionValidator) {
             $builder->setOptionValidator($optionValidator);
+        }
+
+        if($optionParser)
+        {
+            $builder->setOptionParser($optionParser);
         }
 
         if ($bodyValidator) {

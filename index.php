@@ -78,7 +78,7 @@ function nSec($visible , $orden , $tipo , $valor , $edita=false)
 
 if(isset($_SESSION['adminID']))
 {
-
+/*
 	echo '<pre>SESSION: ';
 	print_r($_SESSION);
 	echo '</pre>';
@@ -86,7 +86,7 @@ if(isset($_SESSION['adminID']))
 	echo '<pre>POST: ';
 	print_r($_POST);
 	echo '</pre>';
-
+*/
 	if(isset($_POST['nSec']) || isset($_POST['nCon']))
 	{
 		$lugar=$_POST['Lugar'];

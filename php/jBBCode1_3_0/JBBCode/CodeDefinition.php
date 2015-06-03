@@ -32,6 +32,9 @@ class CodeDefinition
     /* The input validator to run options through */
     protected $optionValidator;
 
+    /* The input validator to run options through */
+    protected $optionParser;
+
     /* The input validator to run the body ({param}) through */
     protected $bodyValidator;
 
@@ -39,7 +42,7 @@ class CodeDefinition
      * Constructs a new CodeDefinition.
      */
     public static function construct($tagName, $replacementText, $useOption = false,
-            $parseContent = true, $nestLimit = -1, $optionValidator = array(),
+            $parseContent = true, $nestLimit = -1, $optionValidator = array(),$optionParser=array(),
             $bodyValidator = null)
     {
         $def = new CodeDefinition();                            
@@ -50,6 +53,7 @@ class CodeDefinition
         $def->parseContent = $parseContent;
         $def->nestLimit = $nestLimit;
         $def->optionValidator = $optionValidator;
+        $def->optionParser = $optionParser;
         $def->bodyValidator = $bodyValidator;
         return $def;
      }
@@ -83,14 +87,23 @@ class CodeDefinition
      */
     public function hasValidInputs(ElementNode $el)
     {
-        if ($this->usesOption() && $this->optionValidator) {
+        if ($this->usesOption() || $this->optionValidator) {
             $att = $el->getAttribute();
 
             foreach($att as $name => $value){
-                if(isset($this->optionValidator[$name]) && !$this->optionValidator[$name]->validate($value)){
+                if($this->optionValidator && isset($this->optionValidator[$name]) && !$this->optionValidator[$name]->validate($value)){
                     return false;
                 }
+                //A medida que se van verificando que las condiciones son válidas
+                //voy parseando los valores de los attributos para los casos
+                //donde es necesario manipularlos en el momento previo al reemplazo.
+                if(isset($this->optionParser[$name]))
+                {
+                    $att[$name]=$this->optionParser[$name]->parse($value);
+                }
             }
+
+            $el->setAttribute($att);
         }
 
         if (!$this->parseContent() && $this->bodyValidator) {
