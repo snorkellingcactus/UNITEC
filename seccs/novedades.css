@@ -8,14 +8,14 @@ Por bootstrap, que le da a las imágenes 15px de padding.
 */
 .novedad p{margin-left:15px;margin-top:0px;font-size:1.2em;letter-spacing:1px;word-spacing:3px;}
 .novedad p img{float:none;}
-.novedad p pre.code{float:none;display:block;}
+.novedad p pre.code, blockquote .code{float:none;display:block;}
 .novedad table{border:1px solid gray;}
 .novedad iframe{position:static;}
 .novedad .fecha{text-align:right;color:dimgray;clear:both;margin-top:1em}
 .novID{float:right;}
 
 .novedad input[type="checkbox"]{position:absolute;right:0;top:0}
-.novedad p.sangria::first-letter
+.novedad .sangria::first-letter
 {
 	margin:6px 15px 0px 0px;
 	text-shadow:0px 0px 2px black;

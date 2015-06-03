@@ -27,7 +27,7 @@ a:hover
 {
 	color:white;
 }
-p.sangria::first-letter
+.sangria::first-letter
 {
 	float:left;
 	margin-top:6px;
@@ -37,6 +37,7 @@ p.sangria::first-letter
 	color:#F5F5F5;
 	text-transform:uppercase;
 }
+.acciones input, .acciones select{float:none;}
 /*::::HEADER::::*/
 .header
 {
@@ -136,6 +137,10 @@ main.col-lg-10,main.col-md-10,main.col-sm-10,main.col-xs-12
 	float:right;
 	animation-name:main;
 	animation-duration:1s;
+	-moz-animation-name:main;
+	-moz-animation-duration:1s
+	-webkit-animation-name:main;
+	-webkit-animation-duration:1s;
 }
 .atajo
 {
@@ -165,15 +170,26 @@ font.through{text-decoration:line-through;}
 .sep{height:1px;border-top:2px dashed gray;}
 .sep:first-of-type{border:0px solid;}
 
+body label, body input ,body select{font-size:1em;color:black;font-family:monospace;text-align:center;float:right}
+body label{float:left;margin:0px;}
+
 section.target
 {
 	animation-name:sectionBackground;
 	animation-duration:1s;
+	-moz-animation-name:sectionBackground;
+	-moz-animation-duration:1s;
+	-webkit-animation-name:sectionBackground;
+	-webkit-animation-duration:1s;
 }
 .target, :target
 {
 	animation-name:allAnchor;
 	animation-duration:1s;
+	-moz-animation-name:allAnchor;
+	-moz-animation-duration:1s;
+	-webkit-animation-name:allAnchor;
+	-webkit-animation-duration:1s;
 }
 @keyframes sectionBackground
 {
@@ -198,6 +214,54 @@ section.target
 	}
 }
 @keyframes main
+{
+	from
+	{
+		opacity:0;
+		margin-right:-200px;
+	}
+	to
+	{
+		opacity:1;
+		margin-right:0px;
+	}
+}
+@-moz-keyframes allAnchor
+{
+	from
+	{
+		background-color:yellow;
+	}
+	to
+	{
+		background-color:transparent
+	}
+}
+@-moz-keyframes main
+{
+	from
+	{
+		opacity:0;
+		margin-right:-200px;
+	}
+	to
+	{
+		opacity:1;
+		margin-right:0px;
+	}
+}
+@-webkit-keyframes allAnchor
+{
+	from
+	{
+		background-color:yellow;
+	}
+	to
+	{
+		background-color:transparent
+	}
+}
+@-webkit-keyframes main
 {
 	from
 	{
