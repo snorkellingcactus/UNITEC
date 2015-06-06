@@ -45,6 +45,13 @@ h2,h1
 	padding:0px;
 	overflow:scroll;
 }
+.wysibb-text-editor a
+{
+	line-height:auto;
+	background-color:transparent;
+	box-shadow:none;
+	color:blue;
+}
 .comentarios
 {
 	padding-top:20px;

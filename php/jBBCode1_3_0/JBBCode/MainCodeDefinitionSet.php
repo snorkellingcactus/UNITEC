@@ -73,13 +73,13 @@ class MainCodeDefinitionSet implements CodeDefinitionSet
         array_push($this->definitions, $builder->build());
 
         //::::::::::SIZE:::::::::::::::
-        $builder = new CodeDefinitionBuilder('size', '<font style="font-size:{option}px">{param}</font>');
+        $builder = new CodeDefinitionBuilder('size', '<span style="font-size:{option}px">{param}</span>');
         $builder->setUseOption(true)->setOptionParser(new \JBBCode\validators\SizeParser());
 
         array_push($this->definitions, $builder->build());
 
         //::::::::::FONT:::::::::::::::
-        $builder = new CodeDefinitionBuilder('font', '<font family="{option}">{param}</font>');
+        $builder = new CodeDefinitionBuilder('font', '<span style="font-family:{option}">{param}</span>');
         $builder->setUseOption(true);
         array_push($this->definitions, $builder->build());
 
@@ -100,7 +100,7 @@ class MainCodeDefinitionSet implements CodeDefinitionSet
         array_push($this->definitions, $builder->build());
 
         //::::::::::S:::::::::::::::
-        $builder = new CodeDefinitionBuilder('s', '<font class="through">{param}</font>');
+        $builder = new CodeDefinitionBuilder('s', '<span class="through">{param}</span>');
         array_push($this->definitions, $builder->build());
 
         //::::::::::TABLE:::::::::::::::

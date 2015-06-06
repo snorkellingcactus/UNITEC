@@ -295,8 +295,8 @@ if(session_status()==PHP_SESSION_NONE)
 				?>
 				<div class="clearfix visible-xs"></div>
 				<!--Contenedor de la descripción de la mitad del ancho. -->
-				<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-					<ul class="desc">
+				<div class="desc col-xs-12 col-sm-6 col-md-6 col-lg-6">
+					<ul>
 
 				<?php
 					echo $desc;

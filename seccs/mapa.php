@@ -22,7 +22,7 @@
         <div class="clearfix"></div>
 
         <label for="unidad"  class="col-xs-12 col-sm-12 col-md-6 col-lg-6">Medir en</label>
-        <select id="tipo_sistema"  class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+        <select id="unidad"  class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
             <option value="METRIC" selected="selected">Metros</option>
             <option value="IMPERIAL">Imperial</option>
         </select>

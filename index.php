@@ -78,7 +78,7 @@ function nSec($visible , $orden , $tipo , $valor , $edita=false)
 
 if(isset($_SESSION['adminID']))
 {
-/*
+
 	echo '<pre>SESSION: ';
 	print_r($_SESSION);
 	echo '</pre>';
@@ -86,7 +86,7 @@ if(isset($_SESSION['adminID']))
 	echo '<pre>POST: ';
 	print_r($_POST);
 	echo '</pre>';
-*/
+
 	if(isset($_POST['nSec']) || isset($_POST['nCon']))
 	{
 		$lugar=$_POST['Lugar'];
@@ -153,7 +153,10 @@ if(isset($_SESSION['adminID']))
 		}
 		else
 		{
-			$padreID=$_POST['conID'];
+			if($tipo!==0)
+			{
+				$padreID=$_POST['conID'];
+			}
 		}
 		if($tipo!==0)
 		{	
@@ -216,6 +219,36 @@ if(isset($_SESSION['adminID']))
 			$_POST['conID']=$padreID;
 		}
 		nSec($_POST['Visible'][0] , $nOrden , $tipo , $valor , $edita);
+
+		if($_POST['Agregar_al_menu'][0]==='1')
+		{
+			global $con,$afectado;
+
+			$menu=new SQL_Obj($con , 'Menu' , ['ID','ContenidoID','SeccionID'=>$afectado,'Url','Prioridad','Visible']);
+
+			$menu->getSQL();
+
+			if(empty($menu->ID))
+			{
+				include_once($_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/nTraduccion.php');
+
+				$menu->Prioridad=fetch_all($con->query('select max(Prioridad) from Menu') , MYSQLI_NUM)[0][0];
+
+				$menu->insForaneas
+				(
+					nTraduccion
+					(
+						$_POST['Titulo'][0],
+						$_SESSION['lang']
+					),
+					[
+						'ContenidoID'=>'ContenidoID'
+					]
+				);
+
+				$menu->insSQL();
+			}
+		}
 
 		unset($_SESSION['accion'] , $_SESSION['form'] , $_SESSION['conID']);
 	}

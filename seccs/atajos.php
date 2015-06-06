@@ -24,8 +24,7 @@
 		$accesStr=$accesStr.'<span class="atajo">'.$accesKey[$i].'</span><span class="mas">+</span>';
 	}
 ?>
-<span class="hidden-xs">
-<div class="portada" id="atajos">
+<div class="portada hidden-xs">
 
 	<h1>Atajos</h1>
 	<table class="table" >
@@ -76,4 +75,3 @@
 		</tr>		
 	</table>
 </div>
-</span>
