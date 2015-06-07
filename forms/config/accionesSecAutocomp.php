@@ -29,6 +29,7 @@
 			MYSQLI_NUM
 		)[0][0];
 		$autocomp['Lugar']=$_POST['Orden'];
+		$autocomp['Agregar al menu']=1;
 		//$autocomp['Titulo']=getTraduccion($imagen['TituloID'] , $_SESSION['lang']);
 
 		echo '<pre>';

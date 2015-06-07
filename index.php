@@ -37,13 +37,13 @@ function echoLang($langSQLRes)
 
 include_once($_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/conexion.php');
 
-function nSec($visible , $orden , $tipo , $valor , $edita=false)
+function nSec($visible , $orden , $tipo , $valor , $edita=false , $htmlID=NULL)
 {
 	global $con , $afectado;
 	
 	include_once($_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/SQL_Obj.php');
 
-	$nSec=new SQL_Obj($con, 'Secciones', ['ID','Visible','Prioridad','ModuloID','ContenidoID','PadreID']);
+	$nSec=new SQL_Obj($con, 'Secciones', ['ID','Visible','Prioridad','ModuloID','ContenidoID','PadreID','HTMLID']);
 
 	if(isset($_POST['conID']))
 	{
@@ -60,6 +60,7 @@ function nSec($visible , $orden , $tipo , $valor , $edita=false)
 
 	$nSec->Prioridad=$orden;
 	$nSec->Visible=$visible;
+	$nSec->HTMLID=$htmlID;
 
 	if($edita!==false)
 	{
@@ -99,6 +100,7 @@ if(isset($_SESSION['adminID']))
 		$inc='';
 		$tipo=0;
 		$valor=NULL;
+		$htmlID=NULL;
 
 		if(isset($_POST['nCon']))
 		{
@@ -218,13 +220,19 @@ if(isset($_SESSION['adminID']))
 			$edita=$_SESSION['conID'];
 			$_POST['conID']=$padreID;
 		}
-		nSec($_POST['Visible'][0] , $nOrden , $tipo , $valor , $edita);
 
-		if($_POST['Agregar_al_menu'][0]==='1')
+		if(!empty($_POST['Titulo'][0]))
+		{
+			$htmlID=htmlentities($_POST['Titulo'][0]);
+		}
+
+		nSec($_POST['Visible'][0] , $nOrden , $tipo , $valor , $edita , $htmlID);
+
+		if($htmlID!==NULL && $_POST['Agregar_al_menu'][0]==='1')
 		{
 			global $con,$afectado;
 
-			$menu=new SQL_Obj($con , 'Menu' , ['ID','ContenidoID','SeccionID'=>$afectado,'Url','Prioridad','Visible']);
+			$menu=new SQL_Obj($con , 'Menu' , ['ID','ContenidoID','SeccionID'=>$htmlID,'Url','Prioridad','Visible']);
 
 			$menu->getSQL();
 
@@ -233,6 +241,7 @@ if(isset($_SESSION['adminID']))
 				include_once($_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/nTraduccion.php');
 
 				$menu->Prioridad=fetch_all($con->query('select max(Prioridad) from Menu') , MYSQLI_NUM)[0][0];
+				$menu->Url='#'.rawurlencode($_POST['Titulo'][0]);
 
 				$menu->insForaneas
 				(
@@ -445,7 +454,7 @@ if(isset($_SESSION['adminID']))
 				//Obtengo las opciones.
 				$secciones=$con->query
 				(
-					'	SELECT ID,Visible,Prioridad
+					'	SELECT ID,Visible,Prioridad,HTMLID
 						FROM Secciones
 						WHERE PadreID IS NULL
 						ORDER BY Prioridad ASC
@@ -468,6 +477,7 @@ if(isset($_SESSION['adminID']))
 					$seccion=$secciones[$s];
 
 					$id=$seccion['ID'];
+					$htmlID=$seccion['HTMLID'];
 					$clase='';
 					$tipo=0;
 
@@ -484,7 +494,15 @@ if(isset($_SESSION['adminID']))
 					}
 */
 					?>
-						<section id="<?php echo $id?>" <?php echo $clase?>>
+						<section 
+							<?php
+								if($htmlID!==NULL)
+								{
+									?>id="<?php echo $htmlID ?>"<?php
+								}
+								echo $clase;
+							?>
+						>
 
 						<div class="clearfix">
 							<?php
@@ -497,7 +515,7 @@ if(isset($_SESSION['adminID']))
 
 					$includes=$con->query
 					(
-						'	SELECT Secciones.ID , Secciones.Visible , Secciones.Prioridad , Modulos.Archivo, Contenidos.ID as ContenidoID
+						'	SELECT Secciones.ID , Secciones.Visible , Secciones.Prioridad , Secciones.HTMLID, Modulos.Archivo, Contenidos.ID as ContenidoID
 							FROM Secciones
 							left outer JOIN Modulos
 							ON Modulos.ID = Secciones.ModuloID
@@ -521,6 +539,7 @@ if(isset($_SESSION['adminID']))
 						//echo '<pre>Include N '.$f.'</pre>';
 						$include=$includes[$f];
 						$id=$include['ID'];
+						$htmlID=$include['HTMLID'];
 						$Orden=$f;
 
 						if($include['ContenidoID']!==NULL)
@@ -558,7 +577,14 @@ if(isset($_SESSION['adminID']))
 							}
 
 							?>
-								<div class="contenido <?php echo $clase?>">
+								<div class="contenido <?php echo $clase?>"
+									<?php
+										if($htmlID!==NULL)
+										{
+											?>id="<?php echo $htmlID ?>"<?php
+										}
+									?>
+								>
 									<?php
 										echo $parser->getAsHtml();
 									?>
@@ -598,7 +624,14 @@ if(isset($_SESSION['adminID']))
 								<?php
 							}
 							?>
-								<div class="modulo <?php echo $clase?>" >
+								<div class="modulo <?php echo $clase?>" 
+									<?php
+										if($htmlID!==NULL)
+										{
+											?>id="<?php echo $htmlID ?>"<?php
+										}
+									?>
+								>
 									<?php
 										include($include['Archivo']);
 									?>

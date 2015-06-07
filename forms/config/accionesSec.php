@@ -21,6 +21,14 @@
 		[
 			'selector_si_no.php',
 			'Visible'
+		],
+		[
+			'input_text.php',
+			'Titulo'
+		],
+		[
+			'selector_si_no.php',
+			'Agregar al menu'
 		]
 	];
 ?>

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 20-05-2015 a las 04:14:56
+-- Tiempo de generación: 07-06-2015 a las 04:41:33
 -- Versión del servidor: 5.6.24
 -- Versión de PHP: 5.6.8
 
@@ -34,7 +34,17 @@ CREATE TABLE IF NOT EXISTS `Comentarios` (
   `Fecha` datetime NOT NULL,
   `Baneado` bit(1) NOT NULL,
   `Nombre` varchar(128) COLLATE utf8_unicode_ci DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `Comentarios`
+--
+
+INSERT INTO `Comentarios` (`ID`, `ContenidoID`, `RaizID`, `PadreID`, `Fecha`, `Baneado`, `Nombre`) VALUES
+(1, 208, 156, 156, '2015-05-31 23:59:29', b'0', 'hola'),
+(2, 209, 156, 208, '2015-05-31 23:59:38', b'0', 'Mundo'),
+(3, 225, 139, 139, '2015-06-06 06:24:59', b'0', 'hola'),
+(4, 226, 139, 225, '2015-06-06 06:25:22', b'0', 'Que tal');
 
 -- --------------------------------------------------------
 
@@ -44,7 +54,7 @@ CREATE TABLE IF NOT EXISTS `Comentarios` (
 
 CREATE TABLE IF NOT EXISTS `Contenidos` (
   `ID` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=179 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=239 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Volcado de datos para la tabla `Contenidos`
@@ -122,7 +132,6 @@ INSERT INTO `Contenidos` (`ID`) VALUES
 (126),
 (127),
 (139),
-(140),
 (141),
 (146),
 (147),
@@ -134,9 +143,38 @@ INSERT INTO `Contenidos` (`ID`) VALUES
 (168),
 (169),
 (171),
-(172),
-(173),
-(174);
+(181),
+(183),
+(189),
+(192),
+(196),
+(201),
+(202),
+(203),
+(204),
+(205),
+(208),
+(209),
+(212),
+(215),
+(216),
+(217),
+(218),
+(220),
+(222),
+(223),
+(224),
+(225),
+(226),
+(227),
+(228),
+(229),
+(230),
+(231),
+(232),
+(236),
+(237),
+(238);
 
 -- --------------------------------------------------------
 
@@ -151,7 +189,16 @@ CREATE TABLE IF NOT EXISTS `Eventos` (
   `DescripcionID` int(11) DEFAULT NULL,
   `Visible` tinyint(1) NOT NULL DEFAULT '1',
   `Prioridad` int(11) NOT NULL DEFAULT '1'
-) ENGINE=InnoDB AUTO_INCREMENT=84 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=88 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `Eventos`
+--
+
+INSERT INTO `Eventos` (`ID`, `Tiempo`, `Nombre`, `DescripcionID`, `Visible`, `Prioridad`) VALUES
+(85, '2015-05-22 12:00:00', 'Algo loco que hacer en cubano y editado', 189, 1, 1),
+(86, '2015-06-07 12:00:00', 'Un evento para maÃ±anÃ¡', 223, 1, 1),
+(87, '2015-06-20 18:00:00', 'Demasiado viejo para ser joven', 224, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -167,7 +214,7 @@ CREATE TABLE IF NOT EXISTS `Imagenes` (
   `LenguajeID` int(11) DEFAULT NULL,
   `Visible` tinyint(1) NOT NULL DEFAULT '1',
   `Prioridad` int(11) NOT NULL DEFAULT '1'
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Volcado de datos para la tabla `Imagenes`
@@ -175,9 +222,9 @@ CREATE TABLE IF NOT EXISTS `Imagenes` (
 
 INSERT INTO `Imagenes` (`ID`, `Url`, `Alt`, `TituloID`, `LenguajeID`, `Visible`, `Prioridad`) VALUES
 (27, 'http://localhost/Web/imgsEj/img03.jpg', '', 139, 1, 1, 30),
-(28, 'http://localhost/Web/imgsEj/img00.jpg', '', 140, 1, 1, 1),
 (29, 'http://localhost/Web/imgsEj/img02.jpg', '', 141, 1, 1, 7),
-(30, 'http://localhost/Web/imgsEj/img04.jpg', '', 156, 1, 1, 17);
+(30, 'http://localhost/Web/imgsEj/img04.jpg', '', 156, 1, 1, 17),
+(31, 'http://localhost/Web/imgsEj/img00.jpg', '', 183, 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -210,20 +257,18 @@ INSERT INTO `Lenguajes` (`ID`, `Nombre`, `Pais`) VALUES
 CREATE TABLE IF NOT EXISTS `Menu` (
   `ID` int(11) NOT NULL,
   `ContenidoID` int(11) NOT NULL,
-  `SeccionID` int(11) DEFAULT NULL,
+  `SeccionID` varchar(128) COLLATE utf8_unicode_ci DEFAULT NULL,
   `Url` varchar(256) COLLATE utf8_unicode_ci DEFAULT '#',
   `Prioridad` int(11) DEFAULT NULL,
   `Visible` tinyint(1) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Volcado de datos para la tabla `Menu`
 --
 
 INSERT INTO `Menu` (`ID`, `ContenidoID`, `SeccionID`, `Url`, `Prioridad`, `Visible`) VALUES
-(2, 172, NULL, '#gal', 10, 1),
-(3, 173, NULL, '#nov', 20, 1),
-(4, 174, NULL, '#mapa', 5, 1);
+(6, 238, 'Pasant&iacute;a edetec', '#Pasant%C3%ADa%20edetec', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -237,7 +282,7 @@ CREATE TABLE IF NOT EXISTS `Modulos` (
   `Archivo` varchar(256) COLLATE utf8_unicode_ci NOT NULL,
   `Descripcion` text COLLATE utf8_unicode_ci,
   `PadreID` int(11) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Volcado de datos para la tabla `Modulos`
@@ -254,7 +299,9 @@ INSERT INTO `Modulos` (`ID`, `Nombre`, `Archivo`, `Descripcion`, `PadreID`) VALU
 (11, 'Mapa', 'seccs/mapa.php', NULL, NULL),
 (12, 'Novedades', 'seccs/novedades.php', NULL, NULL),
 (13, NULL, 'seccs/novedades.css', NULL, 12),
-(14, NULL, 'seccs/mapa.css', NULL, 11);
+(14, NULL, 'seccs/mapa.css', NULL, 11),
+(15, 'Contacto', 'seccs/contacto.php', 'Un formulario de contacto.', NULL),
+(16, NULL, 'seccs/contacto.css', NULL, 15);
 
 -- --------------------------------------------------------
 
@@ -270,14 +317,15 @@ CREATE TABLE IF NOT EXISTS `Novedades` (
   `Fecha` date NOT NULL,
   `Visible` tinyint(1) DEFAULT '1',
   `Prioridad` int(11) DEFAULT '1'
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Volcado de datos para la tabla `Novedades`
 --
 
 INSERT INTO `Novedades` (`ID`, `ImagenID`, `TituloID`, `DescripcionID`, `Fecha`, `Visible`, `Prioridad`) VALUES
-(4, 28, 147, 146, '2015-05-12', 1, 1);
+(13, 31, 216, 215, '2015-06-03', 1, 1),
+(14, 31, 218, 217, '2015-06-03', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -304,21 +352,26 @@ CREATE TABLE IF NOT EXISTS `Secciones` (
   `ContenidoID` int(11) DEFAULT NULL,
   `ModuloID` int(128) DEFAULT NULL,
   `PadreID` int(11) DEFAULT NULL,
+  `HTMLID` varchar(128) COLLATE utf8_unicode_ci DEFAULT NULL,
   `Visible` tinyint(1) DEFAULT NULL,
   `Prioridad` int(11) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=246 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=358 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Volcado de datos para la tabla `Secciones`
 --
 
-INSERT INTO `Secciones` (`ID`, `ContenidoID`, `ModuloID`, `PadreID`, `Visible`, `Prioridad`) VALUES
-(240, NULL, NULL, NULL, 1, 2),
-(241, NULL, 8, 240, 1, 1),
-(242, NULL, NULL, NULL, 1, 3),
-(243, NULL, 1, 242, 1, 1),
-(244, NULL, NULL, NULL, 1, 4),
-(245, NULL, 12, 244, 1, 1);
+INSERT INTO `Secciones` (`ID`, `ContenidoID`, `ModuloID`, `PadreID`, `HTMLID`, `Visible`, `Prioridad`) VALUES
+(341, NULL, NULL, NULL, 'hh', 1, 1),
+(342, NULL, 1, 341, NULL, 1, 2),
+(343, 227, NULL, 341, NULL, 1, 1),
+(344, NULL, NULL, NULL, NULL, 1, 2),
+(345, NULL, NULL, NULL, NULL, 1, 3),
+(346, NULL, 8, 344, NULL, 1, 1),
+(347, NULL, 11, 345, NULL, 1, 1),
+(348, NULL, NULL, NULL, NULL, 1, 4),
+(349, NULL, 15, 348, NULL, 1, 1),
+(357, NULL, NULL, NULL, 'Pasant&iacute;a edetec', 1, 5);
 
 -- --------------------------------------------------------
 
@@ -331,7 +384,7 @@ CREATE TABLE IF NOT EXISTS `Traducciones` (
   `ContenidoID` int(11) NOT NULL,
   `LenguajeID` int(11) NOT NULL,
   `Texto` text COLLATE utf8_unicode_ci
-) ENGINE=InnoDB AUTO_INCREMENT=194 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=276 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Volcado de datos para la tabla `Traducciones`
@@ -406,9 +459,8 @@ INSERT INTO `Traducciones` (`ID`, `ContenidoID`, `LenguajeID`, `Texto`) VALUES
 (138, 126, 1, '   asxasx'),
 (139, 127, 1, '   kkkkkkkkkkkkkkkk'),
 (151, 139, 1, 'El Pianito editado'),
-(152, 140, 1, 'Una Gibson SG editada'),
 (153, 141, 1, 'El Pianito editado'),
-(158, 146, 1, '         asxasx'),
+(158, 146, 1, '            asxasx'),
 (159, 147, 1, 'asxasx123adcasdc'),
 (168, 156, 1, 'Otro pianito'),
 (172, 160, 1, 'Novedades'),
@@ -418,10 +470,44 @@ INSERT INTO `Traducciones` (`ID`, `ContenidoID`, `LenguajeID`, `Texto`) VALUES
 (180, 168, 1, 'Mapa'),
 (181, 169, 1, 'Novedades'),
 (183, 171, 1, 'Mapa'),
-(184, 172, 1, 'Galeria'),
-(185, 173, 1, 'Novedades'),
-(186, 174, 1, 'Mapa'),
-(193, 173, 2, 'News');
+(197, 146, 2, '   Este texto estÃ¡ en inglÃ©s'),
+(198, 147, 2, 'En ingles'),
+(203, 181, 1, '   Hola Mundo en Espa&ntilde;ol'),
+(206, 183, 1, 'Una Gibson SG esp'),
+(214, 189, 1, 'Algo loco que hacer en espa&ntilde;ol'),
+(215, 189, 2, 'Algo loco que hacer en espaÃ±ol'),
+(216, 189, 3, 'Algo loco que hacer en espaÃ±ol'),
+(219, 192, 1, '   ergertretgertgertgretg'),
+(223, 196, 1, '   UN texto en esp'),
+(235, 201, 2, '      Hola [u]Mundo[/u]'),
+(236, 202, 1, '   [center][size=100]ï»¿[/size][b][size=100]Seccion A[/size]\r\n[/b][/center][center]ï»¿[/center]'),
+(237, 203, 1, '                     [b]Subtitulo 1\r\n[/b]'),
+(238, 204, 1, '   [center][size=200][b]Seccion A\r\n[/b][/size][/center]'),
+(239, 205, 1, '      [center][size=200][b]Seccion B\r\n[/b][/size][/center]'),
+(242, 183, 2, 'Una Gibson SG ing'),
+(244, 204, 2, '      [center][size=200][b]Seccion A\r\n[/b][/size][/center]'),
+(245, 208, 1, 'mundo'),
+(246, 209, 1, 'Hola'),
+(249, 212, 1, '            [size=150]            [font=Times New Roman][size=200][b]   Dejanos Tu sugerencia[/b][/size][/font][/size]'),
+(252, 215, 1, '   Las utilidades de conversiÃ³n de formatos de archivos son muy socorridas en muchos escenarios, pero a menudo tenemos que enfrentarnos a\r\n una utilidad por cada tipo de archivo (una para vÃ­deo, otra para \r\nimÃ¡genes, etc), algo que hace ese proceso algo incÃ³modo. \r\nAfortunadamente, tenemos opciones para unificar todas esas tareas de \r\nconversiÃ³n, [b]como por ejemplo la fantÃ¡stica utilidad[/b]\r\nLa hemos descubierto gracias a un correo electrÃ³nico de Cristian Merlos, del grupo JMMING Hackers de El Salvador (Gracias Cristian) y la \r\nverdad es que la capacidad de FF-Multi-Converter es muy interesante, \r\naunque como [url=https://github.com/Ilias95/FF-Multi-Converter/wiki/FF-Multi-Converter/0023e6cf89b1e12db7f66b34d2dbe6a471f347a1]explica su autor[/url] en la [url=https://github.com/Ilias95/FF-Multi-Converter]pÃ¡gina del proyecto en GitHub[/url], en realidad [b]se trata â€œtan soloâ€ de una interfaz grÃ¡fica o GUI para varias utilidades reales[/b] que se combinan y se utilizan segÃºn el caso.\r\nAsÃ­, hace uso del cÃ©lebre [url=http://ffmpeg.org/]ffmpeg[/url] para la [b]conversiÃ³n de ficheros de audio y vÃ­deo[/b], de [url=http://freecode.com/projects/unoconv]unoconv[/url] para la conversiÃ³n de documentos ofimÃ¡ticos) y de la librerÃ­a PIL ([url=http://effbot.org/zone/pil-index.htm]Python Imaging Library[/url]) para la conversiÃ³n de imÃ¡genes.\r\nObviamente [b]necesitarÃ©is instalar no solo FF-Multi-Converter, sino las utilidades de las que hace uso[/b], y otras dependencias como python2 y PyQt4. Para la conversiÃ³n de \r\ndocumentos ofimÃ¡ticos es necesario tener instalado OpenOffice.org o bien\r\n LibreOffice, que incluyen las funciones de conversiÃ³n UNO que usa el \r\nconversor unoconv.\r\n\r\n\r\n[center][url=http://www.muylinux.com/wp-content/uploads/2011/12/ff-multi-converter.png][img width=320,height=310]http://www.muylinux.com/wp-content/uploads/2011/12/ff-multi-converter.png[/img][/url]\r\n[/center]\r\nEn Ubuntu la instalaciÃ³n se puede [b]realizar a travÃ©s de un PPA[/b] con los siguientes comandos\r\nsudo add-apt-repository ppa:ffmulticonverter/stablesudo apt-get update\r\nsudo apt-get install ffmulticonverterOs dejamos con [b]algunas capturas[/b] (enviadas tambiÃ©n por Cristian) para que podÃ¡is comprobar el aspecto de esa interfaz tan \r\nÃºtil para convertir entre formatos de archivos.\r\n[left]      \r\n[url=http://www.muylinux.com/wp-content/uploads/2011/12/ff-multi-converter.png][img width=320,height=310]http://www.muylinux.com/wp-content/uploads/2011/12/ff-multi-converter.png[/img][/url][url=http://www.muylinux.com/wp-content/uploads/2011/12/multiconverter-documentos.png][img width=360,height=330]http://www.muylinux.com/wp-content/uploads/2011/12/multiconverter-documentos-360x330.png[/img][/url]\r\n[url=http://www.muylinux.com/wp-content/uploads/2011/12/multiconverter-Video.png][img width=360,height=330]http://www.muylinux.com/wp-content/uploads/2011/12/multiconverter-Video-360x330.png[/img][/url][url=http://www.muylinux.com/wp-content/uploads/2011/12/multiconverter-imagen.png][img width=414,height=330]http://www.muylinux.com/wp-content/uploads/2011/12/multiconverter-imagen-360x330.png[/img][/url][/left][url=http://www.muylinux.com/wp-content/uploads/2011/12/multiconverter-principal.png][img width=360,height=330]http://www.muylinux.com/wp-content/uploads/2011/12/multiconverter-principal-360x330.png[/img][/url][url=http://www.muylinux.com/wp-content/uploads/2011/12/multiconverter-audio.png][img width=360,height=330]http://www.muylinux.com/wp-content/uploads/2011/12/multiconverter-audio-360x330.png[/img][/url]'),
+(253, 216, 1, 'FF-Multi-Converter, convierte imÃ¡genes, audio, vÃ­deo y documentos'),
+(254, 217, 1, '               Las utilidades de conversi&oacute;n de formatos de archivos son muy socorridas en muchos escenarios, pero a menudo tenemos que enfrentarnos a\r\n una utilidad por cada tipo de archivo (una para v&iacute;deo, otra para \r\nim&aacute;genes, etc), algo que hace ese proceso algo inc&oacute;modo. \r\nAfortunadamente, tenemos opciones para unificar todas esas tareas de \r\nconversi&oacute;n, [b]como por ejemplo la fant&aacute;stica utilidad[/b]\r\nLa hemos descubierto gracias a un correo electr&oacute;nico de Cristian Merlos, del grupo JMMING Hackers de El Salvador (Gracias Cristian) y la \r\nverdad es que la capacidad de FF-Multi-Converter es muy interesante, \r\naunque como [url=https://github.com/Ilias95/FF-Multi-Converter/wiki/FF-Multi-Converter/0023e6cf89b1e12db7f66b34d2dbe6a471f347a1]explica su autor[/url] en la [url=https://github.com/Ilias95/FF-Multi-Converter]p&aacute;gina del proyecto en GitHub[/url], en realidad [b]se trata &ldquo;tan solo&rdquo; de una interfaz gr&aacute;fica o GUI para varias utilidades reales[/b] que se combinan y se utilizan seg&uacute;n el caso.\r\nAs&iacute;, hace uso del c&eacute;lebre [url=http://ffmpeg.org/]ffmpeg[/url] para la [b]conversi&oacute;n de ficheros de audio y v&iacute;deo[/b], de [url=http://freecode.com/projects/unoconv]unoconv[/url] para la conversi&oacute;n de documentos ofim&aacute;ticos) y de la librer&iacute;a PIL ([url=http://effbot.org/zone/pil-index.htm]Python Imaging Library[/url]) para la conversi&oacute;n de im&aacute;genes.\r\nObviamente [b]necesitar&eacute;is instalar no solo FF-Multi-Converter, sino las utilidades de las que hace uso[/b], y otras dependencias como python2 y PyQt4. Para la conversi&oacute;n de \r\ndocumentos ofim&aacute;ticos es necesario tener instalado OpenOffice.org o bien\r\n LibreOffice, que incluyen las funciones de conversi&oacute;n UNO que usa el \r\nconversor unoconv.\r\n\r\n[url=http://www.muylinux.com/wp-content/uploads/2011/12/ff-multi-converter.png][img width=320,height=310]http://www.muylinux.com/wp-content/uploads/2011/12/ff-multi-converter.png[/img][/url]\r\nEn Ubuntu la instalaci&oacute;n se puede [b]realizar a trav&eacute;s de un PPA[/b] con los siguientes comandos\r\nsudo add-apt-repository ppa:ffmulticonverter/stablesudo apt-get update\r\nsudo apt-get install ffmulticonverterOs dejamos con [b]algunas capturas[/b] (enviadas tambi&eacute;n por Cristian) para que pod&aacute;is comprobar el aspecto de esa interfaz tan \r\n&uacute;til para convertir entre formatos de archivos.\r\n[left]      \r\n[url=http://www.muylinux.com/wp-content/uploads/2011/12/ff-multi-converter.png][img width=320,height=310]http://www.muylinux.com/wp-content/uploads/2011/12/ff-multi-converter.png[/img][/url][url=http://www.muylinux.com/wp-content/uploads/2011/12/multiconverter-documentos.png][img width=360,height=330]http://www.muylinux.com/wp-content/uploads/2011/12/multiconverter-documentos-360x330.png[/img][/url]\r\n[url=http://www.muylinux.com/wp-content/uploads/2011/12/multiconverter-Video.png][img width=360,height=330]http://www.muylinux.com/wp-content/uploads/2011/12/multiconverter-Video-360x330.png[/img][/url][url=http://www.muylinux.com/wp-content/uploads/2011/12/multiconverter-imagen.png][img width=414,height=330]http://www.muylinux.com/wp-content/uploads/2011/12/multiconverter-imagen-360x330.png[/img][/url][/left][url=http://www.muylinux.com/wp-content/uploads/2011/12/multiconverter-principal.png][img width=360,height=330]http://www.muylinux.com/wp-content/uploads/2011/12/multiconverter-principal-360x330.png[/img][/url][url=http://www.muylinux.com/wp-content/uploads/2011/12/multiconverter-audio.png][img width=360,height=330]http://www.muylinux.com/wp-content/uploads/2011/12/multiconverter-audio-360x330.png[/img][/url]'),
+(255, 218, 1, 'FF-Multi-Converter, convierte im&aacute;genes, audio, v&iacute;deo y documentos'),
+(257, 220, 1, ''),
+(259, 222, 1, 'Galeria'),
+(260, 223, 1, 'Alguna descripcion para maÃ±anÃ¡'),
+(261, 224, 1, 'Una frase de brother dege.'),
+(262, 225, 1, 'mundo'),
+(263, 226, 1, 'Gil'),
+(264, 227, 1, '      [center][size=200]Galeria[/size][/center]'),
+(265, 228, 1, ''),
+(266, 229, 1, ''),
+(267, 230, 1, ''),
+(268, 231, 1, 'asxasx'),
+(269, 232, 1, 'Hola'),
+(273, 236, 1, 'hola mundo'),
+(274, 237, 1, 'Pasant&amp;iacute;a edetec'),
+(275, 238, 1, 'Pasant&iacute;a edetec');
 
 -- --------------------------------------------------------
 
@@ -520,6 +606,7 @@ ALTER TABLE `Opciones`
 --
 ALTER TABLE `Secciones`
   ADD PRIMARY KEY (`ID`),
+  ADD UNIQUE KEY `HTMLID` (`HTMLID`),
   ADD KEY `ModuloID` (`ModuloID`),
   ADD KEY `Secciones_ibfk_1` (`ContenidoID`),
   ADD KEY `Secciones_ibfk_3` (`PadreID`);
@@ -546,22 +633,22 @@ ALTER TABLE `Usuarios`
 -- AUTO_INCREMENT de la tabla `Comentarios`
 --
 ALTER TABLE `Comentarios`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT de la tabla `Contenidos`
 --
 ALTER TABLE `Contenidos`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=179;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=239;
 --
 -- AUTO_INCREMENT de la tabla `Eventos`
 --
 ALTER TABLE `Eventos`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=84;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=88;
 --
 -- AUTO_INCREMENT de la tabla `Imagenes`
 --
 ALTER TABLE `Imagenes`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=31;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=32;
 --
 -- AUTO_INCREMENT de la tabla `Lenguajes`
 --
@@ -571,17 +658,17 @@ ALTER TABLE `Lenguajes`
 -- AUTO_INCREMENT de la tabla `Menu`
 --
 ALTER TABLE `Menu`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT de la tabla `Modulos`
 --
 ALTER TABLE `Modulos`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=15;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=17;
 --
 -- AUTO_INCREMENT de la tabla `Novedades`
 --
 ALTER TABLE `Novedades`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=15;
 --
 -- AUTO_INCREMENT de la tabla `Opciones`
 --
@@ -591,12 +678,12 @@ ALTER TABLE `Opciones`
 -- AUTO_INCREMENT de la tabla `Secciones`
 --
 ALTER TABLE `Secciones`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=246;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=358;
 --
 -- AUTO_INCREMENT de la tabla `Traducciones`
 --
 ALTER TABLE `Traducciones`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=194;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=276;
 --
 -- AUTO_INCREMENT de la tabla `Usuarios`
 --
@@ -632,7 +719,7 @@ ALTER TABLE `Imagenes`
 --
 ALTER TABLE `Menu`
   ADD CONSTRAINT `Menu_ibfk_1` FOREIGN KEY (`ContenidoID`) REFERENCES `Contenidos` (`ID`) ON DELETE CASCADE,
-  ADD CONSTRAINT `Menu_ibfk_2` FOREIGN KEY (`SeccionID`) REFERENCES `Secciones` (`ID`) ON DELETE CASCADE;
+  ADD CONSTRAINT `Menu_ibfk_2` FOREIGN KEY (`SeccionID`) REFERENCES `Secciones` (`HTMLID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `Modulos`
