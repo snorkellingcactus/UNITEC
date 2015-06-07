@@ -77,7 +77,7 @@ body form.right input, body form.nCon input, body form.nCon select{float:none;}
 label[for^="con"]{display:none;}
 
 
-:target
+.comentario:target
 {
 	animation-name:comentBackground;
 	animation-duration:2s;

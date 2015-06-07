@@ -178,13 +178,16 @@ class SQL_Obj
 		echo '<pre>'.$this->buff.'</pre>';
 
 		$res=$this->con->query($this->buff);
-		$res=$res->fetch_all(MYSQLI_ASSOC)[0];
 
-		foreach($res as $clave=>$valor)
+		if($res->num_rows)
 		{
-			$this->$clave=$valor;
-		}
+			$res=fetch_all($res , MYSQLI_ASSOC)[0];
 
+			foreach($res as $clave=>$valor)
+			{
+				$this->$clave=$valor;
+			}
+		}
 		$this->buff='';
 	}
 	//Crea un nuevo registro de este elemento en la base de datos.

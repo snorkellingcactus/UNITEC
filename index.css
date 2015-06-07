@@ -173,7 +173,7 @@ font.through{text-decoration:line-through;}
 body label, body input ,body select{font-size:1em;color:black;font-family:monospace;text-align:center;float:right}
 body label{float:left;margin:0px;}
 
-section.target
+section.target, section:target
 {
 	animation-name:sectionBackground;
 	animation-duration:1s;
@@ -213,6 +213,28 @@ section.target
 		background-color:transparent
 	}
 }
+@-moz-keyframes allAnchor
+{
+	from
+	{
+		background-color:yellow;
+	}
+	to
+	{
+		background-color:transparent
+	}
+}
+@-webkit-keyframes allAnchor
+{
+	from
+	{
+		background-color:yellow;
+	}
+	to
+	{
+		background-color:transparent
+	}
+}
 @keyframes main
 {
 	from
@@ -226,17 +248,6 @@ section.target
 		margin-right:0px;
 	}
 }
-@-moz-keyframes allAnchor
-{
-	from
-	{
-		background-color:yellow;
-	}
-	to
-	{
-		background-color:transparent
-	}
-}
 @-moz-keyframes main
 {
 	from
@@ -248,17 +259,6 @@ section.target
 	{
 		opacity:1;
 		margin-right:0px;
-	}
-}
-@-webkit-keyframes allAnchor
-{
-	from
-	{
-		background-color:yellow;
-	}
-	to
-	{
-		background-color:transparent
 	}
 }
 @-webkit-keyframes main
