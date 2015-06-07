@@ -107,10 +107,13 @@ function cargaMenu()
 		}
 
 		var links=navs[i].getElementsByTagName('a');	//Colecciono las opciones del menú.
-		var hash=window.location.hash;
+		var hash=encodeURIComponent(window.location.hash.replace('#',''));
 
 		//Si no hay hash, resalto el primer elemento del menú.
 		resalta({target:links[0]});
+		rmAttr(links[0] , 'class' , 'noblur');
+
+		window.console.log(links[0]);
 
 		//Agrego eventos necesarios a los links.
 		for(var j=0;j<links.length;j++)
