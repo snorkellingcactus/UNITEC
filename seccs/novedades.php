@@ -21,12 +21,17 @@
 		{
 				//De momento se especifica el ancla de la url action del form con la variable
 				//fAction y el id del form con fId.
-				$fAction='index.php#nov';
-				$fId='Nov';
-				$cMax=0;
+				include_once($_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/Include_Context.php');
 				
-				//Incluyo las acciones para las novedades.
-				include $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/forms/acciones.php';
+				$formAcciones=new Include_Context($_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/forms/acciones.php');
+				//Incluyo las acciones para la selección.
+				$formAcciones->data=
+				[
+					'fAction'=>'#nov',
+					'fId'=>'Nov',
+					'cMax'=>0
+				];
+				$formAcciones->getContent();
 		}
 
 		//Si se rellenó el formulario nueva novedad la envío a la bd.

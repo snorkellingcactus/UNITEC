@@ -33,13 +33,18 @@ if(session_status()==PHP_SESSION_NONE)
 		<?php
 			if(!empty($_SESSION['adminID']))
 			{
-				//Incluyo las acciones para la selección.
-				$fAction='#cal';
-				$fId='Cal';
-				$cMax=30;
+				include_once($_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/Include_Context.php');
 
+				$formAcciones=new Include_Context($_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/forms/acciones.php');
+				//Incluyo las acciones para la selección.
+				$formAcciones->data=
+				[
+					'fAction'=>'#cal',
+					'fId'=>'Cal',
+					'cMax'=>30
+				];
 				//Incluyo las acciones posibles.
-				include $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/forms/acciones.php';
+				$formAcciones->getContent();
 			
 
 				if(isset($_POST['nEvt']))

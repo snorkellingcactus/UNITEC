@@ -153,9 +153,17 @@
 
 					if(isset($_SESSION['adminID']))
 					{
-						$fId='Menu';
-						$cMax=5;
-						include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/forms/acciones.php';
+						include_once($_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/Include_Context.php');
+
+						$formAcciones=new Include_Context($_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/forms/acciones.php');
+						//Incluyo las acciones para la selección.
+						$formAcciones->data=
+						[
+							'fId'=>'Menu',
+							'cMax'=>5
+						];
+						//Incluyo las acciones posibles.
+						$formAcciones->getContent();
 					}
 				?>
 			</ul>

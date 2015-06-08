@@ -468,6 +468,7 @@ if(isset($_SESSION['adminID']))
 				//SELECT s.Contenido as ConID, m.Contenido as Con FROM `Secciones` as s , `Contenido` as m WHERE s.Contenido = m.ID
 					//$cfg=sqlResToCfg($Opciones);
 
+				include_once($_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/Include_Context.php');
 				include_once($_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/getTraduccion.php');
 
 				for($s=0;$s<$sMax;$s++)
@@ -476,10 +477,17 @@ if(isset($_SESSION['adminID']))
 
 					$seccion=$secciones[$s];
 
-					$id=$seccion['ID'];
 					$htmlID=$seccion['HTMLID'];
 					$clase='';
-					$tipo=0;
+
+					$opcionesSec=new Include_Context($_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/forms/elimina_dominio.php');
+					$opcionesSec->data=
+					[
+						'conID'=>$seccion['ID'],
+						'tipo'=>0,
+						'orden'=>$s
+					];
+					//$accionesSec=new Include_Context($_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/forms/seccion_nuevo_contenido.php');
 
 					if(isset($_SESSION['adminID']) && isset($_POST['nSec']) && $afectado==$seccion['ID'])
 					{
@@ -506,13 +514,11 @@ if(isset($_SESSION['adminID']))
 
 						<div class="clearfix">
 							<?php
-								$Orden=$s;
-								include($_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/forms/elimina_dominio.php');
-								include($_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/forms/seccion_nuevo_contenido.php');
+								$opcionesSec->getContent();
+								$opcionesSec->getContent($_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/forms/seccion_nuevo_contenido.php');
 							?>
 						</div>
 					<?php
-
 					$includes=$con->query
 					(
 						'	SELECT Secciones.ID , Secciones.Visible , Secciones.Prioridad , Secciones.HTMLID, Modulos.Archivo, Contenidos.ID as ContenidoID
@@ -538,22 +544,24 @@ if(isset($_SESSION['adminID']))
 					{
 						//echo '<pre>Include N '.$f.'</pre>';
 						$include=$includes[$f];
-						$id=$include['ID'];
 						$htmlID=$include['HTMLID'];
-						$Orden=$f;
+
+						$opcionesSec->data=
+						[
+							'conID'=>$include['ID'],
+							'orden'=>$f
+						];
 
 						if($include['ContenidoID']!==NULL)
 						{
-							$tipo=2;
-
-							include($_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/forms/elimina_dominio.php');
-
+							$opcionesSec->tipo=2;
+							$opcionesSec->getContent();
 
 							include_once 'php/jBBCode1_3_0/JBBCode/Parser.php';
 
 							$parser=new JBBCode\Parser();
 		
-							include($_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/parser_definiciones.php');
+							$parser->addCodeDefinitionSet(new JBBCode\MainCodeDefinitionSet());
 
 							$parser->parse
 							(
@@ -594,8 +602,6 @@ if(isset($_SESSION['adminID']))
 						}
 						if($include['Archivo']!==NULL)
 						{
-							$tipo=1;
-
 							global $con,$afectado;
 
 							/*if($visible==='0')
@@ -605,7 +611,8 @@ if(isset($_SESSION['adminID']))
 								<?php
 							}*/
 
-							include($_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/forms/elimina_dominio.php');
+							$opcionesSec->tipo=1;
+							$opcionesSec->getContent();
 
 							//echo '<pre>ModID = '.$id.'</pre>';
 

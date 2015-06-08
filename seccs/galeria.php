@@ -115,12 +115,19 @@
 
 			unset($_SESSION['conID'] , $_SESSION['form'] , $_SESSION['accion']);
 		}
-		//Incluyo las acciones para la selección.
-		$fAction='index.php#gal';
-		$fId='Gal';
-		$cMax=30;
 		
-		include $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/forms/acciones.php';
+		include_once($_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/Include_Context.php');
+		
+		$formAcciones=new Include_Context($_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/forms/acciones.php');
+		//Incluyo las acciones para la selección.
+		$formAcciones->data=
+		[
+			'fAction'=>'#gal',
+			'fId'=>'Gal',
+			'cMax'=>30
+		];
+		//Incluyo las acciones posibles.
+		$formAcciones->getContent();
 	}
 	
 	//:::::::::::::::::::::::::::::::HTML::::::::::::::::::::::::::::::::::::
