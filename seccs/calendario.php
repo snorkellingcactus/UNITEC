@@ -76,7 +76,7 @@ if(session_status()==PHP_SESSION_NONE)
 
 							updTraduccion($_POST['Descripcion'][$i] , $_SESSION['conID'][$i] , $_SESSION['lang']);
 
-							echo '<pre>A insertar: ';print_r($evento);echo '</pre>';
+							//echo '<pre>A insertar: ';print_r($evento);echo '</pre>';
 
 							$evento->updSQL
 							(
@@ -115,7 +115,8 @@ if(session_status()==PHP_SESSION_NONE)
 								[
 									
 									'Nombre'=>htmlentities($_POST['Titulo'][$i]),
-									'Tiempo'=>$fecha
+									'Tiempo'=>$fecha,
+									'Prioridad'=>$_POST['Prioridad'][$i]
 								]
 							);
 							$evento->insForaneas
@@ -124,7 +125,7 @@ if(session_status()==PHP_SESSION_NONE)
 								nTraduccion
 								(
 									$_POST['Descripcion'][$i],
-									$_POST['Lenguaje'][$i]
+									$_SESSION['lang']
 								),
 								[
 									'DescripcionID'=>'ContenidoID'
@@ -142,14 +143,14 @@ if(session_status()==PHP_SESSION_NONE)
 					$iMax=count($_SESSION['conID']);
 					for($i=0;$i<$iMax;$i++)
 					{
-						echo '<pre>Elimina Evento: '.'delete from Contenidos where ID='.$_SESSION['conID'][$i].'</pre>';
+						//echo '<pre>Elimina Evento: '.'delete from Contenidos where ID='.$_SESSION['conID'][$i].'</pre>';
 						$con->query('delete from Contenidos where ID='.$_SESSION['conID'][$i]);
 					}
 
 					unset($_SESSION['conID'] , $_SESSION['form'] , $_SESSION['elimina']);
 				}
 			}
-			$consulta='select * from Eventos';
+			$consulta='SELECT * FROM Eventos';
 
 			if(isset($_GET['mes']) && !is_nan(intVal($_GET['mes'])))
 			{
@@ -172,15 +173,17 @@ if(session_status()==PHP_SESSION_NONE)
 				$mesSig->setTimestamp($mesAct->getTimestamp());
 				$mesSig->add(new DateInterval('P1M'));
 
-				$mesAct=$mesAct->format('Y-m-d H:i:s');
-				$mesSig=$mesSig->format('Y-m-d H:i:s');
+				$mesAct=$mesAct->format('Y-m-d 00:00:00');
+				$mesSig=$mesSig->format('Y-m-d 00:00:00');
 
 				$consulta=$consulta.' where Tiempo between "'.$mesAct.'" and "'.$mesSig.'"';
 			}
 
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/conexion.php';
 
-			$eventos=$con->query($consulta.' order by Tiempo asc');
+			$eventos=$con->query($consulta.' ORDER BY Tiempo,Prioridad ASC');
+
+			//echo '<pre>Consulta eventos:';print_r($consulta.' ORDER BY Prioridad, Tiempo ASC');echo '</pre>';
 			
 			$eventos=fetch_all($eventos , MYSQLI_ASSOC);
 

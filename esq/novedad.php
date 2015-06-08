@@ -11,6 +11,6 @@
 		<img src="<?php echo $esq->Imagen ?>" alt="" />
 	</div>
 	<h2><?php echo $esq->Titulo ?></h2>
-	<p class="sangria"><?php echo $esq->Descripcion ?> <a href="novedades.php?vRecID=<?php echo $esq->ID?>">[...]</a></p>
+	<p class="sangria"><?php echo $esq->Descripcion ?> <a href="novedades.php?vRecID=<?php echo $esq->ID?>" alt="Seguir leyendo sobre la noticia">Seguir leyendo</a></p>
 	<p class="fecha">Escrito el <?php echo $esq->Fecha ?></p>
 </div>

@@ -29,7 +29,7 @@ if(isset($_POST['Cancela']))
 function echoLang($langSQLRes)
 {
 	?>
-		<img src="img/idiomas/<?php echo $langSQLRes['Pais'].'.png' ?>" alt="" />
+		<img src="img/idiomas/<?php echo $langSQLRes['Pais'].'.png' ?>" alt="Cambiar al idioma <?php echo $langSQLRes['Nombre'] ?>" />
 	<?php 
 
 	echo $langSQLRes['Nombre'];
@@ -74,12 +74,12 @@ function nSec($visible , $orden , $tipo , $valor , $edita=false , $htmlID=NULL)
 
 	$afectado=$nSec->ID;
 
-	echo '<pre>Afectado = '.$afectado.'</pre>';
+	//echo '<pre>Afectado = '.$afectado.'</pre>';
 }
 
 if(isset($_SESSION['adminID']))
 {
-
+/*
 	echo '<pre>SESSION: ';
 	print_r($_SESSION);
 	echo '</pre>';
@@ -87,7 +87,7 @@ if(isset($_SESSION['adminID']))
 	echo '<pre>POST: ';
 	print_r($_POST);
 	echo '</pre>';
-
+*/
 	if(isset($_POST['nSec']) || isset($_POST['nCon']))
 	{
 		$lugar=$_POST['Lugar'];
@@ -200,11 +200,11 @@ if(isset($_SESSION['adminID']))
 				$consulta='update Secciones set Prioridad='.(intVal($secciones[$j]['Prioridad'])+1).' where ID='.$nID;
 
 				$con->query($consulta);
-
+/*
 				echo '<pre>';
 				print_r($consulta);
 				echo '</pre>';
-
+*/
 				++$j;
 
 				if($j>20)
@@ -293,7 +293,7 @@ if(isset($_SESSION['adminID']))
 				//y las traducciones relacionadas.
 				$con->query('DELETE FROM Contenidos WHERE ID='.$contenidoID);
 
-				echo '<pre>'.'DELETE FROM Contenidos WHERE ID='.$contenidoID.'</pre>';
+				//echo '<pre>'.'DELETE FROM Contenidos WHERE ID='.$contenidoID.'</pre>';
 			}
 			else
 			{
@@ -310,7 +310,7 @@ if(isset($_SESSION['adminID']))
 		{
 			$con->query('DELETE FROM Secciones WHERE ID='.$secID);
 
-			echo '<pre>'.'DELETE FROM Secciones WHERE ID='.$secID.'</pre>';
+			//echo '<pre>'.'DELETE FROM Secciones WHERE ID='.$secID.'</pre>';
 		}
 
 		unset($_SESSION['accion'] , $_SESSION['form'] , $_SESSION['conID']);

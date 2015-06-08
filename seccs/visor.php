@@ -44,7 +44,7 @@
 		(
 			$con->query
 			(
-				'	SELECT TituloID, Url,ID
+				'	SELECT TituloID, Url,ID,Alt
 					FROM Imagenes
 					WHERE 1
 					ORDER BY Prioridad ASC

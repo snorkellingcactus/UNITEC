@@ -20,9 +20,5 @@
 		$autocomp['Imagen']=$novedad['ImagenID'];
 		$autocomp['Descripcion']=getTraduccion($novedad['DescripcionID'] , $_SESSION['lang']);
 		$autocomp['Titulo']=getTraduccion($novedad['TituloID'] , $_SESSION['lang']);
-
-		echo '<pre>';
-		print_r($autocomp);
-		echo '</pre>';
 	}
 ?>

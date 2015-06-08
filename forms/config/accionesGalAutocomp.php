@@ -15,18 +15,9 @@
 			MYSQLI_ASSOC
 		)[0];
 
-		
-		echo '<pre>Imagen: ';
-		print_r($imagen);
-		echo '</pre>';
-
 		$autocomp['Url']=$imagen['Url'];
 		$autocomp['Visible']=$imagen['Visible'];
 		$autocomp['Prioridad']=$imagen['Prioridad'];
 		$autocomp['Titulo']=getTraduccion($imagen['TituloID'] , $_SESSION['lang']);
-
-		echo '<pre>';
-		print_r($autocomp);
-		echo '</pre>';
 	}
 ?>

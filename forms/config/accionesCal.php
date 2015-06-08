@@ -1,7 +1,7 @@
 <?php
-	if(isset($_POST['Titulo']))
+	if(isset($_POST['conID']))
 	{
-		$cantidad=$_POST['Titulo'];
+		$cantidad=count($_POST['conID']);
 	}
 
 	$includes=
@@ -24,10 +24,6 @@
 		[
 			'input_text.php',
 			'Descripcion'
-		],
-		[
-			'selector_lenguaje.php',
-			'Lenguaje'
 		],
 		[
 			'selector_si_no.php',

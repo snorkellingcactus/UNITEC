@@ -81,7 +81,7 @@ if(isset($_SESSION['adminID']))
 		include $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/forms/config/'.$_POST['form'].'.php';
 
 		//Url de acción con caché para recargar el destino.
-		$url=$action.'?cache='.$_SESSION['cache'].$ancla;
+		$url=$action.$ancla;
 		?>
 			<html>
 				<head>
@@ -105,7 +105,7 @@ if(isset($_SESSION['adminID']))
 
 				</head>
 				<body>
-					<form method="POST" class="tresem nuevo" action="<?php echo $url ?>" target="_parent">
+					<form method="POST" class="tresem nuevo" action="<?php echo $url ?>">
 						<?php
 
 							$iMax=$cantidad;

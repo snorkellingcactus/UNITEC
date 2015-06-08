@@ -67,12 +67,5 @@
 				MYSQLI_NUM
 			)[0][0];
 		}
-
-		echo '<pre>';
-		print_r($autocomp);
-		echo '</pre>';
-		echo '<pre>Llenos:';
-		print_r($_POST['lleno']);
-		echo '</pre>';
 	}
 ?>

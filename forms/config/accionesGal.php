@@ -22,10 +22,6 @@
 			'Alt'
 		],
 		[
-			'selector_lenguaje.php',
-			'Lenguaje'
-		],
-		[
 			'input_text.php',
 			'Prioridad'
 		],
