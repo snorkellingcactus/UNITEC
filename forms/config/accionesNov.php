@@ -1,19 +1,16 @@
 <?php
-	if(isset($_POST['Titulo']))
+	if(isset($this->post['Titulo']))
 	{
-		$cantidad=$_POST['Titulo'];
+		$this->cantidad=$_POST['Titulo'];
 	}
-	$includes=
+	$this->includes=
 	[
 		'//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js',
 		'http://cdn.wysibb.com/js/jquery.wysibb.min.js',
 		'http://cdn.wysibb.com/css/default/wbbtheme.css',
 		'../js/wysibbInc.js'
 	];
-	$ancla='#nov';
-	$action='../index.php';
-	$for='nNov';
-	$labels=
+	$this->labels=
 	[
 		[
 			'input_text.php',
@@ -32,4 +29,8 @@
 			'Visible'
 		]
 	];
+
+	$this->ancla='#nov';
+	//$action='../index.php';
+	$for='nNov';
 ?>

@@ -188,20 +188,11 @@
 			<!-- Comentarios -->
 			<div class="comentarios col-lg-10 col-md-10 col-sm-10 col-xs-10" >
 				<?php
-					$fId='Com';
-					$omitirNuevas=true;
+					include_once($_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/FormBuilder.php');
 
-					include_once($_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/Include_Context.php');
-
-					$formAcciones=new Include_Context($_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/forms/acciones.php');
-					//Incluyo las acciones para la selección.
-					$formAcciones->data=
-					[
-						'omitirNuevas'=>true,
-						'fId'=>'Com'
-					];
+					$formNov=new FormBuilder('Com' , 0);
 					//Incluyo las acciones posibles.
-					$formAcciones->getContent();
+					$formNov->buildActionForm();
 
 					//Genero los comentarios.
 					GenComGrp($esq['TituloID'] , $con);

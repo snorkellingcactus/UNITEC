@@ -101,7 +101,7 @@
 				}
 			}
 
-			unset($_SESSION['form']);
+			unset($_SESSION['form'] , $_SESSION['conID']);
 		}
 		if(isset($_SESSION['form']) && $_SESSION['form']==='accionesGal' && $_SESSION['accion']==='elimina')
 		{
