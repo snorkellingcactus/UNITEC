@@ -122,7 +122,18 @@
 
 			for($i=0;$i<$iMax;$i++)
 			{
+				$nombreID=fetch_all
+				(
+					$con->query
+					(
+						'	SELECT NombreID
+							FROM Eventos
+							WHERE DescripcionID = '.$_SESSION['conID'][$i]
+					),
+					MYSQLI_NUM
+				)[0][0];
 				//echo '<pre>Elimina Evento: '.'delete from Contenidos where ID='.$_SESSION['conID'][$i].'</pre>';
+				$con->query('delete from Contenidos where ID='.$nombreID);
 				$con->query('delete from Contenidos where ID='.$_SESSION['conID'][$i]);
 			}
 		}
