@@ -7,19 +7,16 @@
 		{
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/updTraduccion.php';
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/Menu.php';
-/*
-			echo '<pre>SESSION:';
-			print_r($_SESSION);
-			echo '</pre>';
 
-			echo '<pre>POST:';
-			print_r($_POST);
-			echo '</pre>';
-*/
 			$iMax=count($_SESSION['conID']);
+			$afectadosLen=0;
+			$afectados=[];
+
 			for($i=0;$i<$iMax;$i++)
 			{
-				updTraduccion($_POST['Titulo'][$i] , $_SESSION['conID'][$i] , $_SESSION['lang']);
+				$conIdAct=$_SESSION['conID'][$i];
+
+				updTraduccion($_POST['Titulo'][$i] , $conIdAct , $_SESSION['lang']);
 
 				$nMenu=new Menu
 				(
@@ -30,8 +27,13 @@
 					]
 				);
 
-				$nMenu->updSQL(false , ['ContenidoID'=>$_SESSION['conID'][$i]]);
+				$nMenu->updSQL(false , ['ContenidoID'=>$conIdAct]);
+
+				$afectados[$afectadosLen]=$conIdAct;
+				++$afectadosLen;
 			}
+
+			return $afectados;
 		}
 		public function nuevo()
 		{
@@ -42,6 +44,8 @@
 			global $con;
 
 			$sMax=count($_POST['Titulo']);
+			$afectadosLen=0;
+			$afectados=[];
 
 			for($s=0;$s<$sMax;$s++)
 			{
@@ -66,7 +70,11 @@
 				);
 
 				$nMenu->insSQL();
+
+				$afectados[$afectadosLen]=$nMenu->ContenidoID;
+				++$afectadosLen;
 			}
+			return $afectados;
 		}
 		public function elimina()
 		{

@@ -4,7 +4,6 @@
 		$this->cantidad=count($_POST['conID']);
 	}
 	$this->includes=['../forms/forms.css'];
-	$this->ancla='#nOpc';
 
 	$this->labels=
 	[

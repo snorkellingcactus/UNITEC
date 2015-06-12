@@ -214,8 +214,6 @@ if(isset($_SESSION['adminID']))
 
 				for($s=0;$s<$sMax;$s++)
 				{
-					global $afectado;
-
 					$seccion=$secciones[$s];
 
 					$htmlID=$seccion['HTMLID'];
@@ -223,7 +221,11 @@ if(isset($_SESSION['adminID']))
 
 					//$accionesSec=new Include_Context($_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/forms/seccion_nuevo_contenido.php');
 
-					if(isset($_SESSION['adminID']) && isset($_POST['nSec']) && $afectado==$seccion['ID'])
+					if
+					(
+						isset($formSecRecv->afectados[0])	&&
+						$formSecRecv->afectados[0]==$seccion['ID']
+					)
 					{
 						$clase='class="target"';
 						?>
@@ -285,6 +287,7 @@ if(isset($_SESSION['adminID']))
 					for($f=0;$f<$fMax;$f++)
 					{
 						//echo '<pre>Include N '.$f.'</pre>';
+
 						$include=$includes[$f];
 						$htmlID=$include['HTMLID'];
 
@@ -306,19 +309,16 @@ if(isset($_SESSION['adminID']))
 								getTraduccion($include['ContenidoID'] , $_SESSION['lang'])
 							);
 
-							global $afectado;
-
 							$clase='';
 
 							if
 							(
-								isset($_SESSION['adminID'])		&&
-								isset($_POST['nCon'])			&&
-								$afectado==$include['ID'])
+								isset($formSecRecv->afectados[0]) &&
+								$formSecRecv->afectados[0]==$include['ID'])
 							{
 								$clase='target';
 								?>
-									<span id='nCon'></span>
+									<span id='nSec'></span>
 								<?php
 							}
 
@@ -340,7 +340,7 @@ if(isset($_SESSION['adminID']))
 						}
 						if($include['Archivo']!==NULL)
 						{
-							global $con,$afectado;
+							global $con;
 
 							/*if($visible==='0')
 							{
@@ -353,20 +353,18 @@ if(isset($_SESSION['adminID']))
 								$formSec->buildActionForm($include['ID'] , 'inc' , $f);
 							}
 
-							//echo '<pre>ModID = '.$id.'</pre>';
-
 							$clase='';
 
 							if
 							(
-								isset($_SESSION['adminID'])			&&
-								isset($_POST['nCon'])				&&
-								$afectado==$include['ID'])
+								isset($formSecRecv->afectados[0])	&&
+								$formSecRecv->afectados[0]==$include['ID']
+							)
 							{
 								$clase='target';
 
 								?>
-									<span id='nCon'></span>
+									<span id='nSec'></span>
 								<?php
 
 							}

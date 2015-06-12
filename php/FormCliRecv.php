@@ -4,6 +4,7 @@
 	class FormCliRecv extends FormCfg
 	{
 		public $SQL_Evts;
+		public $afectados;
 
 		public function checks()
 		{
@@ -21,7 +22,12 @@
 					//Se rellenó el formulario correspondiente.
 					//Includes generales.
 
-					$this->SQL_Evts->$_SESSION['accion']();
+					$this->afectados=$this->SQL_Evts->$_SESSION['accion']();
+/*
+					echo '<pre>Afectados:';
+					print_r($this->afectados);
+					echo '</pre>';
+*/
 				}
 				
 				unset($_SESSION['conID']  , $_SESSION['form'] , $_SESSION['accion']);

@@ -172,7 +172,7 @@ font.through{text-decoration:line-through;}
 body label, body input ,body select{font-size:1em;color:black;font-family:monospace;text-align:center;float:right}
 body label{float:left;margin:0px;}
 
-section.target, section:target
+section .target, section:target
 {
 	animation-name:sectionBackground;
 	animation-duration:1s;

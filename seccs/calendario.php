@@ -117,10 +117,22 @@ if(session_status()==PHP_SESSION_NONE)
 					}
 
 					$fechaText=$CalCfg->dias[$fecha['wday']].' '.$fecha['mday'].' de '.$CalCfg->meses[$fecha['mon']-1].' '.$fecha['hours'].':'.$fechaMin;
+					$clase='';
+					if
+					(
+						isset($formCalRecv->afectados)	&&
+						in_array($evtAct['DescripcionID'] , $formCalRecv->afectados)
+					)
+					{
+						$clase='class="target"'
+						?>
+							<span id="nEvt"></span>
+						<?php
+					}
 
 					ob_start();
 					?>
-						<li>
+						<li <?php echo $clase ?>>
 							<p class="fecha">
 									<?php echo $fechaText?>
 							</p>

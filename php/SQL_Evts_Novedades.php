@@ -10,6 +10,8 @@
 
 			$nNov=new Novedad();
 			$iMax=count($_SESSION['conID']);
+			$afectadosLen=0;
+			$afectados=[];
 
 			for($i=0;$i<$iMax;$i++)
 			{
@@ -26,7 +28,11 @@
 
 				updTraduccion($_POST['Descripcion'][$i] , $nNov->DescripcionID , $_SESSION['lang']);
 				updTraduccion($_POST['Titulo'][$i] , $nNov->TituloID , $_SESSION['lang']);
+
+				$afectados[$afectadosLen]=$nNov->TituloID;
+				++$afectadosLen;
 			}
+			return $afectados;
 		}
 		public function nuevo()
 		{
@@ -35,6 +41,7 @@
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/nTraduccion.php';
 
 			$iMax=1;
+			$afectados=[];
 
 			for($i=0;$i<$iMax;$i++)
 			{
@@ -53,7 +60,10 @@
 				$nov->insForanea($titulo , 'TituloID' , 'ContenidoID');
 
 				$nov->insSQL();
+
+				$afectados[0]=$nov->TituloID;
 			}
+			return $afectados;
 		}
 		public function elimina()
 		{

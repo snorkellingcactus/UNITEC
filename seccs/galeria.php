@@ -50,7 +50,6 @@
 
 		$formGalRecv->checks();
 
-		$formGal->actionUrl='#gal';
 		$formGal->buildActionForm();
 	}
 	
@@ -78,7 +77,20 @@
 
 		$imgAct['TituloCon']=getTraduccion($imgAct['TituloID'] , $_SESSION['lang']);
 		$imgAct['AltCon']=getTraduccion($imgAct['AltID'] , $_SESSION['lang']);
-		$imgAct['formBuilder']=$formGal;
+		$imgAct['afectado']=false;
+		
+		if(isset($formGal))
+		{
+			$imgAct['formBuilder']=$formGal;
+		}
+		if
+		(
+			!empty($formGalRecv->afectados) &&
+			in_array($imgAct['ID'], $formGalRecv->afectados)
+		)
+		{
+			$imgAct['afectado']=true;
+		}
 	}
 
 	$Gal=new Gal_HTML

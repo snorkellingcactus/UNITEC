@@ -13,6 +13,8 @@
 			$evento=new Evento();
 
 			$this->cantidad=count($_POST['Titulo']);
+			$afectadosLen=0;
+			$afectados=[];
 
 			for($i=0;$i<$this->cantidad;$i++)
 			{
@@ -37,7 +39,11 @@
 						'DescripcionID'=>$_SESSION['conID'][$i]
 					]
 				);
+
+				$afectados[$afectadosLen]=$_SESSION['conID'][$i];
+				++$afectadosLen;
 			}
+			return $afectados;
 		}
 		public function nuevo()
 		{
@@ -46,6 +52,8 @@
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/nTraduccion.php';
 
 			$this->cantidad=count($_POST['Titulo']);
+			$afectadosLen=0;
+			$afectados=[];
 
 			for($i=0;$i<$this->cantidad;$i++)
 			{
@@ -88,7 +96,11 @@
 				);
 
 				$evento->insSQL();
-			}	
+
+				$afectados[$afectadosLen]=$evento->DescripcionID;
+				++$afectadosLen;
+			}
+			return $afectados;
 		}
 		public function elimina()
 		{

@@ -5,7 +5,7 @@
 	{
 		public function nuevo()
 		{
-			$this->edita();
+			return $this->edita();
 		}
 		public function edita()
 		{
@@ -146,7 +146,10 @@
 				$htmlID=htmlentities($_POST['Titulo'][0]);
 			}
 
-			$this->nSec($_POST['Visible'][0] , $nOrden , $tipo , $valor , $edita , $htmlID);
+			$afectados=
+			[
+				$this->nSec($_POST['Visible'][0] , $nOrden , $tipo , $valor , $edita , $htmlID)
+			];
 
 			if($htmlID!==NULL && $_POST['Agregar_al_menu'][0]==='1')
 			{
@@ -179,6 +182,7 @@
 					$menu->insSQL();
 				}
 			}
+			return $afectados;
 		}
 		public function elimina()
 		{
@@ -231,7 +235,7 @@
 		}
 		public function nSec($visible , $orden , $tipo , $valor , $edita=false , $htmlID=NULL)
 		{
-			global $con , $afectado;
+			global $con;
 			
 			include_once($_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/Seccion.php');
 
@@ -264,9 +268,7 @@
 				$nSec->insSQL();
 			}
 
-			$afectado=$nSec->ID;
-
-			//echo '<pre>Afectado = '.$afectado.'</pre>';
+			return $nSec->ID;
 		}
 	}
 

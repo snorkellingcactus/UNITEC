@@ -5,7 +5,7 @@
 	}
 	$this->includes=['../forms/forms.css'];
 
-	$this->ancla='#gal';
+	$this->ancla='#nImg';
 
 	$this->labels=
 	[

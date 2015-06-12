@@ -41,9 +41,24 @@
 
 						$nombre=getTraduccion($opcion['ContenidoID'] , $_SESSION['lang']);
 
+						$clase='';
+						if
+						(
+							!empty($formMenuRecv->afectados)	&&
+							in_array($opcion['ContenidoID'] , $formMenuRecv->afectados)
+						)
+						{
+							$clase='class="target"';
+						}
+
 						?>
 							<li>
-								<a href="<?php echo $opcion['Url']?>"><?php echo $nombre?></a>
+								<a href=
+									"<?php echo $opcion['Url']?>"
+									<?php echo $clase ?>
+								>
+									<?php echo $nombre?>
+								</a>
 								<?php 
 									if(!empty($_SESSION['adminID']))
 									{
