@@ -19,21 +19,17 @@
 		//Diferencias al ser admin.
 		if(!empty($_SESSION['adminID']))
 		{
-			include_once($_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/FormBuilder.php');
+			include_once($_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/FormCliRecv.php');
+			include_once($_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/FormCliBuilder.php');
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/SQL_Evts_Novedades.php';
 
-			$formNov=new FormBuilder('Nov' , 1);
-			$formNov->SQL_Evts=new SQL_Evts_Novedades();
-			//Incluyo las acciones posibles.
+			$formNovRecv=new FormCliRecv('Nov');
+			$formNovRecv->SQL_Evts=new SQL_Evts_Novedades();
+
+			$formNov=new FormCliBuilder('Nov' , 1);
+
+			$formNovRecv->checks();
 			$formNov->buildActionForm();
-
-			$formNov->checks();
-
-			/*
-			echo '<pre>Form Builder (Nov)';
-			print_r($formNov);
-			echo '</pre>';
-			*/
 		}
 
 		include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/conexion.php';

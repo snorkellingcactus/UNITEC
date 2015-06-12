@@ -33,17 +33,18 @@ if(session_status()==PHP_SESSION_NONE)
 		<?php
 			if(!empty($_SESSION['adminID']))
 			{
-				include_once($_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/FormBuilder.php');
+				include_once($_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/FormCliRecv.php');
+				include_once($_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/FormCliBuilder.php');
 				include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/SQL_Evts_Eventos.php';
 
-				$formCal=new FormBuilder('Cal' , 0);
-				$formCal->SQL_Evts=new SQL_Evts_Eventos();
+				$formCalRecv=new FormCliRecv('Cal');
+				$formCalRecv->SQL_Evts=new SQL_Evts_Eventos();
 				//Incluyo las acciones posibles.
 				//$formSec->buildActionForm();
 
-				$formCal->checks();
+				$formCalRecv->checks();
 
-				$formCal->cMax=30;
+				$formCal=new FormCliBuilder('Cal' , 30);
 				$formCal->buildActionForm();
 			}
 			$consulta='SELECT * FROM Eventos';

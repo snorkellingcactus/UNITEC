@@ -38,18 +38,20 @@
 
 	//Diferencias en modo admin.
 	if($modoAdmin)
-	{	
-		include_once($_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/FormBuilder.php');
-		include_once($_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/SQL_Evts_Imagenes.php');
-		
-		//Incluyo las acciones posibles.
+	{
+		include_once($_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/FormCliRecv.php');
+		include_once($_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/FormCliBuilder.php');
+		include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/SQL_Evts_Imagenes.php';
 
-		$formGal=new FormBuilder('Gal' , 30);
-		$formGal->actionUrl.='#gal';
-		$formGal->SQL_Evts=new SQL_Evts_Imagenes();
+		$formGalRecv=new FormCliRecv('Gal');
+		$formGalRecv->SQL_Evts=new SQL_Evts_Imagenes();
+
+		$formGal=new FormCliBuilder('Gal' , 30);
+
+		$formGalRecv->checks();
+
+		$formGal->actionUrl='#gal';
 		$formGal->buildActionForm();
-
-		$formGal->checks();
 	}
 	
 	//:::::::::::::::::::::::::::::::HTML::::::::::::::::::::::::::::::::::::

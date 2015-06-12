@@ -1,25 +1,12 @@
 <?
 	if(!empty($_SESSION['adminID']))
 	{
-		if(isset($_POST['nMenu']))
-		{
-			include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/conexion.php';
-			include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/SQL_Obj.php';
-			include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/nTraduccion.php';
-			if(!isset($_SESSION['accion']) && !isset($_SESSION['form']))
-			{
-				$sMax=count($_POST['Titulo']);
-
-				
-			}
-
-		}
-		include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/FormBuilder.php';
+		include_once($_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/FormCliRecv.php');
 		include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/SQL_Evts_Menu.php';
 
-		$formMenu=new FormBuilder('Menu' , 10);
-		$formMenu->SQL_Evts=new SQL_Evts_Menu();
-		$formMenu->checks();
+		$formMenuRecv=new FormCliRecv('Menu');
+		$formMenuRecv->SQL_Evts=new SQL_Evts_Menu();
+		$formMenuRecv->checks();
 	}
 ?>
 <div class="menu col-xs-12 col-md-2 col-sm-2 col-lg-2">
@@ -68,6 +55,11 @@
 					if(isset($_SESSION['adminID']))
 					{
 						//Incluyo las acciones posibles.
+						
+						include_once($_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/FormCliBuilder.php');
+
+						$formMenu=new FormCliBuilder('Menu' , 10);
+						
 						$formMenu->buildActionForm();
 					}
 				?>

@@ -44,16 +44,13 @@ function echoLang($langSQLRes)
 
 if(isset($_SESSION['adminID']))
 {				
-	include_once($_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/FormBuilder.php');
+	include_once($_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/FormCliRecv.php');
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/SQL_Evts_Secciones.php';
 
-	$formSec=new FormBuilder('Sec' , 0);
-	$formSec->fType='Sec';
-	$formSec->SQL_Evts=new SQL_Evts_Secciones();
-	//Incluyo las acciones posibles.
-	//$formSec->buildActionForm();
+	$formSecRecv=new FormCliRecv('Sec');
+	$formSecRecv->SQL_Evts=new SQL_Evts_Secciones();
 
-	$formSec->checks();
+	$formSecRecv->checks();
 }
 ?>
 <html lang="es">
@@ -210,6 +207,10 @@ if(isset($_SESSION['adminID']))
 				include_once($_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/Include_Context.php');
 				include_once($_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/getTraduccion.php');
 				include_once($_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/Include_Context.php');
+				include_once($_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/FormCliBuilder.php');
+
+				$formSec=new FormCliBuilder('Sec',0);
+				$formSec->fType='Sec';
 
 				for($s=0;$s<$sMax;$s++)
 				{
