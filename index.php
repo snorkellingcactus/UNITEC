@@ -293,10 +293,6 @@ if(isset($_SESSION['adminID']))
 
 						if($include['ContenidoID']!==NULL)
 						{
-							if(!empty($_SESSION['adminID']))
-							{
-								$formSec->buildActionForm($include['ID'] , 'con' , $f);
-							}
 
 							include_once 'php/jBBCode1_3_0/JBBCode/Parser.php';
 
@@ -332,6 +328,10 @@ if(isset($_SESSION['adminID']))
 									?>
 								>
 									<?php
+										if(!empty($_SESSION['adminID']))
+										{
+											$formSec->buildActionForm($include['ID'] , 'con' , $f);
+										}
 										echo $parser->getAsHtml();
 									?>
 								</div>
@@ -348,10 +348,6 @@ if(isset($_SESSION['adminID']))
 									<span class="oculta">
 								<?php
 							}*/
-							if(isset($_SESSION['adminID']))
-							{
-								$formSec->buildActionForm($include['ID'] , 'inc' , $f);
-							}
 
 							$clase='';
 
@@ -379,6 +375,10 @@ if(isset($_SESSION['adminID']))
 									?>
 								>
 									<?php
+										if(isset($_SESSION['adminID']))
+										{
+											$formSec->buildActionForm($include['ID'] , 'inc' , $f);
+										}
 										$inc=new Include_Context($include['Archivo']);
 										$inc->getContent();
 

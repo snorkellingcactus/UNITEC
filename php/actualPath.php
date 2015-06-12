@@ -1,7 +1,7 @@
 <?php
 	function actualPath()
 	{	
-		return str_replace('/opt/lampp/htdocs', 'http://localhost' , $_SERVER['SCRIPT_FILENAME']);
+		return str_replace('/opt/lampp/htdocs', 'http://'.$_SERVER['SERVER_NAME'] , $_SERVER['SCRIPT_FILENAME']);
 	}
 	function actualDir()
 	{

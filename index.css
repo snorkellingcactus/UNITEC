@@ -166,8 +166,11 @@ body main>form.right input{width:100%;text-align:center;padding:0px;margin:0px;f
 span.center{display:block;width:100%;text-align:center;}
 font.through{text-decoration:line-through;}
 
-.sep{height:1px;border-top:2px dashed gray;}
-.sep:first-of-type{border:0px solid;}
+.sep{border-top:2px dashed gray;}
+.clearfix .sep
+{
+	display:none;
+}
 
 body label, body input ,body select{font-size:1em;color:black;font-family:monospace;text-align:center;float:right}
 body label{float:left;margin:0px;}

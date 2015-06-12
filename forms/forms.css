@@ -26,21 +26,51 @@ form a
 }
 select option{background-color:white;}
 form p{color:black}
+.menu:hover input[type="submit"], .menu:hover input[type="checkbox"] , .menu:hover .acciones,section:hover .clearfix form input[type="submit"],
+section:hover .clearfix form .acciones, .modulo:hover input[type="submit"] ,.modulo:hover .acciones,.modulo:hover .sep, .modulo:hover input[type="checkbox"],
+.contenido:hover input[type="submit"] ,.contenido:hover .acciones , .contenido:hover .sep, .contenido:hover input[type="checkbox"], .contenido:hover >.sep
+{
+	opacity:1
+}
+.menu .acciones{margin-left:10px;margin-top:10px;}
+.menu input , .acciones input{max-width:30px;}
+
 label{font-size:2em;color:white;margin-top:5px;}
 label[for="secID"]{display:none;}
 input,form a , button, textarea, select{height:auto;box-shadow:0px 0px 3px black;border-radius:3px;border:none;}
 button,form a{background-color:silver;font-family:sans-serif;vertical-align:middle;line-height:3em;color:black;}
 textarea{height:auto}
 
-input , textarea, select
+input[type="radio"]{max-height:1em;}
+input[type="submit"]{font-family:"Monospace";padding:0px 5px 0px 5px;vertical-align: top;height:19px}
+input , textarea, select,main>.right input[type="submit"]
 {
 	-moz-transition:background-color 0.5s;
 	-webkit-transition:background-color 0.5s;
+	transition:background-color 0.5s;
 	background-color:#F0F8FF;
 	font-family:Monospace;
 }
-input[type="radio"]{max-height:1em;}
-input[type="submit"]{font-family:"Monospace";padding:0px 5px 0px 5px;}
+.sep , .acciones , input[type="checkbox"],input[type="submit"]{opacity:0.2;transition:opacity 0.8s}
+.tresem input{opacity:1;}
+main>.right .acciones,main>.right input[type="submit"]
+{
+	background-image:none;
+	width:100%;
+	opacity:1;
+	max-width:none;
+	color:black;height:auto;
+	background-color:#D8F3FF;
+}
+main>.right .acciones:hover,main>.right input[type="submit"]:hover
+{
+	background-color:white;
+}
+input[name="nuevo"]{background-image:url("http://localhost/img/10.png");}
+input[name="elimina"]{background-image:url("http://localhost/img/51.png")}
+input[name="edita"]{background-image:url("http://localhost/img/39.png")}
+input[name="elimina"],input[name="edita"],input[name="nuevo"]{background-repeat:no-repeat;background-position: center;color:transparent;}
+
 input:hover , textarea:hover ,select:hover, input:focus , textarea:focus
 {
 	background-color:#D8F3FF;

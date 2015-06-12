@@ -1,5 +1,5 @@
 <?php
-	include_once $_SERVER['DOCUMENT_ROOT'] . '//php/FormCfg.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/FormCfg.php';
 
 	class FormCliBuilder extends FormCfg
 	{
@@ -7,12 +7,14 @@
 		public $fType;
 		public 	$cMax;
 		public $actionUrl;
+		public $raiz;
 
 		public function __construct($fId , $cMax=0)
 		{
 			parent::__construct($fId);
 
-			$this->actionUrl='http://' . $_SERVER['SERVER_NAME'] . '/php/accion.php';
+			$this->raiz='http://'. $_SERVER['SERVER_NAME'].'/';
+			$this->actionUrl=$this->raiz . 'php/accion.php';
 
 			$this->cMax=$cMax;
 		}
@@ -46,7 +48,7 @@
 			$this->buildFID();
 
 			$nArgs=func_num_args();
-			if($nArgs!==1 && $orden!==NULL)
+			if($nArgs>1 && $orden!==NULL)
 			{
 				?>
 					<div class="sep"></div>
@@ -159,19 +161,12 @@
 								</select>
 								<?php
 							}
-						?>
-						<input type="submit" name="nuevo" value=
-							"<?php 
 							if($nArgs===3 && $conID===NULL)
 							{
-								?>+<?php
+								$submitTxt='+';
 							}
-							else
-							{
-								echo $submitTxt;
-							}
-							?>"
-						>
+						?>
+						<input type="submit" name="nuevo" value="<?php echo $submitTxt?>">
 					</p>
 				<?php 
 				} 
