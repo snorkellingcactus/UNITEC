@@ -12,7 +12,7 @@
 		{
 			parent::__construct($fId);
 
-			$this->actionUrl='http://' . $_SERVER['SERVER_NAME'] . '/Web/Pasantía/edetec/php/accion.php';
+			$this->actionUrl='http://' . $_SERVER['SERVER_NAME'] . '/php/accion.php';
 
 			$this->cMax=$cMax;
 		}

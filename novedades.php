@@ -4,13 +4,9 @@
 		<meta charset="utf-8" />
 		<meta name="description" content="Un visor de imágenes con comentarios." />
 
-		<?php
-			$raiz='/Web/Pasantía/edetec/';
-		?>
-
-		<link rel="stylesheet" type="text/css" href="<?php echo $raiz ?>bootstrap.min.css" />
-		<link rel="stylesheet" type="text/css" href="<?php echo $raiz ?>forms/forms.css" />
-		<link rel="stylesheet" type="text/css" href="<?php echo $raiz ?>seccs/visor.css" />
+		<link rel="stylesheet" type="text/css" href="bootstrap.min.css" />
+		<link rel="stylesheet" type="text/css" href="forms/forms.css" />
+		<link rel="stylesheet" type="text/css" href="seccs/visor.css" />
 
 		<title>Edetec - Novedades</title>
 	</head>
