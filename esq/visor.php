@@ -1,9 +1,13 @@
 <?php
-
 	//Si todavía no se inicio sesion, se inicia.
 	if(session_status()==PHP_SESSION_NONE)
 	{
 		session_start();
+	}
+	if(!isset($_SESSION['normalID']))
+	{
+		header('Location: http://'.$_SERVER['SERVER_NAME'].'/inicio_sesion.php');
+		die();
 	}
 
 	$rw=1;
