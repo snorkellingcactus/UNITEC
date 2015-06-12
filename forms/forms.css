@@ -66,9 +66,9 @@ main>.right .acciones:hover,main>.right input[type="submit"]:hover
 {
 	background-color:white;
 }
-input[name="nuevo"]{background-image:url("http://localhost/img/10.png");}
-input[name="elimina"]{background-image:url("http://localhost/img/51.png")}
-input[name="edita"]{background-image:url("http://localhost/img/39.png")}
+input[name="nuevo"]{background-image:url("/img/10.png");}
+input[name="elimina"]{background-image:url("/img/51.png")}
+input[name="edita"]{background-image:url("/img/39.png")}
 input[name="elimina"],input[name="edita"],input[name="nuevo"]{background-repeat:no-repeat;background-position: center;color:transparent;}
 
 input:hover , textarea:hover ,select:hover, input:focus , textarea:focus
