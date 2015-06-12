@@ -17,7 +17,7 @@
 
 		$this->autocomp['Visible']=$evento['Visible'];
 		$this->autocomp['Prioridad']=$evento['Prioridad'];
-		$this->autocomp['Titulo']=$evento['Nombre'];
+		$this->autocomp['Titulo']=getTraduccion($evento['NombreID'] , $_SESSION['lang']);
 		$this->autocomp['Fecha']=$evento['Tiempo'];
 		$this->autocomp['Descripcion']=getTraduccion($evento['DescripcionID'] , $_SESSION['lang']);
 

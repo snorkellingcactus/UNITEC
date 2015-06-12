@@ -101,6 +101,11 @@ if(session_status()==PHP_SESSION_NONE)
 						$evtAct['DescripcionID'],
 						$_SESSION['lang']
 					);
+					$evtAct['Nombre']=getTraduccion
+					(
+						$evtAct['NombreID'],
+						$_SESSION['lang']
+					);
 
 					//Simulación de eventos.
 					$CalCfg->adEvento

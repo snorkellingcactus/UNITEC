@@ -18,17 +18,18 @@
 
 			for($i=0;$i<$this->cantidad;$i++)
 			{
+				$evento->getSQL(['DescripcionID'=>$_SESSION['conID'][$i]]);
 				$evento->getAsoc
 				(
 					[
 						'Tiempo'=>$_POST['Ano'][$i].'-'.$_POST['Mes'][$i].'-'.$_POST['Dia'][$i].' '.$_POST['Horas'][$i].':'.$_POST['Minutos'][$i],
-						'Nombre'=>$_POST['Titulo'][$i],
 						'Visible'=>$_POST['Visible'][$i],
 						'Prioridad'=>$_POST['Prioridad'][$i]
 					]
 				);
 
 				updTraduccion($_POST['Descripcion'][$i] , $_SESSION['conID'][$i] , $_SESSION['lang']);
+				updTraduccion($_POST['Titulo'][$i] , $evento->NombreID , $_SESSION['lang']);
 
 				//echo '<pre>A insertar: ';print_r($evento);echo '</pre>';
 
@@ -78,7 +79,6 @@
 				$evento=new Evento
 				(
 					[
-						'Nombre'=>htmlentities($_POST['Titulo'][$i]),
 						'Tiempo'=>$fecha,
 						'Prioridad'=>$_POST['Prioridad'][$i]
 					]
@@ -92,6 +92,17 @@
 						$_SESSION['lang']
 					),
 					'DescripcionID',
+					'ContenidoID'
+				);
+				$evento->insForanea
+				(
+
+					nTraduccion
+					(
+						$_POST['Titulo'][$i],
+						$_SESSION['lang']
+					),
+					'NombreID',
 					'ContenidoID'
 				);
 
