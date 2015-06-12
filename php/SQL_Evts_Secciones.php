@@ -1,5 +1,8 @@
 <?php
-	include_once $_SERVER['DOCUMENT_ROOT'] . '//php/SQL_Evts_List.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/SQL_Evts_List.php';
+
+	error_reporting(-1);
+	ini_set('display_errors', 'On');
 
 	class SQL_Evts_Secciones implements SQL_Evts_List
 	{
@@ -38,13 +41,13 @@
 						),
 						MYSQLI_NUM
 					)[0][0];
-					include($_SERVER['DOCUMENT_ROOT'] . '//php/updTraduccion.php');
+					include($_SERVER['DOCUMENT_ROOT'] . '/php/updTraduccion.php');
 
 					updTraduccion($_POST['Descripcion'][0] , $valor , $_SESSION['lang']);
 				}
 				else
 				{
-					include($_SERVER['DOCUMENT_ROOT'] . '//php/nTraduccion.php');
+					include($_SERVER['DOCUMENT_ROOT'] . '/php/nTraduccion.php');
 
 					$descripcion=nTraduccion($_POST['Descripcion'][0] , $_SESSION['lang']);
 
@@ -120,11 +123,7 @@
 					$consulta='update Secciones set Prioridad='.(intVal($secciones[$j]['Prioridad'])+1).' where ID='.$nID;
 
 					$con->query($consulta);
-	/*
-					echo '<pre>';
-					print_r($consulta);
-					echo '</pre>';
-	*/
+
 					++$j;
 
 					if($j>20)
@@ -194,15 +193,6 @@
 
 			if($tipo)
 			{
-			/*
-				echo '<pre>';
-				print_r
-				(
-					'SELECT ContenidoID FROM Secciones WHERE ID='.$_SESSION['conID']
-				);
-				echo '</pre>';
-			*/
-
 				$contenidoID=fetch_all
 				(
 					$con->query('SELECT ContenidoID FROM Secciones WHERE ID='.$_SESSION['conID']),
@@ -216,8 +206,6 @@
 					//que eliminando el contenido, automáticamente se elimina la sección
 					//y las traducciones relacionadas.
 					$con->query('DELETE FROM Contenidos WHERE ID='.$contenidoID);
-
-					//echo '<pre>'.'DELETE FROM Contenidos WHERE ID='.$contenidoID.'</pre>';
 				}
 				else
 				{
@@ -231,15 +219,13 @@
 			if($secID!==NULL)
 			{
 				$con->query('DELETE FROM Secciones WHERE ID='.$secID);
-
-				//echo '<pre>'.'DELETE FROM Secciones WHERE ID='.$secID.'</pre>';
 			}
 		}
-		public function nSec($visible , $orden , $tipo , $valor , $edita=false , $htmlID=NULL)
+		public function nSec($visible , $orden , $tipo , $valor , $edita , $htmlID)
 		{
 			global $con;
 			
-			include_once($_SERVER['DOCUMENT_ROOT'] . '//php/Seccion.php');
+			include_once($_SERVER['DOCUMENT_ROOT'] . '/php/Seccion.php');
 
 			$nSec=new Seccion();
 

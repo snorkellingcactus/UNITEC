@@ -56,9 +56,8 @@ start_session_if_not();
 				if(isset($_POST['contrasena'])&&isset($_POST['Nombre']))
 				{
 					include	$_SERVER['DOCUMENT_ROOT'] . '//php/conexion.php';
-				
 					//Trato de obtener el usuario.
-					$usuario=$con->query('select * from Usuarios where Contrasena="'.sha1($_POST['contrasena']).'"');
+					$usuario=$con->query('select * from Usuarios where NombreUsuario="'.$_POST['Nombre'].'" and Contrasena="'.sha1($_POST['contrasena']).'"');
 				
 					//Operaciones a realizar si se obtuvo.
 					if($con->affected_rows>0)
@@ -70,13 +69,15 @@ start_session_if_not();
 							$_SESSION['normalID']=$usuario['ID'];
 							header('Location: http://'.$_SERVER['SERVER_NAME'].'/index.php');
 						}
-				
-						//Variable que define el modo administrador.
-						$_SESSION['adminID']=$usuario['ID'];
+						else
+						{
+							//Variable que define el modo administrador.
+							$_SESSION['adminID']=$usuario['ID'];
+						}
 					}
 					else
 					{
-						$msg='El usuario no existe<br/>';
+						$msg='El usuario no existe <br/>';
 					}
 				}
 

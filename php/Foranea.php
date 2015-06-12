@@ -28,7 +28,7 @@ class Foranea
 		$colANom=$this->colANom;
 		$colBNom=$this->colBNom;
 
-		if($this->sqlObjA->$colANom != $this->sqlObjB->$colBNom)
+		if($this->sqlObjA->$colANom !== $this->sqlObjB->$colBNom)
 		{
 			$this->sqlObjA->$colANom=$this->sqlObjB->$colBNom;
 		}
