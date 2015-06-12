@@ -76,7 +76,7 @@
 		if(isset($_POST['comConID'])&&$_POST['comConID']==$this->ContenidoID)
 		{
 			$_SESSION['comConID']=$_POST['comConID'];
-			include "../forms/nuevo_coment.php";
+			include $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/forms/nuevo_coment.php';
 		}
 	?>
 </div>

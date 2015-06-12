@@ -1,4 +1,4 @@
-<form id="vImg" method="POST" action="seccs/visor.php" target="_blank"></form>
+<form id="vImg" method="POST" action="Imagenes.php" target="_blank"></form>
 <?php
 
 	//Si todavía no se inicio sesion, se inicia.

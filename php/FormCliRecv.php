@@ -8,6 +8,7 @@
 
 		public function checks()
 		{
+			
 			if
 			(
 				isset($_SESSION['form'])	&&

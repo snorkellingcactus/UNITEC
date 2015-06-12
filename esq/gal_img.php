@@ -15,7 +15,7 @@
 			$this->formBuilder->buildActionCheckBox($this->TituloID);
 		}
 	?>
-	<a href="seccs/visor.php?vRecID=<?php echo $this->ID ?>">
+	<a href="imagenes.php?vRecID=<?php echo $this->ID ?>">
 		<p>
 			<?php echo $this->TituloCon ?>
 		</p>

@@ -1,12 +1,15 @@
-<form class="nComentForm tresem" action="visor.php#comRes" method="POST"
 <?php
-if(isset($_POST['comConID']))
-{
-	?>
-	id="comRes"
-	<?php
-}
+	include_once($_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/actualPath.php');
 ?>
+<form class="nComentForm tresem" action="<?php echo actualPath() ?>#comRes" method="POST"
+	<?php
+		if(isset($_POST['comConID']))
+		{
+			?>
+			id="comRes"
+			<?php
+		}
+	?>
 >
 	<input type="hidden" name="form" value="accionesCom"/>
 	<input type="hidden" name="nuevo" value="accionesCom"/>
