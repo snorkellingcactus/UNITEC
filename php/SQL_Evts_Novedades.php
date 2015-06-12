@@ -1,12 +1,12 @@
 <?php
-	include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/SQL_Evts_List.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '//php/SQL_Evts_List.php';
 
 	class SQL_Evts_Novedades implements SQL_Evts_List
 	{
 		public function edita()
 		{
-			include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/Novedad.php';
-			include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/updTraduccion.php';
+			include_once $_SERVER['DOCUMENT_ROOT'] . '//php/Novedad.php';
+			include_once $_SERVER['DOCUMENT_ROOT'] . '//php/updTraduccion.php';
 
 			$nNov=new Novedad();
 			$iMax=count($_SESSION['conID']);
@@ -36,9 +36,9 @@
 		}
 		public function nuevo()
 		{
-			include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/Foranea.php';
-			include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/Novedad.php';
-			include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/nTraduccion.php';
+			include_once $_SERVER['DOCUMENT_ROOT'] . '//php/Foranea.php';
+			include_once $_SERVER['DOCUMENT_ROOT'] . '//php/Novedad.php';
+			include_once $_SERVER['DOCUMENT_ROOT'] . '//php/nTraduccion.php';
 
 			$iMax=1;
 			$afectados=[];
@@ -67,7 +67,7 @@
 		}
 		public function elimina()
 		{
-			include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/conexion.php';
+			include_once $_SERVER['DOCUMENT_ROOT'] . '//php/conexion.php';
 			global $con;
 
 			$iMax=count($_SESSION['conID']);

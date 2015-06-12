@@ -1,7 +1,7 @@
 <?php
 	$this->includes=
 	[
-		 $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/forms/forms.css'
+		 $_SERVER['DOCUMENT_ROOT'] . '//forms/forms.css'
 	];
 	$this->ancla='#nSec';
 	$this->labels=
@@ -17,7 +17,7 @@
 		
 	];//para todos
 
-	include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/conexion.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '//php/conexion.php';
 
 	$lMax=count($this->labels);
 

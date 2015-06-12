@@ -1,5 +1,5 @@
 <?php
-	include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/FormSrvRecv.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '//php/FormSrvRecv.php';
 
 	class FormSrvBuilder extends FormSrvRecv
 	{
@@ -33,11 +33,11 @@
 		public function getConfig()
 		{
 			//Incluyo la configuración del formulario en cuestión.
-			include $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/forms/config/'.$_POST['form'].'.php';
+			include $_SERVER['DOCUMENT_ROOT'] . '//forms/config/'.$_POST['form'].'.php';
 		}
 		public function buildIncludes()
 		{
-			include $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/head_include.php';
+			include $_SERVER['DOCUMENT_ROOT'] . '//php/head_include.php';
 
 			$iMax=count($this->includes);
 
@@ -67,7 +67,7 @@
 						<label for="<?php echo $labelName ?>"><?php echo $labelName ?>:</label>
 					</p>
 
-					<?php include $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/forms/'.$tipo; ?>
+					<?php include $_SERVER['DOCUMENT_ROOT'] . '//forms/'.$tipo; ?>
 
 					<div class="clearfix"></div>
 
@@ -96,7 +96,7 @@
 							{
 								$this->conIDAct=$_POST['conID'][$i];
 
-								include $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/forms/config/'.$_POST['form'].'Autocomp.php';
+								include $_SERVER['DOCUMENT_ROOT'] . '//forms/config/'.$_POST['form'].'Autocomp.php';
 							}
 
 							echo $this->buildForm();

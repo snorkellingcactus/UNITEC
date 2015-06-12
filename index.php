@@ -44,8 +44,8 @@ function echoLang($langSQLRes)
 
 if(isset($_SESSION['adminID']))
 {				
-	include_once($_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/FormCliRecv.php');
-	include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/SQL_Evts_Secciones.php';
+	include_once($_SERVER['DOCUMENT_ROOT'] . '//php/FormCliRecv.php');
+	include_once $_SERVER['DOCUMENT_ROOT'] . '//php/SQL_Evts_Secciones.php';
 
 	$formSecRecv=new FormCliRecv('Sec');
 	$formSecRecv->SQL_Evts=new SQL_Evts_Secciones();
@@ -69,8 +69,8 @@ if(isset($_SESSION['adminID']))
 		<link rel="stylesheet" type="text/css" href="./seccs/menu.css" />
 		
 		<?php
-			include_once($_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/conexion.php');
-			include_once($_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/head_include.php');
+			include_once($_SERVER['DOCUMENT_ROOT'] . '//php/conexion.php');
+			include_once($_SERVER['DOCUMENT_ROOT'] . '//php/head_include.php');
 			
 			$headers=$con->query
 			(
@@ -121,7 +121,7 @@ if(isset($_SESSION['adminID']))
 			<?php
 				global $afectado;
 /*
-				include_once($_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/Contenido.php');
+				include_once($_SERVER['DOCUMENT_ROOT'] . '//php/Contenido.php');
 
 				$jj=new Contenido($con);
 
@@ -204,10 +204,10 @@ if(isset($_SESSION['adminID']))
 				//SELECT s.Contenido as ConID, m.Contenido as Con FROM `Secciones` as s , `Contenido` as m WHERE s.Contenido = m.ID
 					//$cfg=sqlResToCfg($Opciones);
 
-				include_once($_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/Include_Context.php');
-				include_once($_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/getTraduccion.php');
-				include_once($_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/Include_Context.php');
-				include_once($_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/FormCliBuilder.php');
+				include_once($_SERVER['DOCUMENT_ROOT'] . '//php/Include_Context.php');
+				include_once($_SERVER['DOCUMENT_ROOT'] . '//php/getTraduccion.php');
+				include_once($_SERVER['DOCUMENT_ROOT'] . '//php/Include_Context.php');
+				include_once($_SERVER['DOCUMENT_ROOT'] . '//php/FormCliBuilder.php');
 
 				$formSec=new FormCliBuilder('Sec',0);
 				$formSec->fType='Sec';
@@ -219,7 +219,7 @@ if(isset($_SESSION['adminID']))
 					$htmlID=$seccion['HTMLID'];
 					$clase='';
 
-					//$accionesSec=new Include_Context($_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/forms/seccion_nuevo_contenido.php');
+					//$accionesSec=new Include_Context($_SERVER['DOCUMENT_ROOT'] . '//forms/seccion_nuevo_contenido.php');
 
 					if
 					(

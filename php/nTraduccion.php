@@ -4,9 +4,9 @@
 	{
 		global $con, $raiz;
 
-		include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/Contenido.php';
-		include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/Traduccion.php';
-		include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/Foranea.php';
+		include_once $_SERVER['DOCUMENT_ROOT'] . '//php/Contenido.php';
+		include_once $_SERVER['DOCUMENT_ROOT'] . '//php/Traduccion.php';
+		include_once $_SERVER['DOCUMENT_ROOT'] . '//php/Foranea.php';
 
 		$traduccion=new Traduccion
 		(

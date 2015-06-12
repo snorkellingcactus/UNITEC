@@ -1,5 +1,5 @@
 <?php
-	include_once($_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/actualPath.php');
+	include_once($_SERVER['DOCUMENT_ROOT'] . '//php/actualPath.php');
 ?>
 <form class="nComentForm tresem" action="<?php echo actualPath() ?>#comRes" method="POST"
 	<?php

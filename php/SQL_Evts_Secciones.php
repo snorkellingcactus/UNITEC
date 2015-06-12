@@ -1,5 +1,5 @@
 <?php
-	include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/SQL_Evts_List.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '//php/SQL_Evts_List.php';
 
 	class SQL_Evts_Secciones implements SQL_Evts_List
 	{
@@ -21,7 +21,7 @@
 			$valor=NULL;
 			$htmlID=NULL;
 
-			include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/conexion.php';
+			include_once $_SERVER['DOCUMENT_ROOT'] . '//php/conexion.php';
 			global $con;
 
 			if(isset($_POST['Descripcion']))
@@ -38,13 +38,13 @@
 						),
 						MYSQLI_NUM
 					)[0][0];
-					include($_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/updTraduccion.php');
+					include($_SERVER['DOCUMENT_ROOT'] . '//php/updTraduccion.php');
 
 					updTraduccion($_POST['Descripcion'][0] , $valor , $_SESSION['lang']);
 				}
 				else
 				{
-					include($_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/nTraduccion.php');
+					include($_SERVER['DOCUMENT_ROOT'] . '//php/nTraduccion.php');
 
 					$descripcion=nTraduccion($_POST['Descripcion'][0] , $_SESSION['lang']);
 
@@ -155,15 +155,15 @@
 			{
 				global $con,$afectado;
 
-				include($_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/Menu.php');
+				include($_SERVER['DOCUMENT_ROOT'] . '//php/Menu.php');
 				$menu=new Menu(['SeccionID'=>$htmlID]);
 
 				$menu->getSQL();
 
 				if(empty($menu->ID))
 				{
-					include_once($_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/nTraduccion.php');
-					include_once($_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/Foranea.php');
+					include_once($_SERVER['DOCUMENT_ROOT'] . '//php/nTraduccion.php');
+					include_once($_SERVER['DOCUMENT_ROOT'] . '//php/Foranea.php');
 
 					$menu->Prioridad=fetch_all($con->query('select max(Prioridad) from Menu') , MYSQLI_NUM)[0][0];
 					$menu->Url='#'.rawurlencode($_POST['Titulo'][0]);
@@ -187,7 +187,7 @@
 		public function elimina()
 		{
 
-			include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/conexion.php';
+			include_once $_SERVER['DOCUMENT_ROOT'] . '//php/conexion.php';
 
 			$tipo=isset($_SESSION['conID']);
 			$secID=NULL;
@@ -237,7 +237,7 @@
 		{
 			global $con;
 			
-			include_once($_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/Seccion.php');
+			include_once($_SERVER['DOCUMENT_ROOT'] . '//php/Seccion.php');
 
 			$nSec=new Seccion();
 

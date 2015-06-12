@@ -1,5 +1,5 @@
 <?php
-	include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/SQL_Evts_List.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '//php/SQL_Evts_List.php';
 
 	class SQL_Evts_Comentarios_Normal implements SQL_Evts_List
 	{
@@ -10,10 +10,10 @@
 		public function nuevo()
 		{
 			//Include necesario para manejar llaves foráneas.
-			include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/Comentario.php';
-			include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/Contenido.php';
-			include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/Foranea.php';
-			include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/nTraduccion.php';
+			include_once $_SERVER['DOCUMENT_ROOT'] . '//php/Comentario.php';
+			include_once $_SERVER['DOCUMENT_ROOT'] . '//php/Contenido.php';
+			include_once $_SERVER['DOCUMENT_ROOT'] . '//php/Foranea.php';
+			include_once $_SERVER['DOCUMENT_ROOT'] . '//php/nTraduccion.php';
 
 			//Creo un objeto comentario.
 			$FechaAct=getdate();

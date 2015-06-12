@@ -1,12 +1,12 @@
 <?php
-	include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/SQL_Evts_List.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '//php/SQL_Evts_List.php';
 
 	class SQL_Evts_Imagenes implements SQL_Evts_List
 	{
 		public function edita()
 		{
-			include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/updTraduccion.php';
-			include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/Img.php';
+			include_once $_SERVER['DOCUMENT_ROOT'] . '//php/updTraduccion.php';
+			include_once $_SERVER['DOCUMENT_ROOT'] . '//php/Img.php';
 
 			$iMax=count($_SESSION['conID']);
 			$afectadosLen=0;
@@ -40,8 +40,8 @@
 		}
 		public function nuevo()
 		{
-			include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/Img.php';
-			include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/Foranea.php';
+			include_once $_SERVER['DOCUMENT_ROOT'] . '//php/Img.php';
+			include_once $_SERVER['DOCUMENT_ROOT'] . '//php/Foranea.php';
 
 			$iMax=count($_POST['Titulo']);
 			$afectadosLen=0;

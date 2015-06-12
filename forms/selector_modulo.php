@@ -1,5 +1,5 @@
 <?php
-	include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/conexion.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '//php/conexion.php';
 	global $con;
 
 	$modulos=$con->query('select ID , Nombre , Archivo from Modulos where PadreID is NULL');

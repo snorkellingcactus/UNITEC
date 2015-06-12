@@ -19,9 +19,9 @@
 		//Diferencias al ser admin.
 		if(!empty($_SESSION['adminID']))
 		{
-			include_once($_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/FormCliRecv.php');
-			include_once($_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/FormCliBuilder.php');
-			include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/SQL_Evts_Novedades.php';
+			include_once($_SERVER['DOCUMENT_ROOT'] . '/php/FormCliRecv.php');
+			include_once($_SERVER['DOCUMENT_ROOT'] . '/php/FormCliBuilder.php');
+			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/SQL_Evts_Novedades.php';
 
 			$formNovRecv=new FormCliRecv('Nov');
 			$formNovRecv->SQL_Evts=new SQL_Evts_Novedades();
@@ -32,7 +32,7 @@
 			$formNov->buildActionForm();
 		}
 
-		include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/conexion.php';
+		include_once $_SERVER['DOCUMENT_ROOT'] . '/php/conexion.php';
 		global $con;
 
 		$novedades=$con->query('select * from Novedades order by Fecha desc');
@@ -48,10 +48,10 @@
 		}
 		else
 		{
-			include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/Include_Context.php';
-			include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/Novedad.php';
-			include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/getTraduccion.php';
-			include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/jBBCode1_3_0/JBBCode/Parser.php';
+			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/Include_Context.php';
+			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/Novedad.php';
+			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/getTraduccion.php';
+			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/jBBCode1_3_0/JBBCode/Parser.php';
 
 
 			$novedadHTML=new Include_Context('esq/novedad.php');
@@ -75,7 +75,7 @@
 
 				$parser=new JBBCode\Parser();
 				
-				include $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/parser_definiciones.php';
+				include $_SERVER['DOCUMENT_ROOT'] . '/php/parser_definiciones.php';
 
 				$parser->parse($descripcion);
 

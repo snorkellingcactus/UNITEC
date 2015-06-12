@@ -1,5 +1,5 @@
 <?php
-include_once	$_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/conexion.php';
+include_once	$_SERVER['DOCUMENT_ROOT'] . '//php/conexion.php';
 //Genera el código HTML de la galería según los parametros dados.
 //$img puede ser el texto de una consulta SQL
 //o una lista de objetos de tipo Img.

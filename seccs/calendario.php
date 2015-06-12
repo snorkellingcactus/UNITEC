@@ -11,8 +11,8 @@
 "weekday"
 "month"
 :::::::::::::::::::::::::::::::::*/
-include $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/cal/Cal_Cfg.php';
-include $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/cal/Cal_Gen_HTML.php';
+include $_SERVER['DOCUMENT_ROOT'] . '/php/cal/Cal_Cfg.php';
+include $_SERVER['DOCUMENT_ROOT'] . '/php/cal/Cal_Gen_HTML.php';
 
 $CalCfg=new Cal_Cfg();
 $GenHTML=new Cal_Gen_HTML($CalCfg);
@@ -33,9 +33,9 @@ if(session_status()==PHP_SESSION_NONE)
 		<?php
 			if(!empty($_SESSION['adminID']))
 			{
-				include_once($_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/FormCliRecv.php');
-				include_once($_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/FormCliBuilder.php');
-				include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/SQL_Evts_Eventos.php';
+				include_once($_SERVER['DOCUMENT_ROOT'] . '/php/FormCliRecv.php');
+				include_once($_SERVER['DOCUMENT_ROOT'] . '/php/FormCliBuilder.php');
+				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/SQL_Evts_Eventos.php';
 
 				$formCalRecv=new FormCliRecv('Cal');
 				$formCalRecv->SQL_Evts=new SQL_Evts_Eventos();
@@ -76,7 +76,7 @@ if(session_status()==PHP_SESSION_NONE)
 				$consulta=$consulta.' where Tiempo between "'.$mesAct.'" and "'.$mesSig.'"';
 			}
 
-			include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/conexion.php';
+			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/conexion.php';
 			global $con;
 
 			$eventos=$con->query($consulta.' ORDER BY Tiempo,Prioridad ASC');

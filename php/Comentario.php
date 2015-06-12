@@ -1,5 +1,5 @@
 <?php
-require_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/SQL_Obj.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '//php/SQL_Obj.php';
 
 class Comentario extends SQL_Obj
 {
@@ -33,10 +33,10 @@ class Comentario extends SQL_Obj
 }
 function genComLst($main , $mLen , $dep , $NombreDest=NULL)
 {
-	include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/getTraduccion.php';
-	include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/Include_Context.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '//php/getTraduccion.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '//php/Include_Context.php';
 
-	$comentarioHTML=new Include_Context($_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/esq/coment.php');
+	$comentarioHTML=new Include_Context($_SERVER['DOCUMENT_ROOT'] . '//esq/coment.php');
 
 	for($i=0;$i<$mLen;$i++)
 	{

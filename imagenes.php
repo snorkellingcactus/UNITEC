@@ -24,9 +24,9 @@
 			}
 
 			$rw=1;
-			include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/conexion.php';
-			include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/Visor.php';
-			include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/getTraduccion.php';
+			include_once $_SERVER['DOCUMENT_ROOT'] . '//php/conexion.php';
+			include_once $_SERVER['DOCUMENT_ROOT'] . '//php/Visor.php';
+			include_once $_SERVER['DOCUMENT_ROOT'] . '//php/getTraduccion.php';
 
 			$recLst=fetch_all
 			(
@@ -50,10 +50,10 @@
 				$imgAct['vRecID']=$imgAct['TituloID'];
 			}
 
-			include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/Include_Context.php';
+			include_once $_SERVER['DOCUMENT_ROOT'] . '//php/Include_Context.php';
 
-			$visorHTML=new Include_Context($_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/esq/visor.php');
-			$visorHTML->include=new Include_Context($_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/esq/visor_imagenes.php');
+			$visorHTML=new Include_Context($_SERVER['DOCUMENT_ROOT'] . '//esq/visor.php');
+			$visorHTML->include=new Include_Context($_SERVER['DOCUMENT_ROOT'] . '//esq/visor_imagenes.php');
 			$visorHTML->recLst=$recLst;
 
 			$visorHTML->getContent();

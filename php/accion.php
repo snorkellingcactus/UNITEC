@@ -5,7 +5,7 @@ if(session_status()===PHP_SESSION_NONE)
 }
 if(isset($_SESSION['adminID']))
 {
-	include $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/FormSrvBuilder.php';
+	include $_SERVER['DOCUMENT_ROOT'] . '//php/FormSrvBuilder.php';
 
 	$formHandler=new FormSrvBuilder();
 	

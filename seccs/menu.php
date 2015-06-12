@@ -1,14 +1,14 @@
 <?
 	if(!empty($_SESSION['adminID']))
 	{
-		include_once($_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/FormCliRecv.php');
-		include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/SQL_Evts_Menu.php';
+		include_once($_SERVER['DOCUMENT_ROOT'] . '/php/FormCliRecv.php');
+		include_once $_SERVER['DOCUMENT_ROOT'] . '/php/SQL_Evts_Menu.php';
 
 		$formMenuRecv=new FormCliRecv('Menu');
 		$formMenuRecv->SQL_Evts=new SQL_Evts_Menu();
 		$formMenuRecv->checks();
 
-		include_once($_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/FormCliBuilder.php');
+		include_once($_SERVER['DOCUMENT_ROOT'] . '/php/FormCliBuilder.php');
 
 		$formMenu=new FormCliBuilder('Menu' , 10);
 	}
@@ -18,8 +18,8 @@
 		<nav>
 			<ul>
 				<?php
-					include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/conexion.php';
-					include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/getTraduccion.php';
+					include_once $_SERVER['DOCUMENT_ROOT'] . '/php/conexion.php';
+					include_once $_SERVER['DOCUMENT_ROOT'] . '/php/getTraduccion.php';
 
 					global $con;
 

@@ -1,5 +1,5 @@
 <?php
-	include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/FormCfg.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '//php/FormCfg.php';
 
 	class FormCliRecv extends FormCfg
 	{

@@ -38,7 +38,7 @@ class SQL_Obj
 		{
 			if(!isset($GLOBALS['con']))
 			{
-				include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/conexion.php';
+				include_once $_SERVER['DOCUMENT_ROOT'] . '//php/conexion.php';
 			}
 			$con=$GLOBALS['con'];
 		}
