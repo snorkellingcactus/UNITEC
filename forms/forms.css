@@ -74,6 +74,7 @@ select.orden .lleno{cursor:default;pointer-events:none;background-color:silver;}
 section form.accionesSec , section form.accionesCon, section form.nCon{float:left;}
 body form.right{right:40px; position:absolute}
 body form.right input, body form.nCon input, body form.nCon select{float:none;}
+
 label[for^="con"]{display:none;}
 
 

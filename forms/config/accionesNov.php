@@ -32,5 +32,4 @@
 
 	$this->ancla='#nov';
 	//$action='../index.php';
-	$for='nNov';
 ?>

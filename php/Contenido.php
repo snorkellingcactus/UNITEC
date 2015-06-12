@@ -3,15 +3,15 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/SQL_Obj.php'
 
 class Contenido extends SQL_Obj
 {
-	public function __construct($con)
+	function __construct($props=NULL , $con=NULL)
 	{
 		$nArgs=func_num_args();
 
-		parent::__construct($con, 'Contenidos' , ['ID']);
+		parent::__construct('Contenidos' , ['ID']);
 
-		if($nArgs>1)
+		if($props!==NULL)
 		{
-			$this->getAsoc(func_get_args()[1]);
+			$this->getAsoc($props);
 		}
 	}
 }

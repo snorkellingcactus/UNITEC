@@ -1,13 +1,12 @@
 <?php
 	if(isset($_POST['conID']))
 	{
-		$cantidad=count($_POST['conID']);
+		$this->cantidad=count($_POST['conID']);
 	}
-	$includes=['../forms/forms.css'];
-	$ancla='#nOpc';
-	$action='../index.php';
-	$for='nMenu';
-	$labels=
+	$this->includes=['../forms/forms.css'];
+	$this->ancla='#nOpc';
+
+	$this->labels=
 	[
 		[
 			'input_text.php',

@@ -20,110 +20,45 @@
 		if(!empty($_SESSION['adminID']))
 		{
 			include_once($_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/FormBuilder.php');
+			include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/SQL_Evts_Novedades.php';
 
 			$formNov=new FormBuilder('Nov' , 1);
+			$formNov->SQL_Evts=new SQL_Evts_Novedades();
 			//Incluyo las acciones posibles.
 			$formNov->buildActionForm();
-		}
 
-		//Si se rellenó el formulario nueva novedad la envío a la bd.
-		if(isset($_POST['nNov']))
-		{
-			include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/conexion.php';
-			include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/Novedad.php';
-			include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/Img.php';
-			include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/Traduccion.php';
-			include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/nTraduccion.php';
-			include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/updTraduccion.php';
+			$formNov->checks();
 
-			$iMax=count('nNov');
-
-			if(isset($_SESSION['accion'])  && $_SESSION['accion']==='edita')
-			{
-				unset($_SESSION['accion']);
-			
-				$nNov=new Novedad($con);
-
-				for($i=0;$i<$iMax;$i++)
-				{
-					$nNov->getSQL
-					(
-						[
-							'ID'=>$_SESSION['conID'][$i]
-						]
-					);
-
-					$nNov->ImagenID=$_POST['Imagen'][$i];
-					$nNov->Visible=$_POST['Visible'][$i];
-					$nNov->updSQL(false , ['ID']);
-
-					updTraduccion($_POST['Descripcion'][$i] , $nNov->DescripcionID , $_SESSION['lang']);
-					updTraduccion($_POST['Titulo'][$i] , $nNov->TituloID , $_SESSION['lang']);
-				}
-			}
-			else
-			{
-				for($i=0;$i<$iMax;$i++)
-				{
-					$titulo=nTraduccion($_POST['Titulo'][$i] , $_SESSION['lang']);
-
-					$descripcion=nTraduccion($_POST['Descripcion'][$i] , $_SESSION['lang']);
-
-					$horaLoc=getdate();
-
-					$nov=new Novedad($con);
-
-					$nov->ImagenID=$_POST['Imagen'][$i];
-					$nov->Fecha=$horaLoc['year'].'-'.$horaLoc['mon'].'-'.$horaLoc['mday'];
-
-					$nov->insForaneas($descripcion , ['DescripcionID'=>'ContenidoID']);
-					$nov->insForaneas($titulo , ['TituloID'=>'ContenidoID']);
-
-					$nov->insSQL();
-				}
-			}
-			unset($nov , $titulo , $descripcion , $horaLoc , $iMax , $i , $_POST['Titulo'] , $_POST['Descripcion'] , $_POST['Lenguaje'] , $_POST['nNov'] , $_SESSION['conID'] , $_SESSION['form']);
-		}
-
-		//Acciones con las seleccionadas.
-		if(isset($_SESSION['form']) && $_SESSION['form']==='accionesNov' && isset($_SESSION['accion']) && $_SESSION['accion']==='elimina')
-		{
-			include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/conexion.php';
-
-			$iMax=count($_SESSION['conID']);
-			for($i=0;$i<$iMax;$i++)
-			{
-				$contenidos=$con->query('select TituloID , DescripcionID from Novedades where ID='.$_SESSION['conID'][$i]);
-				$contenidos=fetch_all($contenidos , MYSQLI_ASSOC)[0];
-
-				$con->query('delete from Novedades where ID='.$_SESSION['conID'][$i]);
-				$con->query('delete from Contenidos where ID='.$contenidos['TituloID'].' or ID='.$contenidos['DescripcionID']);
-			}
-
-			unset($_SESSION['conID'] , $_SESSION['form'] , $_SESSION['elimina']);
+			/*
+			echo '<pre>Form Builder (Nov)';
+			print_r($formNov);
+			echo '</pre>';
+			*/
 		}
 
 		include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/conexion.php';
+		global $con;
 
 		$novedades=$con->query('select * from Novedades order by Fecha desc');
 		$novedades=fetch_all($novedades , MYSQLI_ASSOC);
 
 		$cantidad=count($novedades);
-		$buff='';
 
-		if(!$cantidad || !$novedades)
+		if(!$cantidad)
 		{
-			$buff='<p>Sin novedades</p>';
+			?>
+				<p>Sin novedades</p>
+			<?php
 		}
 		else
 		{
-			include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/Inc_Esq.php';
+			include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/Include_Context.php';
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/Novedad.php';
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/getTraduccion.php';
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/jBBCode1_3_0/JBBCode/Parser.php';
 
 
-			$novedadesHTML=new Inc_Esq('esq/novedad.php');
+			$novedadHTML=new Include_Context('esq/novedad.php');
 
 			for($i=0;$i<$cantidad;$i++)
 			{
@@ -150,23 +85,15 @@
 
 				$descripcion=$parser->getAsText();
 
-				$novedad=new Novedad
-				(
-					$con,
-					[
-						'ID'=>$novAct['ID'],
-						'Imagen'=>$imagen,
-						'Titulo'=>$titulo,
-						'Descripcion'=>substr($descripcion , 0 , 500),
-						'Fecha'=>$novAct['Fecha']
-					]
-				);
+				$novedadHTML->ID=$novAct['ID'];
+				$novedadHTML->Imagen=$imagen;
+				$novedadHTML->Titulo=$titulo;
+				$novedadHTML->Descripcion=substr($descripcion , 0 , 500);
+				$novedadHTML->Fecha=$novAct['Fecha'];
 
-				$buff=$buff.$novedadesHTML->recorre($novedad);
+				$novedadHTML->getContent();
 			}
 		}
-
-		echo $buff;
-     
+ 
 	?>
 </div>

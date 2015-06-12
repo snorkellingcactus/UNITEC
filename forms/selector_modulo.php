@@ -28,7 +28,7 @@
 
 			<option value="<?php echo $modulo['ID']?>" 
 				<?php 
-					if((isset($autocomp[$labelName]) && $autocomp[$labelName]===$modulo['ID']) || (!isset($autocomp[$labelName]) && $m===0))
+					if((isset($this->autocomp[$labelName]) && $this->autocomp[$labelName]===$modulo['ID']) || (!isset($this->autocomp[$labelName]) && $m===0))
 					{
 						echo 'selected="selected"';
 					}

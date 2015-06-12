@@ -44,7 +44,7 @@
 		(
 			$con->query
 			(
-				'	SELECT TituloID, Url,ID,Alt
+				'	SELECT TituloID, Url,ID,AltID
 					FROM Imagenes
 					WHERE 1
 					ORDER BY Prioridad ASC
@@ -57,10 +57,9 @@
 	$iMax=count($visor->recLst);
 	for($i=0;$i<$iMax;$i++)
 	{
-		$img=& $visor->recLst[$i];
-		$img['TituloCon']=getTraduccion($img['TituloID'] , $_SESSION['lang']);
-
-
+		$imgAct=& $visor->recLst[$i];
+		$imgAct['TituloCon']=getTraduccion($imgAct['TituloID'] , $_SESSION['lang']);
+		$imgAct['AltCon']=getTraduccion($imgAct['AltID'] , $_SESSION['lang']);
 	}
 
 	$esq=$visor->recSel;
@@ -164,7 +163,7 @@
 						<img src="../img/flecha_i.png" alt="Flecha hacia la izquierda"/>
 					</a>
 
-					<img src="<?php echo $esq['Url'] ?>" alt="<?php echo $esq['Alt'] ?>"/>					
+					<img src="<?php echo $esq['Url'] ?>" alt="<?php echo $esq['AltCon'] ?>"/>					
 
 					<a href="visor.php?vRec=<?php echo $vImgSig ?>"  class="flecha" title="Imagen Siguiente">
 						<img src="../img/flecha_d.png" alt="Flecha hacia la derecha"/>
@@ -177,7 +176,7 @@
 					include_once($_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/Include_Context.php');
 					$formAcciones=new Include_Context($_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/forms/acciones.php');
 					//Incluyo las acciones para la selección.
-					$formAcciones->data
+					$formAcciones->data=
 					[
 						'omitirNuevas'=>true,
 						'fId'=>'Com',

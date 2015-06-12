@@ -73,11 +73,16 @@ class Visor
 
 		$this->fin=false;
 
+		if($max===0)
+		{
+			return 0;
+		}
+
 		if($num===$max)
 		{
 			$this->fin=true;
 		}
-		
+
 		$nRecSel=abs($num-intval($num/$max)*$max);
 
 		if($num<0)

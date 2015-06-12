@@ -33,127 +33,18 @@ if(session_status()==PHP_SESSION_NONE)
 		<?php
 			if(!empty($_SESSION['adminID']))
 			{
-				include_once($_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/Include_Context.php');
+				include_once($_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/FormBuilder.php');
+				include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/SQL_Evts_Eventos.php';
 
-				$formAcciones=new Include_Context($_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/forms/acciones.php');
-				//Incluyo las acciones para la selección.
-				$formAcciones->data=
-				[
-					'fAction'=>'#cal',
-					'fId'=>'Cal',
-					'cMax'=>30
-				];
+				$formCal=new FormBuilder('Cal' , 0);
+				$formCal->SQL_Evts=new SQL_Evts_Eventos();
 				//Incluyo las acciones posibles.
-				$formAcciones->getContent();
-			
+				//$formSec->buildActionForm();
 
-				if(isset($_POST['nEvt']))
-				{
+				$formCal->checks();
 
-					include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/conexion.php';
-					include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/SQL_Obj.php';
-					include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/Contenido.php';
-					include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/Evento.php';
-					include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/Traduccion.php';
-					include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/updTraduccion.php';
-					include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/nTraduccion.php';
-
-					//$fallas=[];
-					//$fallasLn=0;
-
-					$cantidad=count($_POST['Titulo']);
-
-					if(isset($_SESSION['accion'])  && $_SESSION['accion']==='edita')
-					{
-						$evento=new Evento($con);
-
-						for($i=0;$i<$cantidad;$i++)
-						{
-							$evento->getAsoc
-							(
-								[
-									'Tiempo'=>$_POST['Ano'][$i].'-'.$_POST['Mes'][$i].'-'.$_POST['Dia'][$i].' '.$_POST['Horas'][$i].':'.$_POST['Minutos'][$i],
-									'Nombre'=>$_POST['Titulo'][$i],
-									'Visible'=>$_POST['Visible'][$i],
-									'Prioridad'=>$_POST['Prioridad'][$i]
-								]
-							);
-
-							updTraduccion($_POST['Descripcion'][$i] , $_SESSION['conID'][$i] , $_SESSION['lang']);
-
-							//echo '<pre>A insertar: ';print_r($evento);echo '</pre>';
-
-							$evento->updSQL
-							(
-								false,
-								[
-									'DescripcionID'=>$_SESSION['conID'][$i]
-								]
-							);
-						}
-					}
-					else
-					{
-						for($i=0;$i<$cantidad;$i++)
-						{
-							//$grupo=$con->query('select ifnull(max(Grupo),0) as Grupo from Contenido');
-							
-							//$grupo=fetch_all($grupo , MYSQLI_ASSOC)[0]['Grupo']+1;
-
-							$fecha=date
-							(
-								'Y-m-d H:i:s',
-								mktime
-								(
-									$_POST['Horas'][$i],
-									$_POST['Minutos'][$i],
-									0,
-									$_POST['Mes'][$i],
-									$_POST['Dia'][$i],
-									$_POST['Ano'][$i]
-								)
-							);
-
-							$evento=new Evento
-							(
-								$con,
-								[
-									
-									'Nombre'=>htmlentities($_POST['Titulo'][$i]),
-									'Tiempo'=>$fecha,
-									'Prioridad'=>$_POST['Prioridad'][$i]
-								]
-							);
-							$evento->insForaneas
-							(
-
-								nTraduccion
-								(
-									$_POST['Descripcion'][$i],
-									$_SESSION['lang']
-								),
-								[
-									'DescripcionID'=>'ContenidoID'
-								]
-							);
-
-							$evento->insSQL();
-						}
-					}
-					unset($_SESSION['conID'] , $_SESSION['form'] , $_SESSION['accion']);
-				}
-
-				if(isset($_SESSION['form']) && $_SESSION['form']==='accionesCal' && $_SESSION['accion']==='elimina')
-				{
-					$iMax=count($_SESSION['conID']);
-					for($i=0;$i<$iMax;$i++)
-					{
-						//echo '<pre>Elimina Evento: '.'delete from Contenidos where ID='.$_SESSION['conID'][$i].'</pre>';
-						$con->query('delete from Contenidos where ID='.$_SESSION['conID'][$i]);
-					}
-
-					unset($_SESSION['conID'] , $_SESSION['form'] , $_SESSION['elimina']);
-				}
+				$formCal->cMax=30;
+				$formCal->buildActionForm();
 			}
 			$consulta='SELECT * FROM Eventos';
 
@@ -185,6 +76,7 @@ if(session_status()==PHP_SESSION_NONE)
 			}
 
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/conexion.php';
+			global $con;
 
 			$eventos=$con->query($consulta.' ORDER BY Tiempo,Prioridad ASC');
 

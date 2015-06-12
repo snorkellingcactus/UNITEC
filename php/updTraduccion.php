@@ -18,7 +18,7 @@ function updTraduccion($texto , $conID , $lang)
 			WHERE ContenidoID='.$conID.	
 		'	AND LenguajeID='.$lang.'</pre>';
 	*/
-	if($traduccion->num_rows)
+	if($traduccion && $traduccion->num_rows)
 	{
 		//echo '<pre>Existe una traduccion para este idioma, se actualizará</pre>';
 
@@ -42,7 +42,6 @@ function updTraduccion($texto , $conID , $lang)
 
 		$traduccion=new Traduccion
 		(
-			$con,
 			[
 				'ContenidoID'=>$conID,
 				'LenguajeID'=>$lang,

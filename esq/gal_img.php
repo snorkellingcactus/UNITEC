@@ -3,15 +3,15 @@
 		if(isset($_SESSION['adminID']))
 		{
 			?>
-				<input type="checkbox" class='eImg' name="conID[]" form="accionesGal" value="<?php echo $esq->TituloID ?>" >
+				<input type="checkbox" class='eImg' name="conID[]" form="accionesGal" value="<?php echo $this->TituloID ?>" >
 			<?php
 		}
 	?>
-	<a href="seccs/visor.php?vRecID=<?php echo $esq->ID ?>">
+	<a href="seccs/visor.php?vRecID=<?php echo $this->ID ?>">
 		<p>
-			<?php echo $esq->TituloCon ?>
+			<?php echo $this->TituloCon ?>
 		</p>
-		<img src="<?php echo $esq->Url ?>" alt="<?php echo $esq->Alt ?>" width="200" height="200" />
+		<img src="<?php echo $this->Url ?>" alt="<?php echo $this->AltCon ?>" width="200" height="200" />
 	</a>
 	
 </div>
