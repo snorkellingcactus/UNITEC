@@ -53,10 +53,9 @@ function updTraduccion($texto , $conID , $lang)
 }
 function updTraducciones($textos , $conID , $lang , $sMax=false)
 {
-	if(session_status()===PHP_SESSION_NONE)
-	{
-		session_start();
-	}
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/is_session_started.php';
+start_session_if_not();
+
 
 	$sMax=$sMax || count($conID);
 

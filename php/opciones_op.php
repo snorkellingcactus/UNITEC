@@ -1,8 +1,7 @@
 <?php
-if(session_status()===PHP_SESSION_NONE)
-{
-	session_start();
-}
+include_once $_SERVER['DOCUMENT_ROOT'] . '/php/is_session_started.php';
+start_session_if_not();
+
 if(!empty($_SESSION['adminID']) && isset($_POST['accion']))
 {
 	include $_SERVER['DOCUMENT_ROOT'] . '//php/conexion.php';

@@ -1,5 +1,5 @@
 <?php
-	include_once $_SERVER['DOCUMENT_ROOT'] . '//php/actualPath.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/actualPath.php';
 	$actual=actualPath();
 	$raiz=actualDir();
 ?>

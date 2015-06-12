@@ -14,10 +14,8 @@
 		<?php
 
 			//Si todavía no se inicio sesion, se inicia.
-			if(session_status()==PHP_SESSION_NONE)
-			{
-				session_start();
-			}
+			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/is_session_started.php';
+			start_session_if_not();
 
 			$rw=1;
 			include_once $_SERVER['DOCUMENT_ROOT'] . '//php/conexion.php';

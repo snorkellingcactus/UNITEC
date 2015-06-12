@@ -2,10 +2,10 @@
 <?php
 
 	//Si todavía no se inicio sesion, se inicia.
-	if(session_status()==PHP_SESSION_NONE)
-	{
-		session_start();
-	}
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/is_session_started.php';
+start_session_if_not();
+include_once $_SERVER['DOCUMENT_ROOT'] . '/php/is_session_started.php';
+start_session_if_not();
 	//Para pruebas, destruye la sesión actual.
 	if(isset($_GET['sesdest']))
 	{

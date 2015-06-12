@@ -1,10 +1,8 @@
 <div class="novedades">
 	<?php
 		//::::::::::Variables de Sesion::::::::::::::
-		if(session_status()==PHP_SESSION_NONE)
-		{
-			session_start();
-		}
+		include_once $_SERVER['DOCUMENT_ROOT'] . '/php/is_session_started.php';
+		start_session_if_not();
 		//Cache por defecto vale 0.
 		if(!isset($_SESSION['cache']))
 		{

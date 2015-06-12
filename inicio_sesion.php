@@ -1,10 +1,10 @@
 <!DOCTYPE html >
 <?php
 	//Si todavía no se inicio sesion, se inicia.
-	if(session_status()==PHP_SESSION_NONE)
-	{
-		session_start();
-	}
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/is_session_started.php';
+start_session_if_not();
+include_once $_SERVER['DOCUMENT_ROOT'] . '/php/is_session_started.php';
+start_session_if_not();
 	//Si se quiere cerrar sesión redirijo.
 	if(isset($_GET['cSesion']))
 	{

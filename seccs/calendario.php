@@ -17,10 +17,8 @@ include $_SERVER['DOCUMENT_ROOT'] . '/php/cal/Cal_Gen_HTML.php';
 $CalCfg=new Cal_Cfg();
 $GenHTML=new Cal_Gen_HTML($CalCfg);
 
-if(session_status()==PHP_SESSION_NONE)
-{
-	session_start();
-}
+include_once $_SERVER['DOCUMENT_ROOT'] . '/php/is_session_started.php';
+start_session_if_not();
 ?>
 <!--	:::::::::Calendario:::::::::	-->
 <div class='calendario' id='cal'>

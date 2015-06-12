@@ -18,10 +18,10 @@
 	include_once $_SERVER['DOCUMENT_ROOT'] . '//php/Comentario.php';
 	include_once $_SERVER['DOCUMENT_ROOT'] . '//php/Visor.php';
 	//Si todavía no se inicio sesion, se inicia.
-	if(session_status()==PHP_SESSION_NONE)
-	{
-		session_start();
-	}
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/is_session_started.php';
+start_session_if_not();
+include_once $_SERVER['DOCUMENT_ROOT'] . '/php/is_session_started.php';
+start_session_if_not();
 
 	$recLst=fetch_all
 	(

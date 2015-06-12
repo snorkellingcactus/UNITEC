@@ -6,10 +6,8 @@
 //error_reporting(E_ALL & ~E_DEPRECATED  & ~E_STRICT);
 ini_set("display_errors", "On");
 
-if(session_status()==PHP_SESSION_NONE)
-{
-	session_start();
-}
+include_once $_SERVER['DOCUMENT_ROOT'] . '/php/is_session_started.php';
+start_session_if_not();
 
 if(!isset($_SESSION['normalID']))
 {
@@ -51,8 +49,8 @@ function echoLang($langSQLRes)
 
 if(isset($_SESSION['adminID']))
 {				
-	include_once($_SERVER['DOCUMENT_ROOT'] . '//php/FormCliRecv.php');
-	include_once $_SERVER['DOCUMENT_ROOT'] . '//php/SQL_Evts_Secciones.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/FormCliRecv.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/SQL_Evts_Secciones.php';
 
 	$formSecRecv=new FormCliRecv('Sec');
 	$formSecRecv->SQL_Evts=new SQL_Evts_Secciones();
@@ -211,10 +209,10 @@ if(isset($_SESSION['adminID']))
 				//SELECT s.Contenido as ConID, m.Contenido as Con FROM `Secciones` as s , `Contenido` as m WHERE s.Contenido = m.ID
 					//$cfg=sqlResToCfg($Opciones);
 
-				include_once($_SERVER['DOCUMENT_ROOT'] . '//php/Include_Context.php');
-				include_once($_SERVER['DOCUMENT_ROOT'] . '//php/getTraduccion.php');
-				include_once($_SERVER['DOCUMENT_ROOT'] . '//php/Include_Context.php');
-				include_once($_SERVER['DOCUMENT_ROOT'] . '//php/FormCliBuilder.php');
+				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/Include_Context.php';
+				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/getTraduccion.php';
+				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/Include_Context.php';
+				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/FormCliBuilder.php';
 
 				$formSec=new FormCliBuilder('Sec',0);
 				$formSec->fType='Sec';

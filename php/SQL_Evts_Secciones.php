@@ -194,12 +194,14 @@
 
 			if($tipo)
 			{
+			/*
 				echo '<pre>';
 				print_r
 				(
 					'SELECT ContenidoID FROM Secciones WHERE ID='.$_SESSION['conID']
 				);
 				echo '</pre>';
+			*/
 
 				$contenidoID=fetch_all
 				(
