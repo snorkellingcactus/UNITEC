@@ -15,7 +15,7 @@
 			//una variable que se puede referenciar donde sea.
 			parent::__construct($fId , $actions);
 
-			$this->ancla="nCon";
+			$this->ancla="#nCon";
 
 			$this->cantidad=1;
 
