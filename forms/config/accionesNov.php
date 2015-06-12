@@ -3,6 +3,7 @@
 	{
 		$this->cantidad=$_POST['Titulo'];
 	}
+	$this->ancla='#nNov';
 	$this->includes=
 	[
 		'//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js',
@@ -29,7 +30,5 @@
 			'Visible'
 		]
 	];
-
-	$this->ancla='#nov';
 	//$action='../index.php';
 ?>

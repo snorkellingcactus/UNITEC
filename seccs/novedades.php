@@ -91,6 +91,18 @@
 				$novedadHTML->Descripcion=substr($descripcion , 0 , 500);
 				$novedadHTML->Fecha=$novAct['Fecha'];
 
+				if
+				(
+					isset($formNovRecv->afectados) &&
+					in_array($novAct['TituloID'] , $formNovRecv->afectados)
+				)
+				{
+					$novedadHTML->afectado=true;
+				}
+				else
+				{
+					$novedadHTML->afectado=false;
+				}
 				$novedadHTML->getContent();
 			}
 		}

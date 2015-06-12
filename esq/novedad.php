@@ -1,4 +1,14 @@
-<div class="novedad col-xs-12 col-sm-12 col-md-12 col-lg-12">
+<?php
+	$clase='';
+	if($this->afectado)
+	{
+		$clase='target';
+		?>
+			<span id="nNov"></span>
+		<?php
+	}
+?>
+<div class="novedad col-xs-12 col-sm-12 col-md-12 col-lg-12 <?php echo $clase ?>">
 	<?php
 		if(!empty($_SESSION['adminID']))
 		{
