@@ -81,6 +81,7 @@
 
 				$descripcion=$parser->getAsText();
 
+				$novedadHTML->formBuilder=$formNov;
 				$novedadHTML->ID=$novAct['ID'];
 				$novedadHTML->Imagen=$imagen;
 				$novedadHTML->Titulo=$titulo;

@@ -2,9 +2,7 @@
 	<?php
 		if(isset($_SESSION['adminID']))
 		{
-			?>
-				<input type="checkbox" class='eImg' name="conID[]" form="accionesGal" value="<?php echo $this->TituloID ?>" >
-			<?php
+			$this->formBuilder->buildActionCheckBox($this->TituloID);
 		}
 	?>
 	<a href="seccs/visor.php?vRecID=<?php echo $this->ID ?>">

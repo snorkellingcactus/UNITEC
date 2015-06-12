@@ -7,6 +7,10 @@
 		$formMenuRecv=new FormCliRecv('Menu');
 		$formMenuRecv->SQL_Evts=new SQL_Evts_Menu();
 		$formMenuRecv->checks();
+
+		include_once($_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/FormCliBuilder.php');
+
+		$formMenu=new FormCliBuilder('Menu' , 10);
 	}
 ?>
 <div class="menu col-xs-12 col-md-2 col-sm-2 col-lg-2">
@@ -43,9 +47,7 @@
 								<?php 
 									if(!empty($_SESSION['adminID']))
 									{
-										?>
-											<input type="checkbox" name="conID[]" value="<?php echo $opcion['ContenidoID'] ?>" form="accionesMenu">
-										<?php
+										$formMenu->buildActionCheckBox($opcion['ContenidoID']);
 									}
 								?>
 							</li>
@@ -55,11 +57,6 @@
 					if(isset($_SESSION['adminID']))
 					{
 						//Incluyo las acciones posibles.
-						
-						include_once($_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/FormCliBuilder.php');
-
-						$formMenu=new FormCliBuilder('Menu' , 10);
-						
 						$formMenu->buildActionForm();
 					}
 				?>

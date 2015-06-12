@@ -78,6 +78,7 @@
 
 		$imgAct['TituloCon']=getTraduccion($imgAct['TituloID'] , $_SESSION['lang']);
 		$imgAct['AltCon']=getTraduccion($imgAct['AltID'] , $_SESSION['lang']);
+		$imgAct['formBuilder']=$formGal;
 	}
 
 	$Gal=new Gal_HTML

@@ -2,7 +2,7 @@
 <?php
 	if
 	(
-		(isset($_SESSION['comConID'])&&$_SESSION['comConID']==$esq['ContenidoID'])
+		(isset($_SESSION['comConID'])&&$_SESSION['comConID']==$this->ContenidoID)
 	)
 	{
 		unset($_SESSION['comConID']);
@@ -15,18 +15,18 @@
 >
 	<p class='comAutor'>
 		<?php
-			echo $esq['Nombre'];
+			echo $this->Nombre;
 
 			?>
 				<span class="comResTxt">
 			<?php
 
 			//Nombre de la persona respondida.
-			if(isset($esq['NombreDest']))
+			if($this->NombreDest!==NULL)
 			{
-				?>
-					&#8631; <?php echo $esq['NombreDest'] ?>
-				<?php
+				?>&#8631;<?php
+
+				echo $this->NombreDest;
 			}
 
 			//Intervalo de tiempo desde el envío del comentario.
@@ -35,7 +35,7 @@
 			$RTHumano=[' años' , ' meses' , ' dias' , ' horas' , ' minutos' , ' segundos'];
 
 			$Fecha=new DateTime();
-			$Fecha=$Fecha->createFromFormat('Y-m-d H:i:s' , $esq['Fecha']);
+			$Fecha=$Fecha->createFromFormat('Y-m-d H:i:s' , $this->Fecha);
 			$Fecha=$Fecha->diff(new DateTime() , true);
 
 			$t=0;
@@ -54,26 +54,26 @@
 	</p>
 
 	<form action="#comRes" method="POST" class="formRes">
-		<input type="hidden" name="comConID" value="<?php echo $esq['ContenidoID'] ?>" >
-	 	<input type="submit" value="↶" title="Responder a <?php echo $esq['Nombre'] ?>">
+		<input type="hidden" name="comConID" value="<?php echo $this->ContenidoID ?>" >
+	 	<input type="submit" value="↶" title="Responder a <?php echo $this->Nombre ?>">
 	</form>
 
  	<?php
-		if(isset($_SESSION['adminID']) && $_SESSION['adminID']!==NULL)
+		if(!empty($_SESSION['adminID']))
 		 {
 		 	?>
-			 	<input type="checkbox" name="conID[]" value="<?php echo $esq['ContenidoID'] ?>" form="accionesCom">
+			 	<input type="checkbox" name="conID[]" value="<?php echo $this->ContenidoID ?>" form="accionesCom">
 		 	<?php
 		 }
 	?>
 
 
 	<p class="comCont">
-		<?php echo $esq['ValorCont'] ?>
+		<?php echo $this->ValorCont ?>
 	</p>
 
 	<?php
-		if(isset($_POST['comConID'])&&$_POST['comConID']==$esq['ContenidoID'])
+		if(isset($_POST['comConID'])&&$_POST['comConID']==$this->ContenidoID)
 		{
 			$_SESSION['comConID']=$_POST['comConID'];
 			include "../forms/nuevo_coment.php";

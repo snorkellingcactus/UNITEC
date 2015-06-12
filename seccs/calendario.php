@@ -130,9 +130,7 @@ if(session_status()==PHP_SESSION_NONE)
 
 								 if(!empty($_SESSION['adminID']))
 								 {
-								 	?>
-								 		<input type="checkbox" name="conID[]" value="<?php echo $evtAct['DescripcionID']?>" form="accionesCal"/>
-								 	<?php
+								 	$formCal->buildActionCheckBox($evtAct['DescripcionID']);
 								 }
 								 ?>
 

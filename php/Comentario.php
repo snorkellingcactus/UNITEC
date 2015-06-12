@@ -33,26 +33,29 @@ class Comentario extends SQL_Obj
 }
 function genComLst($main , $mLen , $dep , $NombreDest=NULL)
 {
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/getTraduccion.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/Include_Context.php';
+
+	$comentarioHTML=new Include_Context($_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/esq/coment.php');
+
 	for($i=0;$i<$mLen;$i++)
 	{
 		$nodo=& $dep[$main[$i]];
 
-		$esq=$nodo[0];
+		$comentarioHTML->data=$nodo[0];
+
 		$hijos=$nodo[1];
 
-		$esq['NombreDest']=$NombreDest;
+		$comentarioHTML->NombreDest=$NombreDest;
 
-		include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/getTraduccion.php';
-
-		$esq['ValorCont']=getTraduccion($esq['ContenidoID'] , $_SESSION['lang']);
-
-		include $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/esq/coment.php';
+		$comentarioHTML->ValorCont=getTraduccion($comentarioHTML->ContenidoID , $_SESSION['lang']);
+		$comentarioHTML->getContent();
 
 		$hMax=count($hijos);
 
 		if($hMax)
 		{
-			$nom=$esq['Nombre'];
+			$nom=$comentarioHTML->Nombre;
 
 			?>
 				<div class="nHilo">

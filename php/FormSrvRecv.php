@@ -36,7 +36,7 @@
 		{
 			$this->checkActionIn($_POST);
 
-			if($this->selectedAction)
+			if($this->selectedAction!==NULL)
 			{
 				$_SESSION['accion']=$this->actions[$this->selectedAction];
 			}

@@ -80,7 +80,7 @@
 			{
 				$con->query('DELETE FROM Contenidos WHERE ID='.$conID[$i]);
 
-				echo '<pre>'.'DELETE FROM Contenidos WHERE ID='.$conID[$i].'</pre>';
+				//echo '<pre>'.'DELETE FROM Contenidos WHERE ID='.$conID[$i].'</pre>';
 			}
 
 			unset($_SESSION['conID'] , $_SESSION['form']);
