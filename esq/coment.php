@@ -59,12 +59,10 @@
 	</form>
 
  	<?php
-		if(!empty($_SESSION['adminID']))
-		 {
-		 	?>
-			 	<input type="checkbox" name="conID[]" value="<?php echo $this->ContenidoID ?>" form="accionesCom">
-		 	<?php
-		 }
+ 		if($this->formBuilder!==false)
+		{
+			$this->formBuilder->buildActionCheckBox($this->ContenidoID);
+		}
 	?>
 
 

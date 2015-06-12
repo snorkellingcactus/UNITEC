@@ -31,7 +31,7 @@ class Comentario extends SQL_Obj
 		}
 	}
 }
-function genComLst($main , $mLen , $dep , $NombreDest=NULL)
+function genComLst($main , $mLen , $dep , $NombreDest=NULL , $formBuilder)
 {
 	include_once $_SERVER['DOCUMENT_ROOT'] . '//php/getTraduccion.php';
 	include_once $_SERVER['DOCUMENT_ROOT'] . '//php/Include_Context.php';
@@ -49,6 +49,7 @@ function genComLst($main , $mLen , $dep , $NombreDest=NULL)
 		$comentarioHTML->NombreDest=$NombreDest;
 
 		$comentarioHTML->ValorCont=getTraduccion($comentarioHTML->ContenidoID , $_SESSION['lang']);
+		$comentarioHTML->formBuilder=$formBuilder;
 		$comentarioHTML->getContent();
 
 		$hMax=count($hijos);
@@ -60,14 +61,14 @@ function genComLst($main , $mLen , $dep , $NombreDest=NULL)
 			?>
 				<div class="nHilo">
 					<?php
-						genComLst($hijos , $hMax , $dep , $nom);
+						genComLst($hijos , $hMax , $dep , $nom , $formBuilder);
 					?>
 				</div>
 			<?php
 		}
 	}
 }
-function GenComGrp($ContID , $con)
+function GenComGrp($ContID , $con , $formBuilder)
 {
 	$consulta=$con->query
 	(
@@ -129,6 +130,6 @@ function GenComGrp($ContID , $con)
 		}
 	}
 
-	genComLst($main , $mLen , $dep);
+	genComLst($main , $mLen , $dep , NULL , $formBuilder);
 }
 ?>

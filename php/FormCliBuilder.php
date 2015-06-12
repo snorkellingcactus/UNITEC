@@ -22,7 +22,7 @@
 		public function buildActionCheckBox($conID)
 		{
 			?>
-				<input type="checkbox" name="conID[]" value="<?php echo $conID?>" form="acciones<?php echo $this->fId ?>"/>
+				<input type="checkbox" name="conID[]" class="semitrans" value="<?php echo $conID?>" form="acciones<?php echo $this->fId ?>"/>
 			<?php
 		}
 		public function buildFID()

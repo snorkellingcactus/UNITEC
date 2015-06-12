@@ -5,6 +5,7 @@
 		include_once($_SERVER['DOCUMENT_ROOT'] . '//php/FormCliRecv.php');
 
 		$formHandler=new FormCliRecv('Com');
+		$formCom=false;
 
 		//Incluyo las acciones posibles.
 		if(isset($_SESSION['adminID']))
@@ -39,7 +40,7 @@
 
 		
 		//Genero los comentarios.
-		GenComGrp($this->ContenidoID , $con);
+		GenComGrp($this->ContenidoID , $con , $formCom);
 
 		if(!isset($_POST['comConID']))
 		{
