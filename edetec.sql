@@ -259,7 +259,7 @@ INSERT INTO `Contenidos` (`ID`) VALUES
 
 CREATE TABLE IF NOT EXISTS `Eventos` (
   `ID` int(11) NOT NULL,
-  `Tiempo` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `Tiempo` datetime NOT NULL,
   `NombreID` int(11) NOT NULL,
   `DescripcionID` int(11) DEFAULT NULL,
   `Visible` tinyint(1) NOT NULL DEFAULT '1',
