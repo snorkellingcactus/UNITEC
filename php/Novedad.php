@@ -1,15 +1,14 @@
 <?php
-include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/SQL_Obj.php';
+include_once $_SERVER['DOCUMENT_ROOT'] . '//php/SQL_Obj.php';
 
 class Novedad extends SQL_Obj
 {
-	function __construct($con)
+	function __construct($props=NULL , $con=NULL)
 	{
 		$nArgs=func_num_args();
 
 		parent::__construct
 		(
-			$con,
 			'Novedades',
 			[
 				'ID',
@@ -19,12 +18,13 @@ class Novedad extends SQL_Obj
 				'Fecha',
 				'Visible',
 				'Prioridad'
-			]
+			],
+			$con
 		);
 
-		if($nArgs>1)
+		if($props!==NULL)
 		{
-			$this->getAsoc(func_get_args()[1]);
+			$this->getAsoc($props);
 		}
 	}
 };

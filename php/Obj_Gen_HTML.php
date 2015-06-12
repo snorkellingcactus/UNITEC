@@ -1,5 +1,5 @@
 <?php
-require_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/Arr_Gen_HTML.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '//php/Arr_Gen_HTML.php';
 
 class Obj_Gen_HTML extends Arr_Gen_HTML
 {

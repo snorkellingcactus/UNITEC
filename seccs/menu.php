@@ -1,111 +1,16 @@
 <?
 	if(!empty($_SESSION['adminID']))
 	{
-		if(isset($_POST['nMenu']))
-		{
-			include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/conexion.php';
-			include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/SQL_Obj.php';
-			include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/nTraduccion.php';
-			if(!isset($_SESSION['accion']) && !isset($_SESSION['form']))
-			{
-				$sMax=count($_POST['Titulo']);
+		include_once($_SERVER['DOCUMENT_ROOT'] . '/php/FormCliRecv.php');
+		include_once $_SERVER['DOCUMENT_ROOT'] . '/php/SQL_Evts_Menu.php';
 
-				for($s=0;$s<$sMax;$s++)
-				{
-					$nMenu=new SQL_Obj
-					(
-						$con,
-						'Menu',
-						[
-							'ID',
-							'ContenidoID',
-							'SeccionID',
-							'Url',
-							'Prioridad',
-							'Visible'
-						]
-					);
+		$formMenuRecv=new FormCliRecv('Menu');
+		$formMenuRecv->SQL_Evts=new SQL_Evts_Menu();
+		$formMenuRecv->checks();
 
-					$nMenu->getAsoc
-					(
-						[
-							'Url'=>$_POST['Url'][$s],
-							'Prioridad'=>$_POST['Prioridad'][$s],
-							'Visible'=>$_POST['Visible'][$s],
-						]
-					);
+		include_once($_SERVER['DOCUMENT_ROOT'] . '/php/FormCliBuilder.php');
 
-					$nMenu->insForaneas
-					(
-						nTraduccion
-						(
-							$_POST['Titulo'][$s],
-							$_SESSION['lang']
-						),
-						[
-							'ContenidoID'=>'ContenidoID'
-						]
-					);
-
-					$nMenu->insSQL();
-				}
-			}
-
-		}
-		if(isset($_SESSION['form']) && $_SESSION['form']==='accionesMenu' && isset($_SESSION['accion']))
-		{
-			include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/conexion.php';
-
-			$sMax=count($_SESSION['conID']);
-
-			if($_SESSION['accion']==='elimina')
-			{
-				for($s=0;$s<$sMax;$s++)
-				{
-					$con->query
-					(
-						'	DELETE FROM Contenidos
-							WHERE ID='.$_SESSION['conID'][$s]
-					);
-				}
-			}
-
-			if($_SESSION['accion']==='edita')
-			{
-				include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/updTraduccion.php';
-
-				$iMax=count($_POST['Titulo']);
-				for($i=0;$i<$iMax;$i++)
-				{
-					updTraduccion($_POST['Titulo'][$i] , $_SESSION['conID'][$i] , $_SESSION['lang']);
-					$nMenu=new SQL_Obj
-					(
-						$con,
-						'Menu',
-						[
-							'ID',
-							'ContenidoID',
-							'SeccionID',
-							'Url',
-							'Prioridad',
-							'Visible'
-						]
-					);
-					$nMenu->getAsoc
-					(
-						[
-							'Prioridad'=>$_POST['Prioridad'][$i],
-							'Url'=>$_POST['Url'][$i],
-							'Visible'=>$_POST['Visible'][$i]
-						]
-					);
-
-					$nMenu->updSQL(false , ['ContenidoID'=>$_SESSION['conID'][$i]]);
-				}
-			}
-
-			unset($_SESSION['form'] , $_SESSION['accion'] , $_SESSION['conID'] , $sMax);
-		}
+		$formMenu=new FormCliBuilder('Menu' , 10);
 	}
 ?>
 <div class="menu col-xs-12 col-md-2 col-sm-2 col-lg-2">
@@ -113,8 +18,8 @@
 		<nav>
 			<ul>
 				<?php
-					include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/conexion.php';
-					include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/getTraduccion.php';
+					include_once $_SERVER['DOCUMENT_ROOT'] . '/php/conexion.php';
+					include_once $_SERVER['DOCUMENT_ROOT'] . '/php/getTraduccion.php';
 
 					global $con;
 
@@ -136,15 +41,28 @@
 
 						$nombre=getTraduccion($opcion['ContenidoID'] , $_SESSION['lang']);
 
+						$clase='';
+						if
+						(
+							!empty($formMenuRecv->afectados)	&&
+							in_array($opcion['ContenidoID'] , $formMenuRecv->afectados)
+						)
+						{
+							$clase='class="target"';
+						}
+
 						?>
 							<li>
-								<a href="<?php echo $opcion['Url']?>"><?php echo $nombre?></a>
+								<a href=
+									"<?php echo $opcion['Url']?>"
+									<?php echo $clase ?>
+								>
+									<?php echo $nombre?>
+								</a>
 								<?php 
 									if(!empty($_SESSION['adminID']))
 									{
-										?>
-											<input type="checkbox" name="conID[]" value="<?php echo $opcion['ContenidoID'] ?>" form="accionesMenu">
-										<?php
+										$formMenu->buildActionCheckBox($opcion['ContenidoID']);
 									}
 								?>
 							</li>
@@ -153,9 +71,8 @@
 
 					if(isset($_SESSION['adminID']))
 					{
-						$fId='Menu';
-						$cMax=5;
-						include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/forms/acciones.php';
+						//Incluyo las acciones posibles.
+						$formMenu->buildActionForm();
 					}
 				?>
 			</ul>

@@ -1,12 +1,10 @@
 <?php
-	$includes=
+	$this->includes=
 	[
-		'../forms/forms.css'
+		 $_SERVER['DOCUMENT_ROOT'] . '//forms/forms.css'
 	];
-	$ancla='#nSec';
-	$action='../index.php';
-	$for='nSec';
-	$labels=
+	$this->ancla='#nSec';
+	$this->labels=
 	[
 		[
 			'selector_orden.php',
@@ -15,14 +13,106 @@
 		[
 			'selector_si_no.php',
 			'Visible'
-		],
+		]
+		
+	];//para todos
+
+	include_once $_SERVER['DOCUMENT_ROOT'] . '//php/conexion.php';
+
+	$lMax=count($this->labels);
+
+	if($_POST['Tipo']==='sec')
+	{
+		$this->labels[$lMax]=
 		[
 			'input_text.php',
 			'Titulo'
-		],
+		];
+		$this->labels[$lMax+1]=
 		[
 			'selector_si_no.php',
 			'Agregar al menu'
-		]
-	];
+		];
+
+		$padreIDStr='IS NULL';
+	}
+	else
+	{
+		$this->labels[$lMax]=
+		[
+			'variable_post.php',
+			'conID'
+		];
+
+		if($_SESSION['accion']==='nuevo')
+		{
+			$padreID=$_POST['conID'];
+		}
+		else
+		{
+			$padreID=fetch_all
+			(
+				$con->query
+				(
+					'	SELECT PadreID 
+						FROM Secciones
+						WHERE ID='.$_POST['conID']
+				),
+				MYSQLI_NUM
+			)[0][0];
+		}
+
+		$padreIDStr='='.$padreID;
+	}
+
+	if($_POST['Tipo']==='con')
+	{
+		$this->labels[$lMax+1]=
+		[
+			'editor.php',
+			'Contenido'
+		];
+
+		$conInc=
+		[
+			'../js/jquery.min.js',
+			'../js/jquery.wysibb.min.js',
+			'../js/wbbtheme.css',
+			'../js/wysibbInc.js'
+		];
+
+		$pLen=count($conInc);
+		$iLen=count($this->includes);
+		$pMax=$iLen+$pLen;
+		for($p=$iLen;$p<$pMax;$p++)
+		{
+			$this->includes[$p]=$conInc[$p-$iLen];
+		}
+	}
+	if($_POST['Tipo']==='inc')
+	{
+		//Actualizar, con lo de los módulos se convierte en un select.
+		$this->labels[$lMax+1]=
+		[
+			'selector_modulo.php',
+			'Archivo'
+		];
+	}
+
+	if($_SESSION['accion']==='edita')
+	{
+		$padreIDStr.=' AND ID!='.$_POST['conID'];
+	}
+	$_POST['lleno']=fetch_all
+	(
+		$con->query
+		(
+			'	SELECT Prioridad 
+				FROM Secciones
+				WHERE PadreID '.$padreIDStr.'
+				ORDER BY Prioridad ASC
+			'
+		),
+		MYSQLI_NUM
+	);
 ?>

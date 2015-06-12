@@ -1,5 +1,5 @@
 <?php
-require_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/SQL_Obj.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '//php/SQL_Obj.php';
 
 class SQL_DOM extends SQL_Obj
 {
@@ -180,7 +180,7 @@ class SQL_DOM extends SQL_Obj
 	}
 	function resArbolXML($resXMLObj=NULL)
 	{
-		include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/Res_XML.php';
+		include_once $_SERVER['DOCUMENT_ROOT'] . '//php/Res_XML.php';
 
 		if(isset($resXMLObj))
 		{

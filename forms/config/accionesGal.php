@@ -3,11 +3,11 @@
 	{
 		$cantidad=count($_POST['conID']);
 	}
-	$includes=['../forms/forms.css'];
-	$ancla='#gal';
-	$action='../index.php';
-	$for='nImg';
-	$labels=
+	$this->includes=['../forms/forms.css'];
+
+	$this->ancla='#nImg';
+
+	$this->labels=
 	[
 		[
 			'input_text.php',

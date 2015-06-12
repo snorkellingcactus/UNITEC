@@ -1,13 +1,18 @@
-<form class="nComentForm tresem" action="visor.php#comRes" method="POST"
 <?php
-if(isset($_POST['comConID']))
-{
-	?>
-	id="comRes"
-	<?php
-}
+	include_once($_SERVER['DOCUMENT_ROOT'] . '//php/actualPath.php');
 ?>
+<form class="nComentForm tresem" action="<?php echo actualPath() ?>#comRes" method="POST"
+	<?php
+		if(isset($_POST['comConID']))
+		{
+			?>
+			id="comRes"
+			<?php
+		}
+	?>
 >
+	<input type="hidden" name="form" value="accionesCom"/>
+	<input type="hidden" name="nuevo" value="accionesCom"/>
 	<p>Nombres:</p>
 	<input type="text" name="comNomUsuario" >
 
@@ -24,5 +29,5 @@ if(isset($_POST['comConID']))
 	?>
 	<p>Mensaje:</p>
 	<textarea id="#editor" name="comContenido" cols="20" rows="4"></textarea>
-	<input type="submit" value="Publicar" >
+	<input type="submit" name="Aceptar" value="Publicar" >
 </form>

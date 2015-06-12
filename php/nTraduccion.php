@@ -4,24 +4,22 @@
 	{
 		global $con, $raiz;
 
-		include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/Contenido.php';
-		include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/Traduccion.php';
-		include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/Foraneas.php';
+		include_once $_SERVER['DOCUMENT_ROOT'] . '//php/Contenido.php';
+		include_once $_SERVER['DOCUMENT_ROOT'] . '//php/Traduccion.php';
+		include_once $_SERVER['DOCUMENT_ROOT'] . '//php/Foranea.php';
 
 		$traduccion=new Traduccion
 		(
-			$con,
 			[
 				'Texto'=>htmlentities($contenido),
 				'LenguajeID'=>$lenguaje
 			]
 		);
-		$traduccion->insForaneas
+		$traduccion->insForanea
 		(
-			new Contenido($con),
-			[
-				'ContenidoID'=>'ID'
-			]
+			new Contenido(),
+			'ContenidoID',
+			'ID'
 		);
 
 		return $traduccion;

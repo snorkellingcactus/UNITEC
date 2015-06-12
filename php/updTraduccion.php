@@ -1,7 +1,7 @@
 <?php
 function updTraduccion($texto , $conID , $lang)
 {
-	include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/conexion.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '//php/conexion.php';
 
 	global $con;
 
@@ -18,7 +18,7 @@ function updTraduccion($texto , $conID , $lang)
 			WHERE ContenidoID='.$conID.	
 		'	AND LenguajeID='.$lang.'</pre>';
 	*/
-	if($traduccion->num_rows)
+	if($traduccion && $traduccion->num_rows)
 	{
 		//echo '<pre>Existe una traduccion para este idioma, se actualizará</pre>';
 
@@ -38,11 +38,10 @@ function updTraduccion($texto , $conID , $lang)
 	}
 	else
 	{
-		include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/Traduccion.php';
+		include_once $_SERVER['DOCUMENT_ROOT'] . '//php/Traduccion.php';
 
 		$traduccion=new Traduccion
 		(
-			$con,
 			[
 				'ContenidoID'=>$conID,
 				'LenguajeID'=>$lang,

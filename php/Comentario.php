@@ -1,16 +1,15 @@
 <?php
-require_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/SQL_Obj.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '//php/SQL_Obj.php';
 
 class Comentario extends SQL_Obj
 {
 
-	function __construct($con)
+	function __construct($props=NULL , $con=NULL)
 	{
 		$nArgs=func_num_args();
 		
 		parent::__construct
 		(
-			$con,
 			'Comentarios',
 			[
 				'ID',
@@ -20,39 +19,43 @@ class Comentario extends SQL_Obj
 				'Fecha',
 				'Baneado',
 				'Nombre'
-			]
+			],
+			$con
 		);
 
 		$this->Nombre='Anónimo';
 
-		if($nArgs>1)
+		if($props!==NULL)
 		{
-			$this->getAsoc(func_get_args()[1]);
+			$this->getAsoc($props);
 		}
 	}
 }
 function genComLst($main , $mLen , $dep , $NombreDest=NULL)
 {
+	include_once $_SERVER['DOCUMENT_ROOT'] . '//php/getTraduccion.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '//php/Include_Context.php';
+
+	$comentarioHTML=new Include_Context($_SERVER['DOCUMENT_ROOT'] . '//esq/coment.php');
+
 	for($i=0;$i<$mLen;$i++)
 	{
 		$nodo=& $dep[$main[$i]];
 
-		$esq=$nodo[0];
+		$comentarioHTML->data=$nodo[0];
+
 		$hijos=$nodo[1];
 
-		$esq['NombreDest']=$NombreDest;
+		$comentarioHTML->NombreDest=$NombreDest;
 
-		include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/getTraduccion.php';
-
-		$esq['ValorCont']=getTraduccion($esq['ContenidoID'] , $_SESSION['lang']);
-
-		include $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/esq/coment.php';
+		$comentarioHTML->ValorCont=getTraduccion($comentarioHTML->ContenidoID , $_SESSION['lang']);
+		$comentarioHTML->getContent();
 
 		$hMax=count($hijos);
 
 		if($hMax)
 		{
-			$nom=$esq['Nombre'];
+			$nom=$comentarioHTML->Nombre;
 
 			?>
 				<div class="nHilo">

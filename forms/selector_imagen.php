@@ -1,6 +1,6 @@
 <div class="overhidden">
 	<?php
-		include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/conexion.php';
+		include_once $_SERVER['DOCUMENT_ROOT'] . '//php/conexion.php';
 		global $con;
 
 		$Imgs=$con->query
@@ -14,9 +14,9 @@
 		$Imgs=fetch_all($Imgs , MYSQLI_ASSOC);
 
 		$cantidad=count($Imgs);
-		if(isset($autocomp['Imagen']))
+		if(isset($this->autocomp['Imagen']))
 		{
-			$selected=$autocomp['Imagen'];
+			$selected=$this->autocomp['Imagen'];
 		}
 		else
 		{

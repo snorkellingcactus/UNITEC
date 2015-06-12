@@ -1,8 +1,8 @@
 <?php
-	if(isset($autocomp))
+	if(isset($this->autocomp))
 	{
-		include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/conexion.php';
-		include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/getTraduccion.php';
+		include_once $_SERVER['DOCUMENT_ROOT'] . '//php/conexion.php';
+		include_once $_SERVER['DOCUMENT_ROOT'] . '//php/getTraduccion.php';
 
 		$opcion=fetch_all
 		(
@@ -10,15 +10,15 @@
 			(
 				'	SELECT * 
 					FROM Menu 
-					WHERE ContenidoID='.$conIDAct
+					WHERE ContenidoID='.$this->conIDAct
 			),
 			MYSQLI_ASSOC
 		)[0];
 
-		$autocomp['Url']=$opcion['Url'];
-		$autocomp['Lenguaje']=$_SESSION['lang'];
-		$autocomp['Visible']=$opcion['Visible'];
-		$autocomp['Prioridad']=$opcion['Prioridad'];
-		$autocomp['Titulo']=getTraduccion($opcion['ContenidoID'] , $_SESSION['lang']);
+		$this->autocomp['Url']=$opcion['Url'];
+		$this->autocomp['Lenguaje']=$_SESSION['lang'];
+		$this->autocomp['Visible']=$opcion['Visible'];
+		$this->autocomp['Prioridad']=$opcion['Prioridad'];
+		$this->autocomp['Titulo']=getTraduccion($opcion['ContenidoID'] , $_SESSION['lang']);
 	}
 ?>

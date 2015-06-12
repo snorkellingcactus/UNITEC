@@ -1,24 +1,40 @@
 <?php
-	if(isset($autocomp))
+	if(isset($this->autocomp))
 	{
-		include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/conexion.php';
-		include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/getTraduccion.php';
+		include_once $_SERVER['DOCUMENT_ROOT'] . '//php/conexion.php';
+		include_once $_SERVER['DOCUMENT_ROOT'] . '//php/getTraduccion.php';
+		global $con;
 
-		$_POST['lleno']=fetch_all
-		(
-			$con->query
+		if($_POST['Tipo']==='con')
+		{
+			$contenido=fetch_all
 			(
-				'	SELECT Prioridad 
-					FROM Secciones
-					WHERE PadreID IS NULL
-					AND ID!='.$_POST['conID'].'
-					ORDER BY Prioridad ASC
-				'
-			),
-			MYSQLI_NUM
-		);
+				$con->query
+				(
+					'	SELECT ContenidoID
+						FROM Secciones
+						WHERE ID='.$_POST['conID']
+				),
+				MYSQLI_NUM
+			)[0][0];
 
-		$autocomp['Visible']=fetch_all
+			$this->autocomp['Contenido']=getTraduccion($contenido , $_SESSION['lang']);
+		}
+		if($_POST['Tipo']==='inc')
+		{
+			$this->autocomp['Archivo']=fetch_all
+			(
+				$con->query
+				(
+					'	SELECT ModuloID
+						FROM Secciones
+						WHERE ID='.$_POST['conID']
+				),
+				MYSQLI_NUM
+			)[0][0];
+		}
+
+		$this->autocomp['Visible']=fetch_all
 		(
 			$con->query
 			(
@@ -28,13 +44,7 @@
 			),
 			MYSQLI_NUM
 		)[0][0];
-		$autocomp['Lugar']=$_POST['Orden'];
-		$autocomp['Agregar al menu']=1;
-		//$autocomp['Titulo']=getTraduccion($imagen['TituloID'] , $_SESSION['lang']);
-/*
-		echo '<pre>';
-		print_r($autocomp);
-		echo '</pre>';
-*/
+		$this->autocomp['Lugar']=$_POST['Orden'];
+		$this->autocomp['Agregar al menu']=1;
 	}
 ?>

@@ -32,8 +32,16 @@ class SQL_Obj
 	private $foraneasIndex=0;
 	private $data=array();
 
-	public function __construct($con , $table , $props)
+	public function __construct($table , $props , $con=NULL)
 	{
+		if($con===NULL)
+		{
+			if(!isset($GLOBALS['con']))
+			{
+				include_once $_SERVER['DOCUMENT_ROOT'] . '//php/conexion.php';
+			}
+			$con=$GLOBALS['con'];
+		}
 		$this->con=$con;
 		$this->table=$table;
 		
@@ -225,20 +233,11 @@ class SQL_Obj
 		return $res;
 
 	}
-	//Elimina la fila de la BD.
-	public function remSQL($data=false)
-	{
-		$this->where($data);
-
-		//echo '<pre>'.'delete from '.$this->table.' where '.$this->buff.'</pre>';
-
-		$this->con->query('delete from '.$this->table.' where '.$this->buff);
-
-		$this->foraneas('remSQL');
-	}
 	//Actualiza los campos de un registro de este elemento en la base de datos.
 	public function updSQL($disc=false , $data=false)
 	{
+		$this->foraneas('updSQL');
+
 		$this->buff='update '.$this->table.' set ';	//Sentencias SQL para actualizar filas de una tabla.
 
 		$this->update($disc);
@@ -255,8 +254,17 @@ class SQL_Obj
 		$buff='';
 
 		return $res;
+	}
+	//Elimina la fila de la BD.
+	public function remSQL($data=false)
+	{
+		$this->where($data);
 
-		$this->foraneas('updSQL');
+		//echo '<pre>'.'delete from '.$this->table.' where '.$this->buff.'</pre>';
+
+		$this->con->query('delete from '.$this->table.' where '.$this->buff);
+
+		$this->foraneas('remSQL');
 	}
 	//Realiza la operación SQL pasada como parámetro a todos los
 	//Objetos foráneos que halla.
@@ -271,14 +279,14 @@ class SQL_Obj
 		}
 	}
 	//Creo una relación foránea con otro SQL_Obj.
-	public function insForaneas($sqlObj,$foraneas)
+	public function insForanea($sqlObj , $nomColA , $nomColB)
 	{
 		if(!isset($this->foraneasLst))
 		{
 			$this->foraneasLst=[];
 		}
 		
-		$res=$this->foraneasLst[$this->foraneasIndex]=new Foraneas($this , $sqlObj , $foraneas);
+		$res=$this->foraneasLst[$this->foraneasIndex]=new Foranea($this, $sqlObj , $nomColA , $nomColB);
 
 		++$this->foraneasIndex;
 

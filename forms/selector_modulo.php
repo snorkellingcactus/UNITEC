@@ -1,5 +1,5 @@
 <?php
-	include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/conexion.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '//php/conexion.php';
 	global $con;
 
 	$modulos=$con->query('select ID , Nombre , Archivo from Modulos where PadreID is NULL');
@@ -28,7 +28,7 @@
 
 			<option value="<?php echo $modulo['ID']?>" 
 				<?php 
-					if((isset($autocomp[$labelName]) && $autocomp[$labelName]===$modulo['ID']) || (!isset($autocomp[$labelName]) && $m===0))
+					if((isset($this->autocomp[$labelName]) && $this->autocomp[$labelName]===$modulo['ID']) || (!isset($this->autocomp[$labelName]) && $m===0))
 					{
 						echo 'selected="selected"';
 					}

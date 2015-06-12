@@ -1,8 +1,8 @@
 <?php
 	if(isset($autocomp))
 	{
-		include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/conexion.php';
-		include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/getTraduccion.php';
+		include_once $_SERVER['DOCUMENT_ROOT'] . '//php/conexion.php';
+		include_once $_SERVER['DOCUMENT_ROOT'] . '//php/getTraduccion.php';
 
 		$padreID=fetch_all
 		(

@@ -79,6 +79,7 @@ div.menu
 {
 	background-color:#929193;
 }
+.menu .sep{display:none;}
 .puntos
 {
 	position:fixed;

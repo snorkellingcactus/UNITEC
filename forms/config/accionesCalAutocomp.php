@@ -1,8 +1,8 @@
 <?php
-	if(isset($autocomp))
+	if(isset($this->autocomp))
 	{
-		include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/conexion.php';
-		include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/getTraduccion.php';
+		include_once $_SERVER['DOCUMENT_ROOT'] . '//php/conexion.php';
+		include_once $_SERVER['DOCUMENT_ROOT'] . '//php/getTraduccion.php';
 
 		$evento=fetch_all
 		(
@@ -10,16 +10,16 @@
 			(
 				'	SELECT * 
 					FROM Eventos 
-					WHERE DescripcionID='.$conIDAct
+					WHERE DescripcionID='.$this->conIDAct
 			),
 			MYSQLI_ASSOC
 		)[0];
 
-		$autocomp['Visible']=$evento['Visible'];
-		$autocomp['Prioridad']=$evento['Prioridad'];
-		$autocomp['Titulo']=$evento['Nombre'];
-		$autocomp['Fecha']=$evento['Tiempo'];
-		$autocomp['Descripcion']=getTraduccion($evento['DescripcionID'] , $_SESSION['lang']);
+		$this->autocomp['Visible']=$evento['Visible'];
+		$this->autocomp['Prioridad']=$evento['Prioridad'];
+		$this->autocomp['Titulo']=getTraduccion($evento['NombreID'] , $_SESSION['lang']);
+		$this->autocomp['Fecha']=$evento['Tiempo'];
+		$this->autocomp['Descripcion']=getTraduccion($evento['DescripcionID'] , $_SESSION['lang']);
 
 		//echo '<pre>Evento:';print_r($evento);echo '</pre>';
 	}

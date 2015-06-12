@@ -2,9 +2,9 @@
 	$tiempos=['Año','Mes','Dia','Horas','Minutos'];
 	$times=['Y','m','d','H','i','s'];
 	$jMax=count($tiempos);
-	if(isset($autocomp[$labelName]))
+	if(isset($this->autocomp[$labelName]))
 	{
-		$fecha=$autocomp[$labelName];
+		$fecha=$this->autocomp[$labelName];
 		$fecha=new DateTime($fecha);
 	}
 ?>

@@ -1,4 +1,4 @@
-<form id="vImg" method="POST" action="seccs/visor.php" target="_blank"></form>
+<form id="vImg" method="POST" action="Imagenes.php" target="_blank"></form>
 <?php
 
 	//Si todavía no se inicio sesion, se inicia.
@@ -25,119 +25,81 @@
 		$_SESSION['cache']=!$_GET['cache']||0;
 	}
 
-	include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/conexion.php';
-	include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/SQL_Obj.php';
-	include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/Img.php';
-	include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/Contenido.php';
-	include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/Foraneas.php';
-	include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/Gal_HTML.php';
-	include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/Inc_Esq.php';
-	include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/Traduccion.php';
-	include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/nTraduccion.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/conexion.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/Img.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/Contenido.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/Foranea.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/Gal_HTML.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/Include_Context.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/Traduccion.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/nTraduccion.php';
 	
 	$modoAdmin=isset($_SESSION['adminID']);
 
 	//Diferencias en modo admin.
 	if($modoAdmin)
 	{
-		//Se rellenó el formulario de nueva imagen, la inserto en la bd.
-		if(isset($_POST['nImg']))
-		{
-			include_once $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/php/updTraduccion.php';
+		include_once($_SERVER['DOCUMENT_ROOT'] . '/php/FormCliRecv.php');
+		include_once($_SERVER['DOCUMENT_ROOT'] . '/php/FormCliBuilder.php');
+		include_once $_SERVER['DOCUMENT_ROOT'] . '/php/SQL_Evts_Imagenes.php';
 
-			$iMax=count($_POST['Titulo']);
+		$formGalRecv=new FormCliRecv('Gal');
+		$formGalRecv->SQL_Evts=new SQL_Evts_Imagenes();
 
-			if(isset($_SESSION['accion'])  && $_SESSION['accion']==='edita')
-			{
-				$nImg=new Img($con);
+		$formGal=new FormCliBuilder('Gal' , 30);
 
-				for($i=0;$i<$iMax;$i++)
-				{
+		$formGalRecv->checks();
 
-					$nImg->getAsoc
-					(
-						[
-							'Url'=>$_POST['Url'][$i],
-							'Alt'=>$_POST['Alt'][$i],
-							'Prioridad'=>$_POST['Prioridad'][$i],
-							'Visible'=>$_POST['Visible'][$i],
-							'TituloID'=>$_SESSION['conID'][$i]
-						]
-					);
-
-					$nImg->updSQL(false , ['TituloID']);
-
-					updTraduccion($_POST['Titulo'][$i] , $nImg->TituloID , $_SESSION['lang']);
-				}
-			}
-			else
-			{
-			
-				for($i=0;$i<$iMax;$i++)
-				{
-					//Creo la imagen y le asigno las propiedades.
-					$img=new Img($con);
-	//				$img->Titulo=$_POST['Titulo'][$i];
-					$img->Url=$_POST['Url'][$i];
-					$img->Alt=$_POST['Alt'][$i];
-					$img->LenguajeID=$_POST['Lenguaje'][$i];
-
-					$img->insForaneas
-					(
-						nTraduccion
-						(
-							$_POST['Titulo'][$i],
-							$_POST['Lenguaje'][$i]
-						),
-						[
-							'TituloID'=>'ContenidoID'
-						]
-					);
-				
-					//La inserto en la bd.
-					$img->insSQL();
-
-					//echo '<pre>';echo print_r($img);echo '</pre>';
-				}
-			}
-
-			unset($_SESSION['form']);
-		}
-		if(isset($_SESSION['form']) && $_SESSION['form']==='accionesGal' && $_SESSION['accion']==='elimina')
-		{
-			//Elimina Imágenes Seleccionadas.
-			$iMax=count($_SESSION['conID']);
-
-			for($i=0;$i<$iMax;$i++)
-			{
-				$con->query('delete from Contenidos where ID='.$_SESSION['conID'][$i]);
-			}
-
-			unset($_SESSION['conID'] , $_SESSION['form'] , $_SESSION['accion']);
-		}
-		//Incluyo las acciones para la selección.
-		$fAction='index.php#gal';
-		$fId='Gal';
-		$cMax=30;
-		
-		include $_SERVER['DOCUMENT_ROOT'] . '/Web/Pasantía/edetec/forms/acciones.php';
+		$formGal->buildActionForm();
 	}
 	
 	//:::::::::::::::::::::::::::::::HTML::::::::::::::::::::::::::::::::::::
 	//Valores para las clases col-xx-xx de las imágenes.
-	$imgEsq=new Inc_Esq("esq/gal_img.php");
-
-	$Gal=new Gal_HTML
+	global $con;
+	
+	$imgLst=$con->query
 	(
 		'	SELECT Imagenes.*
 			FROM Imagenes
 			WHERE 1
 			ORDER BY Prioridad
-		',
-		$con,
-		$imgEsq
+		'
+	);
+	$imgLst=fetch_all($imgLst , MYSQLI_ASSOC);	//Respuesta SQL como array asociativo.
+
+	$iMax=count($imgLst);
+
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/getTraduccion.php';
+
+	for($i=0;$i<$iMax;$i++)
+	{
+		$imgAct=& $imgLst[$i];
+
+		$imgAct['TituloCon']=getTraduccion($imgAct['TituloID'] , $_SESSION['lang']);
+		$imgAct['AltCon']=getTraduccion($imgAct['AltID'] , $_SESSION['lang']);
+		$imgAct['afectado']=false;
+		
+		if(isset($formGal))
+		{
+			$imgAct['formBuilder']=$formGal;
+		}
+		if
+		(
+			!empty($formGalRecv->afectados) &&
+			in_array($imgAct['ID'], $formGalRecv->afectados)
+		)
+		{
+			$imgAct['afectado']=true;
+		}
+	}
+
+	$Gal=new Gal_HTML
+	(
+		$imgLst,
+		new Include_Context($_SERVER['DOCUMENT_ROOT'] . '/esq/gal_img.php')
 	);
 	//Genero el código HTML de la galería.
-	echo $Gal->gen();
+	$Gal->gen();
+
 ?>
 <div class="clearfix"></div>

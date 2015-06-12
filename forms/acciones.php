@@ -5,46 +5,46 @@ if(session_status()===PHP_SESSION_NONE)
 }
 if(isset($_SESSION['adminID']))
 {
-	if(isset($fId))
+	if(isset($this->fId))
 	{
-		$fNom=$fId;
-		$fId='id="acciones'.$fId.'"';
+		$this->fNom=$this->fId;
+		$this->fId='id="acciones'.$fId.'"';
 	}
 	else
 	{
-		if(!isset($fNom))
+		if(!isset($this->fNom))
 		{
-			$fNom='';
+			$this->fNom='';
 		}
-		$fId='class="sinId"';
+		$this->fId='class="sinId"';
 	}
-	if(!isset($fType))
+	if(!isset($this->fType))
 	{
-		$fType=$fNom;
+		$this->fType=$this->fNom;
 	}
 
 	$raiz='http://' . $_SERVER['SERVER_NAME'] . '/Web/Pasantía/edetec/';
 	?>
-		<form <?php echo $fId ?> method="POST" action="<?php echo $raiz?>php/accion.php">
-		<input type="hidden" name="form" value="<?php echo 'acciones'.$fType ?>" >
+		<form <?php echo $this->fId ?> method="POST" action="<?php echo $raiz?>php/accion.php">
+		<input type="hidden" name="form" value="<?php echo 'acciones'.$this->fType ?>" >
 		<p class="acciones">Selecci&oacute;n:
 				<input type="submit" name="elimina" value="Eliminar">
 				<input type="submit" name="edita" value="Editar">
 		</p>
 		<?php
 
-		if(!isset($omitirNuevas))
+		if(!isset($this->omitirNuevas))
 		{
 		?>
 		<p class="acciones">Acciones:
 			<?php
-			if($cMax)
+			if($this->cMax)
 			{
 				$submitTxt='Nuevas';
 			?>
 			<select name="cantidad">
 				<?php
-					for($i=1;$i<=$cMax;$i++)
+					for($i=1;$i<=$this->cMax;$i++)
 					{
 						?>
 						<option value="<?php echo $i ?>"><?php echo $i ?></option>
@@ -64,5 +64,4 @@ if(isset($_SESSION['adminID']))
 		<?php } ?>
 		</form>
 	<?php
-	unset($fType);
 }

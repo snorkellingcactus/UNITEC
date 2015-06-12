@@ -1,17 +1,15 @@
 <?php
 	if(isset($_POST['conID']))
 	{
-		$cantidad=count($_POST['conID']);
+		$this->cantidad=count($_POST['conID']);
 	}
 
-	$includes=
+	$this->includes=
 	[
 		'../forms/forms.css'
 	];
-	$ancla='#cal';
-	$action='../index.php';
-	$for='nEvt';
-	$labels=
+	$this->ancla='#nEvt';
+	$this->labels=
 	[
 		[
 			'selector_fecha.php',
