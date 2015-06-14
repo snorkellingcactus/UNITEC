@@ -316,7 +316,8 @@ if(isset($_SESSION['adminID']))
 										{
 											$formSec->buildActionForm($include['ID'] , 'con' , $f);
 										}
-										echo $parser->getAsHtml();
+										
+										echo str_replace("\n" , "<br>" , $parser->getAsHtml());
 									?>
 								</div>
 								<input type="hidden" name="lleno[]" value="<?php echo $f?>" form="nCon<?php echo $s ?>">

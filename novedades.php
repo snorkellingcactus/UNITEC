@@ -21,9 +21,7 @@
 	include_once $_SERVER['DOCUMENT_ROOT'] . '//php/Visor.php';
 	//Si todavía no se inicio sesion, se inicia.
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/is_session_started.php';
-start_session_if_not();
-include_once $_SERVER['DOCUMENT_ROOT'] . '/php/is_session_started.php';
-start_session_if_not();
+	start_session_if_not();
 
 	$recLst=fetch_all
 	(
