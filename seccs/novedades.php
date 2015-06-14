@@ -77,7 +77,7 @@
 
 				$parser->parse($descripcion);
 
-				$descripcion=$parser->getAsText();
+				$descripcion=str_replace("\n" , "<br>" , $parser->getAsText());;
 
 				if(isset($formNov))
 				{

@@ -18,6 +18,7 @@
 		$this->autocomp['Url']=$imagen['Url'];
 		$this->autocomp['Visible']=$imagen['Visible'];
 		$this->autocomp['Prioridad']=$imagen['Prioridad'];
+		$this->autocomp['Alt']=getTraduccion($imagen['AltID'] , $_SESSION['lang']);
 		$this->autocomp['Titulo']=getTraduccion($imagen['TituloID'] , $_SESSION['lang']);
 	}
 ?>

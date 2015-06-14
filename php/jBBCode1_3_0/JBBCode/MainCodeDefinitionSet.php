@@ -64,6 +64,18 @@ class MainCodeDefinitionSet implements CodeDefinitionSet
         $builder->setUseOption(true)->setOptionValidator(new \JBBCode\validators\CssColorValidator());
         array_push($this->definitions, $builder->build());
 
+        //::::::::::UL:::::::::::::::
+        $builder = new CodeDefinitionBuilder('list', '<ul>{param}</ul>');
+        array_push($this->definitions, $builder->build());
+
+        //::::::::::OL:::::::::::::::
+        $builder = new CodeDefinitionBuilder('numlist', '<ol>{param}</ol>');
+        array_push($this->definitions, $builder->build());
+
+        //::::::::::LI:::::::::::::::
+        $builder = new CodeDefinitionBuilder('*', '<li>{param}</li>');
+        array_push($this->definitions, $builder->build());
+
         //::::::::::CENTER:::::::::::::::
         $builder = new CodeDefinitionBuilder('center', '<span class="center">{param}</span>');
         array_push($this->definitions, $builder->build());
