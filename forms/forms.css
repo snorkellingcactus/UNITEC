@@ -1,3 +1,6 @@
+body label, body input ,body select{font-size:1em;color:black;font-family:monospace;text-align:center;float:right}
+body label{float:left;margin:0px;}
+
 .fin{margin:50px 0px 50px 0px;border-bottom:2px solid dimgray;}
 
 form .fecha
@@ -36,8 +39,6 @@ section:hover .clearfix form .acciones, .modulo:hover .acciones input[type="subm
 .menu .acciones{margin-left:10px;margin-top:10px;}
 .menu input , .acciones input{max-width:30px;}
 
-label{font-size:2em;color:white;margin-top:5px;}
-label[for="secID"]{display:none;}
 input,form a , button, textarea, select{height:auto;box-shadow:0px 0px 3px black;border-radius:3px;border:none;}
 button,form a{background-color:silver;font-family:sans-serif;vertical-align:middle;line-height:3em;color:black;}
 textarea{height:auto}
@@ -67,6 +68,8 @@ main>.right .acciones:hover,main>.right input[type="submit"]:hover
 {
 	background-color:white;
 }
+body main>form.right{clear:both;margin-bottom:20px;position:static;float:none;}
+body main>form.right input{width:100%;text-align:center;padding:0px;margin:0px;font-size:1.3em;}
 input[name="nuevo"]{background-image:url("/img/10.png");}
 input[name="elimina"]{background-image:url("/img/51.png")}
 input[name="edita"]{background-image:url("/img/39.png")}
@@ -93,13 +96,14 @@ input:hover , textarea:hover ,select:hover, input:focus , textarea:focus
 }
 .disabled{pointer-events:none;opacity:0.5;}
 
-.tresem input, .tresem select{height:3em;}
+.tresem input, .tresem select,.tresem label{height:3em}
+.tresem label{font-size:2em;color:white;margin-top:5px;}
 .nuevo{width:90%;margin-left:5%;padding-top:50px;padding-bottom:70px;}
 
 
 select.orden{height:auto;margin-bottom:20px;}
 select.orden option{height:2em;text-align:center;background-color:#F0F8FF;}
-select.orden .lleno{cursor:default;pointer-events:none;background-color:silver;}
+select.orden .lleno{cursor:default;pointer-events:none;background-color:#82C5F5;}
 
 
 section form.accionesSec , section form.accionesCon, section form.nCon{float:left;}

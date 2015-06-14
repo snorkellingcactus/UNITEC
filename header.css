@@ -4,9 +4,10 @@
 	width:100%;
 	background:url("./img/barra.png");
 	background-repeat:no-repeat;
+	background-size:100%;
 	display:table;
 }
-.header a
+.header a,.header small
 {
 	float:right;
 	color:gray;
@@ -19,15 +20,51 @@
 	color:white;
 	text-decoration:underline
 }
-.idioma
-{
-
-}
 .idioma img
 {
 	margin-right:5px;
 }
-.idioma button
+.idioma
 {
+	text-align:left;
+	font-weight:900;
+	color:white;
+	line-height:100%;
+	padding:0.8% 0 0.8% 1%;
+	vertical-align:middle;
+	display: inline-block;
+}
+.idioma:hover div
+{
+	opacity:1;
+	z-index:5;
+}
+.idioma div
+{
+	-webkit-transition:opacity 0.5s;
+	-moz-transition:opacity 0.5s;
+	transition:opacity 0.5s;
+	box-shadow:0 0 3px black;
+	opacity:0;
+	z-index:0;
+	position:absolute;
+	margin-top:0.8%;
+}
+.idioma div p
+{
+	overflow: visible;
+	background-color:rgba(0,0,0,0.7);
+	margin:0px;
+	padding:5px 5px 5px 0px;
+}
+.idioma div p:hover
+{
+	background-color:rgba(0,0,0,0.9);
+}
+.idioma div p button
+{
+	text-align:left;
+	background-color:transparent;
+	box-shadow: none;
 	height:auto;
 }

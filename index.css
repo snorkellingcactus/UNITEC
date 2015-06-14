@@ -38,69 +38,7 @@ a:hover
 	text-transform:uppercase;
 }
 .acciones input, .acciones select{float:none;}
-/*::::HEADER::::*/
-.header
-{
-	width:100%;
-	background:url("./img/barra.png");
-	background-repeat:no-repeat;
-}
-.header a
-{
-	float:right;
-	color:gray;
-	margin-right:5%;
-	line-height:100%;
-	padding:0.8% 1% 0.8% 1%;
-}
-.header a:hover
-{
-	color:white;
-	text-decoration:underline
-}
-.idioma
-{
-	text-align:left;
-	font-weight:900;
-	color:white;
-	line-height:100%;
-	padding:0.8% 0 0.8% 1%;
-	vertical-align:middle;
-	display: inline-block;
-}
-.idioma:hover div
-{
-	opacity:1;
-	z-index:5;
-}
-.idioma div
-{
-	-webkit-transition:opacity 0.5s;
-	-moz-transition:opacity 0.5s;
-	transition:opacity 0.5s;
-	box-shadow:0 0 3px black;
-	opacity:0;
-	z-index:0;
-	position:absolute;
-	margin-top:0.8%;
-}
-.idioma div p
-{
-	overflow: visible;
-	background-color:rgba(0,0,0,0.7);
-	margin:0px;
-	padding:5px 5px 5px 0px;
-}
-.idioma div p:hover
-{
-	background-color:rgba(0,0,0,0.9);
-}
-.idioma div p button
-{
-	text-align:left;
-	background-color:transparent;
-	box-shadow: none;
-}
+
 .clearfix {
 	margin-bottom: 35px;
 }
@@ -142,25 +80,6 @@ main.col-lg-10,main.col-md-10,main.col-sm-10,main.col-xs-12
 	-webkit-animation-name:main;
 	-webkit-animation-duration:1s;
 }
-.atajo
-{
-	background-color:white;
-	border-radius:2px;
-	text-align:center;
-	min-width:5em;
-	display:inline-block;
-	padding:5px 3px 5px 3px;
-	border:3px outset silver;
-}
-#atajos table .mas
-{
-	display:inline-block;
-	font-weight:bold;
-	font-size:1.4em;
-	vertical-align: middle
-}
-body main>form.right{clear:both;margin-bottom:20px;position:static;float:none;}
-body main>form.right input{width:100%;text-align:center;padding:0px;margin:0px;font-size:1.3em;}
 .contenido, .modulo{clear:both;padding-top:20px;}
 
 span.center{display:block;width:100%;text-align:center;}
@@ -171,9 +90,6 @@ font.through{text-decoration:line-through;}
 {
 	display:none;
 }
-
-body label, body input ,body select{font-size:1em;color:black;font-family:monospace;text-align:center;float:right}
-body label{float:left;margin:0px;}
 
 section .target, section:target
 {

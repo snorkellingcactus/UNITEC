@@ -13,7 +13,7 @@
 			(
 				'snorkellingcactus@gmail.com',
 				$_POST['Asunto'],
-				"Correo del consultante:\n".$_POST['Mensaje'],
+				$_POST['Mensaje']."\nCorreo del consultante: ".$_POST['Correo'],
 				'From: garciazavalanadal@gmail.com'
 			);
 		?>

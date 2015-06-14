@@ -9,12 +9,6 @@ ini_set("display_errors", "On");
 include_once $_SERVER['DOCUMENT_ROOT'] . '/php/is_session_started.php';
 start_session_if_not();
 
-if(!isset($_SESSION['normalID']))
-{
-	header('Location: http://'.$_SERVER['SERVER_NAME'].'/inicio_sesion.php');
-	die();
-}
-
 /*
 if(isset($_GET['sesdest']))
 {
@@ -65,12 +59,11 @@ if(isset($_SESSION['adminID']))
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
     
-		<link rel="icon" type="image/png" href="./img/unitec-favicon.png"  />
-		<link rel="shortcut icon" type="image/ico" href="./img/unitec-favicon.ico"  />
+		<link rel="icon" type="image/png" href="/img/unitec-favicon.png"  />
+		<link rel="shortcut icon" type="image/ico" href="/img/unitec-favicon.ico"  />
 		<link rel="stylesheet" type="text/css" href="./index.css" />
 		<link rel="stylesheet" type="text/css" href="./forms/forms.css" />
 		<link rel="stylesheet" type="text/css" href="./header.css" />
-		<link rel="stylesheet" type="text/css" href="./footer.css" />
 		<link rel="stylesheet" type="text/css" href="./seccs/menu.css" />
 		
 		<?php
@@ -121,24 +114,9 @@ if(isset($_SESSION['adminID']))
 		<a href="./index.php?OpcSel=4#gal" accesskey="g"></a>
 
 		<div class="header hidden-xs">
-			<a href="./inicio_sesion.php">Iniciar Sesión</a>
 			<div class="idioma">
 			<?php
 				global $afectado;
-/*
-				include_once($_SERVER['DOCUMENT_ROOT'] . '//php/Contenido.php');
-
-				$jj=new Contenido($con);
-
-				$jj->insSQL();
-				$jj->insSQL(['ID'=>5]);
-
-				//$jj->omiteNULL=TRUE;
-
-				echo '<pre>';
-				//print_r($jj->remSQL());
-				echo '</pre>';
-*/
 				$consulta=$con->query
 				(
 					'	SELECT * , 
@@ -180,6 +158,7 @@ if(isset($_SESSION['adminID']))
 					?>
 				</div>
 			</div>
+			<a href="./inicio_sesion.php">Iniciar Sesión</a>
 			<?php
 				}
 			?>
@@ -416,6 +395,6 @@ if(isset($_SESSION['adminID']))
 			?>
 		</main>
 
-		<footer class="footer"><small>powered by bootstrap</small></footer>
+		<footer class="header"><small>powered by bootstrap</small></footer>
 	</body>
 </html>

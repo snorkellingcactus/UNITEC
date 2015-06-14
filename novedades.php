@@ -2,8 +2,10 @@
 <html lang="es">
 	<head>
 		<meta charset="utf-8" />
-		<meta name="description" content="Un visor de imágenes con comentarios." />
+		<meta name="description" content="Grupo de novedades de unitec." />
 
+		<link rel="icon" type="image/png" href="/img/unitec-favicon.png"  />
+		<link rel="shortcut icon" type="image/ico" href="/img/unitec-favicon.ico"  />
 		<link rel="stylesheet" type="text/css" href="bootstrap.min.css" />
 		<link rel="stylesheet" type="text/css" href="forms/forms.css" />
 		<link rel="stylesheet" type="text/css" href="seccs/visor.css" />

@@ -42,7 +42,7 @@ function solicitaRuta()
     origin: document.getElementById('origen').value,
     destination: pos.toString(),
     travelMode: google.maps.DirectionsTravelMode[document.getElementById('modo_viaje').value],
-    unitSystem: google.maps.DirectionsUnitSystem[document.getElementById('tipo_sistema').value],
+    unitSystem: google.maps.DirectionsUnitSystem[document.getElementById('unidad').value],
     provideRouteAlternatives: true
   };
 
