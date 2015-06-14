@@ -9,10 +9,6 @@ start_session_if_not();
 	if(isset($_GET['cSesion']))
 	{
 		$_SESSION['adminID']=NULL;	//Modo admin off.
-		if(isset($_SESSION['normalID']))
-		{
-			$_SESSION['normalID']=NULL;
-		}
 		
 		//Redirección.
 		header('Location: inicio_sesion.php');
@@ -63,17 +59,9 @@ start_session_if_not();
 					if($con->affected_rows>0)
 					{
 						$usuario=fetch_all($usuario , MYSQLI_ASSOC)[0];
-
-						if(!isset($_SESSION['normalID']))
-						{
-							$_SESSION['normalID']=$usuario['ID'];
-							header('Location: http://'.$_SERVER['SERVER_NAME'].'/index.php');
-						}
-						else
-						{
-							//Variable que define el modo administrador.
-							$_SESSION['adminID']=$usuario['ID'];
-						}
+						
+						//Variable que define el modo administrador.
+						$_SESSION['adminID']=$usuario['ID'];
 					}
 					else
 					{

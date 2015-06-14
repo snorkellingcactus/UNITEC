@@ -1,14 +1,7 @@
 <?php
 	//Si todavía no se inicio sesion, se inicia.
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/is_session_started.php';
-start_session_if_not();
-include_once $_SERVER['DOCUMENT_ROOT'] . '/php/is_session_started.php';
-start_session_if_not();
-	if(!isset($_SESSION['normalID']))
-	{
-		header('Location: http://'.$_SERVER['SERVER_NAME'].'/inicio_sesion.php');
-		die();
-	}
+	start_session_if_not();
 
 	$rw=1;
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/conexion.php';

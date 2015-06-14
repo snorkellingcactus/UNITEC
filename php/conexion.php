@@ -19,15 +19,25 @@
 	}
 	
 	global $con;
+/*
+	$usuario='soloseleer';
+	$pass='s2r9v3->149';
+	if(isset($_SESSION['adminID']) || !empty($rw))
+	{
+		$usuario='myunitec';
+		$pass='lgERuvS2';
+	}
 
+	//$con=new mysqli('host','usuario','passwd','bd');	//Casa Gonza.
+	$con=new mysqli('localhost',$usuario,$pass,'edetec');	//CDMON.
+	
+*/
 	$usuario='ro';
 	if(isset($_SESSION['adminID']) || !empty($rw))
 	{
 		$usuario='root';
 	}
-
-	//$con=new mysqli('host','usuario','passwd','bd');	//Casa Gonza.
 	$con=new mysqli('localhost',$usuario,'s2r9v3->149','edetec');	//Casa Gonza.
 
-	unset($usuario);
+	unset($usuario , $pass);
 ?>
