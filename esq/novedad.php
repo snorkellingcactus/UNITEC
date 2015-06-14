@@ -19,6 +19,6 @@
 		<img src="<?php echo $this->Imagen ?>" alt="" />
 	</div>
 	<h2><?php echo $this->Titulo ?></h2>
-	<p class="sangria"><?php echo $this->Descripcion ?> <a href="novedades.php?vRecID=<?php echo $this->ID?>" alt="Seguir leyendo sobre la noticia">Seguir leyendo</a></p>
+	<p class="sangria"><?php echo $this->Descripcion ?> <a href="novedades.php?vRecID=<?php echo $this->ID?>" alt="Seguir leyendo sobre la noticia" target="_blank">Seguir leyendo</a></p>
 	<p class="fecha">Escrito el <?php echo $this->Fecha ?></p>
 </div>
