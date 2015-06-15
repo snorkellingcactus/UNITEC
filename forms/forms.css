@@ -120,6 +120,10 @@ label[for^="con"]{display:none;}
 	animation-name:comentBackground;
 	animation-duration:2s;
 }
+body .comentario input[type="checkbox"]
+{
+	float:none;
+}
 @keyframes comentBackground
 {
 	from
