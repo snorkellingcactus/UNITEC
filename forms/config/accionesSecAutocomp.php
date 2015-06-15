@@ -1,9 +1,24 @@
 <?php
 	if(isset($this->autocomp))
 	{
-		include_once $_SERVER['DOCUMENT_ROOT'] . '//php/conexion.php';
-		include_once $_SERVER['DOCUMENT_ROOT'] . '//php/getTraduccion.php';
+		include_once $_SERVER['DOCUMENT_ROOT'] . '/php/conexion.php';
+		include_once $_SERVER['DOCUMENT_ROOT'] . '/php/getTraduccion.php';
+
 		global $con;
+
+		if($_POST['Tipo']==='sec')
+		{
+			$this->autocomp['Titulo']=fetch_all
+			(
+				$con->query
+				(
+					'	SELECT HTMLID
+						FROM Secciones
+						WHERE ID='.$_POST['conID']
+				),
+				MYSQLI_NUM
+			)[0][0];
+		}
 
 		if($_POST['Tipo']==='con')
 		{
@@ -45,6 +60,7 @@
 			MYSQLI_NUM
 		)[0][0];
 		$this->autocomp['Lugar']=$_POST['Orden'];
+
 		$this->autocomp['Agregar al menu']=1;
 	}
 ?>

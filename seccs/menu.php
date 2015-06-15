@@ -27,7 +27,7 @@
 					(
 						'	SELECT Menu.* FROM Menu
 							WHERE 1
-							ORDER BY Prioridad ASC
+							ORDER BY Prioridad DESC
 						'
 					);
 
@@ -40,6 +40,11 @@
 						$opcion=$opciones[$s];
 
 						$nombre=getTraduccion($opcion['ContenidoID'] , $_SESSION['lang']);
+
+						if(isset($opcion['SeccionID']))
+						{
+							$opcion['Url']='#'.$opcion['SeccionID'];
+						}
 
 						$clase='';
 						if
