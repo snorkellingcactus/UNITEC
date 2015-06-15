@@ -1,7 +1,4 @@
-<?php
-	include_once($_SERVER['DOCUMENT_ROOT'] . '//php/actualPath.php');
-?>
-<form class="nComentForm tresem" action="<?php echo actualPath() ?>#comRes" method="POST"
+<form class="nComentForm tresem" action="<?php echo basename($_SERVER['SCRIPT_FILENAME']) ?>#comRes" method="POST"
 	<?php
 		if(isset($_POST['comConID']))
 		{
