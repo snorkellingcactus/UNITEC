@@ -1,11 +1,10 @@
 
-<!DOCTYPE html >
 <?php
 //Solo si se está en modo administrador.
 if(isset($_SESSION['adminID']))
 {
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/conexion.php';
-	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/SQL_DOM.php';
+	//include_once $_SERVER['DOCUMENT_ROOT'] . '/php/SQL_DOM.php';
 
 	$usuario=$con->query('select * from Usuarios where ID='.$_SESSION['adminID']);
 	$usuario=fetch_all($usuario , MYSQLI_ASSOC)[0];
