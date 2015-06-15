@@ -82,7 +82,7 @@ main.col-lg-10,main.col-md-10,main.col-sm-10,main.col-xs-12
 }
 main ul, main ol
 {
-	margin-right:15px;
+	margin-left:15px;
 }
 .contenido, .modulo{clear:both;padding-top:20px;}
 

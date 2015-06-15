@@ -1,5 +1,4 @@
-body label body input ,body select{font-size:1em;color:black;font-family:monospace;text-align:center;float:right}
-body label{float:left;margin:0px;}
+body label, body input ,body select{font-size:1em;color:black;font-family:monospace;text-align:center}
 
 .fin{margin:50px 0px 50px 0px;border-bottom:2px solid dimgray;}
 
@@ -99,6 +98,8 @@ input:hover , textarea:hover ,select:hover, input:focus , textarea:focus
 .tresem input, .tresem select,.tresem label,.cacho label{height:3em}
 .tresem label{font-size:2em;color:white;margin-top:5px;}
 .cacho label{color:black;}
+.cacho .clearfix{margin-bottom:0px;}
+body input[type="checkbox"].semitrans{float:right;}
 .nuevo{width:90%;margin-left:5%;padding-top:50px;padding-bottom:70px;}
 
 

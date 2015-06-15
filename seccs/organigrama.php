@@ -1,10 +1,6 @@
 <div id="labs">
 	<div class="container-fluid" >
 		<div class="row">
-			<h1 class="hidden-xs titulo" > Organigrama </h1>
-			<h1 class="visible-xs subtitulo"> Organigrama </h1>
-		</div>
-		<div class="row">
 			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 				<div class="organicaja1" >
 					<h1>UNITEC</h1>
