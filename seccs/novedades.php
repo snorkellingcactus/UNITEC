@@ -73,7 +73,7 @@
 
 				$parser=new JBBCode\Parser();
 				
-				include $_SERVER['DOCUMENT_ROOT'] . '/php/parser_definiciones.php';
+				$parser->addCodeDefinitionSet(new JBBCode\MainCodeDefinitionSet());
 
 				$parser->parse($descripcion);
 
