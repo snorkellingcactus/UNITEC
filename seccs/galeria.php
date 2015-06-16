@@ -39,8 +39,8 @@ start_session_if_not();
 	//Diferencias en modo admin.
 	if($modoAdmin)
 	{
-		include_once($_SERVER['DOCUMENT_ROOT'] . '/php/FormCliRecv.php');
-		include_once($_SERVER['DOCUMENT_ROOT'] . '/php/FormCliBuilder.php');
+		include_once $_SERVER['DOCUMENT_ROOT'] . '/php/FormCliRecv.php';
+		include_once $_SERVER['DOCUMENT_ROOT'] . '/php/FormCliBuilder.php';
 		include_once $_SERVER['DOCUMENT_ROOT'] . '/php/SQL_Evts_Imagenes.php';
 
 		$formGalRecv=new FormCliRecv('Gal');

@@ -44,26 +44,36 @@
 	{
 		$nov=& $recLst[$i];
 		$nov['TituloCon']=getTraduccion($nov['TituloID'],$_SESSION['lang']);
-		$nov['DescripcionCon']=getTraduccion($nov['DescripcionID'],$_SESSION['lang']);
+		$nov['ImagenAlt']=getTraduccion
+		(
+			fetch_all
+			(
+				$con->query
+				(
+					'	SELECT AltID
+						FROM Imagenes
+						WHERE ID='.$nov['ImagenID']
+				),
+				MYSQLI_NUM
+			)[0][0],
+			$_SESSION['lang']
+		);
 
 		$parser=new JBBCode\Parser();
 
 		$parser->addCodeDefinitionSet(new JBBCode\MainCodeDefinitionSet());
 
-		$parser->parse($nov['DescripcionCon']);
+		$parser->parse
+		(
+			getTraduccion
+			(
+				$nov['DescripcionID'],
+				$_SESSION['lang']
+			)
+		);
 
 		$nov['DescripcionCon']=str_replace("\n" , "<br>" , $parser->getAsHtml());
 
-		$nov['ImagenUrl']=fetch_all
-		(
-			$con->query
-			(
-				'	SELECT Url
-					FROM Imagenes
-					WHERE ID='.$nov['ImagenID']
-			),
-			MYSQLI_NUM
-		)[0][0];
 		$nov['vRecID']=$nov['TituloID'];
 	}
 

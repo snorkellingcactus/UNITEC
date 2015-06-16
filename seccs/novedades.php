@@ -90,8 +90,24 @@
 				$novedadHTML->Descripcion=substr($descripcion , 0 , 500);
 				$novedadHTML->Fecha=$novAct['Fecha'];
 				$novedadHTML->ImagenID=$novAct['ImagenID'];
+
 				$novedadHTML->ImagenAlt=getTraduccion($imgAct['AltID'] , $_SESSION['lang']);
 				$novedadHTML->ImagenUrl=$imgAct['Url'];
+
+				$novedadHTML->ImagenAlt=getTraduccion
+				(
+					fetch_all
+					(
+						$con->query
+						(
+							'	SELECT AltID
+								FROM Imagenes
+								WHERE ID='.$novAct['ImagenID']
+						),
+						MYSQLI_NUM
+					)[0][0],
+					$_SESSION['lang']
+				);
 
 				if
 				(
