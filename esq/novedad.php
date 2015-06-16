@@ -16,7 +16,7 @@
 		}
 	?>
 	<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-		<img src="<?php echo $this->Imagen ?>" alt="" />
+		<img src="/img/miniaturas/galeria/<?php echo $this->ImagenID ?>.png" alt="<?php echo $this->ImagenAlt?>" />
 	</div>
 	<h2><?php echo $this->Titulo ?></h2>
 	<p class="sangria"><?php echo $this->Descripcion ?> <a href="novedades.php?vRecID=<?php echo $this->ID?>" target="_blank">Seguir leyendo</a></p>

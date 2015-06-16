@@ -5,8 +5,10 @@
 	{
 		public function edita()
 		{
-			include_once $_SERVER['DOCUMENT_ROOT'] . '//php/updTraduccion.php';
-			include_once $_SERVER['DOCUMENT_ROOT'] . '//php/Img.php';
+			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/updTraduccion.php';
+			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/updTraduccion.php';
+			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/Img.php';
+			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/elimina.php';
 
 			$iMax=count($_SESSION['conID']);
 			$afectadosLen=0;
@@ -17,6 +19,14 @@
 				$nImg=new Img();
 
 				$nImg->getSQL(['TituloID'=>$_SESSION['conID'][$i]]);
+
+				if($nImg->Url!==$_POST['Url'])
+				{
+					echo '<pre>Intentando eliminar imagen</pre>';
+
+					elimina($_SERVER['DOCUMENT_ROOT'] . '/img/miniaturas/galeria/'.$nImg->ID.'.png' , 0775);
+					elimina($_SERVER['DOCUMENT_ROOT'] . '/img/miniaturas/visor/'.$nImg->ID.'.png' , 0775);
+				}
 
 				$nImg->getAsoc
 				(
@@ -88,6 +98,19 @@
 			$iMax=count($_SESSION['conID']);
 
 			global $con;
+			$imgID=fetch_all
+			(
+				$con->query
+				(
+					'	SELECT ID
+						FROM Imagenes
+						WHERE ContenidoID='.$_SESSION['conID'][$i]
+				),
+				MYSQLI_NUM
+			)[0][0];
+
+			elimina($_SERVER['DOCUMENT_ROOT'] . '/img/miniaturas/galeria/'.$imgID.'.png' , 0775);
+			elimina($_SERVER['DOCUMENT_ROOT'] . '/img/miniaturas/visor/'.$imgID.'.png' , 0775);
 
 			for($i=0;$i<$iMax;$i++)
 			{

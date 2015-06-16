@@ -1,4 +1,15 @@
 <?php
+	$this->Url='/img/miniaturas/galeria/'.$this->ID.'.png';
+
+	if
+	(
+		!empty($_SESSION['adminID']) &&
+		!file_exists($_SERVER['DOCUMENT_ROOT'] . $this->Url)
+	)
+	{
+		$this->Url='/php/genera_miniatura.php?ImgID='.$this->ID;
+	}
+
 	$clase='';
 	if($this->afectado)
 	{
@@ -8,7 +19,7 @@
 		<?php
 	}
 ?>
-<div class="gImg col-xs-12 col-sm-6 col-md-4 col-lg-3  <?php echo $clase?>">
+<div class="gImg Center-Container col-xs-12 col-sm-6 col-md-4 <?php echo $clase?>">
 	<?php
 		if(isset($_SESSION['adminID']))
 		{
@@ -19,7 +30,7 @@
 		<p>
 			<?php echo $this->TituloCon ?>
 		</p>
-		<img src="<?php echo $this->Url ?>" alt="<?php echo $this->AltCon ?>" width="200" height="200" />
+		<img class="Absolute-Center" src="<?php echo $this->Url ?>" alt="<?php echo $this->AltCon ?>"/>
 	</a>
 	
 </div>
