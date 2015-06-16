@@ -16,7 +16,6 @@
 		}
 	?>
 	<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-		<img src="<?php echo $this->ImagenUrl ?>" alt="<?php echo $this->ImagenAlt?>" />
 		<img src="/img/miniaturas/galeria/<?php echo $this->ImagenID ?>.png" alt="<?php echo $this->ImagenAlt?>" />
 	</div>
 	<h2><?php echo $this->Titulo ?></h2>

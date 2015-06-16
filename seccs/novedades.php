@@ -74,26 +74,11 @@
 					$novedadHTML->formBuilder=$formNov;
 				}
 
-				$imgAct=fetch_all
-				(
-					$con->query
-					(
-						'	SELECT AltID,Url
-							FROM Imagenes
-							WHERE ID='.$novAct['ImagenID']
-					),
-					MYSQLI_ASSOC
-				)[0];
-
 				$novedadHTML->ID=$novAct['ID'];
 				$novedadHTML->Titulo=$titulo;
 				$novedadHTML->Descripcion=substr($descripcion , 0 , 500);
 				$novedadHTML->Fecha=$novAct['Fecha'];
 				$novedadHTML->ImagenID=$novAct['ImagenID'];
-
-				$novedadHTML->ImagenAlt=getTraduccion($imgAct['AltID'] , $_SESSION['lang']);
-				$novedadHTML->ImagenUrl=$imgAct['Url'];
-
 				$novedadHTML->ImagenAlt=getTraduccion
 				(
 					fetch_all
