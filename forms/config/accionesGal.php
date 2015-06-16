@@ -18,6 +18,10 @@
 			'Url'
 		],
 		[
+			'selector_archivo_imagen.php',
+			'Archivo'
+		],
+		[
 			'input_text.php',
 			'Alt'
 		],

@@ -22,7 +22,7 @@
 
 				if($nImg->Url!==$_POST['Url'])
 				{
-					echo '<pre>Intentando eliminar imagen</pre>';
+					//echo '<pre>Intentando eliminar imagen</pre>';
 
 					elimina($_SERVER['DOCUMENT_ROOT'] . '/img/miniaturas/galeria/'.$nImg->ID.'.png' , 0775);
 					elimina($_SERVER['DOCUMENT_ROOT'] . '/img/miniaturas/visor/'.$nImg->ID.'.png' , 0775);
@@ -59,7 +59,26 @@
 
 			for($i=0;$i<$iMax;$i++)
 			{
-				//Creo la imagen y le asigno las propiedades.
+
+				$uploadOk=false;
+				
+				$extension=strtolower
+				(
+					pathinfo
+					(
+						$_FILES['Archivo']['name'][$i],
+						PATHINFO_EXTENSION
+					)
+				);
+				if
+				(
+					$extension=='png'	|| $extension=='jpg' ||
+					$extension=='jpeg'	|| $extension=='gif'
+				)
+				{
+					$uploadOk=true;
+				}
+				
 				$img=new Img();
 				$img->Url=$_POST['Url'][$i];
 				$img->Prioridad=$_POST['Prioridad'][$i];
@@ -88,6 +107,27 @@
 				//La inserto en la bd.
 				$img->insSQL();
 
+				if($uploadOk)
+				{
+					$id=$img->ID;
+					$url=$id.'.'.$extension;
+
+					$img=new Img
+					(
+						[
+							'ID'=>$id
+						]
+					);
+
+					move_uploaded_file
+					(
+						$_FILES['Archivo']['tmp_name'][$i],
+						$_SERVER['DOCUMENT_ROOT'] . '/img/miniaturas/tmp/'.$url
+					);
+
+					$img->updSQL(['Url'=>$url]);
+				}
+
 				$afectados[$afectadosLen]=$img->ID;
 				++$afectadosLen;
 			}
@@ -95,25 +135,27 @@
 		}
 		public function elimina()
 		{
+			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/elimina.php';
 			$iMax=count($_SESSION['conID']);
 
 			global $con;
-			$imgID=fetch_all
-			(
-				$con->query
-				(
-					'	SELECT ID
-						FROM Imagenes
-						WHERE ContenidoID='.$_SESSION['conID'][$i]
-				),
-				MYSQLI_NUM
-			)[0][0];
-
-			elimina($_SERVER['DOCUMENT_ROOT'] . '/img/miniaturas/galeria/'.$imgID.'.png' , 0775);
-			elimina($_SERVER['DOCUMENT_ROOT'] . '/img/miniaturas/visor/'.$imgID.'.png' , 0775);
 
 			for($i=0;$i<$iMax;$i++)
 			{
+				$imgID=fetch_all
+				(
+					$con->query
+					(
+						'	SELECT ID
+							FROM Imagenes
+							WHERE TituloID='.$_SESSION['conID'][$i]
+					),
+					MYSQLI_NUM
+				)[0][0];
+
+				elimina($_SERVER['DOCUMENT_ROOT'] . '/img/miniaturas/galeria/'.$imgID.'.png' , 0775);
+				elimina($_SERVER['DOCUMENT_ROOT'] . '/img/miniaturas/visor/'.$imgID.'.png' , 0775);
+
 				$con->query('delete from Contenidos where ID='.$_SESSION['conID'][$i]);
 			}
 

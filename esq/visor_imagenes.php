@@ -14,7 +14,7 @@
 			<img src="/img/flecha_i.png" alt="Flecha hacia la izquierda"/>
 		</a>
 
-		<img src="<?php echo $this->Url ?>" alt="<?php echo $this->AltCon ?>"/>					
+		<img src="/img/miniaturas/visor/<?php echo $this->ID ?>.png" alt="<?php echo $this->AltCon ?>"/>					
 
 		<a href="<?php echo $actual ?>?vRec=<?php echo $this->vRecSig ?>"  class="flecha" title="Imagen Siguiente">
 			<img src="/img/flecha_d.png" alt="Flecha hacia la derecha"/>

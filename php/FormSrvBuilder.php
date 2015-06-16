@@ -84,7 +84,7 @@
 		public function buildForms()
 		{
 			?>
-				<form method="POST" class="tresem nuevo" action="<?php echo $this->referrer.$this->ancla ?>">
+				<form method="POST" class="tresem nuevo" enctype="multipart/form-data" action="<?php echo $this->referrer.$this->ancla ?>">
 					<?php
 						$iMax=$this->cantidad;
 
