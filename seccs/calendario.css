@@ -60,8 +60,11 @@
 }
 .calendario .evento
 {
-	background-color:dimgray;
-	border-radius:2px;
+	font-weight: bold;
+	color: #C3C3C3;
+	text-shadow: 0px 0px 3px #000;
+	background-color: rgb(117, 117, 117);
+	box-shadow: 0px 0px 2px black inset;
 }
 .muted p
 {
@@ -69,8 +72,11 @@
 }
 .hoy p
 {
-	background-color:#B7C2FF;
-	border-radius:10px;
+	background-color: #4E5F90;
+	border-radius: 10px;
+	color: #B0CCD5;
+	text-shadow: 0px 0px 2px #151515;
+	font-weight: bold;
 }
 #cal h3 input
 {

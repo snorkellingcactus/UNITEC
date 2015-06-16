@@ -1,37 +1,75 @@
+div.col-xs-12 img{max-height:73%;}
+@media screen and (min-width:1170px){
+	.gImg{width:27%;}
+}
 .gImg img
 {
-	border-radius:2px;
+	border-radius:3px;
+	max-width:100%;
+	overflow: auto;
+	margin: auto;
+	position: absolute;
+	top: 0; left: 0; bottom: 0; right: 0;
+	box-shadow:0px 0px 10px black;
+	opacity:0.9;
+	transition: opacity 0.7s;
+	-moz-transition: opacity 0.7s;
+	-webkit-transition: opacity 0.7s;
 }
 .gImg a
 {
-	text-align:center;
-	display:inline-block;
-	position:relative;
-	overflow:hidden;
-	height:auto;
-	width:auto;
-	background-color:dimgray;
-	color:white;
-	box-shadow: 0px 0px 3px black;
-	margin:auto;
-	transition:box-shadow 0.7s;
-	font-weight:normal;
+	text-align: center;
+	display: block;
+	overflow: visible;
+	height: 100%;
+	width: 100%;
+	border-radius: 2px;
+	margin: auto;
+	color: #CFCFCF;
+	box-shadow: 0px 0px 50px rgba(128, 128, 128, 0.43) inset;
+	letter-spacing: 2px;
+	border: 1px solid rgba(105, 105, 105, 0.64);
+	background-color: #BFE1E3;
+	transition: box-shadow 0.7s ease 0s;
+	-moz-transition: box-shadow 0.7s ease 0s;
+	-webkit-transition: box-shadow 0.7s ease 0s;
+	transition: border-color 0.7s;
+	-moz-transition: border-color 0.7s;
+	-webkit-transition: border-color 0.7s;
 }
-.gImg a:hover
- {
- 	box-shadow: 0px 0px 5px black;
- 	color:white;
- }
+.gImg a:hover p,.gImg a:focus p
+{
+	background-color:#696969;
+	color:#CFCFCF;
+	text-decoration:none;
+}
+.gImg a:focus, .gImg a:hover
+{
+	border-color:#696969;
+	box-shadow-color:rgba(128, 128, 128, 0.93);
+	color:#CFCFCF;
+}
+.gImg a:hover,.gImg a:focus img
+{
+	opacity:1;
+}
+.gImg p
+{
+	border-radius: 2px;
+	background-color: #909090;
+	position: relative;
+	box-shadow: 0px 0px 0px rgb(2, 2, 2);
+	padding: 3px 7px 3px 7px;
+	display: inline;
+	top: -1em;
+	transition: background-color 0.7s;
+	-moz-transition: background-color 0.7s;
+	-webkit-transition: background-color 0.7s;
+}
 .gImg
 {
-	text-align:center;
 	margin-top:10px;
+  	height:210px;
+  	padding:0px 20px 0px 20px;
 }
-.gImg .eImg
-{
-	position:absolute;
-	right:0px;
-	top:0px;
-	height:1em;
-}
-.gImg input{box-shadow:0px 0px 3px white;border-radius:2px}
+.gImg input{position:absolute;right:0;}

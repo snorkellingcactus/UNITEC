@@ -58,16 +58,6 @@
 			{
 				$novAct=$novedades[$i];
 
-				$imagen=$con->query('select Url from Imagenes where ID='.$novAct['ImagenID']);
-				if($imagen)
-				{
-					$imagen=fetch_all($imagen , MYSQLI_ASSOC)[0]['Url'];
-				}
-				else
-				{
-					$imagen='http://loquesea';
-				}
-
 				$titulo=getTraduccion($novAct['TituloID'] , $_SESSION['lang']);
 				$descripcion=getTraduccion($novAct['DescripcionID'] , $_SESSION['lang']);
 
@@ -83,11 +73,25 @@
 				{
 					$novedadHTML->formBuilder=$formNov;
 				}
+
+				$imgAct=fetch_all
+				(
+					$con->query
+					(
+						'	SELECT AltID,Url
+							FROM Imagenes
+							WHERE ID='.$novAct['ImagenID']
+					),
+					MYSQLI_ASSOC
+				)[0];
+
 				$novedadHTML->ID=$novAct['ID'];
-				$novedadHTML->Imagen=$imagen;
 				$novedadHTML->Titulo=$titulo;
 				$novedadHTML->Descripcion=substr($descripcion , 0 , 500);
 				$novedadHTML->Fecha=$novAct['Fecha'];
+				$novedadHTML->ImagenID=$novAct['ImagenID'];
+				$novedadHTML->ImagenAlt=getTraduccion($imgAct['AltID'] , $_SESSION['lang']);
+				$novedadHTML->ImagenUrl=$imgAct['Url'];
 
 				if
 				(
