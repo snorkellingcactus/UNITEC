@@ -7,6 +7,7 @@
 
 <div id="gmapsDiag">
     <h3>¿Cómo Llegar?</h3>
+
     <div id="panel_ruta" class="col-xs-12 col-sm-12 col-md-5 col-lg-5"></div>
 
     <div class="clearfix visible-xs visible-sm"></div>
@@ -31,7 +32,9 @@
 
         <label for="origen" class="col-xs-12 col-sm-12 col-md-6 col-lg-6">Origen</label>
         <input type="text" id="origen" placeholder="Calle, Ciudad , Estado"  class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-        <div class="clearfix"></div>
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6"></div>
+        <p class="gris col-xs-12 col-sm-12 col-md-6 col-lg-6">Ej : av 1 y 60, la plata</p>
+        
         <input type="button" id="buscar" value="Buscar ruta">
     </div>
 </div>
