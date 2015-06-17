@@ -1,70 +1,84 @@
 /*::::HEADER::::*/
+footer.header
+{
+	display:table;
+}
 .header
 {
 	width:100%;
 	background:url("./img/barra.png");
 	background-repeat:no-repeat;
 	background-size:100%;
-	display:table;
+	height:30px;
+	padding:5px 15px 5px 15px;
 }
 .header a,.header small
 {
 	float:right;
 	color:gray;
-	margin-right:5%;
-	line-height:100%;
-	padding:0.8% 1% 0.8% 1%;
+	line-height:20px;
+	vertical-align:middle;
 }
 .header a:hover
 {
 	color:white;
 	text-decoration:underline
 }
-.idioma img
+.header nav
 {
-	margin-right:5px;
-}
-.idioma
-{
+	float:left;
 	text-align:left;
 	font-weight:900;
 	color:white;
-	line-height:100%;
-	padding:0.8% 0 0.8% 1%;
-	vertical-align:middle;
-	display: inline-block;
+	overflow:visible;
 }
-.idioma:hover div
+.header nav img
+{
+	margin-right:5px;
+}
+.header nav a
+{
+	float:none;
+}
+.header nav ul
+{
+	list-style:none;
+	height:20px;
+	overflow:visible;
+	position:relative;
+}
+.header nav ul:hover
+{
+	z-index:1;
+}
+.header nav ul:hover li
 {
 	opacity:1;
-	z-index:5;
 }
-.idioma div
+.header nav li
 {
-	-webkit-transition:opacity 0.5s;
-	-moz-transition:opacity 0.5s;
-	transition:opacity 0.5s;
-	box-shadow:0 0 3px black;
 	opacity:0;
-	z-index:0;
-	position:absolute;
-	margin-top:0.8%;
+	background-color:rgba(0, 0, 0, 0.66);
+	color:white;
 }
-.idioma div p
+.header nav li img
 {
-	overflow: visible;
-	background-color:rgba(0,0,0,0.7);
-	margin:0px;
-	padding:5px 5px 5px 0px;
+	opacity:0.5;
 }
-.idioma div p:hover
+.header nav li:first-child
 {
-	background-color:rgba(0,0,0,0.9);
-}
-.idioma div p button
-{
-	text-align:left;
+	opacity:1;
 	background-color:transparent;
-	box-shadow: none;
-	height:auto;
+}
+.header nav li:first-child img
+{
+	opacity:1;
+}
+.header nav ul:hover li:hover img
+{
+	opacity:1;
+}
+.header nav ul:hover li:first-child
+{
+	opacity:1;
 }

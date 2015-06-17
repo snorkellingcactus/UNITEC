@@ -132,5 +132,4 @@ function cargaMenu()
 			link.addEventListener('blur',normaliza);
 		}
 	}
-
 }

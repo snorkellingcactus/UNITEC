@@ -24,9 +24,9 @@ if(!isset($_SESSION['lang']))
 {
 	$_SESSION['lang']=1;
 }
-if(isset($_POST['lang']))
+if(isset($_GET['lang']))
 {
-	$_SESSION['lang']=$_POST['lang'];
+	$_SESSION['lang']=intVal($_GET['lang']);
 }
 if(isset($_POST['Cancela']))
 {
@@ -114,54 +114,53 @@ if(isset($_SESSION['adminID']))
 		<a href="./index.php?OpcSel=4#gal" accesskey="g"></a>
 
 		<div class="header hidden-xs">
-			<div class="idioma">
-			<?php
-				global $afectado;
-				$consulta=$con->query
-				(
-					'	SELECT * , 
-						CASE ID
-						WHEN '.$_SESSION['lang'].' THEN 0
-						ELSE 1 END AS ord
-						FROM `Lenguajes`
-						ORDER BY ord
-					'
-				);
-
-				$consulta=fetch_all($consulta , MYSQLI_ASSOC);
-
-				$defLang=array_shift($consulta);
-
-				echoLang($defLang);
-
-				$iMax=count($consulta);
-
-				if($iMax)
-				{
-			?>
-				<div>
-					<form id="lang" action="#" method="POST"></form>
+			<nav>
+				<ul>
 					<?php
+						$consulta=$con->query
+						(
+							'	SELECT * , 
+								CASE ID
+								WHEN '.$_SESSION['lang'].' THEN 0
+								ELSE 1 END AS ord
+								FROM `Lenguajes`
+								ORDER BY ord
+							'
+						);
+
+						$consulta=fetch_all($consulta , MYSQLI_ASSOC);
+
+						$iMax=count($consulta);
+
 						for($i=0;$i<$iMax;$i++)
 						{
-
+							$langAct=$consulta[$i];
+							$langShort=$langAct['ID'];
 							?>
-								<p>
-									<button form="lang" type="submit" name="lang" value="<?php echo $consulta[$i]['ID'] ?>">
-										<?php
-											echoLang($consulta[$i]);
-										?>
-									</button>
-								</p>
+								<li>
+									<?php
+										if($i!==0)
+										{
+											?>
+												<a rel="alternate" href="index.php?lang=<?php echo $langShort ?>" hreflang="<?php echo $langShort ?>" lang="<?php echo $langShort ?>">
+													<?php
+														echoLang($langAct);
+													?>
+												</a>
+											<?php
+										}
+										else
+										{
+											echoLang($langAct);
+										}
+									?>
+								</li>
 							<?php
 						}
 					?>
-				</div>
-			</div>
+				</ul>
+			</nav>
 			<a href="./inicio_sesion.php">Iniciar Sesión</a>
-			<?php
-				}
-			?>
 		</div>
 		<?php
 			include_once("./seccs/menu.php");
@@ -396,6 +395,6 @@ if(isset($_SESSION['adminID']))
 			?>
 		</main>
 
-		<footer class="header"><small>powered by bootstrap</small></footer>
+		<footer class="header footer"><small>powered by bootstrap</small></footer>
 	</body>
 </html>

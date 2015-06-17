@@ -5,7 +5,8 @@ div.menu
 	width:15.45%;
 	overflow:hidden;
 	position:fixed;
-	margin:1% 0px 1% 10px;
+	margin:1% 0px 1% 0px;
+	left:10px;
 	border-top-left-radius:5px;
 	box-shadow:-1px -1px 5px #888888;
 	display:inline-block;
@@ -144,12 +145,12 @@ div.menu
 	from
 	{
 		opacity:0;
-		margin-left:-20px;
+		left:-20px;
 	}
 	to
 	{
 		opacity:1;
-		margin-left:10px;
+		left:10px;
 	}
 }
 @-moz-keyframes menu
@@ -157,12 +158,12 @@ div.menu
 	from
 	{
 		opacity:0;
-		margin-left:-20px;
+		left:-20px;
 	}
 	to
 	{
 		opacity:1;
-		margin-left:10px;
+		left:10px;
 	}
 }
 @-webkit-keyframes menu
@@ -170,11 +171,11 @@ div.menu
 	from
 	{
 		opacity:0;
-		margin-left:-20px;
+		left:-20px;
 	}
 	to
 	{
 		opacity:1;
-		margin-left:10px;
+		left:10px;
 	}
 }
