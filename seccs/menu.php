@@ -10,7 +10,8 @@
 
 		include_once($_SERVER['DOCUMENT_ROOT'] . '/php/FormCliBuilder.php');
 
-		$formMenu=new FormCliBuilder('Menu' , 10);
+		$formMenu=new FormCliBuilder('Menu' , 0);
+		$formMenu->fType='Menu';
 	}
 ?>
 <div class="menu col-xs-12 col-md-2 col-sm-2 col-lg-2">
@@ -67,17 +68,19 @@
 								<?php 
 									if(!empty($_SESSION['adminID']))
 									{
-										$formMenu->buildActionCheckBox($opcion['ContenidoID']);
+										$formMenu->buildActionForm($opcion['ID'] , 'opc' , $s);
 									}
 								?>
 							</li>
 						<?php
 					}
 
+
 					if(isset($_SESSION['adminID']))
 					{
 						//Incluyo las acciones posibles.
-						$formMenu->buildActionForm();
+						$formMenu->cMax=1;
+						$formMenu->buildActionForm(NULL , 'sec',NULL);
 					}
 				?>
 			</ul>
