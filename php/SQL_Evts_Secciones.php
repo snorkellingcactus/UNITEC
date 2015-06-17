@@ -12,26 +12,27 @@
 		}
 		public function edita()
 		{
-			$lugar=$_POST['Lugar'];
-			$prefijo=$lugar[0];
-			$pOrden=intVal(substr($lugar , 1));
+			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/conexion.php';
+			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/Seccion.php';
+			global $con;
 
 			$edita=isset($_SESSION['accion']) && $_SESSION['accion']==='edita';
+			$nSec=new Seccion();
 
-			//Buscar en el futuro la forma de no repetir este código:
-			$inc='';
-			$tipo=0;
-			$valor=NULL;
-			$htmlID=NULL;
-
-			include_once $_SERVER['DOCUMENT_ROOT'] . '//php/conexion.php';
-			global $con;
+			if(isset($_POST['Modulo']))
+			{
+				$nSec->ModuloID=intVal($_POST['Modulo']);
+			}
+			if(!empty($_POST['Titulo'][0]))
+			{
+				$nSec->HTMLID=htmlentities($_POST['Titulo'][0]);
+			}
 
 			if(isset($_POST['Descripcion']))
 			{
 				if($edita)
 				{
-					$valor=fetch_all
+					$nSec->ContenidoID=fetch_all
 					(
 						$con->query
 						(
@@ -41,9 +42,10 @@
 						),
 						MYSQLI_NUM
 					)[0][0];
+
 					include($_SERVER['DOCUMENT_ROOT'] . '/php/updTraduccion.php');
 
-					updTraduccion($_POST['Descripcion'][0] , $valor , $_SESSION['lang']);
+					updTraduccion($_POST['Descripcion'][0] , $nSec->ContenidoID , $_SESSION['lang']);
 				}
 				else
 				{
@@ -53,109 +55,60 @@
 
 					$descripcion->insSQL();
 
-					$valor=$descripcion->ContenidoID;
+					$nSec->ContenidoID=$descripcion->ContenidoID;
 				}
-				$tipo=2;
 			}
-			if(isset($_POST['Modulo']))
+
+			if(isset($_POST['Modulo']) || isset($_POST['Descripcion']))
 			{
-				$valor=$_POST['Modulo'];
-				$tipo=1;
-			}
-			
-			if($edita)
-			{
-				$padreID=fetch_all
-				(
-					$con->query
-					(
-						'	SELECT PadreID
-							FROM Secciones
-							WHERE ID='.$_SESSION['conID']
-					),
-					MYSQLI_NUM
-				)[0][0];
-			}
-			else
-			{
-				if($tipo!==0)
+				if($edita)
 				{
-					$padreID=$_POST['conID'];
+					$nSec->PadreID=fetch_all
+					(
+						$con->query
+						(
+							'	SELECT PadreID
+								FROM Secciones
+								WHERE ID='.$_SESSION['conID']
+						),
+						MYSQLI_NUM
+					)[0][0];	
 				}
-			}
-			if($tipo!==0)
-			{	
-				$condicion=' PadreID='.$padreID;
+				else
+				{
+					$nSec->PadreID=$_SESSION['conID'];
+				}
+				
+
+				$condicion=' PadreID='.$nSec->PadreID;
 			}
 			else
 			{
 				$condicion=' ContenidoID IS NULL AND ModuloID IS NULL';
 			}
 
-			$nOrden=0;
+			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/reordena.php';
 
-			if($prefijo=='b')
+			$nSec->Visible=$_POST['Visible'][0];
+			$nSec->Prioridad=reordena($_POST['Lugar'] , $nSec , $condicion , $edita);
+
+			if($edita)
 			{
-				//El último + 1.
-				$nOrden=fetch_all($con->query('select max(Prioridad) from Secciones WHERE'.$condicion) , MYSQLI_NUM)[0][0]+1;
+				$nSec->updSQL(false,['ID'=>$_SESSION['conID']]);
 			}
 			else
 			{
-				$secciones=$con->query('SELECT * FROM Secciones WHERE '.$condicion.' ORDER BY Prioridad ASC');
-				$secciones=fetch_all($secciones , MYSQLI_ASSOC);
-				//Si alguna seccion ocupa el lugar de la nueva la muevo a ella y
-				//en el caso de que sea necesario a sus siguientes.
-
-				$j=$pOrden;
-				$nOrden=intVal($secciones[$pOrden]['Prioridad']);
-				$sMax=count($secciones);
-
-				while($j<$sMax && $secciones[$j]['Prioridad']==($nOrden+$j-$pOrden))
-				{
-
-					if($edita && $secciones[$j]['ID']===$_SESSION['conID'])
-					{
-						$j++;
-						continue;
-					}
-					$nID=$secciones[$j]['ID'];
-
-					$consulta='update Secciones set Prioridad='.(intVal($secciones[$j]['Prioridad'])+1).' where ID='.$nID;
-
-					$con->query($consulta);
-
-					++$j;
-
-					if($j>20)
-					{
-						die('fail');
-					}
-				}
-
-				$nOrden=$nOrden;
-			}
-			if($edita)
-			{
-				$edita=$_SESSION['conID'];
-				$_POST['conID']=$padreID;
+				$nSec->insSQL();
 			}
 
-			if(!empty($_POST['Titulo'][0]))
-			{
-				$htmlID=htmlentities($_POST['Titulo'][0]);
-			}
+			$afectados=[$_SESSION['conID']];
 
-			$afectados=
-			[
-				$this->nSec($_POST['Visible'][0] , $nOrden , $tipo , $valor , $edita , $htmlID)
-			];
-
-			if($htmlID!==NULL && $_POST['Agregar_al_menu'][0]==='1')
+			if($nSec->HTMLID!==NULL && $_POST['Agregar_al_menu'][0]==='1')
 			{
 				global $con,$afectado;
 
-				include($_SERVER['DOCUMENT_ROOT'] . '//php/Menu.php');
-				$menu=new Menu(['SeccionID'=>$htmlID]);
+				include($_SERVER['DOCUMENT_ROOT'] . '/php/Menu.php');
+				$menu=new Menu(['SeccionID'=>$nSec->HTMLID]);
 
 				$menu->getSQL();
 
@@ -181,12 +134,12 @@
 					$menu->insSQL();
 				}
 			}
-			return $afectados;
+			return [$nSec->ID];
 		}
 		public function elimina()
 		{
 
-			include_once $_SERVER['DOCUMENT_ROOT'] . '//php/conexion.php';
+			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/conexion.php';
 
 			$tipo=isset($_SESSION['conID']);
 			$secID=NULL;
@@ -220,43 +173,6 @@
 			{
 				$con->query('DELETE FROM Secciones WHERE ID='.$secID);
 			}
-		}
-		public function nSec($visible , $orden , $tipo , $valor , $edita , $htmlID)
-		{
-			global $con;
-			
-			include_once($_SERVER['DOCUMENT_ROOT'] . '/php/Seccion.php');
-
-			$nSec=new Seccion();
-
-			if(isset($_POST['conID']))
-			{
-				$nSec->PadreID=$_POST['conID'];
-			}
-			if($tipo===1)
-			{
-				$nSec->ModuloID=$valor;
-			}
-			if($tipo===2)
-			{
-				$nSec->ContenidoID=$valor;
-			}
-
-			$nSec->Prioridad=$orden;
-			$nSec->Visible=$visible;
-			$nSec->HTMLID=$htmlID;
-
-			if($edita!==false)
-			{
-				$nSec->updSQL(false,['ID'=>$edita]);
-				$nSec->ID=$edita;
-			}
-			else
-			{
-				$nSec->insSQL();
-			}
-
-			return $nSec->ID;
 		}
 	}
 
