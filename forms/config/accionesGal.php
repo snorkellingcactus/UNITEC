@@ -14,12 +14,8 @@
 			'Titulo'
 		],
 		[
-			'input_text.php',
-			'Url'
-		],
-		[
 			'selector_archivo_imagen.php',
-			'Archivo'
+			'Url'
 		],
 		[
 			'input_text.php',

@@ -8,12 +8,16 @@
 		public $cantidad;
 		public $headers;
 		public $labels;
+		public $colDef;
+		public $col;
 
 		function __construct($fId=NULL , $actions=NULL)
 		{
 			//Sacar lo que se necesite de acá, es ridiculo hacer referencia localmente a
 			//una variable que se puede referenciar donde sea.
 			parent::__construct($fId , $actions);
+
+			$this->colDef=['xs'=>12,'sm'=>8,'md'=>8,'lg'=>8];
 
 			$this->ancla="#nCon";
 
@@ -33,11 +37,11 @@
 		public function getConfig()
 		{
 			//Incluyo la configuración del formulario en cuestión.
-			include $_SERVER['DOCUMENT_ROOT'] . '//forms/config/'.$_POST['form'].'.php';
+			include $_SERVER['DOCUMENT_ROOT'] . '/forms/config/'.$_POST['form'].'.php';
 		}
 		public function buildIncludes()
 		{
-			include $_SERVER['DOCUMENT_ROOT'] . '//php/head_include.php';
+			include $_SERVER['DOCUMENT_ROOT'] . '/php/head_include.php';
 
 			$iMax=count($this->includes);
 
@@ -48,6 +52,16 @@
 			}
 			unset($iMax);
 		}
+		public function mkCol()
+		{
+			$buff='';
+
+			foreach($this->col as $clave=>$valor)
+			{
+				$buff.=' col-'.$clave.'-'.$valor;
+			}
+			return $buff;
+		}
 		public function buildForm()
 		{
 			$lMax=count($this->labels);
@@ -55,6 +69,7 @@
 			$buff='';
 			for($l=0;$l<$lMax;$l++)
 			{
+				$this->col=$this->colDef;
 				$labelAct=$this->labels[$l];
 
 				$tipo=$labelAct[0];
@@ -96,7 +111,7 @@
 							{
 								$this->conIDAct=$_POST['conID'][$i];
 
-								include $_SERVER['DOCUMENT_ROOT'] . '//forms/config/'.$_POST['form'].'Autocomp.php';
+								include $_SERVER['DOCUMENT_ROOT'] . '/forms/config/'.$_POST['form'].'Autocomp.php';
 							}
 
 							echo $this->buildForm();

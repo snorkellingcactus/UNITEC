@@ -3,6 +3,50 @@
 
 	class SQL_Evts_Imagenes implements SQL_Evts_List
 	{
+		//$_FILES['Url_Archivo']['name'][$i]
+		//
+		public function mkUrlArchivo($img , $name , $tmpName)
+		{
+			$uploadOk=false;
+				
+			$extension=strtolower
+			(
+				pathinfo
+				(
+					$name,
+					PATHINFO_EXTENSION
+				)
+			);
+			if
+			(
+				$extension=='png'	|| $extension=='jpg' ||
+				$extension=='jpeg'	|| $extension=='gif'
+			)
+			{
+				$uploadOk=true;
+			}
+
+			if($uploadOk)
+			{
+				$id=$img->ID;
+				$url=$id.'.'.$extension;
+
+				$img=new Img
+				(
+					[
+						'ID'=>$id
+					]
+				);
+
+				move_uploaded_file
+				(
+					$tmpName,
+					$_SERVER['DOCUMENT_ROOT'] . '/img/miniaturas/tmp/'.$url
+				);
+
+				$img->updSQL(['Url'=>$url]);
+			}
+		}
 		public function edita()
 		{
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/updTraduccion.php';
@@ -20,13 +64,14 @@
 
 				$nImg->getSQL(['TituloID'=>$_SESSION['conID'][$i]]);
 
-				if($nImg->Url!==$_POST['Url'])
+				if($nImg->Url!=='/img/miniaturas/galeria/'.$_POST['Url'][$i])
 				{
 					//echo '<pre>Intentando eliminar imagen</pre>';
 
 					elimina($_SERVER['DOCUMENT_ROOT'] . '/img/miniaturas/galeria/'.$nImg->ID.'.png' , 0775);
 					elimina($_SERVER['DOCUMENT_ROOT'] . '/img/miniaturas/visor/'.$nImg->ID.'.png' , 0775);
 				}
+
 
 				$nImg->getAsoc
 				(
@@ -42,7 +87,15 @@
 				updTraduccion($_POST['Titulo'][$i] , $nImg->TituloID , $_SESSION['lang']);
 				updTraduccion($_POST['Alt'][$i] , $nImg->AltID , $_SESSION['lang']);
 
+				$this->mkUrlArchivo
+				(
+					$nImg ,
+					$_FILES['Url_Archivo']['name'][$i],
+					$_FILES['Url_Archivo']['tmp_name'][$i]
+				);
+
 				$afectados[$afectadosLen]=$nImg->ID;
+
 				++$afectadosLen;
 			}
 
@@ -50,8 +103,8 @@
 		}
 		public function nuevo()
 		{
-			include_once $_SERVER['DOCUMENT_ROOT'] . '//php/Img.php';
-			include_once $_SERVER['DOCUMENT_ROOT'] . '//php/Foranea.php';
+			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/Img.php';
+			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/Foranea.php';
 
 			$iMax=count($_POST['Titulo']);
 			$afectadosLen=0;
@@ -59,29 +112,13 @@
 
 			for($i=0;$i<$iMax;$i++)
 			{
-
-				$uploadOk=false;
-				
-				$extension=strtolower
+				$img=new Img
 				(
-					pathinfo
-					(
-						$_FILES['Archivo']['name'][$i],
-						PATHINFO_EXTENSION
-					)
+					[
+						'Url'=>$_POST['Url'][$i],
+						'Prioridad'=>$_POST['Prioridad'][$i]
+					]
 				);
-				if
-				(
-					$extension=='png'	|| $extension=='jpg' ||
-					$extension=='jpeg'	|| $extension=='gif'
-				)
-				{
-					$uploadOk=true;
-				}
-				
-				$img=new Img();
-				$img->Url=$_POST['Url'][$i];
-				$img->Prioridad=$_POST['Prioridad'][$i];
 
 				$img->insForanea
 				(
@@ -107,26 +144,12 @@
 				//La inserto en la bd.
 				$img->insSQL();
 
-				if($uploadOk)
-				{
-					$id=$img->ID;
-					$url=$id.'.'.$extension;
-
-					$img=new Img
-					(
-						[
-							'ID'=>$id
-						]
-					);
-
-					move_uploaded_file
-					(
-						$_FILES['Archivo']['tmp_name'][$i],
-						$_SERVER['DOCUMENT_ROOT'] . '/img/miniaturas/tmp/'.$url
-					);
-
-					$img->updSQL(['Url'=>$url]);
-				}
+				$this->mkUrlArchivo
+				(
+					$img ,
+					$_FILES['Url_Archivo']['name'][$i],
+					$_FILES['Url_Archivo']['tmp_name'][$i]
+				);
 
 				$afectados[$afectadosLen]=$img->ID;
 				++$afectadosLen;
