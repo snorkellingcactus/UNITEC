@@ -18,9 +18,14 @@ $jMax=0;
 			}
 			for($j=0;$j<$jMax;$j++)
 			{
+				$nombre=$j;
+				if(!empty($orden[$j][0]))
+				{
+					$nombre=$orden[$j][0];
+				}
 				?>
 					<option value="t<?php echo $j?>" <?php if($this->autocompOrden!==false && $this->autocompOrden==$j){ ?> selected="selected" <?php } ?> ></option>
-					<option class="lleno"><?php echo $j?></option>
+					<option class="lleno"><?php echo $nombre?></option>
 				<?php
 			}
 		}

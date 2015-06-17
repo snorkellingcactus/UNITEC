@@ -107,7 +107,7 @@
 	(
 		$con->query
 		(
-			'	SELECT Prioridad 
+			'	SELECT HTMLID 
 				FROM Secciones
 				WHERE PadreID '.$padreIDStr.'
 				ORDER BY Prioridad ASC
