@@ -1,3 +1,4 @@
+<div class="clearfix"></div>
 <div id="labs">
 	<div class="container-fluid" >
 		<div class="row">
