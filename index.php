@@ -35,10 +35,10 @@ if(isset($_POST['Cancela']))
 function echoLang($langSQLRes)
 {
 	?>
-		<img src="img/idiomas/<?php echo $langSQLRes['Pais'].'.png' ?>" alt="Cambiar al idioma <?php echo $langSQLRes['Nombre'] ?>" />
+		<img src="img/idiomas/<?php echo $langSQLRes['Pais'].'.png' ?>" alt="Cambiar al idioma <?php echo utf8_encode($langSQLRes['Nombre']) ?>" />
 	<?php 
 
-	echo $langSQLRes['Nombre'];
+	echo utf8_encode($langSQLRes['Nombre']);
 }
 
 if(isset($_SESSION['adminID']))
@@ -51,8 +51,21 @@ if(isset($_SESSION['adminID']))
 
 	$formSecRecv->checks();
 }
+include_once($_SERVER['DOCUMENT_ROOT'] . '//php/conexion.php');
+global $con;
+$lang=
+fetch_all
+(
+	$con->query
+	(
+		'	SELECT Pais
+			FROM Lenguajes
+			WHERE ID='.$_SESSION['lang']
+	),
+	MYSQL_NUM
+)[0][0]
 ?>
-<html lang="es">
+<html lang="<?php echo $lang?>">
 	<head>
 		<meta charset="utf-8" />
 		<meta name="description" content="Página principal Unitec." />
@@ -67,7 +80,6 @@ if(isset($_SESSION['adminID']))
 		<link rel="stylesheet" type="text/css" href="./seccs/menu.css" />
 		
 		<?php
-			include_once($_SERVER['DOCUMENT_ROOT'] . '//php/conexion.php');
 			include_once($_SERVER['DOCUMENT_ROOT'] . '//php/head_include.php');
 			
 			$headers=$con->query
@@ -135,14 +147,14 @@ if(isset($_SESSION['adminID']))
 						for($i=0;$i<$iMax;$i++)
 						{
 							$langAct=$consulta[$i];
-							$langShort=$langAct['ID'];
+							$langShort=$langAct['Pais'];
 							?>
 								<li>
 									<?php
 										if($i!==0)
 										{
 											?>
-												<a rel="alternate" href="index.php?lang=<?php echo $langShort ?>" hreflang="<?php echo $langShort ?>" lang="<?php echo $langShort ?>">
+												<a rel="alternate" href="index.php?lang=<?php echo $langAct['ID'] ?>" hreflang="<?php echo $langShort ?>" lang="<?php echo $langShort ?>">
 													<?php
 														echoLang($langAct);
 													?>
