@@ -7,38 +7,6 @@
 		include_once $_SERVER['DOCUMENT_ROOT'] . '/php/conexion.php';
 		global $con;
 
-		if($prefijo=='b')
-		{
-			/*
-			echo '<pre>';
-			print_r
-			(
-				'	SELECT IFNULL(max(Prioridad), 0) AS max
-				FROM '.$sqlObj->table.' 
-				WHERE '.$condicion
-			);
-			echo '</pre>';
-			*/
-			//El último + 1.
-			$nOrden=intVal
-			(
-				intVal
-				(
-					fetch_all
-					(
-						$con->query
-						(
-							'	SELECT IFNULL(max(Prioridad), 0) AS max
-								FROM '.$sqlObj->table.' 
-								WHERE '.$condicion
-						),
-						MYSQLI_NUM
-					)[0][0]
-				)+1
-			);
-		}
-		else
-		{
 		/*
 			echo '<pre>';
 			print_r
@@ -50,110 +18,114 @@
 			);
 			echo '</pre>';
 		*/
-			$coleccion=fetch_all
+		$coleccion=fetch_all
+		(
+			$con->query
 			(
-				$con->query
-				(
-					'	SELECT '.$discProp.', Prioridad
-						FROM '.$sqlObj->table.' 
-						WHERE '.$condicion.' 
-						ORDER BY Prioridad ASC'
-				)
-				,
-				MYSQLI_ASSOC
-			);
-			//Si alguna seccion ocupa el lugar de la nueva la muevo a ella y
-			//en el caso de que sea necesario a sus siguientes.
-
-			$j=$pOrden;
-			$nOrden=floatVal($coleccion[$pOrden]['Prioridad']);
-			$sMax=count($coleccion);
-			
-			if($edita)
-			{
+				'	SELECT '.$discProp.', Prioridad
+					FROM '.$sqlObj->table.' 
+					WHERE '.$condicion.' 
+					ORDER BY Prioridad ASC'
+			)
+			,
+			MYSQLI_ASSOC
+		);
 /*
-				echo '<pre>Prioridad actual:';
-				print_r
-				(
-					'	SELECT Prioridad
-							FROM '.$sqlObj->table.'
-							WHERE '.$discProp.'='.$valProp
-				);
-				echo '</pre>';
-				$val=fetch_all
-				(
-					$con->query
-					(
-						'	SELECT Prioridad
-							FROM '.$sqlObj->table.'
-							WHERE '.$discProp.'='.$valProp
-					),
-					MYSQLI_NUM
-				)[0][0];
-				echo '<pre>Valor:';
-				print_r($val);
-				echo '</pre>';
+		$cMax=count($coleccion);
+		if($prefijo=='b' || $pOrden===0)
+		{
+			$ultimo=$coleccion[$cMax-1];
+			$primero=$coleccion[0];
 
-				echo '<pre>Consulta:';
-				print_r
-				(
-					'	UPDATE '.$sqlObj->table.'
-						SET Prioridad='.$val.'
-						WHERE '.$discProp.'='.$coleccion[$pOrden][$discProp]
-				);
-				echo '</pre>';
+			if($pOrden===0)
+			{
+				$ultimo=$coleccion[0];
+				$primero=$coleccion[$cMax-1];
+			}
+
+			$nOrden=$ultimo['Prioridad'];
+			
+			echo '<pre>';
+			print_r
+			(
+				'	UPDATE '.$sqlObj->table.'
+					SET Prioridad='.$primero['Prioridad'].'
+					WHERE '.$discProp.'='.$ultimo[$discProp]
+			);
+			echo '</pre>';
+
+			$con->query
+			(
+				'	UPDATE '.$sqlObj->table.'
+					SET Prioridad='.$primero['Prioridad'].'
+					WHERE '.$discProp.'='.$ultimo[$discProp]
+			);
+			echo '<pre>nOrden:'.$nOrden.'</pre>';
+			return $nOrden;
+		}
 */
-				$con->query
-				(
-					'	UPDATE '.$sqlObj->table.'
-						SET Prioridad='.fetch_all
-						(
-							$con->query
-							(
-								'	SELECT Prioridad
-									FROM '.$sqlObj->table.'
-									WHERE '.$discProp.'='.$valProp
-							),
-							MYSQLI_NUM
-						)[0][0].'
-						WHERE '.$discProp.'='.$coleccion[$pOrden][$discProp]
-				);
+		//Si alguna seccion ocupa el lugar de la nueva la muevo a ella y
+		//en el caso de que sea necesario a sus siguientes.
+
+		$desde=0;
+		while($coleccion[$desde][$discProp]!==$valProp && $desde<30)
+		{
+			++$desde;
+		}
+
+	
+//			$j=min($desde, $pOrden);
+//			$sMax=max($desde , $pOrden);
+
+		if($prefijo==='b')
+		{
+			$pOrden=count($coleccion)-1;
+		}
+		$inc=1;
+		$j=$pOrden;
+		$sMax=$desde;
+
+		if($desde<$pOrden)
+		{
+
+//			echo '<pre>Al reves';echo '</pre>';
+
+			$inc=-1;
+
+			$j=$desde+1;
+			$sMax=$pOrden+1;
+		}
+
+//		echo '<pre>Desde:'.$desde.'</pre>';
+//		echo '<pre>Hasta:'.$pOrden.'</pre>';
+
+
+		$inicial=floatVal($coleccion[$j]['Prioridad']);
+		
+//		echo '<pre>';print_r($j.' < '.$sMax);echo '</pre>';
+
+		while($j<$sMax)
+		{
+			$nID=$coleccion[$j][$discProp];
+
+			$consulta='update '.$sqlObj->table.' set Prioridad='.(intVal($coleccion[$j]['Prioridad'])+$inc).' where '.$discProp.'='.$nID;
+//			echo '<pre>';print_r($consulta);echo '</pre>';
+
+			$con->query($consulta);
+
+			++$j;
+
+			if($j>20)
+			{
+				die('fail');
 			}
 			else
 			{
-			/*
-				echo '<pre>';
-				print_r
-				(
-					$j.' < '.$sMax .' && '. $coleccion[$j]['Prioridad'].' == '.($nOrden+$j-$pOrden)
-				);
-				echo '</pre>';
-			*/
-
-
-				while($j<$sMax && $coleccion[$j]['Prioridad']==($nOrden+$j-$pOrden))
-				{
-					$nID=$coleccion[$j][$discProp];
-
-					$consulta='update '.$sqlObj->table.' set Prioridad='.(intVal($coleccion[$j]['Prioridad'])+1).' where '.$discProp.'='.$nID;
-					echo '<pre>';
-					print_r($consulta);
-					echo '</pre>';
-
-					$con->query($consulta);
-
-					++$j;
-
-					if($j>20)
-					{
-						die('fail');
-					}
-				}
+				
 			}
-
-			
 		}
-		echo '<pre>nOrden:'.$nOrden.'</pre>';
+		$nOrden=intVal($coleccion[$pOrden]['Prioridad']);
+//		echo '<pre>nOrden:'.$nOrden.'</pre>';
 		return $nOrden;
 	}
 ?>
