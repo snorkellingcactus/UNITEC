@@ -331,7 +331,6 @@ fetch_all
 										echo str_replace("\n" , "<br>" , $parser->getAsHtml());
 									?>
 								</div>
-								<input type="hidden" name="lleno[]" value="<?php echo $f?>" form="nCon<?php echo $s ?>">
 							<?php
 						}
 						if($include['Archivo']!==NULL)
@@ -389,7 +388,6 @@ fetch_all
 								<?php
 							}*/
 							?>
-								<input type="hidden" name="lleno[]" value="<?php echo $f?>" form="nCon<?php echo $s ?>">
 								<div class="clearfix"></div>
 							<?php
 						}
