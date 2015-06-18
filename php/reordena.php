@@ -92,6 +92,10 @@
 		if($prefijo==='b')
 		{
 			$pOrden=count($coleccion)-1;
+			if(!$edita)
+			{
+				$pOrden++;
+			}
 		}
 		$inc=1;
 		$j=$pOrden;
@@ -110,6 +114,12 @@
 
 //		echo '<pre>Desde:'.$desde.'</pre>';
 //		echo '<pre>Hasta:'.$pOrden.'</pre>';
+		if($pOrden===count($coleccion))
+		{
+//			echo '<pre>';print_r($j.' < '.$sMax);echo '</pre>';
+
+			return $coleccion[$pOrden-1]['Prioridad'];
+		}
 
 		$inicial=floatVal($coleccion[$j]['Prioridad']);
 		
