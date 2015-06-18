@@ -8,6 +8,8 @@
 			include_once $_SERVER['DOCUMENT_ROOT'] . '//php/updTraduccion.php';
 			include_once $_SERVER['DOCUMENT_ROOT'] . '//php/Menu.php';
 
+			$_SESSION['conID']=[$_SESSION['conID']];
+
 			$iMax=count($_SESSION['conID']);
 			$afectadosLen=0;
 			$afectados=[];
@@ -18,12 +20,24 @@
 
 				updTraduccion($_POST['Titulo'][$i] , $conIdAct , $_SESSION['lang']);
 
-				$nMenu=new Menu
+				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/reordena.php';
+
+				$nMenu=new Menu();
+
+				$nMenu->getAsoc
 				(
 					[
-						'Prioridad'=>$_POST['Prioridad'][$i],
 						'Url'=>$_POST['Url'][$i],
-						'Visible'=>$_POST['Visible'][$i]
+						'Visible'=>$_POST['Visible'][$i],
+						'Prioridad'=>reordena
+						(
+							$_POST['Lugar'],
+							$nMenu,
+							'1',
+							'ContenidoID',
+							$_SESSION['conID'][$i],
+							true
+						)
 					]
 				);
 
@@ -43,6 +57,8 @@
 			include_once $_SERVER['DOCUMENT_ROOT'] . '//php/nTraduccion.php';
 			global $con;
 
+			$_SESSION['conID']=[$_SESSION['conID']];
+
 			$sMax=count($_POST['Titulo']);
 			$afectadosLen=0;
 			$afectados=[];
@@ -53,8 +69,7 @@
 				(
 					[
 						'Url'=>$_POST['Url'][$s],
-						'Prioridad'=>$_POST['Prioridad'][$s],
-						'Visible'=>$_POST['Visible'][$s],
+						'Visible'=>$_POST['Visible'][$s]
 					]
 				);
 
@@ -69,6 +84,17 @@
 					'ContenidoID'
 				);
 
+				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/reordena.php';
+				$nMenu->Prioridad=reordena
+				(
+					$_POST['Lugar'],
+					$nMenu,
+					'1',
+					'ContenidoID',
+					$_SESSION['conID'][$s],
+					false
+				);
+
 				$nMenu->insSQL();
 
 				$afectados[$afectadosLen]=$nMenu->ContenidoID;
@@ -80,6 +106,8 @@
 		{
 			include_once $_SERVER['DOCUMENT_ROOT'] . '//php/conexion.php';
 			global $con;
+
+			$_SESSION['conID']=[$_SESSION['conID']];
 
 			$sMax=count($_SESSION['conID']);
 

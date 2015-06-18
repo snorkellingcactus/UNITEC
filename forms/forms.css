@@ -28,16 +28,40 @@ form a
 }
 select option{background-color:white;}
 form p{color:black}
-.menu:hover .acciones input[type="submit"], .menu:hover .semitrans , .menu:hover .acciones,section:hover .clearfix form .acciones input[type="submit"],
+.menu:hover li:hover .acciones, .menu:hover .acciones ,section:hover .clearfix form .acciones input[type="submit"],
 section:hover .clearfix form .acciones, .modulo:hover .acciones input[type="submit"] ,.modulo:hover .acciones,.modulo:hover .sep, .modulo:hover .semitrans,
 .contenido:hover .acciones input[type="submit"] ,.contenido:hover .acciones , .contenido:hover .sep, .contenido:hover .semitrans, .contenido:hover >.sep,
 .comentarios:hover .acciones, .comentarios:hover .acciones input,.comentarios:hover .semitrans
 {
 	opacity:1
 }
-.menu .acciones{margin-left:10px;margin-top:10px;}
-.menu input , .acciones input{max-width:30px;}
 
+.menu li form.right{position:relative;right:7px;float:right;}
+.menu input , .acciones input{max-width:30px;}
+.acciones input{box-shadow:none;background-color:transparent;border-radius:2px;}
+.acciones input:hover{background-color:rgba(255,255,255,0.8);}
+.menu #accionesMenu
+{
+	width:100%;
+	position:static;
+}
+.menu #accionesMenu input
+{
+	background:transparent;
+	background-color:silver;
+	border-radius:0px;
+	color:silver;
+	text-shadow:0px 0px 2px black;
+	font-size:2em;
+	box-shadow:none;
+	padding:0px;
+	width:100%;
+	max-width:100%;
+	line-height:1em;
+	font-weight:bold;
+	height:auto;
+}
+.menu #accionesMenu .acciones{width:100%}
 input,form a , button, textarea, select{height:auto;box-shadow:0px 0px 3px black;border-radius:3px;border:none;}
 button,form a{background-color:silver;font-family:sans-serif;vertical-align:middle;line-height:3em;color:black;}
 textarea{height:auto}
@@ -52,7 +76,7 @@ input , textarea, select,main>.right input[type="submit"]
 	background-color:#F0F8FF;
 	font-family:Monospace;
 }
-.sep , .acciones ,input.semitrans,.acciones input[type="submit"]{opacity:0.2;transition:opacity 0.8s}
+.sep , .acciones ,input.semitrans , .menu:hover li .acciones{opacity:0.2;transition:opacity 0.8s}
 .tresem input{opacity:1;}
 main>.right .acciones,main>.right input[type="submit"]
 {

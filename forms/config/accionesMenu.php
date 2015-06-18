@@ -8,14 +8,23 @@
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/conexion.php';
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/getTraduccion.php';
 
+	if($_SESSION['accion']==='nuevo')
+	{
+		$condicion='1';
+	}
+	else
+	{
+		$condicion='ContenidoID!='.$_POST['conID'];
+	}
+	
 	$lleno=fetch_all
 	(
 		$con->query
 		(
 			'	SELECT ContenidoID
 				FROM Menu
-				WHERE ID!='.$_SESSION['conID'].'
-				ORDER BY Prioridad DESC
+				WHERE '.$condicion.' 
+				ORDER BY Prioridad ASC
 			'
 		),
 		MYSQLI_NUM

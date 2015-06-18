@@ -28,7 +28,7 @@
 					(
 						'	SELECT Menu.* FROM Menu
 							WHERE 1
-							ORDER BY Prioridad DESC
+							ORDER BY Prioridad ASC
 						'
 					);
 
@@ -68,22 +68,24 @@
 								<?php 
 									if(!empty($_SESSION['adminID']))
 									{
-										$formMenu->buildActionForm($opcion['ID'] , 'opc' , $s);
+										$formMenu->fId='nMenu'.$s;
+										$formMenu->buildActionForm($opcion['ContenidoID'] , 'opc' , $s);
 									}
 								?>
 							</li>
 						<?php
 					}
-
-
-					if(isset($_SESSION['adminID']))
-					{
-						//Incluyo las acciones posibles.
-						$formMenu->cMax=1;
-						$formMenu->buildActionForm(NULL , 'sec',NULL);
-					}
 				?>
 			</ul>
+			<?php
+				if(isset($_SESSION['adminID']))
+				{
+					//Incluyo las acciones posibles.
+					$formMenu->fId='Menu';
+					$formMenu->cMax=1;
+					$formMenu->buildActionForm(NULL , 'opc',NULL);
+				}
+			?>
 		</nav>
 		<!-- Logo -->
 		<div class="hidden-xs">

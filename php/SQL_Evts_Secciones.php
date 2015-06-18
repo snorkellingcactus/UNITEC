@@ -90,7 +90,14 @@
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/reordena.php';
 
 			$nSec->Visible=$_POST['Visible'][0];
-			$nSec->Prioridad=reordena($_POST['Lugar'] , $nSec , $condicion , $edita);
+			$nSec->Prioridad=reordena
+			(
+				$_POST['Lugar'] ,
+				$nSec , $condicion ,
+				'ID' ,
+				$_SESSION['conID'],
+				$edita
+			);
 
 			if($edita)
 			{
@@ -112,12 +119,12 @@
 
 				$menu->getSQL();
 
-				if(empty($menu->ID))
+				if($menu->ID===NULL)
 				{
-					include_once($_SERVER['DOCUMENT_ROOT'] . '//php/nTraduccion.php');
-					include_once($_SERVER['DOCUMENT_ROOT'] . '//php/Foranea.php');
+					include_once($_SERVER['DOCUMENT_ROOT'] . '/php/nTraduccion.php');
+					include_once($_SERVER['DOCUMENT_ROOT'] . '/php/Foranea.php');
 
-					$menu->Prioridad=fetch_all($con->query('select max(Prioridad) from Menu') , MYSQLI_NUM)[0][0];
+					$menu->Prioridad=fetch_all($con->query('select ifnull(max(Prioridad),0) as max from Menu') , MYSQLI_NUM)[0][0];
 					$menu->Url='#'.rawurlencode($_POST['Titulo'][0]);
 
 					$menu->insForanea

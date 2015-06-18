@@ -11,7 +11,7 @@
 			(
 				'	SELECT *
 					FROM Menu
-					WHERE ID='.$_POST['conID']
+					WHERE ContenidoID='.$_POST['conID']
 			),
 			MYSQLI_ASSOC
 		)[0];
