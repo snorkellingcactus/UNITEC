@@ -44,7 +44,7 @@
 			}
 
 			$nOrden=$ultimo['Prioridad'];
-			
+
 			echo '<pre>';
 			print_r
 			(
@@ -66,13 +66,25 @@
 */
 		//Si alguna seccion ocupa el lugar de la nueva la muevo a ella y
 		//en el caso de que sea necesario a sus siguientes.
+//		echo '<pre>Edita:';var_dump($edita);echo '</pre>';
+		$desde=count($coleccion)-1;
+		if($desde<0)
+		{
+			return 0;
+		}
 
-		$desde=0;
-		while($coleccion[$desde][$discProp]!==$valProp && $desde<30)
+		if($edita)
+		{
+			$desde=0;
+			while($coleccion[$desde][$discProp]!==$valProp && $desde<30)
+			{
+				++$desde;
+			}
+		}
+		else
 		{
 			++$desde;
 		}
-
 	
 //			$j=min($desde, $pOrden);
 //			$sMax=max($desde , $pOrden);
@@ -99,7 +111,6 @@
 //		echo '<pre>Desde:'.$desde.'</pre>';
 //		echo '<pre>Hasta:'.$pOrden.'</pre>';
 
-
 		$inicial=floatVal($coleccion[$j]['Prioridad']);
 		
 //		echo '<pre>';print_r($j.' < '.$sMax);echo '</pre>';
@@ -118,10 +129,6 @@
 			if($j>20)
 			{
 				die('fail');
-			}
-			else
-			{
-				
 			}
 		}
 		$nOrden=intVal($coleccion[$pOrden]['Prioridad']);
