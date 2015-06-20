@@ -51,7 +51,7 @@ if(isset($_SESSION['adminID']))
 
 	$formSecRecv->checks();
 }
-include_once($_SERVER['DOCUMENT_ROOT'] . '//php/conexion.php');
+include_once($_SERVER['DOCUMENT_ROOT'] . '/php/conexion.php');
 global $con;
 $lang=
 fetch_all
@@ -119,11 +119,6 @@ fetch_all
 	<body onLoad="JavaScript:cargaMenu()">
 
 		<!--:::::::::::::::Atajos de teclado:::::::::::::::-->
-		<a href="./index.php?OpcSel=0#sobre" accesskey="i"></a>
-		<a href="./index.php?OpcSel=1#nov" accesskey="n"></a>
-		<a href="./index.php?OpcSel=2#labs" accesskey="l"></a>
-		<a href="./index.php?OpcSel=3#cal" accesskey="c"></a>
-		<a href="./index.php?OpcSel=4#gal" accesskey="g"></a>
 
 		<div class="header hidden-xs">
 			<nav>

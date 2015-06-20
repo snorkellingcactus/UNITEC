@@ -61,7 +61,15 @@
 							<li>
 								<a href=
 									"<?php echo $opcion['Url']?>"
-									<?php echo $clase ?>
+									<?php
+										echo $clase ;
+										if(!empty($opcion['Atajo']))
+										{
+											?>
+												accesskey="<?php echo $opcion['Atajo']?>"
+											<?php
+										}
+									?>
 								>
 									<?php echo $nombre?>
 								</a>
