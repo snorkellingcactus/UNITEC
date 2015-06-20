@@ -15,6 +15,7 @@
 					'ContenidoID',
 					'SeccionID',
 					'Url',
+					'Atajo',
 					'Prioridad',
 					'Visible'
 				],

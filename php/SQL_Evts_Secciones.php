@@ -119,13 +119,19 @@
 
 				$menu->getSQL();
 
+				$menu->Url='#'.rawurlencode($_POST['Titulo'][0]);
+
+				if(!empty($_POST['Atajo'][0]))
+				{
+					$menu->Atajo=strtoupper($_POST['Atajo'][0]);
+				}
+
 				if($menu->ID===NULL)
 				{
 					include_once($_SERVER['DOCUMENT_ROOT'] . '/php/nTraduccion.php');
 					include_once($_SERVER['DOCUMENT_ROOT'] . '/php/Foranea.php');
 
 					$menu->Prioridad=fetch_all($con->query('select ifnull(max(Prioridad),0) as max from Menu') , MYSQLI_NUM)[0][0];
-					$menu->Url='#'.rawurlencode($_POST['Titulo'][0]);
 
 					$menu->insForanea
 					(
@@ -137,8 +143,11 @@
 						'ContenidoID',
 						'ContenidoID'
 					);
-
 					$menu->insSQL();
+				}
+				else
+				{
+					$menu->updSQL(false , ['ID']);
 				}
 			}
 			return [$nSec->ID];

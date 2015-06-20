@@ -33,6 +33,11 @@
 			'selector_si_no.php',
 			'Agregar al menu'
 		];
+		$this->labels[$lMax+2]=
+		[
+			'input_text.php',
+			'Atajo'
+		];
 
 		$padreIDStr='IS NULL';
 	}

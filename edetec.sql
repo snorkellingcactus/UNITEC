@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 20-06-2015 a las 18:14:23
+-- Tiempo de generación: 20-06-2015 a las 19:06:36
 -- Versión del servidor: 5.6.24
 -- Versión de PHP: 5.6.8
 
@@ -56,7 +56,7 @@ INSERT INTO `Comentarios` (`ID`, `ContenidoID`, `RaizID`, `PadreID`, `Fecha`, `B
 
 CREATE TABLE IF NOT EXISTS `Contenidos` (
   `ID` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=491 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=500 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Volcado de datos para la tabla `Contenidos`
@@ -280,7 +280,16 @@ INSERT INTO `Contenidos` (`ID`) VALUES
 (474),
 (475),
 (489),
-(490);
+(490),
+(491),
+(492),
+(493),
+(494),
+(495),
+(496),
+(497),
+(498),
+(499);
 
 -- --------------------------------------------------------
 
@@ -366,18 +375,18 @@ CREATE TABLE IF NOT EXISTS `Menu` (
   `Atajo` varchar(1) COLLATE utf8_unicode_ci DEFAULT NULL,
   `Prioridad` int(11) DEFAULT NULL,
   `Visible` tinyint(1) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Volcado de datos para la tabla `Menu`
 --
 
 INSERT INTO `Menu` (`ID`, `ContenidoID`, `SeccionID`, `Url`, `Atajo`, `Prioridad`, `Visible`) VALUES
-(23, 414, 'Novedades', '#Novedades', NULL, 2, 1),
-(24, 419, 'Contacto', '#Contacto', NULL, 4, 1),
-(26, 426, 'Galer&iacute;a', '#Galer%C3%ADa', 'c', 6, 1),
-(28, 437, 'Inicio', '#Inicio', 'a', 1, 1),
-(31, 448, 'Eventos', '#Eventos', 'b', 3, 1);
+(1, 491, 'Inicio', '#Inicio', 'I', 0, NULL),
+(2, 496, 'Galer&iacute;a', '#Galer%C3%ADa', 'G', 0, NULL),
+(3, 497, 'Novedades', '#Novedades', 'N', 0, NULL),
+(4, 498, 'Eventos', '#Eventos', 'E', 0, NULL),
+(5, 499, 'Contacto', '#Contacto', 'C', 0, NULL);
 
 -- --------------------------------------------------------
 
@@ -465,7 +474,7 @@ CREATE TABLE IF NOT EXISTS `Secciones` (
   `HTMLID` varchar(128) COLLATE utf8_unicode_ci DEFAULT NULL,
   `Visible` tinyint(1) DEFAULT NULL,
   `Prioridad` int(11) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=445 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=447 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Volcado de datos para la tabla `Secciones`
@@ -487,9 +496,9 @@ INSERT INTO `Secciones` (`ID`, `ContenidoID`, `ModuloID`, `PadreID`, `HTMLID`, `
 (402, NULL, NULL, NULL, 'Inicio', 1, 6),
 (405, NULL, 11, 391, NULL, 1, 8),
 (406, 424, NULL, 391, NULL, 1, 6),
-(412, NULL, 17, 402, NULL, 1, 5),
-(443, 489, NULL, 402, NULL, 1, 4),
-(444, NULL, 10, 402, NULL, 1, 3);
+(412, NULL, 17, 402, NULL, 1, 6),
+(443, 489, NULL, 402, NULL, 1, 5),
+(446, NULL, 10, 402, NULL, 1, 4);
 
 -- --------------------------------------------------------
 
@@ -502,7 +511,7 @@ CREATE TABLE IF NOT EXISTS `Traducciones` (
   `ContenidoID` int(11) NOT NULL,
   `LenguajeID` int(11) NOT NULL,
   `Texto` text COLLATE utf8_unicode_ci
-) ENGINE=InnoDB AUTO_INCREMENT=593 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=602 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Volcado de datos para la tabla `Traducciones`
@@ -760,7 +769,16 @@ INSERT INTO `Traducciones` (`ID`, `ContenidoID`, `LenguajeID`, `Texto`) VALUES
 (576, 474, 1, '   jj'),
 (577, 475, 1, '      bb'),
 (591, 489, 1, '                     [b][size=100]&iquest;Qu&eacute; es Unitec?\r\n[/size][/b]\r\n[size=85]Las siglas UNITEC provienen de Unidad de Investigaci&oacute;n, Desarrollo, \r\nExtensi&oacute;n y Transferencia para la Calidad de la Educaci&oacute;n en Ingenier&iacute;a \r\ncon orientaci&oacute;n al uso de TIC. &Aacute;rea Departamental Electrotecnia - \r\nFacultad de Ingenier&iacute;a - UNLP\r\n\r\n[b]Objetivos:\r\n\r\n[/b][/size][list][*][size=85]Impulsar la aplicaci&oacute;n de Normas de Calidad en la Educaci&oacute;n en &aacute;reas \r\ntecnol&oacute;gicas y promover la Gesti&oacute;n de la Calidad Educativa, y Impulsar \r\nla aplicaci&oacute;n de Normas de Calidad en la Educaci&oacute;n en &aacute;reas tecnol&oacute;gicas\r\n y promover la Gesti&oacute;n de la Calidad Educativa.[/size][/*][/list][size=85]\r\n[/size][list][*][size=85]Abordar cuestiones sobre la posible aplicaci&oacute;n actual de las TICS para mejorar \r\nla calidad de la actividad docente, su complementaci&oacute;n con los medios \r\ndid&aacute;cticos tradicionales, no solo para un mayor aprovechamiento del \r\ntiempo, sino para una mejora integral de la ense&ntilde;anza, que contribuya a \r\nformar profesionales eficientes y con alto sentido de la \r\nresponsabilidad.[/size][/*][/list][size=85]\r\n[/size]\r\n[size=85][b]Metodolog&iacute;a para el desarrollo de los objetivos:[/b]\r\n\r\n[/size][list][*][size=85]Llevar adelante tareas de investigaci&oacute;n en el &aacute;rea de innovaci&oacute;n y \r\nmejoramiento de la Calidad en la Educaci&oacute;n y entrenamiento en Ingenier&iacute;a\r\n (Educaci&oacute;n basada en competencias, evaluaci&oacute;n de aprendizajes, barreras\r\n al aprendizaje, etc), incorporando las herramientas de las Tecnolog&iacute;as \r\nde la Informaci&oacute;n y la Comunicaci&oacute;n (TIC). \r\n[/size][/*][/list][size=85]\r\n[/size][list][*][size=85]Promover desarrollos tecnol&oacute;gicos y asesoramientos a requerimiento de terceros e\r\n impulsar tareas de investigaci&oacute;n, extensi&oacute;n, asesoramiento y \r\ncapacitaci&oacute;n, basados en los objetivos propuestos.[/size][/*][/list][size=85]\r\n[/size][list][*][size=85]Promover y realizar estudios sobre indicadores para el mejoramiento continuo de la Educaci&oacute;n en Ingenier&iacute;a.[/size][/*][/list][size=85]\r\n[/size][list][*][size=85]Fomentar actividades de transferencia de conocimientos, a trav&eacute;s de la \r\ncapacitaci&oacute;n y formaci&oacute;n de los miembros de la UID en temas relacionados\r\n con las TIC aplicadas a la Educaci&oacute;n, otras Tecnolog&iacute;as y al \r\nAseguramiento de la Calidad.[/size][/*][/list]'),
-(592, 490, 1, 'Nueva Seccion');
+(592, 490, 1, 'Nueva Seccion'),
+(593, 491, 1, 'Inicio'),
+(594, 492, 1, 'Galer&iacute;a'),
+(595, 493, 1, 'Galer&iacute;a'),
+(596, 494, 1, 'Galer&iacute;a'),
+(597, 495, 1, 'Galer&iacute;a'),
+(598, 496, 1, 'Galer&iacute;a'),
+(599, 497, 1, 'Novedades'),
+(600, 498, 1, 'Eventos'),
+(601, 499, 1, 'Contacto');
 
 -- --------------------------------------------------------
 
@@ -834,6 +852,7 @@ ALTER TABLE `Lenguajes`
 --
 ALTER TABLE `Menu`
   ADD PRIMARY KEY (`ID`),
+  ADD UNIQUE KEY `Atajo` (`Atajo`),
   ADD KEY `ContenidoID` (`ContenidoID`),
   ADD KEY `SeccionID` (`SeccionID`);
 
@@ -896,7 +915,7 @@ ALTER TABLE `Comentarios`
 -- AUTO_INCREMENT de la tabla `Contenidos`
 --
 ALTER TABLE `Contenidos`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=491;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=500;
 --
 -- AUTO_INCREMENT de la tabla `Eventos`
 --
@@ -916,7 +935,7 @@ ALTER TABLE `Lenguajes`
 -- AUTO_INCREMENT de la tabla `Menu`
 --
 ALTER TABLE `Menu`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=32;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT de la tabla `Modulos`
 --
@@ -936,12 +955,12 @@ ALTER TABLE `Opciones`
 -- AUTO_INCREMENT de la tabla `Secciones`
 --
 ALTER TABLE `Secciones`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=445;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=447;
 --
 -- AUTO_INCREMENT de la tabla `Traducciones`
 --
 ALTER TABLE `Traducciones`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=593;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=602;
 --
 -- AUTO_INCREMENT de la tabla `Usuarios`
 --
@@ -978,8 +997,8 @@ ALTER TABLE `Imagenes`
 -- Filtros para la tabla `Menu`
 --
 ALTER TABLE `Menu`
-  ADD CONSTRAINT `Menu_ibfk_1` FOREIGN KEY (`ContenidoID`) REFERENCES `Contenidos` (`ID`) ON DELETE CASCADE,
-  ADD CONSTRAINT `Menu_ibfk_2` FOREIGN KEY (`SeccionID`) REFERENCES `Secciones` (`HTMLID`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `Menu_ibfk_1` FOREIGN KEY (`ContenidoID`) REFERENCES `Contenidos` (`ID`),
+  ADD CONSTRAINT `Menu_ibfk_2` FOREIGN KEY (`SeccionID`) REFERENCES `Secciones` (`HTMLID`);
 
 --
 -- Filtros para la tabla `Modulos`

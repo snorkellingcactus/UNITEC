@@ -18,6 +18,21 @@
 				),
 				MYSQLI_NUM
 			)[0][0];
+
+			$atajo=fetch_all
+			(
+				$con->query
+				(
+					'	SELECT Atajo
+						FROM Menu
+						WHERE SeccionID="'.$this->autocomp['Titulo'].'"'
+				),
+				MYSQLI_NUM
+			);
+			if(isset($atajo[0]))
+			{
+				$this->autocomp['Atajo']=$atajo[0][0];
+			}
 		}
 
 		if($_POST['Tipo']==='con')
