@@ -32,7 +32,7 @@
 			?>
 				<div class="col-lg-1 col-md-3 col-sm-6 col-xs-12">
 					<input name="Imagen[]" type="radio" value="<?php echo $Img['ID'] ?>" <?php if($Img['ID']==$selected){echo 'checked="checked"';}?> >
-					<img src="<?php echo $Img['Url']?>" >
+					<img src="/img/miniaturas/galeria/<?php echo $Img['ID']?>.png" >
 				</div>
 			<?php
 		}
