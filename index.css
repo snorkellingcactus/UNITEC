@@ -2,20 +2,22 @@
 html , body
 {
 	height:100%;
-	background-color: #00D0D0;
 	font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
-	overflow: auto
+	overflow: auto;
 }
 html body
 {
-	background: #6DB0F1;
-	background: linear-gradient(to top left ,#00D0D0, #9BA3FF);
-	background: -webkit-linear-gradient(to top left, #00D0D0 0%, #9BA3FF 100%);
-	background: -moz-linear-gradient(to top left, #00D0D0 0%, #9BA3FF 100%);
-	background: -o-linear-gradient(to top left, #00D0D0 0%, #9BA3FF 100%);
-	background: -ms-linear-gradient(to top left, #00D0D0 0%, #9BA3FF 100%);
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00D0D0', endColorstr='#9BA3FF',GradientType=0 ); /* IE6-9 */
+	background-color:transparent;
+}
+html
+{
+	background-color: #6DB0F1;
+	background-image:url("/img/imagenfondo.png");
+	background-size:cover;
+	min-height:100%;
+	background-attachment:fixed;
 	background-repeat:no-repeat;
+	background-position:center center;
 }
 a
 {

@@ -15,5 +15,11 @@
 
 	<div class="clearfix"></div>
 
-	<input type="submit" value="OK" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+	<div class="hidden-xs hidden-sm col-md-4 col-lg-4"></div>
+	<input type="submit" value="OK" class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
 </form>
+<div class="col-xs-12 col-sm-12 col-md-5 col-lg-5 social">
+	<a href="#"><img src="/img/Facebook.png"></a>
+	<a href="#"><img src="/img/Twitter.png"></a>
+</div>
+<div class="clearfix"></div>

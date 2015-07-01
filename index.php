@@ -78,6 +78,7 @@ fetch_all
 		<link rel="stylesheet" type="text/css" href="./forms/forms.css" />
 		<link rel="stylesheet" type="text/css" href="./header.css" />
 		<link rel="stylesheet" type="text/css" href="./seccs/menu.css" />
+		<link rel="stylesheet" type="text/css" href="./seccs/contacto.css" />
 		
 		<?php
 			include_once($_SERVER['DOCUMENT_ROOT'] . '//php/head_include.php');
@@ -400,6 +401,12 @@ fetch_all
 			?>
 		</main>
 
-		<footer class="header footer"><small>powered by bootstrap</small></footer>
+		<footer class="header footer">
+			<?php
+				$contacto=new Include_Context($_SERVER['DOCUMENT_ROOT'] . '/seccs/contacto.php');
+				$contacto->getContent();
+			?>
+			<small>powered by bootstrap</small>
+		</footer>
 	</body>
 </html>
