@@ -3,7 +3,7 @@
 <script type="text/javascript" src="js/mapa.js"></script>
   <!-- Sacado de http://jafrancov.com/2011/12/trazar-rutas-gmaps-api-v3/ -->
 
-<div id="map-canvas" class="col-xs-12 col-sm-6 col-md-6 col-lg-6"></div>
+<div id="map-canvas"></div>
 
 <div id="gmapsDiag" class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
 <!--    <h3>¿Cómo Llegar?</h3> -->
@@ -20,7 +20,7 @@
             <option value="WALKING">Caminando</option>
         </select>
 
-        <div class="clearfix"></div>
+        <div class="clearfix hidden-xs"></div>
 
         <label for="unidad"  class="col-xs-12 col-sm-5 col-md-5 col-lg-5">Medir en</label>
         <select id="unidad"  class="col-xs-12 col-sm-7 col-md-7 col-lg-7">
@@ -28,11 +28,11 @@
             <option value="IMPERIAL">Imperial</option>
         </select>
 
-        <div class="clearfix"></div>
+        <div class="clearfix hidden-xs"></div>
 
         <label for="origen" class="col-xs-12 col-sm-5 col-md-5 col-lg-5">Origen</label>
         <input type="text" id="origen" placeholder="Calle, Ciudad , Estado"  class="col-xs-12 col-sm-7 col-md-7 col-lg-7">
-        <p class="gris col-xs-12 col-sm-12 col-md-5 col-offset-md-5  col-lg-5 col-offset-lg-5">Ej : av 1 y 60, la plata</p>
+        <p class="gris col-xs-12 col-sm-7 col-md-7 col-offset-md-5  col-lg-7 col-offset-lg-5">Ej : Av 1 y 60, La Plata</p>
         
         <input type="button" id="buscar" value="Buscar ruta">
     </form>

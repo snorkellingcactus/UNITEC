@@ -28,6 +28,11 @@ function initialize()
     'click',
     solicitaRuta
   );
+  document.getElementById('origen').addEventListener
+  (
+    'keypress',
+    solicitaRuta
+  );
 }
 
 google.maps.event.addDomListener(window, 'load', initialize);
@@ -35,18 +40,39 @@ google.maps.event.addDomListener(window, 'load', initialize);
 var directionsDisplay = new google.maps.DirectionsRenderer();
 var directionsService = new google.maps.DirectionsService();
 
-function solicitaRuta()
+function solicitaRuta(event)
 {
-  var request =
+  if
+  (
+    (event.type=='keypress' && event.keyCode===13) ||
+    event.type==='click'
+  )
   {
-    origin: document.getElementById('origen').value,
-    destination: pos.toString(),
-    travelMode: google.maps.DirectionsTravelMode[document.getElementById('modo_viaje').value],
-    unitSystem: google.maps.DirectionsUnitSystem[document.getElementById('unidad').value],
-    provideRouteAlternatives: true
-  };
+    var request =
+    {
+      origin: document.getElementById('origen').value,
+      destination: pos.toString(),
+      travelMode: google.maps.DirectionsTravelMode[document.getElementById('modo_viaje').value],
+      unitSystem: google.maps.DirectionsUnitSystem[document.getElementById('unidad').value],
+      provideRouteAlternatives: true
+    };
 
-  directionsService.route(request, trazaRuta);
+    directionsService.route(request, trazaRuta);
+
+    var form=document.getElementById('gmapsDiag').getElementsByTagName('form')[0];
+
+    form.classList.add('esconde');
+    form.addEventListener
+    (
+      'animationend',
+      function()
+      {
+        this.style.opacity=0;
+        this.style.zIndex=1;
+      }
+    );
+
+  }
 }
 function trazaRuta(response, status)
 {
