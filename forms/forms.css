@@ -1,4 +1,7 @@
-body label, body input ,body select{font-size:1em;color:black;font-family:monospace;text-align:center}
+@media screen and (max-width:768px){
+	body label{text-align:center;}
+}
+body input ,body select{font-size:1em;color:black;font-family:monospace;text-align:center}
 
 .fin{margin:50px 0px 50px 0px;border-bottom:2px solid dimgray;}
 
@@ -9,7 +12,6 @@ form .fecha
 form .fecha label
 {
 	color:white;
-	text-align:center;
 	display:block;
 	font-size:1em;
 }

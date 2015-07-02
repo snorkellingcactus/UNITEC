@@ -3,24 +3,23 @@
 class Visor
 {
 	public	$recLst=[];
+	private $recMax=0;
 	public	$nRecSel=NULL;		//Número de Imagen coincidente con el valor del discriminador.
-	public	$recSel=NULL;		//Objeto imagen seleccionado.
+	public	$recSel=false;		//Objeto imagen seleccionado.
 	private	$include;
-	private	$disc=['ID'=>0];	//Propiedades discriminadoras a la hora de determinar una imagen para el visor.
+	public	$disc=['ID'=>false];	//Propiedades discriminadoras a la hora de determinar una imagen para el visor.
+	public	$discNum=false;
 	public $fin=false;
 
 	public function __construct($recLst=false , $include=false)
 	{
-		if($include!==false)
-		{
-			$this->include=$args[1];
-		}
+		//Si todavía no se inicio sesion, se inicia.
+		include_once $_SERVER['DOCUMENT_ROOT'] . '/php/is_session_started.php';
+		start_session_if_not();
+
+		$this->include=$include;
 		$this->recLst=$recLst;
-		//Variable con el numero de imagen que se va a mostrar.
-		if(isset($_GET['vRec']))
-		{
-			$this->selRecN($_GET['vRec']);			//Indico el número de imagen a desplegar.
-		}
+
 		//Si se especificó un ID de imagen, se selecciona esa imagen para mostrar
 		//Temporal. En el futuro utilizar solo vRec
 		if(isset($_POST['vRecID']))
@@ -32,15 +31,17 @@ class Visor
 		{
 			$_SESSION['vRecID']=intval($_GET['vRecID']);
 		}
+		//Variable con el numero de imagen que se va a mostrar.
+		if(isset($_GET['vRec']))
+		{
+			$this->discNum=$_GET['vRec'];			//Indico el número de imagen a desplegar.
+		}
 		if(isset($_SESSION['vRecID']))
 		{
 			$this->disc['ID']=$_SESSION['vRecID'];
-			$this->discRecLst();
 		}
-		if($this->recSel===NULL && isset($this->recLst[0]))
-		{
-			$this->selRecN(0);
-		}
+
+		$this->getContent();
 	}
 	function gen($include=false)
 	{
@@ -62,7 +63,9 @@ class Visor
 
 		$this->recSel=& $this->recLst[$this->nRecSel];
 
-		$_SESSION['vRecID']=$this->recSel['ID'];
+		global $vRecID;
+
+		$_SESSION['vRecID']=$vRecID=$this->recSel['ID'];
 
 		return $this->nRecSel;
 	}
@@ -103,17 +106,27 @@ class Visor
 	//Discrimina un objeto imagen segun el resultado de compararla con los valores de $this->disc.
 	function discRec($nRec)
 	{
-		$props=$this->disc;
 		$rec=$this->recLst[$nRec];
 		$disc=true;
-		
-		//Si alguno de los valores es distinto no se selecciona.
-		foreach($props as $clave => $valor)
+	
+		if($this->discNum!==false)
 		{
-			if($rec[$clave]!=$valor)
+			if($nRec!=$this->discNum)
 			{
 				$disc=false;
-				break;
+			}
+		}
+		else
+		{
+			$props=$this->disc;	
+			//Si alguno de los valores es distinto no se selecciona.
+			foreach($props as $clave => $valor)
+			{
+				if($rec[$clave]!=$valor)
+				{
+					$disc=false;
+					break;
+				}
 			}
 		}
 
@@ -134,6 +147,30 @@ class Visor
 			{
 				break;
 			}
+		}
+	}
+	function addRec($rec)
+	{
+		$this->recLst[$this->recMax]=$rec;
+
+		++$this->recMax;
+
+		return $this->discRec($this->recMax-1);
+	}
+	function getContent()
+	{
+		if($this->recSel!==false)
+		{
+			if(!isset($this->recLst[0]))
+			{
+				$this->discRecLst();
+			}
+			$this->include->data=$this->recSel;
+
+			$this->include->vRecSig=$this->indexRecN($this->nRecSel+1);
+			$this->include->vRecAnt=$this->indexRecN($this->nRecSel-1);
+
+			$this->include->getContent();
 		}
 	}
 }

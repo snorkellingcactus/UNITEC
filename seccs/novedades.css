@@ -1,8 +1,15 @@
+@media screen and (max-width:768px){
+	.novedad h2{text-align:center;margin-top:10px;}
+	.novedad div img{margin-bottom:10px;}
+}
+@media screen and (min-width:768px){
+	.novedad h2{margin:0px 0px 10px 15px;}
+}
 .novedad:last-child{border-bottom:0px solid;}
 .novedad div img{float:left;border-radius:3px;width:100%;box-shadow:0px 0px 5px black;}
 .novedad>div{}
 div.novedad{padding:3em 0px 1em 0px;border-bottom:1px solid darkgray}
-.novedad h2{margin:0px 0px 10px 15px;padding-top:0px;clear:right;color:#F5F5F5;text-shadow: 0px 0px 2px black;}
+.novedad h2{padding-top:0px;clear:right;color:#F5F5F5;text-shadow: 0px 0px 2px black;}
 /*
 Por bootstrap, que le da a las imágenes 15px de padding.
 */

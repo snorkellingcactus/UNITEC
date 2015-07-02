@@ -15,10 +15,11 @@
 	<body>
 <?php
 	$rw=1;
-	include_once $_SERVER['DOCUMENT_ROOT'] . '//php/conexion.php';
-	include_once $_SERVER['DOCUMENT_ROOT'] . '//php/SQL_Obj.php';
-	include_once $_SERVER['DOCUMENT_ROOT'] . '//php/Comentario.php';
-	include_once $_SERVER['DOCUMENT_ROOT'] . '//php/Visor.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/conexion.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/SQL_Obj.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/Comentario.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/Visor.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/Include_Context.php';
 	//Si todavía no se inicio sesion, se inicia.
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/is_session_started.php';
 	start_session_if_not();
@@ -36,10 +37,19 @@
 		MYSQLI_ASSOC
 	);
 
-	include_once $_SERVER['DOCUMENT_ROOT'] . '//php/getTraduccion.php';
-	include_once $_SERVER['DOCUMENT_ROOT'] . '//php/jBBCode1_3_0/JBBCode/Parser.php';
+	$visorHTML=new Visor
+	(
+		false,
+		new Include_Context($_SERVER['DOCUMENT_ROOT'] . '/esq/visor_novedades.php')
+	);
+
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/getTraduccion.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/jBBCode1_3_0/JBBCode/Parser.php';
+
+	$sugeridas=new Include_Context($_SERVER['DOCUMENT_ROOT'] . '/esq/novedad.php');
 
 	$iMax=count($recLst);
+	$sugeridasHTML='';
 	for($i=0;$i<$iMax;$i++)
 	{
 		$nov=& $recLst[$i];
@@ -75,15 +85,27 @@
 		$nov['DescripcionCon']=str_replace("\n" , "<br>" , $parser->getAsHtml());
 
 		$nov['vRecID']=$nov['TituloID'];
+
+		if(!$visorHTML->addRec($nov))
+		{
+			$sugeridas->data=$nov;
+			$sugeridasHTML.=$sugeridas->getAsText();
+		}
 	}
 
-	include_once $_SERVER['DOCUMENT_ROOT'] . '//php/Include_Context.php';
-
-	$visorHTML=new Include_Context($_SERVER['DOCUMENT_ROOT'] . '//esq/visor.php');
-	$visorHTML->include=new Include_Context($_SERVER['DOCUMENT_ROOT'] . '//esq/visor_novedades.php');
-	$visorHTML->recLst=$recLst;
-
 	$visorHTML->getContent();
+	if(!empty($sugeridasHTML))
+	{
+		?>
+			<section class="novedades col-lg-10 col-md-10 col-sm-10 col-xs-10">
+			<h2>Otras Novedades:</h2>
+				<?php echo $sugeridasHTML ?>
+			</section>
+		<?php
+	}
+	$comentariosHTML=new Include_Context($_SERVER['DOCUMENT_ROOT'] . '/esq/visor_comentarios.php');
+	$comentariosHTML->ContenidoID=$visorHTML->recSel['vRecID'];
+	$comentariosHTML->getContent();
 ?>
 	</body>
 </html>

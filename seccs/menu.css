@@ -8,7 +8,7 @@ div.menu
 	margin:1% 0px 1% 0px;
 	left:10px;
 	border-top-left-radius:5px;
-	box-shadow:-1px -1px 5px #888888;
+	box-shadow:0px 0px 5px #888888;
 	display:inline-block;
 	padding:0px;
 	animation-name:menu;
@@ -16,7 +16,8 @@ div.menu
 	-moz-animation-name:menu;
 	-moz-animation-duration:1s
 	-webkit-animation-name:menu;
-	-webkit-animation-duration:1s
+	-webkit-animation-duration:1s;
+	z-index:1;
 }
 .menu div
 {

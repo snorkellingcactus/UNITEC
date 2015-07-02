@@ -406,7 +406,7 @@ fetch_all
 				$contacto=new Include_Context($_SERVER['DOCUMENT_ROOT'] . '/seccs/contacto.php');
 				$contacto->getContent();
 			?>
-			<small>powered by bootstrap</small>
+			<small>Powered by Bootstrap</small>
 		</footer>
 	</body>
 </html>

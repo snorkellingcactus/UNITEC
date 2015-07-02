@@ -1,4 +1,4 @@
-<div class="novedades col-lg-10 col-md-10 col-sm-10 col-xs-10">
+<section class="novedades col-lg-10 col-md-10 col-sm-10 col-xs-10">
 	<!-- Imagen -->
 	<img alt="<?php echo $this->ImagenAlt?>" src="/img/miniaturas/visor/<?php echo $this->ImagenID?>.png" class="shadow col-xs-12 col-sm-5 col-md-5 col-lg-5">
 
@@ -9,5 +9,5 @@
 	<p class="sangria">
 		<?php echo $this->DescripcionCon;?>
 	</p>
-</div>
+</section>
 <div class="clearfix"></div>

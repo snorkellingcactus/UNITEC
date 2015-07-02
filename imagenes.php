@@ -37,6 +37,15 @@
 				MYSQLI_ASSOC
 			);
 
+			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/Visor.php';
+			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/Include_Context.php';
+
+			$visorHTML=new Visor
+			(
+				false,
+				new Include_Context($_SERVER['DOCUMENT_ROOT'] . '/esq/visor_imagenes.php')
+			);
+
 			$iMax=count($recLst);
 			for($i=0;$i<$iMax;$i++)
 			{
@@ -44,15 +53,14 @@
 				$imgAct['TituloCon']=getTraduccion($imgAct['TituloID'] , $_SESSION['lang']);
 				$imgAct['AltCon']=getTraduccion($imgAct['AltID'] , $_SESSION['lang']);
 				$imgAct['vRecID']=$imgAct['TituloID'];
+
+				$visorHTML->addRec($imgAct);
 			}
 
-			include_once $_SERVER['DOCUMENT_ROOT'] . '//php/Include_Context.php';
-
-			$visorHTML=new Include_Context($_SERVER['DOCUMENT_ROOT'] . '//esq/visor.php');
-			$visorHTML->include=new Include_Context($_SERVER['DOCUMENT_ROOT'] . '//esq/visor_imagenes.php');
-			$visorHTML->recLst=$recLst;
-
 			$visorHTML->getContent();
+			$comentariosHTML=new Include_Context($_SERVER['DOCUMENT_ROOT'] . '/esq/visor_comentarios.php');
+			$comentariosHTML->ContenidoID=$visorHTML->recSel['vRecID'];
+			$comentariosHTML->getContent();
 		?>
 	</body>
 </html>
