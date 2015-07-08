@@ -9,10 +9,16 @@
 	{
 		margin-bottom:0px;
 	}
-	#map-canvas{width:100%;min-height:200px;}
+	#gmapsDiag,#map-canvas{width:100%;min-height:200px;}
+	#gmapsDiag{padding-top:25px;}
+	#gmapsDiag form,#panel_ruta
+	{
+		top:25px;
+	}
 }
 @media screen and (min-width:768px){
-	#map-canvas{width:50%;float:left;min-height:300px}
+	#map-canvas{width:50%;float:left}
+	#gmapsDiag,#map-canvas{min-height:300px}
 	#gmapsDiag .gris
 	{
 		margin-top:7px;
@@ -21,12 +27,16 @@
 	{
 		padding-left:0px;
 	}
+	#gmapsDiag form,#panel_ruta
+	{
+		top:0px;
+	}
 }
 @media screen and (min-width:992px){
-	#map-canvas{min-height:400px}
+	#map-canvas,#gmapsDiag{min-height:400px}
 }
 @media screen and (min-width:1170px){
-	#map-canvas{min-height:450px}
+	#map-canvas,#gmapsDiag{min-height:450px}
 }
 /*
 #gmapsDiag .right{float:right;}
@@ -39,11 +49,6 @@
 	position:relative;
 	padding-right:0px;
 	padding-left:0px;
-}
-#gmapsDiag form,#panel_ruta
-{
-	position:absolute;
-	top:0;
 }
 #gmapsDiag h3{margin-bottom:30px;text-align:center;}
 #gmapsDiag #buscar{width:100%;}
@@ -86,11 +91,13 @@
 	{
 		z-index:1;
 		opacity:0;
+		position:absolute;
 	}
 	to
 	{
 		z-index:10;
 		opacity:1;
+		position:static;
 	}
 }
 @keyframes esconde{
@@ -98,10 +105,12 @@
 	{
 		z-index:10;
 		opacity:1;
+		position:static;
 	}
 	to
 	{
 		z-index:1;
 		opacity:0;
+		position:absolute;
 	}
 }

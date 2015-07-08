@@ -1,15 +1,34 @@
-var map;
-var pos=new google.maps.LatLng(-34.90693 , -57.94290);
+var map,form,rutas,volver,pos,directionsDisplay,directionsService;
 
-function initialize() 
+function cargaGMaps()
 {
+  var script=document.createElement('script');
+      script.setAttribute('type','text/javascript');
+      script.setAttribute('src','https://maps.googleapis.com/maps/api/js?v=3.exp&callback=inicializaGMaps');
+
+      document.body.appendChild(script);
+}
+function inicializaGMaps()
+{
+  directionsDisplay = new google.maps.DirectionsRenderer();
+  directionsService = new google.maps.DirectionsService();
+  pos=new google.maps.LatLng(-34.90693 , -57.94290);
+
   var mapOptions = 
   {
     zoom: 8,
     center: pos,
     scrollwheel:false
   };
+
   map = new google.maps.Map( document.getElementById('map-canvas') , mapOptions );
+  form=document.getElementById('gmapsDiag').getElementsByTagName('form')[0];
+  rutas=document.getElementById('panel_ruta');
+  volver=rutas.getElementsByTagName('button')[0];
+
+  volver.style.width='100%';
+  initialMapDiagHidden(rutas);
+  initialMapDiagShowed(form);
 
   var marcador=new google.maps.Marker
   (
@@ -23,6 +42,15 @@ function initialize()
   map.setCenter(pos);
   map.setZoom(17)
 
+  volver.addEventListener
+  (
+    'click',
+    function()
+    {
+      animationStartShow(form);
+      animationStartHide(rutas);
+    }
+  );
   document.getElementById('buscar').addEventListener
   (
     'click',
@@ -35,11 +63,45 @@ function initialize()
   );
 }
 
-google.maps.event.addDomListener(window, 'load', initialize);
-
-var directionsDisplay = new google.maps.DirectionsRenderer();
-var directionsService = new google.maps.DirectionsService();
-
+function setMapDiagStyles(ele , opacity , zIndex , position , display)
+{
+  ele.style.opacity=opacity;
+  ele.style.zIndex=zIndex;
+  ele.style.position=position;
+  ele.style.display=display;
+}
+function initialMapDiagHidden(ele)
+{
+  setMapDiagStyles(ele , 0 , 1 , 'absolute' , 'none')
+}
+function initialMapDiagShowed(ele)
+{
+  setMapDiagStyles(ele , 1 , 10 , 'static' , 'block');
+}
+function animationStartHide(ele)
+{
+  ele.addEventListener('animationend' , animationEndHide);
+  ele.style.display="block";
+  ele.classList.add('esconde');
+}
+function animationStartShow(ele)
+{
+  ele.addEventListener('animationend' , animationEndShow);
+  ele.style.display="block";
+  ele.classList.add('aparece');
+}
+function animationEndHide()
+{
+  initialMapDiagHidden(this);
+  this.classList.remove('esconde');
+  this.removeEventListener('animationend' , animationEndHide);
+}
+function animationEndShow()
+{
+  initialMapDiagShowed(this);
+  this.classList.remove('aparece');
+  this.removeEventListener('animationEnd' , animationEndShow);
+}
 function solicitaRuta(event)
 {
   if
@@ -48,6 +110,9 @@ function solicitaRuta(event)
     event.type==='click'
   )
   {
+    event.preventDefault();
+    event.cancelBubble=1;
+
     var request =
     {
       origin: document.getElementById('origen').value,
@@ -58,20 +123,6 @@ function solicitaRuta(event)
     };
 
     directionsService.route(request, trazaRuta);
-
-    var form=document.getElementById('gmapsDiag').getElementsByTagName('form')[0];
-
-    form.classList.add('esconde');
-    form.addEventListener
-    (
-      'animationend',
-      function()
-      {
-        this.style.opacity=0;
-        this.style.zIndex=1;
-      }
-    );
-
   }
 }
 function trazaRuta(response, status)
@@ -81,9 +132,13 @@ function trazaRuta(response, status)
     directionsDisplay.setMap(map);
     directionsDisplay.setPanel(document.getElementById("panel_ruta"));
     directionsDisplay.setDirections(response);
+
+    animationStartShow(rutas);
+    animationStartHide(form);
   }
   else 
   {
     alert("No existen rutas entre ambos puntos");
   }
 }
+cargaGMaps();
