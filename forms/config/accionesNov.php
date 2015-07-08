@@ -4,13 +4,6 @@
 		$this->cantidad=$_POST['Titulo'];
 	}
 	$this->ancla='#nNov';
-	$this->includes=
-	[
-		'//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js',
-		'http://cdn.wysibb.com/js/jquery.wysibb.min.js',
-		'http://cdn.wysibb.com/css/default/wbbtheme.css',
-		'../js/wysibbInc.js'
-	];
 	$this->labels=
 	[
 		[

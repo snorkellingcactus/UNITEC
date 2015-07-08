@@ -10,6 +10,7 @@
 		public $labels;
 		public $colDef;
 		public $col;
+		public $includes;
 
 		function __construct($fId=NULL , $actions=NULL)
 		{
@@ -17,6 +18,7 @@
 			//una variable que se puede referenciar donde sea.
 			parent::__construct($fId , $actions);
 
+			$this->includes=[];
 			$this->colDef=['xs'=>12,'sm'=>8,'md'=>8,'lg'=>8];
 
 			$this->ancla="#nCon";

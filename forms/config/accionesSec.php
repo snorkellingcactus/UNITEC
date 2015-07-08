@@ -77,22 +77,6 @@
 			'editor.php',
 			'Contenido'
 		];
-
-		$conInc=
-		[
-			'../js/jquery.min.js',
-			'../js/jquery.wysibb.min.js',
-			'../js/wbbtheme.css',
-			'../js/wysibbInc.js'
-		];
-
-		$pLen=count($conInc);
-		$iLen=count($this->includes);
-		$pMax=$iLen+$pLen;
-		for($p=$iLen;$p<$pMax;$p++)
-		{
-			$this->includes[$p]=$conInc[$p-$iLen];
-		}
 	}
 	if($_POST['Tipo']==='inc')
 	{
