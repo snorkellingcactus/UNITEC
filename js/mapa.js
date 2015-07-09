@@ -1,13 +1,5 @@
 var map,form,rutas,volver,pos,directionsDisplay,directionsService;
 
-function cargaGMaps()
-{
-  var script=document.createElement('script');
-      script.setAttribute('type','text/javascript');
-      script.setAttribute('src','https://maps.googleapis.com/maps/api/js?v=3.exp&callback=inicializaGMaps');
-
-      document.body.appendChild(script);
-}
 function inicializaGMaps()
 {
   directionsDisplay = new google.maps.DirectionsRenderer();
@@ -141,4 +133,5 @@ function trazaRuta(response, status)
     alert("No existen rutas entre ambos puntos");
   }
 }
-cargaGMaps();
+
+head.load('https://maps.googleapis.com/maps/api/js?v=3.exp&callback=inicializaGMaps');

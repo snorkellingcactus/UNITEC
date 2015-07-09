@@ -140,7 +140,26 @@ body form.right input, body form.nCon input, body form.nCon select{float:none;}
 
 label[for^="con"]{display:none;}
 
-
+div.label
+{
+	position:relative;
+	display:block;
+}
+.label label.compacto
+{
+	color:#7E7E7E;
+	text-shadow:none;
+	position:absolute;
+	display:block;
+	z-index:5;
+	cursor:text;
+}
+.label input.compacto, .label textarea.compacto
+{
+	width:100%;
+	position:relative;
+	z-index:3;
+}
 .comentario:target
 {
 	animation-name:comentBackground;

@@ -21,17 +21,24 @@ footer.header label, footer.header h1
 	color:#CCC9C9;
 	text-shadow:0px 0px 2px black;
 }
+footer.header .label label
+{
+	text-align:left;
+}
 footer.header h1
 {
 	color:#E9E9E9;
 	font-size:25px;
-	line-height:70px;
 	margin-top:10px;
 	text-align:center;
 }
 footer.header textarea
 {
 	color:black;
+}
+footer.header input, footer.header textarea
+{
+	min-height:2em;
 }
 footer.header .social a
 {

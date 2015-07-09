@@ -111,13 +111,14 @@ fetch_all
 				head_include($header=$headers[$h][0]);
 			}
 		?>
-		<link rel="stylesheet" type="text/css" href="./bootstrap.min.css" />
+		<link rel="stylesheet" type="text/css" href="./bootstrap.css" />
 
+		<script type="text/javascript" src="js/head.js"></script>
 		<script type="text/javascript" src="index.js"></script>
 
 		<title>Unitec</title>
 	</head>
-	<body onLoad="JavaScript:cargaMenu()">
+	<body onLoad="JavaScript:inicializa()">
 
 		<!--:::::::::::::::Atajos de teclado:::::::::::::::-->
 
@@ -407,6 +408,7 @@ fetch_all
 				$contacto->getContent();
 			?>
 			<small>Powered by Bootstrap</small>
+			<script type="text/javascript" src="footer.js"></script>
 		</footer>
 	</body>
 </html>

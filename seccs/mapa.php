@@ -1,7 +1,7 @@
 <div class="clearfix"></div>
 
-<script type="text/javascript" src="js/mapa.js"></script>
-  <!-- Sacado de http://jafrancov.com/2011/12/trazar-rutas-gmaps-api-v3/ -->
+<!-- <script type="text/javascript" src="js/mapa.js"></script> -->
+<!-- Sacado de http://jafrancov.com/2011/12/trazar-rutas-gmaps-api-v3/ -->
 
 <div id="map-canvas"></div>
 

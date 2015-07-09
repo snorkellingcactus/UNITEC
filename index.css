@@ -98,7 +98,10 @@ font.through{text-decoration:line-through;}
 {
 	display:none;
 }
-
+.js-no-bootstrap
+{
+	width:100%;
+}
 section .target, section:target
 {
 	animation-name:sectionBackground;
