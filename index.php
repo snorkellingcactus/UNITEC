@@ -402,15 +402,17 @@ fetch_all
 			?>
 		</main>
 
-		<footer class="header footer">
-			<?php
-				$contacto=new Include_Context($_SERVER['DOCUMENT_ROOT'] . '/seccs/contacto.php');
-				$contacto->getContent();
-				$mapa=new Include_Context($_SERVER['DOCUMENT_ROOT'] . '/seccs/mapa.php');
-				$mapa->getContent();
-			?>
-			<small>Powered by Bootstrap</small>
-			<script type="text/javascript" src="footer.js"></script>
+		<footer class="header">
+			<div class="contenedor footer">
+				<?php
+					$contacto=new Include_Context($_SERVER['DOCUMENT_ROOT'] . '/seccs/contacto.php');
+					$contacto->getContent();
+					$mapa=new Include_Context($_SERVER['DOCUMENT_ROOT'] . '/seccs/mapa.php');
+					$mapa->getContent();
+				?>
+				<small>Powered by Bootstrap</small>
+				<script type="text/javascript" src="footer.js"></script>
+			</div>
 		</footer>
 	</body>
 </html>

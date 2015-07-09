@@ -5,6 +5,25 @@
 		padding-left:15.45%;
 	}
 }
+@media screen and (max-width:768px){
+	footer.header
+	{
+		padding:0px;
+	}
+}
+.contenedor
+{
+	padding-left:15px;
+	padding-right:15px;
+}
+footer .footer
+{
+	padding-right:0px;
+}
+footer.header form
+{
+	padding:0px;
+}
 footer.header
 {
 	display:table;
@@ -14,6 +33,7 @@ footer.header
 	background-color:dimgray;
 	position:relative;
 	box-shadow:0px 0px 10px black;
+	padding-right:0px;
 }
 footer.header label, footer.header h1
 {
