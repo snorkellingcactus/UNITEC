@@ -1,4 +1,4 @@
-<form action="php/procesa_mail.php" method="POST" target="_blank" class="col-xs-12 col-sm-7 col-md-6 col-lg-6">
+<form action="php/procesa_mail.php" method="POST" target="_blank" class="col-xs-12 col-sm-7 sm-6 col-md-6 col-lg-6">
 	<h1 class="col-xs-12 col-xs-offset-0 col-all-offset-5 col-all-7 all-12 all-offset-0">Nos interesa tu opinión!</h1>
 	<div class="clearfix"></div>
 	<div class="label">

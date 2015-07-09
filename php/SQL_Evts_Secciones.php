@@ -175,6 +175,8 @@
 					//que eliminando el contenido, automáticamente se elimina la sección
 					//y las traducciones relacionadas.
 					$con->query('DELETE FROM Contenidos WHERE ID='.$contenidoID);
+
+					//echo '<pre>';print_r('DELETE FROM Contenidos WHERE ID='.$contenidoID);echo '</pre>';echo '<pre>';
 				}
 				else
 				{
@@ -188,6 +190,8 @@
 			if($secID!==NULL)
 			{
 				$con->query('DELETE FROM Secciones WHERE ID='.$secID);
+				
+				//echo '<pre>';print_r('DELETE FROM Secciones WHERE ID='.$secID);echo '</pre>';
 			}
 		}
 	}

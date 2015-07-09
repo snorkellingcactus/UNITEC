@@ -134,4 +134,4 @@ function trazaRuta(response, status)
   }
 }
 
-head.load('https://maps.googleapis.com/maps/api/js?v=3.exp&callback=inicializaGMaps');
+//head.load('https://maps.googleapis.com/maps/api/js?v=3.exp&callback=inicializaGMaps');

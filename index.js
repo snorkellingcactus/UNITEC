@@ -204,5 +204,5 @@ function compactaLabels(ele)
 }
 function inicializa()
 {
-	head.load('js/mapa.js');
+	
 }
