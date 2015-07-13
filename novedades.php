@@ -44,9 +44,8 @@
 	);
 
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/getTraduccion.php';
-	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/jBBCode1_3_0/JBBCode/Parser.php';
 
-	$sugeridas=new Include_Context($_SERVER['DOCUMENT_ROOT'] . '/esq/novedad.php');
+	//$sugeridas=new Include_Context($_SERVER['DOCUMENT_ROOT'] . '/esq/novedad.php');
 
 	$iMax=count($recLst);
 	$sugeridasHTML='';
@@ -69,27 +68,20 @@
 			$_SESSION['lang']
 		);
 
-		$parser=new JBBCode\Parser();
-
-		$parser->addCodeDefinitionSet(new JBBCode\MainCodeDefinitionSet());
-
-		$parser->parse
+		$nov['DescripcionCon']=getTraduccion
 		(
-			getTraduccion
-			(
-				$nov['DescripcionID'],
-				$_SESSION['lang']
-			)
+			$nov['DescripcionID'],
+			$_SESSION['lang']
 		);
-
-		$nov['DescripcionCon']=str_replace("\n" , "<br>" , $parser->getAsHtml());
 
 		$nov['vRecID']=$nov['TituloID'];
 
 		if(!$visorHTML->addRec($nov))
 		{
-			$sugeridas->data=$nov;
-			$sugeridasHTML.=$sugeridas->getAsText();
+			/*
+				$sugeridas->data=$nov;
+				$sugeridasHTML.=$sugeridas->getAsText();
+			*/
 		}
 	}
 
@@ -103,9 +95,11 @@
 			</section>
 		<?php
 	}
+	
 	$comentariosHTML=new Include_Context($_SERVER['DOCUMENT_ROOT'] . '/esq/visor_comentarios.php');
 	$comentariosHTML->ContenidoID=$visorHTML->recSel['vRecID'];
 	$comentariosHTML->getContent();
+	
 ?>
 	</body>
 </html>

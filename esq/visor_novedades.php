@@ -7,7 +7,7 @@
 			<?php echo $this->TituloCon ?>
 	</h1>
 	<p class="sangria">
-		<?php echo $this->DescripcionCon;?>
+		<?php echo html_entity_decode($this->DescripcionCon);?>
 	</p>
 </section>
 <div class="clearfix"></div>

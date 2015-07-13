@@ -49,25 +49,17 @@
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/Include_Context.php';
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/Novedad.php';
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/getTraduccion.php';
-			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/jBBCode1_3_0/JBBCode/Parser.php';
+			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/html2text/html2text.php';
 
 
 			$novedadHTML=new Include_Context('esq/novedad.php');
+
 
 			for($i=0;$i<$cantidad;$i++)
 			{
 				$novAct=$novedades[$i];
 
 				$titulo=getTraduccion($novAct['TituloID'] , $_SESSION['lang']);
-				$descripcion=getTraduccion($novAct['DescripcionID'] , $_SESSION['lang']);
-
-				$parser=new JBBCode\Parser();
-				
-				$parser->addCodeDefinitionSet(new JBBCode\MainCodeDefinitionSet());
-
-				$parser->parse($descripcion);
-
-				$descripcion=str_replace("\n" , "<br>" , $parser->getAsText());;
 
 				if(isset($formNov))
 				{
@@ -76,7 +68,25 @@
 
 				$novedadHTML->ID=$novAct['ID'];
 				$novedadHTML->Titulo=$titulo;
-				$novedadHTML->Descripcion=substr($descripcion , 0 , 500);
+				$novedadHTML->Descripcion=utf8_decode
+				(
+					substr
+					(
+						convert_html_to_text
+						(
+							html_entity_decode
+							(
+								getTraduccion
+								(
+									$novAct['DescripcionID'],
+									$_SESSION['lang']
+								)
+							)
+						),
+						0,
+						500
+					)
+				); //A futuro guardar en la db una version en texto plano.
 				$novedadHTML->Fecha=$novAct['Fecha'];
 				$novedadHTML->ImagenID=$novAct['ImagenID'];
 				$novedadHTML->ImagenAlt=getTraduccion

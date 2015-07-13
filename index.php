@@ -286,17 +286,6 @@ fetch_all
 						if($include['ContenidoID']!==NULL)
 						{
 
-							include_once 'php/jBBCode1_3_0/JBBCode/Parser.php';
-
-							$parser=new JBBCode\Parser();
-		
-							$parser->addCodeDefinitionSet(new JBBCode\MainCodeDefinitionSet());
-
-							$parser->parse
-							(
-								getTraduccion($include['ContenidoID'] , $_SESSION['lang'])
-							);
-
 							$clase='';
 
 							if
@@ -325,7 +314,7 @@ fetch_all
 											$formSec->buildActionForm($include['ID'] , 'con' , $f);
 										}
 										
-										echo str_replace("\n" , "<br>" , $parser->getAsHtml());
+										echo getTraduccion($include['ContenidoID'] , $_SESSION['lang']);
 									?>
 								</div>
 							<?php

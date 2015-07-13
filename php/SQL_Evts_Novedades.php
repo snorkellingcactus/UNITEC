@@ -5,6 +5,12 @@
 	{
 		public function edita()
 		{
+			echo '<pre>SESSION:';
+			print_r($_SESSION);
+			echo '</pre>';
+			echo '<pre>POST:';
+			print_r($_POST);
+			echo '</pre>';
 			include_once $_SERVER['DOCUMENT_ROOT'] . '//php/Novedad.php';
 			include_once $_SERVER['DOCUMENT_ROOT'] . '//php/updTraduccion.php';
 
@@ -26,7 +32,7 @@
 				$nNov->Visible=$_POST['Visible'][$i];
 				$nNov->updSQL(false , ['ID']);
 
-				updTraduccion($_POST['Descripcion'][$i] , $nNov->DescripcionID , $_SESSION['lang']);
+				updTraduccion(htmlentities($_POST['Descripcion'][$i]) , $nNov->DescripcionID , $_SESSION['lang']);
 				updTraduccion($_POST['Titulo'][$i] , $nNov->TituloID , $_SESSION['lang']);
 
 				$afectados[$afectadosLen]=$nNov->TituloID;
@@ -36,6 +42,12 @@
 		}
 		public function nuevo()
 		{
+			echo '<pre>SESSION:';
+			print_r($_SESSION);
+			echo '</pre>';
+			echo '<pre>POST:';
+			print_r($_POST);
+			echo '</pre>';
 			include_once $_SERVER['DOCUMENT_ROOT'] . '//php/Foranea.php';
 			include_once $_SERVER['DOCUMENT_ROOT'] . '//php/Novedad.php';
 			include_once $_SERVER['DOCUMENT_ROOT'] . '//php/nTraduccion.php';
@@ -45,10 +57,6 @@
 
 			for($i=0;$i<$iMax;$i++)
 			{
-				$titulo=nTraduccion($_POST['Titulo'][$i] , $_SESSION['lang']);
-
-				$descripcion=nTraduccion($_POST['Descripcion'][$i] , $_SESSION['lang']);
-
 				$horaLoc=getdate();
 
 				$nov=new Novedad();
@@ -56,8 +64,26 @@
 				$nov->ImagenID=$_POST['Imagen'][$i];
 				$nov->Fecha=$horaLoc['year'].'-'.$horaLoc['mon'].'-'.$horaLoc['mday'];
 
-				$nov->insForanea($descripcion , 'DescripcionID' , 'ContenidoID');
-				$nov->insForanea($titulo , 'TituloID' , 'ContenidoID');
+				$nov->insForanea
+				(
+					nTraduccion
+					(
+						htmlentities($_POST['Descripcion'][$i]),
+						$_SESSION['lang']
+					),
+					'DescripcionID',
+					'ContenidoID'
+				);
+				$nov->insForanea
+				(
+					nTraduccion
+					(
+						$_POST['Titulo'][$i],
+						$_SESSION['lang']
+					),
+					'TituloID',
+					'ContenidoID'
+				);
 
 				$nov->insSQL();
 
@@ -73,8 +99,15 @@
 			$iMax=count($_SESSION['conID']);
 			for($i=0;$i<$iMax;$i++)
 			{
-				$contenidos=$con->query('select TituloID , DescripcionID from Novedades where ID='.$_SESSION['conID'][$i]);
-				$contenidos=fetch_all($contenidos , MYSQLI_ASSOC)[0];
+				$contenidos=fetch_all
+				(
+					$con->query
+					(
+						'	SELECT TituloID , DescripcionID
+							FROM Novedades WHERE ID='.$_SESSION['conID'][$i]
+					),
+					MYSQLI_ASSOC
+				)[0];
 
 				$con->query('delete from Novedades where ID='.$_SESSION['conID'][$i]);
 				$con->query('delete from Contenidos where ID='.$contenidos['TituloID'].' or ID='.$contenidos['DescripcionID']);

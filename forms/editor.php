@@ -3,11 +3,25 @@
 	<?php
 		if(isset($this->autocomp[$labelName]))
 		{
-			echo $this->autocomp[$labelName];
+			echo html_entity_decode($this->autocomp[$labelName]);
 		}
 	?>
 </textarea>
 <script type="text/javascript" src="/ckeditor/ckeditor.js"></script>
 <script type="text/javascript">
-	CKEDITOR.replace('editor');
+	CKEDITOR.editorConfig=function(cfg)
+	{
+		cfg.customConfig='';
+		cfg.entities=false;
+	}
+	var nEditor=CKEDITOR.replace
+	(
+		'editor',
+		{
+			customConfig:'',
+			entities:false
+		}
+	);
+	nEditor.insertHtml(nEditor.element.innerHTML);
+	nEditor.element.innerHTML='';
 </script>

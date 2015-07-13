@@ -119,13 +119,7 @@
 						WHERE ID='.$_SESSION['conID'][$s]
 				);
 
-				echo '<pre>';
-				print_r
-				(
-					'	DELETE FROM Contenidos
-						WHERE ID='.$_SESSION['conID'][$s]
-				);
-				echo '</pre>';
+				//echo '<pre>';print_r('	DELETE FROM Contenidos WHERE ID='.$_SESSION['conID'][$s]);echo '</pre>';
 			}
 		}
 	}

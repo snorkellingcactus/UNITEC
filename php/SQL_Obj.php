@@ -183,7 +183,7 @@ class SQL_Obj
 
 		$this->buff=$this->where($data).' limit 1';
 
-		//echo '<pre>'.$this->buff.'</pre>';
+		echo '<pre>'.$this->buff.'</pre>';
 
 		$res=$this->con->query($this->buff);
 
@@ -221,7 +221,7 @@ class SQL_Obj
 		$this->buff=substr($this->buff,0,strlen($this->buff)-2).' ) ';
 		$this->buffAux=substr($this->buffAux,0,strlen($this->buffAux)-1).' ) ';
 
-		//echo '<pre>'.$this->buff.$this->buffAux.'</pre>';
+		echo '<pre>'.$this->buff.$this->buffAux.'</pre>';
 		$res=$this->con->query($this->buff.$this->buffAux);
 
 		if(array_key_exists($this->primary , $this->data))
@@ -247,7 +247,7 @@ class SQL_Obj
 		$this->where($data);
 
 
-		//echo '<pre>updSQL: '.$this->buff.'</pre>';
+		echo '<pre>updSQL: '.$this->buff.'</pre>';
 
 		$res=$this->con->query($this->buff);
 
@@ -260,7 +260,7 @@ class SQL_Obj
 	{
 		$this->where($data);
 
-		//echo '<pre>'.'delete from '.$this->table.' where '.$this->buff.'</pre>';
+		echo '<pre>'.'delete from '.$this->table.' where '.$this->buff.'</pre>';
 
 		$this->con->query('delete from '.$this->table.' where '.$this->buff);
 
