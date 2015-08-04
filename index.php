@@ -53,8 +53,7 @@ if(isset($_SESSION['adminID']))
 }
 include_once($_SERVER['DOCUMENT_ROOT'] . '/php/conexion.php');
 global $con;
-$lang=
-fetch_all
+$lang=fetch_all
 (
 	$con->query
 	(
@@ -63,7 +62,8 @@ fetch_all
 			WHERE ID='.$_SESSION['lang']
 	),
 	MYSQL_NUM
-)[0][0]
+)[0][0];
+
 ?>
 <html lang="<?php echo $lang?>">
 	<head>
@@ -118,13 +118,13 @@ fetch_all
 
 		<title>Unitec</title>
 	</head>
-	<body onLoad="JavaScript:inicializa()">
+	<body onLoad="JavaScript:inicializa()" tabindex="1">
 
 		<!--:::::::::::::::Atajos de teclado:::::::::::::::-->
 
 		<div class="header hidden-xs">
-			<nav>
-				<ul>
+			<nav role="navigation">
+				<ul role="menu" tabindex="1">
 					<?php
 						$consulta=$con->query
 						(
@@ -146,12 +146,12 @@ fetch_all
 							$langAct=$consulta[$i];
 							$langShort=$langAct['Pais'];
 							?>
-								<li>
+								<li role="menuitem" tabindex="0">
 									<?php
 										if($i!==0)
 										{
 											?>
-												<a rel="alternate" href="index.php?lang=<?php echo $langAct['ID'] ?>" hreflang="<?php echo $langShort ?>" lang="<?php echo $langShort ?>">
+												<a rel="alternate" href="index.php?lang=<?php echo $langAct['ID'] ?>" hreflang="<?php echo $langShort ?>" lang="<?php echo $langShort ?>" tabindex="-1">
 													<?php
 														echoLang($langAct);
 													?>

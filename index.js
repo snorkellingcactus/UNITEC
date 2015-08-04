@@ -186,23 +186,100 @@ function compactaLabels(ele)
 		{
 			input=labelContAct.getElementsByTagName('textarea');
 		}
-		if(input.length)
-		{
-			input=input[0];
-			removeBootstrap(input);
-			input.classList.add('compacto');
-
-			input.onfocus=labelFocus;
-			input.onblur=labelBlur;
-		}
 		if(labelAct)
 		{
+			if(input.length)
+			{
+				input=input[0];
+				removeBootstrap(input);
+				input.classList.add('compacto');
+
+				input.onfocus=labelFocus;
+				input.onblur=labelBlur;
+			}
+
 			removeBootstrap(labelAct)
 			labelAct.classList.add('compacto');
 		}
 	}
 }
-function inicializa()
+function getActive()
+{
+	window.console.log(document.activeElement);
+	window.timerGetActive=setTimeout(getActive,500);
+}
+function stopActive()
+{
+	clearTimeout(window.timerGetActive);
+}
+function langSwitching(ele)
 {
 	
+}
+function quitFocusOnFirst(event)
+{
+	if(quitFocus(event , true))
+	{
+		this.removeEventListener('keydown' , quitFocusOnFirst);
+	}
+}
+function quitFocusOnLast(event)
+{
+	if(quitFocus(event , false))
+	{
+		this.removeEventListener('keydown' , quitFocusOnLast);
+	}
+}
+function quitFocus(event , shift)
+{
+	window.console.log('Captando tecla en primer elemento');
+
+	if(event.keyCode===9)
+	{
+		window.console.log('La tecla es Tab');
+
+		if(event.shiftKey===shift)
+		{
+			window.console.log('Shift = '+shift+'. El menú se va a cerrar');
+
+			document.getElementsByClassName('focus')[0].classList.remove('focus');
+		}
+		return 1;
+	}
+
+	return 0;
+}
+function inicializa()
+{
+	var hijos=document.getElementsByClassName('header')[0].getElementsByTagName('ul')[0].getElementsByTagName('li');
+
+	hijos[hijos.length-1].addEventListener
+	(
+		'focus',
+		function()
+		{
+			this.parentNode.classList.add('focus');
+			
+			document.body.addEventListener
+			(
+				'keydown',
+				quitFocusOnLast
+			);
+		}
+	);
+
+	hijos[0].addEventListener
+	(
+		'focus',
+		function()
+		{
+			this.parentNode.classList.add('focus');
+			
+			document.body.addEventListener
+			(
+				'keydown',
+				quitFocusOnFirst
+			);
+		}
+	);
 }
