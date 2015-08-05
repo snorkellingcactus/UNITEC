@@ -230,19 +230,31 @@ function quitFocusOnLast(event)
 		this.removeEventListener('keydown' , quitFocusOnLast);
 	}
 }
+function quitFocusOnEsc(event)
+{
+	if(event.keyCode===27)
+	{
+		document.getElementsByClassName('focus')[0].classList.remove('focus');
+
+		this.removeEventListener('keydown' , quitFocusOnEsc);
+		event.target.blur();
+	}
+}
 function quitFocus(event , shift)
 {
-	window.console.log('Captando tecla en primer elemento');
+	window.console.log(event);
+	//window.console.log('Captando tecla en primer elemento');
 
 	if(event.keyCode===9)
 	{
-		window.console.log('La tecla es Tab');
+		//window.console.log('La tecla es Tab');
 
 		if(event.shiftKey===shift)
 		{
-			window.console.log('Shift = '+shift+'. El menú se va a cerrar');
+			//window.console.log('Shift = '+shift+'. El menú se va a cerrar');
 
 			document.getElementsByClassName('focus')[0].classList.remove('focus');
+			document.body.removeEventListener('keydown' , quitFocusOnEsc);
 		}
 		return 1;
 	}
@@ -263,6 +275,11 @@ function inicializa()
 			document.body.addEventListener
 			(
 				'keydown',
+				quitFocusOnEsc
+			);
+			document.body.addEventListener
+			(
+				'keydown',
 				quitFocusOnLast
 			);
 		}
@@ -275,6 +292,11 @@ function inicializa()
 		{
 			this.parentNode.classList.add('focus');
 			
+			document.body.addEventListener
+			(
+				'keydown',
+				quitFocusOnEsc
+			);
 			document.body.addEventListener
 			(
 				'keydown',

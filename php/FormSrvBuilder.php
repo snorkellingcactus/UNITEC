@@ -49,7 +49,7 @@
 
 			for($i=0;$i<$iMax;$i++)
 			{
-				//echo '<pre>Include'.$includes[$i].'</pre>';
+				//echo '<pre>Include'.$this->includes[$i].'</pre>';
 				head_include($this->includes[$i]);
 			}
 			unset($iMax);

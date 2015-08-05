@@ -1,8 +1,4 @@
 <?php
-	$this->includes=
-	[
-		 $_SERVER['DOCUMENT_ROOT'] . '//forms/forms.css'
-	];
 	$this->ancla='#nSec';
 	$this->labels=
 	[
