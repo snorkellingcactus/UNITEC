@@ -48,7 +48,7 @@
 		MYSQLI_ASSOC
 	);
 ?>
-<div class="hidden-xs">
+<div>
 	<table class="table atajos" >
 		<?php
 			$iMax=count($atajos);
