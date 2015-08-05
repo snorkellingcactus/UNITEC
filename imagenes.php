@@ -20,9 +20,9 @@
 			start_session_if_not();
 
 			$rw=1;
-			include_once $_SERVER['DOCUMENT_ROOT'] . '//php/conexion.php';
-			include_once $_SERVER['DOCUMENT_ROOT'] . '//php/Visor.php';
-			include_once $_SERVER['DOCUMENT_ROOT'] . '//php/getTraduccion.php';
+			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/conexion.php';
+			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/Visor.php';
+			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/getTraduccion.php';
 
 			$recLst=fetch_all
 			(

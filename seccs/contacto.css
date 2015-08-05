@@ -79,7 +79,10 @@
 	padding-right:0px;
 	padding-left:0px;
 }
-
+#panel_ruta button
+{
+	display:none;
+}
 .aparece
 {
 	animation-name:aparece;

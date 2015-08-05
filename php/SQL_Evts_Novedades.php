@@ -5,12 +5,14 @@
 	{
 		public function edita()
 		{
+/*
 			echo '<pre>SESSION:';
 			print_r($_SESSION);
 			echo '</pre>';
 			echo '<pre>POST:';
 			print_r($_POST);
 			echo '</pre>';
+*/
 			include_once $_SERVER['DOCUMENT_ROOT'] . '//php/Novedad.php';
 			include_once $_SERVER['DOCUMENT_ROOT'] . '//php/updTraduccion.php';
 
@@ -42,12 +44,14 @@
 		}
 		public function nuevo()
 		{
+/*
 			echo '<pre>SESSION:';
 			print_r($_SESSION);
 			echo '</pre>';
 			echo '<pre>POST:';
 			print_r($_POST);
 			echo '</pre>';
+*/
 			include_once $_SERVER['DOCUMENT_ROOT'] . '//php/Foranea.php';
 			include_once $_SERVER['DOCUMENT_ROOT'] . '//php/Novedad.php';
 			include_once $_SERVER['DOCUMENT_ROOT'] . '//php/nTraduccion.php';

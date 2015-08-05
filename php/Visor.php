@@ -40,8 +40,10 @@ class Visor
 		{
 			$this->disc['ID']=$_SESSION['vRecID'];
 		}
-
-		$this->getContent();
+		if($this->recSel!==false)
+		{
+			$this->getContent();
+		}
 	}
 	function gen($include=false)
 	{
@@ -159,19 +161,20 @@ class Visor
 	}
 	function getContent()
 	{
-		if($this->recSel!==false)
+		if(!isset($this->recLst[0]))
 		{
-			if(!isset($this->recLst[0]))
-			{
-				$this->discRecLst();
-			}
-			$this->include->data=$this->recSel;
-
-			$this->include->vRecSig=$this->indexRecN($this->nRecSel+1);
-			$this->include->vRecAnt=$this->indexRecN($this->nRecSel-1);
-
-			$this->include->getContent();
+			$this->discRecLst();
 		}
+		if($this->recSel===false)
+		{
+			$this->selRecN(0);
+		}
+		$this->include->data=$this->recSel;
+
+		$this->include->vRecSig=$this->indexRecN($this->nRecSel+1);
+		$this->include->vRecAnt=$this->indexRecN($this->nRecSel-1);
+
+		$this->include->getContent();
 	}
 }
 ?>
