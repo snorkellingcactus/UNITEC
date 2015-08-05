@@ -6,15 +6,6 @@
 	<h1>
 			<?php echo $this->TituloCon ?>
 	</h1>
-	<p class="sangria">
-		<?php
-			echo html_entity_decode
-			(
-				$this->DescripcionCon,
-				ENT_COMPAT,
-				'UTF-8'
-			);
-		?>
-	</p>
+	<p class="sangria"><?php echo $this->DescripcionCon ?></p>
 </section>
 <div class="clearfix"></div>
