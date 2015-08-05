@@ -34,7 +34,13 @@
 				$nNov->Visible=$_POST['Visible'][$i];
 				$nNov->updSQL(false , ['ID']);
 
-				updTraduccion(htmlentities($_POST['Descripcion'][$i]) , $nNov->DescripcionID , $_SESSION['lang']);
+				updTraduccion
+				(
+					$_POST['Descripcion'][$i]
+					,
+					$nNov->DescripcionID,
+					$_SESSION['lang']
+				);
 				updTraduccion($_POST['Titulo'][$i] , $nNov->TituloID , $_SESSION['lang']);
 
 				$afectados[$afectadosLen]=$nNov->TituloID;
@@ -49,12 +55,12 @@
 			print_r($_SESSION);
 			echo '</pre>';
 			echo '<pre>POST:';
-			print_r($_POST);
+			echo $_POST['Descripcion'][0];
 			echo '</pre>';
 */
-			include_once $_SERVER['DOCUMENT_ROOT'] . '//php/Foranea.php';
-			include_once $_SERVER['DOCUMENT_ROOT'] . '//php/Novedad.php';
-			include_once $_SERVER['DOCUMENT_ROOT'] . '//php/nTraduccion.php';
+			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/Foranea.php';
+			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/Novedad.php';
+			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/nTraduccion.php';
 
 			$iMax=1;
 			$afectados=[];
@@ -72,7 +78,8 @@
 				(
 					nTraduccion
 					(
-						htmlentities($_POST['Descripcion'][$i]),
+						$_POST['Descripcion'][$i]
+						,
 						$_SESSION['lang']
 					),
 					'DescripcionID',
@@ -97,7 +104,7 @@
 		}
 		public function elimina()
 		{
-			include_once $_SERVER['DOCUMENT_ROOT'] . '//php/conexion.php';
+			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/conexion.php';
 			global $con;
 
 			$iMax=count($_SESSION['conID']);

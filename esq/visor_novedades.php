@@ -7,7 +7,14 @@
 			<?php echo $this->TituloCon ?>
 	</h1>
 	<p class="sangria">
-		<?php echo html_entity_decode($this->DescripcionCon);?>
+		<?php
+			echo html_entity_decode
+			(
+				$this->DescripcionCon,
+				ENT_COMPAT,
+				'UTF-8'
+			);
+		?>
 	</p>
 </section>
 <div class="clearfix"></div>

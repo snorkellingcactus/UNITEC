@@ -68,25 +68,25 @@
 
 				$novedadHTML->ID=$novAct['ID'];
 				$novedadHTML->Titulo=$titulo;
-				$novedadHTML->Descripcion=utf8_decode
+				$novedadHTML->Descripcion=substr
 				(
-					substr
+					convert_html_to_text
 					(
-						convert_html_to_text
+						html_entity_decode
 						(
-							html_entity_decode
+							getTraduccion
 							(
-								getTraduccion
-								(
-									$novAct['DescripcionID'],
-									$_SESSION['lang']
-								)
-							)
-						),
-						0,
-						500
-					)
-				); //A futuro guardar en la db una version en texto plano.
+								$novAct['DescripcionID'],
+								$_SESSION['lang']
+							),
+							ENT_COMPAT,
+							'UTF-8'
+						)
+					),
+					0,
+					500
+				)
+				; //A futuro guardar en la db una version en texto plano.
 				$novedadHTML->Fecha=$novAct['Fecha'];
 				$novedadHTML->ImagenID=$novAct['ImagenID'];
 				$novedadHTML->ImagenAlt=getTraduccion
