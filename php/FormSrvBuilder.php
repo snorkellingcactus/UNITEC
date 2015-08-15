@@ -1,5 +1,5 @@
 <?php
-	include_once $_SERVER['DOCUMENT_ROOT'] . '//php/FormSrvRecv.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/FormSrvRecv.php';
 
 	class FormSrvBuilder extends FormSrvRecv
 	{

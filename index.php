@@ -81,7 +81,7 @@ $lang=fetch_all
 		<link rel="stylesheet" type="text/css" href="./seccs/contacto.css" />
 		
 		<?php
-			include_once($_SERVER['DOCUMENT_ROOT'] . '//php/head_include.php');
+			include_once($_SERVER['DOCUMENT_ROOT'] . '/php/head_include.php');
 			
 			$headers=$con->query
 			(
@@ -172,6 +172,18 @@ $lang=fetch_all
 			<a href="./inicio_sesion.php">Iniciar Sesión</a>
 		</div>
 		<?php
+
+			include_once($_SERVER['DOCUMENT_ROOT'] . '/php/FormInput.php');
+
+			$Usuario=new FormLabelBox('usuario' , 'usuarioID' , 'Usuario' , new FormSelectBool('A','B'));
+			//$Usuario=new DOMTagContainer();
+			//$UserLabel=new FormLabel('Usuario');
+			//$UserInput=new FormSelectBool('A','B');
+			//$Usuario->appendTag($UserLabel)->appendTag($UserInput);
+			//$Usuario->addOption(new FormOption('Hola','A'));
+			//$Usuario->addOption(new FormOption('Mundo','B'));
+			echo $Usuario->getHTML();
+
 			include_once("./seccs/menu.php");
 		?>
 		<main class="col-xs-12 col-sm-10 col-md-10 col-lg-10">
