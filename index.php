@@ -173,16 +173,17 @@ $lang=fetch_all
 		</div>
 		<?php
 
-			include_once($_SERVER['DOCUMENT_ROOT'] . '/php/FormInput.php');
+			//include_once($_SERVER['DOCUMENT_ROOT'] . '/php/FormInput.php');
 
-			$Usuario=new FormLabelBox('usuario' , 'usuarioID' , 'Usuario' , new FormSelectBool('A','B'));
+			//$Usuario=new FormSelectOrden(['Hola','Mundo','Cruel']);
+			//$Usuario->tag->setAttribute('style','z-index:20;position:absolute');
 			//$Usuario=new DOMTagContainer();
 			//$UserLabel=new FormLabel('Usuario');
 			//$UserInput=new FormSelectBool('A','B');
 			//$Usuario->appendTag($UserLabel)->appendTag($UserInput);
 			//$Usuario->addOption(new FormOption('Hola','A'));
 			//$Usuario->addOption(new FormOption('Mundo','B'));
-			echo $Usuario->getHTML();
+			//echo $Usuario->autoAddOptions()->setSizeToMax()->setDefaultToMax()->getHTML();
 
 			include_once("./seccs/menu.php");
 		?>

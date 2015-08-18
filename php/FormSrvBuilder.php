@@ -1,16 +1,20 @@
 <?php
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/FormSrvRecv.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/Desplazador.php';
 
 	class FormSrvBuilder extends FormSrvRecv
 	{
 		public $ancla;
 		public $docRoot;
 		public $cantidad;
-		public $headers;
 		public $labels;
 		public $colDef;
 		public $col;
 		public $includes;
+		public $dir;
+
+		private $stepDesp;
+		private $steps;
 
 		function __construct($fId=NULL , $actions=NULL)
 		{
@@ -24,10 +28,11 @@
 			$this->ancla="#nCon";
 
 			$this->cantidad=1;
+			$this->dir=$_SERVER['DOCUMENT_ROOT'] . '/forms/config/'.$_POST['form'].'.d/';
 
 			if(isset($_POST['cantidad']))
 			{
-				$this->cantidad=$_POST['cantidad'];
+				$this->cantidad=intVal($_POST['cantidad']);
 			}
 
 			if(isset($_POST['conID']) && count($_POST['conID']))
@@ -35,11 +40,32 @@
 				$this->cantidad=count($_POST['conID']);
 			}
 		}
-		
 		public function getConfig()
 		{
-			//Incluyo la configuración del formulario en cuestión.
-			include $_SERVER['DOCUMENT_ROOT'] . '/forms/config/'.$_POST['form'].'.php';
+			$desp=$this->stepDesp=new Desplazador(0,0,false);
+
+			if(!isset($_GET['step']) || !isset($_SESSION['steps']))
+			{
+				$_SESSION['steps']=scandir
+				(
+					$this->dir,
+					SCANDIR_SORT_ASCENDING
+				);
+
+				array_shift($_SESSION['steps']);
+				array_shift($_SESSION['steps']);
+				$this->steps=$_SESSION['steps'];
+
+				$this->stepUrl=$_SESSION['stepUrl']=$_SESSION['steps'][0];
+
+				$desp->actual=0;
+			}
+			else
+			{
+				$desp->actual=$_GET['step'];
+			}
+
+			$desp->max=count($this->steps);
 		}
 		public function buildIncludes()
 		{
@@ -66,6 +92,7 @@
 		}
 		public function buildForm()
 		{
+			/*
 			$lMax=count($this->labels);
 
 			$buff='';
@@ -97,9 +124,24 @@
 			unset($l , $labelName , $labelAct , $labels);
 
 			return $buff;
+			*/
 		}
 		public function buildForms()
 		{
+			include $this->dir.$this->steps[$this->stepDesp->indexRecN($this->stepDesp->actual)];
+/*
+			echo '<pre>Steps:';
+			print_r
+			(
+				$_SESSION['steps']
+			);
+			echo '</pre>';
+			echo '<pre>This Step:';
+			print_r
+			(
+				$_SESSION['stepUrl']
+			);
+			echo '</pre>';
 			?>
 				<form method="POST" class="tresem nuevo" enctype="multipart/form-data" action="<?php echo $this->referrer.$this->ancla ?>">
 					<?php
@@ -130,6 +172,7 @@
 					<input type="submit" class="col-xs-12 col-sm-5 col-md-5 col-lg-5" name='Cancela' value="Cancelar">
 				</form>
 			<?php
+		*/
 		}
 	}
 ?>

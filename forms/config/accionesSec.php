@@ -13,7 +13,7 @@
 		
 	];//para todos
 
-	include_once $_SERVER['DOCUMENT_ROOT'] . '//php/conexion.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/conexion.php';
 
 	$lMax=count($this->labels);
 

@@ -1,6 +1,7 @@
 <?php
+include_once $_SERVER['DOCUMENT_ROOT'] . '/php/Desplazador.php';
 
-class Visor
+class Visor extends Desplazador
 {
 	public	$recLst=[];
 	private $recMax=0;
@@ -13,6 +14,7 @@ class Visor
 
 	public function __construct($recLst=false , $include=false)
 	{
+		parent::__construct(0 , true);
 		//Si todavía no se inicio sesion, se inicia.
 		include_once $_SERVER['DOCUMENT_ROOT'] . '/php/is_session_started.php';
 		start_session_if_not();
@@ -44,6 +46,8 @@ class Visor
 		{
 			$this->getContent();
 		}
+
+		$this->max=count($recLst);
 	}
 	function gen($include=false)
 	{
@@ -156,6 +160,7 @@ class Visor
 		$this->recLst[$this->recMax]=$rec;
 
 		++$this->recMax;
+		$this->max=$this->recMax;
 
 		return $this->discRec($this->recMax-1);
 	}
