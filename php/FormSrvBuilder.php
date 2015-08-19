@@ -1,16 +1,16 @@
 <?php
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/FormSrvRecv.php';
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/Desplazador.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/Form.php';
 
 	class FormSrvBuilder extends FormSrvRecv
 	{
 		public $ancla;
-		public $docRoot;
+		public $form;
 		public $cantidad;
 		public $labels;
 		public $colDef;
 		public $col;
-		public $includes;
 		public $dir;
 
 		private $stepDesp;
@@ -29,6 +29,7 @@
 
 			$this->cantidad=1;
 			$this->dir=$_SERVER['DOCUMENT_ROOT'] . '/forms/config/'.$_POST['form'].'.d/';
+			$this->form=new Form();
 
 			if(isset($_POST['cantidad']))
 			{
@@ -39,9 +40,7 @@
 			{
 				$this->cantidad=count($_POST['conID']);
 			}
-		}
-		public function getConfig()
-		{
+
 			$desp=$this->stepDesp=new Desplazador(0,0,false);
 
 			if(!isset($_GET['step']) || !isset($_SESSION['steps']))
@@ -66,6 +65,10 @@
 			}
 
 			$desp->max=count($this->steps);
+		}
+		public function getConfig()
+		{
+			include $this->dir.$this->steps[$this->stepDesp->indexRecN($this->stepDesp->actual)];
 		}
 		public function buildIncludes()
 		{
@@ -92,6 +95,7 @@
 		}
 		public function buildForm()
 		{
+
 			/*
 			$lMax=count($this->labels);
 
@@ -126,9 +130,11 @@
 			return $buff;
 			*/
 		}
+
 		public function buildForms()
 		{
-			include $this->dir.$this->steps[$this->stepDesp->indexRecN($this->stepDesp->actual)];
+
+			//echo $this->form->getHTML();
 /*
 			echo '<pre>Steps:';
 			print_r

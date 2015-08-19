@@ -1,5 +1,6 @@
 <?php
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/DOMClassList.php';
+	
 	class DOMTag
 	{
 		public $domDoc;
@@ -107,15 +108,11 @@
 		}
 		public function setCol($cols)
 		{
-			$this->setBootstrap($cols , 'col');
-
-			return $this;
+			return $this->setBootstrap($cols , 'col');
 		}
 		public function setAll($cols)
 		{
-			$this->setBootstrap($cols , 'all');
-
-			return $this;
+			return $this->setBootstrap($cols , 'all');
 		}
 		public function applyBootstrap($cols , $var)
 		{
@@ -126,14 +123,26 @@
 					$this->classList->add($var.'-'.$col.'-'.$val);
 				}
 			}
+
+			return $this;
 		}
 		public function applyCol()
 		{
-			$this->applyBootstrap($this->col , 'col');
+			return $this->applyBootstrap($this->col , 'col');
 		}
 		public function applyAll()
 		{
-			$this->applyBootstrap($this->all , 'all');
+			return $this->applyBootstrap($this->all , 'all');
+		}
+		public function setAttribute($name , $value)
+		{
+			$this->tag->setAttribute($name , $value);
+
+			return $this;
+		}
+		public function getAttribute($name)
+		{
+			return $this->tag->setAttribute($name);
 		}
 	}
 ?>

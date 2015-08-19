@@ -7,6 +7,7 @@
 		public $optionsLen;
 		public $default;
 		public $defaultToMax;
+		public $sizeToMax;
 
 		function __construct()
 		{
@@ -16,6 +17,7 @@
 			$this->optionsLen=0;
 			$this->default=0;
 			$this->defaultToMax=false;
+			$this->sizeToMax=false;
 
 			$args=func_get_args();
 			$iMax=func_num_args();
@@ -24,18 +26,19 @@
 				$this->addOption($args[$i]);
 			}
 		}
-		function getHTML()
+
+		function renderChilds()
 		{
 			if($this->defaultToMax)
 			{
 				$this->options[$this->optionsLen-1]->setSelected();
 			}
-			if($this->defaultToMax)
+			if($this->sizeToMax)
 			{
 				$this->tag->setAttribute('size' , $this->optionsLen);
 			}
 
-			return parent::getHTML();
+			return parent::renderChilds();
 		}
 		function addOption(FormOption $option)
 		{

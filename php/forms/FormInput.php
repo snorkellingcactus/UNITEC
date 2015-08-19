@@ -10,8 +10,6 @@
 		}
 	}
 	
-	
-	
 	//Un input con label.
 	
 	/*

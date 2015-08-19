@@ -20,8 +20,6 @@
 				<?php
 			}
 		}
-
-		unset($pos , $tipo , $str);
 	}
 	//Incluyo los tags <link> y <script> según un array con rutas de archivos.
 ?>

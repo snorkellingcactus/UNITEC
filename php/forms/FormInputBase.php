@@ -1,8 +1,8 @@
 <?php
-	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/DOMTag.php';
-	class FormInputBase extends DOMTag
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormBase.php';
+	
+	class FormInputBase extends FormBase
 	{
-		public $requiere;
 		public $label;
 
 		//$padreOTagName, $name , $id
@@ -36,23 +36,19 @@
 		}
 		public function setName($name)
 		{
-			$this->tag->setAttribute('name',$name);
-
-			return $this;
+			return $this->setAttribute('name',$name);
 		}
 		public function getName()
 		{
-			$this->tag->getAttribute('name');
+			return $this->getAttribute('name');
 		}
 		public function setValue($value)
 		{
-			$this->tag->setAttribute('value' , $value);
-
-			return $this;
+			return $this->setAttribute('value' , $value);
 		}
 		public function setID($id)
 		{
-			$this->tag->setAttribute('id' , $id);
+			$this->setAttribute('id' , $id);
 
 			if($this->label!==false)
 			{

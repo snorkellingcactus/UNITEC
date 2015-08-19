@@ -20,16 +20,18 @@ if(isset($_SESSION['adminID']))
 				<link rel="stylesheet" type="text/css" href="../bootstrap.min.css" />
 				<link rel="stylesheet" type="text/css" href="../seccs/visor.css" />
 				<link rel="stylesheet" type="text/css" href="../forms/forms.css" />
+				<script type="text/javascript" src="/js/head.js"></script>
 
 				<!--::::::Includes variables pasados por parametro::::::-->
 				<?php
-					$formHandler->buildIncludes();
+					$formHandler->form->getReqs();
 				?>
 
 			</head>
 			<body>
 					<?php
-						$formHandler->buildForms();
+						$formHandler->form->classList->add('tresem')->add('nuevo');
+						echo $formHandler->form->getHTML();
 					?>
 				<div class="clearfix"></div>
 			</body>

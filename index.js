@@ -22,6 +22,16 @@ function rmAttr(obj , attr , valor)
 		obj.setAttribute(attr,str);
 	}
 }
+function addAttr(ele , attr , valor)
+{
+	var clase=ele.getAttribute(attr)||'';
+	
+	if(clase.length)
+	{
+		clase+=' ';
+	}
+	ele.setAttribute(attr, clase+valor);
+}
 //Le da foco al elemento resaltado.
 function reFocus()
 {
@@ -55,16 +65,6 @@ function normaliza(event)
 	{
 		setTimeout(reFocus , 20);
 	}
-}
-function addAttr(ele , attr , valor)
-{
-	var clase=ele.getAttribute(attr)||'';
-	
-	if(clase.length)
-	{
-		clase+=' ';
-	}
-	ele.setAttribute(attr, clase+valor);
 }
 //Le agrega la clase resalta al elemento target del evento.
 function resalta(event)

@@ -1,91 +1,60 @@
 <?php
 	echo '<pre>Paso A</pre>';
-	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormLabelBox.php';
-	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormInput.php';
-	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormSelect.php';
-	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormSelectBool.php';
-	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormSelectOrden.php';
-	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/DOMTagContainer.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormLugar.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/ClearFix.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormVisible.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormTitulo.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/AgregarAlMenu.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormAtajo.php';
 
-	$form=new DOMTagContainer();
+	$form=$this->form;
 
-	$sOrden=new FormSelectOrden
-			(
-				[
-					'LugarA',
-					'LugarB',
-					'LugarC'
-				],
-				2
-			);
-	$form->appendTag
+	$form->appendChild
 	(
-		new FormLabelBox
-		(
-			'Lugar',
-			'lugar',
-			'Lugar',
-			$sOrden->autoAddOptions()
-		)
-	)->appendTag
+		new FormLugar()
+	)->appendChild
 	(
-		new FormLabelBox
-		(
-			'Visible',
-			'visible',
-			'Visible',
-			new FormSelectBool('Si','No')
-		)
+		new ClearFix()
+	)->appendChild
+	(
+		new FormVisible()
 	);
-	//echo $form->getHTML();
 
-	include_once $_SERVER['DOCUMENT_ROOT'] . '//php/conexion.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/conexion.php';
 
 	$lMax=count($this->labels);
 
 	if($_POST['Tipo']==='sec')
 	{
-		$form->appendTag
+
+		$form->appendChild
 		(
-			new FormLabelBox
-			(
-				'Titulo',
-				'titulo',
-				'Titulo',
-				new FormInput('text')
-			)
-		)->appendTag
+			new ClearFix()
+		)->appendChild
 		(
-			new FormLabelBox
-			(
-				'AgregarAlMenu',
-				'agregarAlMenu',
-				'Agregar al Menú',
-				new FormSelectBool('Si','No')
-			)
-		)->appendTag
+			new FormTitulo()
+		)->appendChild
 		(
-			new FormLabelBox
-			(
-				'Atajo',
-				'atajo',
-				'Atajo',
-				new FormInput('text')
-			)
+			new ClearFix()
+		)->appendChild
+		(
+			new AgregarAlMenu()
+		)->appendChild
+		(
+			new ClearFix()
+		)->appendChild
+		(
+			new FormAtajo()
 		);
+
 		$padreIDStr='IS NULL';
 	}
 	else
 	{
-		$form->appendTag
+
+		$form->appendChild
 		(
-			new FormLabelBox
-			(
-				'conID',
-				'conID',
-				'conID',
-				new FormInput('hidden')
-			)
+			new VariablePost('conID' , $_POST['conID'])
 		);
 
 		if($_SESSION['accion']==='nuevo')
@@ -119,18 +88,12 @@
 	}
 	if($_POST['Tipo']==='inc')
 	{
-		$form->appendTag
+		$form->clearFix()->appendChild
 		(
-			new FormLabelBox
-			(
-				'conID',
-				'conID',
-				'conID',
-				new FormInput('hidden')
-			)
-		)->appendTag
+			new VariablePost('conID' , $_POST['conID'])
+		)->clearFix()->appendChild
 		(
-			new FormLabelBox
+			new LabelBox
 			(
 				'Modulo',
 				'modulo',
@@ -160,6 +123,4 @@
 		),
 		MYSQLI_NUM
 	);
-
-	echo $form->getHTML();
 ?>
