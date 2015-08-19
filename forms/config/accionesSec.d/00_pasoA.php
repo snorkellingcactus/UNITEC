@@ -6,6 +6,40 @@
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormTitulo.php';
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/AgregarAlMenu.php';
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormAtajo.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/VariablePost.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormEditor.php';
+
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/ClearFix.php';
+
+	class TituloBox extends FormLabelBox
+	{
+		public function __construct()
+		{
+			call_user_func_array
+			(
+				array
+				(
+					'parent','__construct'
+				),
+				func_get_args()
+			);
+
+			$cols=
+			[
+				'xs'=>12,
+				'sm'=>12,
+				'md'=>12,
+				'lg'=>12
+			];
+			$this->label->setCol($cols)->classList->add('center');
+			$this->input->setCol($cols);
+		}
+		function setInput($input)
+		{
+			$this->appendTag(new ClearFix());
+			parent::setInput($input);
+		}
+	}
 
 	$form=$this->form;
 
@@ -80,11 +114,16 @@
 
 	if($_POST['Tipo']==='con')
 	{
-		$this->labels[$lMax+1]=
-		[
-			'editor.php',
-			'Contenido'
-		];
+		$form->appendChild
+		(
+			new TituloBox
+			(
+				'Contenido',
+				'contenido',
+				'Contenido',
+				new FormEditor()
+			)
+		);
 	}
 	if($_POST['Tipo']==='inc')
 	{

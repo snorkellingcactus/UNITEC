@@ -6,7 +6,7 @@
 		public function __construct()
 		{
 			parent::__construct();
-
+			
 			$this->addReq('/ckeditor/ckeditor.js')->addReq('/js/loadEditor.js')->classList->add('ckeditorjs');
 		}
 	}

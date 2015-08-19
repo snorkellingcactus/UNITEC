@@ -7,7 +7,7 @@ head.ready
 			cfg.customConfig='';
 			cfg.entities=false;
 		}
-/*
+
 		CKEDITOR.replaceAll
 		(
 			'ckeditorjs',
@@ -23,6 +23,5 @@ head.ready
 				return true;
 			}
 		);
-*/
 	}
 );

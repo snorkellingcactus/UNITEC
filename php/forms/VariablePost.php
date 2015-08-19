@@ -1,5 +1,5 @@
 <?php
-	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/FormInput.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormInput.php';
 
 	class VariablePost extends FormInput
 	{

@@ -5,7 +5,7 @@
 	{
 		function __construct()
 		{
-			parent::__construct('Titulo' , 'titulo' , 'Titulo');
+			parent::__construct('Atajo' , 'atajo' , 'Atajo');
 		}
 	}
 ?>
