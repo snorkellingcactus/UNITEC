@@ -15,9 +15,9 @@
 				$this->setTagValue($args[0]);
 			}
 		}
-		function setFor($id)
+		function setFor($input)
 		{
-			$this->tag->setAttribute('for' , $id);
+			$this->tag->setAttribute('for' , $input->getID());
 		}
 	}
 ?>

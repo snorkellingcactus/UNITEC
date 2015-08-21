@@ -4,14 +4,14 @@
 	
 	class FormLabelLugar extends FormLabelLugarBase
 	{
-		function __construct()
+		function __construct($parentForm)
 		{
 			parent::__construct
 			(
 				'Lugar',
 				'lugar',
 				'Lugar',
-				new FormSelectOrden()
+				new FormSelectOrden($parentForm)
 			);
 		}
 		function setInput($input)

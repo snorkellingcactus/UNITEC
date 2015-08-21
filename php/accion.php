@@ -30,12 +30,20 @@ if(isset($_SESSION['adminID']))
 			</head>
 			<body>
 					<?php
-						$iMax=$formBuilder->cantidad;
+					//$formHandler->form->setIDSuffix('jj')->classList->add('tresem')->add('nuevo');
+					//echo $formHandler->form->getHTML();
+					$formHandler->buildNext();
+
+					/*
+						$iMax=$formHandler->cantidad;
 						for($i=0;$i<$iMax;$i++)
 						{
-							$formHandler->form->classList->add('tresem')->add('nuevo');
-							echo $formHandler->buildNext($i);
+							$form=new Form();
+							$form->classList->add('tresem')->add('nuevo');
+
+							echo $formHandler->buildNext($form , $i);
 						}
+					*/
 					?>
 				<div class="clearfix"></div>
 			</body>

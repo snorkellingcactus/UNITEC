@@ -37,12 +37,12 @@
 		function setInput($input)
 		{
 			$this->input=$input;
+
 			$this->appendTag
 			(
 				$input->
 				setID($this->id)->
-				setName($this->name)->
-				appendLabel($this->label)
+				setName($this->name)->appendLabel($this->label)
 			);
 		}
 		function setLabelName($name)

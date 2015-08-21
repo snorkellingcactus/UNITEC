@@ -3,9 +3,9 @@
 
 	class FormTxtAreaEditor extends FormTxtArea
 	{
-		public function __construct()
+		public function __construct($parentForm)
 		{
-			parent::__construct();
+			parent::__construct($parentForm);
 			
 			$this->addReq('/ckeditor/ckeditor.js')->addReq('/js/loadEditor.js')->classList->add('ckeditorjs');
 		}

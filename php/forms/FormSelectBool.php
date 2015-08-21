@@ -3,9 +3,9 @@
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/printBool.php';
 	class FormSelectBool extends FormSelect
 	{
-		function __construct($labelA , $labelB)
+		function __construct($parentForm , $labelA , $labelB)
 		{
-			parent::__construct();
+			parent::__construct($parentForm);
 
 			$default=false;
 			$args=func_get_args();
@@ -13,8 +13,8 @@
 			{
 				$default=$args[2];
 			}
-			$this->addOption(new FormSelectOption($labelA , printBool($default)));
-			$this->addOption(new FormSelectOption($labelB , printBool(!$default)));
+			$this->addOption(new FormSelectOption($parentForm , $labelA , printBool($default)));
+			$this->addOption(new FormSelectOption($parentForm , $labelB , printBool(!$default)));
 		}
 	}
 ?>

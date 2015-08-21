@@ -4,14 +4,14 @@
 	
 	class FormLabelModulos extends FormLabelLugarBase
 	{
-		function __construct()
+		function __construct($parentForm)
 		{
 			parent::__construct
 			(
 				'Modulos',
 				'modulos',
 				'Modulos',
-				new FormSelect()
+				new FormSelect($parentForm)
 			);
 		}
 	}

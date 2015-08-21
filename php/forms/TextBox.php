@@ -4,14 +4,14 @@
 
 	class TextBox extends LabelBox
 	{
-		function __construct($name , $id , $labelText)
+		function __construct($parentForm , $name , $id , $labelText)
 		{
 			parent::__construct
 			(
 				$name,
 				$id,
 				$labelText,
-				new FormInput('text')
+				new FormInput($parentForm , 'text')
 			);
 		}
 	}

@@ -12,6 +12,7 @@
 		public $colDef;
 		public $col;
 		public $dir;
+		public $contador;
 
 		private $stepDesp;
 		private $steps;
@@ -28,8 +29,8 @@
 			$this->ancla="#nCon";
 
 			$this->cantidad=1;
+			$this->contador=0;
 			$this->dir=$_SERVER['DOCUMENT_ROOT'] . '/forms/config/'.$_POST['form'].'.d/';
-			$this->form=new Form();
 
 			if(isset($_POST['cantidad']))
 			{
@@ -131,10 +132,12 @@
 			*/
 		}
 
-		public function buildNext($form , $id)
+		public function buildNext()
 		{
-			$form->id=$id;
-			echo $this->form->getHTML()
+			include $this->dir.$this->steps[$this->stepDesp->indexRecN($this->stepDesp->actual)];
+
+			echo $this->form->getHTML();
+			++$this->contador;
 		}
 	}
 ?>

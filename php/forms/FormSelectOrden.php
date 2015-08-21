@@ -10,16 +10,16 @@
 		public $prefixBottom;
 
 		//FormSelectOrden::__construct($names , $default)
-		function __construct()
+		function __construct($parentForm)
 		{
 
-			parent::__construct();
+			parent::__construct($parentForm);
 
 			$this->prefixBottom='b';
 			$this->prefixTop='t';
 			$this->classLleno='lleno';
 
-			$args=func_get_args();
+			//$args=func_get_args();
 		}
 		public function newOption($name , $value)
 		{
@@ -32,7 +32,7 @@
 				$value=$this->emptyValue($name);
 			}
 			
-			return new FormSelectOrdenOption($name , $value);
+			return new FormSelectOrdenOption($this->parentForm , $name , $value);
 		}
 		public function appendChild($child)
 		{
@@ -47,7 +47,7 @@
 		{
 			parent::addOption
 			(
-				new FormSelectOrdenEmptyOption($this->prefixBottom)
+				new FormSelectOrdenEmptyOption($this->parentForm , $this->prefixBottom)
 			);
 
 			return parent::renderChilds();

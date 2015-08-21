@@ -5,8 +5,12 @@
 	{
 		function __construct($name , $value)
 		{
-			parent::__construct('hidden');
+			parent::__construct(NULL , 'hidden');
 			$this->setName($name)->setValue($value);
+		}
+		function setID()
+		{
+			return $this->setAttribute('id' , $id);
 		}
 	}
 ?>

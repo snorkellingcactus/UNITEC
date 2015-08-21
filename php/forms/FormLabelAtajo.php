@@ -3,9 +3,9 @@
 
 	class FormLabelAtajo extends TextBox
 	{
-		function __construct()
+		function __construct($parentForm)
 		{
-			parent::__construct('Atajo' , 'atajo' , 'Atajo');
+			parent::__construct($parentForm , 'Atajo' , 'atajo' , 'Atajo');
 		}
 	}
 ?>

@@ -8,6 +8,7 @@
 
 		if($_POST['Tipo']==='sec')
 		{
+			/*
 			$this->autocomp['Titulo']=fetch_all
 			(
 				$con->query
@@ -18,7 +19,7 @@
 				),
 				MYSQLI_NUM
 			)[0][0];
-
+*/
 			$atajo=fetch_all
 			(
 				$con->query

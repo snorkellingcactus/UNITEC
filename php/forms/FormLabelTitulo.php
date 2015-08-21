@@ -3,9 +3,9 @@
 
 	class FormLabelTitulo extends TextBox
 	{
-		function __construct()
+		function __construct($parentForm)
 		{
-			parent::__construct('Titulo' , 'titulo' , 'Titulo');
+			parent::__construct($parentForm , 'Titulo' , 'titulo' , 'Titulo');
 		}
 	}
 ?>

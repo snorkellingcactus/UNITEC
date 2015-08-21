@@ -32,5 +32,9 @@
 				$this->selectedAction=$i;
 			}
 		}
+		public function getAction()
+		{
+			return $this->selectedAction;
+		}
 	}
 ?>

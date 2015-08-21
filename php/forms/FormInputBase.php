@@ -5,19 +5,23 @@
 	{
 		public $label;
 		public $multi;
+		public $parentForm;
 
 		//$padreOTagName, $name , $id
-		function __construct()
+		function __construct($parentForm)
 		{
 			parent::__construct();
 
 			$this->label=false;
 			$this->multi=true;
-
+			$this->parentForm=$parentForm;
+			
 			$args=func_get_args();
-			if(isset($args[0]))
+
+			if(isset($args[1]))
 			{
-				$argA=$args[0];
+
+				$argA=$args[1];
 				if($argA instanceof FormContainer)
 				{
 					$argA->appendLabel($this);
@@ -27,14 +31,24 @@
 					$this->setTagName($argA);
 				}
 			}
-			if(isset($args[1]))
-			{
-				$this->setName($args[1]);
-			}
 			if(isset($args[2]))
 			{
-				$this->setID($args[2]);
+				$this->setName($args[2]);
 			}
+			if(isset($args[3]))
+			{
+				$this->setID($args[3]);
+			}
+		}
+		public function setMulti($multi)
+		{
+			$this->multi=$multi;
+
+			return $this;
+		}
+		public function getMulti()
+		{
+			return $this->multi;
 		}
 		public function setName($name)
 		{
@@ -59,14 +73,30 @@
 		}
 		public function setID($id)
 		{
-			$this->setAttribute('id' , $id);
+			if(!isset($this->parentForm))
+			{
+				echo '<pre>No hay padre</pre>';
+				echo '<pre>ID : ';print_r($id);echo '</pre>';
+				echo '<pre>Name : ';print_r($this->getName());echo '</pre>';
+				echo '<pre>Value : ';print_r($this->getValue);echo '</pre>';
+				//echo '<pre> : ';print_r();echo '</pre>';
+				//echo '<pre> : ';print_r();echo '</pre>';
+				//echo '<pre> : ';print_r();echo '</pre>';
+				return $this;
+			}
+
+			$this->setAttribute('id' , $id.$this->parentForm->idSuffix);
 
 			if($this->label!==false)
 			{
-				$this->label->setFor($id);
+				$this->label->setFor($this);
 			}
 
 			return $this;
+		}
+		public function getID()
+		{
+			return $this->getAttribute('id');
 		}
 		public function appendLabel($label)
 		{
@@ -74,7 +104,7 @@
 
 			if($this->tag->hasAttribute('id'))
 			{
-				$label->setFor($this->tag->getAttribute('id'));
+				$label->setFor($this);
 			}
 
 			return $this;

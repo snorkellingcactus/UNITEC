@@ -11,9 +11,9 @@
 		public $sizeToMax;
 		public $selectedValue;
 
-		function __construct()
+		function __construct($parentForm)
 		{
-			parent::__construct('select');
+			parent::__construct($parentForm , 'select');
 
 			$this->options=[];
 			$this->optionsLen=0;
@@ -21,13 +21,6 @@
 			$this->selectedValue=NULL;
 			$this->defaultToMax=false;
 			$this->sizeToMax=false;
-
-			$args=func_get_args();
-			$iMax=func_num_args();
-			for($i=0;$i<$iMax;$i++)
-			{
-				$this->addOption($args[$i]);
-			}
 		}
 
 		function renderChilds()
