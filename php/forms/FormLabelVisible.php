@@ -2,7 +2,7 @@
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/LabelBox.php';
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormSelectBool.php';
 
-	class FormVisible extends LabelBox
+	class FormLabelVisible extends LabelBox
 	{
 		function __construct()
 		{

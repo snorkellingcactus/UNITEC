@@ -1,8 +1,8 @@
 <?php
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/LabelBox.php';
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormSelectOrden.php';
-
-	class FormLugar extends LabelBox
+	
+	class FormLabelLugar extends FormLabelLugarBase
 	{
 		function __construct()
 		{
@@ -11,21 +11,17 @@
 				'Lugar',
 				'lugar',
 				'Lugar',
-				new FormSelectOrden
-				(
-					[
-						'LugarA',
-						'LugarB',
-						'LugarC'
-					]
-				)
+				new FormSelectOrden()
 			);
-			$this->input
-			->autoAddOptions()
+		}
+		function setInput($input)
+		{
+			$input
 			->setSizeToMax()
 			->setDefaultToMax()
-			->addReq('/forms/forms.css')
 			->classList->add('orden');
+
+			parent::setInput($input);
 		}
 	}
 ?>

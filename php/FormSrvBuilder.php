@@ -131,54 +131,10 @@
 			*/
 		}
 
-		public function buildForms()
+		public function buildNext($form , $id)
 		{
-
-			//echo $this->form->getHTML();
-/*
-			echo '<pre>Steps:';
-			print_r
-			(
-				$_SESSION['steps']
-			);
-			echo '</pre>';
-			echo '<pre>This Step:';
-			print_r
-			(
-				$_SESSION['stepUrl']
-			);
-			echo '</pre>';
-			?>
-				<form method="POST" class="tresem nuevo" enctype="multipart/form-data" action="<?php echo $this->referrer.$this->ancla ?>">
-					<?php
-						$iMax=$this->cantidad;
-
-						for($i=0;$i<$iMax;$i++)
-						{
-							$this->autocomp=[];
-
-							if($this->selectedAction===0 && isset($_SESSION['conID']))
-							{
-								$this->conIDAct=$_POST['conID'][$i];
-
-								include $_SERVER['DOCUMENT_ROOT'] . '/forms/config/'.$_POST['form'].'Autocomp.php';
-							}
-
-							echo $this->buildForm();
-
-							?>
-								<div class="clearfix fin"></div>
-							<?php
-						}
-
-						unset($i , $iMax);
-					?>		
-					<input type="submit" class="col-xs-12 col-sm-5 col-md-5 col-lg-5" name="Aceptar" value="Aceptar">
-					<span class='hidden-xs col-sm-2 col-md-2 col-lg-2 '></span>
-					<input type="submit" class="col-xs-12 col-sm-5 col-md-5 col-lg-5" name='Cancela' value="Cancelar">
-				</form>
-			<?php
-		*/
+			$form->id=$id;
+			echo $this->form->getHTML()
 		}
 	}
 ?>

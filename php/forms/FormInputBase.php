@@ -4,6 +4,7 @@
 	class FormInputBase extends FormBase
 	{
 		public $label;
+		public $multi;
 
 		//$padreOTagName, $name , $id
 		function __construct()
@@ -11,6 +12,7 @@
 			parent::__construct();
 
 			$this->label=false;
+			$this->multi=true;
 
 			$args=func_get_args();
 			if(isset($args[0]))
@@ -36,7 +38,12 @@
 		}
 		public function setName($name)
 		{
-			return $this->setAttribute('name',$name);
+			$multi='';
+			if($this->multi)
+			{
+				$multi='[]';
+			}
+			return $this->setAttribute('name',$name.$multi);
 		}
 		public function getName()
 		{
@@ -45,6 +52,10 @@
 		public function setValue($value)
 		{
 			return $this->setAttribute('value' , $value);
+		}
+		public function getValue()
+		{
+			return $this->getAttribute('value');
 		}
 		public function setID($id)
 		{

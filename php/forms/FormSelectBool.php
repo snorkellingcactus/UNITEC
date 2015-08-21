@@ -13,8 +13,8 @@
 			{
 				$default=$args[2];
 			}
-			$this->addOption(new FormOption($labelA , printBool($default)));
-			$this->addOption(new FormOption($labelB , printBool(!$default)));
+			$this->addOption(new FormSelectOption($labelA , printBool($default)));
+			$this->addOption(new FormSelectOption($labelB , printBool(!$default)));
 		}
 	}
 ?>

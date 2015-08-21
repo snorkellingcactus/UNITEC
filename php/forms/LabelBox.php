@@ -11,15 +11,6 @@
 				func_get_args()
 			);
 
-			$this->input->setCol
-			(
-				[
-					'xs'=>7,
-					'sm'=>7,
-					'md'=>7,
-					'lg'=>7
-				]
-			);
 			$this->label->setCol
 			(
 				[
@@ -27,6 +18,20 @@
 					'sm'=>5,
 					'md'=>5,
 					'lg'=>5
+				]
+			);
+		}
+		function setInput($input)
+		{
+			parent::setInput($input);
+
+			$this->input->setCol
+			(
+				[
+					'xs'=>7,
+					'sm'=>7,
+					'md'=>7,
+					'lg'=>7
 				]
 			);
 		}

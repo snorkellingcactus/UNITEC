@@ -1,6 +1,7 @@
 <?php
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormInputBase.php';
-	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormOption.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormSelectOption.php';
+
 	class FormSelect extends FormInputBase
 	{
 		public $options;
@@ -8,6 +9,7 @@
 		public $default;
 		public $defaultToMax;
 		public $sizeToMax;
+		public $selectedValue;
 
 		function __construct()
 		{
@@ -15,7 +17,8 @@
 
 			$this->options=[];
 			$this->optionsLen=0;
-			$this->default=0;
+			$this->default=false;
+			$this->selectedValue=NULL;
 			$this->defaultToMax=false;
 			$this->sizeToMax=false;
 
@@ -29,28 +32,72 @@
 
 		function renderChilds()
 		{
-			if($this->defaultToMax)
+			if($this->defaultToMax && $this->default===false)
 			{
-				$this->options[$this->optionsLen-1]->setSelected();
+				$this->select($this->optionsLen-1);
+			}
+			else
+			{
+				if($this->default===false)
+				{
+					$this->select(0);
+				}
+				else
+				{
+					$this->select($this->default);
+				}
 			}
 			if($this->sizeToMax)
 			{
-				$this->tag->setAttribute('size' , $this->optionsLen);
+				$this->setSize($this->optionsLen);
 			}
 
 			return parent::renderChilds();
 		}
-		function addOption(FormOption $option)
+		public function newOption($name , $value)
 		{
-			if($this->defaultToMax!==true && $this->optionsLen===$this->default)
+			return new FormSelectOption($name , $value);
+		}
+		public function buildOption()
+		{
+			$args=func_get_args();
+			if(!isset($args[0]))
 			{
-				$option->setSelected();
+				$args[0]=NULL;
+			}
+			if(!isset($args[1]))
+			{
+				$args[1]=NULL;
+			}
+
+			return $this->newOption($args[0] , $args[1]);
+		}
+		function addOption($option)
+		{
+			if($option->getValue()!==NULL && $option->getValue()==$this->selectedValue)
+			{
+				$this->default=$this->optionsLen;
+/*
+				echo '<pre>Default:';
+				print_r($this->default);
+				echo '</pre>';
+*/
 			}
 
 			$this->options[$this->optionsLen]=$option;
 			++$this->optionsLen;
 
 			$this->appendChild($option);
+
+			return $this;
+		}
+		function setSize($size)
+		{
+			return $this->setAttribute('size' , $size);
+		}
+		function select($index)
+		{
+			$this->options[$index]->setSelected();
 
 			return $this;
 		}

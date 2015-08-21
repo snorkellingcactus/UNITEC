@@ -1,7 +1,7 @@
 <?php
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormInputBase.php';
 	//FormOption::__construct([$nombre[,$valor]])
-	class FormOption extends FormInputBase
+	class FormSelectOption extends FormInputBase
 	{
 		function __construct()
 		{

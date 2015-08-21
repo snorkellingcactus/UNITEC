@@ -30,8 +30,12 @@ if(isset($_SESSION['adminID']))
 			</head>
 			<body>
 					<?php
-						$formHandler->form->classList->add('tresem')->add('nuevo');
-						echo $formHandler->form->getHTML();
+						$iMax=$formBuilder->cantidad;
+						for($i=0;$i<$iMax;$i++)
+						{
+							$formHandler->form->classList->add('tresem')->add('nuevo');
+							echo $formHandler->buildNext($i);
+						}
 					?>
 				<div class="clearfix"></div>
 			</body>

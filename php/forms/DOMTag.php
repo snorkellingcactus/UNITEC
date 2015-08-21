@@ -142,7 +142,7 @@
 		}
 		public function getAttribute($name)
 		{
-			return $this->tag->setAttribute($name);
+			return $this->tag->getAttribute($name);
 		}
 	}
 ?>

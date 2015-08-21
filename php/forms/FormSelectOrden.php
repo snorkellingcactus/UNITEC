@@ -1,8 +1,10 @@
 <?php
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormSelect.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormSelectOrdenOption.php';
+	
+	
 	class FormSelectOrden extends FormSelect
 	{
-		public $names;
 		public $classLleno;
 		public $prefixTop;
 		public $prefixBottom;
@@ -13,99 +15,66 @@
 
 			parent::__construct();
 
-			$this->names=[];
-			$this->namesLen=0;
 			$this->prefixBottom='b';
 			$this->prefixTop='t';
 			$this->classLleno='lleno';
 
 			$args=func_get_args();
-			if(isset($args[1]))
-			{
-				$this->setDefault($args[1]);
-			}
-			if(isset($args[0]))
-			{
-				$this->setNames($args[0]);
-			}
 		}
-		public function setNames($names)
+		public function newOption($name , $value)
 		{
-			$j=$i=0;
-			$iMax=count($names);
-
-			while($i<$iMax)
+			if(empty($name))
 			{
-				$this->names[$j]=$names[$i];
-
-				$j=$j+2;
-				++$i;
+				$name=$this->emptyName($name);
 			}
-			$this->namesLen=$i;
-
-			return $this;
+			if(empty($value))
+			{
+				$value=$this->emptyValue($name);
+			}
+			
+			return new FormSelectOrdenOption($name , $value);
 		}
-		public function setDefault($default)
+		public function appendChild($child)
 		{
-			$this->default=2*$default;
-
-			return $this;
+			if($child instanceof FormSelectOrdenOption)
+			{
+				parent::appendChild($child->empty);
+				return parent::appendChild($child->fill);
+			}
+			return parent::appendChild($child);
 		}
 		public function renderChilds()
 		{
 			parent::addOption
 			(
-				$this->buildEmptyOption()->setValue('b')
+				new FormSelectOrdenEmptyOption($this->prefixBottom)
 			);
 
 			return parent::renderChilds();
 		}
-
-		public function getNameByIndex($i)
+		public function addOption($option)
 		{
-			if(isset($this->names[$i]))
+			$option->fill->classList->add($this->classLleno);
+
+			parent::addOption($option);
+		}
+		function setSize($size)
+		{
+			$size=(2*$size)+1;
+
+			if($this->sizeToMax)
 			{
-				return $this->names[$i];
+				$size=$size-2;
 			}
-			return $i;
+			return parent::setSize($size);
 		}
-		public function getValueByIndex($i)
+		private function emptyName($name)
 		{
-			return $this->prefixTop.$i;
+			return $this->optionsLen+1;
 		}
-		public function addOptionBox()
+		private function emptyValue($name)
 		{
-			parent::addOption($this->buildEmptyOption());
-			parent::addOption($this->buildFillOption());
-
-			return $this;
-		}
-		public function buildFillOption()
-		{
-			$option=new FormOption($this->getNameByIndex($this->optionsLen));
-
-			$option->classList->add($this->classLleno);
-
-			return $option;
-		}
-		public function buildEmptyOption()
-		{
-			$option=new FormOption();
-
-			return	$option->setValue
-			(
-				$this->getValueByIndex($this->optionsLen)
-			);
-		}
-		public function autoAddOptions()
-		{
-			$iMax=$this->namesLen;
-			for($i=0;$i<$iMax;$i++)
-			{
-				$this->addOptionBox();
-			}
-
-			return $this;
+			return $this->prefixTop.$this->optionsLen;
 		}
 	}
 ?>
