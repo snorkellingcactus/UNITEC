@@ -6,7 +6,7 @@
 		{
 			parent::__construct($parentForm , 'input');
 			
-			$this->tag->setAttribute('type' , $tipo);
+			$this->setAttribute('type' , $tipo);
 		}
 	}
 	

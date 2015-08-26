@@ -26,7 +26,7 @@
 				$this->setLabelName($args[2]);
 			}
 
-			$this->appendTag($this->label);
+			$this->appendChild($this->label);
 
 			if(isset($args[3]))
 			{
@@ -38,7 +38,7 @@
 		{
 			$this->input=$input;
 
-			$this->appendTag
+			$this->appendChild
 			(
 				$input->
 				setID($this->id)->

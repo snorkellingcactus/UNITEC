@@ -48,29 +48,31 @@
 		
 		public function appendChild($domTag)
 		{
-			if($domTag instanceof FormInputBase)
+			/*if($domTag instanceof FormInputBase)
 			{
 				$this->importReqs($domTag);
 			}
-			if($domTag instanceof DOMTagContainer)
+			if(is_subclass_of($domTag , 'DOMTagContainer'))
 			{
-				if($domTag instanceof FormLabelBox)
+				if(is_subclass_of($domTag, 'FormLabelBox'))
 				{
 					$this->importReqs($domTag->input);
 				}
 
+				$domTag->renderChilds();
 				$iMax=$domTag->hermanosLen;
 				$childs=$domTag->hermanos;
 
 				for($i=0;$i<$iMax;$i++)
 				{
-					parent::appendChild($childs[$i]);
+					$this->appendChild($childs[$i]);
 				}
 			}
 			else
 			{
-				parent::appendChild($domTag);
-			}
+				
+			}*/
+			parent::appendChild($domTag);
 			return $this;
 		}
 		public function getReqs()

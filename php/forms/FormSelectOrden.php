@@ -8,6 +8,7 @@
 		public $classLleno;
 		public $prefixTop;
 		public $prefixBottom;
+		public $selectNext;
 
 		//FormSelectOrden::__construct($names , $default)
 		function __construct($parentForm)
@@ -18,7 +19,8 @@
 			$this->prefixBottom='b';
 			$this->prefixTop='t';
 			$this->classLleno='lleno';
-
+			$this->default=0;
+			$this->selectNext=false;
 			//$args=func_get_args();
 		}
 		public function newOption($name , $value)
@@ -34,6 +36,31 @@
 			
 			return new FormSelectOrdenOption($this->parentForm , $name , $value);
 		}
+		function trySelect($value)
+		{
+			if($this->mustBeSelected($value))
+			{
+				$this->selectNext=true;
+
+				return true;
+			}
+			return false;
+		}
+		function buildOption($name , $value)
+		{
+			if($this->selectNext)
+			{
+				//echo '<pre>Omitida:';print_r($value);echo ' == ';print_r($this->selectedValue);echo '</pre>';
+				$this->selectNext=false;
+				$this->default=$this->optionsLen;
+			}
+			if($this->trySelect($value))
+			{
+				return false;
+			}
+
+			return parent::buildOption($name , $value);
+		}
 		public function appendChild($child)
 		{
 			if($child instanceof FormSelectOrdenOption)
@@ -45,18 +72,30 @@
 		}
 		public function renderChilds()
 		{
+			echo '<pre>FormSelectOrden::renderChilds()</pre>';
+			$bottom=new FormSelectOrdenEmptyOption('' , $this->prefixBottom);
+			if($this->selectNext)
+			{
+				$bottom->setSelected();
+			}
 			parent::addOption
 			(
-				new FormSelectOrdenEmptyOption($this->parentForm , $this->prefixBottom)
+				$bottom
 			);
 
 			return parent::renderChilds();
 		}
 		public function addOption($option)
 		{
+			if($option===false)
+			{
+				return $this;
+			}
 			$option->fill->classList->add($this->classLleno);
 
 			parent::addOption($option);
+
+			//if($this->options[$this->optionsLen-1]->getValue()==$this->selectedValue )
 		}
 		function setSize($size)
 		{

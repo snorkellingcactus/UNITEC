@@ -13,6 +13,7 @@
 		public $col;
 		public $dir;
 		public $contador;
+		public $conIDAct;
 
 		private $stepDesp;
 		private $steps;
@@ -37,10 +38,12 @@
 				$this->cantidad=intVal($_POST['cantidad']);
 			}
 
-			if(isset($_POST['conID']) && count($_POST['conID']))
+			if(isset($_POST['conID']) && isset($_POST['conID'][0]))
 			{
 				$this->cantidad=count($_POST['conID']);
 			}
+
+			$this->setConIDAct();
 
 			$desp=$this->stepDesp=new Desplazador(0,0,false);
 
@@ -66,6 +69,13 @@
 			}
 
 			$desp->max=count($this->steps);
+		}
+		function setConIDAct()
+		{
+			if(isset($_POST['conID'][$this->contador]))
+			{
+				$this->conIDAct=$_POST['conID'][$this->contador];
+			}
 		}
 		public function getConfig()
 		{
@@ -134,10 +144,13 @@
 
 		public function buildNext()
 		{
+			/*$this->setConIDAct();
+			
 			include $this->dir.$this->steps[$this->stepDesp->indexRecN($this->stepDesp->actual)];
 
 			echo $this->form->getHTML();
 			++$this->contador;
+			*/
 		}
 	}
 ?>

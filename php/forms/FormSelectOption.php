@@ -20,7 +20,7 @@
 		}
 		function setSelected()
 		{
-			$this->tag->setAttribute('selected' , 'selected');
+			$this->setAttribute('selected' , 'selected');
 
 			return $this;
 		}

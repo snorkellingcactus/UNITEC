@@ -51,6 +51,26 @@
 		{
 			return new FormSelectOption($name , $value);
 		}
+		public function mustBeSelected($value)
+		{
+			if($value==$this->selectedValue)
+			{
+				return true;
+/*
+				echo '<pre>Default:';
+				print_r($this->default);
+				echo '</pre>';
+*/
+			}
+			return false;
+		}
+		public function trySelect($value)
+		{
+			if($this->mustBeSelected($value))
+			{
+				$this->default=$this->optionsLen;
+			}
+		}
 		public function buildOption()
 		{
 			$args=func_get_args();
@@ -62,21 +82,15 @@
 			{
 				$args[1]=NULL;
 			}
+			else
+			{
+				$this->trySelect($args[0]);
+			}
 
 			return $this->newOption($args[0] , $args[1]);
 		}
 		function addOption($option)
 		{
-			if($option->getValue()!==NULL && $option->getValue()==$this->selectedValue)
-			{
-				$this->default=$this->optionsLen;
-/*
-				echo '<pre>Default:';
-				print_r($this->default);
-				echo '</pre>';
-*/
-			}
-
 			$this->options[$this->optionsLen]=$option;
 			++$this->optionsLen;
 

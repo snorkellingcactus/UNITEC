@@ -1,20 +1,25 @@
 <?php
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/DOMClassList.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/DOMTagContainer.php';
 	
-	class DOMTag
+	class DOMTag extends DOMTagContainer
 	{
-		public $domDoc;
 		public $tag;
+		public $tagName;
+		public $tagValue;
 		public $classList;
+		public $attrList;
 		public $value;
 		public $col;
 		public $all;
-		public $hijos;
-		public $hijosLen;
 
 		function __construct()
 		{
-			$this->domDoc=new DOMDocument;
+			parent::__construct();
+
+			$this->attrList=[];
+
+			$this->classList=new DOMClassList($this->tag);
 
 			$this->all=$this->col=
 			[
@@ -23,8 +28,6 @@
 				'md'=>false,
 				'lg'=>false
 			];
-			$this->hijos=[];
-			$this->hijosLen=0;
 
 			$args=func_get_args();
 			if(isset($args[0]))
@@ -36,64 +39,40 @@
 				$this->setTagValue($args[1]);
 			}
 		}
-		function appendChild(DOMTag $domTag)
-		{
-			$this->hijos[$this->hijosLen]=& $domTag;
-
-			++$this->hijosLen;
-
-			return $this;
-		}
 		public function setTagName($tagName)
 		{
-			$this->tag=$this->domDoc->createElement($tagName);
-			$this->domDoc->appendChild($this->tag);
-
-			$this->classList=new DOMClassList($this->tag);
+			$this->tagName=$tagName;
 
 			return $this;
 		}
-		public function setTagValue($val)
+		public function setTagValue($tagValue)
 		{
-			$this->tag->appendChild($this->domDoc->createTextNode($val));
+			$this->tagValue=$tagValue;
 
 			return $this;
 		}
-		public function render($childs , $childsLen ,  $doc)
+		public function applyBootstrap()
 		{
-			for($i=0;$i<$childsLen;$i++)
+			$col=& $this->col;
+			$all=& $this->all;
+
+			foreach($col as $colName=>$val)
 			{
-				$child=$childs[$i];
-
-				$doc->appendChild
-				(
-					$this->domDoc->importNode
-					(
-						$child->renderChilds()->tag ,
-						true
-					)
-				);
+				if($val!==false)
+				{
+					$this->applySingleBootstrap('col' , $colName , $val);
+				}
+				if($all[$colName]!==false)
+				{
+					$this->applySingleBootstrap('all' , $colName , $all[$colName]);
+				}
 			}
 
 			return $this;
 		}
-		function renderChilds()
+		public function applySingleBootstrap($colType , $colName , $val)
 		{
-			return $this->render($this->hijos , $this->hijosLen , $this->tag);
-		}
-		public function getHTML()
-		{
-			$this->renderChilds();
-
-			$innerHTML = ""; 
-			$children  = $this->domDoc->childNodes;
-
-			foreach ($children as $child) 
-			{
-				$innerHTML .= $this->domDoc->saveHTML($child);
-			}
-
-			return $innerHTML; 
+			$this->classList->add($colType.'-'.$colName.'-'.$val);
 		}
 		public function setBootstrap($cols , $var)
 		{
@@ -102,7 +81,6 @@
 			{
 				$thisCols[$col]=$val;
 			}
-			$this->applyBootstrap($cols , $var);
 
 			return $this;
 		}
@@ -114,35 +92,55 @@
 		{
 			return $this->setBootstrap($cols , 'all');
 		}
-		public function applyBootstrap($cols , $var)
+		function createTag($domDoc)
 		{
-			foreach($cols as $col=>$val)
+			$this->tag=$domDoc->createElement($this->tagName);
+			$this->tag->appendChild
+			(
+				$domDoc->createTextNode($this->tagValue)
+			);
+			$domDoc->appendChild($this->tag);
+
+			$this->applyBootstrap()->applyClassList()->applyAttrList();
+		}
+		function applyClassList()
+		{
+			$clases=$this->classList->get();
+
+			if($clases!==false)
 			{
-				if($val!==false)
-				{
-					$this->classList->add($var.'-'.$col.'-'.$val);
-				}
+				$this->tag->setAttribute('class' , $clases);
 			}
 
 			return $this;
 		}
-		public function applyCol()
+		function applyAttrList()
 		{
-			return $this->applyBootstrap($this->col , 'col');
-		}
-		public function applyAll()
-		{
-			return $this->applyBootstrap($this->all , 'all');
-		}
-		public function setAttribute($name , $value)
-		{
-			$this->tag->setAttribute($name , $value);
+			foreach($this->attrList as $attr=>$value)
+			{
+				$this->tag->setAttribute($attr , $value);
+			}
 
 			return $this;
 		}
-		public function getAttribute($name)
+		function setAttribute($attrName , $attrValue)
 		{
-			return $this->tag->getAttribute($name);
+			$this->attrList[$attrName]=$attrValue;
+
+			return $this;
+		}
+		function getAttribute($attrName)
+		{
+			return $this->attrList[$attrName];
+		}
+		function hasAttribute($attrName)
+		{
+			if(isset($this->attrList[$attrName]))
+			{
+				return true;
+			}
+			return false;
+
 		}
 	}
 ?>

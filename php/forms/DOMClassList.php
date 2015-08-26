@@ -1,13 +1,11 @@
 <?php
 	class DOMClassList
 	{
-		public $padre;
 		public $attrLst;
 		private $count;
 
-		function __construct(DOMElement $padre)
+		function __construct()
 		{
-			$this->padre=$padre;
 			$this->attrLst=[];
 			$this->count=0;
 		}
@@ -22,7 +20,7 @@
 
 			++$this->count;
 
-			return $this->applyAttrLst();
+			return $this;
 		}
 		function del($name)
 		{
@@ -48,15 +46,13 @@
 				return $this->applyAttrLst();
 			}
 		}
-		function applyAttrLst()
+		function get()
 		{
-			$this->padre->setAttribute
-			(
-				'class',
-				implode(' ' , $this->attrLst)
-			);
-
-			return $this;
+			if(empty($this->attrLst))
+			{
+				return false;
+			}
+			return implode(' ' , $this->attrLst);
 		}
 	}
 ?>

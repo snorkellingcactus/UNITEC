@@ -102,7 +102,7 @@
 		{
 			$this->label=$label;
 
-			if($this->tag->hasAttribute('id'))
+			if($this->hasAttribute('id'))
 			{
 				$label->setFor($this);
 			}

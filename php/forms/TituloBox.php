@@ -19,7 +19,7 @@
 					'md'=>12,
 					'lg'=>12
 				]
-			);
+			)->classList->add('center');
 		}
 		function setInput($input)
 		{

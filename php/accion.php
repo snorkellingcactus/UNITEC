@@ -24,7 +24,7 @@ if(isset($_SESSION['adminID']))
 
 				<!--::::::Includes variables pasados por parametro::::::-->
 				<?php
-					$formHandler->form->getReqs();
+					//$formHandler->form->getReqs();
 				?>
 
 			</head>

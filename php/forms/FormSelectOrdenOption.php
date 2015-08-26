@@ -15,22 +15,22 @@
 			$this->empty=new FormSelectOrdenEmptyOption($parentForm , $value);
 			$this->fill=new FormSelectOrdenFillOption($parentForm , $name);
 
-			parent::appendTag
+			$this->appendChild
 			(
 				$this->empty
 			);
-			parent::appendTag
+			$this->appendChild
 			(
 				$this->fill
 			);
 		}
 		function setSelected()
 		{
-			$this->empty->setSelected();
+			return $this->empty->setSelected();
 		}
 		function getValue()
 		{
-			$this->fill->getValue();
+			return $this->empty->getValue();
 		}
 	}
 ?>

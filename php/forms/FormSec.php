@@ -86,6 +86,14 @@
 						MYSQLI_NUM
 					);
 
+					echo '<pre>ID Seleccionado:';
+					print_r
+					(
+						$selectLugar->input->selectedValue
+					);
+					echo '</pre>';
+
+
 					if(isset($atajoSQL[0]))
 					{
 						$atajo->setValue($atajoSQL[0]);
@@ -219,18 +227,17 @@
 				);
 			}
 
-			if($_SESSION['accion']==='edita')
+			if($this->srvBuilder->getAction()!==1)
 			{
-				$padreIDStr.=' AND ID!='.$_POST['conID'];
+				$selectLugar->input->selectedValue=$_POST['conID'];
 			}
-
 			$selectLugar->setOptionsFromSQLRes
 			(
 				fetch_all
 				(
 					$con->query
 					(
-						'	SELECT HTMLID 
+						'	SELECT HTMLID,ID
 							FROM Secciones
 							WHERE PadreID '.$padreIDStr.'
 							ORDER BY Prioridad ASC
