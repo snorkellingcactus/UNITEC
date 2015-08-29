@@ -23,7 +23,7 @@
 			$this->sizeToMax=false;
 		}
 
-		function renderChilds()
+		function renderChilds(& $doc , & $tag)
 		{
 			if($this->defaultToMax && $this->default===false)
 			{
@@ -45,7 +45,7 @@
 				$this->setSize($this->optionsLen);
 			}
 
-			return parent::renderChilds();
+			return parent::renderChilds($doc , $tag);
 		}
 		public function newOption($name , $value)
 		{

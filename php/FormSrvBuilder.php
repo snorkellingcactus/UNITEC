@@ -144,13 +144,12 @@
 
 		public function buildNext()
 		{
-			/*$this->setConIDAct();
+			$this->setConIDAct();
 			
 			include $this->dir.$this->steps[$this->stepDesp->indexRecN($this->stepDesp->actual)];
 
 			echo $this->form->getHTML();
 			++$this->contador;
-			*/
 		}
 	}
 ?>

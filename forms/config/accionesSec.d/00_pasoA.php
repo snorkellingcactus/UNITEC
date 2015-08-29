@@ -1,7 +1,14 @@
 <?php
 	//echo '<pre>Paso A</pre>';
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormSec.php';
+	//$this->form=new FormSec($this);
+	//include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/DOMTag.php';
+
 	$this->form=new FormSec($this);
+
+//	$h->appendChild($hp);
+	//echo '<pre>Salida:';
+	//echo '</pre>';
 	//$bb->setName('Hola')->setValue('Mundo');
 /*
 	$bb=new DOMTagContainer();

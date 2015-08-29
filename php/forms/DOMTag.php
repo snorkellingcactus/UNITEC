@@ -92,16 +92,29 @@
 		{
 			return $this->setBootstrap($cols , 'all');
 		}
-		function createTag($domDoc)
+		function renderChilds(&$doc , &$tag)
 		{
-			$this->tag=$domDoc->createElement($this->tagName);
+			//echo '<pre>DOMTag::renderChilds()';
+			//echo '</pre>';
+			return parent::renderChilds($doc , $kk=null);
+		}
+		function createTag()
+		{
+			//echo '<pre>DOMTag::createTag()</pre>';
+			$this->tag=$this->domDoc->createElement($this->tagName);
 			$this->tag->appendChild
 			(
-				$domDoc->createTextNode($this->tagValue)
+				$this->domDoc->createTextNode($this->tagValue)
 			);
-			$domDoc->appendChild($this->tag);
+			$this->domDoc->appendChild($this->tag);
 
 			$this->applyBootstrap()->applyClassList()->applyAttrList();
+			//echo '<pre>DOMTagContainer::createTag()';
+			//print_r($this->tag->tagName);
+			//echo '</pre>';
+			//echo '<pre>DOMTag::createTag()';
+			//print_r($this->tag);
+			//echo '</pre>';
 		}
 		function applyClassList()
 		{

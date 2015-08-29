@@ -4,6 +4,7 @@
 	{
 		public $hijos;
 		public $hijosLen;
+		public $domDoc;
 
 		function __construct()
 		{
@@ -18,61 +19,163 @@
 
 			return $this;
 		}
-		public function render($childs , $childsLen ,  $doc)
+		/*
+		public function render($childs , $childsLen)
 		{
+			echo '<pre>DOMTagContainer::render()';
+			echo '</pre>';
 			for($i=0;$i<$childsLen;$i++)
 			{
 				$child=$childs[$i];
 
+				$tName='Doc';
+				if(isset($this->tag->tagName))
+				{
+					$tName=$this->tag->tagName;
+				}
+				echo '<pre>'.$tName.'->appendChild->';
+				echo '</pre>';
 				$this->tag->appendChild
 				(
-					$doc->importNode
-					(
-						$child->renderChilds()->tag ,
-						true
-					)
+					$child->renderChilds($this->domDoc)->tag ,
+					true
 				);
 			}
 
 			return $this;
 		}
-		function renderChilds()
+		*/
+		function render()
 		{
-			$args=func_get_args();
+			$childs=$this->hijos;
+			$childsLen=$this->hijosLen;
 
-			if(!isset($args[0]))
+			for($i=0;$i<$childsLen;$i++)
 			{
-				$args[0]=$this->createDoc();
+				$this->importChild($childs[$i]);
 			}
-			return $this->render($this->hijos , $this->hijosLen , $args[0]);
+
+			return $this;
+		}
+		function getName($tag)
+		{
+			$tName='Doc';
+			if(isset($tag->tagName))
+			{
+				$tName=$tag->tagName;
+			}
+
+			return $tName;
+		}
+		function importChild($child)
+		{
+			/*
+			echo '<pre>DOMTag::importChild()'."\n";
+			echo '$this->tag : ';
+			echo $this->getName($this->tag)."\n";
+			echo '$this->domDoc : ';
+			echo $this->getName($this->domDoc)."\n";
+			*/
+
+			$res=$child->renderChilds
+			(
+				$this->domDoc ,
+				$this->tag
+			);
+
+			if($res instanceof DOMTag)
+			{
+				//echo '<pre>'.$this->getName($this->tag).'->appendChild('.$this->getName($res).')</pre>';
+				$this->tag->appendChild
+				(
+					$res->tag
+				);
+			}
+/*
+			echo 'DOMTag::importChild()'."\n";
+			echo '$child->tag : ';
+			echo $this->getName($res->tag)."\n";
+			echo '$child->domDoc : ';
+			echo $this->getName($res)."\n";
+			echo '$child->className : ';
+			echo ($res instanceof DOMTag)."\n";
+			echo '</pre>';
+*/
+			return $res;
+		}
+		function renderChilds(&$doc , &$tag)
+		{
+			//echo '<pre>DOMTagContainer::renderChilds()</pre>';
+
+			if($doc!==null)
+			{
+				$this->importDoc($doc);
+			}
+			else
+			{
+				$this->createDoc();
+			}
+			if($tag!==null)
+			{
+				$this->importTag($tag);
+			}
+			else
+			{
+				$this->createTag();
+			}
+/*
+			$tName='Doc';
+			if(isset($this->tag->tagName))
+			{
+				$tName=$this->tag->tagName;
+			}
+			echo '<pre>DOMTagContainer::renderChilds()';
+			echo 'Tag: '.$tName;
+			echo '</pre>';
+*/
+
+			return  $this->render();
+		}
+		function importDoc($doc)
+		{
+			//echo '<pre>DOMTagContainer::importDoc()';echo '</pre>';
+			$this->domDoc=$doc;
+		}
+		function importTag($tag)
+		{
+			$tName='Doc';
+			if(isset($tag->tagName))
+			{
+				$tName=$tag->tagName;
+			}
+			//echo '<pre>DOMTagContainer::importTag()'.$tName;echo '</pre>';
+			$this->tag=$tag;
 		}
 		function createDoc()
 		{
-			$domDoc=new DOMDocument();
-			
-			$this->createTag($domDoc);
-
-			return $domDoc;
+			//echo '<pre>DOMTagContainer::createDoc()';echo '</pre>';
+			$this->domDoc=new DOMDocument();
 		}
 		public function getHTML()
 		{
-			$doc=$this->createDoc();
+			//echo '<pre>DOMTagContainer::getHTML()';
+			//echo '</pre>';
 
-			$this->renderChilds($doc);
+			$this->renderChilds($jj=null , $hh=null);
 
 			$innerHTML = ""; 
-			$children  = $doc->childNodes;
+			$children  = $this->domDoc->childNodes;
 
-			echo '<pre>ChildNodes:';
-			print_r
-			(
-				$children
-			);
-			echo '</pre>';
+			//echo '<pre>ChildNodes:';
+			//print_r
+			//(
+			//	$children
+			//);
+			//echo '</pre>';
 
 			foreach ($children as $child) 
 			{
-				$innerHTML .= $doc->saveHTML($child);
+				$innerHTML .= $this->domDoc->saveHTML($child);
 			}
 
 			return $innerHTML; 
@@ -95,9 +198,11 @@
 			}
 			return $this;
 		}*/
-		function createTag($domDoc)
+		function createTag()
 		{
-			$this->tag=$domDoc;
+			//echo '<pre>DOMTagContainer::createTag()';echo '</pre>';
+
+			$this->importTag($this->domDoc);
 		}
 	}
 ?>

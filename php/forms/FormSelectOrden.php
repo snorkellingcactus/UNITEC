@@ -70,7 +70,7 @@
 			}
 			return parent::appendChild($child);
 		}
-		public function renderChilds()
+		public function renderChilds(& $doc , & $tag)
 		{
 			echo '<pre>FormSelectOrden::renderChilds()</pre>';
 			$bottom=new FormSelectOrdenEmptyOption('' , $this->prefixBottom);
@@ -83,7 +83,7 @@
 				$bottom
 			);
 
-			return parent::renderChilds();
+			return parent::renderChilds($doc , $tag);
 		}
 		public function addOption($option)
 		{

@@ -17,7 +17,7 @@
 		}
 		function setInput($input)
 		{
-			$this->appendTag(new ClearFix());
+			$this->appendChild(new ClearFix());
 			
 			parent::setInput($input);
 		}

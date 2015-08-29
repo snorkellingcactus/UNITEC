@@ -39,7 +39,7 @@
 				$this->default=$this->lstLen;
 			}
 
-			$this->appendTag($checkBox);
+			$this->appendChild($checkBox);
 			$this->lst[$this->lstLen]=$checkBox;
 
 			++$this->lstLen;
@@ -56,7 +56,7 @@
 
 			return $this;
 		}
-		function renderChilds()
+		function renderChilds(& $doc , & $tag)
 		{
 			if($this->default===false)
 			{
@@ -67,7 +67,7 @@
 				$this->select($this->default);
 			}
 
-			return parent::renderChilds();
+			return parent::renderChilds($doc , $tag);
 		}
 	}
 ?>
