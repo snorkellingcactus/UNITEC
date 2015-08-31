@@ -1,4 +1,4 @@
-<?
+<?php
 	//Crea un nuevo contenido con una traducción para ese contenido.
 	function nTraduccion($contenido , $lenguaje)
 	{

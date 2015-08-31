@@ -1,4 +1,4 @@
-<?
+<?php
 	if(!empty($_SESSION['adminID']))
 	{
 		include_once($_SERVER['DOCUMENT_ROOT'] . '/php/FormCliRecv.php');

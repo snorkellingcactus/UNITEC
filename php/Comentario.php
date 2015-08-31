@@ -86,7 +86,7 @@ function GenComGrp($ContID , $con , $formBuilder)
 	{
 		?>
 			<p>Sin Comentarios</p>
-		<?
+		<?php
 	}
 
 	$dep=[];

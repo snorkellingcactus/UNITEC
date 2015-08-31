@@ -1,4 +1,4 @@
-<?
+<?php
 	function head_include($str)
 	{
 		$pos=strrpos( $str , '.');
@@ -12,7 +12,7 @@
 				case 'css':
 				?>
 					<link rel="stylesheet" type="text/css" href="<?php echo $str?>" />
-				<?
+				<?php
 				break;
 				case 'js':
 				?>
