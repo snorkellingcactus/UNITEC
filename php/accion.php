@@ -7,8 +7,7 @@ if(isset($_SESSION['adminID']))
 	include $_SERVER['DOCUMENT_ROOT'] . '/php/FormSrvBuilder.php';
 
 	$formHandler=new FormSrvBuilder();
-	
-	$formHandler->getConfig();
+
 	?>
 		<html lang="es">
 			<head>
@@ -21,18 +20,28 @@ if(isset($_SESSION['adminID']))
 				<link rel="stylesheet" type="text/css" href="../seccs/visor.css" />
 				<link rel="stylesheet" type="text/css" href="../forms/forms.css" />
 				<script type="text/javascript" src="/js/head.js"></script>
+				<script type="text/javascript" src="/ckeditor/ckeditor.js"></script>
+				<script type="text/javascript" src="/js/loadEditor.js"></script>
 
 				<!--::::::Includes variables pasados por parametro::::::-->
 				<?php
-					//$formHandler->form->getReqs();
+					$first='';
+					ob_start();
+					$formHandler->buildNext();
+
+					$first=ob_get_contents();
+					ob_end_clean();
+
+					$formHandler->form->getReqs();
 				?>
 
 			</head>
 			<body>
 					<?php
+					echo $first;
 					//$formHandler->form->setIDSuffix('jj')->classList->add('tresem')->add('nuevo');
 					//echo $formHandler->form->getHTML();
-					$formHandler->buildNext();
+					
 
 					/*
 						$iMax=$formHandler->cantidad;

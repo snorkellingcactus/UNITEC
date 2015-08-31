@@ -45,36 +45,6 @@
 
 			return $this;
 		}
-		
-		public function appendChild($domTag)
-		{
-			/*if($domTag instanceof FormInputBase)
-			{
-				$this->importReqs($domTag);
-			}
-			if(is_subclass_of($domTag , 'DOMTagContainer'))
-			{
-				if(is_subclass_of($domTag, 'FormLabelBox'))
-				{
-					$this->importReqs($domTag->input);
-				}
-
-				$domTag->renderChilds();
-				$iMax=$domTag->hermanosLen;
-				$childs=$domTag->hermanos;
-
-				for($i=0;$i<$iMax;$i++)
-				{
-					$this->appendChild($childs[$i]);
-				}
-			}
-			else
-			{
-				
-			}*/
-			parent::appendChild($domTag);
-			return $this;
-		}
 		public function getReqs()
 		{
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/head_include.php';

@@ -1,6 +1,7 @@
 <?php
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/DOMTagContainer.php';
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormLabel.php';
+	
 	class FormLabelBox extends DOMTagContainer
 	{
 		public $label;

@@ -17,7 +17,7 @@
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormLabelContenido.php';
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormLabelVisible.php';
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/ClearFix.php';
-			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormImgRadio.php';
+			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/RadioLstNov.php';
 			//$this->ancla='#nNov';
 			/*
 				[
@@ -29,6 +29,7 @@
 			$titulo=new FormLabelTitulo($this);
 			$descripcion=new FormLabelContenido($this);
 			$visible=new FormLabelVisible($this);
+			$selectImg=new RadioLstNov($this , 'Imagen');
 
 			if($this->srvBuilder->getAction()===0)
 			{
@@ -67,11 +68,39 @@
 						$_SESSION['lang']
 					)
 				);
+
+				$selectImg->selectedValue=$novedad['ImagenID'];
 			}
-			$selectImg=new FormRadioLst($this , 'hola');
-			$selectImg->addNew('mundo' );
-			//$selectImg=new FormRadioLst($this , 'imagen');
-			//$selectImg->add('mundo')->add('Hola');
+
+			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/conexion.php';
+			global $con;
+
+			$Imgs=fetch_all
+			(
+				$con->query
+				(
+					'	SELECT Imagenes.ID
+						FROM Imagenes
+						WHERE 1
+						ORDER BY Prioridad
+					'
+				),
+				MYSQLI_NUM
+			);
+
+			$i=0;
+			while(isset($Imgs[$i]))
+			{
+				$imgId=$Imgs[$i][0];
+
+				$selectImg->addNew
+				(
+					$imgId,
+					'/img/miniaturas/galeria/'.$imgId.'.png'
+				);
+
+				++$i;
+			}
 
 			$this->appendChild($titulo)
 			->appendChild(new ClearFix())

@@ -72,7 +72,7 @@
 		}
 		public function renderChilds(& $doc , & $tag)
 		{
-			echo '<pre>FormSelectOrden::renderChilds()</pre>';
+			//echo '<pre>FormSelectOrden::renderChilds()</pre>';
 			$bottom=new FormSelectOrdenEmptyOption('' , $this->prefixBottom);
 			if($this->selectNext)
 			{

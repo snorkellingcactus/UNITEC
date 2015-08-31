@@ -1,19 +1,6 @@
 <div class="overhidden">
 	<?php
-		include_once $_SERVER['DOCUMENT_ROOT'] . '//php/conexion.php';
-		global $con;
-
-		$Imgs=$con->query
-		(
-			'	SELECT Imagenes.*
-				FROM Imagenes
-				WHERE 1
-				ORDER BY Prioridad
-			'
-		);
-		$Imgs=fetch_all($Imgs , MYSQLI_ASSOC);
-
-		$cantidad=count($Imgs);
+		
 		if(isset($this->autocomp['Imagen']))
 		{
 			$selected=$this->autocomp['Imagen'];

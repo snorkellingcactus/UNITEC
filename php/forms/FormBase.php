@@ -20,10 +20,12 @@
 		}
 		private function addReqOpt($req , &$thisReq , &$thisReqLen)
 		{
-			if(!array_key_exists($req , $thisReq))
+			if(!in_array($req , $thisReq))
 			{
 				$thisReq[$thisReqLen]=$req;
 				++$thisReqLen;
+
+				//echo '<pre>Added Req : '.$req.'</pre>';
 			}
 
 			return $this;

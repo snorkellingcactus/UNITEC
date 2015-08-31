@@ -1,6 +1,5 @@
 <?php
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormRadio.php';
-	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormRadioLst.php';
 
 	class FormImgRadio extends DOMTag
 	{
@@ -34,27 +33,6 @@
 		function getValue()
 		{
 			return $this->input->getValue();
-		}
-	}
-
-	class FormImgRadioLst extends FormRadioLst
-	{
-		function __construct($parentForm , $name)
-		{
-			parent::__construct($parentForm , $name);
-		}
-		function addNew($value, $imgSrc)
-		{
-			$this->add
-			(
-				$this->buildNew($value)->setImgSrc($imgSrc)
-			);
-
-			return $this;
-		}
-		function buildNew($value)
-		{
-			return new FormImgRadio($this->parentForm , $this->name , $value);
 		}
 	}
 ?>
