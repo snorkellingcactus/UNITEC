@@ -146,12 +146,12 @@ $lang=fetch_all
 							$langAct=$consulta[$i];
 							$langShort=$langAct['Pais'];
 							?>
-								<li role="menuitem" tabindex="0">
+								<li role="menuitem">
 									<?php
 										if($i!==0)
 										{
 											?>
-												<a rel="alternate" href="index.php?lang=<?php echo $langAct['ID'] ?>" hreflang="<?php echo $langShort ?>" lang="<?php echo $langShort ?>" tabindex="-1">
+												<a rel="alternate" href="index.php?lang=<?php echo $langAct['ID'] ?>" hreflang="<?php echo $langShort ?>" lang="<?php echo $langShort ?>" tabindex="1">
 													<?php
 														echoLang($langAct);
 													?>

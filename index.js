@@ -263,14 +263,14 @@ function quitFocus(event , shift)
 }
 function inicializa()
 {
-	var hijos=document.getElementsByClassName('header')[0].getElementsByTagName('ul')[0].getElementsByTagName('li');
+	var hijos=document.getElementsByClassName('header')[0].getElementsByTagName('ul')[0].getElementsByTagName('a');
 
 	hijos[hijos.length-1].addEventListener
 	(
 		'focus',
 		function()
 		{
-			this.parentNode.classList.add('focus');
+			this.parentNode.parentNode.classList.add('focus');
 			
 			document.body.addEventListener
 			(
@@ -290,7 +290,7 @@ function inicializa()
 		'focus',
 		function()
 		{
-			this.parentNode.classList.add('focus');
+			this.parentNode.parentNode.classList.add('focus');
 			
 			document.body.addEventListener
 			(
