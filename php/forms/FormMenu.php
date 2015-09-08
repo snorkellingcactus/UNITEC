@@ -13,9 +13,6 @@
 				$srvBuilder->cantidad=count($_POST['conID']);
 			}
 
-			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/conexion.php';
-			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/getTraduccion.php';
-
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormLabelLugar.php';
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/ClearFix.php';
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormLabelTitulo.php';
@@ -28,11 +25,12 @@
 			$lugar=new FormLabelLugar($this);
 			$visible=new FormLabelVisible($this);
 
+			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/conexion.php';
+			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/getTraduccion.php';
+			global $con;
+
 			if($srvBuilder->getAction()===0)
 			{
-				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/conexion.php';
-				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/getTraduccion.php';
-				global $con;
 
 				$opcion=fetch_all
 				(

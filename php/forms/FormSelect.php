@@ -37,6 +37,7 @@
 				}
 				else
 				{
+					//echo '<pre>Default: ';print_r($this->default);echo '</pre>';
 					$this->select($this->default);
 				}
 			}
@@ -53,7 +54,7 @@
 		}
 		public function mustBeSelected($value)
 		{
-			if($value==$this->selectedValue)
+			if($value===$this->selectedValue)
 			{
 				return true;
 /*
@@ -116,6 +117,7 @@
 		}
 		function setDefaultToMax()
 		{
+			//echo '<pre>Default To Max</pre>';
 			$this->defaultToMax=true;
 
 			return $this;

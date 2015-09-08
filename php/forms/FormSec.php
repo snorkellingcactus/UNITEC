@@ -85,15 +85,15 @@
 						),
 						MYSQLI_NUM
 					);
-
+/*
 					echo '<pre>ID Seleccionado:';
 					print_r
 					(
 						$selectLugar->input->selectedValue
 					);
 					echo '</pre>';
-
-
+*/
+					
 					if(isset($atajoSQL[0]))
 					{
 						$atajo->setValue($atajoSQL[0]);
@@ -227,7 +227,7 @@
 				);
 			}
 
-			if($this->srvBuilder->getAction()!==1)
+			if($this->srvBuilder->getAction()===0)
 			{
 				$selectLugar->input->selectedValue=$_POST['conID'];
 			}
