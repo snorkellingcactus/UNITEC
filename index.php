@@ -35,7 +35,8 @@ if(isset($_POST['Cancela']))
 function echoLang($langSQLRes)
 {
 	?>
-		<img src="img/idiomas/<?php echo $langSQLRes['Pais'].'.png' ?>" alt="Cambiar al idioma <?php echo utf8_encode($langSQLRes['Nombre']) ?>" />
+		<!-- Revisar -->
+		<img aria-hidden="true" src="img/idiomas/<?php echo $langSQLRes['Pais'].'.png' ?>" alt="" />
 	<?php 
 
 	echo utf8_encode($langSQLRes['Nombre']);
