@@ -2,13 +2,14 @@
 {
 	font-family:monospace;
 	background-color:white;
-	background:transparent linear-gradient(to bottom, #E1E1E1, #FCFCFC) repeat scroll 0% 0%;
+	/*background:transparent linear-gradient(to bottom, #E1E1E1, #FCFCFC) repeat scroll 0% 0%;*/
+	background:transparent linear-gradient(to right bottom, #C4D1FF, #CEE5FF) repeat scroll 0% 0%;
 	border-radius:2px;
 	text-align:center;
 	min-width:5em;
 	display:inline-block;
 	padding:1px 6px 1px 6px;
-	border:3px outset silver;
+	border:1px outset silver;
 }
 .atajos .mas
 {

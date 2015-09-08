@@ -27,7 +27,6 @@ start_session_if_not();
 			echo $GenHTML->ano(); 
 		?>
 	</h1>
-
 		<?php
 			if(!empty($_SESSION['adminID']))
 			{
@@ -175,6 +174,15 @@ start_session_if_not();
 				?>
 					<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
 						<?php $GenHTML->genTable() ?>
+
+						<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 calRef hidden-screader">
+							<span>Evento:</span>
+							<span class="evento"></span>
+						</div>
+						<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 calRef hidden-screader">
+							<span>Dia Actual:</span>
+							<span class="hoy"></span>
+						</div>
 					</div>
 				<?php
 			}
