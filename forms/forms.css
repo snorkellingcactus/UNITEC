@@ -99,6 +99,8 @@ input[name="nuevo"]{background-image:url("/img/10.png");}
 input[name="elimina"]{background-image:url("/img/51.png")}
 input[name="edita"]{background-image:url("/img/39.png")}
 input[name="elimina"],input[name="edita"],input[name="nuevo"]{background-repeat:no-repeat;background-position: center;color:transparent;}
+input[value="Continuar"], input[value="Volver"]{width:47%;float:left;}
+input[value="Volver"]{float:right;}
 
 input:hover , textarea:hover ,select:hover, input:focus , textarea:focus
 {

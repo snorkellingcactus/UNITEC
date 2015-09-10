@@ -29,7 +29,7 @@
 						(
 							'	SELECT Visible
 								FROM Secciones
-								WHERE ID='.$_POST['conID']
+								WHERE ID='.$_SESSION['conID']
 						),
 						MYSQLI_NUM
 					)[0][0]
@@ -47,7 +47,7 @@
 				$visible
 			);
 
-			if($_POST['Tipo']==='sec')
+			if($_SESSION['Tipo']==='sec')
 			{
 				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormLabelTitulo.php';
 				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormLabelAAMenu.php';
@@ -69,7 +69,7 @@
 								(
 									'	SELECT HTMLID
 										FROM Secciones
-										WHERE ID='.$_POST['conID']
+										WHERE ID='.$_SESSION['conID']
 								),
 								MYSQLI_NUM
 							)[0][0]
@@ -81,7 +81,7 @@
 						(
 							'	SELECT Atajo
 								FROM Menu
-								WHERE SeccionID="'.$_POST['conID'].'"'
+								WHERE SeccionID="'.$_SESSION['conID'].'"'
 						),
 						MYSQLI_NUM
 					);
@@ -93,7 +93,7 @@
 					);
 					echo '</pre>';
 */
-					
+
 					if(isset($atajoSQL[0]))
 					{
 						$atajo->setValue($atajoSQL[0]);
@@ -129,12 +129,12 @@
 	
 				$this->appendChild
 				(
-					new VariablePost('conID' , $_POST['conID'])
+					new VariablePost('conID' , $_SESSION['conID'])
 				);
 
 				if($_SESSION['accion']==='nuevo')
 				{
-					$padreID=$_POST['conID'];
+					$padreID=$_SESSION['conID'];
 				}
 				else
 				{
@@ -144,7 +144,7 @@
 						(
 							'	SELECT PadreID 
 								FROM Secciones
-								WHERE ID='.$_POST['conID']
+								WHERE ID='.$_SESSION['conID']
 						),
 						MYSQLI_NUM
 					)[0][0];
@@ -153,7 +153,7 @@
 				$padreIDStr='='.$padreID;
 			}
 
-			if($_POST['Tipo']==='con')
+			if($_SESSION['Tipo']==='con')
 			{
 				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormLabelContenido.php';
 				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/getTraduccion.php';
@@ -172,7 +172,7 @@
 								(
 									'	SELECT ContenidoID
 										FROM Secciones
-										WHERE ID='.$_POST['conID']
+										WHERE ID='.$_SESSION['conID']
 								),
 								MYSQLI_NUM
 							)[0][0],
@@ -183,7 +183,7 @@
 
 				$this->appendChild($contenido);
 			}
-			if($_POST['Tipo']==='inc')
+			if($_SESSION['Tipo']==='inc')
 			{
 				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormLabelModulos.php';
 
@@ -197,7 +197,7 @@
 						(
 							'	SELECT ModuloID
 								FROM Secciones
-								WHERE ID='.$_POST['conID']
+								WHERE ID='.$_SESSION['conID']
 						),
 						MYSQLI_NUM
 					)[0][0];
@@ -220,7 +220,11 @@
 
 				$this->clearFix()->appendChild
 				(
-					new VariablePost('conID' , $_POST['conID'])
+					new VariablePost
+					(
+						'conID',
+						$_SESSION['conID']
+					)
 				)->clearFix()->appendChild
 				(
 					$modulos
@@ -229,7 +233,7 @@
 
 			if($this->srvBuilder->getAction()===0)
 			{
-				$selectLugar->input->selectedValue=$_POST['conID'];
+				$selectLugar->input->selectedValue=$_SESSION['conID'];
 			}
 			$selectLugar->setOptionsFromSQLRes
 			(
@@ -246,6 +250,18 @@
 					MYSQLI_NUM
 				)
 			);
+
+			if($srvBuilder->thisIsLast())
+			{
+				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormContinuar.php';
+				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormVolver.php';
+
+				$this->appendChild(new ClearFix())
+				->appendChild(new FormContinuar($this))
+				->appendChild(new FormVolver($this));
+
+				$this->setAction($srvBuilder->getNextStepUrl());
+			}
 		}
 	}
 ?>

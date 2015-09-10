@@ -37,7 +37,6 @@
 			$input=$this->input;
 			while(isset($llenos[$i]))
 			{
-
 				$input->addOption
 				(
 					$this->buildOptionFromArray($llenos[$i])

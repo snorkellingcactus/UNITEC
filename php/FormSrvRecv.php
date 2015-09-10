@@ -11,9 +11,16 @@
 
 			$this->checkAction();
 			
-			$this->referrer=$_SERVER['HTTP_REFERER'];
+			if(!isset($_SESSION['referer']))
+			{
+				$_SESSION['referer']=$_SERVER['HTTP_REFERER'];
+			}
+			$this->referrer=$_SESSION['referer'];
 
-			$_SESSION['form']=$_POST['form'];
+			if(!isset($_SESSION['form']))
+			{
+				$_SESSION['form']=$_POST['form'];
+			}
 
 			if(isset($_POST['conID']))
 			{

@@ -62,13 +62,30 @@
 				);
 			}
 
+			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormContinuar.php';
+
+			$continuar=new FormContinuar($this);
+
 			$this->appendChild($titulo)
 			->appendChild(new ClearFix())
 			->appendChild($alt)
 			->appendChild(new ClearFix())
 			->appendChild($visible)
 			->appendChild(new ClearFix())
-			->appendChild($archivo);
+			->appendChild($archivo)
+			->appendChild(new ClearFix())
+			->appendChild($continuar);
+
+			if($srvBuilder->thisIsLast())
+			{
+				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormVolver.php';
+
+				$this->appendChild(new FormVolver($this));
+			}
+			else
+			{
+				$continuar->col=['xs'=>12 , 'sm'=>12 , 'md'=>12 , 'lg'=>12];
+			}
 		}
 	}
 ?>

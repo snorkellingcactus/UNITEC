@@ -28,8 +28,9 @@
 				return 0;
 			}
 
-			if($num===$max)
+			if($num===$max-1)
 			{
+				//echo '<pre>Is The Last</pre>';
 				$this->fin=true;
 			}
 
@@ -48,6 +49,10 @@
 			}
 
 			return $nRecSel;
+		}
+		public function thisIsLast()
+		{
+			return $this->get()===$this->max-1;
 		}
 		public function get()
 		{

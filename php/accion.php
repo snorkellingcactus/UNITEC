@@ -25,34 +25,13 @@ if(isset($_SESSION['adminID']))
 
 				<!--::::::Includes variables pasados por parametro::::::-->
 				<?php
-					$first='';
-					ob_start();
-					$formHandler->buildNext();
-
-					$first=ob_get_contents();
-					ob_end_clean();
-
-					$formHandler->form->getReqs();
+					$formHandler->getReqs();
 				?>
 
 			</head>
 			<body>
 					<?php
-					echo $first;
-					//$formHandler->form->setIDSuffix('jj')->classList->add('tresem')->add('nuevo');
-					//echo $formHandler->form->getHTML();
-					
-
-					/*
-						$iMax=$formHandler->cantidad;
-						for($i=0;$i<$iMax;$i++)
-						{
-							$form=new Form();
-							$form->classList->add('tresem')->add('nuevo');
-
-							echo $formHandler->buildNext($form , $i);
-						}
-					*/
+						$formHandler->buildAll();
 					?>
 				<div class="clearfix"></div>
 			</body>
