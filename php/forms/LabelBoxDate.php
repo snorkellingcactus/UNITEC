@@ -9,6 +9,7 @@
 			//$this->setTagName('div');
 
 			parent::__construct('div');
+			$this->classList->add('LabelBoxDate');
 
 			$args=func_get_args();
 
@@ -19,10 +20,7 @@
 			->setID($args[2])
 			->appendLabel($this->label);
 
-
-			$this->label->col=	['xs'=>12	, 'sm'=>12	, 'md'=>12	, 'lg'=>12	];
-			$this->input->col=	['xs'=>12	, 'sm'=>12	, 'md'=>12	, 'lg'=>12	];
-			$this->col=			['xs'=>3	, 'sm'=>3	, 'md'=>3	, 'lg'=>3	];
+			$this->col=			['xs'=>6	, 'sm'=>2	, 'md'=>2	, 'lg'=>2	];
 
 			$this->appendChild($this->label)->appendChild($this->input);
 		}

@@ -3,47 +3,44 @@
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormLabel.php';
 	
 	//Cambiar clase por algo compatible con LabelBox.
-	class FormLabelUrlNov extends DOMTagContainer
+	class FormLabelUrlNov extends LabelBox
 	{
 		function __construct($parentForm)
 		{
-			parent::__construct();
+			parent::__construct
+			(
+				'Url',
+				'url',
+				'Url o Archivo',
+				new FormInput($parentForm , 'text')
+			);
 
-			$this->label=new FormLabel();
-			
-			$this->inputFile=new FormInput($parentForm , 'file');
-			$this->inputUrl=new FormInput($parentForm , 'text');
+			$this->inputUrl=$this->input;
+
+			$this->setInput
+			(
+				new FormInput($parentForm , 'file')
+			);
+
+			$this->inputFile=$this->input;
 
 			$this->inputFile->col=
 			[
-				'xs'=>2,
-				'sm'=>2,
-				'md'=>2,
-				'lg'=>2
+				'xs'=>6,
+				'sm'=>6,
+				'md'=>6,
+				'lg'=>6
 			];
 
 			$this->inputUrl->col=
 			[
-				'xs'=>5,
-				'sm'=>5,
-				'md'=>5,
-				'lg'=>5
-			];
-			$this->label->col=
-			[
-				'xs'=>5,
-				'sm'=>5,
-				'md'=>5,
-				'lg'=>5
+				'xs'=>6,
+				'sm'=>6,
+				'md'=>6,
+				'lg'=>6
 			];
 
-			$this->setLabelName('Url o Archivo');
-			$this->inputFile->setName('Archivo')->setID('archivo');
-			$this->inputUrl->setName('Url')->setID('url')->appendLabel($this->label);
-
-			$this->appendChild($this->label)
-			->appendChild($this->inputUrl)
-			->appendChild($this->inputFile);
+			$this->inputFile->setName('File')->setID('file');
 		}
 		function setLabelName($name)
 		{

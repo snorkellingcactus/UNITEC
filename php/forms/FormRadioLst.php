@@ -20,6 +20,7 @@
 			$this->default=false;
 			$this->selectedValue=NULL;
 			$this->parentForm=$parentForm;
+
 			$this->name=$name;
 		}
 		function setName($name)

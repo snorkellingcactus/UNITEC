@@ -72,14 +72,15 @@
 									?>
 								>
 									<?php echo $nombre?>
+
+									<?php 
+										if(!empty($_SESSION['adminID']))
+										{
+											$formMenu->fId='nMenu'.$s;
+											$formMenu->buildActionForm($opcion['ContenidoID'] , 'opc' , $s);
+										}
+									?>
 								</a>
-								<?php 
-									if(!empty($_SESSION['adminID']))
-									{
-										$formMenu->fId='nMenu'.$s;
-										$formMenu->buildActionForm($opcion['ContenidoID'] , 'opc' , $s);
-									}
-								?>
 							</li>
 						<?php
 					}

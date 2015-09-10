@@ -1,5 +1,14 @@
 @media screen and (max-width:768px){
-	body label{text-align:center;}
+	body .FormLabelBox label, body form h1.left{text-align:center;display:block;}
+	div.FormLabelBox{display:block;}
+
+	div.FormDateCont div.LabelBoxDate:last-of-type{padding-right:5px;}
+	div.FormDateCont div.LabelBoxDate:first-of-type{padding-left:5px;}
+
+	form input[value="Continuar"].col-xs-12
+	{
+		width:100%;
+	}
 }
 body input ,body select{font-size:1em;color:black;font-family:monospace;text-align:center}
 
@@ -64,7 +73,7 @@ section:hover .clearfix form .acciones, .modulo:hover .acciones input[type="subm
 	height:auto;
 }
 .menu #accionesMenu .acciones{width:100%}
-input,form a , button, textarea, select{height:auto;box-shadow:0px 0px 3px black;border-radius:3px;border:none;}
+input,form a , button, textarea, select{box-shadow:0px 0px 3px black;border-radius:3px;border:none;}
 button,form a{background-color:silver;font-family:sans-serif;vertical-align:middle;line-height:3em;color:black;}
 textarea{height:auto}
 
@@ -78,7 +87,7 @@ input , textarea, select,main>.right input[type="submit"]
 	background-color:#F0F8FF;
 	font-family:Monospace;
 }
-.sep , .acciones ,input.semitrans , .menu:hover li .acciones{opacity:0.2;transition:opacity 0.8s}
+.sep , .acciones ,input.semitrans , .menu:hover li .acciones{opacity:0.2;transition:opacity 0.8s;margin:0px;}
 .tresem input{opacity:1;}
 main>.right .acciones,main>.right input[type="submit"]
 {
@@ -99,12 +108,18 @@ input[name="nuevo"]{background-image:url("/img/10.png");}
 input[name="elimina"]{background-image:url("/img/51.png")}
 input[name="edita"]{background-image:url("/img/39.png")}
 input[name="elimina"],input[name="edita"],input[name="nuevo"]{background-repeat:no-repeat;background-position: center;color:transparent;}
-input[value="Continuar"], input[value="Volver"]{width:47%;float:left;}
+input[value="Continuar"], input[value="Volver"]{width:47%;float:left;margin:25px 0px 25px 0px;}
 input[value="Volver"]{float:right;}
+
+input[value="Continuar"].col-lg-12
+{
+	width:58.3333%;
+	float:right;
+}
 
 input:hover , textarea:hover ,select:hover, input:focus , textarea:focus
 {
-	background-color:#D8F3FF;
+	background-color:#71BEFF;
 }
 .overhidden
 {
@@ -123,13 +138,32 @@ input:hover , textarea:hover ,select:hover, input:focus , textarea:focus
 }
 .disabled{pointer-events:none;opacity:0.5;}
 
-.tresem input, .tresem select,.tresem label,.cacho label{height:3em}
-.tresem label{font-size:2em;color:white;margin-top:5px;}
+div.LabelBoxDate label{display:block;font-size:1em;width:100%;text-align: center}
+div.LabelBoxDate input{width:100%;}
+div.LabelBoxDate{padding:0px 5px 0px 5px}
+div.FormDateCont{padding-left:0px;padding-right: 0px}
+div.TituloBox{display:block;}
+div.TituloBox label{text-align: center;display:block;}
+
+.FormDateCont div.LabelBoxDate:last-of-type{padding-right:0px;}
+.FormDateCont div.LabelBoxDate:first-of-type{padding-left:0px;}
+
+form h1.left
+{
+	font-weight: bold;
+}
+
+.FormLabelBox{overflow:hidden;padding:25px 0px 25px 0px;display:table;width:100%;}
+
+.FormLabelBox input,.FormLabelBox select, .FormLabelBox label, div.LabelBoxDate input,
+input[value="Continuar"], input[value="Volver"]{height:40px}
+
+.tresem label, form h1.left{float:left;font-size:2em;color:white;margin:0px;display:table-cell;vertical-align: middle;float:none;}
 .cacho label{color:black;}
 .cacho .clearfix{margin-bottom:0px;}
 body input[type="checkbox"].semitrans{float:right;}
-.nuevo{width:90%;margin-left:5%;padding-top:50px;padding-bottom:70px;}
-
+.nuevo{width:90%;margin-left:5%;padding-top:50px}
+form hr{margin-top:70px;}
 
 select.orden{height:auto;margin-bottom:20px;}
 select.orden option{height:2em;text-align:center;background-color:#F0F8FF;}

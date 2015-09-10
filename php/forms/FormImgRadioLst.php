@@ -8,11 +8,11 @@
 		{
 			parent::__construct($parentForm , $name);
 		}
-		function addNew($value, $imgSrc)
+		function addNew($value, $imgSrc , $imgAlt)
 		{
 			$this->add
 			(
-				$this->buildNew($value)->setImgSrc($imgSrc)
+				$this->buildNew($value)->setImgSrc($imgSrc)->setImgAlt($imgAlt)
 			);
 
 			return $this;

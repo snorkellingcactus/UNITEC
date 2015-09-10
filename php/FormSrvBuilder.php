@@ -33,10 +33,6 @@
 			$this->dir=$_SERVER['DOCUMENT_ROOT'] . '/forms/config/'.$_SESSION['form'].'.d/';
 			$this->actionUrl='http://'.$_SERVER['SERVER_NAME'].'/php/accion.php';
 
-			echo '<pre>ActionUrl:';
-			print_r($this->actionUrl);
-			echo '</pre>';
-
 			if(isset($_POST['cantidad']))
 			{
 				$this->cantidad=intVal($_POST['cantidad']);
@@ -76,25 +72,7 @@
 			if(isset($_GET['step']))
 			{
 				$desp->actual=$_GET['step'];
-
-				echo '<pre>Actual:';
-				print_r($this->stepDesp->actual);
-				echo '</pre>';
 			}
-
-			echo '<pre>Steps:';
-			print_r
-			(
-				$this->steps
-			);
-			echo '</pre>';
-
-			echo '<pre>StepNext:';
-			print_r
-			(
-				$this->getNextStepUrl()
-			);
-			echo '</pre>';
 		}
 		public function getNextStepUrl()
 		{

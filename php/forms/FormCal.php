@@ -6,7 +6,7 @@
 		{
 			parent::__construct($srvBuilder);
 
-			$this->idSuffix=0;
+			$this->idSuffix=$srvBuilder->contador;
 
 			if(isset($_POST['conID']))
 			{
@@ -76,14 +76,27 @@
 				//echo '<pre>Evento:';print_r($evento);echo '</pre>';
 			}
 
+			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormContinuar.php';
+			$continuar=new FormContinuar($this);
+
 			$this->appendChild($titulo)
-			->appendChild(new ClearFix())
 			->appendChild($descripcion)
-			->appendChild(new ClearFix())
 			->appendChild($visible)
-			->appendChild(new ClearFix())
-			->appendChild($fecha);
+			->appendChild($fecha)
+			->appendChild($continuar);
 			//$prioridad
+
+			if($srvBuilder->thisIsLast())
+			{
+				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormVolver.php';
+
+				$this->appendChild(new FormVolver($this));
+			}
+			else
+			{
+				$continuar->col=['xs'=>12 , 'sm'=>12 , 'md'=>12 , 'lg'=>12];
+				$this->appendChild(new ClearFix())->appendChild(new DOMTag('hr'));
+			}
 		}
 	}
 ?>

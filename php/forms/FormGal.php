@@ -6,7 +6,7 @@
 		{
 			parent::__construct($srvBuilder);
 
-			$this->idSuffix=0;
+			$this->idSuffix=$srvBuilder->contador;
 
 			if(isset($_POST['conID']))
 			{
@@ -29,6 +29,7 @@
 			{
 				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/conexion.php';
 				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/getTraduccion.php';
+				global $con;
 
 				$imagen=fetch_all
 				(
@@ -67,13 +68,9 @@
 			$continuar=new FormContinuar($this);
 
 			$this->appendChild($titulo)
-			->appendChild(new ClearFix())
 			->appendChild($alt)
-			->appendChild(new ClearFix())
 			->appendChild($visible)
-			->appendChild(new ClearFix())
 			->appendChild($archivo)
-			->appendChild(new ClearFix())
 			->appendChild($continuar);
 
 			if($srvBuilder->thisIsLast())
@@ -85,6 +82,7 @@
 			else
 			{
 				$continuar->col=['xs'=>12 , 'sm'=>12 , 'md'=>12 , 'lg'=>12];
+				$this->appendChild(new ClearFix())->appendChild(new DOMTag('hr'));
 			}
 		}
 	}

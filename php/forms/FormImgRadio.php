@@ -26,6 +26,11 @@
 
 			return $this;
 		}
+		function setImgAlt($alt)
+		{
+			$this->img->setAttribute('alt' , $alt);
+			return $this;
+		}
 		function setSelected()
 		{
 			return $this->input->setSelected();

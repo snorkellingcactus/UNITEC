@@ -18,6 +18,10 @@ class FormRadio extends FormInput
 	{
 		$this->setAttribute('checked' , 'checked');
 	}
+	function setName($name)
+	{
+		parent::setName($name);
+	}
 }
 
 ?>

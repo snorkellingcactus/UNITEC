@@ -11,6 +11,8 @@
 				func_get_args()
 			);
 
+			$this->classList->add('TituloBox');
+
 			$this->label->setCol
 			(
 				[

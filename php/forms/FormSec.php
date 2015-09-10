@@ -102,19 +102,10 @@
 
 				$this->appendChild
 				(
-					new ClearFix()
-				)->appendChild
-				(
 					$titulo
 				)->appendChild
 				(
-					new ClearFix()
-				)->appendChild
-				(
 					$aaMenu
-				)->appendChild
-				(
-					new ClearFix()
 				)->appendChild
 				(
 					$atajo
@@ -218,14 +209,14 @@
 					)
 				);
 
-				$this->clearFix()->appendChild
+				$this->appendChild
 				(
 					new VariablePost
 					(
 						'conID',
 						$_SESSION['conID']
 					)
-				)->clearFix()->appendChild
+				)->appendChild
 				(
 					$modulos
 				);
@@ -256,8 +247,7 @@
 				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormContinuar.php';
 				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormVolver.php';
 
-				$this->appendChild(new ClearFix())
-				->appendChild(new FormContinuar($this))
+				$this->appendChild(new FormContinuar($this))
 				->appendChild(new FormVolver($this));
 
 				$this->setAction($srvBuilder->getNextStepUrl());

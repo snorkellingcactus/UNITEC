@@ -89,6 +89,17 @@
 			->appendChild($lugar)
 			->appendChild(new ClearFix())
 			->appendChild($visible);
+
+			if($srvBuilder->thisIsLast())
+			{
+				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormContinuar.php';
+				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormVolver.php';
+
+				$this->appendChild(new FormContinuar($this))
+				->appendChild(new FormVolver($this));
+
+				$this->setAction($srvBuilder->getNextStepUrl());
+			}
 		}
 	}
 ?>

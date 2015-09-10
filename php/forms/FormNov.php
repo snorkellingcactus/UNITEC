@@ -6,7 +6,7 @@
 		{
 			parent::__construct($srvBuilder);
 
-			$this->idSuffix=0;
+			$this->idSuffix=$srvBuilder->contador;
 
 			if(isset($_POST['Titulo']))
 			{
@@ -17,7 +17,7 @@
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormLabelContenido.php';
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormLabelVisible.php';
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/ClearFix.php';
-			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/RadioLstNov.php';
+			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormLabelImagen.php';
 			//$this->ancla='#nNov';
 			/*
 				[
@@ -29,14 +29,14 @@
 			$titulo=new FormLabelTitulo($this);
 			$descripcion=new FormLabelContenido($this);
 			$visible=new FormLabelVisible($this);
-			$selectImg=new RadioLstNov($this , 'Imagen');
+			$selectImg=new FormLabelImagen($this , 'Imagen' , 'imagen' , 'Imagen');
+
+			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/conexion.php';
+			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/getTraduccion.php';
+			global $con;
 
 			if($this->srvBuilder->getAction()===0)
 			{
-				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/conexion.php';
-				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/getTraduccion.php';
-				global $con;
-
 				$novedad=fetch_all
 				(
 					$con->query
@@ -69,17 +69,14 @@
 					)
 				);
 
-				$selectImg->selectedValue=$novedad['ImagenID'];
+				$selectImg->input->selectedValue=$novedad['ImagenID'];
 			}
-
-			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/conexion.php';
-			global $con;
 
 			$Imgs=fetch_all
 			(
 				$con->query
 				(
-					'	SELECT Imagenes.ID
+					'	SELECT Imagenes.ID,Imagenes.AltID
 						FROM Imagenes
 						WHERE 1
 						ORDER BY Prioridad
@@ -93,23 +90,35 @@
 			{
 				$imgId=$Imgs[$i][0];
 
-				$selectImg->addNew
+				$selectImg->input->addNew
 				(
 					$imgId,
-					'/img/miniaturas/galeria/'.$imgId.'.png'
+					'/img/miniaturas/galeria/'.$imgId.'.png',
+					getTraduccion($Imgs[$i][1] , $_SESSION['lang'])
 				);
 
 				++$i;
 			}
+			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormContinuar.php';
 
 			$this->appendChild($titulo)
-			->appendChild(new ClearFix())
 			->appendChild($descripcion)
-			->appendChild(new ClearFix())
 			->appendChild($visible)
-			->appendChild(new ClearFix())
 			->appendChild($selectImg)
-			->appendChild(new ClearFix());
+			->clearFix()
+			->appendChild(new FormContinuar($this));
+
+			if($srvBuilder->thisIsLast())
+			{
+				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormVolver.php';
+
+				$this->appendChild(new FormVolver($this));
+			}
+			else
+			{
+				$continuar->col=['xs'=>12 , 'sm'=>12 , 'md'=>12 , 'lg'=>12];
+				$this->appendChild(new ClearFix())->appendChild(new DOMTag('hr'));
+			}
 		}
 	}
 ?>

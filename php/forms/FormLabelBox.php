@@ -2,7 +2,7 @@
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/DOMTagContainer.php';
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormLabel.php';
 	
-	class FormLabelBox extends DOMTagContainer
+	class FormLabelBox extends DOMTag
 	{
 		public $label;
 		public $input;
@@ -13,9 +13,10 @@
 		function __construct()
 		{
 			
-			parent::__construct();
+			parent::__construct('div');
 
 			$this->label=new FormLabel();
+			$this->classList->add('FormLabelBox');
 
 
 			$args=func_get_args();
