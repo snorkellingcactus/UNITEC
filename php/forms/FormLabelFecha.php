@@ -44,7 +44,7 @@
 			$this->inputHora=new LabelBoxDate
 			(
 				$parentForm,
-				'Hora',
+				'Horas',
 				'hora',
 				'Hora'
 			);

@@ -50,7 +50,7 @@
 		}
 		public function newOption($name , $value)
 		{
-			return new FormSelectOption($name , $value);
+			return new FormSelectOption($this->parentForm , $name , $value);
 		}
 		public function mustBeSelected($value)
 		{

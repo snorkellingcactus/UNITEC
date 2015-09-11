@@ -28,7 +28,7 @@
 				$nSec->HTMLID=htmlentities($_POST['Titulo'][0]);
 			}
 
-			if(isset($_POST['Descripcion']))
+			if(isset($_POST['Contenido']))
 			{
 				if($edita)
 				{
@@ -45,13 +45,13 @@
 
 					include($_SERVER['DOCUMENT_ROOT'] . '/php/updTraduccion.php');
 
-					updTraduccion($_POST['Descripcion'][0] , $nSec->ContenidoID , $_SESSION['lang']);
+					updTraduccion($_POST['Contenido'][0] , $nSec->ContenidoID , $_SESSION['lang']);
 				}
 				else
 				{
 					include($_SERVER['DOCUMENT_ROOT'] . '/php/nTraduccion.php');
 
-					$descripcion=nTraduccion($_POST['Descripcion'][0] , $_SESSION['lang']);
+					$descripcion=nTraduccion($_POST['Contenido'][0] , $_SESSION['lang']);
 
 					$descripcion->insSQL();
 
@@ -59,7 +59,7 @@
 				}
 			}
 
-			if(isset($_POST['Modulo']) || isset($_POST['Descripcion']))
+			if(isset($_POST['Modulo']) || isset($_POST['Contenido']))
 			{
 				if($edita)
 				{
@@ -110,7 +110,7 @@
 
 			$afectados=[$_SESSION['conID']];
 
-			if($nSec->HTMLID!==NULL && $_POST['Agregar_al_menu'][0]==='1')
+			if($nSec->HTMLID!==NULL && $_POST['AgregarAlMenu'][0]==='true')
 			{
 				global $con,$afectado;
 

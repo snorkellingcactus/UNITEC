@@ -31,7 +31,7 @@ if(isset($_SESSION['adminID']))
 			</head>
 			<body>
 					<?php
-						$formHandler->buildAll();
+						echo $formHandler->buildAll()->form->getHTML();
 					?>
 				<div class="clearfix"></div>
 			</body>

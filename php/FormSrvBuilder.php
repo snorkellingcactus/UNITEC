@@ -12,7 +12,7 @@
 		public $dir;
 		public $contador;
 		public $conIDAct;
-		public $firstBuff;
+		public $omitFirst;
 
 		private $stepDesp;
 		private $steps;
@@ -32,6 +32,7 @@
 			$this->firstBuff=NULL;
 			$this->dir=$_SERVER['DOCUMENT_ROOT'] . '/forms/config/'.$_SESSION['form'].'.d/';
 			$this->actionUrl='http://'.$_SERVER['SERVER_NAME'].'/php/accion.php';
+			$this->form=new Form($this);
 
 			if(isset($_POST['cantidad']))
 			{
@@ -78,7 +79,7 @@
 		{
 			if($this->stepDesp->thisIsLast())
 			{
-				echo '<pre>Is The Last</pre>';
+				//echo '<pre>Is The Last</pre>';
 				return $this->referrer;
 			}
 			return $this->actionUrl.'?step='.$this->stepDesp->getNext();
@@ -96,11 +97,9 @@
 		}
 		public function getReqs()
 		{
-			ob_start();
 			$this->buildNext();
 
-			$this->firstBuff=ob_get_contents();
-			ob_end_clean();
+			$this->omitFirst=true;
 
 			return $this->form->getReqs();
 		}
@@ -136,12 +135,11 @@
 		public function buildNext()
 		{
 			//echo '<pre>Existo</pre>';
-			if($this->firstBuff!==NULL)
+			if($this->omitFirst)
 			{
 				//echo '<pre> El primero';;echo '</pre>';
-				echo $this->firstBuff;
 
-				$this->firstBuff=NULL;
+				$this->omitFirst=false;
 
 				return true;
 			}
@@ -155,10 +153,10 @@
 
 				//echo '<pre>Normal</pre>';
 				$this->setConIDAct();
+				$this->form->setIDSuffix($this->contador);
 			
 				include $this->dir.$this->steps[$this->stepDesp->indexRecN($this->stepDesp->actual)];
 
-				echo $this->form->getHTML();
 				++$this->contador;
 
 				return true;
@@ -172,6 +170,8 @@
 			{
 				++$j;
 			}
+
+			return $this;
 		}
 	}
 ?>

@@ -12,6 +12,7 @@
 			);
 
 			$this->setValue('Continuar');
+			$this->setName('Continuar');
 		}
 	}
 ?>

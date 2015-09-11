@@ -8,7 +8,6 @@
 
 		public function checks()
 		{
-			
 			if
 			(
 				isset($_SESSION['form'])	&&
@@ -17,7 +16,7 @@
 				isset($_SESSION['accion'])
 			)
 			{
-				if(isset($_POST['Aceptar']) || $_SESSION['accion']==='elimina')
+				if(isset($_POST['Continuar']) || $_SESSION['accion']==='elimina')
 				{
 					//echo '<pre>Eureka, rellenaron un form para acá';echo '</pre>';
 					//Se rellenó el formulario correspondiente.

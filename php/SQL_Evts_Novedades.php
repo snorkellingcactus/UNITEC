@@ -1,25 +1,27 @@
 <?php
-	include_once $_SERVER['DOCUMENT_ROOT'] . '//php/SQL_Evts_List.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/SQL_Evts_List.php';
 
 	class SQL_Evts_Novedades implements SQL_Evts_List
 	{
 		public function edita()
 		{
-/*
+		/*
 			echo '<pre>SESSION:';
 			print_r($_SESSION);
 			echo '</pre>';
 			echo '<pre>POST:';
 			print_r($_POST);
 			echo '</pre>';
-*/
-			include_once $_SERVER['DOCUMENT_ROOT'] . '//php/Novedad.php';
-			include_once $_SERVER['DOCUMENT_ROOT'] . '//php/updTraduccion.php';
+		*/
+
+			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/Novedad.php';
+			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/updTraduccion.php';
 
 			$nNov=new Novedad();
 			$iMax=count($_SESSION['conID']);
 			$afectadosLen=0;
 			$afectados=[];
+
 
 			for($i=0;$i<$iMax;$i++)
 			{
@@ -36,7 +38,7 @@
 
 				updTraduccion
 				(
-					$_POST['Descripcion'][$i]
+					$_POST['Contenido'][$i]
 					,
 					$nNov->DescripcionID,
 					$_SESSION['lang']
@@ -55,7 +57,7 @@
 			print_r($_SESSION);
 			echo '</pre>';
 			echo '<pre>POST:';
-			echo $_POST['Descripcion'][0];
+			echo $_POST['Contenido'][0];
 			echo '</pre>';
 */
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/Foranea.php';
@@ -78,7 +80,7 @@
 				(
 					nTraduccion
 					(
-						$_POST['Descripcion'][$i]
+						$_POST['Contenido'][$i]
 						,
 						$_SESSION['lang']
 					),

@@ -1,8 +1,8 @@
 <?php
 	function reordena($lugar , $sqlObj , $condicion , $discProp, $valProp ,$edita)
 	{
-		$prefijo=$lugar[0];
-		$pOrden=intVal(substr($lugar , 1));
+		$prefijo=$lugar[0][0];
+		$pOrden=$lugar[0];
 
 		include_once $_SERVER['DOCUMENT_ROOT'] . '/php/conexion.php';
 		global $con;
@@ -97,6 +97,16 @@
 				$pOrden++;
 			}
 		}
+		else
+		{
+			$coleccionLen=count($coleccion);
+			$i=0;
+			while($i<$coleccionLen && $pOrden!==$coleccion[$i][$discProp])
+			{
+				++$i;
+			}
+			$pOrden=$i;
+		}
 		$inc=1;
 		$j=$pOrden;
 		$sMax=$desde;
@@ -116,7 +126,7 @@
 //		echo '<pre>Hasta:'.$pOrden.'</pre>';
 		if($pOrden===count($coleccion))
 		{
-//			echo '<pre>';print_r($j.' < '.$sMax);echo '</pre>';
+			echo '<pre>';print_r($j.' < '.$sMax);echo '</pre>';
 
 			return $coleccion[$pOrden-1]['Prioridad'];
 		}
@@ -130,7 +140,7 @@
 			$nID=$coleccion[$j][$discProp];
 
 			$consulta='update '.$sqlObj->table.' set Prioridad='.(intVal($coleccion[$j]['Prioridad'])+$inc).' where '.$discProp.'='.$nID;
-//			echo '<pre>';print_r($consulta);echo '</pre>';
+			echo '<pre>';print_r($consulta);echo '</pre>';
 
 			$con->query($consulta);
 

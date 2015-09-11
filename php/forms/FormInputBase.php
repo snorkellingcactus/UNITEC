@@ -55,7 +55,7 @@
 			$multi='';
 			if($this->multi)
 			{
-				$multi='[]';
+				$multi='['.$this->parentForm->idSuffix.']';
 			}
 			return $this->setAttribute('name',$name.$multi);
 		}
