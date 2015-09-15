@@ -46,9 +46,9 @@ start_session_if_not();
 		$formGalRecv=new FormCliRecv('Gal');
 		$formGalRecv->SQL_Evts=new SQL_Evts_Imagenes();
 
-		$formGal=new FormCliBuilder('Gal' , 30);
-
 		$formGalRecv->checks();
+
+		$formGal=new FormCliBuilder('Gal' , 30);
 
 		$formGal->buildActionForm();
 	}

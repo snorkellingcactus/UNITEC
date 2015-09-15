@@ -8,7 +8,16 @@
 
 		public function __construct()
 		{
-			parent::__construct();
+			call_user_func_array
+			(
+				array
+				(
+					'parent',
+					'__construct'
+				),
+				func_get_args()
+			);
+
 			
 			$this->SQL_Evts=false;
 		}
@@ -28,7 +37,7 @@
 					//echo '<pre>Eureka, rellenaron un form para acá';echo '</pre>';
 					//Se rellenó el formulario correspondiente.
 					//Includes generales.
-					if(!$this->SQL_Evts!==false)
+					if($this->SQL_Evts!==false)
 					{
 						$this->afectados=$this->SQL_Evts->$_SESSION['accion']();
 					}
