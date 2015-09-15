@@ -74,6 +74,8 @@
 		{
 			//echo '<pre>FormSelectOrden::renderChilds()</pre>';
 			$bottom=new FormSelectOrdenEmptyOption('' , $this->prefixBottom);
+			//Revisar
+			$bottom->setTagValue('Abajo de todo');
 			if($this->selectNext)
 			{
 				$bottom->setSelected();
@@ -92,6 +94,7 @@
 				return $this;
 			}
 			$option->fill->classList->add($this->classLleno);
+			$option->fill->setAttribute('disabled' , 'disabled');
 
 			parent::addOption($option);
 

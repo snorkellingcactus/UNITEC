@@ -211,8 +211,21 @@ body input[type="checkbox"].semitrans{float:right;}
 form hr{margin-top:70px;}
 
 select.orden{height:auto;margin-bottom:20px;}
-select.orden option{height:2em;text-align:center;background-color:#F0F8FF;}
-select.orden .lleno{cursor:default;pointer-events:none;background-color:#82C5F5;}
+select.orden option
+{
+	height:2em;
+	text-align:center;
+	background-color:#F0F8FF;
+	/* Revisar */
+	color:transparent;
+}
+select.orden .lleno
+{
+	cursor:default;
+	pointer-events:none;
+	background-color:#82C5F5;
+	color:black;
+}
 
 
 section form.accionesSec , section form.accionesCon, section form.nCon{float:left;}

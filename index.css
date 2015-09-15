@@ -77,10 +77,12 @@ main.col-lg-10,main.col-md-10,main.col-sm-10,main.col-xs-12
 	-webkit-animation-name:main;
 	-webkit-animation-duration:1s;
 }
+/* ¿Porqué estaba?
 main ul, main ol
 {
 	margin-left:15px;
 }
+*/
 .contenido, .modulo
 {
 	clear:both;
