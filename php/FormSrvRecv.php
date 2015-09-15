@@ -17,7 +17,7 @@
 			}
 			$this->referrer=$_SESSION['referer'];
 
-			if(!isset($_SESSION['form']))
+			if(!isset($_SESSION['form']) || isset($_POST['form']))
 			{
 				$_SESSION['form']=$_POST['form'];
 			}

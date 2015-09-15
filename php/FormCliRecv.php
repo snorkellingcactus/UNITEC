@@ -6,6 +6,13 @@
 		public $SQL_Evts;
 		public $afectados;
 
+		public function __construct()
+		{
+			parent::__construct();
+			
+			$this->SQL_Evts=false;
+		}
+
 		public function checks()
 		{
 			if
@@ -21,8 +28,10 @@
 					//echo '<pre>Eureka, rellenaron un form para acá';echo '</pre>';
 					//Se rellenó el formulario correspondiente.
 					//Includes generales.
-
-					$this->afectados=$this->SQL_Evts->$_SESSION['accion']();
+					if(!$this->SQL_Evts!==false)
+					{
+						$this->afectados=$this->SQL_Evts->$_SESSION['accion']();
+					}
 /*
 					echo '<pre>Afectados:';
 					print_r($this->afectados);

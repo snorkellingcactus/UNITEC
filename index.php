@@ -408,10 +408,21 @@ $lang=fetch_all
 		<footer class="header">
 			<div class="contenedor footer">
 				<?php
+					include_once $_SERVER['DOCUMENT_ROOT'] . '/php/FormCliRecv.php';
+
 					$contacto=new Include_Context($_SERVER['DOCUMENT_ROOT'] . '/seccs/contacto.php');
 					$contacto->getContent();
+
+					$formSecRecv=new FormCliRecv('Mail');
+					$formSecRecv->SQL_Evts=false;
+					$formSecRecv->checks();
+
 					$mapa=new Include_Context($_SERVER['DOCUMENT_ROOT'] . '/seccs/mapa.php');
 					$mapa->getContent();
+
+					$formSecRecv=new FormCliRecv('Maps');
+					$formSecRecv->SQL_Evts=false;
+					$formSecRecv->checks();
 				?>
 				<div class="clearfix"></div>
 				<small>Powered by Bootstrap</small>

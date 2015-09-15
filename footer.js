@@ -30,6 +30,7 @@ function inicializaGMaps()
   volver=rutas.getElementsByTagName('button')[0];
 
   volver.style.width='100%';
+  volver.style.display='block';
   initialMapDiagHidden(rutas);
   initialMapDiagShowed(form);
 

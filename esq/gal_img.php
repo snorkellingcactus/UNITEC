@@ -29,6 +29,7 @@
 	<a href="imagenes.php?vRecID=<?php echo $this->ID ?>" target="_blank">
 		<p>
 			<?php echo $this->TituloCon ?>
+			<span class="offscreen"> (se abre en nueva ventana)</span>
 		</p>
 		<img class="Absolute-Center" src="<?php echo $this->Url ?>" alt="<?php echo $this->AltCon ?>"/>
 	</a>

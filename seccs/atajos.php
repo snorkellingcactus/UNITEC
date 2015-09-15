@@ -49,28 +49,34 @@
 	);
 ?>
 <div>
-	<table class="table atajos" >
-		<?php
-			$iMax=count($atajos);
-			for($i=0;$i<$iMax;$i++)
-			{
-				$atajo=$atajos[$i];
-				?>
-					<tr>
-						<td>
-							<b>
-								<?php echo getTraduccion($atajo['ContenidoID'],$_SESSION['lang']); ?>
-							</b>
-						</td>
-						<td>
-							<?php echo $accesStr ?>
-							<span class="atajo">
-								<?php echo $atajo['Atajo']?>
-							</span>
-						</td>
-					</tr>
-				<?php
-			}
-		?>
+	<table class="table atajos" summary="Atajos de teclado">
+		<thead>
+			<th>Sección</th>
+			<th>Teclas</th>
+		</thead>
+		<tbody>
+			<?php
+				$iMax=count($atajos);
+				for($i=0;$i<$iMax;$i++)
+				{
+					$atajo=$atajos[$i];
+					?>
+						<tr>
+							<td scope="col">
+								<b>
+									<?php echo getTraduccion($atajo['ContenidoID'],$_SESSION['lang']); ?>
+								</b>
+							</td>
+							<td scope="col">
+								<?php echo $accesStr ?>
+								<span class="atajo">
+									<?php echo $atajo['Atajo']?>
+								</span>
+							</td>
+						</tr>
+					<?php
+				}
+			?>
+		</tbody>
 	</table>
 </div>

@@ -2,8 +2,10 @@
 <?php
 include_once $_SERVER['DOCUMENT_ROOT'] . '/php/is_session_started.php';
 start_session_if_not();
-if(isset($_SESSION['adminID']))
+if(!isset($_SESSION['adminID']))
 {
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/conexion.php';
+}
 	include $_SERVER['DOCUMENT_ROOT'] . '/php/FormSrvBuilder.php';
 
 	$formHandler=new FormSrvBuilder();
@@ -37,5 +39,5 @@ if(isset($_SESSION['adminID']))
 			</body>
 		</html>
 	<?php
-}
+
 ?>

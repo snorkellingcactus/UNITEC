@@ -1,4 +1,4 @@
-<table>
+<table summary="Calendario de <?php echo $this->fecha['month'] ?> de <?php echo $this->fecha['year']?>">
 	<thead>
 		<tr>
 			<?php $esq->genTheadTrThMes(); ?>

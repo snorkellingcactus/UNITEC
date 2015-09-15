@@ -120,6 +120,16 @@ section .target, section:target
 	-webkit-animation-name:allAnchor;
 	-webkit-animation-duration:1s;
 }
+/*
+http://accessibility.oit.ncsu.edu/blog/2012/01/12/accessible-read-more-links/
+*/
+.offscreen {
+position:absolute;
+left:-999px;
+width:1px;
+height:1px;
+top:auto;
+}
 @keyframes sectionBackground
 {
 	from
