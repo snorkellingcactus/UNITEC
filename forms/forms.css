@@ -10,7 +10,7 @@
 		width:100%;
 	}
 }
-body input ,body select{font-size:1em;color:black;font-family:monospace;text-align:center}
+body input ,body select{font-size:1em;height:1.7em;color:black;font-family:monospace;text-align:center}
 
 .fin{margin:50px 0px 50px 0px;border-bottom:2px solid dimgray;}
 
@@ -75,6 +75,7 @@ section:hover .clearfix form .acciones, .modulo:hover .acciones input[type="subm
 	line-height:1em;
 	font-weight:bold;
 	height:auto;
+	animation-name:none;
 }
 .menu #accionesMenu .acciones{width:100%}
 input,form a , button, textarea, select{box-shadow:0px 0px 3px black;border-radius:3px;border:none;}
@@ -82,7 +83,7 @@ button,form a{background-color:silver;font-family:sans-serif;vertical-align:midd
 textarea{height:auto}
 
 input[type="radio"]{max-height:1em;}
-input[type="submit"]{font-family:"Monospace";padding:0px 5px 0px 5px;vertical-align: top;height:19px}
+input[type="submit"]{font-family:"Monospace";padding:0px 5px 0px 5px;vertical-align: top;height:1.7em}
 input , textarea, select,main>.right input[type="submit"]
 {
 	-moz-transition:background-color 0.5s;
@@ -90,9 +91,11 @@ input , textarea, select,main>.right input[type="submit"]
 	transition:background-color 0.5s;
 	background-color:#F0F8FF;
 	font-family:Monospace;
+	animation-name:none;
 }
 .sep , .acciones ,input.semitrans , .menu:hover li .acciones{opacity:0.2;transition:opacity 0.8s;margin:0px;}
 .tresem input{opacity:1;}
+
 main>.right .acciones,main>.right input[type="submit"]
 {
 	background-image:none;
@@ -108,10 +111,37 @@ main>.right .acciones:hover,main>.right input[type="submit"]:hover
 }
 body main>form.right{clear:both;margin-bottom:20px;position:static;float:none;}
 body main>form.right input{width:100%;text-align:center;padding:0px;margin:0px;font-size:1.3em;}
-input[name="nuevo"]{background-image:url("/img/10.png");}
-input[name="elimina"]{background-image:url("/img/51.png")}
-input[name="edita"]{background-image:url("/img/39.png")}
-input[name="elimina"],input[name="edita"],input[name="nuevo"]{background-repeat:no-repeat;background-position: center;color:transparent;}
+main input.nuevo{background-image:url("/img/10.png")}
+input.elimina{background-image:url("/img/51.png")}
+input.edita{background-image:url("/img/39.png")}
+input.elimina,input.edita,main input.nuevo
+{
+	background-color:transparent;
+	background-repeat:no-repeat;
+	background-position:center;
+	color:transparent;
+	max-width: 30px;
+	height: 1.7em;
+	margin:0.05em 3px 0.05em 3px;
+}
+main section input.nuevo:hover, main section input.nuevo:focus
+{
+	background-image:url("/img/10.png") , linear-gradient(to right bottom, #FFF, #EAEAEA)
+}
+input.elimina:hover, input.elimina:focus
+{
+	background-image:url("/img/51.png") , linear-gradient(to right bottom, #FFF, #EAEAEA)
+}
+input.edita:hover, input.edita:focus
+{
+	background-image:url("/img/39.png") , linear-gradient(to right bottom, #FFF, #EAEAEA)
+}
+input.elimina:hover,input.edita:hover,main section input.nuevo:hover , input.elimina:focus,input.edita:focus, main section input.nuevo:focus
+{
+	border:1px solid rgb(144, 144, 144);
+	animation-name:inputHover;
+	animation-duration:0.2s;
+}
 input[value="Continuar"], input[value="Volver"]{width:47%;float:left;margin:25px 0px 25px 0px;}
 input[value="Volver"]{float:right;}
 
@@ -121,7 +151,7 @@ input[value="Continuar"].col-lg-12
 	float:right;
 }
 
-input:hover ,input:focus, textarea:hover, textarea:focus ,select:hover, select:focus
+input:hover ,input:focus, textarea:hover, textarea:focus ,select:hover, select:focus, .MSGBox
 {
 	background-color:#71BEFF;
 }
@@ -148,6 +178,17 @@ div.LabelBoxDate{padding:0px 5px 0px 5px}
 div.FormDateCont{padding-left:0px;padding-right: 0px}
 div.TituloBox{display:block;}
 div.TituloBox label{text-align: center;display:block;}
+h1.MSGBox
+{
+	color: #ECECEC;
+	font-size: 2em;
+	border-radius: 3px;
+	border: 1px solid #9B9B9B;
+	background: transparent linear-gradient(to right bottom, #7A7A7A, #656262) repeat scroll 0% 0%;
+	margin: 3px;
+	box-shadow: 0px 0px 5px #8F8F8F inset;
+	padding: 20px;
+}
 
 .FormDateCont div.LabelBoxDate:last-of-type{padding-right:0px;}
 .FormDateCont div.LabelBoxDate:first-of-type{padding-left:0px;}
@@ -166,7 +207,7 @@ input[value="Continuar"], input[value="Volver"]{height:40px}
 .cacho label{color:black;}
 .cacho .clearfix{margin-bottom:0px;}
 body input[type="checkbox"].semitrans{float:right;}
-.nuevo{width:90%;margin-left:5%;padding-top:50px}
+.Form{width:90%;margin-left:5%;padding-top:50px}
 form hr{margin-top:70px;}
 
 select.orden{height:auto;margin-bottom:20px;}
@@ -182,6 +223,8 @@ div.label
 {
 	position:relative;
 	display:block;
+	font-size:1em;
+	font-weight: normal
 }
 .label label.compacto
 {
@@ -216,5 +259,20 @@ body .comentario input[type="checkbox"]
 	to
 	{
 		background-color:transparent
+	}
+}
+@keyframes inputHover
+{
+	from
+	{
+		margin:0em 0px 0em 0px;
+		height:1.8em;
+		max-width:36px;
+	}
+	to
+	{
+		margin:0.05em 3px 0.05em 3px;
+		height:1.7em;
+		max-width: 30px;
 	}
 }

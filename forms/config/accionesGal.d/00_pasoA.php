@@ -2,20 +2,19 @@
 	//echo '<pre>Paso A</pre>';
 	if(isset($_POST['conID']))
 	{
-		$this->cantidad=count($_POST['conID']);
+		$this->form->cantidad=count($_POST['conID']);
 	}
 
-	//$this->form->ancla='#nEvt';
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/ClearFix.php';
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormLabelTitulo.php';
-	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormLabelFecha.php';
-	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormLabelVisible.php';
-	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormLabelDescripcion.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormLabelUrlNov.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormLabelAlt.php';
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormLabelPrioridad.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormLabelVisible.php';
 
 	$titulo=new FormLabelTitulo($this->form);
-	$fecha=new FormLabelFecha($this->form);
-	$descripcion=new FormLabelDescripcion($this->form);
+	$archivo=new FormLabelUrlNov($this->form);
+	$alt=new FormLabelAlt($this->form);
 	$visible=new FormLabelVisible($this->form);
 	$prioridad=new FormLabelPrioridad($this->form);
 
@@ -23,60 +22,48 @@
 	{
 		include_once $_SERVER['DOCUMENT_ROOT'] . '/php/conexion.php';
 		include_once $_SERVER['DOCUMENT_ROOT'] . '/php/getTraduccion.php';
+		global $con;
 
-		$evento=fetch_all
+		$imagen=fetch_all
 		(
 			$con->query
 			(
 				'	SELECT * 
-					FROM Eventos 
-					WHERE DescripcionID='.$_POST['conID'][$this->contador]
+					FROM Imagenes 
+					WHERE TituloID='.$_POST['conID'][$this->contador]
 			),
 			MYSQLI_ASSOC
 		)[0];
 
-		$visible->selectedValue=$evento['Visible'];
-		$prioridad->input->setValue($evento['Prioridad']);
+		$archivo->inputUrl->setValue($imagen['Url']);
+		$visible->selectedValue=$imagen['Visible'];
+		//$this->form->autocomp['Prioridad']=$imagen['Prioridad'];
+		$alt->input->setValue
+		(
+			getTraduccion
+			(
+				$imagen['AltID'],
+				$_SESSION['lang']
+			)
+		);
 		$titulo->input->setValue
 		(
 			getTraduccion
 			(
-				$evento['NombreID'],
+				$imagen['TituloID'],
 				$_SESSION['lang']
 			)
 		);
-		echo '<pre>Fecha consultada:';
-		print_r($evento['Tiempo']);
-		echo '</pre>';
-
-		$fechaEvento=new DateTime($evento['Tiempo']);
-
-		$fecha->inputAno->input->setValue($fechaEvento->format('Y'));
-		$fecha->inputMes->input->setValue($fechaEvento->format('m'));
-		$fecha->inputDia->input->setValue($fechaEvento->format('d'));
-		$fecha->inputHora->input->setValue($fechaEvento->format('H'));
-		$fecha->inputMin->input->setValue($fechaEvento->format('i'));
-
-		//$this->form->autocomp['Fecha']=$evento['Tiempo'];
-		$descripcion->input->setValue
-		(
-			getTraduccion
-			(
-				$evento['DescripcionID'],
-				$_SESSION['lang']
-			)
-		);
-
-		//echo '<pre>Evento:';print_r($evento);echo '</pre>';
 	}
 
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormContinuar.php';
+
 	$continuar=new FormContinuar($this->form);
 
 	$this->form->appendChild($titulo)
-	->appendChild($descripcion)
+	->appendChild($alt)
 	->appendChild($visible)
-	->appendChild($fecha)
+	->appendChild($archivo)
 	->appendChild($prioridad)
 	->appendChild($continuar)->setAction($this->getNextStepUrl());
 

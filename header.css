@@ -4,11 +4,19 @@
 	{
 		padding-left:15.45%;
 	}
+	footer.header .label label
+	{
+		text-align:left;
+	}
 }
 @media screen and (max-width:768px){
 	footer.header
 	{
 		padding:0px;
+	}
+	footer.header .label label
+	{
+		text-align:center;
 	}
 }
 .contenedor
@@ -44,10 +52,6 @@ footer.header .label
 {
 	padding:0px;
 }
-footer.header .label label
-{
-	text-align:left;
-}
 footer.header h1
 {
 	color:#E9E9E9;
@@ -61,7 +65,6 @@ footer.header textarea
 }
 footer.header input, footer.header textarea
 {
-	min-height:2em;
 	padding:0px;
 }
 footer.header .social a

@@ -10,7 +10,7 @@
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/conexion.php';
 	global $con;
 
-	if($this->form->srvBuilder->getAction()===0)
+	if($this->getAction()===0)
 	{
 		$visible->input->default=intVal
 		(
@@ -48,7 +48,7 @@
 		$aaMenu=new FormLabelAAlMenu($this->form);
 		$atajo=new FormLabelAtajo($this->form);
 
-		if($this->form->srvBuilder->getAction()===0)
+		if($this->getAction()===0)
 		{
 			$titulo->input->setValue
 			(
@@ -111,7 +111,7 @@
 
 		$this->form->appendChild
 		(
-			new VariablePost('conID' , $_SESSION['conID'])
+			new VariablePost($this->form , 'conID' , $_SESSION['conID'])
 		);
 
 		if($_SESSION['accion']==='nuevo')
@@ -142,7 +142,7 @@
 
 		$contenido=new FormLabelContenido($this->form);
 
-		if($this->form->srvBuilder->getAction()===0)
+		if($this->getAction()===0)
 		{
 			$contenido->input->setValue
 			(
@@ -171,7 +171,7 @@
 
 		$modulos=new FormLabelModulo($this->form);
 
-		if($this->form->srvBuilder->getAction()===0)
+		if($this->getAction()===0)
 		{
 			$modulos->input->selectedValue=fetch_all
 			(
@@ -204,6 +204,7 @@
 		(
 			new VariablePost
 			(
+				$this->form,
 				'conID',
 				$_SESSION['conID']
 			)
@@ -213,7 +214,7 @@
 		);
 	}
 
-	if($this->form->srvBuilder->getAction()===0)
+	if($this->getAction()===0)
 	{
 		$selectLugar->input->selectedValue=$_SESSION['conID'];
 	}

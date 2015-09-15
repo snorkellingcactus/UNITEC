@@ -21,7 +21,25 @@ body{background:rgba(0,0,0,0.9)}
 }
 .flecha a {display:table-cell;vertical-align: middle}
 .imgCont{width:100%;text-align:center;position:relative;}
-.imgCont img{max-width:80%}
+.imgCont img
+{
+	max-width:80%;
+	animation-name:imgAparece;
+	animation-duration:1s;
+	display: block;
+	top: 0;
+	right: 0;
+	left:0;
+	margin: auto;
+	position:relative;
+	height:70vh;
+}
+.imgCont img.anterior
+{
+	opacity:0;
+	animation-name:imgEsconde;
+	position:absolute;
+}
 h2,h1
 {
 	text-align:center;
@@ -164,4 +182,54 @@ p.sangria::first-letter
 	color:#F5F5F5;
 	text-transform:uppercase;
 	text-shadow:0px 0px 2px black;
+}
+.selector
+{
+	background-color:gray;
+	overflow: hidden;
+	margin:1vh;
+	padding:10px;
+	border-radius:3px;
+	box-shadow:0px 0px 3px  #888;
+}
+.selector a
+{
+	display: block;
+	top: 0;
+	right: 0;
+	left:0;
+	margin: auto;
+	position:relative;
+}
+.selector img
+{
+	width:24vh;
+	height:18vh;
+}
+
+@keyframes imgAparece
+{
+	from
+	{
+		opacity:0;
+		position:absolute;
+	}
+	to
+	{
+		opacity:1;
+		position:relative;
+	}
+}
+@keyframes imgEsconde
+{
+	from
+	{
+		opacity:1;
+		position:relative;
+	}
+	to
+	{
+		position:absolute;
+		opacity:0;
+	}
 }

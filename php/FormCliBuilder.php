@@ -103,8 +103,8 @@
 									<?php
 								}
 							?>
-							<input type="submit" name="elimina" value="Eliminar">
-							<input type="submit" name="edita" value="Editar">
+							<input type="submit" name="elimina" class="elimina" value="Eliminar">
+							<input type="submit" name="edita" class="edita" value="Editar">
 						</p>
 					<?php
 				}
@@ -166,7 +166,7 @@
 								$submitTxt='+';
 							}
 						?>
-						<input type="submit" name="nuevo" value="<?php echo $submitTxt?>">
+						<input type="submit" name="nuevo" class="nuevo" value="<?php echo $submitTxt?>">
 					</p>
 				<?php 
 				} 

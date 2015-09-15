@@ -11,6 +11,7 @@
 	}
 	#gmapsDiag,#map-canvas{width:100%;min-height:200px;}
 	#gmapsDiag{padding-top:25px;}
+	footer label{text-align: center}
 	#gmapsDiag form,#panel_ruta
 	{
 		top:25px;
@@ -81,6 +82,10 @@
 }
 #panel_ruta button
 {
+	background-color:#F0F8FF;
+	color:black;
+	min-height: 1.7em;
+	width:100%;
 	display:none;
 }
 .aparece

@@ -41,10 +41,6 @@
 				$this->padre->removeAttribute('class');
 				return $this;
 			}
-			else
-			{
-				return $this->applyAttrLst();
-			}
 		}
 		function get()
 		{

@@ -14,7 +14,17 @@ function inicializaGMaps()
     scrollwheel:false
   };
 
-  map = new google.maps.Map( document.getElementById('map-canvas') , mapOptions );
+  imagenMapa=document.getElementById('map-canvas');
+  padreMapa=imagenMapa.parentNode
+
+  padreMapa.removeChild(imagenMapa);
+
+  imagenMapa=document.createElement('div');
+  imagenMapa.setAttribute('id' , 'map-canvas');
+
+  padreMapa.appendChild(imagenMapa);
+
+  map = new google.maps.Map( imagenMapa , mapOptions );
   form=document.getElementById('gmapsDiag').getElementsByTagName('form')[0];
   rutas=document.getElementById('panel_ruta');
   volver=rutas.getElementsByTagName('button')[0];

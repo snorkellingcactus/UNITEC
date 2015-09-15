@@ -10,7 +10,7 @@
 		{
 			parent::__construct('form');
 
-			$this->classList->add('nuevo')->add('tresem');
+			$this->classList->add('Form')->add('tresem');
 
 			$this->srvBuilder=$srvBuilder;
 			$this->setMethod('POST')->setEnctype('multipart/form-data');

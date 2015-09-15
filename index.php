@@ -413,6 +413,7 @@ $lang=fetch_all
 					$mapa=new Include_Context($_SERVER['DOCUMENT_ROOT'] . '/seccs/mapa.php');
 					$mapa->getContent();
 				?>
+				<div class="clearfix"></div>
 				<small>Powered by Bootstrap</small>
 				<script type="text/javascript" src="footer.js"></script>
 			</div>

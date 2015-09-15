@@ -1,9 +1,9 @@
 <?php
-	include_once $_SERVER['DOCUMENT_ROOT'] . '//php/SQL_Evts_List.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/SQL_Evts_List.php';
 
 	class SQL_Evts_Imagenes implements SQL_Evts_List
 	{
-		//$_FILES['Url_Archivo']['name'][$i]
+		//$_FILES['File']['name'][$i]
 		//
 		public function mkUrlArchivo($img , $name , $tmpName)
 		{
@@ -90,8 +90,8 @@
 				$this->mkUrlArchivo
 				(
 					$nImg ,
-					$_FILES['Url_Archivo']['name'][$i],
-					$_FILES['Url_Archivo']['tmp_name'][$i]
+					$_FILES['File']['name'][$i],
+					$_FILES['File']['tmp_name'][$i]
 				);
 
 				$afectados[$afectadosLen]=$nImg->ID;
@@ -147,8 +147,8 @@
 				$this->mkUrlArchivo
 				(
 					$img ,
-					$_FILES['Url_Archivo']['name'][$i],
-					$_FILES['Url_Archivo']['tmp_name'][$i]
+					$_FILES['File']['name'][$i],
+					$_FILES['File']['tmp_name'][$i]
 				);
 
 				$afectados[$afectadosLen]=$img->ID;

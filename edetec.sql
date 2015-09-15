@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.4.3
+-- version 4.1.12
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 20-06-2015 a las 19:06:36
--- Versión del servidor: 5.6.24
--- Versión de PHP: 5.6.8
+-- Tiempo de generación: 14-09-2015 a las 19:15:59
+-- Versión del servidor: 5.6.16
+-- Versión de PHP: 5.5.11
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -27,14 +27,18 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE IF NOT EXISTS `Comentarios` (
-  `ID` int(11) NOT NULL,
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
   `ContenidoID` int(11) DEFAULT NULL,
   `RaizID` int(11) NOT NULL,
   `PadreID` int(11) DEFAULT NULL,
   `Fecha` datetime NOT NULL,
   `Baneado` bit(1) NOT NULL,
-  `Nombre` varchar(128) COLLATE utf8_unicode_ci DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `Nombre` varchar(128) COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`ID`),
+  KEY `Comentarios_ibfk_3` (`ContenidoID`),
+  KEY `Comentarios_ibfk_2` (`RaizID`),
+  KEY `Comentarios_ibfk_4` (`PadreID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=49 ;
 
 --
 -- Volcado de datos para la tabla `Comentarios`
@@ -55,8 +59,9 @@ INSERT INTO `Comentarios` (`ID`, `ContenidoID`, `RaizID`, `PadreID`, `Fecha`, `B
 --
 
 CREATE TABLE IF NOT EXISTS `Contenidos` (
-  `ID` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=500 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=576 ;
 
 --
 -- Volcado de datos para la tabla `Contenidos`
@@ -287,9 +292,45 @@ INSERT INTO `Contenidos` (`ID`) VALUES
 (494),
 (495),
 (496),
-(497),
 (498),
-(499);
+(499),
+(500),
+(501),
+(504),
+(505),
+(507),
+(540),
+(541),
+(545),
+(546),
+(547),
+(548),
+(549),
+(550),
+(551),
+(552),
+(553),
+(554),
+(555),
+(556),
+(557),
+(558),
+(559),
+(560),
+(561),
+(562),
+(563),
+(564),
+(565),
+(567),
+(568),
+(569),
+(570),
+(571),
+(572),
+(573),
+(574),
+(575);
 
 -- --------------------------------------------------------
 
@@ -298,20 +339,24 @@ INSERT INTO `Contenidos` (`ID`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `Eventos` (
-  `ID` int(11) NOT NULL,
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
   `Tiempo` datetime NOT NULL,
   `NombreID` int(11) NOT NULL,
   `DescripcionID` int(11) DEFAULT NULL,
   `Visible` tinyint(1) NOT NULL DEFAULT '1',
-  `Prioridad` int(11) NOT NULL DEFAULT '1'
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `Prioridad` int(11) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`ID`),
+  KEY `Eventos_ibfk_1` (`DescripcionID`),
+  KEY `NombreID` (`NombreID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=4 ;
 
 --
 -- Volcado de datos para la tabla `Eventos`
 --
 
 INSERT INTO `Eventos` (`ID`, `Tiempo`, `NombreID`, `DescripcionID`, `Visible`, `Prioridad`) VALUES
-(2, '2015-06-15 17:30:00', 436, 435, 1, 0);
+(2, '0000-00-00 00:00:00', 436, 435, 0, 0),
+(3, '2015-09-11 12:00:00', 547, 546, 0, 20);
 
 -- --------------------------------------------------------
 
@@ -320,26 +365,29 @@ INSERT INTO `Eventos` (`ID`, `Tiempo`, `NombreID`, `DescripcionID`, `Visible`, `
 --
 
 CREATE TABLE IF NOT EXISTS `Imagenes` (
-  `ID` int(11) NOT NULL,
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
   `Url` varchar(512) COLLATE utf8_unicode_ci DEFAULT NULL,
   `AltID` int(11) DEFAULT NULL,
   `TituloID` int(11) NOT NULL,
   `LenguajeID` int(11) DEFAULT NULL,
   `Visible` tinyint(1) NOT NULL DEFAULT '1',
-  `Prioridad` int(11) NOT NULL DEFAULT '1'
-) ENGINE=InnoDB AUTO_INCREMENT=62 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `Prioridad` int(11) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`ID`),
+  KEY `LenguajeID` (`LenguajeID`),
+  KEY `Imagenes_ibfk_1` (`TituloID`),
+  KEY `AltID` (`AltID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=69 ;
 
 --
 -- Volcado de datos para la tabla `Imagenes`
 --
 
 INSERT INTO `Imagenes` (`ID`, `Url`, `AltID`, `TituloID`, `LenguajeID`, `Visible`, `Prioridad`) VALUES
-(56, 'http://upload.wikimedia.org/wikipedia/commons/7/7a/Sapo_2.jpg', 399, 398, NULL, 1, 0),
-(57, 'http://www.fotonat.org/data/media/2/picaflor-negro_MG_6213.jpg', 401, 400, NULL, 1, 0),
-(58, 'http://socialgeek.co/wp-content/uploads/2013/04/tics.jpg', 403, 402, NULL, 1, 0),
-(59, 'http://www.avanzit-tecnologia.cl/imagenes/foto.png', 405, 404, NULL, 1, 0),
-(60, 'http://customersandstrategy.com/wp-content/uploads/2012/05/Photoxpress_3716439.jpg', 407, 406, NULL, 1, 0),
-(61, 'http://ninecon.com.br/es/upload/conteudo/BANNER_-_HOME_-_3_IMAGEM_-_PORTFOLIO3.jpg', 409, 408, NULL, 1, 0);
+(62, '62.png', 501, 500, NULL, 1, 0),
+(65, '65.jpg', 569, 568, NULL, 1, 1),
+(66, '66.jpg', 571, 570, NULL, 1, 0),
+(67, '67.jpeg', 573, 572, NULL, 1, 0),
+(68, '68.png', 575, 574, NULL, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -348,10 +396,11 @@ INSERT INTO `Imagenes` (`ID`, `Url`, `AltID`, `TituloID`, `LenguajeID`, `Visible
 --
 
 CREATE TABLE IF NOT EXISTS `Lenguajes` (
-  `ID` int(11) NOT NULL,
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
   `Nombre` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
-  `Pais` varchar(2) COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `Pais` varchar(2) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=4 ;
 
 --
 -- Volcado de datos para la tabla `Lenguajes`
@@ -359,7 +408,8 @@ CREATE TABLE IF NOT EXISTS `Lenguajes` (
 
 INSERT INTO `Lenguajes` (`ID`, `Nombre`, `Pais`) VALUES
 (1, 'Español', 'es'),
-(2, 'English', 'en');
+(2, 'English', 'en'),
+(3, 'Rusia', 'rs');
 
 -- --------------------------------------------------------
 
@@ -368,25 +418,27 @@ INSERT INTO `Lenguajes` (`ID`, `Nombre`, `Pais`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `Menu` (
-  `ID` int(11) NOT NULL,
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
   `ContenidoID` int(11) NOT NULL,
   `SeccionID` varchar(128) COLLATE utf8_unicode_ci DEFAULT NULL,
   `Url` varchar(256) COLLATE utf8_unicode_ci DEFAULT '#',
   `Atajo` varchar(1) COLLATE utf8_unicode_ci DEFAULT NULL,
   `Prioridad` int(11) DEFAULT NULL,
-  `Visible` tinyint(1) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `Visible` tinyint(1) DEFAULT NULL,
+  PRIMARY KEY (`ID`),
+  UNIQUE KEY `Atajo` (`Atajo`),
+  KEY `ContenidoID` (`ContenidoID`),
+  KEY `SeccionID` (`SeccionID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=9 ;
 
 --
 -- Volcado de datos para la tabla `Menu`
 --
 
 INSERT INTO `Menu` (`ID`, `ContenidoID`, `SeccionID`, `Url`, `Atajo`, `Prioridad`, `Visible`) VALUES
-(1, 491, 'Inicio', '#Inicio', 'I', 0, NULL),
 (2, 496, 'Galer&iacute;a', '#Galer%C3%ADa', 'G', 0, NULL),
-(3, 497, 'Novedades', '#Novedades', 'N', 0, NULL),
-(4, 498, 'Eventos', '#Eventos', 'E', 0, NULL),
-(5, 499, 'Contacto', '#Contacto', 'C', 0, NULL);
+(4, 498, 'Eventos', '#Eventos', 'E', 0, 0),
+(6, 505, 'Novedades', '#Novedades', 'N', -1, NULL);
 
 -- --------------------------------------------------------
 
@@ -395,12 +447,14 @@ INSERT INTO `Menu` (`ID`, `ContenidoID`, `SeccionID`, `Url`, `Atajo`, `Prioridad
 --
 
 CREATE TABLE IF NOT EXISTS `Modulos` (
-  `ID` int(11) NOT NULL,
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
   `Nombre` varchar(128) COLLATE utf8_unicode_ci DEFAULT NULL,
   `Archivo` varchar(256) COLLATE utf8_unicode_ci NOT NULL,
   `Descripcion` text COLLATE utf8_unicode_ci,
-  `PadreID` int(11) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `PadreID` int(11) DEFAULT NULL,
+  PRIMARY KEY (`ID`),
+  KEY `Padre` (`PadreID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=20 ;
 
 --
 -- Volcado de datos para la tabla `Modulos`
@@ -412,12 +466,8 @@ INSERT INTO `Modulos` (`ID`, `Nombre`, `Archivo`, `Descripcion`, `PadreID`) VALU
 (8, 'Calendario', 'seccs/calendario.php', NULL, NULL),
 (9, NULL, 'seccs/calendario.css', NULL, 8),
 (10, 'Atajos', 'seccs/atajos.php', NULL, NULL),
-(11, 'Mapa', 'seccs/mapa.php', NULL, NULL),
 (12, 'Novedades', 'seccs/novedades.php', NULL, NULL),
 (13, NULL, 'seccs/novedades.css', NULL, 12),
-(14, NULL, 'seccs/mapa.css', NULL, 11),
-(15, 'Contacto', 'seccs/contacto.php', 'Un formulario de contacto.', NULL),
-(16, NULL, 'seccs/contacto.css', NULL, 15),
 (17, 'Organigrama', 'seccs/organigrama.php', NULL, NULL),
 (18, NULL, 'seccs/organigrama.css', NULL, 17),
 (19, NULL, 'seccs/atajos.css', NULL, 10);
@@ -429,22 +479,25 @@ INSERT INTO `Modulos` (`ID`, `Nombre`, `Archivo`, `Descripcion`, `PadreID`) VALU
 --
 
 CREATE TABLE IF NOT EXISTS `Novedades` (
-  `ID` int(11) NOT NULL,
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
   `ImagenID` int(11) DEFAULT NULL,
   `TituloID` int(11) DEFAULT NULL,
   `DescripcionID` int(11) DEFAULT NULL,
   `Fecha` date NOT NULL,
   `Visible` tinyint(1) DEFAULT '1',
-  `Prioridad` int(11) DEFAULT '1'
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `Prioridad` int(11) DEFAULT '1',
+  PRIMARY KEY (`ID`),
+  KEY `Novedades_ibfk_1` (`ImagenID`),
+  KEY `Novedades_ibfk_2` (`TituloID`),
+  KEY `Novedades_ibfk_3` (`DescripcionID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=28 ;
 
 --
 -- Volcado de datos para la tabla `Novedades`
 --
 
 INSERT INTO `Novedades` (`ID`, `ImagenID`, `TituloID`, `DescripcionID`, `Fecha`, `Visible`, `Prioridad`) VALUES
-(21, 58, 417, 416, '2015-06-13', 1, 1),
-(22, 56, 428, 427, '2015-06-14', 1, 1);
+(26, 62, 563, 562, '2015-09-11', 0, 1);
 
 -- --------------------------------------------------------
 
@@ -453,12 +506,13 @@ INSERT INTO `Novedades` (`ID`, `ImagenID`, `TituloID`, `DescripcionID`, `Fecha`,
 --
 
 CREATE TABLE IF NOT EXISTS `Opciones` (
-  `ID` int(11) NOT NULL,
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
   `Dominio` varchar(256) COLLATE utf8_unicode_ci DEFAULT NULL,
   `Tipo` int(11) DEFAULT NULL,
   `Valor` varchar(256) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `Pred` varchar(256) COLLATE utf8_unicode_ci DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `Pred` varchar(256) COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -467,38 +521,36 @@ CREATE TABLE IF NOT EXISTS `Opciones` (
 --
 
 CREATE TABLE IF NOT EXISTS `Secciones` (
-  `ID` int(11) NOT NULL,
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
   `ContenidoID` int(11) DEFAULT NULL,
   `ModuloID` int(128) DEFAULT NULL,
   `PadreID` int(11) DEFAULT NULL,
   `HTMLID` varchar(128) COLLATE utf8_unicode_ci DEFAULT NULL,
   `Visible` tinyint(1) DEFAULT NULL,
-  `Prioridad` int(11) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=447 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `Prioridad` int(11) DEFAULT NULL,
+  PRIMARY KEY (`ID`),
+  UNIQUE KEY `HTMLID` (`HTMLID`),
+  KEY `ModuloID` (`ModuloID`),
+  KEY `Secciones_ibfk_1` (`ContenidoID`),
+  KEY `Secciones_ibfk_3` (`PadreID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=421 ;
 
 --
 -- Volcado de datos para la tabla `Secciones`
 --
 
 INSERT INTO `Secciones` (`ID`, `ContenidoID`, `ModuloID`, `PadreID`, `HTMLID`, `Visible`, `Prioridad`) VALUES
-(381, NULL, NULL, NULL, 'Eventos', 1, 10),
-(382, NULL, NULL, NULL, 'Galer&iacute;a', 1, 7),
-(384, 325, NULL, 382, NULL, 1, 3),
+(381, NULL, NULL, NULL, 'Eventos', 1, 9),
+(382, NULL, NULL, NULL, 'Galer&iacute;a', 0, 10),
+(384, 325, NULL, 382, NULL, 0, 6),
 (386, NULL, 8, 381, NULL, 1, 5),
-(391, NULL, NULL, NULL, 'Contacto', 1, 11),
-(392, NULL, 15, 391, NULL, 1, 5),
-(394, NULL, 1, 382, NULL, 1, 5),
-(396, NULL, NULL, NULL, 'Novedades', 1, 9),
-(397, 415, NULL, 396, NULL, 1, 1),
-(398, NULL, 12, 396, NULL, 1, 3),
-(400, 420, NULL, 391, NULL, 1, 1),
-(401, 421, NULL, 391, NULL, 1, 3),
-(402, NULL, NULL, NULL, 'Inicio', 1, 6),
-(405, NULL, 11, 391, NULL, 1, 8),
-(406, 424, NULL, 391, NULL, 1, 6),
-(412, NULL, 17, 402, NULL, 1, 6),
-(443, 489, NULL, 402, NULL, 1, 5),
-(446, NULL, 10, 402, NULL, 1, 4);
+(397, NULL, NULL, NULL, 'Novedades', 1, 10),
+(398, NULL, 12, 397, NULL, 1, 0),
+(400, NULL, NULL, NULL, NULL, 1, 10),
+(401, NULL, 10, 400, NULL, 1, 0),
+(402, NULL, NULL, NULL, NULL, 1, 10),
+(403, NULL, 17, 402, NULL, 1, 0),
+(420, NULL, 1, 382, NULL, 0, 6);
 
 -- --------------------------------------------------------
 
@@ -507,11 +559,14 @@ INSERT INTO `Secciones` (`ID`, `ContenidoID`, `ModuloID`, `PadreID`, `HTMLID`, `
 --
 
 CREATE TABLE IF NOT EXISTS `Traducciones` (
-  `ID` int(11) NOT NULL,
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
   `ContenidoID` int(11) NOT NULL,
   `LenguajeID` int(11) NOT NULL,
-  `Texto` text COLLATE utf8_unicode_ci
-) ENGINE=InnoDB AUTO_INCREMENT=602 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `Texto` text CHARACTER SET utf8,
+  PRIMARY KEY (`ID`),
+  KEY `LenguajeID` (`LenguajeID`),
+  KEY `Traducciones_ibfk_1` (`ContenidoID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=678 ;
 
 --
 -- Volcado de datos para la tabla `Traducciones`
@@ -674,7 +729,7 @@ INSERT INTO `Traducciones` (`ID`, `ContenidoID`, `LenguajeID`, `Texto`) VALUES
 (380, 320, 2, 'asxasxggg'),
 (381, 321, 2, 'Google'),
 (385, 325, 2, '         [center][size=200][b]Gallery[/b][/size][/center]'),
-(390, 325, 1, '         [center][size=200][b]GalerÃ­a[/b][/size][/center]   '),
+(390, 325, 1, '&lt;p&gt;&lt;strong&gt;Galera de mago de oz&lt;/strong&gt;&lt;/p&gt;\r\n'),
 (391, 328, 1, '         En este Ãºltimo aÃ±o tres de las mÃ¡s grandes distribuciones GNU/Linux profesionales se han puesto de acuerdo, entre otras cosas, en ofrecer a \r\nlos desarrolladores que las usan una vÃ­a accesible para conseguir [b]las herramientas de programaciÃ³n mÃ¡s demandadas[/b], por lo general, en la forma de repositorios adicionales.\r\nAsÃ­, Canonical presentÃ³ [url=http://www.muylinux.com/2014/12/12/ubuntu-developer-tools-center-ubuntu-make]Ubuntu Make[/url], SUSE sus colecciones, directamente imbuidas en la instalaciÃ³n de [url=http://www.muylinux.com/2014/10/27/suse-linux-enterprise-12-version-final]SUSE Enterprise Linux 12[/url]; y la compaÃ±Ã­a del sombre rojo hizo con [url=http://www.muylinux.com/2014/06/10/red-hat-enterprise-linux-7]RHEL 7[/url] lo propio introduciendo [b]Red Hat Software Collections[/b], cuya segunda versiÃ³n redonda acaba de ser anunciada unos dÃ­as atrÃ¡s.\r\nRed Hat Software Collections 2 incluye un buen conjunto de lenguajes de programaciÃ³n, bases de datos y otro tipo de herramientas orientas al \r\ndesarrollo entre las que cabe destacar Python 2.7, 3.3 y 3.4, PHP 5.6, \r\nRuby 2.2 y Rails 4.1, Node.js 0.10, MySQL 5.6.24, PostgreSQL 9.4.1, \r\nMariaDB 10.0.17 o MongoDB 2.6.9, ademÃ¡s de [b]aplicaciones con Docker[/b], que se estÃ¡n poniendo muy de moda por mÃ©ritos propios.\r\nToda la informaciÃ³n acerca de este lanzamiento y su contenido la podÃ©is encontrar en el [url=http://www.redhat.com/en/about/press-releases/red-hat-software-collections-2-delivers-latest-stable-open-tools-traditional-and-container-based-application-development]anuncio oficial[/url] de Red Hat.'),
 (392, 329, 1, 'Disponible Red Hat Software Collections 2'),
 (395, 332, 1, 'Imagen logo de RedHat'),
@@ -728,8 +783,8 @@ INSERT INTO `Traducciones` (`ID`, `ContenidoID`, `LenguajeID`, `Texto`) VALUES
 (497, 428, 1, 'Sobre Nosotros'),
 (498, 429, 1, 'sdc'),
 (503, 434, 1, 'Hola'),
-(504, 435, 1, 'Este lunes se concretarÃ¡ una reuniÃ³n con flavio y cristina para ver el estado actual en el que se encuentra la web.'),
-(505, 436, 1, 'Charla sobre la web'),
+(504, 435, 1, 'Este lunes se concretar&aacute; una reuni&oacute;n con flavio y cristina para ver el estado actual en el que se encuentra la web.'),
+(505, 436, 1, 'Charla sobre la web!!'),
 (506, 437, 1, 'Inicio'),
 (507, 437, 2, 'Home'),
 (508, 414, 2, 'News'),
@@ -776,9 +831,45 @@ INSERT INTO `Traducciones` (`ID`, `ContenidoID`, `LenguajeID`, `Texto`) VALUES
 (596, 494, 1, 'Galer&iacute;a'),
 (597, 495, 1, 'Galer&iacute;a'),
 (598, 496, 1, 'Galer&iacute;a'),
-(599, 497, 1, 'Novedades'),
 (600, 498, 1, 'Eventos'),
-(601, 499, 1, 'Contacto');
+(601, 499, 1, 'Contacto'),
+(602, 500, 1, 'Hola'),
+(603, 501, 1, 'asx'),
+(606, 504, 1, 'Novedades'),
+(607, 505, 1, 'Novedades'),
+(609, 507, 1, 'Unos tiernos gatitos que se brazan'),
+(642, 540, 1, ''),
+(643, 541, 1, ''),
+(647, 545, 1, 'Nueva'),
+(648, 546, 1, 'Esta es una prueba'),
+(649, 547, 1, 'Nuevo Evento de prueba'),
+(650, 548, 1, '&lt;p&gt;Mundo &lt;strong&gt;Boldeado&lt;/strong&gt;&lt;/p&gt;\r\n'),
+(651, 549, 1, 'Hola'),
+(652, 550, 1, '&lt;p&gt;Worldaa&lt;/p&gt;\r\n'),
+(653, 551, 1, 'Hello'),
+(654, 552, 1, ''),
+(655, 553, 1, ''),
+(656, 554, 1, '&lt;p&gt;jjjj&lt;strong&gt;jjjhh&lt;/strong&gt;&lt;/p&gt;\r\n'),
+(657, 555, 1, 'Hello World'),
+(658, 556, 1, ''),
+(659, 557, 1, ''),
+(660, 558, 1, '&lt;p&gt;Mun&lt;strong&gt;do&lt;/strong&gt;&lt;/p&gt;\r\n'),
+(661, 559, 1, 'Hola'),
+(662, 560, 1, ''),
+(663, 561, 1, ''),
+(664, 562, 1, '&lt;p&gt;Mun&lt;strong&gt;dojj&lt;/strong&gt;&lt;/p&gt;\r\n'),
+(665, 563, 1, 'Hola'),
+(666, 564, 1, '&lt;p&gt;Wor&lt;strong&gt;ldjj&lt;/strong&gt;&lt;/p&gt;\r\n'),
+(667, 565, 1, 'Hello'),
+(669, 567, 1, 'Un Fondo Azul'),
+(670, 568, 1, 'saxasx'),
+(671, 569, 1, 'asxsax'),
+(672, 570, 1, 'Pescado'),
+(673, 571, 1, 'Un Pescado'),
+(674, 572, 1, 'Flores'),
+(675, 573, 1, 'Unas Flores'),
+(676, 574, 1, 'Dedicaci&oacute;n de amor'),
+(677, 575, 1, 'Dedicaci&oacute;n de amor');
 
 -- --------------------------------------------------------
 
@@ -787,13 +878,14 @@ INSERT INTO `Traducciones` (`ID`, `ContenidoID`, `LenguajeID`, `Texto`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `Usuarios` (
-  `ID` int(11) NOT NULL,
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
   `Nombre` varchar(128) COLLATE utf8_unicode_ci DEFAULT NULL,
   `NombreUsuario` varchar(128) COLLATE utf8_unicode_ci DEFAULT NULL,
   `Contrasena` varchar(128) COLLATE utf8_unicode_ci DEFAULT NULL,
   `Email` varchar(128) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `Baneado` bit(1) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `Baneado` bit(1) NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=5 ;
 
 --
 -- Volcado de datos para la tabla `Usuarios`
@@ -805,167 +897,6 @@ INSERT INTO `Usuarios` (`ID`, `Nombre`, `NombreUsuario`, `Contrasena`, `Email`, 
 (3, 'Cristina', 'cristina', '8cb2237d0679ca88db6464eac60da96345513964', NULL, b'0'),
 (4, 'Vito', 'flavio', '90c8af8db7f253890139189d6e908e86ba25a676', NULL, b'0');
 
---
--- Índices para tablas volcadas
---
-
---
--- Indices de la tabla `Comentarios`
---
-ALTER TABLE `Comentarios`
-  ADD PRIMARY KEY (`ID`),
-  ADD KEY `Comentarios_ibfk_3` (`ContenidoID`),
-  ADD KEY `Comentarios_ibfk_2` (`RaizID`),
-  ADD KEY `Comentarios_ibfk_4` (`PadreID`);
-
---
--- Indices de la tabla `Contenidos`
---
-ALTER TABLE `Contenidos`
-  ADD PRIMARY KEY (`ID`);
-
---
--- Indices de la tabla `Eventos`
---
-ALTER TABLE `Eventos`
-  ADD PRIMARY KEY (`ID`),
-  ADD KEY `Eventos_ibfk_1` (`DescripcionID`),
-  ADD KEY `NombreID` (`NombreID`);
-
---
--- Indices de la tabla `Imagenes`
---
-ALTER TABLE `Imagenes`
-  ADD PRIMARY KEY (`ID`),
-  ADD KEY `LenguajeID` (`LenguajeID`),
-  ADD KEY `Imagenes_ibfk_1` (`TituloID`),
-  ADD KEY `AltID` (`AltID`);
-
---
--- Indices de la tabla `Lenguajes`
---
-ALTER TABLE `Lenguajes`
-  ADD PRIMARY KEY (`ID`);
-
---
--- Indices de la tabla `Menu`
---
-ALTER TABLE `Menu`
-  ADD PRIMARY KEY (`ID`),
-  ADD UNIQUE KEY `Atajo` (`Atajo`),
-  ADD KEY `ContenidoID` (`ContenidoID`),
-  ADD KEY `SeccionID` (`SeccionID`);
-
---
--- Indices de la tabla `Modulos`
---
-ALTER TABLE `Modulos`
-  ADD PRIMARY KEY (`ID`),
-  ADD KEY `Padre` (`PadreID`);
-
---
--- Indices de la tabla `Novedades`
---
-ALTER TABLE `Novedades`
-  ADD PRIMARY KEY (`ID`),
-  ADD KEY `Novedades_ibfk_1` (`ImagenID`),
-  ADD KEY `Novedades_ibfk_2` (`TituloID`),
-  ADD KEY `Novedades_ibfk_3` (`DescripcionID`);
-
---
--- Indices de la tabla `Opciones`
---
-ALTER TABLE `Opciones`
-  ADD PRIMARY KEY (`ID`);
-
---
--- Indices de la tabla `Secciones`
---
-ALTER TABLE `Secciones`
-  ADD PRIMARY KEY (`ID`),
-  ADD UNIQUE KEY `HTMLID` (`HTMLID`),
-  ADD KEY `ModuloID` (`ModuloID`),
-  ADD KEY `Secciones_ibfk_1` (`ContenidoID`),
-  ADD KEY `Secciones_ibfk_3` (`PadreID`);
-
---
--- Indices de la tabla `Traducciones`
---
-ALTER TABLE `Traducciones`
-  ADD PRIMARY KEY (`ID`),
-  ADD KEY `LenguajeID` (`LenguajeID`),
-  ADD KEY `Traducciones_ibfk_1` (`ContenidoID`);
-
---
--- Indices de la tabla `Usuarios`
---
-ALTER TABLE `Usuarios`
-  ADD PRIMARY KEY (`ID`);
-
---
--- AUTO_INCREMENT de las tablas volcadas
---
-
---
--- AUTO_INCREMENT de la tabla `Comentarios`
---
-ALTER TABLE `Comentarios`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=49;
---
--- AUTO_INCREMENT de la tabla `Contenidos`
---
-ALTER TABLE `Contenidos`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=500;
---
--- AUTO_INCREMENT de la tabla `Eventos`
---
-ALTER TABLE `Eventos`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
---
--- AUTO_INCREMENT de la tabla `Imagenes`
---
-ALTER TABLE `Imagenes`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=62;
---
--- AUTO_INCREMENT de la tabla `Lenguajes`
---
-ALTER TABLE `Lenguajes`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
---
--- AUTO_INCREMENT de la tabla `Menu`
---
-ALTER TABLE `Menu`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
---
--- AUTO_INCREMENT de la tabla `Modulos`
---
-ALTER TABLE `Modulos`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=21;
---
--- AUTO_INCREMENT de la tabla `Novedades`
---
-ALTER TABLE `Novedades`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=23;
---
--- AUTO_INCREMENT de la tabla `Opciones`
---
-ALTER TABLE `Opciones`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT de la tabla `Secciones`
---
-ALTER TABLE `Secciones`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=447;
---
--- AUTO_INCREMENT de la tabla `Traducciones`
---
-ALTER TABLE `Traducciones`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=602;
---
--- AUTO_INCREMENT de la tabla `Usuarios`
---
-ALTER TABLE `Usuarios`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 --
 -- Restricciones para tablas volcadas
 --
@@ -997,14 +928,14 @@ ALTER TABLE `Imagenes`
 -- Filtros para la tabla `Menu`
 --
 ALTER TABLE `Menu`
-  ADD CONSTRAINT `Menu_ibfk_1` FOREIGN KEY (`ContenidoID`) REFERENCES `Contenidos` (`ID`),
-  ADD CONSTRAINT `Menu_ibfk_2` FOREIGN KEY (`SeccionID`) REFERENCES `Secciones` (`HTMLID`);
+  ADD CONSTRAINT `Menu_ibfk_1` FOREIGN KEY (`ContenidoID`) REFERENCES `Contenidos` (`ID`) ON DELETE CASCADE,
+  ADD CONSTRAINT `Menu_ibfk_2` FOREIGN KEY (`SeccionID`) REFERENCES `Secciones` (`HTMLID`) ON DELETE CASCADE;
 
 --
 -- Filtros para la tabla `Modulos`
 --
 ALTER TABLE `Modulos`
-  ADD CONSTRAINT `Modulos_ibfk_1` FOREIGN KEY (`PadreID`) REFERENCES `Modulos` (`ID`);
+  ADD CONSTRAINT `Modulos_ibfk_1` FOREIGN KEY (`PadreID`) REFERENCES `Modulos` (`ID`) ON DELETE CASCADE;
 
 --
 -- Filtros para la tabla `Novedades`

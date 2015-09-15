@@ -46,6 +46,11 @@
 				new Include_Context($_SERVER['DOCUMENT_ROOT'] . '/esq/visor_imagenes.php')
 			);
 
+			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/DOMTagContainer.php';
+
+			$selector=new DOMTag('div');
+			$selector->classList->add('selector');
+
 			$iMax=count($recLst);
 			for($i=0;$i<$iMax;$i++)
 			{
@@ -54,10 +59,39 @@
 				$imgAct['AltCon']=getTraduccion($imgAct['AltID'] , $_SESSION['lang']);
 				$imgAct['vRecID']=$imgAct['TituloID'];
 
+				$imgAct['isFirst']=true;
+
+				if($i>0)
+				{
+					$imgAct['IDAnt']=$imgAnt['ID'];
+					$imgAct['AltConAnt']=getTraduccion($imgAnt['AltID'] , $_SESSION['lang']);
+					$imgAct['isFirst']=false;
+				}
+
+				$a=new DOMTag('a');
+				$a->setAttribute('href' , '/imagenes.php?vRecID='.$imgAct['ID']);
+
+				$img=new DOMTag('img');
+				$img->col=['xs'=>2 , 'sm'=>2 , 'md'=>2 , 'lg'=>2];
+				
+				$selector->appendChild
+				(
+					$a->appendChild
+					(
+						$img->setAttribute('src' , '/img/miniaturas/galeria/'.$imgAct['ID'].'.png')
+						->setAttribute('alt' , $imgAct['AltCon'])
+					)
+				);
+
+				$imgAnt=$imgAct;
+
 				$visorHTML->addRec($imgAct);
 			}
 
 			$visorHTML->getContent();
+
+			echo $selector->getHTML();
+
 			$comentariosHTML=new Include_Context($_SERVER['DOCUMENT_ROOT'] . '/esq/visor_comentarios.php');
 			$comentariosHTML->ContenidoID=$visorHTML->recSel['vRecID'];
 			$comentariosHTML->getContent();
