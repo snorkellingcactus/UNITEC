@@ -276,9 +276,19 @@ body .comentario input[type="checkbox"]
 {
 	float:none;
 }
+.map-canvas
+{
+	border-radius:3px;
+	box-shadow:0px 0px 3px white;
+}
 .mapa, .rutas
 {
 	padding:15px;
+}
+.mapa img
+{
+	height:auto;
+	width:100%;
 }
 .rutas div
 {
@@ -308,6 +318,13 @@ body .comentario input[type="checkbox"]
 	background: rgb(238, 238, 238) none repeat;
 	padding: 10px 0px;
 	display:block;
+	overflow: hidden;
+}
+.rutas .start-address img, .rutas .end-address img
+{
+	display: block;
+	float: left;
+	overflow: hidden;
 }
 .rutas .start-address
 {

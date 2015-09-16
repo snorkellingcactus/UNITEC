@@ -21,6 +21,7 @@ function inicializaGMaps()
 
   imagenMapa=document.createElement('div');
   imagenMapa.setAttribute('id' , 'map-canvas');
+  imagenMapa.setAttribute('class' , 'map-canvas');
 
   padreMapa.appendChild(imagenMapa);
 

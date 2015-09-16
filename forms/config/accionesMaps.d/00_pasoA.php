@@ -19,14 +19,18 @@
 
 	$html=new DOMDocument();
 
-	$mapa=$html->createElement('img');
-	$mapa->setAttribute
+	$imgMapa=$html->createElement('img');
+	$imgMapa->setAttribute
 	(
 		'src' , 
 		'https://maps.googleapis.com/maps/api/staticmap?&size=500x500&maptype=roadmap
 		&markers=color:red%7Clabel:B%7C-34.90693 , -57.94290&markers=color:red%7Clabel:A%7C'.urlencode($origen).'&path=color:0x0000ff|weight:5|-34.90693 , -57.94290|'.urlencode($origen).'&key=AIzaSyAc98zfTPT0nZTSERA7bEgBdPiyI6kM6hk'
 	);
+	$imgMapa->setAttribute('class' , 'map-canvas');
+	$mapa=$html->createElement('div');
 	$mapa->setAttribute('class' , 'mapa col-xs-12 col-sm-6 col-md-6 col-lg-6');
+
+	$mapa->appendChild($imgMapa);
 
 	$xml=DOMDocument::loadXML
 	(
