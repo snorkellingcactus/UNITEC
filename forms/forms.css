@@ -263,6 +263,60 @@ body .comentario input[type="checkbox"]
 {
 	float:none;
 }
+.mapa, .rutas
+{
+	padding:15px;
+}
+.rutas div
+{
+	background-color:white;
+}
+.rutas ol
+{
+	list-style-position: inside;
+	padding:0px;
+	margin:10px 0px 0px 0px;
+}
+.rutas *
+{
+	font-size:14px;
+	font-family: Roboto,Arial,sans-serif;
+	font-weight: 300;
+}
+.rutas .start-address, .rutas .end-address
+{
+	border: 1px solid #C0C0C0;
+	background: rgb(238, 238, 238) none repeat;
+	padding: 10px 0px;
+	display:block;
+}
+.rutas .start-address
+{
+	margin-bottom:15px;
+}
+.rutas ol li
+{
+	padding: 0.3em 3px;
+	border-top:1px solid silver;
+}
+.rutas ol li span
+{
+	
+}
+.rutas ol li span.instruccion
+{
+	width:80%;
+	position: static;
+	margin-left: 0;
+}
+li.turn-right::before
+{
+	content:'↳';
+}
+li.turn-left::before
+{
+	content:'↲'
+}
 @keyframes comentBackground
 {
 	from

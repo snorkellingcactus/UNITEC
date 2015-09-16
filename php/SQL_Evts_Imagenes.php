@@ -112,6 +112,17 @@
 
 			for($i=0;$i<$iMax;$i++)
 			{
+				if
+				(
+					empty($_POST['Titulo'][$i]) ||
+					(
+						empty($_POST['Url'][$i]) &&
+						empty($_POST['File'][$i])
+					)
+				)
+				{
+					continue;
+				}
 				$img=new Img
 				(
 					[

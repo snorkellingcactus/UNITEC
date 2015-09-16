@@ -98,9 +98,11 @@
 		</nav>
 		<!-- Logo -->
 		<div class="hidden-xs">
-			<h2>
-				<img src="img/logo_unitec.png" alt="Unitec Logo" width="80" height="80"/>
-				UNITEC
-			</h2>
+			<a href="#header" accesskey="i">
+				<h2>
+					<img src="img/logo_unitec.png" alt="Unitec Logo" width="80" height="80"/>
+					UNITEC
+				</h2>
+			</a>
 		</div>
 </div>

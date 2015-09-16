@@ -123,7 +123,7 @@ $lang=fetch_all
 
 		<!--:::::::::::::::Atajos de teclado:::::::::::::::-->
 
-		<div class="header hidden-xs">
+		<div class="header hidden-xs" id="header">
 			<nav role="navigation">
 				<ul role="menu" tabindex="1">
 					<?php

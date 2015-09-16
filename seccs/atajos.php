@@ -55,6 +55,20 @@
 			<th>Teclas</th>
 		</thead>
 		<tbody>
+			<!-- Revisar -->
+			<tr>
+				<td scope="col">
+					<b>
+						Inicio
+					</b>
+				</td>
+				<td scope="col">
+					<?php echo $accesStr ?>
+					<span class="atajo">
+						i
+					</span>
+				</td>
+			</tr>
 			<?php
 				$iMax=count($atajos);
 				for($i=0;$i<$iMax;$i++)

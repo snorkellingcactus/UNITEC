@@ -29,6 +29,10 @@ a:hover
 {
 	color:white;
 }
+body a[href="#header"]
+{
+	text-decoration: none
+}
 .sangria::first-letter
 {
 	float:left;
@@ -124,13 +128,16 @@ section .target, section:target
 }
 /*
 http://accessibility.oit.ncsu.edu/blog/2012/01/12/accessible-read-more-links/
+http://snook.ca/archives/html_and_css/hiding-content-for-accessibility
 */
-.offscreen {
-position:absolute;
-left:-999px;
-width:1px;
-height:1px;
-top:auto;
+.offscreen
+{
+	width:1px;
+	height:1px;
+	position: absolute !important;
+	overflow: hidden;
+	clip-path: polygon(0px 0px, 0px 0px,0px 0px, 0px 0px);
+	clip: rect(1px, 1px, 1px, 1px);
 }
 @keyframes sectionBackground
 {

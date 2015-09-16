@@ -31,7 +31,10 @@
 		}
 		function addNew($value)
 		{
-			$this->add($this->buildNew($value));
+			$this->add
+			(
+				$this->buildNew($value)
+			);
 		}
 		function add($checkBox)
 		{

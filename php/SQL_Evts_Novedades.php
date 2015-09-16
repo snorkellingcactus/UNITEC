@@ -69,6 +69,7 @@
 
 			for($i=0;$i<$iMax;$i++)
 			{
+				
 				$horaLoc=getdate();
 
 				$nov=new Novedad();
