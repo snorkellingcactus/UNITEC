@@ -254,6 +254,19 @@ div.label
 	position:relative;
 	z-index:3;
 }
+/*
+http://accessibility.oit.ncsu.edu/blog/2012/01/12/accessible-read-more-links/
+http://snook.ca/archives/html_and_css/hiding-content-for-accessibility
+*/
+.offscreen
+{
+	width:1px;
+	height:1px;
+	position: absolute !important;
+	overflow: hidden;
+	clip-path: polygon(0px 0px, 0px 0px,0px 0px, 0px 0px);
+	clip: rect(1px, 1px, 1px, 1px);
+}
 .comentario:target
 {
 	animation-name:comentBackground;
@@ -271,13 +284,19 @@ body .comentario input[type="checkbox"]
 {
 	background-color:white;
 }
-.rutas ol
+.rutas table
 {
-	list-style-position: inside;
-	padding:0px;
-	margin:10px 0px 0px 0px;
+	margin-top:10px;
 }
-.rutas *
+.rutas th
+{
+	text-align: center
+}
+.rutas td:first-of-type
+{
+	text-align: center;
+}
+.rutas td
 {
 	font-size:14px;
 	font-family: Roboto,Arial,sans-serif;
@@ -294,9 +313,9 @@ body .comentario input[type="checkbox"]
 {
 	margin-bottom:15px;
 }
-.rutas ol li
+.rutas td
 {
-	padding: 0.3em 3px;
+	padding: 7px 5px;
 	border-top:1px solid silver;
 }
 .rutas ol li span
@@ -305,9 +324,7 @@ body .comentario input[type="checkbox"]
 }
 .rutas ol li span.instruccion
 {
-	width:80%;
-	position: static;
-	margin-left: 0;
+	
 }
 li.turn-right::before
 {

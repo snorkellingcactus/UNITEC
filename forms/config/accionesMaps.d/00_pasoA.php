@@ -76,10 +76,27 @@
 	$endDiv->appendChild($endIcon);
 	$endDiv->appendChild($html->createTextNode($endAddr->nodeValue));
 
-	$ol=$html->createElement('ol');
+	$rTabla=$html->createElement('table');
+	$rTbody=$html->createElement('tbody');
+	$rThead=$html->createElement('thead');
+
+	$trThead=$html->createElement('tr');
+
+	$thPasoN=$html->createElement('th', 'Paso Número');
+	$thIns=$html->createElement('th', 'Instrucción');
+	$thDist=$html->createElement('th', 'Distancia');
+
+	$thPasoN->setAttribute('class' , 'offscreen');
+	$thIns->setAttribute('class' , 'offscreen');
+	$thDist->setAttribute('class' , 'offscreen');
+	$rTabla->setAttribute('summary' , 'Indicaciones de cómo llegar');
+
+	$trThead->appendChild($thPasoN);
+	$trThead->appendChild($thIns);
+	$trThead->appendChild($thDist);
 
 	$rutas->appendChild($startDiv);
-	$rutas->appendChild($html->createTextNode($distancia.', Aproximadamente '.$duracion));
+	$rutas->appendChild($html->createTextNode('Distancia:'.$distancia.', Aproximadamente '.$duracion));
 
 	$iMax=$pasos->length;
 	for($i=0;$i<$iMax;$i++)
@@ -93,28 +110,34 @@
 		$fragment=$html->createDocumentFragment();
 		$fragment->appendXML($instruccion);
 
-		$li=$html->createElement('li');
-		$instruccion=$html->createElement('span');
-		$instruccion->setAttribute('class','instruccion');
+		$tr=$html->createElement('tr');
+		$tr->setAttribute('scope','col');
+		$numero=$html->createElement('td' , $i+1);
+		$instruccion=$html->createElement('td');
 
 		$instruccion->appendChild($fragment);
-		$li->appendChild($instruccion);
-		$li->appendChild($html->createElement('span',$distancia));
+		$tr->appendChild($numero);
+		$tr->appendChild($instruccion);
+		$tr->appendChild($html->createElement('td',$distancia));
 
 		$maniobra=$paso->getElementsByTagName('maneuver');
 
 		if($maniobra->length===1)
 		{
-			$li->setAttribute('class',$maniobra->item(0)->nodeValue);
+			$instruccion->setAttribute('class',$maniobra->item(0)->nodeValue);
 		}
 
-		$ol->appendChild($li);
+		$rTbody->appendChild($tr);
 
 		//$html=$html.$leg->item($i)->nodeValue."\n";
 		//$html=$html.'Modo:'.$travelModes->item($i)->nodeValue."\n";
 	}
 
-	$rutas->appendChild($ol);
+	$rThead->appendChild($trThead);
+	$rTabla->appendChild($rThead);
+	$rTabla->appendChild($rTbody);
+
+	$rutas->appendChild($rTabla);
 	$rutas->appendChild($endDiv);
 
 	$rutas->appendChild
