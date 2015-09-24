@@ -4,7 +4,6 @@
 	
 	class DOMTag extends DOMTagContainer
 	{
-		public $tag;
 		public $tagName;
 		public $tagValue;
 		public $classList;
@@ -92,13 +91,13 @@
 		{
 			return $this->setBootstrap($cols , 'all');
 		}
-		function renderChilds(&$doc , &$tag)
+		public function renderChilds(&$doc , &$tag)
 		{
 			//echo '<pre>DOMTag::renderChilds()';
 			//echo '</pre>';
 			return parent::renderChilds($doc , $kk=null);
 		}
-		function createTag()
+		public function createTag()
 		{
 			//echo '<pre>DOMTag::createTag()</pre>';
 			$this->tag=$this->domDoc->createElement($this->tagName);
@@ -116,7 +115,16 @@
 			//print_r($this->tag);
 			//echo '</pre>';
 		}
-		function applyClassList()
+		public function appendXML($xml)
+		{
+			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/DOMFragment.php';
+			
+			return $this->appendChild
+			(
+				new DOMFragment($xml)
+			);
+		}
+		public function applyClassList()
 		{
 			$clases=$this->classList->get();
 
@@ -127,7 +135,7 @@
 
 			return $this;
 		}
-		function applyAttrList()
+		public function applyAttrList()
 		{
 			foreach($this->attrList as $attr=>$value)
 			{
@@ -136,17 +144,17 @@
 
 			return $this;
 		}
-		function setAttribute($attrName , $attrValue)
+		public function setAttribute($attrName , $attrValue)
 		{
 			$this->attrList[$attrName]=$attrValue;
 
 			return $this;
 		}
-		function getAttribute($attrName)
+		public function getAttribute($attrName)
 		{
 			return $this->attrList[$attrName];
 		}
-		function hasAttribute($attrName)
+		public function hasAttribute($attrName)
 		{
 			if(isset($this->attrList[$attrName]))
 			{

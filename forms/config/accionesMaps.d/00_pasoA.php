@@ -1,5 +1,16 @@
 <?php
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/conexion.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/DOMTag.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/DOMFragment.php';
+
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/GMapsImg.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/GMapsImgMarker.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/GMapsImgPath.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/GMapsColor.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/GMapsWeight.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/GMapsIcon.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/GMapsLabel.php';
+
 
 	global $con;
 
@@ -17,14 +28,55 @@
 	$origen=$_POST['origen'];
 	$modo=strtolower($_POST['modo_viaje']);
 
+	$jj=new GMapsImg(800 , 600 , 'AIzaSyAc98zfTPT0nZTSERA7bEgBdPiyI6kM6hk' , 'roadmap');
+	//Revisar Url Ícono.
+	$markA=new GMapsImgMarker
+	(
+		[
+			'-34.90693',
+			'-57.94290'
+		],
+		new GMapsColor('red'),
+		new GMapsLabel('B')
+	);
+	$markB=new GMapsImgMarker
+	(
+		$origen,
+		new GMapsColor('red'),
+		new GMapsLabel('A')
+	);
+	$jj->props->add($markA)->add($markB)->add
+	(
+		new GMapsImgPath
+		(
+			[
+				$markA,
+				$markB
+			],
+			new GMapsColor('blue'),
+			new GMapsWeight(7)
+		)
+	);
+	echo '<pre>GMapsImg:';
+	print_r($url=$jj->encode());
+	echo '</pre>';
+
+	echo '<pre>Original:';
+	print_r
+	(
+		urldecode('https://maps.googleapis.com/maps/api/staticmap?&size=500x500&maptype=roadmap
+				&markers=color:red%7Clabel:B%7C-34.90693 , -57.94290&markers=color:red%7Clabel:A%7C'.urlencode($origen).'&path=color:0x0000ff|weight:5|-34.90693 , -57.94290|'.urlencode($origen).'&key=AIzaSyAc98zfTPT0nZTSERA7bEgBdPiyI6kM6hk')
+	);
+	echo '</pre>';
+	
+
 	$html=new DOMDocument();
 
 	$imgMapa=$html->createElement('img');
 	$imgMapa->setAttribute
 	(
 		'src' , 
-		'https://maps.googleapis.com/maps/api/staticmap?&size=500x500&maptype=roadmap
-		&markers=color:red%7Clabel:B%7C-34.90693 , -57.94290&markers=color:red%7Clabel:A%7C'.urlencode($origen).'&path=color:0x0000ff|weight:5|-34.90693 , -57.94290|'.urlencode($origen).'&key=AIzaSyAc98zfTPT0nZTSERA7bEgBdPiyI6kM6hk'
+		$url
 	);
 	$imgMapa->setAttribute('class' , 'map-canvas');
 	$mapa=$html->createElement('div');
@@ -160,6 +212,7 @@
 	$contenedor->appendChild($clearFix);
 
 	echo $html->saveHTML($contenedor);
+
 /*
 	echo '<pre> Url:';
 	print_r
@@ -200,7 +253,7 @@
 */
 
 
-
+/*
 	if($this->thisIsLast())
 	{
 		include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormVolver.php';
@@ -209,4 +262,5 @@
 
 		$this->form->setAction($this->getNextStepUrl());
 	}
+*/
 ?>

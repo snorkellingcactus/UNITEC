@@ -6,13 +6,14 @@
 		public $hijos;
 		public $hijosLen;
 		public $domDoc;
+		public $tag;
 
-		function __construct()
+		public function __construct()
 		{
 			$this->hijos=[];
 			$this->hijosLen=0;
 		}
-		function appendChild($domTag)
+		public function appendChild($domTag)
 		{
 			$this->hijos[$this->hijosLen]= $domTag;
 
@@ -46,29 +47,7 @@
 			return $this;
 		}
 		*/
-		function render()
-		{
-			$childs=$this->hijos;
-			$childsLen=$this->hijosLen;
-
-			for($i=0;$i<$childsLen;$i++)
-			{
-				$this->importChild($childs[$i]);
-			}
-
-			return $this;
-		}
-		function getName($tag)
-		{
-			$tName='Doc';
-			if(isset($tag->tagName))
-			{
-				$tName=$tag->tagName;
-			}
-
-			return $tName;
-		}
-		function importChild($child)
+		public function importChild($child)
 		{
 			/*
 			echo '<pre>DOMTag::importChild()'."\n";
@@ -93,6 +72,18 @@
 				);
 			}
 /*
+		function getName($tag)
+		{
+			$tName='Doc';
+			if(isset($tag->tagName))
+			{
+				$tName=$tag->tagName;
+			}
+
+			return $tName;
+		}
+*/
+/*
 			echo 'DOMTag::importChild()'."\n";
 			echo '$child->tag : ';
 			echo $this->getName($res->tag)."\n";
@@ -104,7 +95,19 @@
 */
 			return $res;
 		}
-		function renderChilds(&$doc , &$tag)
+		public function render()
+		{
+			$childs=$this->hijos;
+			$childsLen=$this->hijosLen;
+
+			for($i=0;$i<$childsLen;$i++)
+			{
+				$this->importChild($childs[$i]);
+			}
+
+			return $this;
+		}
+		public function renderChilds(&$doc , &$tag)
 		{
 			//echo '<pre>DOMTagContainer::renderChilds()</pre>';
 
@@ -137,22 +140,24 @@
 
 			return  $this->render();
 		}
-		function importDoc($doc)
+		public function importDoc($doc)
 		{
 			//echo '<pre>DOMTagContainer::importDoc()';echo '</pre>';
 			$this->domDoc=$doc;
 		}
-		function importTag($tag)
+		public function importTag($tag)
 		{
+/*
 			$tName='Doc';
 			if(isset($tag->tagName))
 			{
 				$tName=$tag->tagName;
 			}
-			//echo '<pre>DOMTagContainer::importTag()'.$tName;echo '</pre>';
+			echo '<pre>DOMTagContainer::importTag()'.$tName;echo '</pre>';
+*/
 			$this->tag=$tag;
 		}
-		function createDoc()
+		public function createDoc()
 		{
 			//echo '<pre>DOMTagContainer::createDoc()';echo '</pre>';
 			$this->domDoc=new DOMDocument();
@@ -199,7 +204,7 @@
 			}
 			return $this;
 		}*/
-		function createTag()
+		public function createTag()
 		{
 			//echo '<pre>DOMTagContainer::createTag()';echo '</pre>';
 
