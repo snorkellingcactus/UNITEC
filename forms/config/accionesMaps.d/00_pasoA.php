@@ -28,7 +28,7 @@
 	$origen=$_POST['origen'];
 	$modo=strtolower($_POST['modo_viaje']);
 
-	$jj=new GMapsImg(800 , 600 , 'AIzaSyAc98zfTPT0nZTSERA7bEgBdPiyI6kM6hk' , 'roadmap');
+	$urlMapa=new GMapsImg(800 , 600 , 'AIzaSyAc98zfTPT0nZTSERA7bEgBdPiyI6kM6hk' , 'roadmap');
 	//Revisar Url Ícono.
 	$markA=new GMapsImgMarker
 	(
@@ -45,7 +45,7 @@
 		new GMapsColor('red'),
 		new GMapsLabel('A')
 	);
-	$jj->props->add($markA)->add($markB)->add
+	$urlMapa->props->add($markA)->add($markB)->add
 	(
 		new GMapsImgPath
 		(
@@ -57,6 +57,7 @@
 			new GMapsWeight(7)
 		)
 	);
+/*
 	echo '<pre>GMapsImg:';
 	print_r($url=$jj->encode());
 	echo '</pre>';
@@ -68,7 +69,7 @@
 				&markers=color:red%7Clabel:B%7C-34.90693 , -57.94290&markers=color:red%7Clabel:A%7C'.urlencode($origen).'&path=color:0x0000ff|weight:5|-34.90693 , -57.94290|'.urlencode($origen).'&key=AIzaSyAc98zfTPT0nZTSERA7bEgBdPiyI6kM6hk')
 	);
 	echo '</pre>';
-	
+*/	
 
 	$html=new DOMDocument();
 
@@ -76,7 +77,7 @@
 	$imgMapa->setAttribute
 	(
 		'src' , 
-		$url
+		$urlMapa->encode()
 	);
 	$imgMapa->setAttribute('class' , 'map-canvas');
 	$mapa=$html->createElement('div');
@@ -211,7 +212,7 @@
 	$contenedor->appendChild($rutasCont);
 	$contenedor->appendChild($clearFix);
 
-	echo $html->saveHTML($contenedor);
+	$this->form->appendChild(new DOMFragment($html->saveXML($contenedor)));
 
 /*
 	echo '<pre> Url:';
@@ -253,14 +254,14 @@
 */
 
 
-/*
+
 	if($this->thisIsLast())
 	{
 		include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormVolver.php';
 		$volver=new FormVolver($this->form);
 		$volver->col=['xs'=>12 , 'sm'=>12 , 'md'=>12 , 'lg'=>12 ];
 
-		$this->form->setAction($this->getNextStepUrl());
+		$this->form->setAction($this->getNextStepUrl())->appendChild($volver);
 	}
-*/
+
 ?>
