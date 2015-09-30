@@ -28,7 +28,7 @@
 			(
 				$con->query
 				(
-					'	SELECT TituloID, Url,ID,AltID
+					'	SELECT TituloID,ID,AltID
 						FROM Imagenes
 						WHERE 1
 						ORDER BY Prioridad ASC
@@ -40,60 +40,31 @@
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/Visor.php';
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/Include_Context.php';
 
-			$visorHTML=new Visor
-			(
-				false,
-				new Include_Context($_SERVER['DOCUMENT_ROOT'] . '/esq/visor_imagenes.php')
-			);
+			$visorHTML=new VisorImagenes();
 
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/DOMTagContainer.php';
 
-			$selector=new DOMTag('div');
-			$selector->classList->add('selector');
+			
 
 			$iMax=count($recLst);
 			for($i=0;$i<$iMax;$i++)
 			{
 				$imgAct=& $recLst[$i];
-				$imgAct['TituloCon']=getTraduccion($imgAct['TituloID'] , $_SESSION['lang']);
-				$imgAct['AltCon']=getTraduccion($imgAct['AltID'] , $_SESSION['lang']);
-				$imgAct['vRecID']=$imgAct['TituloID'];
 
-				$imgAct['isFirst']=true;
-
-				if($i>0)
-				{
-					$imgAct['IDAnt']=$imgAnt['ID'];
-					$imgAct['AltConAnt']=getTraduccion($imgAnt['AltID'] , $_SESSION['lang']);
-					$imgAct['isFirst']=false;
-				}
-
-				$a=new DOMTag('a');
-				$a->setAttribute('href' , '/imagenes.php?vRecID='.$imgAct['ID']);
-
-				$img=new DOMTag('img');
-				$img->col=['xs'=>2 , 'sm'=>2 , 'md'=>2 , 'lg'=>2];
 				
-				$selector->appendChild
-				(
-					$a->appendChild
-					(
-						$img->setAttribute('src' , '/img/miniaturas/galeria/'.$imgAct['ID'].'.png')
-						->setAttribute('alt' , $imgAct['AltCon'])
-					)
-				);
 
-				$imgAnt=$imgAct;
-
-				$visorHTML->addRec($imgAct);
+				if($visorHTML->addRec($imgAct['ID'] , $imgAct['AltID'] , $imgAct['TituloID']))
+				{
+					$selected=$imgAct['ID'];
+				}
 			}
 
-			$visorHTML->getContent();
+			echo $visorHTML->getContent();
 
-			echo $selector->getHTML();
+			//echo $selector->getHTML();
 
 			$comentariosHTML=new Include_Context($_SERVER['DOCUMENT_ROOT'] . '/esq/visor_comentarios.php');
-			$comentariosHTML->ContenidoID=$visorHTML->recSel['vRecID'];
+			$comentariosHTML->ContenidoID=$selected;
 			$comentariosHTML->getContent();
 		?>
 	</body>
