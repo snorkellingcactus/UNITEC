@@ -24,8 +24,6 @@ body{background:rgba(0,0,0,0.9)}
 .imgCont img
 {
 	max-width:80%;
-	animation-name:imgAparece;
-	animation-duration:1s;
 	display: block;
 	top: 0;
 	right: 0;
@@ -33,6 +31,11 @@ body{background:rgba(0,0,0,0.9)}
 	margin: auto;
 	position:relative;
 	height:70vh;
+}
+.imgCont img.siguiente,.imgCont img.anterior
+{
+	animation-name:imgAparece;
+	animation-duration:1s;
 }
 .imgCont img.anterior
 {
@@ -194,17 +197,21 @@ p.sangria::first-letter
 }
 .selector a
 {
-	display: block;
-	top: 0;
-	right: 0;
-	left:0;
-	margin: auto;
-	position:relative;
+	
+}
+.selector a.selected img
+{
+	border-color:blue;
+}
+.selector a:focus img
+{
+	border-color: yellow
 }
 .selector img
 {
 	width:24vh;
 	height:18vh;
+	border:3px solid transparent;
 }
 
 @keyframes imgAparece

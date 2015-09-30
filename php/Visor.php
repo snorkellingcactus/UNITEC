@@ -9,7 +9,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/php/getTraduccion.php';
 class Visor extends Desplazador
 {
 	public	$recLst;
-	private $recMax;
+	public	$recMax;
 	public	$nRecSel;		//Número de Imagen coincidente con el valor del discriminador.
 	public	$recSel;		//Objeto imagen seleccionado.
 	public	$vRecIDAnt;
@@ -185,6 +185,8 @@ class VisorImagenes extends Visor
 
 		$alt=getTraduccion($altID , $_SESSION['lang']);
 
+		$a=new DOMTag('a');
+
 		if($selected)
 		{
 			$this->setTitulo
@@ -197,11 +199,27 @@ class VisorImagenes extends Visor
 			(
 				$this->formatUrlA($rec)
 			);
+
+			$a->setAttribute('href','#')->classList->add('selected');
 		}
-
-		$a=new DOMTag('a');
-		$a->setAttribute('href' , '/imagenes.php?vRecID='.$rec.'&vRecIDAnt='.$this->discVal);
-
+		else
+		{
+			$a->setAttribute
+			(
+				'href',
+				'/imagenes.php?vRecID='.$rec.'&vRecIDAnt='.$this->discVal
+			);
+		}
+/*
+		if($this->recSel===false)
+		{
+			$a->setAttribute('tabindex',2);
+		}
+		else
+		{
+			$a->setAttribute('tabindex',1);
+		}
+*/
 		$img=new DOMTag('img');
 		$img->col=['xs'=>2 , 'sm'=>2 , 'md'=>2 , 'lg'=>2];
 		
@@ -230,6 +248,7 @@ class VisorImagenes extends Visor
 	}
 	public function addImgAnt($src)
 	{
+		$this->img->classList->add('siguiente');
 		$this->imgAnt=new DOMTag('img');
 		$this->imgAnt->classList->add('anterior');
 		$this->imgAnt->setAttribute('src' , $src);

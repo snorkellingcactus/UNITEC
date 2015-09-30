@@ -22,6 +22,7 @@ head.ready
 
 				config.customConfig='';
 				config.entities=false;
+				config.contentsCss='/seccs/ckeditor.css';
 
 				return true;
 			}
