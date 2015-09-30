@@ -187,7 +187,7 @@ class Cal_Gen_HTML
 					);
 					$clase=2;
 				};
-				if($cuenta>=$this->diasAnt && $cuenta<$this->celdasMin)
+				if($cuenta>=$this->diasAnt && $cuenta<=$this->celdasMin)
 				{
 					$numDia+=
 					(
@@ -202,7 +202,7 @@ class Cal_Gen_HTML
 							'mday'=>$numDia
 						]
 					);
-					if($pasado=1)
+					if($pasado===1)
 					{
 						$pasado=2;
 					}

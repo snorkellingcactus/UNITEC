@@ -143,6 +143,12 @@
 	text-shadow: 0px 0px 2px #151515;
 	color:white;
 }
+/*
+body .calendario tbody td.pasado
+{
+	background:silver;
+}
+*/
 div.calRef
 {
 	padding-left:0px;
