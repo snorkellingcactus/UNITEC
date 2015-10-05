@@ -62,9 +62,9 @@
 
 	$this->form->appendChild($titulo)
 	->appendChild($alt)
-	->appendChild($visible)
 	->appendChild($archivo)
 	->appendChild($prioridad)
+	->appendChild($visible)
 	->appendChild($continuar)->setAction($this->getNextStepUrl());
 
 	if($this->thisIsLast())

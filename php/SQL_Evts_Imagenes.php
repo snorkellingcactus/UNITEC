@@ -103,6 +103,15 @@
 		}
 		public function nuevo()
 		{
+/*
+			echo '<pre>Existo';
+			echo '</pre>';
+*/
+/*
+			echo '<pre>FILES:';
+			print_r($_FILES);
+			echo '</pre>';
+*/
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/Img.php';
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/Foranea.php';
 
@@ -117,7 +126,7 @@
 					empty($_POST['Titulo'][$i]) ||
 					(
 						empty($_POST['Url'][$i]) &&
-						empty($_POST['File'][$i])
+						empty($_FILES['File']['name'][$i])
 					)
 				)
 				{
@@ -155,12 +164,15 @@
 				//La inserto en la bd.
 				$img->insSQL();
 
-				$this->mkUrlArchivo
-				(
-					$img ,
-					$_FILES['File']['name'][$i],
-					$_FILES['File']['tmp_name'][$i]
-				);
+				if(!empty($_FILES['File']['name'][$i]))
+				{
+					$this->mkUrlArchivo
+					(
+						$img ,
+						$_FILES['File']['name'][$i],
+						$_FILES['File']['tmp_name'][$i]
+					);
+				}
 
 				$afectados[$afectadosLen]=$img->ID;
 				++$afectadosLen;
