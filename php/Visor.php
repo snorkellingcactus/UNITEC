@@ -90,6 +90,7 @@ class Visor extends Desplazador
 	public function addRec($rec)
 	{
 		$this->recLst[$this->recMax]=$rec;
+		//echo '<pre>$this->recLst['.$this->recMax.']=...</pre>';
 
 		++$this->recMax;
 		$this->max=$this->recMax;
@@ -108,58 +109,27 @@ class Visor extends Desplazador
 		}
 	}
 }
-
-class VisorImagenes extends Visor
+class VisorHTMLBase extends Visor
 {
-	public $h2;
-	public $div;
-	public $img;
-	public $imgAnt;
-	public $selector;
 	public $html;
+	public $titulo;
+	public $img;
 	public $thumbPathA;
-	public $thumbPathB;
 	public $thumbExt;
 
 	function __construct()
 	{
 		parent::__construct();
 
-		$this->h2=new DOMTag('h2');
-		$this->div=new DOMTag('div');
-		$this->img=new DOMTag('img');
-		$this->imgAnt=false;
-		$this->selector=new DOMTag('div');
 		$this->html=new DOMTagContainer();
+		$this->img=new DOMTag('img');
+
 		$this->thumbPathA='/img/miniaturas/visor/';
-		$this->thumbPathB='/img/miniaturas/galeria/';
 		$this->thumbExt='.png';
-
-		$this->div->classList->add('imgCont');
-		$this->selector->classList->add('selector');
-
-		$this->div->col=	['xs'=> 8, 'sm'=> 10, 'md'=> 10, 'lg'=> 10];
-		$this->h2->col=		['xs'=> 12, 'sm'=> 12, 'md'=> 12, 'lg'=> 12];
-
-		$this->html->appendChild($this->h2)
-		->appendChild
-		(
-			$this->div->appendChild($this->img)
-		)->appendChild
-		(
-			new ClearFix()
-		)->appendChild
-		(
-			$this->selector
-		);
 	}
 	public function formatUrlA($id)
 	{
 		return $this->thumbPathA.$id.$this->thumbExt;
-	}
-	public function formatUrlB($id)
-	{
-		return $this->thumbPathB.$id.$this->thumbExt;
 	}
 	public function selRecN($n)
 	{
@@ -178,6 +148,146 @@ class VisorImagenes extends Visor
 		parent::getContent();
 
 		return $this->html->getHTML();
+	}
+	public function setImgAlt($alt)
+	{
+		$this->img->setAttribute('alt' , $alt);
+
+		return $this;
+	}
+	public function setImgSrc($src)
+	{
+		$this->img->setAttribute('src' , $src);
+
+		return $this;
+	}
+	public function setTitulo($titulo)
+	{
+		$this->titulo->setTagValue($titulo);
+
+		return $this;
+	}
+}
+class VisorNovedades extends VisorHTMLBase
+{
+	public $section;
+	public $p;
+
+	function __construct()
+	{
+		parent::__construct();
+
+		$this->section=new DOMTag('section');
+		$this->titulo=new DOMTag('h1');
+		$this->p=new DOMTag('span');
+
+		$this->p->classList->add('sangria');
+		$this->img->classList->add('shadow');
+		$this->section->classList->add('novedades');
+		$this->section->col=['xs'=>10 , 'sm'=>10 , 'md'=>10 , 'lg'=>10];
+		$this->img->col=	['xs'=>12 , 'sm'=>5 , 'md'=>5 , 'lg'=>5];
+
+
+		$this->html->appendChild
+		(
+			$this->section->appendChild
+			(
+				$this->img
+			)->appendChild
+			(
+				$this->titulo
+			)->appendChild
+			(
+				$this->p
+			)
+		)->appendChild(new ClearFix());
+	}
+	public function addRec($rec , $imagenID , $tituloID , $descripcionID)
+	{
+		global $con;
+
+		$selected=parent::addRec($rec);
+
+		if($selected)
+		{
+			$this->setTitulo
+			(
+				getTraduccion($tituloID , $_SESSION['lang'])
+			)->setImgAlt
+			(
+				getTraduccion
+				(
+					fetch_all
+					(
+						$con->query
+						(
+							'	SELECT AltID
+								FROM Imagenes
+								WHERE ID='.$imagenID
+						),
+						MYSQLI_NUM
+					)[0][0],
+					$_SESSION['lang']
+				)
+			)->setImgSrc
+			(
+				$this->formatUrlA($imagenID)
+			)->setContenido
+			(
+				getTraduccion($descripcionID , $_SESSION['lang'])
+			);
+		}
+
+		return $selected;
+	}
+	public function setContenido($contenido)
+	{
+		$this->p->appendXML($contenido);
+
+		return $this;
+	}
+}
+class VisorImagenes extends VisorHTMLBase
+{
+	public $div;
+	public $imgAnt;
+	public $selector;
+	public $thumbPathB;
+	
+
+	function __construct()
+	{
+		parent::__construct();
+
+		$this->titulo=new DOMTag('h2');
+		$this->div=new DOMTag('div');
+		$this->imgAnt=false;
+		$this->selector=new DOMTag('div');
+		
+		$this->thumbPathB='/img/miniaturas/galeria/';
+		
+
+		$this->div->classList->add('imgCont');
+		$this->selector->classList->add('selector');
+
+		$this->div->col=	['xs'=> 8, 'sm'=> 10, 'md'=> 10, 'lg'=> 10];
+		$this->titulo->col=		['xs'=> 12, 'sm'=> 12, 'md'=> 12, 'lg'=> 12];
+
+		$this->html->appendChild($this->titulo)
+		->appendChild
+		(
+			$this->div->appendChild($this->img)
+		)->appendChild
+		(
+			new ClearFix()
+		)->appendChild
+		(
+			$this->selector
+		);
+	}
+	public function formatUrlB($id)
+	{
+		return $this->thumbPathB.$id.$this->thumbExt;
 	}
 	public function addRec($rec , $altID , $tituloID)
 	{
@@ -234,18 +344,6 @@ class VisorImagenes extends Visor
 
 		return $selected;
 	}
-	public function setImgAlt($alt)
-	{
-		$this->img->setAttribute('alt' , $alt);
-
-		return $this;
-	}
-	public function setTitulo($titulo)
-	{
-		$this->h2->setTagValue($titulo);
-
-		return $this;
-	}
 	public function addImgAnt($src)
 	{
 		$this->img->classList->add('siguiente');
@@ -253,12 +351,6 @@ class VisorImagenes extends Visor
 		$this->imgAnt->classList->add('anterior');
 		$this->imgAnt->setAttribute('src' , $src);
 		$this->div->appendChild($this->imgAnt);
-
-		return $this;
-	}
-	public function setImgSrc($src)
-	{
-		$this->img->setAttribute('src' , $src);
 
 		return $this;
 	}

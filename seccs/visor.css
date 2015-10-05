@@ -176,7 +176,7 @@ h2{position:relative;display:inline}
 	display:block;
 	float:right;
 }
-p.sangria::first-letter
+span.sangria p:first-of-type::first-letter
 {
 	float:left;
 	margin:6px 15px 0px 0px;

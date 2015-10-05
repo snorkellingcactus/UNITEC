@@ -37,11 +37,7 @@
 		MYSQLI_ASSOC
 	);
 
-	$visorHTML=new Visor
-	(
-		false,
-		new Include_Context($_SERVER['DOCUMENT_ROOT'] . '/esq/visor_novedades.php')
-	);
+	$visorHTML=new VisorNovedades();
 
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/getTraduccion.php';
 
@@ -52,19 +48,19 @@
 	for($i=0;$i<$iMax;$i++)
 	{
 		$nov=& $recLst[$i];
+
+		$visorHTML->addRec
+		(
+			$nov['ID'],
+			$nov['ImagenID'],
+			$nov['TituloID'],
+			$nov['DescripcionID']
+		);
+/*
 		$nov['TituloCon']=getTraduccion($nov['TituloID'],$_SESSION['lang']);
 		$nov['ImagenAlt']=getTraduccion
 		(
-			fetch_all
-			(
-				$con->query
-				(
-					'	SELECT AltID
-						FROM Imagenes
-						WHERE ID='.$nov['ImagenID']
-				),
-				MYSQLI_NUM
-			)[0][0],
+			,
 			$_SESSION['lang']
 		);
 
@@ -78,14 +74,14 @@
 
 		if(!$visorHTML->addRec($nov))
 		{
-			/*
+			
 				$sugeridas->data=$nov;
 				$sugeridasHTML.=$sugeridas->getAsText();
-			*/
+			
 		}
+*/
 	}
-
-	$visorHTML->getContent();
+	echo $visorHTML->getContent();
 	if(!empty($sugeridasHTML))
 	{
 		?>
@@ -97,7 +93,7 @@
 	}
 	
 	$comentariosHTML=new Include_Context($_SERVER['DOCUMENT_ROOT'] . '/esq/visor_comentarios.php');
-	$comentariosHTML->ContenidoID=$visorHTML->recSel['vRecID'];
+	$comentariosHTML->ContenidoID=$visorHTML->recSel;
 	$comentariosHTML->getContent();
 	
 ?>
