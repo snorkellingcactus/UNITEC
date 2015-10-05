@@ -33,12 +33,18 @@
 		include_once $_SERVER['DOCUMENT_ROOT'] . '/php/conexion.php';
 		global $con;
 
-		$novedades=$con->query('select * from Novedades order by Fecha desc');
-		$novedades=fetch_all($novedades , MYSQLI_ASSOC);
+		$novedades=fetch_all
+		(
+			$con->query
+			(
+				'	SELECT *
+					FROM Novedades
+					ORDER BY Fecha DESC'
+			),
+			MYSQLI_ASSOC
+		);
 
-		$cantidad=count($novedades);
-
-		if(!$cantidad)
+		if(!isset($novedades[0]))
 		{
 			?>
 				<p>Sin novedades</p>
@@ -55,11 +61,10 @@
 			$novedadHTML=new Include_Context('esq/novedad.php');
 
 
-			for($i=0;$i<$cantidad;$i++)
+			$i=0;
+			while(isset($novedades[$i]))
 			{
 				$novAct=$novedades[$i];
-
-				$titulo=getTraduccion($novAct['TituloID'] , $_SESSION['lang']);
 
 				if(isset($formNov))
 				{
@@ -67,7 +72,7 @@
 				}
 
 				$novedadHTML->ID=$novAct['ID'];
-				$novedadHTML->Titulo=$titulo;
+				$novedadHTML->Titulo=getTraduccion($novAct['TituloID'] , $_SESSION['lang']);
 				$novedadHTML->Descripcion=substr
 				(
 					convert_html_to_text
@@ -117,6 +122,8 @@
 					$novedadHTML->afectado=false;
 				}
 				$novedadHTML->getContent();
+
+				++$i;
 			}
 		}
  
