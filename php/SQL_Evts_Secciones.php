@@ -92,7 +92,7 @@
 			$nSec->Visible=$_POST['Visible'][0];
 			$nSec->Prioridad=reordena
 			(
-				$_POST['Lugar'] ,
+				$_POST['Lugar'][0] ,
 				$nSec , $condicion ,
 				'ID' ,
 				$_SESSION['conID'],
@@ -108,12 +108,8 @@
 				$nSec->insSQL();
 			}
 
-			$afectados=[$_SESSION['conID']];
-
 			if($nSec->HTMLID!==NULL && $_POST['AgregarAlMenu'][0]==='true')
 			{
-				global $con,$afectado;
-
 				include($_SERVER['DOCUMENT_ROOT'] . '/php/Menu.php');
 				$menu=new Menu(['SeccionID'=>$nSec->HTMLID]);
 

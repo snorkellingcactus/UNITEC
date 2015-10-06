@@ -4,7 +4,7 @@
 	{
 		$clase='target';
 		?>
-			<span id="nNov"></span>
+			<span id="targeted"></span>
 		<?php
 	}
 

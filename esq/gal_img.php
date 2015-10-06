@@ -15,7 +15,7 @@
 	{
 		$clase='target';
 		?>
-			<span id="nImg"></span>
+			<span id="targeted"></span>
 		<?php
 	}
 ?>

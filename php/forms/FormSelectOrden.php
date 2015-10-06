@@ -50,7 +50,7 @@
 		{
 			if($this->selectNext)
 			{
-				echo '<pre>Omitida:';print_r($value);echo ' == ';print_r($this->selectedValue);echo '</pre>';
+				//echo '<pre>Omitida:';print_r($value);echo ' == ';print_r($this->selectedValue);echo '</pre>';
 				$this->selectNext=false;
 				$this->default=$this->optionsLen;
 			}

@@ -1,23 +1,9 @@
 <?php
 	function reordena($lugar , $sqlObj , $condicion , $discProp, $valProp ,$edita)
 	{
-		$prefijo=$lugar[0][0];
-		$pOrden=$lugar[0];
-
 		include_once $_SERVER['DOCUMENT_ROOT'] . '/php/conexion.php';
 		global $con;
 
-		/*
-			echo '<pre>';
-			print_r
-			(
-				'	SELECT '.$discProp.', Prioridad
-					FROM '.$sqlObj->table.' 
-					WHERE '.$condicion.' 
-					ORDER BY Prioridad ASC'
-			);
-			echo '</pre>';
-		*/
 		$coleccion=fetch_all
 		(
 			$con->query
@@ -30,129 +16,95 @@
 			,
 			MYSQLI_ASSOC
 		);
-/*
-		$cMax=count($coleccion);
-		if($prefijo=='b' || $pOrden===0)
+
+		$seleccionado=0;
+		while(isset($coleccion[$seleccionado]) && $coleccion[$seleccionado][$discProp]!=$lugar)
 		{
-			$ultimo=$coleccion[$cMax-1];
-			$primero=$coleccion[0];
-
-			if($pOrden===0)
-			{
-				$ultimo=$coleccion[0];
-				$primero=$coleccion[$cMax-1];
-			}
-
-			$nOrden=$ultimo['Prioridad'];
-
-			echo '<pre>';
-			print_r
-			(
-				'	UPDATE '.$sqlObj->table.'
-					SET Prioridad='.$primero['Prioridad'].'
-					WHERE '.$discProp.'='.$ultimo[$discProp]
-			);
-			echo '</pre>';
-
-			$con->query
-			(
-				'	UPDATE '.$sqlObj->table.'
-					SET Prioridad='.$primero['Prioridad'].'
-					WHERE '.$discProp.'='.$ultimo[$discProp]
-			);
-			echo '<pre>nOrden:'.$nOrden.'</pre>';
-			return $nOrden;
+			++$seleccionado;
 		}
-*/
-		//Si alguna seccion ocupa el lugar de la nueva la muevo a ella y
-		//en el caso de que sea necesario a sus siguientes.
-//		echo '<pre>Edita:';var_dump($edita);echo '</pre>';
-		$desde=count($coleccion)-1;
-		if($desde<0)
+
+		if(!isset($coleccion[0]))
 		{
 			return 0;
 		}
 
 		if($edita)
 		{
-			$desde=0;
-			while($coleccion[$desde][$discProp]!==$valProp && $desde<30)
+			$actual=0;
+			while(isset($coleccion[$actual]) && $coleccion[$actual][$discProp]!=$valProp)
 			{
-				++$desde;
+				++$actual;
 			}
+
+			//La lista de valores posibles en el select comprende
+			//todas las secciones EXEPTO la que está siendo editada,
+			//lo que hace necesario convertir los índices ya que
+			//$coleccion comprende TODAS las secciones.
+			if($seleccionado>$actual)
+			{
+				--$seleccionado;
+			}
+
+			$con->query
+			(
+				'	UPDATE '.$sqlObj->table.
+				'	SET Prioridad='.
+				(
+					intVal
+					(
+						$coleccion[$actual]['Prioridad']
+					)
+				).
+				'	WHERE '.$discProp.'='.$coleccion[$seleccionado][$discProp]
+			);
+
+			return $coleccion[$seleccionado]['Prioridad'];
 		}
 		else
 		{
-			++$desde;
-		}
-	
-//			$j=min($desde, $pOrden);
-//			$sMax=max($desde , $pOrden);
+			$hasta=count($coleccion);
 
-		if($prefijo==='b')
-		{
-			$pOrden=count($coleccion)-1;
-			if(!$edita)
+			//Si es el último, retorno el máximo.
+			if($lugar[0]==='b')
 			{
-				$pOrden++;
+				return intVal($coleccion[$hasta-1]['Prioridad'])+1;
 			}
+			else
+			{
+				$desde=$seleccionado;
+			}
+		}
+
+		if($hasta>$desde)
+		{
+			$j=$desde;
+			$jMax=$hasta;
 		}
 		else
 		{
-			$coleccionLen=count($coleccion);
-			$i=0;
-			while($i<$coleccionLen && $pOrden!==$coleccion[$i][$discProp])
-			{
-				++$i;
-			}
-			$pOrden=$i;
-		}
-		$inc=1;
-		$j=$pOrden;
-		$sMax=$desde;
-
-		if($desde<$pOrden)
-		{
-
-//			echo '<pre>Al reves';echo '</pre>';
-
-			$inc=-1;
-
-			$j=$desde+1;
-			$sMax=$pOrden+1;
+			$j=$hasta+1;
+			$jMax=$desde;
 		}
 
-//		echo '<pre>Desde:'.$desde.'</pre>';
-//		echo '<pre>Hasta:'.$pOrden.'</pre>';
-		if($pOrden===count($coleccion))
+		//Hago un lugar para la nueva seccion desplazando sus siguientes una
+		//posición más.
+		while($j<$jMax)
 		{
-			echo '<pre>';print_r($j.' < '.$sMax);echo '</pre>';
-
-			return $coleccion[$pOrden-1]['Prioridad'];
-		}
-
-		$inicial=floatVal($coleccion[$j]['Prioridad']);
-		
-//		echo '<pre>';print_r($j.' < '.$sMax);echo '</pre>';
-
-		while($j<$sMax)
-		{
-			$nID=$coleccion[$j][$discProp];
-
-			$consulta='update '.$sqlObj->table.' set Prioridad='.(intVal($coleccion[$j]['Prioridad'])+$inc).' where '.$discProp.'='.$nID;
-			echo '<pre>';print_r($consulta);echo '</pre>';
-
-			$con->query($consulta);
+			$con->query
+			(
+				'	UPDATE '.$sqlObj->table.
+				'	SET Prioridad='.
+				(
+					intVal
+					(
+						$coleccion[$j]['Prioridad']
+					)+1
+				).
+				'	WHERE '.$discProp.'='.$coleccion[$j][$discProp]
+			);
 
 			++$j;
-
-			if($j>20)
-			{
-				die('fail');
-			}
 		}
-		$nOrden=intVal($coleccion[$pOrden]['Prioridad']);
-//		echo '<pre>nOrden:'.$nOrden.'</pre>';
-		return $nOrden;
+		return $coleccion[$seleccionado]['Prioridad'];
 	}
 ?>

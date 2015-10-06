@@ -120,6 +120,16 @@ $lang=fetch_all
 		<title>Unitec</title>
 	</head>
 	<body onLoad="JavaScript:inicializa()" tabindex="1">
+		<?php
+/*
+			echo '<pre>SESSION:';
+			print_r
+			(
+				$_SESSION
+			);	
+			echo '</pre>';
+*/
+		?>
 
 		<!--:::::::::::::::Atajos de teclado:::::::::::::::-->
 
@@ -235,7 +245,7 @@ $lang=fetch_all
 					{
 						$clase='class="target"';
 						?>
-							<span id='nSec'></span>
+							<span id='targeted'></span>
 						<?php
 					}
 /*					if($visible==='0')
@@ -309,7 +319,7 @@ $lang=fetch_all
 							{
 								$clase='target';
 								?>
-									<span id='nSec'></span>
+									<span id='targeted'></span>
 								<?php
 							}
 
@@ -355,7 +365,7 @@ $lang=fetch_all
 								$clase='target';
 
 								?>
-									<span id='nSec'></span>
+									<span id='targeted'></span>
 								<?php
 
 							}

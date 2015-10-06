@@ -56,7 +56,11 @@
 					$selected=$imgAct['ID'];
 				}
 			}
-
+/*
+			echo '<pre>visor:';
+			print_r($visorHTML);
+			echo '</pre>';
+*/
 			echo $visorHTML->getContent();
 
 			//echo $selector->getHTML();

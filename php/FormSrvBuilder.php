@@ -25,7 +25,7 @@
 
 			$this->includes=[];
 
-			$this->ancla="#nCon";
+			$this->ancla="#targeted";
 
 			$this->cantidad=1;
 			$this->contador=0;
@@ -80,7 +80,7 @@
 			if($this->stepDesp->thisIsLast())
 			{
 				//echo '<pre>Is The Last</pre>';
-				return $this->referrer;
+				return $this->referrer.$this->ancla;
 			}
 			return $this->actionUrl.'?step='.$this->stepDesp->getNext();
 		}

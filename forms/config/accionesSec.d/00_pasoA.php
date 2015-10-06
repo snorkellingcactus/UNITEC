@@ -50,20 +50,22 @@
 
 		if($this->getAction()===0)
 		{
+			$htmlID=fetch_all
+			(
+				$con->query
+				(
+					'	SELECT HTMLID
+						FROM Secciones
+						WHERE ID='.$_SESSION['conID']
+				),
+				MYSQLI_NUM
+			)[0][0];
+
 			$titulo->input->setValue
 			(
 				html_entity_decode
 				(
-					fetch_all
-					(
-						$con->query
-						(
-							'	SELECT HTMLID
-								FROM Secciones
-								WHERE ID='.$_SESSION['conID']
-						),
-						MYSQLI_NUM
-					)[0][0]
+					$htmlID
 				)
 			);
 			$atajoSQL=fetch_all
@@ -72,7 +74,7 @@
 				(
 					'	SELECT Atajo
 						FROM Menu
-						WHERE SeccionID="'.$_SESSION['conID'].'"'
+						WHERE SeccionID="'.$htmlID.'"'
 				),
 				MYSQLI_NUM
 			);
@@ -87,7 +89,7 @@
 
 			if(isset($atajoSQL[0]))
 			{
-				$atajo->setValue($atajoSQL[0]);
+				$atajo->input->setValue($atajoSQL[0][0]);
 			}
 		}
 
