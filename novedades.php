@@ -49,13 +49,19 @@
 	{
 		$nov=& $recLst[$i];
 
-		$visorHTML->addRec
+		if
 		(
-			$nov['ID'],
-			$nov['ImagenID'],
-			$nov['TituloID'],
-			$nov['DescripcionID']
-		);
+			$visorHTML->addRec
+			(
+				$nov['ID'],
+				$nov['ImagenID'],
+				$nov['TituloID'],
+				$nov['DescripcionID']
+			)
+		)
+		{
+			$selected=$nov['TituloID'];
+		}
 /*
 		$nov['TituloCon']=getTraduccion($nov['TituloID'],$_SESSION['lang']);
 		$nov['ImagenAlt']=getTraduccion
@@ -93,9 +99,8 @@
 	}
 	
 	$comentariosHTML=new Include_Context($_SERVER['DOCUMENT_ROOT'] . '/esq/visor_comentarios.php');
-	$comentariosHTML->ContenidoID=$visorHTML->recSel;
+	$comentariosHTML->ContenidoID=$selected;
 	$comentariosHTML->getContent();
-	
 ?>
 	</body>
 </html>

@@ -53,7 +53,7 @@
 
 				if($visorHTML->addRec($imgAct['ID'] , $imgAct['AltID'] , $imgAct['TituloID']))
 				{
-					$selected=$imgAct['ID'];
+					$selected=$imgAct['TituloID'];
 				}
 			}
 /*
@@ -66,7 +66,7 @@
 			//echo $selector->getHTML();
 
 			$comentariosHTML=new Include_Context($_SERVER['DOCUMENT_ROOT'] . '/esq/visor_comentarios.php');
-			$comentariosHTML->ContenidoID=$visorHTML->recSel;
+			$comentariosHTML->ContenidoID=$selected;
 			$comentariosHTML->getContent();
 		?>
 	</body>

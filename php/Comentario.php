@@ -33,10 +33,10 @@ class Comentario extends SQL_Obj
 }
 function genComLst($main , $mLen , $dep , $NombreDest=NULL , $formBuilder)
 {
-	include_once $_SERVER['DOCUMENT_ROOT'] . '//php/getTraduccion.php';
-	include_once $_SERVER['DOCUMENT_ROOT'] . '//php/Include_Context.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/getTraduccion.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/Include_Context.php';
 
-	$comentarioHTML=new Include_Context($_SERVER['DOCUMENT_ROOT'] . '//esq/coment.php');
+	$comentarioHTML=new Include_Context($_SERVER['DOCUMENT_ROOT'] . '/esq/coment.php');
 
 	for($i=0;$i<$mLen;$i++)
 	{
@@ -77,7 +77,17 @@ function GenComGrp($ContID , $con , $formBuilder)
 			WHERE Comentarios.RaizID ='.$ContID.
 		'	ORDER BY Fecha ASC'
 	);
-
+/*
+	echo '<pre>Consulta:';
+	print_r
+	(
+		'	SELECT *
+			FROM Comentarios
+			WHERE Comentarios.RaizID ='.$ContID.
+		'	ORDER BY Fecha ASC'
+	);
+	echo '</pre>';
+*/
 	$consulta=fetch_all($consulta , MYSQLI_ASSOC);
 
 	$cLen=count($consulta);

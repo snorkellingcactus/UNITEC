@@ -166,18 +166,6 @@ class VisorHTMLBase extends Visor
 	{
 		return $this->thumbPathA.$id.$this->thumbExt;
 	}
-	public function selRecN($n)
-	{
-		parent::selRecN($n);
-
-		if($this->vRecIDAnt!==false)
-		{
-			$this->addImgAnt
-			(
-				$this->formatUrlA($this->vRecIDAnt)
-			);
-		}
-	}
 	public function getContent()
 	{
 		parent::getContent();
@@ -388,6 +376,18 @@ class VisorImagenes extends VisorHTMLBase
 		$this->div->appendChild($this->imgAnt);
 
 		return $this;
+	}
+	public function selRecN($n)
+	{
+		parent::selRecN($n);
+
+		if($this->vRecIDAnt!==false)
+		{
+			$this->addImgAnt
+			(
+				$this->formatUrlA($this->vRecIDAnt)
+			);
+		}
 	}
 }
 ?>

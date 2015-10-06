@@ -26,5 +26,5 @@
 	?>
 	<p>Mensaje:</p>
 	<textarea id="#editor" name="comContenido" cols="20" rows="4"></textarea>
-	<input type="submit" name="Aceptar" value="Publicar" >
+	<input type="submit" name="Continuar" value="Publicar" >
 </form>
