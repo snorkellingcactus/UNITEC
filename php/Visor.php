@@ -9,7 +9,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/php/getTraduccion.php';
 class Visor extends Desplazador
 {
 	public	$recLst;
-	public	$recMax;
+	private	$recMax;
 	public	$nRecSel;		//Número de Imagen coincidente con el valor del discriminador.
 	public	$recSel;		//Objeto imagen seleccionado.
 	public	$vRecIDAnt;
@@ -26,6 +26,22 @@ class Visor extends Desplazador
 		$this->discVal=false;
 		$this->vRecIDAnt=false;
 
+		include_once $_SERVER['DOCUMENT_ROOT'] . '/php/is_session_started.php';
+		start_session_if_not();
+/*
+		echo '<pre>SESSION:';
+		print_r
+		(
+			$_SESSION
+		);
+		echo '</pre>';
+*/
+		//Si realizando alguna operación (como comentar)
+		//se pierde el ancla, la variable SESSION estará por si acaso.
+		if(isset($_SESSION['vRecID']))
+		{
+			$this->discVal=$_SESSION['vRecID'];
+		}
 		//Si se especificó un ID de imagen, se selecciona esa imagen para mostrar
 		if(isset($_GET['vRecID']))
 		{
@@ -41,17 +57,36 @@ class Visor extends Desplazador
 
 		$this->recSel=& $this->recLst[$this->nRecSel];
 
-		if(isset($_GET['vRecIDAnt']))
+		$_SESSION['vRecID']=$this->recSel;
+
+		$this->autoSetRecIDAnt();
+
+		return $this->nRecSel;
+	}
+	private function autoSetRecIDAnt()
+	{
+		if($this->setRecIDAntIfValid($_SESSION))
 		{
-			$vRecIDAnt=strip_tags($_GET['vRecIDAnt']);
+			$this->setRecIDAntIfValid($_GET);
+		}
+
+		$_SESSION['vRecIDAnt']=$this->recSel;
+	}
+	private function setRecIDAntIfValid($cont)
+	{
+		if(isset($cont['vRecIDAnt']))
+		{
+			$vRecIDAnt=strip_tags($cont['vRecIDAnt']);
+			//echo '<pre>'.$this->discVal.'!='.$vRecIDAnt.'</pre>';
 
 			if($this->discVal!=$vRecIDAnt)
 			{
 				$this->vRecIDAnt=$vRecIDAnt;
-			}
-		}
 
-		return $this->nRecSel;
+				return true;
+			}
+			return false;
+		}
 	}
 	//Devuelve el objeto almacenado en la posición especificada.
 	public function RecN($n)
