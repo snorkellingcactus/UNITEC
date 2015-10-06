@@ -175,13 +175,17 @@ start_session_if_not();
 					<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
 						<?php $GenHTML->genTable() ?>
 
-						<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 calRef hidden-screader">
-							<span>Evento:</span>
-							<span class="evento"></span>
+						<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 hidden-screader">
+							<div class="calRef">
+								<span>Evento</span>
+								<span class="evento"></span>
+							</div>
 						</div>
-						<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 calRef hidden-screader">
-							<span>Dia Actual:</span>
-							<span class="hoy"></span>
+						<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 hidden-screader">
+							<div class="calRef">
+								<span>Dia Actual</span>
+								<span class="hoy"></span>
+							</div>
 						</div>
 					</div>
 				<?php
