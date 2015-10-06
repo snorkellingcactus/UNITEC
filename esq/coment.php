@@ -24,7 +24,7 @@
 			//Nombre de la persona respondida.
 			if($this->NombreDest!==NULL)
 			{
-				?>&#8631;<?php
+				?>En respuesta a <?php
 
 				echo $this->NombreDest;
 			}
@@ -55,7 +55,7 @@
 
 	<form action="#comRes" method="POST" class="formRes">
 		<input type="hidden" name="comConID" value="<?php echo $this->ContenidoID ?>" >
-	 	<input type="submit" value="↶" title="Responder a <?php echo $this->Nombre ?>">
+	 	<input type="submit" value="Responder" title="Responder a <?php echo $this->Nombre ?>">
 	</form>
 
  	<?php
@@ -74,7 +74,7 @@
 		if(isset($_POST['comConID'])&&$_POST['comConID']==$this->ContenidoID)
 		{
 			$_SESSION['comConID']=$_POST['comConID'];
-			include $_SERVER['DOCUMENT_ROOT'] . '//forms/nuevo_coment.php';
+			include $_SERVER['DOCUMENT_ROOT'] . '/forms/nuevo_coment.php';
 		}
 	?>
 </div>
