@@ -51,7 +51,7 @@
 			{
 				$imgAct=& $recLst[$i];
 
-				if($visorHTML->addRec($imgAct['ID'] , $imgAct['AltID'] , $imgAct['TituloID']))
+				if($visorHTML->add($imgAct['ID'] , $imgAct['AltID'] , $imgAct['TituloID']))
 				{
 					$selected=$imgAct['TituloID'];
 				}

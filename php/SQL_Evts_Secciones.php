@@ -21,7 +21,7 @@
 
 			if(isset($_POST['Modulo']))
 			{
-				$nSec->ModuloID=intVal($_POST['Modulo']);
+				$nSec->ModuloID=intVal($_POST['Modulo'][0]);
 			}
 			if(!empty($_POST['Titulo'][0]))
 			{

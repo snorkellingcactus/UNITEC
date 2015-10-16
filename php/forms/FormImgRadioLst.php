@@ -8,7 +8,7 @@
 		{
 			parent::__construct($parentForm , $name);
 		}
-		function addNew($value, $imgSrc , $imgAlt)
+		function addNewImgRadio($value, $imgSrc , $imgAlt)
 		{
 			$this->add
 			(

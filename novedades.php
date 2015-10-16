@@ -51,7 +51,7 @@
 
 		if
 		(
-			$visorHTML->addRec
+			$visorHTML->add
 			(
 				$nov['ID'],
 				$nov['ImagenID'],

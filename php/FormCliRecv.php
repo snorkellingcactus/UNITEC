@@ -41,11 +41,11 @@
 					{
 						$this->afectados=$this->SQL_Evts->$_SESSION['accion']();
 					}
-
+/*
 					echo '<pre>Afectados:';
 					print_r($this->afectados);
 					echo '</pre>';
-
+*/
 				}
 				
 				unset($_SESSION['conID']  , $_SESSION['form'] , $_SESSION['accion']);

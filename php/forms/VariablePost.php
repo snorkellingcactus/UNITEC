@@ -8,7 +8,7 @@
 			parent::__construct($parentForm , 'hidden');
 			$this->setName($name)->setValue($value);
 		}
-		function setID()
+		function setID($id)
 		{
 			return $this->setAttribute('id' , $id);
 		}

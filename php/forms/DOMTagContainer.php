@@ -166,8 +166,9 @@
 		{
 			//echo '<pre>DOMTagContainer::getHTML()';
 			//echo '</pre>';
+			$null=null;
 
-			$this->renderChilds($jj=null , $hh=null);
+			$this->renderChilds($null , $null);
 
 			$innerHTML = ""; 
 			$children  = $this->domDoc->childNodes;

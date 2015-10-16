@@ -78,7 +78,7 @@
 	{
 		$imgId=$Imgs[$i][0];
 
-		$selectImg->input->addNew
+		$selectImg->input->addNewImgRadio
 		(
 			$imgId,
 			'/img/miniaturas/galeria/'.$imgId.'.png',

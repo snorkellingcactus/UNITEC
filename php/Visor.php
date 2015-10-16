@@ -225,11 +225,11 @@ class VisorNovedades extends VisorHTMLBase
 			)
 		)->appendChild(new ClearFix());
 	}
-	public function addRec($rec , $imagenID , $tituloID , $descripcionID)
+	public function add($rec , $imagenID , $tituloID , $descripcionID)
 	{
 		global $con;
 
-		$selected=parent::addRec($rec);
+		$selected=$this->addRec($rec);
 
 		if($selected)
 		{
@@ -312,9 +312,9 @@ class VisorImagenes extends VisorHTMLBase
 	{
 		return $this->thumbPathB.$id.$this->thumbExt;
 	}
-	public function addRec($rec , $altID , $tituloID)
+	public function add($rec , $altID , $tituloID)
 	{
-		$selected=parent::addRec($rec);
+		$selected=$this->addRec($rec);
 
 		$alt=getTraduccion($altID , $_SESSION['lang']);
 

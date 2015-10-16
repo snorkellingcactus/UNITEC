@@ -85,7 +85,8 @@
 
 	$mapa->appendChild($imgMapa);
 
-	$xml=DOMDocument::loadXML
+	$xml=new DOMDocument();
+	$xml->loadXML
 	(
 		file_get_contents
 		(

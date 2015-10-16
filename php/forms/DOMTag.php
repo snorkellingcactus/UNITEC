@@ -95,7 +95,9 @@
 		{
 			//echo '<pre>DOMTag::renderChilds()';
 			//echo '</pre>';
-			return parent::renderChilds($doc , $kk=null);
+			$null=null;
+
+			return parent::renderChilds($doc , $null);
 		}
 		public function createTag()
 		{

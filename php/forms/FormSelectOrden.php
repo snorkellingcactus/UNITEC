@@ -46,8 +46,11 @@
 			}
 			return false;
 		}
-		function buildOption($name , $value)
+		function buildOption()
 		{
+			$args=func_get_args();
+			$value=$args[1];
+
 			if($this->selectNext)
 			{
 				//echo '<pre>Omitida:';print_r($value);echo ' == ';print_r($this->selectedValue);echo '</pre>';
@@ -59,7 +62,7 @@
 				return false;
 			}
 
-			return parent::buildOption($name , $value);
+			return parent::buildOption($args[0] , $value);
 		}
 		public function appendChild($child)
 		{
