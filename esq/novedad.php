@@ -10,9 +10,11 @@
 
 	$fechaStr=new DateTime();
 	$fechaStr->createFromFormat('Y-m-d H:i:s' , $this->Fecha);
+	$fechaStr=$fechaStr->getTimestamp();
 
 	//Extraer el orden en que debería representarse de la BD.
-	$fechaStr='Escrito el '.$fechaStr->format('l').' de '.$fechaStr->format('F').' del '.$fechaStr->format('Y');
+	//$fechaStr='Escrito el '.$fechaStr->format('l').' de '.$fechaStr->format('F').' del '.$fechaStr->format('Y');
+	$fechaStr=sprintf(gettext('Escrito el %1$s de %2$s del %3$s') , strftime('%d' , $fechaStr) , strftime('%B' , $fechaStr) , strftime('%G' , $fechaStr));
 ?>
 <div class="novedad col-xs-12 col-sm-12 col-md-12 col-lg-12 <?php echo $clase ?>">
 	<?php
