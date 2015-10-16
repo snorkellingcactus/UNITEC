@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 14-09-2015 a las 19:15:59
+-- Tiempo de generación: 16-10-2015 a las 21:26:59
 -- Versión del servidor: 5.6.16
 -- Versión de PHP: 5.5.11
 
@@ -38,19 +38,16 @@ CREATE TABLE IF NOT EXISTS `Comentarios` (
   KEY `Comentarios_ibfk_3` (`ContenidoID`),
   KEY `Comentarios_ibfk_2` (`RaizID`),
   KEY `Comentarios_ibfk_4` (`PadreID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=49 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=93 ;
 
 --
 -- Volcado de datos para la tabla `Comentarios`
 --
 
 INSERT INTO `Comentarios` (`ID`, `ContenidoID`, `RaizID`, `PadreID`, `Fecha`, `Baneado`, `Nombre`) VALUES
-(34, 380, 329, 329, '2015-06-12 11:24:47', b'0', 'sdcsdc'),
-(35, 381, 329, 380, '2015-06-12 11:26:21', b'0', 'asxasx'),
-(38, 384, 329, 329, '2015-06-12 12:32:45', b'0', 'asxasx'),
-(39, 391, 386, 386, '2015-06-12 16:12:55', b'0', 'asxasx'),
-(47, 443, 428, 428, '2015-06-15 23:15:00', b'0', 'Yo'),
-(48, 445, 428, 428, '2015-06-15 23:38:32', b'0', 'Emilio');
+(86, 686, 597, 597, '2015-10-06 20:57:00', b'0', 'asx'),
+(91, 691, 597, 686, '2015-10-06 22:10:22', b'0', 'ELGil'),
+(92, 692, 597, 597, '2015-10-06 22:11:29', b'0', 'ELGil');
 
 -- --------------------------------------------------------
 
@@ -61,7 +58,7 @@ INSERT INTO `Comentarios` (`ID`, `ContenidoID`, `RaizID`, `PadreID`, `Fecha`, `B
 CREATE TABLE IF NOT EXISTS `Contenidos` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=576 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=693 ;
 
 --
 -- Volcado de datos para la tabla `Contenidos`
@@ -222,7 +219,6 @@ INSERT INTO `Contenidos` (`ID`) VALUES
 (319),
 (320),
 (321),
-(325),
 (328),
 (329),
 (332),
@@ -292,9 +288,7 @@ INSERT INTO `Contenidos` (`ID`) VALUES
 (494),
 (495),
 (496),
-(498),
 (499),
-(500),
 (501),
 (504),
 (505),
@@ -323,14 +317,106 @@ INSERT INTO `Contenidos` (`ID`) VALUES
 (564),
 (565),
 (567),
-(568),
 (569),
-(570),
 (571),
-(572),
 (573),
-(574),
-(575);
+(575),
+(577),
+(579),
+(581),
+(583),
+(585),
+(586),
+(587),
+(589),
+(591),
+(593),
+(595),
+(596),
+(597),
+(598),
+(599),
+(601),
+(603),
+(605),
+(607),
+(609),
+(611),
+(613),
+(614),
+(615),
+(616),
+(617),
+(618),
+(619),
+(620),
+(621),
+(622),
+(623),
+(624),
+(625),
+(626),
+(627),
+(628),
+(629),
+(630),
+(631),
+(632),
+(633),
+(634),
+(635),
+(636),
+(637),
+(638),
+(639),
+(640),
+(641),
+(643),
+(644),
+(645),
+(646),
+(647),
+(648),
+(649),
+(650),
+(651),
+(652),
+(653),
+(654),
+(655),
+(656),
+(657),
+(658),
+(659),
+(660),
+(661),
+(662),
+(663),
+(664),
+(665),
+(666),
+(667),
+(668),
+(669),
+(670),
+(671),
+(672),
+(673),
+(674),
+(675),
+(676),
+(677),
+(678),
+(679),
+(680),
+(681),
+(682),
+(683),
+(684),
+(685),
+(686),
+(691),
+(692);
 
 -- --------------------------------------------------------
 
@@ -348,7 +434,7 @@ CREATE TABLE IF NOT EXISTS `Eventos` (
   PRIMARY KEY (`ID`),
   KEY `Eventos_ibfk_1` (`DescripcionID`),
   KEY `NombreID` (`NombreID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=5 ;
 
 --
 -- Volcado de datos para la tabla `Eventos`
@@ -356,7 +442,8 @@ CREATE TABLE IF NOT EXISTS `Eventos` (
 
 INSERT INTO `Eventos` (`ID`, `Tiempo`, `NombreID`, `DescripcionID`, `Visible`, `Prioridad`) VALUES
 (2, '0000-00-00 00:00:00', 436, 435, 0, 0),
-(3, '2015-09-11 12:00:00', 547, 546, 0, 20);
+(3, '2015-09-11 12:00:00', 547, 546, 0, 20),
+(4, '2015-10-07 05:00:00', 648, 647, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -376,18 +463,20 @@ CREATE TABLE IF NOT EXISTS `Imagenes` (
   KEY `LenguajeID` (`LenguajeID`),
   KEY `Imagenes_ibfk_1` (`TituloID`),
   KEY `AltID` (`AltID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=69 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=89 ;
 
 --
 -- Volcado de datos para la tabla `Imagenes`
 --
 
 INSERT INTO `Imagenes` (`ID`, `Url`, `AltID`, `TituloID`, `LenguajeID`, `Visible`, `Prioridad`) VALUES
-(62, '62.png', 501, 500, NULL, 1, 0),
-(65, '65.jpg', 569, 568, NULL, 1, 1),
-(66, '66.jpg', 571, 570, NULL, 1, 0),
-(67, '67.jpeg', 573, 572, NULL, 1, 0),
-(68, '68.png', 575, 574, NULL, 0, 0);
+(74, '74.png', 587, 586, NULL, 1, 0),
+(76, 'http://image.slidesharecdn.com/itcamp2011-alessandropilotti-optimizingaspnetandphpappsoniis7-5-110602094321-phpapp02/95/itcamp-2011-alessandro-pilotti-optimizing-aspnet-and-php-apps-on-iis-75-3-728.jpg?cb=1307016230', 599, 598, NULL, 1, 10),
+(84, 'http://www.fotonat.org/data/media/2/picaflor-negro_MG_6213.jpg', 615, 614, NULL, 1, 0),
+(85, '85.jpg', 617, 616, NULL, 1, 0),
+(86, 'http://st-listas.20minutos.es/images/2010-03/197674/2159145_640px.jpg?1277399205', 619, 618, NULL, 1, 0),
+(87, '87.jpg', 621, 620, NULL, 1, 0),
+(88, '88.jpeg', 623, 622, NULL, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -398,7 +487,7 @@ INSERT INTO `Imagenes` (`ID`, `Url`, `AltID`, `TituloID`, `LenguajeID`, `Visible
 CREATE TABLE IF NOT EXISTS `Lenguajes` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `Nombre` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
-  `Pais` varchar(2) COLLATE utf8_unicode_ci NOT NULL,
+  `Pais` varchar(5) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=4 ;
 
@@ -407,9 +496,9 @@ CREATE TABLE IF NOT EXISTS `Lenguajes` (
 --
 
 INSERT INTO `Lenguajes` (`ID`, `Nombre`, `Pais`) VALUES
-(1, 'Español', 'es'),
-(2, 'English', 'en'),
-(3, 'Rusia', 'rs');
+(1, 'Español', 'es_AR'),
+(2, 'English', 'en_US'),
+(3, 'Rusia', 'rs_RU');
 
 -- --------------------------------------------------------
 
@@ -429,7 +518,7 @@ CREATE TABLE IF NOT EXISTS `Menu` (
   UNIQUE KEY `Atajo` (`Atajo`),
   KEY `ContenidoID` (`ContenidoID`),
   KEY `SeccionID` (`SeccionID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=9 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=10 ;
 
 --
 -- Volcado de datos para la tabla `Menu`
@@ -437,8 +526,8 @@ CREATE TABLE IF NOT EXISTS `Menu` (
 
 INSERT INTO `Menu` (`ID`, `ContenidoID`, `SeccionID`, `Url`, `Atajo`, `Prioridad`, `Visible`) VALUES
 (2, 496, 'Galer&iacute;a', '#Galer%C3%ADa', 'G', 0, NULL),
-(4, 498, 'Eventos', '#Eventos', 'E', 0, 0),
-(6, 505, 'Novedades', '#Novedades', 'N', -1, NULL);
+(6, 505, 'Novedades', '#Novedades', 'N', -1, NULL),
+(9, 626, 'Eventos', '#Eventos', NULL, 0, NULL);
 
 -- --------------------------------------------------------
 
@@ -497,7 +586,7 @@ CREATE TABLE IF NOT EXISTS `Novedades` (
 --
 
 INSERT INTO `Novedades` (`ID`, `ImagenID`, `TituloID`, `DescripcionID`, `Fecha`, `Visible`, `Prioridad`) VALUES
-(26, 62, 563, 562, '2015-09-11', 0, 1);
+(27, 74, 597, 596, '2015-09-16', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -533,24 +622,23 @@ CREATE TABLE IF NOT EXISTS `Secciones` (
   KEY `ModuloID` (`ModuloID`),
   KEY `Secciones_ibfk_1` (`ContenidoID`),
   KEY `Secciones_ibfk_3` (`PadreID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=421 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=424 ;
 
 --
 -- Volcado de datos para la tabla `Secciones`
 --
 
 INSERT INTO `Secciones` (`ID`, `ContenidoID`, `ModuloID`, `PadreID`, `HTMLID`, `Visible`, `Prioridad`) VALUES
-(381, NULL, NULL, NULL, 'Eventos', 1, 9),
-(382, NULL, NULL, NULL, 'Galer&iacute;a', 0, 10),
-(384, 325, NULL, 382, NULL, 0, 6),
+(381, NULL, NULL, NULL, 'Eventos', 0, 8),
+(382, NULL, NULL, NULL, 'Galer&iacute;a', 0, 9),
 (386, NULL, 8, 381, NULL, 1, 5),
-(397, NULL, NULL, NULL, 'Novedades', 1, 10),
-(398, NULL, 12, 397, NULL, 1, 0),
-(400, NULL, NULL, NULL, NULL, 1, 10),
+(397, NULL, NULL, NULL, 'Novedades', 0, 3),
+(400, NULL, NULL, NULL, 'Atajos', 0, 7),
 (401, NULL, 10, 400, NULL, 1, 0),
-(402, NULL, NULL, NULL, NULL, 1, 10),
+(402, NULL, NULL, NULL, 'Organigrama', 0, 5),
 (403, NULL, 17, 402, NULL, 1, 0),
-(420, NULL, 1, 382, NULL, 0, 6);
+(420, NULL, 1, 382, NULL, 0, 6),
+(423, NULL, 12, 397, NULL, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -566,7 +654,7 @@ CREATE TABLE IF NOT EXISTS `Traducciones` (
   PRIMARY KEY (`ID`),
   KEY `LenguajeID` (`LenguajeID`),
   KEY `Traducciones_ibfk_1` (`ContenidoID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=678 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=795 ;
 
 --
 -- Volcado de datos para la tabla `Traducciones`
@@ -728,8 +816,6 @@ INSERT INTO `Traducciones` (`ID`, `ContenidoID`, `LenguajeID`, `Texto`) VALUES
 (379, 319, 2, 'asxasx'),
 (380, 320, 2, 'asxasxggg'),
 (381, 321, 2, 'Google'),
-(385, 325, 2, '         [center][size=200][b]Gallery[/b][/size][/center]'),
-(390, 325, 1, '&lt;p&gt;&lt;strong&gt;Galera de mago de oz&lt;/strong&gt;&lt;/p&gt;\r\n'),
 (391, 328, 1, '         En este Ãºltimo aÃ±o tres de las mÃ¡s grandes distribuciones GNU/Linux profesionales se han puesto de acuerdo, entre otras cosas, en ofrecer a \r\nlos desarrolladores que las usan una vÃ­a accesible para conseguir [b]las herramientas de programaciÃ³n mÃ¡s demandadas[/b], por lo general, en la forma de repositorios adicionales.\r\nAsÃ­, Canonical presentÃ³ [url=http://www.muylinux.com/2014/12/12/ubuntu-developer-tools-center-ubuntu-make]Ubuntu Make[/url], SUSE sus colecciones, directamente imbuidas en la instalaciÃ³n de [url=http://www.muylinux.com/2014/10/27/suse-linux-enterprise-12-version-final]SUSE Enterprise Linux 12[/url]; y la compaÃ±Ã­a del sombre rojo hizo con [url=http://www.muylinux.com/2014/06/10/red-hat-enterprise-linux-7]RHEL 7[/url] lo propio introduciendo [b]Red Hat Software Collections[/b], cuya segunda versiÃ³n redonda acaba de ser anunciada unos dÃ­as atrÃ¡s.\r\nRed Hat Software Collections 2 incluye un buen conjunto de lenguajes de programaciÃ³n, bases de datos y otro tipo de herramientas orientas al \r\ndesarrollo entre las que cabe destacar Python 2.7, 3.3 y 3.4, PHP 5.6, \r\nRuby 2.2 y Rails 4.1, Node.js 0.10, MySQL 5.6.24, PostgreSQL 9.4.1, \r\nMariaDB 10.0.17 o MongoDB 2.6.9, ademÃ¡s de [b]aplicaciones con Docker[/b], que se estÃ¡n poniendo muy de moda por mÃ©ritos propios.\r\nToda la informaciÃ³n acerca de este lanzamiento y su contenido la podÃ©is encontrar en el [url=http://www.redhat.com/en/about/press-releases/red-hat-software-collections-2-delivers-latest-stable-open-tools-traditional-and-container-based-application-development]anuncio oficial[/url] de Red Hat.'),
 (392, 329, 1, 'Disponible Red Hat Software Collections 2'),
 (395, 332, 1, 'Imagen logo de RedHat'),
@@ -831,9 +917,7 @@ INSERT INTO `Traducciones` (`ID`, `ContenidoID`, `LenguajeID`, `Texto`) VALUES
 (596, 494, 1, 'Galer&iacute;a'),
 (597, 495, 1, 'Galer&iacute;a'),
 (598, 496, 1, 'Galer&iacute;a'),
-(600, 498, 1, 'Eventos'),
 (601, 499, 1, 'Contacto'),
-(602, 500, 1, 'Hola'),
 (603, 501, 1, 'asx'),
 (606, 504, 1, 'Novedades'),
 (607, 505, 1, 'Novedades'),
@@ -862,14 +946,105 @@ INSERT INTO `Traducciones` (`ID`, `ContenidoID`, `LenguajeID`, `Texto`) VALUES
 (666, 564, 1, '&lt;p&gt;Wor&lt;strong&gt;ldjj&lt;/strong&gt;&lt;/p&gt;\r\n'),
 (667, 565, 1, 'Hello'),
 (669, 567, 1, 'Un Fondo Azul'),
-(670, 568, 1, 'saxasx'),
 (671, 569, 1, 'asxsax'),
-(672, 570, 1, 'Pescado'),
 (673, 571, 1, 'Un Pescado'),
-(674, 572, 1, 'Flores'),
 (675, 573, 1, 'Unas Flores'),
-(676, 574, 1, 'Dedicaci&oacute;n de amor'),
-(677, 575, 1, 'Dedicaci&oacute;n de amor');
+(677, 575, 1, 'Dedicaci&oacute;n de amor'),
+(679, 577, 1, 'hola'),
+(681, 579, 1, ''),
+(683, 581, 1, ''),
+(685, 583, 1, ''),
+(687, 585, 1, ''),
+(688, 586, 1, 'Imagen 00'),
+(689, 587, 1, 'Alt 00'),
+(691, 589, 1, 'Alt 01'),
+(693, 591, 1, ''),
+(695, 593, 1, ''),
+(697, 595, 1, ''),
+(698, 596, 1, '&lt;p&gt;Hola Mun&lt;strong&gt;Do&lt;/strong&gt;&lt;/p&gt;\r\n'),
+(699, 597, 1, 'Nueva Novedad'),
+(700, 598, 1, 'asxasx'),
+(701, 599, 1, 'asxasx'),
+(703, 601, 1, 'Un picaflor'),
+(705, 603, 1, 'peza'),
+(707, 605, 1, 'pezb'),
+(709, 607, 1, 'peza'),
+(711, 609, 1, 'pica'),
+(713, 611, 1, 'a'),
+(715, 613, 1, 'b'),
+(716, 614, 1, 'A'),
+(717, 615, 1, 'a'),
+(718, 616, 1, 'B'),
+(719, 617, 1, 'b'),
+(720, 618, 1, 'C'),
+(721, 619, 1, 'c'),
+(722, 620, 1, 'D'),
+(723, 621, 1, 'd'),
+(724, 622, 1, 'Prueba'),
+(725, 623, 1, 'prueb'),
+(726, 624, 1, 'asxsax'),
+(727, 625, 1, 'Hola'),
+(728, 626, 1, 'Eventos'),
+(729, 627, 1, 'asx'),
+(730, 628, 1, 'asx'),
+(731, 629, 1, 'asx'),
+(732, 630, 1, 'asx'),
+(733, 631, 1, 'asx'),
+(734, 632, 1, 'asxasx'),
+(735, 633, 1, 'saxsax'),
+(736, 634, 1, 'asx'),
+(737, 635, 1, 'asx'),
+(738, 636, 1, 'asx'),
+(739, 637, 1, 'sax'),
+(740, 638, 1, 'A'),
+(741, 639, 1, 'a'),
+(742, 640, 1, 'sxs'),
+(743, 641, 1, 'primero'),
+(745, 643, 1, 'SobreOrganigrama'),
+(746, 644, 1, 'Bottom'),
+(747, 645, 1, 'Top'),
+(748, 646, 1, 'bottom'),
+(749, 647, 1, 'Hacer algo'),
+(750, 648, 1, 'Ma&ntilde;ana'),
+(751, 649, 1, 'asxsx'),
+(752, 650, 1, 'asxsx'),
+(753, 651, 1, 'asxsx'),
+(754, 652, 1, 'asxsx'),
+(755, 653, 1, 'asxsx'),
+(756, 654, 1, 'asxsx'),
+(757, 655, 1, 'asxsx'),
+(758, 656, 1, 'asx'),
+(759, 657, 1, 'asx'),
+(760, 658, 1, 'asx'),
+(761, 659, 1, 'asx'),
+(762, 660, 1, 'asx'),
+(763, 661, 1, 'asx'),
+(764, 662, 1, 'asx'),
+(765, 663, 1, 'asx'),
+(766, 664, 1, 'asx'),
+(767, 665, 1, 'asx'),
+(768, 666, 1, 'asx'),
+(769, 667, 1, 'asx'),
+(770, 668, 1, 'asx'),
+(771, 669, 1, 'asx'),
+(772, 670, 1, 'sdc'),
+(773, 671, 1, 'sdc'),
+(774, 672, 1, 'sdc'),
+(775, 673, 1, 'asxasx'),
+(776, 674, 1, 'asxasx'),
+(777, 675, 1, 'asxasx'),
+(779, 677, 1, 'asx'),
+(780, 678, 1, 'asx'),
+(781, 679, 1, 'asx'),
+(782, 680, 1, 'asx'),
+(783, 681, 1, 'asx'),
+(784, 682, 1, 'asx'),
+(785, 683, 1, 'asx'),
+(786, 684, 1, 'asx'),
+(787, 685, 1, 'asx'),
+(788, 686, 1, 'asx'),
+(793, 691, 1, 'Que gil que soy'),
+(794, 692, 1, 'Que gil que soy');
 
 -- --------------------------------------------------------
 

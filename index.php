@@ -6,8 +6,7 @@
 //error_reporting(E_ALL & ~E_DEPRECATED  & ~E_STRICT);
 ini_set("display_errors", "On");
 
-include_once $_SERVER['DOCUMENT_ROOT'] . '/php/is_session_started.php';
-start_session_if_not();
+include_once($_SERVER['DOCUMENT_ROOT'] . '/php/setLang.php');
 
 /*
 if(isset($_GET['sesdest']))
@@ -15,28 +14,24 @@ if(isset($_GET['sesdest']))
 	session_destroy();
 	session_start();
 }
-*/
+
 if(!isset($_SESSION['cache']))
 {
 	$_SESSION['cache']=0;
 }
-if(!isset($_SESSION['lang']))
-{
-	$_SESSION['lang']=1;
-}
-if(isset($_GET['lang']))
-{
-	$_SESSION['lang']=intVal($_GET['lang']);
-}
+*/
+detectLang();
 if(isset($_POST['Cancela']))
 {
 	unset($_SESSION['form'] , $_SESSION['conID'] , $_SESSION['accion']);
 }
 function echoLang($langSQLRes)
 {
+	//Primeras dos letras.
+	$langName=$langSQLRes['Pais'][0].$langSQLRes['Pais'][1];
 	?>
 		<!-- Revisar -->
-		<img aria-hidden="true" src="img/idiomas/<?php echo $langSQLRes['Pais'].'.png' ?>" alt="" />
+		<img aria-hidden="true" src="img/idiomas/<?php echo $langName.'.png' ?>" alt="" />
 	<?php 
 
 	echo utf8_encode($langSQLRes['Nombre']);
@@ -54,16 +49,7 @@ if(isset($_SESSION['adminID']))
 }
 include_once($_SERVER['DOCUMENT_ROOT'] . '/php/conexion.php');
 global $con;
-$lang=fetch_all
-(
-	$con->query
-	(
-		'	SELECT Pais
-			FROM Lenguajes
-			WHERE ID='.$_SESSION['lang']
-	),
-	MYSQL_NUM
-)[0][0];
+$lang=getenv('LANG');
 
 ?>
 <html lang="<?php echo $lang?>">
@@ -180,8 +166,9 @@ $lang=fetch_all
 					?>
 				</ul>
 			</nav>
-			<a href="./inicio_sesion.php">Iniciar Sesión</a>
+			<a href="./inicio_sesion.php"><?php echo _('Iniciar_Sesion') ?></a>
 		</div>
+
 		<?php
 
 			//include_once($_SERVER['DOCUMENT_ROOT'] . '/php/FormInput.php');

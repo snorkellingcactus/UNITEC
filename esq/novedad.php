@@ -25,6 +25,6 @@
 		<img src="/img/miniaturas/galeria/<?php echo $this->ImagenID ?>.png" alt="<?php echo $this->ImagenAlt?>" />
 	</div>
 	<h2><?php echo $this->Titulo ?></h2>
-	<p class="sangria"><?php echo $this->Descripcion ?> <a href="novedades.php?vRecID=<?php echo $this->ID?>" target="_blank">Seguir leyendo<span class="offscreen"> sobre la noticia <?php echo $this->Titulo ?> en nueva ventana</span></a></p>
+	<p class="sangria"><?php echo $this->Descripcion ?> <a href="novedades.php?vRecID=<?php echo $this->ID?>" target="_blank"><?php echo _('Seguir leyendo')?><span class="offscreen"> sobre la noticia <?php echo $this->Titulo ?> en nueva ventana</span></a></p>
 	<p class="fecha"><?php echo $fechaStr ?></p>
 </div>
