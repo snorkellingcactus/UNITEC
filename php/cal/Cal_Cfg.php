@@ -5,19 +5,33 @@ class Cal_Cfg
 	public $eventos;
 				//Variables verificadas por eventosEnFecha.
 				//	Horas	,	Minutos	,	Mes	,	Dia	,	Año.
-	public $verif	=	[	0	,	0	,	1	,	0	,	1	];
-	public $tipo	=	CAL_GREGORIAN;
-	public $dias	=	["Domingo","Lunes","Martes","Miércoles","Jueves","Viernes", "Sabado"];
-	public $meses	=
-	[
-	"Enero"		,	"Febrero"	,	"Marzo"		,	"Abril"		,
-	"Mayo"		,	"Junio"		,	"Julio"		,	"Agosto"	,
-	"Septiembre"	,	"Octubre"	,	"Noviembre"	,	"Diciembre"
-	];
+	public $verif;
+	public $tipo;
+	public $dias;
+	public $meses;
 
 	function __construct()
 	{
-		$this->fecha	=	getdate();
+		$this->verif=	[	0	,	0	,	1	,	0	,	1	];
+		$this->tipo	=	CAL_GREGORIAN;
+		$this->dias	=
+		[
+			gettext('Domingo'),
+			gettext('Lunes'),
+			gettext('Martes'),
+			gettext('Miércoles'),
+			gettext('Jueves'),
+			gettext('Viernes'),
+			gettext('Sabado')
+		];
+		$this->meses=
+		[
+			gettext('Enero'),gettext('Febrero'),gettext('Marzo'),gettext('Abril'),
+			gettext('Mayo'),gettext('Junio'),gettext('Julio'),gettext('Agosto'),
+			gettext('Septiembre'),gettext('Octubre'),gettext('Noviembre'),gettext('Diciembre')
+		];
+
+		$this->fecha=getdate();
 		
 
 		$args=func_get_args();			//Array con argumentos.

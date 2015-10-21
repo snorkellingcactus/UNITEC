@@ -17,7 +17,7 @@
 	$titulo=new FormLabelTitulo($this->form);
 	$descripcion=new FormLabelContenido($this->form);
 	$visible=new FormLabelVisible($this->form);
-	$selectImg=new FormLabelImagen($this->form , 'Imagen' , 'imagen' , 'Imagen');
+	$selectImg=new FormLabelImagen($this->form , 'Imagen' , 'imagen' , gettext('Imagen'));
 
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/conexion.php';
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/getTraduccion.php';

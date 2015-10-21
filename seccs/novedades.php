@@ -47,7 +47,7 @@
 		if(!isset($novedades[0]))
 		{
 			?>
-				<p>Sin novedades</p>
+				<p><?php echo gettext('Sin novedades') ?></p>
 			<?php
 		}
 		else

@@ -78,7 +78,7 @@
 			//echo '<pre>FormSelectOrden::renderChilds()</pre>';
 			$bottom=new FormSelectOrdenEmptyOption('' , $this->prefixBottom);
 			//Revisar
-			$bottom->setTagValue('Abajo de todo');
+			$bottom->setTagValue(gettext('Abajo de todo'));
 			if($this->selectNext)
 			{
 				$bottom->setSelected();

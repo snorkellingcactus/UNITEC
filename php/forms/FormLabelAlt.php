@@ -5,7 +5,7 @@
 	{
 		function __construct($parentForm)
 		{
-			parent::__construct($parentForm , 'Alt' , 'alt' , 'Alt');
+			parent::__construct($parentForm , 'Alt' , 'alt' , gettext('Alt'));
 		}
 	}
 ?>

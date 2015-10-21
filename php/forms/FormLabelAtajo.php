@@ -5,7 +5,7 @@
 	{
 		function __construct($parentForm)
 		{
-			parent::__construct($parentForm , 'Atajo' , 'atajo' , 'Atajo');
+			parent::__construct($parentForm , 'Atajo' , 'atajo' , gettext('Atajo'));
 			$this->input->setAttribute('maxlength','1');
 		}
 	}

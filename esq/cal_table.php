@@ -1,4 +1,4 @@
-<table summary="Calendario de <?php echo $this->fecha['month'] ?> de <?php echo $this->fecha['year']?>">
+<table summary="<?php echo sprintf(gettext('Calendario de %1$s del %2$s') , $this->fecha['month'] , $this->fecha['year']) ?>">
 	<thead>
 		<tr>
 			<?php $esq->genTheadTrThMes(); ?>

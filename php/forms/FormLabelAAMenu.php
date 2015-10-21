@@ -10,7 +10,7 @@
 				$parentForm,
 				'AgregarAlMenu',
 				'agregarAlMenu',
-				'Agregar al Menú'
+				gettext('Agregar al Menú')
 			);
 		}
 	}

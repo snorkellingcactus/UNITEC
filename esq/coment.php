@@ -24,15 +24,13 @@
 			//Nombre de la persona respondida.
 			if($this->NombreDest!==NULL)
 			{
-				?>En respuesta a <?php
-
-				echo $this->NombreDest;
+				echo gettext('En respuesta a').' '.$this->NombreDest;
 			}
 
 			//Intervalo de tiempo desde el envío del comentario.
 			
 			$RangoTiempo=['y' , 'm' , 'd' , 'h' , 'i' , 's'];
-			$RTHumano=[' años' , ' meses' , ' dias' , ' horas' , ' minutos' , ' segundos'];
+			
 
 			$Fecha=new DateTime();
 			$Fecha=$Fecha->createFromFormat('Y-m-d H:i:s' , $this->Fecha);
@@ -46,16 +44,27 @@
 				++$t;
 			}
 
-			$buff=' - Hace '.$Fecha->$RangoTiempo[$t].$RTHumano[$t];
+			$valorTiempo=$Fecha->$RangoTiempo[$t];
+
+			$RTHumano=
+			[
+				ngettext('Hace %s año' , 'Hace %s años' , $valorTiempo),
+				ngettext('Hace %s mes' , 'Hace %s meses' , $valorTiempo),
+				ngettext('Hace %s dia' , 'Hace %s dias' , $valorTiempo),
+				ngettext('Hace %s hora' , 'Hace %s horas' , $valorTiempo),
+				ngettext('Hace %s minuto' , 'Hace %s minutos' , $valorTiempo),
+				ngettext('Hace %s segundo' , 'Hace %s segundos' , $valorTiempo)
+			];
+
+			echo ' - '.sprintf($RTHumano[$t] , $valorTiempo);
+
 			?>
-				<?php echo $buff ?></span>
-			<?php
-		?>
+		</span>
 	</p>
 
 	<form action="#comRes" method="POST" class="formRes">
 		<input type="hidden" name="comConID" value="<?php echo $this->ContenidoID ?>" >
-	 	<input type="submit" value="Responder" title="Responder a <?php echo $this->Nombre ?>">
+	 	<input type="submit" value="<?php echo gettext('Responder')?>" title="<?php echo sprintf(gettext('Responder a %s') , $this->Nombre)?>">
 	</form>
 
  	<?php

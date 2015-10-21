@@ -10,7 +10,7 @@
 			(
 				'Modulo',
 				'modulo',
-				'Modulo',
+				gettext('Modulo'),
 				new FormSelect($parentForm)
 			);
 		}

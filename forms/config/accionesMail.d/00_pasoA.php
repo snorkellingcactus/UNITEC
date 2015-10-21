@@ -13,7 +13,7 @@
 	(
 		new MSGBox
 		(
-			'Muchas Gracias. Su consulta fué enviada'
+			gettext('Muchas Gracias. Su consulta fué enviada')
 		)
 	)->classList->del('nuevo');
 

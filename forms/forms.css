@@ -5,7 +5,7 @@
 	div.FormDateCont div.LabelBoxDate:last-of-type{padding-right:5px;}
 	div.FormDateCont div.LabelBoxDate:first-of-type{padding-left:5px;}
 
-	form input[value="Continuar"].col-xs-12
+	form input[name*="Continuar"].col-xs-12
 	{
 		width:100%;
 	}
@@ -142,10 +142,10 @@ input.elimina:hover,input.edita:hover,main section input.nuevo:hover , input.eli
 	animation-name:inputHover;
 	animation-duration:0.2s;
 }
-input[value="Continuar"], input[value="Volver"]{width:47%;float:left;margin:25px 0px 25px 0px;}
-input[value="Volver"]{float:right;}
+input[name^="Continuar"], input.volver{width:47%;float:left;margin:25px 0px 25px 0px;}
+input.volver{float:right;}
 
-input[value="Continuar"].col-lg-12
+input[name^="Continuar"].col-lg-12
 {
 	width:58.3333%;
 	float:right;
@@ -201,7 +201,7 @@ form h1.left
 .FormLabelBox{overflow:hidden;padding:25px 0px 25px 0px;display:table;width:100%;}
 
 .FormLabelBox input,.FormLabelBox select, .FormLabelBox label, div.LabelBoxDate input,
-input[value="Continuar"], input[value="Volver"]{height:40px}
+input[name^="Continuar"], input.volver{height:40px}
 
 .tresem label, form h1.left{float:left;font-size:2em;color:white;margin:0px;display:table-cell;vertical-align: middle;float:none;}
 .cacho label{color:black;}

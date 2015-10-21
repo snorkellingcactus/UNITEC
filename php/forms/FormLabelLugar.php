@@ -10,7 +10,7 @@
 			(
 				'Lugar',
 				'lugar',
-				'Lugar',
+				gettext('Lugar'),
 				new FormSelectOrden($parentForm)
 			);
 		}

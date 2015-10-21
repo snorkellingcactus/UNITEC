@@ -3,8 +3,8 @@
 
 	$navStrings=
 	[
-		'Firefox'	=>[	'Alt'		,	'Shift'	],
-		'Mac OS X'	=>[	'Control'	,	'Alt'	]
+		gettext('Firefox')	=>	[gettext('Alt')		,	gettext('Shift')],
+		gettext('Mac OS X')	=>	[gettext('Control')	,	gettext('Alt')	]
 	];
 
 	$agent=$_SERVER['HTTP_USER_AGENT'];
@@ -51,15 +51,15 @@
 <div>
 	<table class="table atajos" summary="Atajos de teclado">
 		<thead>
-			<th>Sección</th>
-			<th>Teclas</th>
+			<th><?php echo gettext('Sección')?></th>
+			<th><?php echo gettext('Teclas')?></th>
 		</thead>
 		<tbody>
 			<!-- Revisar -->
 			<tr>
 				<td scope="col">
 					<b>
-						Inicio
+						<?php echo gettext('Inicio')?>
 					</b>
 				</td>
 				<td scope="col">

@@ -55,7 +55,7 @@ $lang=getenv('LANG');
 <html lang="<?php echo $lang?>">
 	<head>
 		<meta charset="utf-8" />
-		<meta name="description" content="Página principal Unitec." />
+		<meta name="description" content="<?php echo gettext('Página principal Unitec.')?>" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
     
@@ -166,7 +166,7 @@ $lang=getenv('LANG');
 					?>
 				</ul>
 			</nav>
-			<a href="./inicio_sesion.php"><?php echo _('Iniciar_Sesion') ?></a>
+			<a href="./inicio_sesion.php"><?php echo gettext('Iniciar Sesión') ?></a>
 		</div>
 
 		<?php

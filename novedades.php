@@ -10,7 +10,7 @@
 		<link rel="stylesheet" type="text/css" href="forms/forms.css" />
 		<link rel="stylesheet" type="text/css" href="seccs/visor.css" />
 
-		<title>Edetec - Novedades</title>
+		<title><?php echo gettext('Edetec - Novedades') ?></title>
 	</head>
 	<body>
 <?php
@@ -21,8 +21,8 @@
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/Visor.php';
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/Include_Context.php';
 	//Si todavía no se inicio sesion, se inicia.
-	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/is_session_started.php';
-	start_session_if_not();
+	include_once($_SERVER['DOCUMENT_ROOT'] . '/php/setLang.php');
+	detectLang();
 
 	$recLst=fetch_all
 	(
@@ -92,7 +92,7 @@
 	{
 		?>
 			<section class="novedades col-lg-10 col-md-10 col-sm-10 col-xs-10">
-			<h2>Otras Novedades:</h2>
+			<h2><?php echo gettext('Otras Novedades:')?></h2>
 				<?php echo $sugeridasHTML ?>
 			</section>
 		<?php

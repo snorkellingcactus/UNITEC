@@ -11,7 +11,7 @@
 			(
 				'Descripcion',
 				'descripcion',
-				'Descripcion',
+				gettext('Descripcion'),
 				new FormTxtArea($parentForm)
 			);
 		}

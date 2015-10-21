@@ -117,8 +117,18 @@ start_session_if_not();
 					{
 						$fechaMin='0'.$fechaMin;
 					}
-
-					$fechaText=$CalCfg->dias[$fecha['wday']].' '.$fecha['mday'].' de '.$CalCfg->meses[$fecha['mon']-1].' '.$fecha['hours'].':'.$fechaMin;
+					$fechaText=sprintf
+					(
+						/*
+							Ej: Lunes 5 de Febrero a las 5:00
+						*/
+						gettext('%1$s %2$s de %3$s a las %4$s:%5$s'),
+						$CalCfg->dias[$fecha['wday']],
+						$fecha['mday'],
+						$CalCfg->meses[$fecha['mon']-1],
+						$fecha['hours'],
+						$fechaMin
+					);
 					$clase='';
 					if
 					(
@@ -163,7 +173,7 @@ start_session_if_not();
 			{
 				ob_start()
 				?>
-					<h3>Ningún evento este mes.</h3>
+					<h3><?php echo gettext('Ningún evento este mes.')?></h3>
 				<?php
 				$desc=ob_get_contents();
 				ob_end_clean();
@@ -177,13 +187,13 @@ start_session_if_not();
 
 						<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 hidden-screader">
 							<div class="calRef">
-								<span>Evento</span>
+								<span><?php echo gettext('Evento') ?></span>
 								<span class="evento"></span>
 							</div>
 						</div>
 						<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 hidden-screader">
 							<div class="calRef">
-								<span>Dia Actual</span>
+								<span><?php echo gettext('Dia Actual')?></span>
 								<span class="hoy"></span>
 							</div>
 						</div>

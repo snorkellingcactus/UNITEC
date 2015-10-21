@@ -1,7 +1,8 @@
 <!DOCTYPE HTML >
 <?php
-include_once $_SERVER['DOCUMENT_ROOT'] . '/php/is_session_started.php';
-start_session_if_not();
+include_once($_SERVER['DOCUMENT_ROOT'] . '/php/setLang.php');
+detectLang();
+
 if(!isset($_SESSION['adminID']))
 {
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/conexion.php';

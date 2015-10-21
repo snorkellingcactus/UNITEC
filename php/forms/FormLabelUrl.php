@@ -5,7 +5,7 @@
 	{
 		function __construct($parentForm)
 		{
-			parent::__construct($parentForm , 'Url' , 'url' , 'Url');
+			parent::__construct($parentForm , 'Url' , 'url' , gettext('Url'));
 		}
 	}
 ?>

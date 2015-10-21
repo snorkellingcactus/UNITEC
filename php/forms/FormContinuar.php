@@ -11,7 +11,7 @@
 				'submit'
 			);
 
-			$this->setValue('Continuar');
+			$this->setValue(gettext('Continuar'));
 			$this->setName('Continuar');
 		}
 	}

@@ -10,14 +10,14 @@
 		<link rel="stylesheet" type="text/css" href="seccs/visor.css" />
 		<link rel="stylesheet" type="text/css" href="forms/forms.css" />
 
-		<title>Visor de imágenes</title>
+		<title><?php echo gettext('Visor de imágenes')?></title>
 	</head>
 	<body>
 		<?php
 
 			//Si todavía no se inicio sesion, se inicia.
-			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/is_session_started.php';
-			start_session_if_not();
+			include_once($_SERVER['DOCUMENT_ROOT'] . '/php/setLang.php');
+			detectLang();
 
 			$rw=1;
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/conexion.php';

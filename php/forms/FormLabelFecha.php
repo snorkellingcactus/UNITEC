@@ -25,39 +25,39 @@
 				$parentForm,
 				'Ano',
 				'ano',
-				'Ano'
+				gettext('Ano')
 			);
 			$this->inputMes=new LabelBoxDate
 			(
 				$parentForm,
 				'Mes',
 				'mes',
-				'Mes'
+				gettext('Mes')
 			);
 			$this->inputDia=new LabelBoxDate
 			(
 				$parentForm,
 				'Dia',
 				'dia',
-				'Dia'
+				gettext('Dia')
 			);
 			$this->inputHora=new LabelBoxDate
 			(
 				$parentForm,
 				'Horas',
 				'hora',
-				'Hora'
+				gettext('Hora')
 			);
 			$this->inputMin=new LabelBoxDate
 			(
 				$parentForm,
 				'Minutos',
 				'min',
-				'Minutos'
+				gettext('Minuto')
 			);
 			$this->contenedor=new DOMTag('div');
 
-			$this->titulo=new FormLabel('Fecha');
+			$this->titulo=new FormLabel(gettext('Fecha'));
 			$this->titulo->setAttribute('id','fecha'.$parentForm->idSuffix);
 
 			$this->setAriaForLabels($this->inputAno)

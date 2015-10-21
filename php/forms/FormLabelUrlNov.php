@@ -11,7 +11,7 @@
 			(
 				'Url',
 				'url',
-				'Url o Archivo',
+				gettext('Url o Archivo'),
 				new FormInput($parentForm , 'text')
 			);
 

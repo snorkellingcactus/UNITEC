@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-16 17:55-0300\n"
-"PO-Revision-Date: 2015-10-16 17:56-0300\n"
+"POT-Creation-Date: 2015-10-21 06:15-0300\n"
+"PO-Revision-Date: 2015-10-21 06:15-0300\n"
 "Last-Translator: Nadal Gonzalo <snorkellingcactus@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: en\n"
@@ -18,21 +18,566 @@ msgstr ""
 "X-Generator: Poedit 1.5.4\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-Basepath: /opt/lampp/htdocs\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SearchPath-0: .\n"
 
+#: imagenes.php:13
+msgid "Visor de imágenes"
+msgstr "Images Viewer"
+
+#: index.php:58
+msgid "Página principal Unitec."
+msgstr "Main page of Unitec"
+
 #: index.php:169
-msgid "Iniciar_Sesion"
+msgid "Iniciar Sesión"
 msgstr "Login"
 
 #: i18n.php:9
 msgid "Hello World"
-msgstr "Hello Amigou"
+msgstr "Hello World"
 
-#: esq/novedad.php:16
+#: novedades.php:13
+msgid "Edetec - Novedades"
+msgstr "Edetec - news"
+
+#: novedades.php:95
+msgid "Otras Novedades:"
+msgstr "Other news"
+
+#: inicio_sesion.php:40 seccs/login.php:2
+msgid "Inicio Sesión"
+msgstr "Login"
+
+#: inicio_sesion.php:46
+msgid "Ir al inicio"
+msgstr "Go to Home"
+
+#: inicio_sesion.php:70
+msgid "El usuario no existe"
+msgstr "The user does not exist"
+
+#: php/FormCliBuilder.php:101
+msgid "Selección"
+msgstr "Selection"
+
+#: php/FormCliBuilder.php:104
+msgid "Eliminar"
+msgstr "Delete"
+
+#: php/FormCliBuilder.php:105
+msgid "Editar"
+msgstr "Edit"
+
+#: php/FormCliBuilder.php:126
+msgid "Nuevo"
+msgid_plural "Nuevo(s)"
+msgstr[0] "New"
+msgstr[1] "New(s)"
+
+#: php/FormCliBuilder.php:133
+msgid "Acciones"
+msgstr "Actions"
+
+#: php/FormCliBuilder.php:140
+msgid "Texto"
+msgstr "Text"
+
+#: php/FormCliBuilder.php:141
+msgid "Módulo"
+msgstr "Module"
+
+#: php/Comentario.php:98
+msgid "Sin Comentarios"
+msgstr "No Comments"
+
+#: php/forms/FormLabelUrlNov.php:14
+msgid "Url o Archivo"
+msgstr "Url or File"
+
+#: php/forms/FormContinuar.php:14
+msgid "Continuar"
+msgstr "Continue"
+
+#: php/forms/FormLabelDescripcion.php:14
+msgid "Descripcion"
+msgstr "Description"
+
+#: php/forms/FormSelectOrden.php:81
+msgid "Abajo de todo"
+msgstr "Below all"
+
+#: php/forms/FormLabelVisible.php:13
+msgid "Visible"
+msgstr "Visible"
+
+#: php/forms/FormLabelVisible.php:14 php/forms/BoolBox.php:14
+msgid "Si"
+msgstr "Yes"
+
+#: php/forms/FormLabelVisible.php:14 php/forms/BoolBox.php:14
+msgid "No"
+msgstr "No"
+
+#: php/forms/FormLabelLugar.php:13 php/forms/FormSelectLugar.php:13
+msgid "Lugar"
+msgstr "Place"
+
+#: php/forms/FormLabelAAMenu.php:13
+msgid "Agregar al Menú"
+msgstr "Add to menu"
+
+#: php/forms/FormLabelTitulo.php:8
+msgid "Titulo"
+msgstr "Title"
+
+#: php/forms/FormLabelUrl.php:8
+msgid "Url"
+msgstr "Url"
+
+#: php/forms/FormSelectOrdenOption.php:21
+msgid "Arriba de"
+msgstr "Above"
+
+#: php/forms/FormVolver.php:14
+msgid "Volver"
+msgstr "Go Back"
+
+#: php/forms/FormLabelModulo.php:13
+msgid "Modulo"
+msgstr "Module"
+
+#: php/forms/FormLabelContenido.php:14
+msgid "Contenido"
+msgstr "Content"
+
+#: php/forms/FormLabelFecha.php:28
+msgid "Ano"
+msgstr "Year"
+
+#: php/forms/FormLabelFecha.php:35
+msgid "Mes"
+msgstr "Month"
+
+#: php/forms/FormLabelFecha.php:42
+msgid "Dia"
+msgstr "Day"
+
+#: php/forms/FormLabelFecha.php:49
+msgid "Hora"
+msgstr "Hour"
+
+#: php/forms/FormLabelFecha.php:56
+msgid "Minuto"
+msgstr "Minute"
+
+#: php/forms/FormLabelFecha.php:60
+msgid "Fecha"
+msgstr "Date"
+
+#: php/forms/FormLabelAtajo.php:8
+msgid "Atajo"
+msgstr "Shortcut"
+
+#: php/forms/FormLabelArchivo.php:8
+msgid "Archivo"
+msgstr "File"
+
+#: php/forms/FormLabelAlt.php:8 seccs/atajos.php:6 seccs/atajos.php:7
+msgid "Alt"
+msgstr "Alt"
+
+#: php/forms/FormLabelPrioridad.php:8
+msgid "Prioridad"
+msgstr "Priority"
+
+#: php/cal/Cal_Cfg.php:19
+msgid "Domingo"
+msgstr "Sunday"
+
+#: php/cal/Cal_Cfg.php:20
+msgid "Lunes"
+msgstr "Monday"
+
+#: php/cal/Cal_Cfg.php:21
+msgid "Martes"
+msgstr "Tuesday"
+
+#: php/cal/Cal_Cfg.php:22
+msgid "Miércoles"
+msgstr "Wednesday"
+
+#: php/cal/Cal_Cfg.php:23
+msgid "Jueves"
+msgstr "Thursday"
+
+#: php/cal/Cal_Cfg.php:24
+msgid "Viernes"
+msgstr "Friday"
+
+#: php/cal/Cal_Cfg.php:25
+msgid "Sabado"
+msgstr "Saturday"
+
+#: php/cal/Cal_Cfg.php:29
+msgid "Enero"
+msgstr "January"
+
+#: php/cal/Cal_Cfg.php:29
+msgid "Febrero"
+msgstr "February"
+
+#: php/cal/Cal_Cfg.php:29
+msgid "Marzo"
+msgstr "March"
+
+#: php/cal/Cal_Cfg.php:29
+msgid "Abril"
+msgstr "April"
+
+#: php/cal/Cal_Cfg.php:30
+msgid "Mayo"
+msgstr "May"
+
+#: php/cal/Cal_Cfg.php:30
+msgid "Junio"
+msgstr "June"
+
+#: php/cal/Cal_Cfg.php:30
+msgid "Julio"
+msgstr "July"
+
+#: php/cal/Cal_Cfg.php:30
+msgid "Agosto"
+msgstr "August"
+
+#: php/cal/Cal_Cfg.php:31
+msgid "Septiembre"
+msgstr "September"
+
+#: php/cal/Cal_Cfg.php:31
+msgid "Octubre"
+msgstr "October"
+
+#: php/cal/Cal_Cfg.php:31
+msgid "Noviembre"
+msgstr "November"
+
+#: php/cal/Cal_Cfg.php:31
+msgid "Diciembre"
+msgstr "November"
+
+#: esq/cal_table.php:1
+#, php-format
+msgid "Calendario de %1$s del %2$s"
+msgstr "Calendar from %1$s of %2$s"
+
+#: esq/novedad.php:17
 #, php-format
 msgid "Escrito el %1$s de %2$s del %3$s"
-msgstr "Writed the %1$s of %2$s of %3$s"
+msgstr "Writen at %2$s %1$s %3$s"
 
-#: esq/novedad.php:29
+#: esq/novedad.php:30
 msgid "Seguir leyendo"
 msgstr "Continue Reading"
+
+#: esq/novedad.php:30
+#, php-format
+msgid "sobre la noticia %s en nueva ventana"
+msgstr "about the %s new on new window"
+
+#: esq/coment.php:27
+msgid "En respuesta a"
+msgstr "In reply to"
+
+#: esq/coment.php:51
+#, php-format
+msgid "Hace %s año"
+msgid_plural "Hace %s años"
+msgstr[0] "%s year ago"
+msgstr[1] "%s years ago"
+
+#: esq/coment.php:52
+#, php-format
+msgid "Hace %s mes"
+msgid_plural "Hace %s meses"
+msgstr[0] "%s month ago"
+msgstr[1] "%s months ago"
+
+#: esq/coment.php:53
+#, php-format
+msgid "Hace %s dia"
+msgid_plural "Hace %s dias"
+msgstr[0] "%s day ago"
+msgstr[1] "%s days ago"
+
+#: esq/coment.php:54
+#, php-format
+msgid "Hace %s hora"
+msgid_plural "Hace %s horas"
+msgstr[0] "%s hour ago"
+msgstr[1] "%s hours ago"
+
+#: esq/coment.php:55
+#, php-format
+msgid "Hace %s minuto"
+msgid_plural "Hace %s minutos"
+msgstr[0] "%s minute ago"
+msgstr[1] "%s minutes ago"
+
+#: esq/coment.php:56
+#, php-format
+msgid "Hace %s segundo"
+msgid_plural "Hace %s segundos"
+msgstr[0] "%s second ago"
+msgstr[1] "%s seconds ago"
+
+#: esq/coment.php:67
+msgid "Responder"
+msgstr "Answer"
+
+#: esq/coment.php:67
+#, php-format
+msgid "Responder a %s"
+msgstr "Reply to %s"
+
+#: esq/gal_img.php:32
+msgid "(se abre en nueva ventana)"
+msgstr "(opens in new window)"
+
+#: seccs/login.php:5
+msgid "Nombre"
+msgstr "Name"
+
+#: seccs/login.php:10
+msgid "Contraseña"
+msgstr "Password"
+
+#: seccs/contacto.php:4
+msgid "Nos interesa tu opinión!"
+msgstr "We want your opinion!"
+
+#: seccs/contacto.php:8
+msgid "Correo"
+msgstr "Mail"
+
+#: seccs/contacto.php:15
+msgid "Asunto"
+msgstr "Subject"
+
+#: seccs/contacto.php:22
+msgid "Mensaje"
+msgstr "Message"
+
+#: seccs/contacto.php:30
+msgid "Enviar"
+msgstr "Submit"
+
+#: seccs/contacto.php:36
+msgid "Página de Facebook"
+msgstr "Facebook page"
+
+#: seccs/contacto.php:39
+msgid "Página de Twitter"
+msgstr "Twitter page"
+
+#: seccs/menu.php:103
+msgid "Unitec Logo"
+msgstr "Unitec Logo"
+
+#: seccs/mapa.php:5
+msgid "Mapa de la ubicación de unitec"
+msgstr "Map of UNITEC"
+
+#: seccs/mapa.php:12
+msgid "Especificar otro origen"
+msgstr "Redefine origin"
+
+#: seccs/mapa.php:16
+msgid "Movilidad"
+msgstr "Trough"
+
+#: seccs/mapa.php:18
+msgid "Auto"
+msgstr "Car"
+
+#: seccs/mapa.php:19
+msgid "Bicicleta"
+msgstr "Bike"
+
+#: seccs/mapa.php:20
+msgid "Caminando"
+msgstr "Walking"
+
+#: seccs/mapa.php:25
+msgid "Medir en"
+msgstr "Measure at"
+
+#: seccs/mapa.php:27
+msgid "Metros"
+msgstr "Meters"
+
+#: seccs/mapa.php:28
+msgid "Imperial"
+msgstr "Imperial"
+
+#: seccs/mapa.php:33 forms/config/accionesMaps.d/00_pasoA.php:122
+msgid "Origen"
+msgstr "Origin"
+
+#: seccs/mapa.php:34
+msgid "Calle, Ciudad , Estado"
+msgstr "Street, Country, State"
+
+#: seccs/mapa.php:35
+msgid "Ej : Av 1 y 60, La Plata"
+msgstr ""
+
+#: seccs/mapa.php:38
+msgid "Buscar ruta"
+msgstr "Search route"
+
+#: seccs/organigrama.php:6
+msgid "UNITEC"
+msgstr ""
+
+#: seccs/organigrama.php:11
+msgid "Espacios de Extención Principales"
+msgstr "Main Extension Spaces"
+
+#: seccs/organigrama.php:15
+msgid "LATE"
+msgstr ""
+
+#: seccs/organigrama.php:18
+msgid "LABTIC"
+msgstr ""
+
+#: seccs/organigrama.php:26
+msgid "Espacios de Desarrollo Tecnológico"
+msgstr "Technological Development Spaces"
+
+#: seccs/organigrama.php:31
+msgid "EDETEC"
+msgstr ""
+
+#: seccs/organigrama.php:34
+msgid "LEMA"
+msgstr ""
+
+#: seccs/organigrama.php:42
+msgid "Espacios de Educación Ingenieril"
+msgstr "Education Engineering Spaces"
+
+#: seccs/organigrama.php:46
+msgid "LITAE"
+msgstr ""
+
+#: seccs/organigrama.php:49
+msgid "CALED"
+msgstr ""
+
+#: seccs/novedades.php:50
+msgid "Sin novedades"
+msgstr "No news"
+
+#: seccs/atajos.php:6
+msgid "Firefox"
+msgstr ""
+
+#: seccs/atajos.php:6
+msgid "Shift"
+msgstr ""
+
+#: seccs/atajos.php:7
+msgid "Mac OS X"
+msgstr ""
+
+#: seccs/atajos.php:7
+msgid "Control"
+msgstr ""
+
+#: seccs/atajos.php:54
+msgid "Sección"
+msgstr "Section"
+
+#: seccs/atajos.php:55
+msgid "Teclas"
+msgstr "Keys"
+
+#: seccs/atajos.php:62
+msgid "Inicio"
+msgstr "Home"
+
+#: seccs/calendario.php:125
+#, php-format
+msgid "%1$s %2$s de %3$s a las %4$s:%5$s"
+msgstr "%1$s, %3$s %2$s at %4$s:%5$s"
+
+#: seccs/calendario.php:176
+msgid "Ningún evento este mes."
+msgstr "No events for this month"
+
+#: seccs/calendario.php:190
+msgid "Evento"
+msgstr "Event"
+
+#: seccs/calendario.php:196
+msgid "Dia Actual"
+msgstr "Today"
+
+#: forms/nuevo_coment.php:13
+msgid "Nombres:"
+msgstr "Names"
+
+#: forms/nuevo_coment.php:27
+msgid "Mensaje:"
+msgstr "Message"
+
+#: forms/nuevo_coment.php:29
+msgid "Publicar"
+msgstr "Publish"
+
+#: forms/config/accionesMaps.d/00_pasoA.php:40
+msgid "B"
+msgstr ""
+
+#: forms/config/accionesMaps.d/00_pasoA.php:46
+msgid "A"
+msgstr ""
+
+#: forms/config/accionesMaps.d/00_pasoA.php:127
+msgid "Destino"
+msgstr "Destination"
+
+#: forms/config/accionesMaps.d/00_pasoA.php:143
+msgid "Paso Número"
+msgstr "Step number"
+
+#: forms/config/accionesMaps.d/00_pasoA.php:144
+msgid "Instrucción"
+msgstr "Instruction"
+
+#: forms/config/accionesMaps.d/00_pasoA.php:145
+msgid "Distancia"
+msgstr "Distance"
+
+#: forms/config/accionesMaps.d/00_pasoA.php:150
+msgid "Indicaciones de cómo llegar"
+msgstr "Driving directions"
+
+#: forms/config/accionesMaps.d/00_pasoA.php:165
+#, php-format
+msgid "Distancia: %1$s , Aproximadamente: %2$s"
+msgstr "Distance: %1$s, about %2$s "
+
+#: forms/config/accionesNov.d/00_pasoA.php:20
+msgid "Imagen"
+msgstr "Image"
+
+#: forms/config/accionesMail.d/00_pasoA.php:16
+msgid "Muchas Gracias. Su consulta fué enviada"
+msgstr "Thanks. Your request was sent."
+
+#~ msgid "Anónimo"
+#~ msgstr "Anonymous"

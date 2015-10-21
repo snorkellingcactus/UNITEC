@@ -5,7 +5,7 @@
 	{
 		function __construct($parentForm)
 		{
-			parent::__construct($parentForm , 'Prioridad' , 'prioridad' , 'Prioridad');
+			parent::__construct($parentForm , 'Prioridad' , 'prioridad' , gettext('Prioridad'));
 		}
 	}
 ?>

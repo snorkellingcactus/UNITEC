@@ -10,8 +10,8 @@
 			(
 				'Visible',
 				'visible',
-				'Visible',
-				new FormSelectBool($parentForm,'Si','No')
+				gettext('Visible'),
+				new FormSelectBool($parentForm,gettext('Si'),gettext('No'))
 			);
 		}
 	}

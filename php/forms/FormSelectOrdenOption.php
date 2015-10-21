@@ -18,7 +18,7 @@
 			//Revisar
 			$this->empty->setTagValue
 			(
-				'Debajo de '.$name
+				gettext('Arriba de').' '.$name
 			);
 
 			$this->appendChild

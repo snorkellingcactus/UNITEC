@@ -5,7 +5,7 @@
 	{
 		function __construct($parentForm)
 		{
-			parent::__construct($parentForm , 'Archivo' , 'archivo' , 'Archivo');
+			parent::__construct($parentForm , 'Archivo' , 'archivo' , gettext('Archivo'));
 		}
 	}
 ?>

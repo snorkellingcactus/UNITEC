@@ -95,7 +95,7 @@ function GenComGrp($ContID , $con , $formBuilder)
 	if($cLen===0)
 	{
 		?>
-			<p>Sin Comentarios</p>
+			<p><?php echo gettext('Sin Comentarios')?></p>
 		<?php
 	}
 

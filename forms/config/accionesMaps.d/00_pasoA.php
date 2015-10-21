@@ -37,13 +37,13 @@
 			'-57.94290'
 		],
 		new GMapsColor('red'),
-		new GMapsLabel('B')
+		new GMapsLabel(gettext('B'))
 	);
 	$markB=new GMapsImgMarker
 	(
 		$origen,
 		new GMapsColor('red'),
-		new GMapsLabel('A')
+		new GMapsLabel(gettext('A'))
 	);
 	$urlMapa->props->add($markA)->add($markB)->add
 	(
@@ -119,12 +119,12 @@
 	$startDiv=$html->createElement('span');
 	$startIcon=$html->createElement('img');
 	$startIcon->setAttribute('src' , '/img/marcadorA.png');
-	$startIcon->setAttribute('alt' , 'Origen');
+	$startIcon->setAttribute('alt' , gettext('Origen'));
 
 	$endDiv=$html->createElement('span');
 	$endIcon=$html->createElement('img');
 	$endIcon->setAttribute('src' , '/img/marcadorB.png');
-	$endIcon->setAttribute('alt' , 'Destino');
+	$endIcon->setAttribute('alt' , gettext('Destino'));
 
 	$startDiv->setAttribute('class' , 'start-address');
 	$endDiv->setAttribute('class' , 'end-address');
@@ -140,21 +140,35 @@
 
 	$trThead=$html->createElement('tr');
 
-	$thPasoN=$html->createElement('th', 'Paso Número');
-	$thIns=$html->createElement('th', 'Instrucción');
-	$thDist=$html->createElement('th', 'Distancia');
+	$thPasoN=$html->createElement('th', gettext('Paso Número'));
+	$thIns=$html->createElement('th', gettext('Instrucción'));
+	$thDist=$html->createElement('th', gettext('Distancia'));
 
 	$thPasoN->setAttribute('class' , 'offscreen');
 	$thIns->setAttribute('class' , 'offscreen');
 	$thDist->setAttribute('class' , 'offscreen');
-	$rTabla->setAttribute('summary' , 'Indicaciones de cómo llegar');
+	$rTabla->setAttribute('summary' , gettext('Indicaciones de cómo llegar'));
 
 	$trThead->appendChild($thPasoN);
 	$trThead->appendChild($thIns);
 	$trThead->appendChild($thDist);
 
 	$rutas->appendChild($startDiv);
-	$rutas->appendChild($html->createTextNode('Distancia:'.$distancia.', Aproximadamente '.$duracion));
+	$rutas->appendChild
+	(
+		$html->createTextNode
+		(
+			sprintf
+			(
+				gettext
+				(
+					'Distancia: %1$s , Aproximadamente: %2$s'
+				),
+				$distancia,
+				$duracion
+			)
+		)
+	);
 
 	$iMax=$pasos->length;
 	for($i=0;$i<$iMax;$i++)
@@ -214,47 +228,6 @@
 	$contenedor->appendChild($clearFix);
 
 	$this->form->appendChild(new DOMFragment($html->saveXML($contenedor)));
-
-/*
-	echo '<pre> Url:';
-	print_r
-	(
-		'https://maps.googleapis.com/maps/api/directions/xml?origin='.
-			urlencode($origen).
-			'&destination='.
-			urlencode('-34.90693 , -57.94290').
-			'&language='.
-			urlencode($langName).
-			'&mode='.
-			urlencode($modo).
-			'&key=AIzaSyBYdVjZ_Ox7egY1pCBo1Cr_PFOZsvfb5n4'
-	);
-	echo '</pre>';
-
-	echo '<pre> Respuesta:';
-	print_r
-	(
-		htmlentities
-		(
-			file_get_contents
-			(
-				'https://maps.googleapis.com/maps/api/directions/xml?origin='.
-				urlencode($origen).
-				'&destination='.
-				urlencode('-34.90693 , -57.94290').
-				'&language='.
-				urlencode($langName).
-				'&mode='.
-				urlencode($modo).
-				'&key=AIzaSyBYdVjZ_Ox7egY1pCBo1Cr_PFOZsvfb5n4'
-			)
-		)
-	);
-	echo '</pre>';
-
-*/
-
-
 
 	if($this->thisIsLast())
 	{

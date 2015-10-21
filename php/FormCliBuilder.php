@@ -98,13 +98,11 @@
 							<?php
 								if(!$nArgs)
 								{
-									?>
-										Selecci&oacute;n:
-									<?php
+									echo gettext('Selección');
 								}
 							?>
-							<input type="submit" name="elimina" class="elimina" value="Eliminar" title="Eliminar">
-							<input type="submit" name="edita" class="edita" value="Editar" title="Editar">
+							<input type="submit" name="elimina" class="elimina" value="<?php echo gettext('Eliminar')?>" title="<?php echo gettext('Eliminar')?>">
+							<input type="submit" name="edita" class="edita" value="<?php echo gettext('Editar')?>" title="<?php echo gettext('Editar')?>">
 						</p>
 					<?php
 				}
@@ -124,30 +122,28 @@
 				}
 				if($this->cMax!==0)
 				{
-				$submitTxt='Nuevo';
+
+				$submitTxt=ngettext('Nuevo' , 'Nuevo(s)' , $this->cMax);
 
 				?>
 					<p class="acciones">
 						<?php
 							if(!$nArgs)
 							{
-								?>
-									Acciones:
-								<?php
+								echo gettext('Acciones').':';
 							}
 							//Los botones nuevo contenido/texto para las secciones.
 							if($nArgs===1)
 							{
 								?>
 									<select name="Tipo">
-										<option value="con">Texto</option>
-										<option value="inc">Modulo</option>
+										<option value="con"><?php echo gettext('Texto')?></option>
+										<option value="inc"><?php echo gettext('Módulo')?></option>
 									</select>
 								<?php
 							}
 							if($this->cMax>1)
 							{
-								$submitTxt.='s';
 								?>
 								<select name="cantidad">
 									<?php
@@ -166,7 +162,7 @@
 								$submitTxt='+';
 							}
 						?>
-						<input type="submit" name="nuevo" class="nuevo" value="<?php echo $submitTxt?>" title="Nuevo">
+						<input type="submit" name="nuevo" class="nuevo" value="<?php echo $submitTxt?>" title="<?php echo $submitTxt?>">
 					</p>
 				<?php 
 				} 

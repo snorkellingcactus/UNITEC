@@ -11,7 +11,7 @@
 				'submit'
 			);
 
-			$this->setValue('Volver');
+			$this->setValue(gettext('Volver'))->classList->add('volver');
 		}
 	}
 ?>

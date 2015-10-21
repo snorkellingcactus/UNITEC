@@ -11,7 +11,7 @@
 			(
 				'Contenido',
 				'contenido',
-				'Contenido',
+				gettext('Contenido'),
 				new FormTxtAreaEditor($parentForm)
 			);
 		}

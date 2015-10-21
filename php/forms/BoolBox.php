@@ -11,7 +11,7 @@
 				$name,
 				$id,
 				$labelText,
-				new FormSelectBool($parentForm , 'Si' , 'No')
+				new FormSelectBool($parentForm , gettext('Si') , gettext('No'))
 			);
 		}
 	}

@@ -10,7 +10,7 @@
 >
 	<input type="hidden" name="form" value="accionesCom"/>
 	<input type="hidden" name="nuevo" value="accionesCom"/>
-	<p>Nombres:</p>
+	<p><?php echo gettext('Nombres:')?></p>
 	<input type="text" name="comNomUsuario" >
 
 	<?php
@@ -24,7 +24,7 @@
 			}
 		}
 	?>
-	<p>Mensaje:</p>
+	<p><?php echo gettext('Mensaje:')?></p>
 	<textarea id="#editor" name="comContenido" cols="20" rows="4"></textarea>
-	<input type="submit" name="Continuar" value="Publicar" >
+	<input type="submit" name="Continuar" value="<?php echo gettext('Publicar')?>" >
 </form>
