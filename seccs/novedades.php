@@ -77,15 +77,10 @@
 				(
 					convert_html_to_text
 					(
-						html_entity_decode
+						getTraduccion
 						(
-							getTraduccion
-							(
-								$novAct['DescripcionID'],
-								$_SESSION['lang']
-							),
-							ENT_COMPAT,
-							'UTF-8'
+							$novAct['DescripcionID'],
+							$_SESSION['lang']
 						)
 					),
 					0,

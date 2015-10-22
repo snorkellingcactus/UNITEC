@@ -16,10 +16,11 @@
 		<?php
 
 			//Si todavía no se inicio sesion, se inicia.
+			$rw=1;
 			include_once($_SERVER['DOCUMENT_ROOT'] . '/php/setLang.php');
 			detectLang();
 
-			$rw=1;
+			
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/conexion.php';
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/Visor.php';
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/getTraduccion.php';

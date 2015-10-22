@@ -12,12 +12,12 @@ function updTraduccion($texto , $conID , $lang)
 			WHERE ContenidoID='.$conID.	
 		'	AND LenguajeID='.$lang
 	);
-/*	
+/*
 	echo '<pre>'.'	SELECT ID
 			FROM Traducciones
 			WHERE ContenidoID='.$conID.	
 		'	AND LenguajeID='.$lang.'</pre>';
-*/	
+*/
 	if($traduccion && $traduccion->num_rows)
 	{
 		//echo '<pre>Existe una traduccion para este idioma, se actualizará</pre>';
@@ -45,7 +45,7 @@ function updTraduccion($texto , $conID , $lang)
 			[
 				'ContenidoID'=>$conID,
 				'LenguajeID'=>$lang,
-				'Texto'=>$texto
+				'Texto'=>htmlentities($texto)
 			]
 		);
 		$traduccion->insSQL();

@@ -75,7 +75,7 @@ class SQL_Obj
 		{
 			return $val;
 		}
-		return '"'.$val.'"';
+		return utf8_encode('"'.$val.'"');
 	}
 	public function conFnA($clave , $valor)
 	{
@@ -223,6 +223,7 @@ class SQL_Obj
 
 		//echo '<pre>'.$this->buff.$this->buffAux.'</pre>';
 		$res=$this->con->query($this->buff.$this->buffAux);
+		//echo '<pre>SQLErrors:'.$this->con->error.'</pre>';
 
 		if(array_key_exists($this->primary , $this->data))
 		{

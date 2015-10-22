@@ -9,11 +9,10 @@
 		<link rel="stylesheet" type="text/css" href="bootstrap.min.css" />
 		<link rel="stylesheet" type="text/css" href="forms/forms.css" />
 		<link rel="stylesheet" type="text/css" href="seccs/visor.css" />
-		<script type="text/javascript" src="novedades.js"></script>
 
 		<title><?php echo gettext('Edetec - Novedades') ?></title>
 	</head>
-	<body onLoad="JavaScript:inicializa()">
+	<body>
 <?php
 	$rw=1;
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/conexion.php';

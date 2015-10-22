@@ -152,6 +152,7 @@
 		{
 
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/conexion.php';
+			global $con;
 
 			$tipo=isset($_SESSION['conID']);
 			$secID=NULL;

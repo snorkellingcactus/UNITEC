@@ -35,9 +35,10 @@ function setLangFromID($langID)
 	);
 	echo '</pre>';
 */
-	$ro=1;
+	//$ro=1;
+	$rw=1;
 	include_once($_SERVER['DOCUMENT_ROOT'] . '/php/conexion.php');
-	unset($ro);
+	//unset($ro);
 
 	global $con;
 

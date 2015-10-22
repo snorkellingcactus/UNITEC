@@ -25,6 +25,8 @@
 		include_once $_SERVER['DOCUMENT_ROOT'] . '/php/conexion.php';
 		include_once $_SERVER['DOCUMENT_ROOT'] . '/php/getTraduccion.php';
 
+		global $con;
+
 		$evento=fetch_all
 		(
 			$con->query
