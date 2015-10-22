@@ -101,7 +101,9 @@
 
 			if($edita)
 			{
-				$nSec->updSQL(false,['ID'=>$_SESSION['conID']]);
+				$nSec->ID=$_SESSION['conID'];
+				
+				$nSec->updSQL(false,['ID']);
 			}
 			else
 			{

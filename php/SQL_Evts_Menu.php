@@ -31,7 +31,7 @@
 						'Visible'=>$_POST['Visible'][$i],
 						'Prioridad'=>reordena
 						(
-							$_POST['Lugar'],
+							$_POST['Lugar'][0],
 							$nMenu,
 							'1',
 							'ContenidoID',

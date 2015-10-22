@@ -138,7 +138,7 @@ start_session_if_not();
 					{
 						$clase='class="target"'
 						?>
-							<span id="nEvt"></span>
+							<span id="targeted"></span>
 						<?php
 					}
 
