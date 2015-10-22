@@ -179,12 +179,35 @@ h2{position:relative;display:inline}
 span.sangria p:first-of-type::first-letter
 {
 	float:left;
-	margin:6px 15px 0px 0px;
-	font-size:400%;
+	margin:10px 15px 0px 0px;
+	font-size:75px;
+	line-height: 60px;
+}
+span.sangria p:first-of-type::first-letter, span.sangriaJS
+{
+	color:#F5F5F5;
+	text-transform:uppercase;
+	text-shadow:0px 0px 2px black;
+	
+	font-family: Georgia;
+
+	/* Chrome
+	margin-top:0px;
 	font-weight:bold;
 	color:#F5F5F5;
 	text-transform:uppercase;
 	text-shadow:0px 0px 2px black;
+	float: left; ; font-size: 75px;  padding-top: 4px; padding-right: 8px; padding-left: 3px;
+	*/
+}
+body .sangriaHiddenJS span
+{
+	float:left;
+}
+body .sangriaJS
+{
+	text-shadow:0px 0px 2px black;
+
 }
 .selector
 {
