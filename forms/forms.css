@@ -83,8 +83,8 @@ button,form a{background-color:silver;font-family:sans-serif;vertical-align:midd
 textarea{height:auto}
 
 input[type="radio"]{max-height:1em;}
-input[type="submit"]{font-family:"Monospace";padding:0px 5px 0px 5px;vertical-align: top;height:1.7em}
-input , textarea, select,main>.right input[type="submit"]
+input[type="submit"], button{font-family:"Monospace";padding:0px 5px 0px 5px;vertical-align: top;height:1.7em}
+input , textarea, select,main>.right input[type="submit"], button
 {
 	-moz-transition:background-color 0.5s;
 	-webkit-transition:background-color 0.5s;
@@ -151,7 +151,7 @@ input[name^="Continuar"].col-lg-12
 	float:right;
 }
 
-input:hover ,input:focus, textarea:hover, textarea:focus ,select:hover, select:focus, .MSGBox
+input:hover ,input:focus, textarea:hover, textarea:focus ,select:hover, select:focus, .MSGBox, button:hover, button:focus, form .focus
 {
 	background-color:#71BEFF;
 }

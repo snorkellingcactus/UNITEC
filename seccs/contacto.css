@@ -77,11 +77,9 @@
 }
 #panel_ruta button
 {
-	background-color:#F0F8FF;
+	font-family: monospace;
 	color:black;
 	min-height: 1.7em;
-	width:100%;
-	display:none;
 }
 .aparece
 {

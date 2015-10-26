@@ -1,5 +1,5 @@
 compactaLabels(document.getElementsByTagName('footer')[0]);
-var map,form,rutas,volver,pos,directionsDisplay,directionsService;
+var map,form,rutas,volver,origen,pos,directionsDisplay,directionsService;
 
 function inicializaGMaps()
 {
@@ -29,9 +29,11 @@ function inicializaGMaps()
   form=document.getElementById('gmapsDiag').getElementsByTagName('form')[0];
   rutas=document.getElementById('panel_ruta');
   volver=rutas.getElementsByTagName('button')[0];
+  origen=document.getElementById('origen');
 
   volver.style.width='100%';
   volver.style.display='block';
+
   initialMapDiagHidden(rutas);
   initialMapDiagShowed(form);
 
@@ -54,17 +56,18 @@ function inicializaGMaps()
     {
       animationStartShow(form);
       animationStartHide(rutas);
+      origen.focus();
     }
   );
   document.getElementById('buscar').addEventListener
   (
     'click',
-    solicitaRuta
+      solicitaRuta
   );
   document.getElementById('origen').addEventListener
   (
     'keypress',
-    solicitaRuta
+      solicitaRuta
   );
 }
 
@@ -140,6 +143,8 @@ function trazaRuta(response, status)
 
     animationStartShow(rutas);
     animationStartHide(form);
+
+    volver.focus();
   }
   else 
   {
