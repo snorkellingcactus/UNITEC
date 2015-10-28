@@ -209,11 +209,10 @@ $lang=getenv('LANG');
 
 				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/Include_Context.php';
 				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/getTraduccion.php';
-				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/Include_Context.php';
-				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/FormCliBuilder.php';
-
-				$formSec=new FormCliBuilder('Sec',0);
-				$formSec->fType='Sec';
+				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/edicion/FormCliColSec.php';
+				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/edicion/FormCliInc.php';
+				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/edicion/FormCliCon.php';
+				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/edicion/FormCliSep.php';
 
 				for($s=0;$s<$sMax;$s++)
 				{
@@ -221,8 +220,6 @@ $lang=getenv('LANG');
 
 					$htmlID=$seccion['HTMLID'];
 					$clase='';
-
-					//$accionesSec=new Include_Context($_SERVER['DOCUMENT_ROOT'] . '//forms/seccion_nuevo_contenido.php');
 
 					if
 					(
@@ -255,13 +252,8 @@ $lang=getenv('LANG');
 							<?php
 								if(isset($_SESSION['adminID']))
 								{
-									$formSec->fId='nCon'.$s;
-									$formSec->cMax=1;
-									$formSec->buildActionForm($seccion['ID']);
-									$formSec->cMax=0;
-
-									$formSec->fId=NULL;
-									$formSec->buildActionForm($seccion['ID'] , 'sec' , $s);
+									$formCliColSec=new FormCliColSec($seccion['ID'] , $s);
+									echo $formCliColSec->getHTML();
 								}
 							?>
 						</div>
@@ -294,6 +286,8 @@ $lang=getenv('LANG');
 						$include=$includes[$f];
 						$htmlID=$include['HTMLID'];
 
+						$sep=new FormCliSep();
+
 						if($include['ContenidoID']!==NULL)
 						{
 
@@ -322,7 +316,10 @@ $lang=getenv('LANG');
 									<?php
 										if(!empty($_SESSION['adminID']))
 										{
-											$formSec->buildActionForm($include['ID'] , 'con' , $f);
+											$formCliCon=new FormCliCon($include['ID'] , $f);
+
+											echo $sep->getHTML();
+											echo $formCliCon->getHTML();
 										}
 										
 										echo getTraduccion($include['ContenidoID'] , $_SESSION['lang']);
@@ -369,7 +366,10 @@ $lang=getenv('LANG');
 									<?php
 										if(isset($_SESSION['adminID']))
 										{
-											$formSec->buildActionForm($include['ID'] , 'inc' , $f);
+											//$formSec->buildActionForm($include['ID'] , 'inc' , $f);
+											echo $sep->getHTML();
+											$formCliInc=new FormCliInc($include['ID'] , $f);
+											echo $formCliInc->getHTML();
 										}
 										$inc=new Include_Context($include['Archivo']);
 										$inc->getContent();
@@ -396,8 +396,15 @@ $lang=getenv('LANG');
 
 				if(isset($_SESSION['adminID']))
 				{
+					/*
 					$formSec->cMax=1;
 					$formSec->buildActionForm(NULL , 'sec',NULL);
+					*/
+
+					include_once $_SERVER['DOCUMENT_ROOT'] . '/php/edicion/FormCliSecAddBase.php';
+
+					$formCliSecAdd=new FormCliSecAddBase('accionesSec' , 'sec' , gettext('Nueva Sección'));
+					echo $formCliSecAdd->getHTML();
 				}
 			?>
 		</main>

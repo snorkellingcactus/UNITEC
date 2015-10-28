@@ -72,24 +72,30 @@
 		}
 		else
 		{
-			$hasta=count($coleccion);
+			$hasta=count($coleccion)-1;
 
 			//Si es el último, retorno el máximo.
 			if($lugar[0]==='b')
 			{
-				return intVal($coleccion[$hasta-1]['Prioridad'])+1;
+				return intVal($coleccion[$hasta]['Prioridad'])+1;
 			}
 			else
 			{
-				$desde=$seleccionado;
+				$desde=0;
 			}
 		}
 
 		if($hasta>$desde)
 		{
-			$j=$desde+1;
+			$j=$desde;
 			$jMax=$hasta+1;
-			$inc=-1;
+			$inc=1;
+			
+			if($edita)
+			{
+				$inc=-1;
+				$j=$j+1;
+			}
 		}
 		else
 		{

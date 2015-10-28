@@ -23,7 +23,7 @@
 	<?php
 		if(isset($_SESSION['adminID']))
 		{
-			$this->formBuilder->buildActionCheckBox($this->TituloID);
+			echo $this->formBuilder->buildActionCheckBox($this->TituloID)->getHTML();
 		}
 	?>
 	<a href="imagenes.php?vRecID=<?php echo $this->ID ?>" target="_blank">

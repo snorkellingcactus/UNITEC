@@ -13,7 +13,8 @@
 			parent::__construct();
 
 			$this->label=false;
-			$this->multi=true;
+
+			$this->setMulti(true);
 			$this->parentForm=$parentForm;
 			
 			$args=func_get_args();
@@ -52,12 +53,22 @@
 		}
 		public function setName($name)
 		{
-			$multi='';
+			return $this->setAttribute('name',$name);
+		}
+		public function renderChilds(&$doc , &$tag)
+		{
 			if($this->multi)
 			{
-				$multi='['.$this->parentForm->idSuffix.']';
+				if($this->hasAttribute('name'))
+				{
+					$this->setAttribute
+					(
+						'name',
+						$this->getAttribute('name').'['.$this->parentForm->idSuffix.']'
+					);
+				}
 			}
-			return $this->setAttribute('name',$name.$multi);
+			return parent::renderChilds($doc , $tag);
 		}
 		public function getName()
 		{

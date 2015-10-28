@@ -51,13 +51,13 @@
 		}
 		public function nuevo()
 		{
-			include_once $_SERVER['DOCUMENT_ROOT'] . '//php/conexion.php';
-			include_once $_SERVER['DOCUMENT_ROOT'] . '//php/Menu.php';
-			include_once $_SERVER['DOCUMENT_ROOT'] . '//php/Foranea.php';
-			include_once $_SERVER['DOCUMENT_ROOT'] . '//php/nTraduccion.php';
+			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/conexion.php';
+			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/Menu.php';
+			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/Foranea.php';
+			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/nTraduccion.php';
 			global $con;
 
-			$_SESSION['conID']=[$_SESSION['conID']];
+			//$_SESSION['conID']=[$_SESSION['conID']];
 
 			$sMax=count($_POST['Titulo']);
 			$afectadosLen=0;
@@ -87,11 +87,11 @@
 				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/reordena.php';
 				$nMenu->Prioridad=reordena
 				(
-					$_POST['Lugar'],
+					$_POST['Lugar'][0],
 					$nMenu,
 					'1',
 					'ContenidoID',
-					$_SESSION['conID'][$s],
+					false,
 					false
 				);
 
@@ -119,7 +119,7 @@
 						WHERE ID='.$_SESSION['conID'][$s]
 				);
 
-				echo '<pre>';print_r('	DELETE FROM Contenidos WHERE ID='.$_SESSION['conID'][$s]);echo '</pre>';
+				//echo '<pre>';print_r('	DELETE FROM Contenidos WHERE ID='.$_SESSION['conID'][$s]);echo '</pre>';
 			}
 		}
 	}

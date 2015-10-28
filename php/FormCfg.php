@@ -8,7 +8,7 @@
 		public $selectedAction;
 		public $fId;
 
-		function __construct($fId=NULL , $actions=['edita','nuevo','elimina'])
+		function __construct($fId=NULL , $actions=['edita','nuevo','elimina','configura'])
 		{
 			$this->actions=$actions;
 			$this->fId=$fId;

@@ -47,20 +47,20 @@ section:hover .clearfix form .acciones, .modulo:hover .acciones input[type="subm
 	opacity:1
 }
 
-.menu #accionesMenu .acciones{opacity:1;}
-.menu #accionesMenu .acciones input{opacity:0.3;}
-.menu #accionesMenu .acciones input:focus , .menu #accionesMenu .acciones input:hover{opacity:1;}
+.menu .accionesMenu .acciones{opacity:1;}
+.menu .accionesMenu .acciones input{opacity:0.3;}
+.menu .accionesMenu .acciones input:focus , .menu .accionesMenu .acciones input:hover{opacity:1;}
 
 .menu li form.right{position:relative;right:7px;float:right;}
 .menu input , .acciones input{max-width:30px;}
 .acciones input{box-shadow:none;background-color:transparent;border-radius:2px;}
 .acciones input:hover{background-color:rgba(255,255,255,0.8);}
-.menu #accionesMenu
+.menu .accionesMenu
 {
 	width:100%;
 	position:static;
 }
-.menu #accionesMenu input
+.menu .accionesMenu input
 {
 	background:transparent;
 	background-color:silver;
@@ -77,7 +77,7 @@ section:hover .clearfix form .acciones, .modulo:hover .acciones input[type="subm
 	height:auto;
 	animation-name:none;
 }
-.menu #accionesMenu .acciones{width:100%}
+.menu .accionesMenu .acciones{width:100%}
 input,form a , button, textarea, select{box-shadow:0px 0px 3px black;border-radius:3px;border:none;}
 button,form a{background-color:silver;font-family:sans-serif;vertical-align:middle;line-height:3em;color:black;}
 textarea{height:auto}
@@ -105,6 +105,7 @@ main>.right .acciones,main>.right input[type="submit"]
 	color:black;height:auto;
 	background-color:#D8F3FF;
 }
+input.nSec{width:100%;}
 main>.right .acciones:hover,main>.right input[type="submit"]:hover
 {
 	background-color:white;
@@ -114,7 +115,8 @@ body main>form.right input{width:100%;text-align:center;padding:0px;margin:0px;f
 main input.nuevo{background-image:url("/img/10.png")}
 input.elimina{background-image:url("/img/51.png")}
 input.edita{background-image:url("/img/39.png")}
-input.elimina,input.edita,main input.nuevo
+input.configura{background-image:url("/img/19.png")}
+input.elimina,input.edita,input.configura,main input.nuevo
 {
 	background-color:transparent;
 	background-repeat:no-repeat;
@@ -126,21 +128,26 @@ input.elimina,input.edita,main input.nuevo
 }
 main section input.nuevo:hover, main section input.nuevo:focus
 {
-	background-image:url("/img/10.png") , linear-gradient(to right bottom, #FFF, #EAEAEA)
+	background-image:url("/img/10.png")
 }
-input.elimina:hover, input.elimina:focus
+input.boton-seccion:hover,input.boton-seccion:focus
 {
-	background-image:url("/img/51.png") , linear-gradient(to right bottom, #FFF, #EAEAEA)
-}
-input.edita:hover, input.edita:focus
-{
-	background-image:url("/img/39.png") , linear-gradient(to right bottom, #FFF, #EAEAEA)
-}
-input.elimina:hover,input.edita:hover,main section input.nuevo:hover , input.elimina:focus,input.edita:focus, main section input.nuevo:focus
-{
+	background-color:linear-gradient(to right bottom, #FFF, #EAEAEA);
 	border:1px solid rgb(144, 144, 144);
 	animation-name:inputHover;
 	animation-duration:0.2s;
+}
+input.elimina:hover, input.elimina:focus
+{
+	background-image:url("/img/51.png")
+}
+input.edita:hover, input.edita:focus
+{
+	background-image:url("/img/39.png")
+}
+input.configura:hover,input.configura:focus
+{
+	background-image:url("/img/19.png")
 }
 input[name^="Continuar"], input.volver{width:47%;float:left;margin:25px 0px 25px 0px;}
 input.volver{float:right;}

@@ -18,16 +18,17 @@
 		if(!empty($_SESSION['adminID']))
 		{
 			include_once($_SERVER['DOCUMENT_ROOT'] . '/php/FormCliRecv.php');
-			include_once($_SERVER['DOCUMENT_ROOT'] . '/php/FormCliBuilder.php');
+			//include_once($_SERVER['DOCUMENT_ROOT'] . '/php/FormCliBuilder.php');
+			include_once($_SERVER['DOCUMENT_ROOT'] . '/php/edicion/FormCliNov.php');
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/SQL_Evts_Novedades.php';
 
 			$formNovRecv=new FormCliRecv('Nov');
 			$formNovRecv->SQL_Evts=new SQL_Evts_Novedades();
 
-			$formNov=new FormCliBuilder('Nov' , 1);
-
 			$formNovRecv->checks();
-			$formNov->buildActionForm();
+			
+			$formNov=new FormCliNov();
+			echo $formNov->getHTML();
 		}
 
 		include_once $_SERVER['DOCUMENT_ROOT'] . '/php/conexion.php';

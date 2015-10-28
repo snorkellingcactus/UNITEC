@@ -3,9 +3,8 @@
 
 	//Si todavía no se inicio sesion, se inicia.
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/is_session_started.php';
-start_session_if_not();
-include_once $_SERVER['DOCUMENT_ROOT'] . '/php/is_session_started.php';
-start_session_if_not();
+	start_session_if_not();
+
 	//Para pruebas, destruye la sesión actual.
 	if(isset($_GET['sesdest']))
 	{
@@ -40,17 +39,17 @@ start_session_if_not();
 	if($modoAdmin)
 	{
 		include_once $_SERVER['DOCUMENT_ROOT'] . '/php/FormCliRecv.php';
-		include_once $_SERVER['DOCUMENT_ROOT'] . '/php/FormCliBuilder.php';
+		include_once $_SERVER['DOCUMENT_ROOT'] . '/php/edicion/FormCliGal.php';
 		include_once $_SERVER['DOCUMENT_ROOT'] . '/php/SQL_Evts_Imagenes.php';
 
 		$formGalRecv=new FormCliRecv('Gal');
 		$formGalRecv->SQL_Evts=new SQL_Evts_Imagenes();
 
 		$formGalRecv->checks();
+		
 
-		$formGal=new FormCliBuilder('Gal' , 30);
-
-		$formGal->buildActionForm();
+		$formGal=new FormCliGal();
+		echo $formGal->getHTML();
 	}
 	
 	//:::::::::::::::::::::::::::::::HTML::::::::::::::::::::::::::::::::::::

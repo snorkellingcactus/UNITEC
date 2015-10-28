@@ -31,18 +31,17 @@ start_session_if_not();
 			if(!empty($_SESSION['adminID']))
 			{
 				include_once($_SERVER['DOCUMENT_ROOT'] . '/php/FormCliRecv.php');
-				include_once($_SERVER['DOCUMENT_ROOT'] . '/php/FormCliBuilder.php');
+				include_once($_SERVER['DOCUMENT_ROOT'] . '/php/edicion/FormCliCal.php');
 				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/SQL_Evts_Eventos.php';
 
 				$formCalRecv=new FormCliRecv('Cal');
 				$formCalRecv->SQL_Evts=new SQL_Evts_Eventos();
 				//Incluyo las acciones posibles.
-				//$formSec->buildActionForm();
 
 				$formCalRecv->checks();
-
-				$formCal=new FormCliBuilder('Cal' , 30);
-				$formCal->buildActionForm();
+				
+				$formCal=new FormCliCal();
+				echo $formCal->getHTML();
 			}
 			$consulta='SELECT * FROM Eventos';
 
@@ -154,7 +153,7 @@ start_session_if_not();
 
 								 if(!empty($_SESSION['adminID']))
 								 {
-								 	$formCal->buildActionCheckBox($evtAct['DescripcionID']);
+								 	echo $formCal->buildActionCheckBox($evtAct['DescripcionID'])->getHTML();
 								 }
 								 ?>
 

@@ -8,10 +8,12 @@
 		$formMenuRecv->SQL_Evts=new SQL_Evts_Menu();
 		$formMenuRecv->checks();
 
-		include_once($_SERVER['DOCUMENT_ROOT'] . '/php/FormCliBuilder.php');
-
+		//include_once($_SERVER['DOCUMENT_ROOT'] . '/php/FormCliBuilder.php');
+		include_once($_SERVER['DOCUMENT_ROOT'] . '/php/edicion/FormCliMenuOpc.php');
+/*
 		$formMenu=new FormCliBuilder('Menu' , 0);
 		$formMenu->fType='Menu';
+*/
 	}
 ?>
 <div class="menu col-xs-12 col-md-2 col-sm-2 col-lg-2">
@@ -76,8 +78,10 @@
 									<?php 
 										if(!empty($_SESSION['adminID']))
 										{
-											$formMenu->fId='nMenu'.$s;
-											$formMenu->buildActionForm($opcion['ContenidoID'] , 'opc' , $s);
+											//$formMenu->fId='nMenu'.$s;
+											//$formMenu->buildActionForm($opcion['ContenidoID'] , 'opc' , $s);
+											$jj=new FormCliMenuOpc($opcion['ContenidoID'] , $s);
+											echo $jj->getHTML();
 										}
 									?>
 								</a>
@@ -89,10 +93,17 @@
 			<?php
 				if(isset($_SESSION['adminID']))
 				{
-					//Incluyo las acciones posibles.
+					/*
 					$formMenu->fId='Menu';
 					$formMenu->cMax=1;
 					$formMenu->buildActionForm(NULL , 'opc',NULL);
+					*/
+					include_once $_SERVER['DOCUMENT_ROOT'] . '/php/edicion/FormCliSecAddBase.php';
+
+					$formCliMenuAdd=new FormCliSecAddBase('accionesMenu' , 'opc' , gettext('Nueva Opción'));
+					$formCliMenuAdd->classList->add('accionesMenu');
+					
+					echo $formCliMenuAdd->getHTML();
 				}
 			?>
 		</nav>

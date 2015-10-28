@@ -25,18 +25,7 @@
 		{
 			return $this->idSuffix;
 		}
-		public function setEnctype($enctype)
-		{
-			return $this->setAttribute('enctype' , $enctype);
-		}
-		public function setMethod($method)
-		{
-			return $this->setAttribute('method' , $method);
-		}
-		public function setAction($action)
-		{
-			return $this->setAttribute('action' , $action);
-		}
+		
 		public function importReqs($domTag)
 		{
 			$this->addReqs($domTag->getReqs() , $domTag->getReqsLen());

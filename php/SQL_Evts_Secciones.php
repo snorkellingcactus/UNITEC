@@ -95,7 +95,7 @@
 				$_POST['Lugar'][0] ,
 				$nSec , $condicion ,
 				'ID' ,
-				$_SESSION['conID'],
+				false,
 				$edita
 			);
 

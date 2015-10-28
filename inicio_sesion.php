@@ -5,7 +5,7 @@
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/setLang.php';
 	start_session_if_not();
 	
-	setLangFromID($_SESSION['lang']);
+	detectLang();
 	
 	//Si se quiere cerrar sesión redirijo.
 	if(isset($_GET['cSesion']))

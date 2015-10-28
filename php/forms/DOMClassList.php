@@ -39,8 +39,8 @@
 			if(empty($attrLst) && $this->padre->hasAttribute('class'))
 			{
 				$this->padre->removeAttribute('class');
-				return $this;
 			}
+			return $this;
 		}
 		function get()
 		{
