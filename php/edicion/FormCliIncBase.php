@@ -2,8 +2,8 @@
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/edicion/FormCliAdmBase.php';
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/edicion/FormCliButtons.php';
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/edicion/FormCliAdd.php';
-
-	class FormCliIncBase extends FormCliAdmBase
+	
+	class FormCliIncBase extends FormCliSelBase
 	{
 		function __construct($formDirName)
 		{
@@ -12,16 +12,6 @@
 			$buttons=new FormCliButtons();
 
 			$this->buttons->appendChild
-			(
-				new DOMTag
-				(
-					'span',
-					gettext('Selección:')
-				)
-			)->appendChild
-			(
-				new FormCliDel($this)
-			)->appendChild
 			(
 				new FormCliEdit($this)
 			)->appendChild

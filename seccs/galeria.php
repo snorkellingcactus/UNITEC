@@ -55,6 +55,18 @@
 	//:::::::::::::::::::::::::::::::HTML::::::::::::::::::::::::::::::::::::
 	//Valores para las clases col-xx-xx de las imágenes.
 	global $con;
+
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/opciones.php';
+			
+	$limit=getValFromNombreID('limit' , $this->opcGrpID , $this->opcSetsID);
+	if(is_array($limit) && $limit[0]!=='0')
+	{
+		$limit='LIMIT '.$limit[0];
+	}
+	else
+	{
+		$limit=false;
+	}
 	
 	$imgLst=$con->query
 	(
@@ -62,15 +74,14 @@
 			FROM Imagenes
 			WHERE 1
 			ORDER BY Prioridad
-		'
+		'.$limit
 	);
 	$imgLst=fetch_all($imgLst , MYSQLI_ASSOC);	//Respuesta SQL como array asociativo.
 
-	$iMax=count($imgLst);
-
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/getTraduccion.php';
 
-	for($i=0;$i<$iMax;$i++)
+	$i=0;
+	while(isset($imgLst[$i]))
 	{
 		$imgAct=& $imgLst[$i];
 
@@ -90,6 +101,8 @@
 		{
 			$imgAct['afectado']=true;
 		}
+
+		++$i;
 	}
 
 	$Gal=new Gal_HTML
@@ -99,6 +112,12 @@
 	);
 	//Genero el código HTML de la galería.
 	$Gal->gen();
+	if($limit!==false)
+	{
+		?>
+			<a href="#" ><?php echo gettext('Ver todas las imágenes') ?></a>
+		<?php
+	}
 
 ?>
 <div class="clearfix"></div>

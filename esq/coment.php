@@ -70,7 +70,7 @@
  	<?php
  		if($this->formBuilder!==false)
 		{
-			$this->formBuilder->buildActionCheckBox($this->ContenidoID);
+			echo $this->formBuilder->buildActionCheckBox($this->ContenidoID)->getHTML();
 		}
 	?>
 

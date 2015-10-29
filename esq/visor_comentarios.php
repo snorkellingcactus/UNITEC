@@ -13,14 +13,15 @@
 		//Incluyo las acciones posibles.
 		if(isset($_SESSION['adminID']))
 		{
-			include_once($_SERVER['DOCUMENT_ROOT'] . '/php/FormCliBuilder.php');
+			//include_once($_SERVER['DOCUMENT_ROOT'] . '/php/FormCliBuilder.php');
+			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/edicion/FormCliSelBase.php';
 			include_once($_SERVER['DOCUMENT_ROOT'] . '/php/SQL_Evts_Comentarios_Admin.php');
 
 			$SQL_Evts=new SQL_Evts_Comentarios_Admin();
 
-			$formCom=new FormCliBuilder('Com' , 0);
+			$formCom=new FormCliSelBase('accionesCom');
 
-			$formCom->buildActionForm();
+			echo $formCom->getHTML();
 		}
 		else
 		{

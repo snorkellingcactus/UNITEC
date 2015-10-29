@@ -98,6 +98,48 @@
 				MYSQLI_NUM
 			);
 		}
+		function getValFromNombreID($opcNomID , $opcGrpID , $opcSetsGrpID)
+		{
+			global $con;
+/*
+			echo '<pre>getValFromNombreID:';
+			print_r
+			(
+				'	SELECT *
+					FROM Opciones
+					WHERE Grupo='.$opcGrpID.'
+					AND NombreID="'.$opcNomID.'"'
+			);
+			echo '</pre>';
+*/
+			$opcion=fetch_all
+			(
+				$con->query
+				(
+					'	SELECT *
+						FROM Opciones
+						WHERE Grupo='.$opcGrpID.'
+						AND NombreID="'.$opcNomID.'"'
+				),
+				MYSQLI_ASSOC
+			);
+			if(isset($opcion[0]))
+			{
+				$opcion=$opcion[0];
+
+				$valor=getVal($opcion['ID'] , $opcSetsGrpID);
+				if(isset($valor[0][0]))
+				{
+					$valor=$valor[0][0];
+				}
+				else
+				{
+					$valor=$opcion['Predeterminado'];
+				}
+				return [$valor];
+			}
+			return false;
+		}
 		function setVal($opcID , $opcSetsGrpID , $val)
 		{
 			global $con;

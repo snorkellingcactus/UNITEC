@@ -260,7 +260,7 @@ $lang=getenv('LANG');
 					<?php
 					$includes=$con->query
 					(
-						'	SELECT Secciones.ID , Secciones.Visible , Secciones.Prioridad , Secciones.HTMLID, Modulos.Archivo, Contenidos.ID as ContenidoID
+						'	SELECT Secciones.ID , Secciones.Visible , Secciones.Prioridad , Secciones.HTMLID, Modulos.Archivo, Modulos.OpcGrpID, Modulos.OpcSetsGrpID, Contenidos.ID as ContenidoID
 							FROM Secciones
 							left outer JOIN Modulos
 							ON Modulos.ID = Secciones.ModuloID
@@ -372,6 +372,9 @@ $lang=getenv('LANG');
 											echo $formCliInc->getHTML();
 										}
 										$inc=new Include_Context($include['Archivo']);
+										$inc->moduloID=$include['ID'];
+										$inc->opcGrpID=$include['OpcGrpID'];
+										$inc->opcSetsID=$include['OpcSetsGrpID'];
 										$inc->getContent();
 
 									?>

@@ -80,6 +80,7 @@
 	font-family: monospace;
 	color:black;
 	min-height: 1.7em;
+	display:none;
 }
 .aparece
 {
