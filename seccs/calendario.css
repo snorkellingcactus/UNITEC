@@ -53,7 +53,7 @@
 }
 .calendario .desc li
 {
-	border-bottom:2px solid gray;
+	border-bottom:1px solid #A9A9A9;
 }
 .calendario .desc li:last-child
 {
