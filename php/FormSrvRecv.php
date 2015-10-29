@@ -33,15 +33,24 @@
 
 			if($_SESSION['accion']===$this->actions[2])
 			{
-				header('Location: '.$this->referrer);
-
-				die();
+				$this->redirect($this->referrer);
 			}
 		}
-
+		public function redirect($url)
+		{
+			header('Location: '.$url);
+			die();
+		}
 		public function checkAction()
 		{
-			$this->checkActionIn($_POST);
+			if(!isset($_SESSION['accion']))
+			{
+				$this->checkActionIn($_POST);
+			}
+			else
+			{
+				$this->selectedAction=array_search($_SESSION['accion'], $this->actions);
+			}
 
 			if($this->selectedAction!==NULL)
 			{

@@ -17,13 +17,14 @@
 		)
 	)->classList->del('nuevo');
 
+	
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormVolver.php';
+	$volver=new FormVolver($this->form);
+	$volver->col=['xs'=>12 , 'sm'=>12 , 'md'=>12 , 'lg'=>12 ];
 
-	if($this->thisIsLast())
-	{
-		include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormVolver.php';
-		$volver=new FormVolver($this->form);
-		$volver->col=['xs'=>12 , 'sm'=>12 , 'md'=>12 , 'lg'=>12 ];
+	$this->form->setAction($this->getNextStepUrl());
 
-		$this->form->setAction($this->getNextStepUrl());
-	}
+	$this->form->appendChild($volver);
+	
+
 ?>

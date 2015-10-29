@@ -8,7 +8,7 @@
 	{
 		function __construct($id , $num)
 		{
-			parent::__construct('accionesSec' , 'inc' , $id , $num);
+			parent::__construct('accionesSec' , 'inc' , $num , $id);
 
 			$this->buttons->appendChild
 			(

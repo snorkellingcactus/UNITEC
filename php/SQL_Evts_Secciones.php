@@ -89,13 +89,20 @@
 
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/reordena.php';
 
+			$secID=false;
+
+			if(isset($_SESSION['conID']))
+			{
+				$secID=$_SESSION['conID'];
+			}
+
 			$nSec->Visible=$_POST['Visible'][0];
 			$nSec->Prioridad=reordena
 			(
 				$_POST['Lugar'][0] ,
 				$nSec , $condicion ,
 				'ID' ,
-				false,
+				$secID,
 				$edita
 			);
 
@@ -191,6 +198,31 @@
 				$con->query('DELETE FROM Secciones WHERE ID='.$secID);
 				
 				//echo '<pre>';print_r('DELETE FROM Secciones WHERE ID='.$secID);echo '</pre>';
+			}
+		}
+		public function configura()
+		{
+			echo '<pre>Configura!</pre>';
+
+			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/conexion.php';
+			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/opciones.php';
+
+			$opcGrp=getOpcGrpModulo($_SESSION['conID']);
+			if(isset($opcGrp[0][0]))
+			{
+				$opciones=getOpcGrp($opcGrp[0][0]);
+				$i=0;
+				while(isset($opciones[$i]))
+				{
+					$opcion=$opciones[$i];
+
+					if(isset($_POST[$opcion['Nombre']]) && isset($opcGrp[0][1]))
+					{
+						updVal($opcion['ID'] , $opcGrp[0][1] , $_POST[$opcion['Nombre']][0]);
+					}
+
+					++$i;
+				}
 			}
 		}
 	}

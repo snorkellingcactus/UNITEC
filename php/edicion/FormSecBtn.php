@@ -17,7 +17,7 @@
 			(
 				'title',
 				$value
-			)->classList->add('boton-seccion')->add($name);
+			)->setMulti(0)->classList->add('boton-seccion')->add($name);
 		}
 	}
 ?>

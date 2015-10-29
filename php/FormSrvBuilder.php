@@ -173,5 +173,23 @@
 
 			return $this;
 		}
+		public function redirectToStepN($num)
+		{
+			$this->redirect($this->actionUrl.'?step='.$num);
+		}
+		public function redirectToStepName($name)
+		{
+/*
+			echo '<pre>Index:';
+			print_r(array_search($name , $this->steps));
+			echo '</pre>';
+*/
+
+			$this->redirect($this->actionUrl.'?step='.array_search($name , $this->steps));
+		}
+		public function getOriginUrl()
+		{
+			return $this->referrer.$this->ancla;
+		}
 	}
 ?>

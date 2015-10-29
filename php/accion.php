@@ -1,12 +1,12 @@
 <!DOCTYPE HTML >
 <?php
-include_once($_SERVER['DOCUMENT_ROOT'] . '/php/setLang.php');
-detectLang();
+	include_once($_SERVER['DOCUMENT_ROOT'] . '/php/setLang.php');
+	detectLang();
 
-if(!isset($_SESSION['adminID']))
-{
-	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/conexion.php';
-}
+	if(!isset($_SESSION['adminID']))
+	{
+		include_once $_SERVER['DOCUMENT_ROOT'] . '/php/conexion.php';
+	}
 	include $_SERVER['DOCUMENT_ROOT'] . '/php/FormSrvBuilder.php';
 
 	$formHandler=new FormSrvBuilder();
@@ -33,7 +33,13 @@ if(!isset($_SESSION['adminID']))
 
 			</head>
 			<body>
+
 					<?php
+/*
+						echo '<pre>SESSION:';
+						print_r($_SESSION);
+						echo '</pre>';
+*/
 						echo $formHandler->buildAll()->form->getHTML();
 					?>
 				<div class="clearfix"></div>
