@@ -6,15 +6,25 @@
 
 		<link rel="icon" type="image/png" href="/img/unitec-favicon.png"  />
 		<link rel="shortcut icon" type="image/ico" href="/img/unitec-favicon.ico"  />
-		<link rel="stylesheet" type="text/css" href="bootstrap.min.css" />
-		<link rel="stylesheet" type="text/css" href="seccs/visor.css" />
-		<link rel="stylesheet" type="text/css" href="forms/forms.css" />
+		<link rel="stylesheet" type="text/css" href="/bootstrap.min.css" />
+		<link rel="stylesheet" type="text/css" href="/seccs/visor.css" />
+		<link rel="stylesheet" type="text/css" href="/forms/forms.css" />
 
 		<title><?php echo gettext('Visor de imágenes')?></title>
 	</head>
 	<body>
 		<?php
-
+	
+		$jj=new DateTime();
+/*
+			echo '<pre>GET:';
+			print_r($_GET);
+			echo '</pre>';
+			$jj=new DateTime(date('Y-m-d H:i:s'));
+			echo '<pre>Datetime:';
+			print_r($jj->format('Y-m-d'));
+			echo '</pre>';
+*/
 			//Si todavía no se inicio sesion, se inicia.
 			$rw=1;
 			include_once($_SERVER['DOCUMENT_ROOT'] . '/php/setLang.php');
@@ -29,7 +39,7 @@
 			(
 				$con->query
 				(
-					'	SELECT TituloID,ID,AltID
+					'	SELECT TituloID,ID,AltID,Fecha
 						FROM Imagenes
 						WHERE 1
 						ORDER BY Prioridad ASC
@@ -52,7 +62,7 @@
 			{
 				$imgAct=& $recLst[$i];
 
-				if($visorHTML->add($imgAct['ID'] , $imgAct['AltID'] , $imgAct['TituloID']))
+				if($visorHTML->add($imgAct['ID'] , $imgAct['AltID'] , $imgAct['TituloID'] , $imgAct['Fecha']))
 				{
 					$selected=$imgAct['TituloID'];
 				}

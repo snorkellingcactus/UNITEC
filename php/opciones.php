@@ -17,6 +17,34 @@
 				MYSQLI_ASSOC
 			);
 		}
+		function getAllOpcGrp($opcGrpID)
+		{
+			global $con;
+
+			$padre=fetch_all
+			(
+				$con->query
+				(
+					'	SELECT Padre
+						FROM OpcGrp
+						WHERE ID='.$opcGrpID
+				),
+				MYSQLI_NUM
+			);
+
+			$opciones=getOpcGrp($opcGrpID);
+
+			if(isset($padre[0][0]))
+			{
+				$opciones=array_merge
+				(
+					getAllOpcGrp($padre[0][0]),
+					$opciones
+				);
+			}
+
+			return $opciones;
+		}
 		function getOpcGrpModulo($mID)
 		{
 			global $con;
@@ -59,7 +87,7 @@
 					(
 						'.$opcSetsGrpID.',
 						'.$opcID.',
-						'.$valor.'
+						"'.$valor.'"
 					)
 				'
 			);
@@ -77,7 +105,7 @@
 					(
 						'.$opcSetsGrpID.',
 						'.$opcID.',
-						'.$valor.'
+						"'.$valor.'"
 					)
 				'
 			);
@@ -94,6 +122,21 @@
 						FROM OpcSets
 						WHERE Opcion='.$opcID.'
 						AND Grupo='.$opcSetsGrpID
+				),
+				MYSQLI_NUM
+			);
+		}
+		function getValids($opcValGrpID)
+		{
+			global $con;
+
+			return fetch_all
+			(
+				$con->query
+				(
+					'	SELECT Valor,Nombre
+						FROM OpcValores
+						WHERE Grupo='.$opcValGrpID
 				),
 				MYSQLI_NUM
 			);

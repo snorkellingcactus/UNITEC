@@ -26,9 +26,9 @@ class Cal_Cfg
 		];
 		$this->meses=
 		[
-			gettext('Enero'),gettext('Febrero'),gettext('Marzo'),gettext('Abril'),
-			gettext('Mayo'),gettext('Junio'),gettext('Julio'),gettext('Agosto'),
-			gettext('Septiembre'),gettext('Octubre'),gettext('Noviembre'),gettext('Diciembre')
+			gettext('Enero'),		gettext('Febrero'),	gettext('Marzo'),		gettext('Abril'),
+			gettext('Mayo'),		gettext('Junio'),	gettext('Julio'),		gettext('Agosto'),
+			gettext('Septiembre'),	gettext('Octubre'),	gettext('Noviembre'),	gettext('Diciembre')
 		];
 
 		$this->fecha=getdate();
@@ -36,7 +36,7 @@ class Cal_Cfg
 
 		$args=func_get_args();			//Array con argumentos.
 		//El primer argumento es la fecha en que se basa el calendario.
-		if(count($args))
+		if(isset($args[0]))
 		{
 			$this->fecha=$args[0];
 		}

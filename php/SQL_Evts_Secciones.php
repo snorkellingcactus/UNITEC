@@ -210,7 +210,7 @@
 			$opcGrp=getOpcGrpModulo($_SESSION['conID']);
 			if(isset($opcGrp[0][0]))
 			{
-				$opciones=getOpcGrp($opcGrp[0][0]);
+				$opciones=getAllOpcGrp($opcGrp[0][0]);
 				$i=0;
 				while(isset($opciones[$i]))
 				{

@@ -55,7 +55,7 @@ class Cal_Gen_HTML
 		);
 
 		//Si se pasa un argumento, se trata de el número de filas.
-		if(count($args) && $args[0]>5)
+		if(isset($args[0]) && $args[0]>5)
 		{
 			$this->filas=$args[0];
 			$this->celdasMax=$this->filas*7;		//Actualizo el máximo de celdas.
@@ -73,7 +73,7 @@ class Cal_Gen_HTML
 	function mes()
 	{
 		$args=func_get_args();
-		if(count($args))
+		if(isset($args[0]))
 		{
 			$this->fecha=getdate
 			(
@@ -83,7 +83,7 @@ class Cal_Gen_HTML
 					$this->fecha["minutes"],
 					$this->fecha["seconds"],
 					$args[0],
-					$this->fecha["mday"],
+					1,
 					$this->fecha["year"]
 				)
 			);

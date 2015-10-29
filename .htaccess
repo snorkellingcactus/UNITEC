@@ -1,0 +1,14 @@
+RewriteEngine on
+
+RewriteRule ^galeria/$ imagenes.php [L]
+
+RewriteRule ^galeria/([0-9]+-[0-9]+-[0-9]+)/(.*)-([0-9]+)&(vRecIDAnt=[0-9]+)*$ imagenes.php?date=$1&title=$2&vRecID=$3&$4 [L]
+
+RewriteRule ^galeria/([0-9]+-[0-9]+-[0-9]+)/(.*)-([0-9]+)$ imagenes.php?date=$1&title=$2&vRecID=$3
+
+## Set the response header if the "nocache" environment variable is set
+## in the RewriteRule above.
+Header always set Cache-Control "no-store, no-cache, must-revalidate" env=nocache
+
+## Set Expires too ...
+Header always set Expires "Thu, 01 Jan 1970 00:00:00 GMT" env=nocache

@@ -312,11 +312,14 @@ class VisorImagenes extends VisorHTMLBase
 	{
 		return $this->thumbPathB.$id.$this->thumbExt;
 	}
-	public function add($rec , $altID , $tituloID)
+	public function add($rec , $altID , $tituloID , $fecha)
 	{
 		$selected=$this->addRec($rec);
 
 		$alt=getTraduccion($altID , $_SESSION['lang']);
+		$titulo=getTraduccion($tituloID , $_SESSION['lang']);
+
+		$fecha=new DateTime(date($fecha));
 
 		$a=new DOMTag('a');
 
@@ -324,7 +327,7 @@ class VisorImagenes extends VisorHTMLBase
 		{
 			$this->setTitulo
 			(
-				getTraduccion($tituloID , $_SESSION['lang'])
+				$titulo
 			)->setImgAlt
 			(
 				$alt
@@ -340,7 +343,7 @@ class VisorImagenes extends VisorHTMLBase
 			$a->setAttribute
 			(
 				'href',
-				'/imagenes.php?vRecID='.$rec.'&vRecIDAnt='.$this->discVal
+				'/galeria/'.$fecha->format('Y-m-d').'/'.urlencode($titulo).'-'.$rec.'&vRecIDAnt='.$this->discVal
 			);
 		}
 /*

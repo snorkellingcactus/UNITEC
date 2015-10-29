@@ -67,6 +67,7 @@
 				if($nImg->Url!=='/img/miniaturas/galeria/'.$_POST['Url'][$i])
 				{
 					//echo '<pre>Intentando eliminar imagen</pre>';
+					$nImg->Fecha=date("Y-m-d H:i:s");
 
 					elimina($_SERVER['DOCUMENT_ROOT'] . '/img/miniaturas/galeria/'.$nImg->ID.'.png' , 0775);
 					elimina($_SERVER['DOCUMENT_ROOT'] . '/img/miniaturas/visor/'.$nImg->ID.'.png' , 0775);

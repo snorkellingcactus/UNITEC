@@ -45,9 +45,21 @@ start_session_if_not();
 			}
 			$consulta='SELECT * FROM Eventos';
 
-			if(isset($_GET['mes']) && !is_nan(intVal($_GET['mes'])))
+			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/opciones.php';
+			
+			$vista=getValFromNombreID('vista' , $this->opcGrpID , $this->opcSetsID);
+			if(is_array($vista) && $vista[0]!=='true')
 			{
-				$mes=intVal($_GET['mes']);
+				$vista=false;
+			}
+			else
+			{
+				$vista=true;
+			}
+
+			if($vista)
+			{
+				$mes=intVal(getdate()['mon']);
 
 				//Seteo el mes en el generador HTML.
 				$GenHTML->mes($mes);

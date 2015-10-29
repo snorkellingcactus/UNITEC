@@ -87,6 +87,9 @@
 
 		$imgAct['TituloCon']=getTraduccion($imgAct['TituloID'] , $_SESSION['lang']);
 		$imgAct['AltCon']=getTraduccion($imgAct['AltID'] , $_SESSION['lang']);
+		$imgAct['Fecha']=new DateTime(date($imgAct['Fecha']));
+		$imgAct['Fecha']=$imgAct['Fecha']->format('Y-m-d');
+		
 		$imgAct['afectado']=false;
 		
 		if(isset($formGal))

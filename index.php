@@ -188,8 +188,6 @@ $lang=getenv('LANG');
 		<main class="col-xs-12 col-sm-10 col-md-10 col-lg-10">
 			<?php
 
-				$_GET['mes']=getdate()['mon'];	//Acá indicar mes que se muestra por defecto. Va a mostrarse el mes indicado -1.
-
 				//Obtengo las opciones.
 				$secciones=$con->query
 				(
