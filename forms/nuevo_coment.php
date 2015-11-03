@@ -1,4 +1,4 @@
-<form class="nComentForm tresem" action="<?php echo basename($_SERVER['SCRIPT_FILENAME']) ?>#comRes" method="POST"
+<form class="nComentForm tresem" action="#targeted" method="POST"
 	<?php
 		if(isset($_POST['comConID']))
 		{

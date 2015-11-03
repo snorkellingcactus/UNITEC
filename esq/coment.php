@@ -8,7 +8,7 @@
 		unset($_SESSION['comConID']);
 
 		?>
-			id="comRes" 
+			id="targeted" 
 		<?php
 	}
 ?>

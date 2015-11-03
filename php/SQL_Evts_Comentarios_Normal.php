@@ -71,7 +71,7 @@
 			//Esto hace que se ancle el comentario al que está siendo respondido.
 			//La idea es que se ancle el comentario recién creado, para lo que
 			//a futuro hay que modificar insSQL() para que actualize el ID.
-			//$_SESSION['comConID']=$Comentario->ContenidoID;
+			$_SESSION['comConID']=$Comentario->ContenidoID;
 		}
 		public function elimina()
 		{

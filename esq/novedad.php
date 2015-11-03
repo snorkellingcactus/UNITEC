@@ -14,7 +14,10 @@
 
 	//Extraer el orden en que debería representarse de la BD.
 	//$fechaStr='Escrito el '.$fechaStr->format('l').' de '.$fechaStr->format('F').' del '.$fechaStr->format('Y');
+	$fechaYmd=strftime('%Y-%m-%d' , $fechaStr);
 	$fechaStr=sprintf(gettext('Escrito el %1$s de %2$s del %3$s') , strftime('%d' , $fechaStr) , strftime('%B' , $fechaStr) , strftime('%G' , $fechaStr));
+
+	$link='/novedades/'.$fechaYmd.'/'.urlencode($this->Titulo).'-'.$this->ID;
 ?>
 <div class="novedad col-xs-12 col-sm-12 col-md-12 col-lg-12 <?php echo $clase ?>">
 	<?php
@@ -27,6 +30,6 @@
 		<img src="/img/miniaturas/galeria/<?php echo $this->ImagenID ?>.png" alt="<?php echo $this->ImagenAlt?>" />
 	</div>
 	<h2><?php echo $this->Titulo ?></h2>
-	<p class="sangria"><?php echo $this->Descripcion ?> <a href="novedades.php?vRecID=<?php echo $this->ID?>" target="_blank"><?php echo _('Seguir leyendo')?><span class="offscreen"><?php echo ' '.sprintf(gettext('sobre la noticia %s en nueva ventana') , $this->Titulo)?></span></a></p>
+	<p class="sangria"><?php echo $this->Descripcion ?> <a href="<?php echo $link ?>" target="_blank"><?php echo _('Seguir leyendo')?><span class="offscreen"><?php echo ' '.sprintf(gettext('sobre la noticia %s en nueva ventana') , $this->Titulo)?></span></a></p>
 	<p class="fecha"><?php echo $fechaStr ?></p>
 </div>
