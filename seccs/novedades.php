@@ -34,13 +34,27 @@
 		include_once $_SERVER['DOCUMENT_ROOT'] . '/php/conexion.php';
 		global $con;
 
+		include_once $_SERVER['DOCUMENT_ROOT'] . '/php/opciones.php';
+				
+		$limit=getValFromNombreID('limit' , $this->opcGrpID , $this->opcSetsID);
+		if($this->limit && is_array($limit) && $limit[0]!=='0')
+		{
+			$limit=$limit[0];
+			$limitStr='LIMIT '.$limit;
+		}
+		else
+		{
+			$limit=$limitStr=false;
+		}
+
 		$novedades=fetch_all
 		(
 			$con->query
 			(
 				'	SELECT *
 					FROM Novedades
-					ORDER BY Fecha DESC'
+					ORDER BY Fecha DESC
+				'.$limitStr
 			),
 			MYSQLI_ASSOC
 		);
@@ -58,9 +72,8 @@
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/getTraduccion.php';
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/html2text/html2text.php';
 
-
+			
 			$novedadHTML=new Include_Context('esq/novedad.php');
-
 
 			$i=0;
 			while(isset($novedades[$i]))
@@ -120,6 +133,14 @@
 				$novedadHTML->getContent();
 
 				++$i;
+			}
+			if($limit!==false && isset($novedades[$limit-1]))
+			{
+				?>
+					<div class="ver-mas">
+						<a href="/?vRecID=<?php echo $this->secID?>" ><?php echo gettext('Ver todas las novedades') ?></a>
+					</div>
+				<?php
 			}
 		}
  

@@ -62,7 +62,7 @@
 						?>
 							<li>
 								<a href=
-									"<?php echo $opcion['Url']?>"
+									"<?php echo 'http://'.$_SERVER['SERVER_NAME'].$opcion['Url']?>"
 									<?php
 										echo $clase ;
 										if(!empty($opcion['Atajo']))

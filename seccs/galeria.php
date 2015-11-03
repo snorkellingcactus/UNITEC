@@ -59,13 +59,14 @@
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/opciones.php';
 			
 	$limit=getValFromNombreID('limit' , $this->opcGrpID , $this->opcSetsID);
-	if(is_array($limit) && $limit[0]!=='0')
+	if($this->limit && is_array($limit) && $limit[0]!=='0')
 	{
-		$limit='LIMIT '.$limit[0];
+		$limit=$limit[0];
+		$limitStr='LIMIT '.$limit;
 	}
 	else
 	{
-		$limit=false;
+		$limit=$limitStr=false;
 	}
 	
 	$imgLst=$con->query
@@ -74,7 +75,7 @@
 			FROM Imagenes
 			WHERE 1
 			ORDER BY Prioridad
-		'.$limit
+		'.$limitStr
 	);
 	$imgLst=fetch_all($imgLst , MYSQLI_ASSOC);	//Respuesta SQL como array asociativo.
 
@@ -115,10 +116,12 @@
 	);
 	//Genero el código HTML de la galería.
 	$Gal->gen();
-	if($limit!==false)
+	if($limit!==false && isset($imgLst[$limit-1]))
 	{
 		?>
-			<a href="#" ><?php echo gettext('Ver todas las imágenes') ?></a>
+			<div class="ver-mas">
+				<a href="/?vRecID=<?php echo $this->secID?>" ><?php echo gettext('Ver todas las imágenes') ?></a>
+			</div>
 		<?php
 	}
 
