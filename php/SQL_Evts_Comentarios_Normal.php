@@ -11,10 +11,10 @@
 		{
 			//echo '<pre>Nuevo Comentario (Normal)</pre>';
 			//Include necesario para manejar llaves foráneas.
-			include_once $_SERVER['DOCUMENT_ROOT'] . '//php/Comentario.php';
-			include_once $_SERVER['DOCUMENT_ROOT'] . '//php/Contenido.php';
-			include_once $_SERVER['DOCUMENT_ROOT'] . '//php/Foranea.php';
-			include_once $_SERVER['DOCUMENT_ROOT'] . '//php/nTraduccion.php';
+			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/Comentario.php';
+			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/Contenido.php';
+			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/Foranea.php';
+			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/nTraduccion.php';
 
 			//Creo un objeto comentario.
 			$FechaAct=getdate();
@@ -42,7 +42,7 @@
 
 			if(isset($_POST['comNomUsuario']))
 			{
-				$Comentario->Nombre=htmlentities($_POST['comNomUsuario']);
+				$Comentario->Nombre=$_POST['comNomUsuario'];
 			}
 			if(isset($_SESSION['comConID']))
 			{
@@ -59,12 +59,12 @@
 			}
 			$Comentario->RaizID=$vRecID;
 			$Comentario->Fecha=$Fecha;
-	/*
+	
 			echo '<pre>A insertar:';
 			print_r('<br>Comentario : ');
 			print_r($Comentario);
 			echo '</pre>';
-	*/
+	
 			//Inserto el comentario en la BD.
 			$Comentario->insSQL();
 

@@ -28,10 +28,10 @@
 	?>
 	<a href="<?php echo '/galeria/'.$this->Fecha.'/'.urlencode($this->TituloCon).'-'.$this->ID ?>" target="_blank">
 		<p>
-			<?php echo $this->TituloCon ?>
+			<?php echo htmlentities($this->TituloCon) ?>
 			<span class="offscreen"><?php echo ' '.gettext('(se abre en nueva ventana)')?></span>
 		</p>
-		<img class="Absolute-Center" src="<?php echo $this->Url ?>" alt="<?php echo $this->AltCon ?>"/>
+		<img class="Absolute-Center" src="<?php echo htmlentities($this->Url) ?>" alt="<?php echo htmlentities($this->AltCon) ?>"/>
 	</a>
 	
 </div>

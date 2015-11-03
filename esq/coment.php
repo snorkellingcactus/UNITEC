@@ -15,7 +15,7 @@
 >
 	<p class='comAutor'>
 		<?php
-			echo $this->Nombre;
+			echo htmlentities($this->Nombre);
 
 			?>
 				<span class="comResTxt">
@@ -24,7 +24,7 @@
 			//Nombre de la persona respondida.
 			if($this->NombreDest!==NULL)
 			{
-				echo gettext('En respuesta a').' '.$this->NombreDest;
+				echo gettext('En respuesta a').' '.htmlentities($this->NombreDest);
 			}
 
 			//Intervalo de tiempo desde el envío del comentario.
@@ -64,7 +64,7 @@
 
 	<form action="#comRes" method="POST" class="formRes">
 		<input type="hidden" name="comConID" value="<?php echo $this->ContenidoID ?>" >
-	 	<input type="submit" value="<?php echo gettext('Responder')?>" title="<?php echo sprintf(gettext('Responder a %s') , $this->Nombre)?>">
+	 	<input type="submit" value="<?php echo gettext('Responder')?>" title="<?php echo sprintf(gettext('Responder a %s') , htmlentities($this->Nombre))?>">
 	</form>
 
  	<?php
@@ -76,7 +76,7 @@
 
 
 	<p class="comCont">
-		<?php echo $this->ValorCont ?>
+		<?php echo htmlentities($this->ValorCont) ?>
 	</p>
 
 	<?php

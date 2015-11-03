@@ -4,7 +4,7 @@
 <!-- Título -->
 <h2 class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 	<?php
-		echo $this->TituloCon;
+		echo htmlentities($this->TituloCon);
 
 		/*
 			<a href="<?php echo $actual ?>?vRec=<?php echo $this->vRecSig ?>"  class="flecha" title="Imagen Siguiente">
@@ -16,12 +16,12 @@
 
 <!-- Imagen y controles -->
 <div class="col-lg-10 col-md-10 col-sm-10 col-xs-8 imgCont">
-		<img src="/img/miniaturas/visor/<?php echo $this->ID ?>.png" alt="<?php echo $this->AltCon ?>"/>
+		<img src="/img/miniaturas/visor/<?php echo $this->ID ?>.png" alt="<?php echo htmlentities($this->AltCon) ?>"/>
 		<?php
 			if(!$this->isFirst)
 			{
 				?>
-					<img src="/img/miniaturas/visor/<?php echo $this->IDAnt ?>.png" alt="<?php echo $this->AltConAnt ?>" class="anterior"/>
+					<img src="/img/miniaturas/visor/<?php echo $this->IDAnt ?>.png" alt="<?php echo htmlentities($this->AltConAnt) ?>" class="anterior"/>
 				<?php
 			}
 		?>

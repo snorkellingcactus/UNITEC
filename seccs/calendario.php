@@ -30,8 +30,8 @@ start_session_if_not();
 		<?php
 			if(!empty($_SESSION['adminID']))
 			{
-				include_once($_SERVER['DOCUMENT_ROOT'] . '/php/FormCliRecv.php');
-				include_once($_SERVER['DOCUMENT_ROOT'] . '/php/edicion/FormCliCal.php');
+				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/FormCliRecv.php';
+				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/edicion/FormCliCal.php';
 				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/SQL_Evts_Eventos.php';
 
 				$formCalRecv=new FormCliRecv('Cal');
@@ -104,15 +104,21 @@ start_session_if_not();
 					$evtAct=$eventos[$i];
 					$fecha=getdate(strtotime($evtAct['Tiempo']));
 
-					$evtAct['Descripcion']=getTraduccion
+					$evtAct['Descripcion']=htmlentities
 					(
-						$evtAct['DescripcionID'],
-						$_SESSION['lang']
+						getTraduccion
+						(
+							$evtAct['DescripcionID'],
+							$_SESSION['lang']
+						)
 					);
-					$evtAct['Nombre']=getTraduccion
+					$evtAct['Nombre']=htmlentities
 					(
-						$evtAct['NombreID'],
-						$_SESSION['lang']
+						getTraduccion
+						(
+							$evtAct['NombreID'],
+							$_SESSION['lang']
+						)
 					);
 
 					//Simulación de eventos.

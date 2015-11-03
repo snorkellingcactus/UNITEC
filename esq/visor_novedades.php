@@ -4,7 +4,7 @@
 
 	<!-- Título -->
 	<h1>
-			<?php echo $this->TituloCon ?>
+			<?php echo htmlentities($this->TituloCon) ?>
 	</h1>
 	<p class="sangria"><?php echo $this->DescripcionCon ?></p>
 </section>

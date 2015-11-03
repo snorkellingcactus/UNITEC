@@ -81,9 +81,9 @@ class SQL_Obj
 		}
 		if(is_numeric($val))
 		{
-			return $val;
+			return intVal($val);
 		}
-		return utf8_encode('"'.$val.'"');
+		return utf8_encode('"'.addslashes($val).'"');
 	}
 	public function conFnA($clave , $valor)
 	{

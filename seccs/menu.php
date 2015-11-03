@@ -42,7 +42,7 @@
 					{
 						$opcion=$opciones[$s];
 
-						$nombre=getTraduccion($opcion['ContenidoID'] , $_SESSION['lang']);
+						$nombre=htmlentities(getTraduccion($opcion['ContenidoID'] , $_SESSION['lang']));
 
 						if(isset($opcion['SeccionID']))
 						{
