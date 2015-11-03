@@ -6,9 +6,9 @@
 
 		<link rel="icon" type="image/png" href="/img/unitec-favicon.png"  />
 		<link rel="shortcut icon" type="image/ico" href="/img/unitec-favicon.ico"  />
-		<link rel="stylesheet" type="text/css" href="bootstrap.min.css" />
-		<link rel="stylesheet" type="text/css" href="forms/forms.css" />
-		<link rel="stylesheet" type="text/css" href="seccs/visor.css" />
+		<link rel="stylesheet" type="text/css" href="/bootstrap.min.css" />
+		<link rel="stylesheet" type="text/css" href="/forms/forms.css" />
+		<link rel="stylesheet" type="text/css" href="/seccs/visor.css" />
 
 		<title><?php echo gettext('Edetec - Novedades') ?></title>
 	</head>
