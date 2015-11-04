@@ -17,7 +17,9 @@
 					'ModuloID',
 					'ContenidoID',
 					'PadreID',
-					'HTMLID'
+					'HTMLID',
+					'OpcSetID',
+					'TagsGrpID'
 				],
 				$con
 			);

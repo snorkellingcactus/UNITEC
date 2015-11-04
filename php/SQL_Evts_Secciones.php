@@ -116,6 +116,43 @@
 			{
 				$nSec->insSQL();
 			}
+			//Revisar. Seguridad.
+
+			if(!empty($_POST['Tags']))
+			{
+				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/nTag.php';
+
+				$grupoID=fetch_all
+				(
+					$con->query
+					(
+						'	SELECT TagsGrpID
+							FROM Secciones
+							WHERE ID='.$nSec->ID
+					),
+					MYSQLI_NUM
+				);
+				if(isset($grupoID[0][0]))
+				{
+					$grupoID=$grupoID[0][0];
+				}
+				else
+				{
+					$grupoID=nTagsGrp();
+				}
+				$nSec->updSQL(['TagsGrpID'=>$grupoID]);
+				
+				nTagsTargets
+				(
+					$_POST['Tags'][0],
+					$grupoID
+				);
+				/*
+					echo '<pre>Tags:';
+					print_r($tags);
+					echo '</pre>';
+				*/
+			}
 
 			if($nSec->HTMLID!==NULL && $_POST['AgregarAlMenu'][0]==='true')
 			{

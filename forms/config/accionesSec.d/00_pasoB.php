@@ -2,10 +2,11 @@
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormLabelLugar.php';
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/ClearFix.php';
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormLabelVisible.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormLabelTags.php';
 
 	$selectLugar=new FormLabelLugar($this->form);
 	$visible=new FormLabelVisible($this->form);
-
+	$labelTags=new FormLabelTags($this->form);
 
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/conexion.php';
 	global $con;
@@ -219,6 +220,53 @@
 	if($this->getAction()===0)
 	{
 		$selectLugar->input->selectedValue=$_SESSION['conID'];
+
+		$grupoID=fetch_all
+		(
+			$con->query
+			(
+				'	SELECT TagsGrpID
+					FROM Secciones
+					WHERE ID='.$_SESSION['conID']
+			),
+			MYSQLI_NUM
+		);
+		if(isset($grupoID[0][0]))
+		{
+			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/getTraduccion.php';
+
+			$tagsNamesID=fetch_all
+			(
+				$con->query
+				(
+					'	SELECT Tags.NombreID
+						FROM TagsTarget
+						LEFT OUTER JOIN Tags
+						ON Tags.ID=TagsTarget.TagID
+						WHERE TagsTarget.GrupoID='.$grupoID[0][0]
+				),
+				MYSQLI_NUM
+			);
+			//Revisar. Optimizar.
+			$t=0;
+			while(isset($tagsNamesID[$t][0]))
+			{
+				$tagsNamesID[$t]=getTraduccion($tagsNamesID[$t][0] , $_SESSION['lang']);
+				++$t;
+			}
+			$labelTags->input->setValue
+			(
+				implode
+				(
+					' , ',
+					$tagsNamesID
+				)
+			);
+		}
+		else
+		{
+			echo '<pre>No group</pre>';
+		}
 	}
 	$selectLugar->setOptionsFromSQLRes
 	(
@@ -235,7 +283,12 @@
 			MYSQLI_NUM
 		)
 	);
+	
 
+	$this->form->appendChild
+	(
+		$labelTags
+	);
 	if($this->thisIsLast())
 	{
 		include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormContinuar.php';

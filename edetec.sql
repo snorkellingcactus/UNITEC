@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 16-10-2015 a las 21:26:59
+-- Tiempo de generación: 04-11-2015 a las 04:37:03
 -- Versión del servidor: 5.6.16
 -- Versión de PHP: 5.5.11
 
@@ -38,16 +38,33 @@ CREATE TABLE IF NOT EXISTS `Comentarios` (
   KEY `Comentarios_ibfk_3` (`ContenidoID`),
   KEY `Comentarios_ibfk_2` (`RaizID`),
   KEY `Comentarios_ibfk_4` (`PadreID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=93 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=138 ;
 
 --
 -- Volcado de datos para la tabla `Comentarios`
 --
 
 INSERT INTO `Comentarios` (`ID`, `ContenidoID`, `RaizID`, `PadreID`, `Fecha`, `Baneado`, `Nombre`) VALUES
-(86, 686, 597, 597, '2015-10-06 20:57:00', b'0', 'asx'),
-(91, 691, 597, 686, '2015-10-06 22:10:22', b'0', 'ELGil'),
-(92, 692, 597, 597, '2015-10-06 22:11:29', b'0', 'ELGil');
+(96, 700, 697, 697, '2015-10-22 05:48:05', b'0', 'asx'),
+(97, 701, 697, 700, '2015-10-22 05:49:08', b'0', 'Hola'),
+(101, 752, 699, 699, '2015-11-01 05:23:26', b'0', 'Hola'),
+(102, 753, 699, 752, '2015-11-01 05:25:25', b'0', 'Hola'),
+(103, 754, 699, 699, '2015-11-01 05:25:32', b'0', 'lo que'),
+(108, 761, 697, 697, '2015-11-03 02:49:21', b'0', 'Nuevo'),
+(112, 767, 620, 766, '2015-11-03 04:51:32', b'0', 'Hola \\ "  /'),
+(113, 768, 620, 767, '2015-11-03 04:51:40', b'0', 'asx'),
+(114, 769, 620, 768, '2015-11-03 04:51:58', b'0', 'asx'),
+(115, 770, 620, 769, '2015-11-03 04:52:04', b'0', 'Que '),
+(116, 771, 620, 770, '2015-11-03 04:52:23', b'0', 'que'),
+(117, 772, 620, 771, '2015-11-03 04:53:53', b'0', 'que'),
+(118, 773, 620, 772, '2015-11-03 04:53:58', b'0', 'sx'),
+(119, 774, 620, 773, '2015-11-03 04:55:29', b'0', 'sx'),
+(120, 775, 614, 774, '2015-11-03 04:55:56', b'0', 'que'),
+(121, 776, 618, 775, '2015-11-03 04:56:37', b'0', 'asx'),
+(122, 777, 614, 776, '2015-11-03 04:57:17', b'0', 'Hola'),
+(125, 781, 586, 780, '2015-11-03 05:00:53', b'0', 'asx'),
+(126, 782, 586, 781, '2015-11-03 05:02:10', b'0', 'asx'),
+(137, 794, 614, 793, '2015-11-03 05:27:38', b'0', 'asx &quot; '' \\ / lo &lt;br&gt; que &amp;amp; sea');
 
 -- --------------------------------------------------------
 
@@ -58,7 +75,7 @@ INSERT INTO `Comentarios` (`ID`, `ContenidoID`, `RaizID`, `PadreID`, `Fecha`, `B
 CREATE TABLE IF NOT EXISTS `Contenidos` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=693 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=806 ;
 
 --
 -- Volcado de datos para la tabla `Contenidos`
@@ -332,8 +349,6 @@ INSERT INTO `Contenidos` (`ID`) VALUES
 (591),
 (593),
 (595),
-(596),
-(597),
 (598),
 (599),
 (601),
@@ -416,7 +431,65 @@ INSERT INTO `Contenidos` (`ID`) VALUES
 (685),
 (686),
 (691),
-(692);
+(692),
+(696),
+(697),
+(698),
+(699),
+(700),
+(701),
+(702),
+(705),
+(706),
+(707),
+(708),
+(709),
+(710),
+(711),
+(712),
+(730),
+(740),
+(741),
+(742),
+(743),
+(744),
+(745),
+(746),
+(749),
+(750),
+(751),
+(752),
+(753),
+(754),
+(757),
+(758),
+(761),
+(765),
+(766),
+(767),
+(768),
+(769),
+(770),
+(771),
+(772),
+(773),
+(774),
+(775),
+(776),
+(777),
+(780),
+(781),
+(782),
+(793),
+(794),
+(796),
+(797),
+(798),
+(801),
+(802),
+(803),
+(804),
+(805);
 
 -- --------------------------------------------------------
 
@@ -434,7 +507,7 @@ CREATE TABLE IF NOT EXISTS `Eventos` (
   PRIMARY KEY (`ID`),
   KEY `Eventos_ibfk_1` (`DescripcionID`),
   KEY `NombreID` (`NombreID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=6 ;
 
 --
 -- Volcado de datos para la tabla `Eventos`
@@ -443,7 +516,8 @@ CREATE TABLE IF NOT EXISTS `Eventos` (
 INSERT INTO `Eventos` (`ID`, `Tiempo`, `NombreID`, `DescripcionID`, `Visible`, `Prioridad`) VALUES
 (2, '0000-00-00 00:00:00', 436, 435, 0, 0),
 (3, '2015-09-11 12:00:00', 547, 546, 0, 20),
-(4, '2015-10-07 05:00:00', 648, 647, 0, 0);
+(4, '2015-10-07 05:00:00', 648, 647, 0, 0),
+(5, '2015-10-24 02:00:00', 708, 707, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -457,6 +531,7 @@ CREATE TABLE IF NOT EXISTS `Imagenes` (
   `AltID` int(11) DEFAULT NULL,
   `TituloID` int(11) NOT NULL,
   `LenguajeID` int(11) DEFAULT NULL,
+  `Fecha` datetime NOT NULL,
   `Visible` tinyint(1) NOT NULL DEFAULT '1',
   `Prioridad` int(11) NOT NULL DEFAULT '1',
   PRIMARY KEY (`ID`),
@@ -469,14 +544,14 @@ CREATE TABLE IF NOT EXISTS `Imagenes` (
 -- Volcado de datos para la tabla `Imagenes`
 --
 
-INSERT INTO `Imagenes` (`ID`, `Url`, `AltID`, `TituloID`, `LenguajeID`, `Visible`, `Prioridad`) VALUES
-(74, '74.png', 587, 586, NULL, 1, 0),
-(76, 'http://image.slidesharecdn.com/itcamp2011-alessandropilotti-optimizingaspnetandphpappsoniis7-5-110602094321-phpapp02/95/itcamp-2011-alessandro-pilotti-optimizing-aspnet-and-php-apps-on-iis-75-3-728.jpg?cb=1307016230', 599, 598, NULL, 1, 10),
-(84, 'http://www.fotonat.org/data/media/2/picaflor-negro_MG_6213.jpg', 615, 614, NULL, 1, 0),
-(85, '85.jpg', 617, 616, NULL, 1, 0),
-(86, 'http://st-listas.20minutos.es/images/2010-03/197674/2159145_640px.jpg?1277399205', 619, 618, NULL, 1, 0),
-(87, '87.jpg', 621, 620, NULL, 1, 0),
-(88, '88.jpeg', 623, 622, NULL, 1, 0);
+INSERT INTO `Imagenes` (`ID`, `Url`, `AltID`, `TituloID`, `LenguajeID`, `Fecha`, `Visible`, `Prioridad`) VALUES
+(74, '74.png', 587, 586, NULL, '1899-11-08 00:00:00', 1, 0),
+(76, 'http://image.slidesharecdn.com/itcamp2011-alessandropilotti-optimizingaspnetandphpappsoniis7-5-110602094321-phpapp02/95/itcamp-2011-alessandro-pilotti-optimizing-aspnet-and-php-apps-on-iis-75-3-728.jpg?cb=1307016230', 599, 598, NULL, '1901-05-09 00:00:00', 1, 10),
+(84, 'http://www.fotonat.org/data/media/2/picaflor-negro_MG_6213.jpg', 615, 614, NULL, '1899-11-14 00:00:00', 1, 0),
+(85, '85.jpg', 617, 616, NULL, '1900-02-09 00:00:00', 1, 0),
+(86, 'http://st-listas.20minutos.es/images/2010-03/197674/2159145_640px.jpg?1277399205', 619, 618, NULL, '1902-03-17 00:00:00', 1, 0),
+(87, '87.jpg', 621, 620, NULL, '2015-10-29 15:56:09', 0, 0),
+(88, '88.jpeg', 623, 622, NULL, '1901-09-20 00:00:00', 1, 0);
 
 -- --------------------------------------------------------
 
@@ -518,16 +593,17 @@ CREATE TABLE IF NOT EXISTS `Menu` (
   UNIQUE KEY `Atajo` (`Atajo`),
   KEY `ContenidoID` (`ContenidoID`),
   KEY `SeccionID` (`SeccionID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=10 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=38 ;
 
 --
 -- Volcado de datos para la tabla `Menu`
 --
 
 INSERT INTO `Menu` (`ID`, `ContenidoID`, `SeccionID`, `Url`, `Atajo`, `Prioridad`, `Visible`) VALUES
-(2, 496, 'Galer&iacute;a', '#Galer%C3%ADa', 'G', 0, NULL),
-(6, 505, 'Novedades', '#Novedades', 'N', -1, NULL),
-(9, 626, 'Eventos', '#Eventos', NULL, 0, NULL);
+(6, 505, 'Novedades', '#GalerÃƒÂ­a', 'N', 6, 0),
+(10, 709, 'News', '#News', NULL, 7, 0),
+(11, 710, 'Atajos', '#Atajos', NULL, 5, 0),
+(37, 740, 'Calendario', '#Calendario', 'C', 7, 0);
 
 -- --------------------------------------------------------
 
@@ -541,25 +617,29 @@ CREATE TABLE IF NOT EXISTS `Modulos` (
   `Archivo` varchar(256) COLLATE utf8_unicode_ci NOT NULL,
   `Descripcion` text COLLATE utf8_unicode_ci,
   `PadreID` int(11) DEFAULT NULL,
+  `OpcGrpID` int(11) DEFAULT NULL,
+  `OpcSetsGrpID` int(11) DEFAULT NULL,
   PRIMARY KEY (`ID`),
-  KEY `Padre` (`PadreID`)
+  KEY `Padre` (`PadreID`),
+  KEY `Modulos_ibfk_2` (`OpcGrpID`),
+  KEY `OpcSetsGrpID` (`OpcSetsGrpID`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=20 ;
 
 --
 -- Volcado de datos para la tabla `Modulos`
 --
 
-INSERT INTO `Modulos` (`ID`, `Nombre`, `Archivo`, `Descripcion`, `PadreID`) VALUES
-(1, 'Galeria', 'seccs/galeria.php', 'Una galería de fotos', NULL),
-(2, NULL, 'seccs/galeria.css', NULL, 1),
-(8, 'Calendario', 'seccs/calendario.php', NULL, NULL),
-(9, NULL, 'seccs/calendario.css', NULL, 8),
-(10, 'Atajos', 'seccs/atajos.php', NULL, NULL),
-(12, 'Novedades', 'seccs/novedades.php', NULL, NULL),
-(13, NULL, 'seccs/novedades.css', NULL, 12),
-(17, 'Organigrama', 'seccs/organigrama.php', NULL, NULL),
-(18, NULL, 'seccs/organigrama.css', NULL, 17),
-(19, NULL, 'seccs/atajos.css', NULL, 10);
+INSERT INTO `Modulos` (`ID`, `Nombre`, `Archivo`, `Descripcion`, `PadreID`, `OpcGrpID`, `OpcSetsGrpID`) VALUES
+(1, 'Galeria', 'seccs/galeria.php', 'Una galería de fotos', NULL, 1, 1),
+(2, NULL, 'seccs/galeria.css', NULL, 1, NULL, NULL),
+(8, 'Calendario', 'seccs/calendario.php', NULL, NULL, 2, 2),
+(9, NULL, 'seccs/calendario.css', NULL, 8, NULL, NULL),
+(10, 'Atajos', 'seccs/atajos.php', NULL, NULL, 1, 3),
+(12, 'Novedades', 'seccs/novedades.php', NULL, NULL, 1, 4),
+(13, NULL, 'seccs/novedades.css', NULL, 12, NULL, NULL),
+(17, 'Organigrama', 'seccs/organigrama.php', NULL, NULL, 1, 5),
+(18, NULL, 'seccs/organigrama.css', NULL, 17, NULL, NULL),
+(19, NULL, 'seccs/atajos.css', NULL, 10, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -579,14 +659,36 @@ CREATE TABLE IF NOT EXISTS `Novedades` (
   KEY `Novedades_ibfk_1` (`ImagenID`),
   KEY `Novedades_ibfk_2` (`TituloID`),
   KEY `Novedades_ibfk_3` (`DescripcionID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=28 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=30 ;
 
 --
 -- Volcado de datos para la tabla `Novedades`
 --
 
 INSERT INTO `Novedades` (`ID`, `ImagenID`, `TituloID`, `DescripcionID`, `Fecha`, `Visible`, `Prioridad`) VALUES
-(27, 74, 597, 596, '2015-09-16', 1, 1);
+(28, 86, 697, 696, '2015-10-22', 0, 1),
+(29, 88, 699, 698, '2015-10-22', 0, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `OpcGrp`
+--
+
+CREATE TABLE IF NOT EXISTS `OpcGrp` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `Padre` int(11) DEFAULT NULL,
+  PRIMARY KEY (`ID`),
+  KEY `OpcGrp_ibfk_1` (`Padre`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=3 ;
+
+--
+-- Volcado de datos para la tabla `OpcGrp`
+--
+
+INSERT INTO `OpcGrp` (`ID`, `Padre`) VALUES
+(1, NULL),
+(2, 1);
 
 -- --------------------------------------------------------
 
@@ -596,12 +698,142 @@ INSERT INTO `Novedades` (`ID`, `ImagenID`, `TituloID`, `DescripcionID`, `Fecha`,
 
 CREATE TABLE IF NOT EXISTS `Opciones` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
-  `Dominio` varchar(256) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `Nombre` int(11) DEFAULT NULL,
+  `Descripcion` int(11) DEFAULT NULL,
+  `NombreID` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
+  `Grupo` int(11) DEFAULT NULL,
+  `ValGrp` int(11) DEFAULT NULL,
   `Tipo` int(11) DEFAULT NULL,
-  `Valor` varchar(256) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `Pred` varchar(256) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `Min` varchar(128) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `Max` varchar(128) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `Predeterminado` varchar(128) COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`ID`),
+  KEY `Grupo` (`Grupo`),
+  KEY `ValGrp` (`ValGrp`),
+  KEY `Tipo` (`Tipo`),
+  KEY `Opciones_ibfk_2` (`Descripcion`),
+  KEY `Opciones_ibfk_1` (`Nombre`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=3 ;
+
+--
+-- Volcado de datos para la tabla `Opciones`
+--
+
+INSERT INTO `Opciones` (`ID`, `Nombre`, `Descripcion`, `NombreID`, `Grupo`, `ValGrp`, `Tipo`, `Min`, `Max`, `Predeterminado`) VALUES
+(1, 711, NULL, 'limit', 1, NULL, 1, '0', '50', '5'),
+(2, 749, NULL, 'vista', 2, 1, 3, NULL, NULL, 'true');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `OpcSets`
+--
+
+CREATE TABLE IF NOT EXISTS `OpcSets` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `Valor` varchar(128) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `Opcion` int(11) DEFAULT NULL,
+  `Grupo` int(11) NOT NULL,
+  PRIMARY KEY (`ID`),
+  KEY `Opcion` (`Opcion`),
+  KEY `Grupo` (`Grupo`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=6 ;
+
+--
+-- Volcado de datos para la tabla `OpcSets`
+--
+
+INSERT INTO `OpcSets` (`ID`, `Valor`, `Opcion`, `Grupo`) VALUES
+(2, '5', 1, 1),
+(3, '12', 1, 2),
+(4, 'true', 2, 2),
+(5, '0', 1, 4);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `OpcSetsGrp`
+--
+
+CREATE TABLE IF NOT EXISTS `OpcSetsGrp` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=6 ;
+
+--
+-- Volcado de datos para la tabla `OpcSetsGrp`
+--
+
+INSERT INTO `OpcSetsGrp` (`ID`) VALUES
+(1),
+(2),
+(3),
+(4),
+(5);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `OpcTipos`
+--
+
+CREATE TABLE IF NOT EXISTS `OpcTipos` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `Tipo` int(11) DEFAULT NULL,
+  PRIMARY KEY (`ID`),
+  UNIQUE KEY `Tipo` (`Tipo`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=4 ;
+
+--
+-- Volcado de datos para la tabla `OpcTipos`
+--
+
+INSERT INTO `OpcTipos` (`ID`, `Tipo`) VALUES
+(1, 1),
+(2, 2),
+(3, 3);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `OpcValGrp`
+--
+
+CREATE TABLE IF NOT EXISTS `OpcValGrp` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=2 ;
+
+--
+-- Volcado de datos para la tabla `OpcValGrp`
+--
+
+INSERT INTO `OpcValGrp` (`ID`) VALUES
+(1);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `OpcValores`
+--
+
+CREATE TABLE IF NOT EXISTS `OpcValores` (
+  `Nombre` int(11) DEFAULT NULL,
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `Valor` varchar(128) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `Grupo` int(11) DEFAULT NULL,
+  PRIMARY KEY (`ID`),
+  KEY `Grupo` (`Grupo`),
+  KEY `Nombre` (`Nombre`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=3 ;
+
+--
+-- Volcado de datos para la tabla `OpcValores`
+--
+
+INSERT INTO `OpcValores` (`Nombre`, `ID`, `Valor`, `Grupo`) VALUES
+(750, 1, 'false', 1),
+(751, 2, 'true', 1);
 
 -- --------------------------------------------------------
 
@@ -617,28 +849,104 @@ CREATE TABLE IF NOT EXISTS `Secciones` (
   `HTMLID` varchar(128) COLLATE utf8_unicode_ci DEFAULT NULL,
   `Visible` tinyint(1) DEFAULT NULL,
   `Prioridad` int(11) DEFAULT NULL,
+  `OpcSetID` int(11) DEFAULT NULL,
+  `TagsGrpID` int(11) DEFAULT NULL,
   PRIMARY KEY (`ID`),
   UNIQUE KEY `HTMLID` (`HTMLID`),
   KEY `ModuloID` (`ModuloID`),
   KEY `Secciones_ibfk_1` (`ContenidoID`),
-  KEY `Secciones_ibfk_3` (`PadreID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=424 ;
+  KEY `Secciones_ibfk_3` (`PadreID`),
+  KEY `OpcSetID` (`OpcSetID`),
+  KEY `TagsGrpID` (`TagsGrpID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=440 ;
 
 --
 -- Volcado de datos para la tabla `Secciones`
 --
 
-INSERT INTO `Secciones` (`ID`, `ContenidoID`, `ModuloID`, `PadreID`, `HTMLID`, `Visible`, `Prioridad`) VALUES
-(381, NULL, NULL, NULL, 'Eventos', 0, 8),
-(382, NULL, NULL, NULL, 'Galer&iacute;a', 0, 9),
-(386, NULL, 8, 381, NULL, 1, 5),
-(397, NULL, NULL, NULL, 'Novedades', 0, 3),
-(400, NULL, NULL, NULL, 'Atajos', 0, 7),
-(401, NULL, 10, 400, NULL, 1, 0),
-(402, NULL, NULL, NULL, 'Organigrama', 0, 5),
-(403, NULL, 17, 402, NULL, 1, 0),
-(420, NULL, 1, 382, NULL, 0, 6),
-(423, NULL, 12, 397, NULL, 0, 0);
+INSERT INTO `Secciones` (`ID`, `ContenidoID`, `ModuloID`, `PadreID`, `HTMLID`, `Visible`, `Prioridad`, `OpcSetID`, `TagsGrpID`) VALUES
+(397, NULL, NULL, NULL, 'Novedades', 0, 12, NULL, NULL),
+(400, NULL, NULL, NULL, 'Atajos', 0, 13, NULL, NULL),
+(401, NULL, 10, 400, NULL, 1, 0, NULL, NULL),
+(402, NULL, NULL, NULL, 'Organigrama', 0, 12, NULL, NULL),
+(403, NULL, 17, 402, NULL, 1, 2, NULL, NULL),
+(423, NULL, 1, 397, NULL, 0, 1, NULL, NULL),
+(425, 705, NULL, 402, NULL, 0, 1, NULL, NULL),
+(426, 706, NULL, 397, NULL, 0, 0, NULL, NULL),
+(427, NULL, NULL, NULL, 'News', 0, 11, NULL, NULL),
+(428, NULL, 12, 427, NULL, 0, 1, NULL, NULL),
+(429, 712, NULL, 427, NULL, 0, 0, NULL, NULL),
+(437, NULL, NULL, NULL, 'Calendario', 0, 10, NULL, 7),
+(438, 741, NULL, 437, NULL, 0, 1, NULL, NULL),
+(439, NULL, 8, 437, NULL, 0, 2, NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `Tags`
+--
+
+CREATE TABLE IF NOT EXISTS `Tags` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `NombreID` int(11) DEFAULT NULL,
+  PRIMARY KEY (`ID`),
+  KEY `Tags_ibfk_1` (`NombreID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=11 ;
+
+--
+-- Volcado de datos para la tabla `Tags`
+--
+
+INSERT INTO `Tags` (`ID`, `NombreID`) VALUES
+(6, 801),
+(7, 802),
+(8, 803),
+(9, 804),
+(10, 805);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `TagsGrp`
+--
+
+CREATE TABLE IF NOT EXISTS `TagsGrp` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=8 ;
+
+--
+-- Volcado de datos para la tabla `TagsGrp`
+--
+
+INSERT INTO `TagsGrp` (`ID`) VALUES
+(7);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `TagsTarget`
+--
+
+CREATE TABLE IF NOT EXISTS `TagsTarget` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `TagID` int(11) DEFAULT NULL,
+  `GrupoID` int(11) DEFAULT NULL,
+  PRIMARY KEY (`ID`),
+  KEY `GrupoID` (`GrupoID`),
+  KEY `TagsTarget_ibfk_1` (`TagID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=13 ;
+
+--
+-- Volcado de datos para la tabla `TagsTarget`
+--
+
+INSERT INTO `TagsTarget` (`ID`, `TagID`, `GrupoID`) VALUES
+(8, 7, 7),
+(9, 6, 7),
+(10, 8, 7),
+(11, 9, 7),
+(12, 10, 7);
 
 -- --------------------------------------------------------
 
@@ -650,11 +958,11 @@ CREATE TABLE IF NOT EXISTS `Traducciones` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `ContenidoID` int(11) NOT NULL,
   `LenguajeID` int(11) NOT NULL,
-  `Texto` text CHARACTER SET utf8,
+  `Texto` text COLLATE utf8_unicode_ci,
   PRIMARY KEY (`ID`),
   KEY `LenguajeID` (`LenguajeID`),
   KEY `Traducciones_ibfk_1` (`ContenidoID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=795 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=915 ;
 
 --
 -- Volcado de datos para la tabla `Traducciones`
@@ -920,7 +1228,7 @@ INSERT INTO `Traducciones` (`ID`, `ContenidoID`, `LenguajeID`, `Texto`) VALUES
 (601, 499, 1, 'Contacto'),
 (603, 501, 1, 'asx'),
 (606, 504, 1, 'Novedades'),
-(607, 505, 1, 'Novedades'),
+(607, 505, 1, 'Galer&iacute;a'),
 (609, 507, 1, 'Unos tiernos gatitos que se brazan'),
 (642, 540, 1, ''),
 (643, 541, 1, ''),
@@ -961,8 +1269,6 @@ INSERT INTO `Traducciones` (`ID`, `ContenidoID`, `LenguajeID`, `Texto`) VALUES
 (693, 591, 1, ''),
 (695, 593, 1, ''),
 (697, 595, 1, ''),
-(698, 596, 1, '&lt;p&gt;Hola Mun&lt;strong&gt;Do&lt;/strong&gt;&lt;/p&gt;\r\n'),
-(699, 597, 1, 'Nueva Novedad'),
 (700, 598, 1, 'asxasx'),
 (701, 599, 1, 'asxasx'),
 (703, 601, 1, 'Un picaflor'),
@@ -978,7 +1284,7 @@ INSERT INTO `Traducciones` (`ID`, `ContenidoID`, `LenguajeID`, `Texto`) VALUES
 (719, 617, 1, 'b'),
 (720, 618, 1, 'C'),
 (721, 619, 1, 'c'),
-(722, 620, 1, 'D'),
+(722, 620, 1, 'Hola Mundo cruel + juen'),
 (723, 621, 1, 'd'),
 (724, 622, 1, 'Prueba'),
 (725, 623, 1, 'prueb'),
@@ -1044,7 +1350,72 @@ INSERT INTO `Traducciones` (`ID`, `ContenidoID`, `LenguajeID`, `Texto`) VALUES
 (787, 685, 1, 'asx'),
 (788, 686, 1, 'asx'),
 (793, 691, 1, 'Que gil que soy'),
-(794, 692, 1, 'Que gil que soy');
+(794, 692, 1, 'Que gil que soy'),
+(798, 696, 1, '&lt;p&gt;Se estaba esperando &lt;a href=&quot;http://www.muylinux.com/2015/04/09/linux-foundation-lets-encrypt&quot; target=&quot;_blank&quot;&gt;desde hace meses&lt;/a&gt;: &lt;strong&gt;Let&amp;rsquo;s Encrypt comienza a emprender el vuelo&lt;/strong&gt;. Si el pasado 14 de septiembre emit&amp;iacute;an su primer certificado, ayer mismo anunciaban que los principales navegadores web ya reconocen y aceptan con confianza sus certificados, despu&amp;eacute;s de recibir las firmas pertinentes de un proveedor autorizado.&lt;/p&gt;\r\n\r\n&lt;p&gt;As&amp;iacute;, el proyecto gestionado por el Internet Security Research Group (ISRG) y patrocinado por organizaciones como Mozilla, Electronic Frontier Foundation o Linux Foundation &lt;strong&gt;desplegar&amp;aacute; finalmente las alas en noviembre&lt;/strong&gt;, con la emisi&amp;oacute;n de sus primeros certificados libres y gratuitos. &amp;iquest;Es este el principio del cifrado total de Internet?&lt;/p&gt;\r\n\r\n&lt;p&gt;A partir del mes que viene, al menos, webmasters de todo el mundo podr&amp;aacute;n &lt;strong&gt;cifrar la conexi&amp;oacute;n de&amp;nbsp;sus dominios de manera sencilla&lt;/strong&gt;, &amp;ldquo;sin correos electr&amp;oacute;nicos de validaci&amp;oacute;n, complicadas configuraciones o certificados con fecha de caducidad&amp;nbsp;que rompen tu sitio&amp;rdquo;, indicaban. Adem&amp;aacute;s de &lt;strong&gt;gratis&lt;/strong&gt;, claro, que ya lo hemos mencionado, pero se deja repetir.&lt;/p&gt;\r\n\r\n&lt;p&gt;Como ejemplo de este primer paso, a diferencia de la propia p&amp;aacute;gina de &lt;a href=&quot;https://letsencrypt.org/&quot; target=&quot;_blank&quot;&gt;Let&amp;rsquo;s Encrypt&lt;/a&gt;, cuya conexi&amp;oacute;n todav&amp;iacute;a se encuentra asegurada por el mismo proveedor que ha encendido la mecha, esta otra &lt;a href=&quot;https://helloworld.letsencrypt.org/&quot; target=&quot;_blank&quot;&gt;p&amp;aacute;gina de muestra&lt;/a&gt; luce con orgullo el certificado de &lt;strong&gt;Let&amp;rsquo;s Encrypt Authority X1&lt;/strong&gt; que cualquiera de vuestros navegadores deber&amp;iacute;a dar como v&amp;aacute;lido.&lt;/p&gt;\r\n'),
+(799, 697, 1, 'Let&rsquo;s Encrypt ya se ha &ldquo;ganado la confianza&rdquo; de los principales navegadores');
+INSERT INTO `Traducciones` (`ID`, `ContenidoID`, `LenguajeID`, `Texto`) VALUES
+(800, 698, 1, '&lt;p&gt;La semana pasada tocamos el tema de la &lt;a href=&quot;http://www.muylinux.com/2015/10/14/edicion-multimedia-en-gnulinux&quot; target=&quot;_blank&quot;&gt;edici&amp;oacute;n multimedia en Linux&lt;/a&gt; y lo cierto es que el art&amp;iacute;culo cumpli&amp;oacute; con su prop&amp;oacute;sito, porque dio pie a un buen mont&amp;oacute;n de comentarios interesantes que solo pueden salir de quien ha vivido la experiencia. Sin embargo, el t&amp;eacute;rmino &amp;ldquo;edici&amp;oacute;n multimedia&amp;rdquo; es tan amplio que conviene segmentarlo para profundizar un poco.&lt;/p&gt;\r\n\r\n&lt;p&gt;Comenzamos por lo que se podr&amp;iacute;a considerar &lt;strong&gt;edici&amp;oacute;n de gr&amp;aacute;ficos b&amp;aacute;sica&lt;/strong&gt;, pero en lugar de soltar la t&amp;iacute;pica lista de herramientas, me basar&amp;eacute; en un caso real como ejemplo: el m&amp;iacute;o. Los habituales sab&amp;eacute;is que no soy precisamente un experto (!), aunque uso diferentes aplicaciones para trabajar cada d&amp;iacute;a desde hace a&amp;ntilde;os y para lo que hago, me sobran. Os cuento cu&amp;aacute;les son.&lt;/p&gt;\r\n\r\n&lt;h3&gt;Gwenview&lt;/h3&gt;\r\n\r\n&lt;p&gt;Hay quien gusta de aplicaciones dedicadas: un visor, un gestor de colecci&amp;oacute;n, un editor&amp;hellip; Yo me quedo con &lt;strong&gt;Gwenview&lt;/strong&gt;. No necesito un visor independiente porque mi equipo tarda pr&amp;aacute;cticamente lo mismo en abrir cualquier imagen sin importar la aplicaci&amp;oacute;n. Adem&amp;aacute;s, permite navegar por directorios e incluye un &amp;aacute;rbol que ayuda en la gesti&amp;oacute;n de una colecci&amp;oacute;n, aunque no sea lo ideal, es decir, no sustituyen a &lt;a href=&quot;http://www.muylinux.com/tag/shotwell/&quot; target=&quot;_blank&quot;&gt;Shotwell&lt;/a&gt; o &lt;a href=&quot;http://www.muylinux.com/tag/digikam/&quot; target=&quot;_blank&quot;&gt;digiKam&lt;/a&gt;.&lt;/p&gt;\r\n\r\n&lt;p&gt;&lt;a class=&quot;cboxElement&quot; href=&quot;http://www.muylinux.com/wp-content/uploads/2015/10/gwenview.jpg&quot; rel=&quot;lightbox[33078]&quot; title=&quot;Edici&oacute;n de gr&aacute;ficos b&aacute;sica en GNU/Linux&quot;&gt;&lt;img alt=&quot;gwenview&quot; class=&quot;aligncenter size-full wp-image-33084&quot; src=&quot;http://www.muylinux.com/wp-content/uploads/2015/10/gwenview.jpg&quot; style=&quot;height:730px; width:1150px&quot; /&gt;&lt;/a&gt;&lt;/p&gt;\r\n\r\n&lt;p&gt;Gwenview tambi&amp;eacute;n tiene &lt;strong&gt;opciones de retoque b&amp;aacute;sicas&lt;/strong&gt;, para redimensionar, recortar, rotar, etc; as&amp;iacute; como &lt;strong&gt;herramientas para gestionar lotes de im&amp;aacute;genes&lt;/strong&gt;: redimensionar, convertir entre formatos editar metadatos, importar y exportar de distintos servicios web&amp;hellip; Es muy completa. Solo espero que la nueva versi&amp;oacute;n para Plasma 5 no se deje ninguna funci&amp;oacute;n por el camino, porque con la actualizaci&amp;oacute;n de Dolphin se ha perdido el soporte de esa genial utilidad que es &lt;a href=&quot;http://kde-apps.org/content/show.php?content=11505&quot; target=&quot;_blank&quot;&gt;Kim&lt;/a&gt;, a la que no mencionar&amp;eacute; m&amp;aacute;s en esta entrada justo por eso.&lt;/p&gt;\r\n\r\n&lt;div class=&quot;gallery galleryid-33078 gallery-columns-2 gallery-size-large&quot; id=&quot;gallery-2&quot;&gt;\r\n&lt;dl class=&quot;gallery-item&quot;&gt;\r\n	&lt;dt class=&quot;gallery-icon landscape&quot;&gt;&lt;a class=&quot;cboxElement fancybox&quot; href=&quot;http://www.muylinux.com/wp-content/uploads/2015/10/gwenview_1.jpg&quot; rel=&quot;gallery&quot; title=&quot;Edici&oacute;n de gr&aacute;ficos b&aacute;sica en GNU/Linux&quot;&gt;&lt;img alt=&quot;gwenview_1&quot; class=&quot;attachment-large&quot; src=&quot;http://www.muylinux.com/wp-content/uploads/2015/10/gwenview_1-500x317.jpg&quot; style=&quot;height:317px; width:500px&quot; /&gt;&lt;/a&gt;&lt;/dt&gt;\r\n&lt;/dl&gt;\r\n\r\n&lt;dl class=&quot;gallery-item&quot;&gt;\r\n	&lt;dt class=&quot;gallery-icon landscape&quot;&gt;&lt;a class=&quot;cboxElement fancybox&quot; href=&quot;http://www.muylinux.com/wp-content/uploads/2015/10/gwenview_2.jpg&quot; rel=&quot;gallery&quot; title=&quot;Edici&oacute;n de gr&aacute;ficos b&aacute;sica en GNU/Linux&quot;&gt;&lt;img alt=&quot;gwenview_2&quot; class=&quot;attachment-large&quot; src=&quot;http://www.muylinux.com/wp-content/uploads/2015/10/gwenview_2-500x317.jpg&quot; style=&quot;height:317px; width:500px&quot; /&gt;&lt;/a&gt;&lt;/dt&gt;\r\n&lt;/dl&gt;\r\n&lt;/div&gt;\r\n\r\n&lt;p&gt;No os enfad&amp;eacute;is, seguidores de las GTK, porque yo tambi&amp;eacute;n soy mani&amp;aacute;tico y si puedo evitarlo, prefiero no mezclar. Cuando estoy en escritorios GTK uso &lt;strong&gt;gThumb&lt;/strong&gt;, que si bien no es tan potente como Gwenview en conjunto, cumple su papel con nota y de hecho se supera con detalles como encuadrar autom&amp;aacute;ticamente los recortes o permitir elegir el nivel de compresi&amp;oacute;n de la imagen. &amp;iexcl;Ojal&amp;aacute; implemente esto en Gwenview!&lt;/p&gt;\r\n\r\n&lt;h3&gt;KSnapShot&lt;/h3&gt;\r\n\r\n&lt;p&gt;Una buena aplicaci&amp;oacute;n para hacer capturas de pantalla no puede faltar y no falta. Me suelo conformar con la herramienta por defecto porque si hay que editar lo hago luego, pero si hay que escoger una me quedo con la del escritorio KDE. Tiene las mismas opciones que la de GNOME, con el plus de que conserva las dimensiones al capturar un &amp;aacute;rea personalizada. El comportamiento de la aplicaci&amp;oacute;n de GNOME, por el contrario, es terrible: &amp;iquest;a qui&amp;eacute;n se le ocurri&amp;oacute; lo del cierre autom&amp;aacute;tico?&lt;/p&gt;\r\n\r\n&lt;p&gt;&lt;img alt=&quot;ksnapshot&quot; class=&quot;aligncenter size-full wp-image-33088&quot; src=&quot;http://www.muylinux.com/wp-content/uploads/2015/10/ksnapshot.jpg&quot; style=&quot;height:582px; width:718px&quot; /&gt;&lt;/p&gt;\r\n\r\n&lt;p&gt;Para quien no se conforme, hay aplicaciones de esta categor&amp;iacute;a m&amp;aacute;s potentes, como &lt;a href=&quot;http://www.muylinux.com/2013/07/16/hotshots-capturas-pantalla&quot; target=&quot;_blank&quot;&gt;HotShot&lt;/a&gt; o &lt;a href=&quot;http://www.muylinux.com/tag/shutter/&quot; target=&quot;_blank&quot;&gt;Shutter&lt;/a&gt;, toda una referencia; tambi&amp;eacute;n complementos para navegadores que pueden venir muy bien.&lt;/p&gt;\r\n\r\n&lt;h3&gt;GIMP&lt;/h3&gt;\r\n\r\n&lt;p&gt;Cuando se trata de realizar retoques m&amp;aacute;s complejos, con capas, efectos, filtros y dem&amp;aacute;s, GIMP es mi elecci&amp;oacute;n. Y no me la termino ni de lejos. Tal vez me gusta tanto porque la llevo usando a&amp;ntilde;os y s&amp;eacute; c&amp;oacute;mo hacer lo que necesito r&amp;aacute;pidamente, pero le reconozco un gran rendimiento para lo que ofrece, que es mucho.&lt;/p&gt;\r\n\r\n&lt;p&gt;El &amp;uacute;nico a&amp;ntilde;adido que le hago a GIMP es instalar el plugin save for web y solo para usarlo ocasionalmente, ya que la opci&amp;oacute;n de exportaci&amp;oacute;n permite elegir la compresi&amp;oacute;n de la imagen y por lo general me basta (a ver si publicamos alg&amp;uacute;n d&amp;iacute;a un especial sobre GIMP y las sugerentes posibilidades de expansi&amp;oacute;n que tiene, porque se puede transformar es un bicho de cuidado).&lt;/p&gt;\r\n\r\n&lt;p&gt;&lt;a class=&quot;cboxElement&quot; href=&quot;http://www.muylinux.com/wp-content/uploads/2015/10/gimp.jpg&quot; rel=&quot;lightbox[33078]&quot; title=&quot;Edici&oacute;n de gr&aacute;ficos b&aacute;sica en GNU/Linux&quot;&gt;&lt;img alt=&quot;gimp&quot; class=&quot;aligncenter size-full wp-image-33083&quot; src=&quot;http://www.muylinux.com/wp-content/uploads/2015/10/gimp.jpg&quot; style=&quot;height:783px; width:1235px&quot; /&gt;&lt;/a&gt;&lt;/p&gt;\r\n\r\n&lt;p&gt;En su momento intent&amp;eacute; reemplazar GIMP con &lt;a href=&quot;http://www.muylinux.com/2014/05/27/pinta-1-5&quot; target=&quot;_blank&quot;&gt;Pinta&lt;/a&gt;, pero no daba la talla; y con &lt;a href=&quot;http://www.muylinux.com/tag/krita/&quot; target=&quot;_blank&quot;&gt;Krita&lt;/a&gt;, pero el que no daba la talla era yo&amp;hellip; As&amp;iacute; que GIMP se viene conmigo a donde vaya.&lt;/p&gt;\r\n\r\n&lt;p&gt;Se acab&amp;oacute;. Como veis, me apa&amp;ntilde;o con lo m&amp;aacute;s b&amp;aacute;sico. Pobre ejemplo el m&amp;iacute;o, dicho sea de paso, aunque tampoco tengo otro. O a lo mejor s&amp;iacute;. Imaginemos &lt;strong&gt;un fot&amp;oacute;grafo profesional&lt;/strong&gt;: &amp;iquest;podr&amp;iacute;a servirse &amp;uacute;nicamente de software libre y hacerlo adem&amp;aacute;s en GNU/Linux?&lt;/p&gt;\r\n\r\n&lt;p&gt;Para complementar mi caso de uso con uno un poco m&amp;aacute;s serio, el fot&amp;oacute;grafo Riley Brandt publicaba hace unos d&amp;iacute;as &lt;a href=&quot;http://www.rileybrandt.com/2015/10/15/foss-photo-flow-2015/&quot; target=&quot;_blank&quot;&gt;en su blog&lt;/a&gt; el resultado de &amp;ldquo;a&amp;ntilde;os de prueba y error&amp;rdquo; hasta encontrar &lt;strong&gt;el flujo de trabajo id&amp;oacute;neo&lt;/strong&gt;, que comienza por una correcta calibraci&amp;oacute;n del color, incluyendo software y hardware, y discurre a trav&amp;eacute;s de aplicaciones como &lt;a href=&quot;http://sourceforge.net/projects/geeqie/&quot; target=&quot;_blank&quot;&gt;Geeqie&lt;/a&gt;, un sencillo visor con soporte para la gesti&amp;oacute;n del color; &lt;a href=&quot;http://www.damonlynch.net/rapid/&quot; target=&quot;_blank&quot;&gt;Rapid Photo Downloader&lt;/a&gt;, para automatizar el proceso de descarga de im&amp;aacute;genes; &lt;a href=&quot;http://www.darktable.org/&quot; target=&quot;_blank&quot;&gt;darktable&lt;/a&gt;, para la gesti&amp;oacute;n y edici&amp;oacute;n de im&amp;aacute;genes RAW (tambi&amp;eacute;n valdr&amp;iacute;a digiKam); o el propio GIMP para los retoques finales. Este era en realidad el motivo del art&amp;iacute;culo&amp;hellip;&lt;/p&gt;\r\n'),
+(801, 699, 1, 'Edici&oacute;n de gr&aacute;ficos b&aacute;sica en GNU/Linux ? &amp;amp; &lt;br&gt;'),
+(802, 700, 1, 'asxsax'),
+(803, 701, 1, 'Mundo'),
+(806, 705, 2, '&lt;h2 style=&quot;text-align: center;&quot;&gt;&lt;strong&gt;Organigrama&lt;/strong&gt;&lt;/h2&gt;\r\n'),
+(807, 705, 1, '&lt;p style=&quot;text-align: center;&quot;&gt;&lt;strong&gt;Organigrama2&lt;/strong&gt;&lt;/p&gt;\r\n'),
+(808, 706, 2, '&lt;h2 style=&quot;text-align:center&quot;&gt;&lt;strong&gt;Lo que me de la gana&lt;/strong&gt;&lt;/h2&gt;\r\n'),
+(809, 706, 1, '&lt;h2 style=&quot;text-align:center&quot;&gt;&lt;strong&gt;Galer&amp;iacute;a&lt;/strong&gt;&lt;/h2&gt;\r\n'),
+(810, 696, 2, '&lt;p&gt;&lt;span id=&quot;result_box&quot;&gt;&lt;span title=&quot;&iquest;C&oacute;mo ser&iacute;a un mundo sin Linux?La Linux Foundation acaba de arrancar una nueva campa&ntilde;a promocional con el esp&iacute;ritu de colaboraci&oacute;n como bandera, y qu&eacute; mejor ejemplo que el propo Linux, &ldquo;el mayor proyecto colaborativo de la hisoria de la computaci&oacute;n&rdquo;.&quot;&gt;What would a world without Linux? The Linux Foundation has just started a new promotional campaign with the spirit of collaboration as a flag, and what better example than &lt;strong&gt;Linux, &amp;quot;the biggest collaborative project hisoria computer&amp;quot; &lt;/strong&gt;propo. &lt;/span&gt;&lt;span title=&quot;El m&eacute;todo elegido es una miniserie de v&iacute;deos en los que sus protagonistas -dibujos animados- nos descubrir&aacute;n un mundo sin Linux.\r\n\r\n&quot;&gt;The chosen method is a miniseries of videos in which their protagonists animados- -drawings we discover a world without Linux.&lt;/span&gt;&lt;br /&gt;\r\n&lt;br /&gt;\r\n&lt;span title=&quot;Ayer publicaron el primer cap&iacute;tulo, titulado &iquest;C&oacute;mo se llama esa canci&oacute;n?, que pod&eacute;is ver m&aacute;s abajo.&quot;&gt;Yesterday published the first chapter, entitled What is the name that song ?, that you see below. &lt;/span&gt;&lt;span title=&quot;Pinta un panorama en el que algo tan rid&iacute;culo como buscar informaci&oacute;n se transforma en una odisea porque no hay Internet.&quot;&gt;Paints a picture in which something as ridiculous as looking for information becomes an odyssey because &lt;strong&gt;there is no Internet&lt;/strong&gt;. &lt;/span&gt;&lt;span title=&quot;Los pr&oacute;ximos cap&iacute;tulos, de los que han avanzado el tema, van por el mismo camino: un mundo sin GPS, en el que estar&iacute;amos perdidos;&quot;&gt;The next few chapters, which have advanced the issue, go down the same path: a world &lt;strong&gt;without GPS&lt;/strong&gt;, which would be lost; &lt;/span&gt;&lt;span title=&quot;un mundo sin redes sociales, en el que estar&iacute;amos solos;&quot;&gt;a world &lt;strong&gt;without social networks&lt;/strong&gt;, where we would be alone; &lt;/span&gt;&lt;span title=&quot;o un mundo en el que Avatar no habr&iacute;a sido tan alucinante a nivel visual, porque Linux no existe.\r\n\r\n&quot;&gt;or a world in which Avatar not have been so amazing visually, because Linux does not exist.&lt;/span&gt;&lt;br /&gt;\r\n&lt;br /&gt;\r\n&lt;span title=&quot;En realidad hablan del mundo de hace veinte a&ntilde;os, as&iacute; que tampoco es harto dif&iacute;cil de imaginar (!).\r\n\r\n&quot;&gt;Actually they speak of the world twenty years ago, so it&amp;#39;s not very difficult to imagine (!).&lt;/span&gt;&lt;br /&gt;\r\n&lt;br /&gt;\r\n&lt;span title=&quot;Por lo dem&aacute;s es una campa&ntilde;a publicitaria al uso, en la que aprovechan para dar las gracias a las decenas de miles de personas y empresas que apoyan Linux.&quot;&gt;Otherwise it is an advertising campaign use, where advantage to thank the tens of thousands of people and companies that support Linux. &lt;/span&gt;&lt;span title=&quot;Y Tux me libre de no apoyar tambi&eacute;n a la causa, pero, le&ntilde;e, el autobombo se puede hacer de otras maneras que inventar un presente alternativo para &ldquo;ayudar a entender c&oacute;mo Linux forma parte de nuestras vidas&rdquo;.\r\n\r\n&quot;&gt;Tux And I free not also support the cause, but, bucking, self-promotion can be done in other ways to invent an alternative present to &amp;quot;help understand how Linux is part of our lives.&amp;quot;&lt;/span&gt;&lt;br /&gt;\r\n&lt;br /&gt;\r\n&lt;span title=&quot;&iquest;C&oacute;mo ser&iacute;a un mundo sin Linux?&quot;&gt;What would a world without Linux? &lt;/span&gt;&lt;span title=&quot;Ni idea.&quot;&gt;No idea. &lt;/span&gt;&lt;span title=&quot;Pero tanto como un mundo sin Internet o GPS, va a ser que no.&quot;&gt;But much like a world without Internet or GPS, will be no. &lt;/span&gt;&lt;span title=&quot;Lo &uacute;nico que s&eacute; a ciencia cierta es que en un mundo sin Linux, MuyLinux no existir&iacute;a.&quot;&gt;All I know for sure is that in a world without Linux, MuyLinux not exist. &lt;/span&gt;&lt;span title=&quot;Tal vez nos llamar&iacute;amos MuyGNU, qui&eacute;n sabe.&quot;&gt;Maybe we MuyGNU call, who knows.&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;\r\n\r\n&lt;div data-oembed-url=&quot;https://youtu.be/JzsLkbwi1LA&quot;&gt;\r\n&lt;div style=&quot;left: 0px; width: 100%; height: 0px; position: relative; padding-bottom: 56.2493%;&quot;&gt;&lt;iframe allowfullscreen=&quot;true&quot; frameborder=&quot;0&quot; mozallowfullscreen=&quot;true&quot; src=&quot;https://www.youtube.com/embed/JzsLkbwi1LA?wmode=transparent&amp;amp;rel=0&amp;amp;autohide=1&amp;amp;showinfo=0&amp;amp;enablejsapi=1&quot; style=&quot;top: 0px; left: 0px; width: 100%; height: 100%; position: absolute;&quot; webkitallowfullscreen=&quot;true&quot;&gt;&lt;/iframe&gt;&lt;/div&gt;\r\n&lt;/div&gt;\r\n\r\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\r\n'),
+(811, 697, 2, 'Let&rsquo;s Encrypt ya se ha &ldquo;ganado la confianza&rdquo; de los principales navegadores'),
+(812, 707, 2, 'un evento nuevo'),
+(813, 708, 2, 'Nuevo evento'),
+(814, 505, 2, 'Galer&iacute;a'),
+(815, 496, 2, 'Galer&iacute;a'),
+(816, 626, 2, 'Eventos'),
+(817, 709, 2, 'News'),
+(818, 710, 2, 'Atajos'),
+(819, 711, 1, 'ElementosMaximos'),
+(820, 712, 1, '&lt;p style=&quot;text-align:center&quot;&gt;&lt;strong&gt;Hola Mundo&lt;/strong&gt;&lt;/p&gt;\r\n'),
+(838, 730, 1, 'asx'),
+(845, 709, 1, 'News'),
+(849, 740, 1, 'Calendario'),
+(850, 741, 1, '&lt;h2 style=&quot;text-align:center&quot;&gt;&lt;strong&gt;Calendario&lt;/strong&gt;&lt;/h2&gt;\r\n'),
+(851, 710, 1, 'Atajos'),
+(852, 742, 1, 'arriba'),
+(853, 743, 1, 'arriba'),
+(854, 744, 1, 'Arriba'),
+(855, 745, 1, 'hola'),
+(856, 746, 1, 'asx'),
+(859, 749, 1, 'Vista predeterminada'),
+(861, 750, 1, 'Anual'),
+(862, 751, 1, 'Mensual'),
+(863, 752, 1, 'Mundo'),
+(864, 753, 1, 'Mundo'),
+(865, 754, 1, 'sea'),
+(868, 757, 1, 'Galer&iacute;a'),
+(869, 758, 1, 'asx'),
+(872, 761, 1, 'Comentario'),
+(876, 765, 1, 'scdc'),
+(877, 766, 1, 'asx'),
+(878, 767, 1, 'Que tal'),
+(879, 768, 1, 'xsa'),
+(880, 769, 1, 'xsa'),
+(881, 770, 1, 'Tal'),
+(882, 771, 1, 'tal'),
+(883, 772, 1, 'tal'),
+(884, 773, 1, 'xsa'),
+(885, 774, 1, 'xsa'),
+(886, 775, 1, 'tal'),
+(887, 776, 1, 'xsa'),
+(888, 777, 1, 'Mundo'),
+(891, 780, 1, 'que  &quot; tal'),
+(892, 781, 1, 'xsa'),
+(893, 782, 1, 'xsa'),
+(904, 794, 1, 'asx &quot; '' \\ / lo &lt;br&gt; que &amp;amp; sea'),
+(906, 797, 1, 'mysqli'),
+(907, 798, 1, 'hola'),
+(910, 801, 1, 'hola'),
+(911, 802, 1, 'mysqli'),
+(912, 803, 1, 'mundo'),
+(913, 804, 1, 'cruel'),
+(914, 805, 1, 'jota');
 
 -- --------------------------------------------------------
 
@@ -1110,7 +1481,9 @@ ALTER TABLE `Menu`
 -- Filtros para la tabla `Modulos`
 --
 ALTER TABLE `Modulos`
-  ADD CONSTRAINT `Modulos_ibfk_1` FOREIGN KEY (`PadreID`) REFERENCES `Modulos` (`ID`) ON DELETE CASCADE;
+  ADD CONSTRAINT `Modulos_ibfk_1` FOREIGN KEY (`PadreID`) REFERENCES `Modulos` (`ID`) ON DELETE CASCADE,
+  ADD CONSTRAINT `Modulos_ibfk_2` FOREIGN KEY (`OpcGrpID`) REFERENCES `OpcGrp` (`ID`) ON DELETE SET NULL,
+  ADD CONSTRAINT `Modulos_ibfk_3` FOREIGN KEY (`OpcSetsGrpID`) REFERENCES `OpcSetsGrp` (`ID`);
 
 --
 -- Filtros para la tabla `Novedades`
@@ -1121,12 +1494,57 @@ ALTER TABLE `Novedades`
   ADD CONSTRAINT `Novedades_ibfk_3` FOREIGN KEY (`DescripcionID`) REFERENCES `Contenidos` (`ID`) ON DELETE CASCADE;
 
 --
+-- Filtros para la tabla `OpcGrp`
+--
+ALTER TABLE `OpcGrp`
+  ADD CONSTRAINT `OpcGrp_ibfk_1` FOREIGN KEY (`Padre`) REFERENCES `OpcGrp` (`ID`) ON DELETE CASCADE;
+
+--
+-- Filtros para la tabla `Opciones`
+--
+ALTER TABLE `Opciones`
+  ADD CONSTRAINT `Opciones_ibfk_1` FOREIGN KEY (`Nombre`) REFERENCES `Contenidos` (`ID`) ON DELETE CASCADE,
+  ADD CONSTRAINT `Opciones_ibfk_2` FOREIGN KEY (`Descripcion`) REFERENCES `Contenidos` (`ID`) ON DELETE CASCADE,
+  ADD CONSTRAINT `Opciones_ibfk_3` FOREIGN KEY (`Grupo`) REFERENCES `OpcGrp` (`ID`) ON DELETE CASCADE,
+  ADD CONSTRAINT `Opciones_ibfk_4` FOREIGN KEY (`ValGrp`) REFERENCES `OpcValGrp` (`ID`) ON DELETE CASCADE,
+  ADD CONSTRAINT `Opciones_ibfk_5` FOREIGN KEY (`Tipo`) REFERENCES `OpcTipos` (`ID`) ON DELETE CASCADE;
+
+--
+-- Filtros para la tabla `OpcSets`
+--
+ALTER TABLE `OpcSets`
+  ADD CONSTRAINT `OpcSets_ibfk_1` FOREIGN KEY (`Opcion`) REFERENCES `Opciones` (`ID`),
+  ADD CONSTRAINT `OpcSets_ibfk_2` FOREIGN KEY (`Grupo`) REFERENCES `OpcSetsGrp` (`ID`) ON DELETE CASCADE;
+
+--
+-- Filtros para la tabla `OpcValores`
+--
+ALTER TABLE `OpcValores`
+  ADD CONSTRAINT `OpcValores_ibfk_1` FOREIGN KEY (`Grupo`) REFERENCES `OpcValGrp` (`ID`) ON DELETE CASCADE,
+  ADD CONSTRAINT `OpcValores_ibfk_2` FOREIGN KEY (`Nombre`) REFERENCES `Contenidos` (`ID`);
+
+--
 -- Filtros para la tabla `Secciones`
 --
 ALTER TABLE `Secciones`
+  ADD CONSTRAINT `Secciones_ibfk_5` FOREIGN KEY (`TagsGrpID`) REFERENCES `TagsGrp` (`ID`),
   ADD CONSTRAINT `Secciones_ibfk_1` FOREIGN KEY (`ContenidoID`) REFERENCES `Contenidos` (`ID`) ON DELETE CASCADE,
   ADD CONSTRAINT `Secciones_ibfk_2` FOREIGN KEY (`ModuloID`) REFERENCES `Modulos` (`ID`),
-  ADD CONSTRAINT `Secciones_ibfk_3` FOREIGN KEY (`PadreID`) REFERENCES `Secciones` (`ID`) ON DELETE CASCADE;
+  ADD CONSTRAINT `Secciones_ibfk_3` FOREIGN KEY (`PadreID`) REFERENCES `Secciones` (`ID`) ON DELETE CASCADE,
+  ADD CONSTRAINT `Secciones_ibfk_4` FOREIGN KEY (`OpcSetID`) REFERENCES `OpcSets` (`ID`) ON UPDATE SET NULL;
+
+--
+-- Filtros para la tabla `Tags`
+--
+ALTER TABLE `Tags`
+  ADD CONSTRAINT `Tags_ibfk_1` FOREIGN KEY (`NombreID`) REFERENCES `Contenidos` (`ID`) ON DELETE CASCADE;
+
+--
+-- Filtros para la tabla `TagsTarget`
+--
+ALTER TABLE `TagsTarget`
+  ADD CONSTRAINT `TagsTarget_ibfk_1` FOREIGN KEY (`TagID`) REFERENCES `Tags` (`ID`) ON DELETE CASCADE,
+  ADD CONSTRAINT `TagsTarget_ibfk_2` FOREIGN KEY (`GrupoID`) REFERENCES `TagsGrp` (`ID`);
 
 --
 -- Filtros para la tabla `Traducciones`
