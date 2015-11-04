@@ -1,7 +1,7 @@
 <?php
-include_once $_SERVER['DOCUMENT_ROOT'] . '//php/SQL_Obj.php';
+include_once $_SERVER['DOCUMENT_ROOT'] . '/php/SQLTagged_Obj.php';
 
-class Novedad extends SQL_Obj
+class Novedad extends SQLTagged_Obj
 {
 	function __construct($props=NULL , $con=NULL)
 	{

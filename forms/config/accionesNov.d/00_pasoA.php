@@ -6,6 +6,7 @@
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormLabelVisible.php';
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/ClearFix.php';
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormLabelImagen.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormLabelTags.php';
 	//$this->form->ancla='#nNov';
 	/*
 		[
@@ -18,9 +19,13 @@
 	$descripcion=new FormLabelContenido($this->form);
 	$visible=new FormLabelVisible($this->form);
 	$selectImg=new FormLabelImagen($this->form , 'Imagen' , 'imagen' , gettext('Imagen'));
+	$labelTags=new FormLabelTags($this->form);
 
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/conexion.php';
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/getTraduccion.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/Novedad.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/nTag.php';
+
 	global $con;
 
 	if($this->form->srvBuilder->getAction()===0)
@@ -35,6 +40,21 @@
 			),
 			MYSQLI_ASSOC
 		)[0];
+
+		$grupoID=new Novedad(['ID'=>$this->form->srvBuilder->conIDAct] , $con);
+		$grupoID=$grupoID->getTagsGrp();
+
+		if(isset($grupoID[0][0]))
+		{
+			$labelTags->input->setValue
+			(
+				getTagsStr($grupoID[0][0])
+			);
+		}
+		else
+		{
+			echo '<pre>No group</pre>';
+		}
 
 		$visible->input->selectedValue=$novedad['Visible'];
 
@@ -95,8 +115,10 @@
 	->appendChild($descripcion)
 	->appendChild($visible)
 	->appendChild($selectImg)
-	->clearFix()
-	->appendChild($continuar)
+	->clearFix()->appendChild
+	(
+		$labelTags
+	)->appendChild($continuar)
 	->setAction($this->getNextStepUrl());
 
 	if($this->thisIsLast())

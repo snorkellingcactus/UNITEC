@@ -13,17 +13,21 @@
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormLabelVisible.php';
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormLabelDescripcion.php';
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormLabelPrioridad.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormLabelTags.php';
 
 	$titulo=new FormLabelTitulo($this->form);
 	$fecha=new FormLabelFecha($this->form);
 	$descripcion=new FormLabelDescripcion($this->form);
 	$visible=new FormLabelVisible($this->form);
 	$prioridad=new FormLabelPrioridad($this->form);
+	$labelTags=new FormLabelTags($this->form);
 
 	if($this->getAction()===0)
 	{
 		include_once $_SERVER['DOCUMENT_ROOT'] . '/php/conexion.php';
 		include_once $_SERVER['DOCUMENT_ROOT'] . '/php/getTraduccion.php';
+		include_once $_SERVER['DOCUMENT_ROOT'] . '/php/Evento.php';
+		include_once $_SERVER['DOCUMENT_ROOT'] . '/php/nTag.php';
 
 		global $con;
 
@@ -37,6 +41,22 @@
 			),
 			MYSQLI_ASSOC
 		)[0];
+
+		$grupoID=new Evento(NULL , $con);
+		$grupoID->getSQL(['DescripcionID'=>$_POST['conID'][$this->contador]]);
+		$grupoID=$grupoID->getTagsGrp();
+
+		if(isset($grupoID[0][0]))
+		{
+			$labelTags->input->setValue
+			(
+				getTagsStr($grupoID[0][0])
+			);
+		}
+		else
+		{
+			echo '<pre>No group</pre>';
+		}
 
 		$visible->selectedValue=$evento['Visible'];
 		$prioridad->input->setValue($evento['Prioridad']);
@@ -81,8 +101,10 @@
 	->appendChild($descripcion)
 	->appendChild($visible)
 	->appendChild($fecha)
-	->appendChild($prioridad)
-	->appendChild($continuar)->setAction($this->getNextStepUrl());
+	->appendChild($prioridad)->appendChild
+	(
+		$labelTags
+	)->appendChild($continuar)->setAction($this->getNextStepUrl());
 
 	if($this->thisIsLast())
 	{

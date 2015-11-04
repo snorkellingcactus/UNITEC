@@ -41,6 +41,11 @@
 					]
 				);
 
+				if(!empty($_POST['Tags'][$i]))
+				{
+					$evento->updTagsTargets($_POST['Tags'][$i]);
+				}
+
 				$afectados[$afectadosLen]=$_SESSION['conID'][$i];
 				++$afectadosLen;
 			}

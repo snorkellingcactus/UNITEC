@@ -45,30 +45,38 @@
 		);
 		return $con->insert_id;
 	}
-	function nTagsTargets($tags , $grupoID)
+	function filterTagName($tagName)
 	{
-		$tags=explode
+		return strtolower
+		(
+			preg_replace
+			(
+				"/\s+/",
+				" ",
+				trim($tagName)
+			)
+		);
+	}
+	function sepTagsStr($tagsStr)
+	{
+		return explode
 		(
 			',',
-			$tags
+			$tagsStr
 		);
+	}
+	function nTagsTargets($tags , $grupoID)
+	{
+		$tags=sepTagsStr($tags);
 
 		$t=0;
 		while(isset($tags[$t]))
 		{
-			nTagTarget
-			(
-				strtolower
-				(
-					preg_replace
-					(
-						"/\s+/",
-						" ",
-						trim($tags[$t])
-					)
-				),
-				$grupoID
-			);
+			$tagName=filterTagName($tags[$t]);
+			if(!empty($tagName))
+			{
+				nTagTarget($tagName , $grupoID);
+			}
 
 			++$t;
 		}
@@ -81,13 +89,13 @@
 		if($tagID===false)
 		{
 			$tagID=nTag($name);
-			echo '<pre>nTagTarget: Nuevo Tag: '.$name.'</pre>';
+			//echo '<pre>nTagTarget: Nuevo Tag: '.$name.'</pre>';
 		}
 		else
 		{
-			echo '<pre>nTagTarget: Ignorando Tag Duplicado: '.$name.'</pre>';
+			//echo '<pre>nTagTarget: Ignorando Tag Duplicado: '.$name.'</pre>';
 		}
-		if(!isDuplicatedTagTarget($tagID))
+		if(!isDuplicatedTagTarget($tagID , $grupoID))
 		{
 			$con->query
 			(
@@ -95,14 +103,14 @@
 					VALUES('.$tagID.' , '.$grupoID.')
 				'
 			);
-			echo '<pre>nTagTarget: Insertado TagTarget: '.$name.'</pre>';
+			//echo '<pre>nTagTarget: Insertado TagTarget: '.$name.'</pre>';
 		}
 		else
 		{
-			echo '<pre>nTagTarget: Ignorando TagTarget duplicado: '.$name.'</pre>';
+			//echo '<pre>nTagTarget: Ignorando TagTarget duplicado: '.$name.'</pre>';
 		}
 	}
-	function isDuplicatedTagTarget($tagID)
+	function isDuplicatedTagTarget($tagID , $tagsGrpID)
 	{
 		global $con;
 /*
@@ -112,6 +120,7 @@
 			'	SELECT 1
 				FROM TagsTarget
 				WHERE TagsTarget.TagID='.$tagID.'
+				AND GrupoID='.$tagsGrpID.'
 				LIMIT 1
 			'
 		);
@@ -128,6 +137,7 @@
 						'	SELECT 1
 							FROM TagsTarget
 							WHERE TagsTarget.TagID='.$tagID.'
+							AND GrupoID='.$tagsGrpID.'
 							LIMIT 1
 						'
 					),
@@ -187,5 +197,144 @@
 		{
 			return false;
 		}
+	}
+	function getTagsStr($tagsGrpID)
+	{
+		global $con;
+
+		include_once $_SERVER['DOCUMENT_ROOT'] . '/php/getTraduccion.php';
+
+		$tagsNamesID=fetch_all
+		(
+			$con->query
+			(
+				'	SELECT Tags.NombreID
+					FROM TagsTarget
+					LEFT OUTER JOIN Tags
+					ON Tags.ID=TagsTarget.TagID
+					WHERE TagsTarget.GrupoID='.$tagsGrpID
+			),
+			MYSQLI_NUM
+		);
+		//Revisar. Optimizar.
+		$t=0;
+		while(isset($tagsNamesID[$t][0]))
+		{
+			$tagsNamesID[$t]=getTraduccion($tagsNamesID[$t][0] , $_SESSION['lang']);
+			++$t;
+		}
+
+		sort($tagsNamesID);
+
+		return implode
+		(
+			' , ',
+			$tagsNamesID
+		);
+	}
+	function rmTagsOrphans($tagLst , $tagsGrpID)
+	{
+		global $con;
+		$tagLst=sepTagsStr($tagLst);
+
+		if(!isset($tagLst[0]))
+		{
+			return;
+		}
+
+		$tagLstStr='';
+		$efectivo=false;
+		$t=0;
+		while(isset($tagLst[$t]))
+		{
+			$tagName=filterTagName($tagLst[$t]);
+
+//			echo '<pre>TagName:"'.$tagName.'"</pre>';
+
+			if(!empty($tagName))
+			{
+				if($efectivo)
+				{
+					$tagLstStr=$tagLstStr.' , ';
+				}
+				$efectivo=true;
+
+				$tagLstStr=$tagLstStr.'"'.$tagName.'"';
+			}
+			else
+			{
+//				echo '<pre>Is Empty</pre>';
+			}
+
+			++$t;
+		}
+		if(empty($tagLstStr))
+		{
+			return;
+		}
+/*
+		echo '<pre>rmTagOrphans: Consulta:';
+		print_r
+		(
+			'	SELECT Tags.ID
+				FROM Tags
+				LEFT OUTER JOIN Traducciones
+				ON Traducciones.Texto not in ('.$tagLstStr.')
+				LEFT OUTER JOIN TagsTarget
+				ON TagsTarget.TagID=Tags.ID
+				WHERE Traducciones.ContenidoID=Tags.NombreID and TagsTarget.GrupoID='.$tagsGrpID.'
+			'
+		);
+		echo '</pre>';
+*/
+		$orphans=fetch_all
+		(
+			$con->query
+			(
+				'	SELECT Tags.ID
+					FROM Tags
+					LEFT OUTER JOIN Traducciones
+					ON Traducciones.Texto not in ('.$tagLstStr.')
+					LEFT OUTER JOIN TagsTarget
+					ON TagsTarget.TagID=Tags.ID
+					WHERE Traducciones.ContenidoID=Tags.NombreID and TagsTarget.GrupoID='.$tagsGrpID.'
+				'
+			),
+			MYSQLI_NUM
+		);
+
+		if(!isset($orphans[0][0]))
+		{
+			return;
+		}
+
+		$orphanStr='';
+		$t=0;
+		while(isset($orphans[$t][0]))
+		{
+			$tagName=$orphans[$t][0];
+
+			if($t>0)
+			{
+				$tagName=','.$tagName;
+			}
+			$orphanStr=$orphanStr.$tagName;
+
+			++$t;
+		}
+/*
+		echo '<pre>rmTagOrphans: Huerfanos:';
+		print_r($orphanStr);
+		echo '</pre>';
+*/
+		$con->query
+		(
+			'	DELETE FROM TagsTarget
+				WHERE TagsTarget.TagID in
+				(
+					'.$orphanStr.'
+				)
+			'
+		);
 	}
 ?>

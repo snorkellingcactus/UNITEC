@@ -45,6 +45,11 @@
 				);
 				updTraduccion($_POST['Titulo'][$i] , $nNov->TituloID , $_SESSION['lang']);
 
+				if(!empty($_POST['Tags'][$i]))
+				{
+					$nNov->updTagsTargets($_POST['Tags'][$i]);
+				}
+
 				$afectados[$afectadosLen]=$nNov->TituloID;
 				++$afectadosLen;
 			}

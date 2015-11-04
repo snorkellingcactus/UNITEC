@@ -94,6 +94,10 @@
 					$_FILES['File']['name'][$i],
 					$_FILES['File']['tmp_name'][$i]
 				);
+				if(!empty($_POST['Tags'][$i]))
+				{	
+					$nImg->updTagsTargets($_POST['Tags'][$i]);
+				}
 
 				$afectados[$afectadosLen]=$nImg->ID;
 

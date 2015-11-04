@@ -11,38 +11,49 @@
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormLabelAlt.php';
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormLabelPrioridad.php';
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormLabelVisible.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormLabelTags.php';
 
 	$titulo=new FormLabelTitulo($this->form);
 	$archivo=new FormLabelUrlNov($this->form);
 	$alt=new FormLabelAlt($this->form);
 	$visible=new FormLabelVisible($this->form);
 	$prioridad=new FormLabelPrioridad($this->form);
+	$labelTags=new FormLabelTags($this->form);
 
 	if($this->getAction()===0)
 	{
 		include_once $_SERVER['DOCUMENT_ROOT'] . '/php/conexion.php';
 		include_once $_SERVER['DOCUMENT_ROOT'] . '/php/getTraduccion.php';
+		include_once $_SERVER['DOCUMENT_ROOT'] . '/php/Img.php';
+		include_once $_SERVER['DOCUMENT_ROOT'] . '/php/nTag.php';
+
 		global $con;
 
-		$imagen=fetch_all
-		(
-			$con->query
-			(
-				'	SELECT * 
-					FROM Imagenes 
-					WHERE TituloID='.$_POST['conID'][$this->contador]
-			),
-			MYSQLI_ASSOC
-		)[0];
+		$imagen=new Img(NULL , $con);
+		$imagen->getSQL(['TituloID'=>$_POST['conID'][$this->contador]]);
 
-		$archivo->inputUrl->setValue($imagen['Url']);
-		$visible->selectedValue=$imagen['Visible'];
+		$grupoID=$imagen->getTagsGrp();
+
+		if(isset($grupoID[0][0]))
+		{
+			$labelTags->input->setValue
+			(
+				getTagsStr($grupoID[0][0])
+			);
+		}
+		else
+		{
+			echo '<pre>No group</pre>';
+		}
+
+		$archivo->inputUrl->setValue($imagen->Url);
+		$visible->selectedValue=$imagen->Visible;
 		//$this->form->autocomp['Prioridad']=$imagen['Prioridad'];
 		$alt->input->setValue
 		(
 			getTraduccion
 			(
-				$imagen['AltID'],
+				$imagen->AltID,
 				$_SESSION['lang']
 			)
 		);
@@ -50,7 +61,7 @@
 		(
 			getTraduccion
 			(
-				$imagen['TituloID'],
+				$imagen->TituloID,
 				$_SESSION['lang']
 			)
 		);
@@ -64,8 +75,10 @@
 	->appendChild($alt)
 	->appendChild($archivo)
 	->appendChild($prioridad)
-	->appendChild($visible)
-	->appendChild($continuar)->setAction($this->getNextStepUrl());
+	->appendChild($visible)->appendChild
+	(
+		$labelTags
+	)->appendChild($continuar)->setAction($this->getNextStepUrl());
 
 	if($this->thisIsLast())
 	{

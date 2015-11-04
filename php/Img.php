@@ -1,7 +1,7 @@
 <?php
-require_once $_SERVER['DOCUMENT_ROOT'] . '//php/SQL_Obj.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/php/SQLTagged_Obj.php';
 
-class Img extends SQL_Obj
+class Img extends SQLTagged_Obj
 {
 	function __construct($props=NULL , $con=NULL)
 	{

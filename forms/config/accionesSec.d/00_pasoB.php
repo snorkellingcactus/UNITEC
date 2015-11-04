@@ -219,48 +219,19 @@
 
 	if($this->getAction()===0)
 	{
+		include_once $_SERVER['DOCUMENT_ROOT'] . '/php/Seccion.php';
+		include_once $_SERVER['DOCUMENT_ROOT'] . '/php/nTag.php';
+
 		$selectLugar->input->selectedValue=$_SESSION['conID'];
 
-		$grupoID=fetch_all
-		(
-			$con->query
-			(
-				'	SELECT TagsGrpID
-					FROM Secciones
-					WHERE ID='.$_SESSION['conID']
-			),
-			MYSQLI_NUM
-		);
+		$grupoID=new Seccion(['ID'=>$_SESSION['conID']] , $con);
+		$grupoID=$grupoID->getTagsGrp();
+
 		if(isset($grupoID[0][0]))
 		{
-			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/getTraduccion.php';
-
-			$tagsNamesID=fetch_all
-			(
-				$con->query
-				(
-					'	SELECT Tags.NombreID
-						FROM TagsTarget
-						LEFT OUTER JOIN Tags
-						ON Tags.ID=TagsTarget.TagID
-						WHERE TagsTarget.GrupoID='.$grupoID[0][0]
-				),
-				MYSQLI_NUM
-			);
-			//Revisar. Optimizar.
-			$t=0;
-			while(isset($tagsNamesID[$t][0]))
-			{
-				$tagsNamesID[$t]=getTraduccion($tagsNamesID[$t][0] , $_SESSION['lang']);
-				++$t;
-			}
 			$labelTags->input->setValue
 			(
-				implode
-				(
-					' , ',
-					$tagsNamesID
-				)
+				getTagsStr($grupoID[0][0])
 			);
 		}
 		else
