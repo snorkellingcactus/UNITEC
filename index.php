@@ -31,7 +31,7 @@ function echoLang($langSQLRes)
 	$langName=$langSQLRes['Pais'][0].$langSQLRes['Pais'][1];
 	?>
 		<!-- Revisar -->
-		<img aria-hidden="true" src="img/idiomas/<?php echo $langName.'.png' ?>" alt="" />
+		<img aria-hidden="true" src="/img/idiomas/<?php echo $langName.'.png' ?>" alt="" />
 	<?php 
 
 	echo utf8_encode($langSQLRes['Nombre']);
@@ -47,8 +47,12 @@ if(isset($_SESSION['adminID']))
 
 	$formSecRecv->checks();
 }
+include_once $_SERVER['DOCUMENT_ROOT'] . '/php/getLab.php';
+detectLab();
+
 include_once($_SERVER['DOCUMENT_ROOT'] . '/php/conexion.php');
 global $con;
+
 $lang=getenv('LANG');
 
 ?>
@@ -61,11 +65,11 @@ $lang=getenv('LANG');
     
 		<link rel="icon" type="image/png" href="/img/unitec-favicon.png"  />
 		<link rel="shortcut icon" type="image/ico" href="/img/unitec-favicon.ico"  />
-		<link rel="stylesheet" type="text/css" href="./index.css" />
-		<link rel="stylesheet" type="text/css" href="./forms/forms.css" />
-		<link rel="stylesheet" type="text/css" href="./header.css" />
-		<link rel="stylesheet" type="text/css" href="./seccs/menu.css" />
-		<link rel="stylesheet" type="text/css" href="./seccs/contacto.css" />
+		<link rel="stylesheet" type="text/css" href="/index.css" />
+		<link rel="stylesheet" type="text/css" href="/forms/forms.css" />
+		<link rel="stylesheet" type="text/css" href="/header.css" />
+		<link rel="stylesheet" type="text/css" href="/seccs/menu.css" />
+		<link rel="stylesheet" type="text/css" href="/seccs/contacto.css" />
 		
 		<?php
 			include_once($_SERVER['DOCUMENT_ROOT'] . '/php/head_include.php');
@@ -98,10 +102,10 @@ $lang=getenv('LANG');
 				head_include($header=$headers[$h][0]);
 			}
 		?>
-		<link rel="stylesheet" type="text/css" href="./bootstrap.css" />
+		<link rel="stylesheet" type="text/css" href="/bootstrap.css" />
 
-		<script type="text/javascript" src="js/head.js"></script>
-		<script type="text/javascript" src="index.js"></script>
+		<script type="text/javascript" src="/js/head.js"></script>
+		<script type="text/javascript" src="/index.js"></script>
 
 		<title>Unitec</title>
 	</head>
@@ -249,7 +253,7 @@ $lang=getenv('LANG');
 				?>
 				<div class="clearfix"></div>
 				<small>Powered by Bootstrap</small>
-				<script type="text/javascript" src="footer.js"></script>
+				<script type="text/javascript" src="/footer.js"></script>
 			</div>
 		</footer>
 	</body>

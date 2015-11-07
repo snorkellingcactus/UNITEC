@@ -3,7 +3,7 @@
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/conexion.php';
 	
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/DOMOrganigrama.php';
-	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/edicion/FormCliLab.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/FormCliRecv.php';
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/SQL_Evts_Labs.php';
 
 	//$formLab=new FormCliLab('accionesLab');
@@ -18,8 +18,10 @@
 	(
 		$con->query
 		(
-			'	SELECT ID, PadreID, Color, Enlace, NombreID
+			'	SELECT Laboratorios.ID, Laboratorios.PadreID, Laboratorios.Color, Laboratorios.Enlace, Laboratorios.NombreID, Traducciones.Texto
 				FROM Laboratorios
+				LEFT OUTER JOIN Traducciones
+				ON Traducciones.ContenidoID=Laboratorios.NombreID
 				WHERE Organigrama=1
 			'
 		),

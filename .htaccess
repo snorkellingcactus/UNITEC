@@ -12,6 +12,8 @@ RewriteRule ^novedades/([0-9]+-[0-9]+-[0-9]+)/(.*)-([0-9]+)&(vRecIDAnt=[0-9]+)*$
 
 RewriteRule ^novedades/([0-9]+-[0-9]+-[0-9]+)/(.*)-([0-9]+)$ novedades.php?date=$1&title=$2&vRecID=$3 [L]
 
+RewriteRule ^espacios/(.*)$ index.php?lab=$1 [L]
+
 ## Set the response header if the "nocache" environment variable is set
 ## in the RewriteRule above.
 Header always set Cache-Control "no-store, no-cache, must-revalidate" env=nocache

@@ -65,7 +65,7 @@
 					'Mail'=>$_POST['Mail'][0],
 					'Facebook'=>$_POST['Facebook'][0],
 					'Twitter'=>$_POST['Twitter'][0],
-					'TagID'=>getDuplicatedTag($_POST['Tag'][0]),
+					'TagID'=>nTagIfNot($_POST['Tag'][0]),
 					'Organigrama'=>1
 				]
 			);

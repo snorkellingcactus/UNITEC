@@ -24,13 +24,21 @@
 		}
 		public function onNewChild($child , $newNode)
 		{
+
 			$li=new DOMLabLi
 			(
 				getTraduccion($child['NombreID'] , $_SESSION['lang']),
 				$child['Color']
 			);
+			if(intVal($child['Enlace']))
+			{
+				$li->setLink($child['Texto']);
+			}
+
 			if(isset($_SESSION['adminID']))
 			{
+				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/edicion/FormCliLab.php';
+
 				$li->appendChild
 				(
 					new FormCliLab($child['ID'])

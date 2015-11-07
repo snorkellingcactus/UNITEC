@@ -6,9 +6,9 @@
 		global $con;
 		include_once($_SERVER['DOCUMENT_ROOT'] . '/php/nTraduccion.php');
 
-		$name=nTraduccion($name , $_SESSION['lang']);
+		$name=nTraduccion(filterTagName($name) , $_SESSION['lang']);
 		$name->insSQL();
-/*
+
 		echo '<pre>nTag:';
 		print_r
 		(
@@ -17,7 +17,7 @@
 			'
 		);
 		echo '</pre>';
-*/
+
 		$con->query
 		(
 			'	INSERT INTO Tags(NombreID)
@@ -142,11 +142,11 @@
 		if($tagID===false)
 		{
 			$tagID=nTag($name);
-			//echo '<pre>nTagTarget: Nuevo Tag: '.$name.'</pre>';
+			echo '<pre>nTagTarget: Nuevo Tag: '.$name.'</pre>';
 		}
 		else
 		{
-			//echo '<pre>nTagTarget: Ignorando Tag Duplicado: '.$name.'</pre>';
+			echo '<pre>nTagTarget: Ignorando Tag Duplicado: '.$name.'</pre>';
 		}
 
 		return $tagID;

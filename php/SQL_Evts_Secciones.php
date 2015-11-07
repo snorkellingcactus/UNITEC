@@ -123,7 +123,7 @@
 				$nSec->updTagsTargets($_POST['Tags'][0]);
 			}
 
-			if($nSec->HTMLID!==NULL && $_POST['AgregarAlMenu'][0]==='true')
+			if($nSec->HTMLID!==NULL && $_POST['AgregarAlMenu'][0]==='1')
 			{
 				include($_SERVER['DOCUMENT_ROOT'] . '/php/Menu.php');
 				$menu=new Menu(['SeccionID'=>$nSec->HTMLID]);
