@@ -287,6 +287,22 @@ body .comentario input[type="checkbox"]
 {
 	float:none;
 }
+.tresem legend
+{
+	border-style:none;
+	margin:auto;	
+	width:auto;
+	margin-left:10px;
+	color:white;
+}
+.tresem fieldset label
+{
+	font-size:1.8em;
+}
+body fieldset
+{
+	border:1px solid silver;
+}
 .map-canvas
 {
 	border-radius:3px;

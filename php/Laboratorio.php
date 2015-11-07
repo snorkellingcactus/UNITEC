@@ -1,7 +1,7 @@
 <?php
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/SQLTagged_Obj.php';
 
-	class Seccion extends SQLTagged_Obj
+	class Laboratorio extends SQLTagged_Obj
 	{
 		function __construct($props=NULL , $con=NULL)
 		{
@@ -12,8 +12,9 @@
 				'Laboratorios',
 				[
 					'ID',
-					'Ubicacion',
-					'Direccion',
+					'Latitud',
+					'Longitud',
+					'DireccionID',
 					'Mail',
 					'Facebook',
 					'Twitter',

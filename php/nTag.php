@@ -27,87 +27,73 @@
 
 		return $con->insert_id;
 	}
-	function nTagsGrp()
+	function getTagName($id)
+	{
+		include_once($_SERVER['DOCUMENT_ROOT'] . '/php/getTraduccion.php');
+		global $con;
+
+		$nameID=fetch_all
+		(
+			$con->query
+			(
+				'	SELECT Tags.NombreID
+					FROM Tags
+					WHERE ID='.intVal($id)
+			),
+			MYSQLI_NUM
+		);
+		if(isset($nameID[0][0]))
+		{
+			return getTraduccion($nameID[0][0] , $_SESSION['lang']);
+		}
+		return false;
+	}
+	function getDuplicatedTag($name)
 	{
 		global $con;
-/*
-		echo '<pre>nTagsGrp: Consulta:';
+
+		echo '<pre>getDuplicates: Consulta:';
 		print_r
 		(
-			'	INSERT INTO TagsGrp(ID) VALUES(NULL)'
+			' 	SELECT Tags.ID
+				FROM Tags
+				LEFT OUTER JOIN Traducciones
+				ON Traducciones.Texto="'.addslashes($name).'"
+				WHERE Traducciones.ContenidoID=Tags.NombreID
+				LIMIT 1
+			'
+		);
+		echo '</pre>';
+
+		$duplicates=fetch_all
+		(
+			$con->query
+			(
+				' 	SELECT Tags.ID
+					FROM Tags
+					LEFT OUTER JOIN Traducciones
+					ON Traducciones.Texto="'.addslashes($name).'"
+					WHERE Traducciones.ContenidoID=Tags.NombreID
+					LIMIT 1
+				'
+			),
+			MYSQLI_NUM
+		);
+/*
+		echo '<pre>getDuplicates: $duplicates:';
+		print_r
+		(
+			$duplicates
 		);
 		echo '</pre>';
 */
-		$con->query
-		(
-			'	INSERT INTO TagsGrp(ID) VALUES(NULL)
-			'
-		);
-		return $con->insert_id;
-	}
-	function filterTagName($tagName)
-	{
-		return strtolower
-		(
-			preg_replace
-			(
-				"/\s+/",
-				" ",
-				trim($tagName)
-			)
-		);
-	}
-	function sepTagsStr($tagsStr)
-	{
-		return explode
-		(
-			',',
-			$tagsStr
-		);
-	}
-	function nTagsTargets($tags , $grupoID)
-	{
-		$tags=sepTagsStr($tags);
-
-		$t=0;
-		while(isset($tags[$t]))
+		if(isset($duplicates[0][0]))
 		{
-			$tagName=filterTagName($tags[$t]);
-			if(!empty($tagName))
-			{
-				nTagTarget($tagName , $grupoID);
-			}
-
-			++$t;
-		}
-	}
-	function nTagTarget($name , $grupoID)
-	{
-		global $con;
-
-		$tagID=getDuplicatedTag($name);
-		if($tagID===false)
-		{
-			$tagID=nTag($name);
-			//echo '<pre>nTagTarget: Nuevo Tag: '.$name.'</pre>';
+			return $duplicates[0][0];
 		}
 		else
 		{
-			//echo '<pre>nTagTarget: Ignorando Tag Duplicado: '.$name.'</pre>';
-		}
-		if(!isDuplicatedTagTarget($tagID , $grupoID))
-		{
-			$con->query
-			(
-				'	INSERT INTO TagsTarget(TagID , GrupoID)
-					VALUES('.$tagID.' , '.$grupoID.')
-				'
-			);
-			//echo '<pre>nTagTarget: Insertado TagTarget: '.$name.'</pre>';
-		}
-		else
-		{
-			//echo '<pre>nTagTarget: Ignorando TagTarget duplicado: '.$name.'</pre>';
+			return false;
 		}
 	}
 	function isDuplicatedTagTarget($tagID , $tagsGrpID)
@@ -150,54 +136,98 @@
 		}
 		return false;
 	}
-	function getDuplicatedTag($name)
+	function nTagIfNot($name)
 	{
-		global $con;
-/*
-		echo '<pre>getDuplicates: Consulta:';
-		print_r
-		(
-			' 	SELECT Traducciones.ContenidoID
-				FROM Tags
-				LEFT OUTER JOIN Traducciones
-				ON Traducciones.Texto="'.addslashes($name).'"
-				WHERE Traducciones.ContenidoID=Tags.NombreID
-				LIMIT 1
-			'
-		);
-		echo '</pre>';
-*/
-		$duplicates=fetch_all
-		(
-			$con->query
-			(
-				' 	SELECT Tags.ID
-					FROM Tags
-					LEFT OUTER JOIN Traducciones
-					ON Traducciones.Texto="'.addslashes($name).'"
-					WHERE Traducciones.ContenidoID=Tags.NombreID
-					LIMIT 1
-				'
-			),
-			MYSQLI_NUM
-		);
-/*
-		echo '<pre>getDuplicates: $duplicates:';
-		print_r
-		(
-			$duplicates
-		);
-		echo '</pre>';
-*/
-		if(isset($duplicates[0][0]))
+		$tagID=getDuplicatedTag($name);
+		if($tagID===false)
 		{
-			return $duplicates[0][0];
+			$tagID=nTag($name);
+			//echo '<pre>nTagTarget: Nuevo Tag: '.$name.'</pre>';
 		}
 		else
 		{
-			return false;
+			//echo '<pre>nTagTarget: Ignorando Tag Duplicado: '.$name.'</pre>';
+		}
+
+		return $tagID;
+	}
+	function nTagsGrp()
+	{
+		global $con;
+/*
+		echo '<pre>nTagsGrp: Consulta:';
+		print_r
+		(
+			'	INSERT INTO TagsGrp(ID) VALUES(NULL)'
+		);
+		echo '</pre>';
+*/
+		$con->query
+		(
+			'	INSERT INTO TagsGrp(ID) VALUES(NULL)
+			'
+		);
+		return $con->insert_id;
+	}
+	function filterTagName($tagName)
+	{
+		return strtolower
+		(
+			preg_replace
+			(
+				"/\s+/",
+				" ",
+				trim($tagName)
+			)
+		);
+	}
+	function sepTagsStr($tagsStr)
+	{
+		return explode
+		(
+			',',
+			$tagsStr
+		);
+	}
+	
+	function nTagTarget($name , $grupoID)
+	{
+		global $con;
+
+		$tagID=nTagIfNot($name);
+
+		if(!isDuplicatedTagTarget($tagID , $grupoID))
+		{
+			$con->query
+			(
+				'	INSERT INTO TagsTarget(TagID , GrupoID)
+					VALUES('.$tagID.' , '.$grupoID.')
+				'
+			);
+			//echo '<pre>nTagTarget: Insertado TagTarget: '.$name.'</pre>';
+		}
+		else
+		{
+			//echo '<pre>nTagTarget: Ignorando TagTarget duplicado: '.$name.'</pre>';
 		}
 	}
+	function nTagsTargets($tags , $grupoID)
+	{
+		$tags=sepTagsStr($tags);
+
+		$t=0;
+		while(isset($tags[$t]))
+		{
+			$tagName=filterTagName($tags[$t]);
+			if(!empty($tagName))
+			{
+				nTagTarget($tagName , $grupoID);
+			}
+
+			++$t;
+		}
+	}
+	
 	function getTagsStr($tagsGrpID)
 	{
 		global $con;

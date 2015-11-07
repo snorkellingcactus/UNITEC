@@ -4,6 +4,7 @@
 	list-style: none;
 	list-style-position: outside;
 }
+.
 .organigrama li, .organigrama ul li
 {
 
@@ -25,18 +26,34 @@ ul li ul .organicaja
 }
 .organicaja h1
 {
-	margin-top:10px ;
-	margin-bottom:10px ;
+	margin-top:10px;
+	margin-bottom:10px;
 }
-.colorA
+body .organigrama input.boton-seccion
+{
+	max-width:none;
+	margin:auto;
+	animation:none;
+}
+body .organigrama input.boton-seccion:hover
+{
+	animation:none;
+}
+.organigrama ul li div
 {
 	background-color:#FF4000;
 }
-.colorB
+.organigrama ul li div h1
+{
+	font-size:1.3em;
+}
+.organigrama ul li ul li div
 {
 	background-color:#FFBF00;
 }
+/*
 .colorC
 {
 	background-color:#BFFF00;
 }
+*/

@@ -17,9 +17,13 @@
 			}
 			$this->referrer=$_SESSION['referer'];
 
-			if(!isset($_SESSION['form']) || isset($_POST['form']))
+			if(!isset($_SESSION['form'])&&isset($_POST['form']))
 			{
 				$_SESSION['form']=$_POST['form'];
+			}
+			if(!isset($_SESSION['form']) && !isset($_POST['form']) && isset($_GET['form']))
+			{
+				$_SESSION['form']=addslashes($_GET['form']);
 			}
 
 			if(isset($_POST['conID']))
@@ -43,13 +47,17 @@
 		}
 		public function checkAction()
 		{
-			if(!isset($_SESSION['accion']))
+			if(isset($_SESSION['accion']))
 			{
-				$this->checkActionIn($_POST);
+				$this->selectedAction=array_search($_SESSION['accion'], $this->actions);
 			}
 			else
 			{
-				$this->selectedAction=array_search($_SESSION['accion'], $this->actions);
+				$this->checkActionIn($_POST);
+			}
+			if($this->selectedAction===NULL)
+			{
+				$this->selectedAction=array_search($_GET['accion'], $this->actions);
 			}
 
 			if($this->selectedAction!==NULL)
@@ -57,6 +65,5 @@
 				$_SESSION['accion']=$this->actions[$this->selectedAction];
 			}
 		}
-
 	}
 ?>
