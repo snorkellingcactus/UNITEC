@@ -79,11 +79,22 @@ class SQL_Obj
 		{
 			return 'NULL';
 		}
-		if(is_numeric($val))
+		if(is_int($val))
 		{
 			return intVal($val);
 		}
-		return utf8_encode('"'.addslashes($val).'"');
+		if(is_float($val))
+		{
+			return floatval($val);
+		}
+		if(is_string($val))
+		{
+			return utf8_encode('"'.addslashes($val).'"');
+		}
+		if(is_bool($val))
+		{
+			return !!$val;
+		}
 	}
 	public function conFnA($clave , $valor)
 	{
