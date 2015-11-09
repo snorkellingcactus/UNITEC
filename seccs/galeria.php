@@ -32,22 +32,12 @@
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/Include_Context.php';
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/Traduccion.php';
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/nTraduccion.php';
-	
 	$modoAdmin=isset($_SESSION['adminID']);
 
-	//Diferencias en modo admin.
 	if($modoAdmin)
 	{
-		include_once $_SERVER['DOCUMENT_ROOT'] . '/php/FormCliRecv.php';
 		include_once $_SERVER['DOCUMENT_ROOT'] . '/php/edicion/FormCliGal.php';
-		include_once $_SERVER['DOCUMENT_ROOT'] . '/php/SQL_Evts_Imagenes.php';
-
-		$formGalRecv=new FormCliRecv('Gal');
-		$formGalRecv->SQL_Evts=new SQL_Evts_Imagenes();
-
-		$formGalRecv->checks();
 		
-
 		$formGal=new FormCliGal();
 		echo $formGal->getHTML();
 	}

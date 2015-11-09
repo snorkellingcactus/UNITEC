@@ -1,4 +1,5 @@
 <?php
+
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormLabelLugar.php';
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/ClearFix.php';
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormLabelVisible.php';
@@ -26,6 +27,13 @@
 				MYSQLI_NUM
 			)[0][0]
 		);
+	}
+	
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/nTag.php';
+
+	if($this->getAction()===1)
+	{
+		$labelTags->input->setValue(getLabTagTree($_SESSION['lab']));
 	}
 
 	$this->form->appendChild
@@ -220,7 +228,6 @@
 	if($this->getAction()===0)
 	{
 		include_once $_SERVER['DOCUMENT_ROOT'] . '/php/Seccion.php';
-		include_once $_SERVER['DOCUMENT_ROOT'] . '/php/nTag.php';
 
 		$selectLugar->input->selectedValue=$_SESSION['conID'];
 
@@ -268,6 +275,6 @@
 		$this->form->appendChild(new FormContinuar($this->form))
 		->appendChild(new FormVolver($this->form));
 
-		$this->form->setAction($this->getOriginUrl());
+		$this->form->setAction($this->getStepUrlByName('90_SQL_Evts.php'));
 	}
 ?>

@@ -28,23 +28,16 @@
 
 			if($uploadOk)
 			{
-				$id=$img->ID;
-				$url=$id.'.'.$extension;
+				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/phpthumb/ThumbLib.inc.php';
+				
+				$thumb=PhpThumbFactory::create($tmpName , ['resizeUp'=>true]);
 
-				$img=new Img
-				(
-					[
-						'ID'=>$id
-					]
-				);
+				$thumb->resize(800 , 600)->save($_SERVER['DOCUMENT_ROOT'] . '/img/miniaturas/visor/'.$img->ID.'.png');
+				$thumb->resize(280 , 210)->save($_SERVER['DOCUMENT_ROOT'] . '/img/miniaturas/galeria/'.$img->ID.'.png');
 
-				move_uploaded_file
-				(
-					$tmpName,
-					$_SERVER['DOCUMENT_ROOT'] . '/img/miniaturas/tmp/'.$url
-				);
+				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/elimina.php';
 
-				$img->updSQL(['Url'=>$url]);
+				elimina($tmpName , 0755);
 			}
 		}
 		public function edita()
@@ -67,7 +60,7 @@
 				if($nImg->Url!=='/img/miniaturas/galeria/'.$_POST['Url'][$i])
 				{
 					//echo '<pre>Intentando eliminar imagen</pre>';
-					$nImg->Fecha=date("Y-m-d H:i:s");
+					//$nImg->Fecha=date("Y-m-d H:i:s");
 
 					elimina($_SERVER['DOCUMENT_ROOT'] . '/img/miniaturas/galeria/'.$nImg->ID.'.png' , 0775);
 					elimina($_SERVER['DOCUMENT_ROOT'] . '/img/miniaturas/visor/'.$nImg->ID.'.png' , 0775);
@@ -95,7 +88,7 @@
 					$_FILES['File']['tmp_name'][$i]
 				);
 				if(!empty($_POST['Tags'][$i]))
-				{	
+				{
 					$nImg->updTagsTargets($_POST['Tags'][$i]);
 				}
 
@@ -108,17 +101,13 @@
 		}
 		public function nuevo()
 		{
-/*
-			echo '<pre>Existo';
-			echo '</pre>';
-*/
-/*
 			echo '<pre>FILES:';
 			print_r($_FILES);
 			echo '</pre>';
-*/
+
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/Img.php';
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/Foranea.php';
+			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/nTraduccion.php';
 
 			$iMax=count($_POST['Titulo']);
 			$afectadosLen=0;
@@ -168,6 +157,11 @@
 			
 				//La inserto en la bd.
 				$img->insSQL();
+
+				if(!empty($_POST['Tags'][$i]))
+				{
+					$nImg->updTagsTargets($_POST['Tags'][$i]);
+				}
 
 				if(!empty($_FILES['File']['name'][$i]))
 				{

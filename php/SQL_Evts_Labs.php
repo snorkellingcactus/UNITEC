@@ -11,6 +11,7 @@
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/conexion.php';
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/Laboratorio.php';
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/nTag.php';
+			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/nTraduccion.php';
 			global $con;
 
 			$nombre=nTraduccion($_POST['Nombre'][0] , $_SESSION['lang']);

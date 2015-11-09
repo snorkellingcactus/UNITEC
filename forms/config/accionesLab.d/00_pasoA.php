@@ -1,4 +1,9 @@
 <?php
+
+	if($this->getAction()===2)
+	{
+		$this->redirectToStepName('90_SQL_Evts.php');
+	}
 	echo '<pre>Labs!</pre>';
 
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormLabelUbicacion.php';
@@ -81,6 +86,6 @@
 		$this->form->appendChild(new FormContinuar($this->form))
 		->appendChild(new FormVolver($this->form));
 
-		$this->form->setAction($this->getOriginUrl());
+		$this->form->setAction($this->getStepUrlByName('90_SQL_Evts.php'));
 	}
 ?>

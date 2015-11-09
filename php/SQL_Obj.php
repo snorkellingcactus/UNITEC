@@ -46,7 +46,7 @@ class SQL_Obj
 		{
 			if(!isset($GLOBALS['con']))
 			{
-				include_once $_SERVER['DOCUMENT_ROOT'] . '//php/conexion.php';
+				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/conexion.php';
 			}
 			$con=$GLOBALS['con'];
 		}
@@ -103,6 +103,25 @@ class SQL_Obj
 	public function conFnB($clave , $valor)
 	{
 		$this->data[$valor]=NULL;
+	}
+	public function updVarsFnA($clave , $valor)
+	{
+/*
+		echo '<pre>updVarsFnA: Clave:';
+		print_r($clave);
+		echo '</pre>';
+		echo '<pre>updVarsFnA: Valor:';
+		print_r($valor);
+		echo '</pre>';
+*/
+		if(!empty($valor))
+		{
+			$this->data[$clave]=$valor;
+		}
+	}
+	public function updVarsFnB($clave , $valor)
+	{
+		
 	}
 	private function updFnA($clave , $valor)
 	{
@@ -265,11 +284,20 @@ class SQL_Obj
 		$this->buff=$this->buff.' where ';
 
 		$this->where($data);
-
-
-		echo '<pre>updSQL: '.$this->buff.'</pre>';
+		
+		echo '<pre>'.htmlentities('updSQL: '.$this->buff).'</pre>';
 
 		$res=$this->con->query($this->buff);
+
+		if($data)
+		{
+			eachNan
+			(
+				$data,
+				function($clave , $valor){$this->updVarsFnA($clave , $valor);},
+				function($clave , $valor){$this->updVarsFnB($clave , $valor);}
+			);
+		}
 
 		$buff='';
 

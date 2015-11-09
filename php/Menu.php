@@ -1,7 +1,7 @@
 <?php
-	include_once $_SERVER['DOCUMENT_ROOT'] . '//php/SQL_Obj.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/SQLTagged_Obj.php';
 
-	class Menu extends SQL_Obj
+	class Menu extends SQLTagged_Obj
 	{
 		function __construct($props=NULL , $con=NULL)
 		{
@@ -17,7 +17,8 @@
 					'Url',
 					'Atajo',
 					'Prioridad',
-					'Visible'
+					'Visible',
+					'TagsGrpID'
 				],
 				$con
 			);

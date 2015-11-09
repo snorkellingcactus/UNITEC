@@ -106,6 +106,11 @@
 
 				$nov->insSQL();
 
+				if(!empty($_POST['Tags'][$i]))
+				{
+					$nov->updTagsTargets($_POST['Tags'][$i]);
+				}
+
 				$afectados[0]=$nov->TituloID;
 			}
 			return $afectados;

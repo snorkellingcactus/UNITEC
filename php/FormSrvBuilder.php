@@ -74,6 +74,7 @@
 			{
 				$desp->actual=$_GET['step'];
 			}
+			
 		}
 		public function getNextStepUrl()
 		{
@@ -105,13 +106,14 @@
 		}
 		public function buildIncludes()
 		{
+			echo '<pre>buildIncludes</pre>';
 			include $_SERVER['DOCUMENT_ROOT'] . '/php/head_include.php';
 
 			$iMax=count($this->includes);
 
 			for($i=0;$i<$iMax;$i++)
 			{
-				//echo '<pre>Include'.$this->includes[$i].'</pre>';
+				echo '<pre>Include'.$this->includes[$i].'</pre>';
 				head_include($this->includes[$i]);
 			}
 			unset($iMax);
@@ -134,10 +136,10 @@
 		}
 		public function buildNext()
 		{
-			//echo '<pre>Existo</pre>';
+			echo '<pre>buildNext</pre>';
 			if($this->omitFirst)
 			{
-				//echo '<pre> El primero';;echo '</pre>';
+				echo '<pre>buildNext: El primero';;echo '</pre>';
 
 				$this->omitFirst=false;
 
@@ -147,11 +149,11 @@
 			{
 				if($this->contador>=$this->cantidad)
 				{
-					//echo '<pre>Is Last</pre>';
+					echo '<pre>buildNext: El último</pre>';
 					return false;
 				}
 
-				//echo '<pre>Normal</pre>';
+				echo '<pre>buildNext: Normal</pre>';
 				$this->setConIDAct();
 				$this->form->setIDSuffix($this->contador);
 			
@@ -164,6 +166,7 @@
 		}
 		public function buildAll()
 		{
+			echo '<pre>buildAll</pre>';
 			$max=10;
 			$j=0;
 			while($this->buildNext() && $j<$max)
@@ -179,13 +182,14 @@
 		}
 		public function redirectToStepName($name)
 		{
-/*
-			echo '<pre>Index:';
-			print_r(array_search($name , $this->steps));
-			echo '</pre>';
-*/
-
-			$this->redirect($this->actionUrl.'?step='.array_search($name , $this->steps));
+			$this->redirect
+			(
+				$this->getStepUrlByName($name)
+			);
+		}
+		public function getStepUrlByName($name)
+		{
+			return $this->actionUrl.'?step='.array_search($name , $this->steps);
 		}
 		public function getOriginUrl()
 		{

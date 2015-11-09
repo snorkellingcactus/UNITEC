@@ -34,7 +34,7 @@
 			{
 				if(isset($_POST['Continuar']) || $_SESSION['accion']==='elimina')
 				{
-					//echo '<pre>Eureka, rellenaron un form para acá';echo '</pre>';
+					echo '<pre>Eureka, rellenaron un form para acá';echo '</pre>';
 					//Se rellenó el formulario correspondiente.
 					//Includes generales.
 					if($this->SQL_Evts!==false)

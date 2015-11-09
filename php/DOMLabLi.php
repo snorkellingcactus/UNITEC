@@ -36,7 +36,7 @@
 
 				$this->titulo->appendChild
 				(
-					$a->setAttribute('href' , '/espacios/'.addslashes($this->link))
+					$a->setAttribute('href' , '/espacios/'.$this->link)
 				);
 			}
 			else

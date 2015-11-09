@@ -160,7 +160,7 @@
 		public function createDoc()
 		{
 			//echo '<pre>DOMTagContainer::createDoc()';echo '</pre>';
-			$this->domDoc=new DOMDocument();
+			$this->domDoc=new DOMDocument('1.0' , 'UTF-8');
 		}
 		public function getHTML()
 		{
@@ -185,7 +185,7 @@
 				$innerHTML .= $this->domDoc->saveHTML($child);
 			}
 
-			return $innerHTML; 
+			return html_entity_decode($innerHTML); 
 		}
 		/*function appendTag(DOMTag $domTag)
 		{

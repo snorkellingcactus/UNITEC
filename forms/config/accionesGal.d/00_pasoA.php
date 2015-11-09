@@ -4,6 +4,10 @@
 	{
 		$this->form->cantidad=count($_POST['conID']);
 	}
+	if($this->getAction()===2)
+	{
+		$this->redirectToStepName('90_SQL_Evts.php');
+	}
 
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/ClearFix.php';
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormLabelTitulo.php';
@@ -20,12 +24,13 @@
 	$prioridad=new FormLabelPrioridad($this->form);
 	$labelTags=new FormLabelTags($this->form);
 
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/nTag.php';
+
 	if($this->getAction()===0)
 	{
 		include_once $_SERVER['DOCUMENT_ROOT'] . '/php/conexion.php';
 		include_once $_SERVER['DOCUMENT_ROOT'] . '/php/getTraduccion.php';
 		include_once $_SERVER['DOCUMENT_ROOT'] . '/php/Img.php';
-		include_once $_SERVER['DOCUMENT_ROOT'] . '/php/nTag.php';
 
 		global $con;
 
@@ -66,6 +71,10 @@
 			)
 		);
 	}
+	if($this->getAction()===1)
+	{
+		$labelTags->input->setValue(getLabTagTree($_SESSION['lab']));
+	}
 
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormContinuar.php';
 
@@ -78,7 +87,7 @@
 	->appendChild($visible)->appendChild
 	(
 		$labelTags
-	)->appendChild($continuar)->setAction($this->getNextStepUrl());
+	)->appendChild($continuar)->setAction($this->getStepUrlByName('90_SQL_Evts.php'));
 
 	if($this->thisIsLast())
 	{

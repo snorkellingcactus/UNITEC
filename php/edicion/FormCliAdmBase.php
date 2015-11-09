@@ -23,10 +23,14 @@
 			$this->formDirName=$formDirName;
 
 			$varForm=new VariablePost($this , 'form' , $formDirName);
+			$varLab=new VariablePost($this , 'lab' , $_SESSION['lab']);
 
 			$this->appendChild($this->buttons)->appendChild
 			(
 				$varForm->setMulti(0)
+			)->appendChild
+			(
+				$varLab->setMulti(0)
 			)->setAttribute
 			(
 				'method',

@@ -1,5 +1,5 @@
 <?php
-	include_once $_SERVER['DOCUMENT_ROOT'] . '//php/FormCfg.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/FormCfg.php';
 	
 	class FormSrvRecv extends FormCfg
 	{
@@ -10,13 +10,19 @@
 			parent::__construct($fId);
 
 			$this->checkAction();
-			
+
 			if(!isset($_SESSION['referer']))
 			{
 				$_SESSION['referer']=$_SERVER['HTTP_REFERER'];
 			}
+			
 			$this->referrer=$_SESSION['referer'];
 
+			if(isset($_POST['lab']))
+			{
+				$_SESSION['lab']=$_POST['lab'];
+			}
+			
 			if(!isset($_SESSION['form'])&&isset($_POST['form']))
 			{
 				$_SESSION['form']=$_POST['form'];
@@ -34,11 +40,6 @@
 			{
 				$_SESSION['Tipo']=$_POST['Tipo'];
 			}
-
-			if($_SESSION['accion']===$this->actions[2])
-			{
-				$this->redirect($this->referrer);
-			}
 		}
 		public function redirect($url)
 		{
@@ -51,11 +52,10 @@
 			{
 				$this->selectedAction=array_search($_SESSION['accion'], $this->actions);
 			}
-			else
-			{
-				$this->checkActionIn($_POST);
-			}
-			if($this->selectedAction===NULL)
+			
+			$this->checkActionIn($_POST);
+			
+			if(isset($_GET['accion']))
 			{
 				$this->selectedAction=array_search($_GET['accion'], $this->actions);
 			}

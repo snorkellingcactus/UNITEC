@@ -1,14 +1,14 @@
 <?php
-	include_once $_SERVER['DOCUMENT_ROOT'] . '//php/SQL_Evts_List.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/SQL_Evts_List.php';
 
 	class SQL_Evts_Eventos implements SQL_Evts_List
 	{
 		public function edita()
 		{
-			include_once $_SERVER['DOCUMENT_ROOT'] . '//php/conexion.php';
-			include_once $_SERVER['DOCUMENT_ROOT'] . '//php/Evento.php';
-			include_once $_SERVER['DOCUMENT_ROOT'] . '//php/Traduccion.php';
-			include_once $_SERVER['DOCUMENT_ROOT'] . '//php/updTraduccion.php';
+			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/conexion.php';
+			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/Evento.php';
+			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/Traduccion.php';
+			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/updTraduccion.php';
 
 			$evento=new Evento();
 
@@ -53,9 +53,9 @@
 		}
 		public function nuevo()
 		{
-			include_once $_SERVER['DOCUMENT_ROOT'] . '//php/conexion.php';
-			include_once $_SERVER['DOCUMENT_ROOT'] . '//php/Evento.php';
-			include_once $_SERVER['DOCUMENT_ROOT'] . '//php/nTraduccion.php';
+			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/conexion.php';
+			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/Evento.php';
+			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/nTraduccion.php';
 
 			$this->cantidad=count($_POST['Titulo']);
 			$afectadosLen=0;
@@ -112,6 +112,11 @@
 				);
 
 				$evento->insSQL();
+
+				if(!empty($_POST['Tags'][$i]))
+				{
+					$evento->updTagsTargets($_POST['Tags'][$i]);
+				}
 
 				$afectados[$afectadosLen]=$evento->DescripcionID;
 				++$afectadosLen;

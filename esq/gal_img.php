@@ -1,6 +1,6 @@
 <?php
 	$this->Url='/img/miniaturas/galeria/'.$this->ID.'.png';
-
+/*
 	if
 	(
 		!empty($_SESSION['adminID']) &&
@@ -9,7 +9,7 @@
 	{
 		$this->Url='/php/genera_miniatura.php?ImgID='.$this->ID;
 	}
-
+*/
 	$clase='';
 	if($this->afectado)
 	{

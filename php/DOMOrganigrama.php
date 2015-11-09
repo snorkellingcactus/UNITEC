@@ -5,17 +5,28 @@
 
 	class DOMOrganigrama extends DOMLabUl
 	{
-		function __construct($sqlArray , $parentKey)
+		public $arbol;
+
+		function __construct()
 		{
 			parent::__construct();
 
 			$this->classList->add('organigrama');
 
-			$arbol=new Arbol
+			$this->arbol=new Arbol
 			(
 				new ArbolLabsActions($this)
 			);
-			$arbol->solveDeps($sqlArray , 'PadreID' , 'ID' , $parentKey)->render();
+		}
+		function solveDeps($sqlArray , $parentKey)
+		{
+			$this->arbol->solveDeps($sqlArray , 'PadreID' , 'ID' , $parentKey);
+		}
+		function renderChilds(&$doc , &$tag)
+		{
+			$this->arbol->render();
+
+			parent::renderChilds($doc , $tag);
 		}
 	}
 ?>

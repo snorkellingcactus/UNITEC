@@ -17,15 +17,7 @@
 		//Diferencias al ser admin.
 		if(!empty($_SESSION['adminID']))
 		{
-			include_once($_SERVER['DOCUMENT_ROOT'] . '/php/FormCliRecv.php');
-			//include_once($_SERVER['DOCUMENT_ROOT'] . '/php/FormCliBuilder.php');
 			include_once($_SERVER['DOCUMENT_ROOT'] . '/php/edicion/FormCliNov.php');
-			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/SQL_Evts_Novedades.php';
-
-			$formNovRecv=new FormCliRecv('Nov');
-			$formNovRecv->SQL_Evts=new SQL_Evts_Novedades();
-
-			$formNovRecv->checks();
 			
 			$formNov=new FormCliNov();
 			echo $formNov->getHTML();
@@ -51,8 +43,12 @@
 		(
 			$con->query
 			(
-				'	SELECT *
-					FROM Novedades
+				'	SELECT Novedades.* FROM `Novedades`
+					LEFT OUTER JOIN TagsTarget
+					ON TagsTarget.GrupoID=Novedades.TagsGrpID
+					LEFT OUTER JOIN Laboratorios
+					ON Laboratorios.ID='.$_SESSION['lab'].'
+					WHERE TagsTarget.TagID=Laboratorios.TagID
 					ORDER BY Fecha DESC
 				'.$limitStr
 			),
@@ -100,7 +96,7 @@
 					0,
 					500
 				)
-				; //A futuro guardar en la db una version en texto plano.
+				; //Revisar.A futuro guardar en la db una version en texto plano.
 				$novedadHTML->Fecha=$novAct['Fecha'];
 				$novedadHTML->ImagenID=$novAct['ImagenID'];
 				$novedadHTML->ImagenAlt=getTraduccion

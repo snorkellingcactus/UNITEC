@@ -13,6 +13,16 @@
 		}
 		function getTagsGrp()
 		{
+
+			echo '<pre>getTagsGrp:';
+			print_r
+			(
+						'	SELECT TagsGrpID
+							FROM '.$this->table.'
+							WHERE ID='.$this->ID
+			);
+			echo '</pre>';
+
 			return fetch_all
 			(
 				$this->con->query
@@ -38,6 +48,12 @@
 				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/nTag.php';
 
 				$grupoID=nTagsGrp();
+			}
+
+			$primary=null;
+			if(!empty($this->data[$this->primary]))
+			{
+				$primary=$this->data[$this->primary];
 			}
 
 			$this->updSQL(['TagsGrpID'=>$grupoID]);

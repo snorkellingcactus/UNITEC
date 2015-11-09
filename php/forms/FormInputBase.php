@@ -6,6 +6,7 @@
 		public $label;
 		public $multi;
 		public $parentForm;
+		public $idSuffix;
 
 		//$padreOTagName, $name , $id
 		function __construct($parentForm)
@@ -16,6 +17,7 @@
 
 			$this->setMulti(true);
 			$this->parentForm=$parentForm;
+			$this->idSuffix=$parentForm->idSuffix;
 			
 			$args=func_get_args();
 
@@ -64,7 +66,7 @@
 					$this->setAttribute
 					(
 						'name',
-						$this->getAttribute('name').'['.$this->parentForm->idSuffix.']'
+						$this->getAttribute('name').'['.$this->idSuffix.']'
 					);
 				}
 			}
@@ -96,7 +98,7 @@
 				return $this;
 			}
 
-			$this->setAttribute('id' , $id.$this->parentForm->idSuffix);
+			$this->setAttribute('id' , $id.$this->idSuffix);
 
 			if($this->label!==false)
 			{

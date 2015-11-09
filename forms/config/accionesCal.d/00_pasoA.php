@@ -5,6 +5,10 @@
 	{
 		$this->cantidad=count($_POST['conID']);
 	}
+	if($this->getAction()===2)
+	{
+		$this->redirectToStepName('90_SQL_Evts.php');
+	}
 
 	//$this->form->ancla='#nEvt';
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/ClearFix.php';
@@ -22,12 +26,13 @@
 	$prioridad=new FormLabelPrioridad($this->form);
 	$labelTags=new FormLabelTags($this->form);
 
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/nTag.php';
+
 	if($this->getAction()===0)
 	{
 		include_once $_SERVER['DOCUMENT_ROOT'] . '/php/conexion.php';
 		include_once $_SERVER['DOCUMENT_ROOT'] . '/php/getTraduccion.php';
 		include_once $_SERVER['DOCUMENT_ROOT'] . '/php/Evento.php';
-		include_once $_SERVER['DOCUMENT_ROOT'] . '/php/nTag.php';
 
 		global $con;
 
@@ -93,6 +98,10 @@
 
 		//echo '<pre>Evento:';print_r($evento);echo '</pre>';
 	}
+	if($this->getAction()===1)
+	{
+		$labelTags->input->setValue(getLabTagTree($_SESSION['lab']));
+	}
 
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormContinuar.php';
 	$continuar=new FormContinuar($this->form);
@@ -104,7 +113,7 @@
 	->appendChild($prioridad)->appendChild
 	(
 		$labelTags
-	)->appendChild($continuar)->setAction($this->getNextStepUrl());
+	)->appendChild($continuar)->setAction($this->getStepUrlByName('90_SQL_Evts.php'));
 
 	if($this->thisIsLast())
 	{

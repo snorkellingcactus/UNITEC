@@ -30,15 +30,7 @@ start_session_if_not();
 		<?php
 			if(!empty($_SESSION['adminID']))
 			{
-				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/FormCliRecv.php';
 				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/edicion/FormCliCal.php';
-				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/SQL_Evts_Eventos.php';
-
-				$formCalRecv=new FormCliRecv('Cal');
-				$formCalRecv->SQL_Evts=new SQL_Evts_Eventos();
-				//Incluyo las acciones posibles.
-
-				$formCalRecv->checks();
 				
 				$formCal=new FormCliCal();
 				echo $formCal->getHTML();

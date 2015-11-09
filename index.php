@@ -8,23 +8,23 @@ ini_set("display_errors", "On");
 
 include_once($_SERVER['DOCUMENT_ROOT'] . '/php/setLang.php');
 
-/*
+
 if(isset($_GET['sesdest']))
 {
+	session_start();
 	session_destroy();
 	session_start();
 }
-
+/*
 if(!isset($_SESSION['cache']))
 {
 	$_SESSION['cache']=0;
 }
 */
 detectLang();
-if(isset($_POST['Cancela']))
-{
-	unset($_SESSION['form'] , $_SESSION['conID'] , $_SESSION['accion']);
-}
+
+unset($_SESSION['form'] , $_SESSION['conID'] , $_SESSION['accion']);
+
 function echoLang($langSQLRes)
 {
 	//Primeras dos letras.
@@ -37,18 +37,26 @@ function echoLang($langSQLRes)
 	echo utf8_encode($langSQLRes['Nombre']);
 }
 
-if(isset($_SESSION['adminID']))
-{				
-	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/FormCliRecv.php';
-	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/SQL_Evts_Secciones.php';
-
-	$formSecRecv=new FormCliRecv('Sec');
-	$formSecRecv->SQL_Evts=new SQL_Evts_Secciones();
-
-	$formSecRecv->checks();
-}
 include_once $_SERVER['DOCUMENT_ROOT'] . '/php/getLab.php';
 detectLab();
+if($_SESSION['lab']===false && isset($_SESSION['adminID']))
+{
+	global $organigrama;
+	ob_start();
+	?>
+		<section>
+			<?php
+				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/Include_Context.php';
+				$inc=new Include_Context('seccs/organigrama.php');
+				$inc->getContent();
+			?>
+		</section>
+	<?php
+	$organigrama=ob_get_contents();
+	ob_end_clean();
+
+	detectLab();
+}
 
 include_once($_SERVER['DOCUMENT_ROOT'] . '/php/conexion.php');
 global $con;
@@ -72,34 +80,58 @@ $lang=getenv('LANG');
 		<link rel="stylesheet" type="text/css" href="/seccs/contacto.css" />
 		
 		<?php
-			include_once($_SERVER['DOCUMENT_ROOT'] . '/php/head_include.php');
-			
-			$headers=$con->query
-			(
-				'	SELECT Modulos.Archivo FROM Modulos ,
-						(
-							SELECT Secciones.ModuloID FROM `Secciones` , 
-							(
-								SELECT ID from Secciones
-								WHERE PadreID IS NULL
-							) AS Secs
-							WHERE Secciones.PadreID=Secs.ID
-							AND Secciones.ModuloID IS NOT NULL
-						) AS sub 
-						WHERE Modulos.PadreID=sub.ModuloID
-				'
-			);
-			$headers=fetch_all($headers , MYSQLI_NUM);
-/*
-			echo '<pre>Archivos de cabecera:';
-			print_r($headers);
-			echo '</pre>';
-*/
-			$hMax=count($headers);
-
-			for($h=0;$h<$hMax;$h++)
+			if($_SESSION['lab']!==false)
 			{
-				head_include($header=$headers[$h][0]);
+				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/head_include.php';
+				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/getTraduccion.php';
+
+				$headers=$con->query
+				(
+					'	SELECT Modulos.Archivo FROM Modulos ,
+							(
+								SELECT Secciones.ModuloID FROM `Secciones` , 
+								(
+									SELECT ID from Secciones
+									WHERE PadreID IS NULL
+								) AS Secs
+								WHERE Secciones.PadreID=Secs.ID
+								AND Secciones.ModuloID IS NOT NULL
+							) AS sub 
+							WHERE Modulos.PadreID=sub.ModuloID
+					'
+				);
+				$headers=fetch_all($headers , MYSQLI_NUM);
+
+/*
+				echo '<pre>Archivos de cabecera:';
+				print_r($headers);
+				echo '</pre>';
+*/
+				$hMax=count($headers);
+
+				for($h=0;$h<$hMax;$h++)
+				{
+					head_include($header=$headers[$h][0]);
+				}
+
+				$titulo=getTraduccion
+				(
+					fetch_all
+					(
+						$con->query
+						(
+							'	SELECT NombreID
+								FROM Laboratorios
+								WHERE ID='.$_SESSION['lab']
+						),
+						MYSQLI_NUM
+					)[0][0],
+					$_SESSION['lang']
+				);
+			}
+			else
+			{
+				$titulo='NoLab';
 			}
 		?>
 		<link rel="stylesheet" type="text/css" href="/bootstrap.css" />
@@ -107,7 +139,7 @@ $lang=getenv('LANG');
 		<script type="text/javascript" src="/js/head.js"></script>
 		<script type="text/javascript" src="/index.js"></script>
 
-		<title>Unitec</title>
+		<title><?php echo $titulo?></title>
 	</head>
 	<body onLoad="JavaScript:inicializa()" tabindex="1">
 		<?php
@@ -170,64 +202,60 @@ $lang=getenv('LANG');
 					?>
 				</ul>
 			</nav>
-			<a href="./inicio_sesion.php"><?php echo gettext('Iniciar Sesión') ?></a>
+			<a href="/inicio_sesion.php"><?php echo gettext('Iniciar Sesión') ?></a>
 		</div>
 
 		<?php
-
-			//include_once($_SERVER['DOCUMENT_ROOT'] . '/php/FormInput.php');
-
-			//$Usuario=new FormSelectOrden(['Hola','Mundo','Cruel']);
-			//$Usuario->tag->setAttribute('style','z-index:20;position:absolute');
-			//$Usuario=new DOMTagContainer();
-			//$UserLabel=new FormLabel('Usuario');
-			//$UserInput=new FormSelectBool('A','B');
-			//$Usuario->appendTag($UserLabel)->appendTag($UserInput);
-			//$Usuario->addOption(new FormOption('Hola','A'));
-			//$Usuario->addOption(new FormOption('Mundo','B'));
-			//echo $Usuario->autoAddOptions()->setSizeToMax()->setDefaultToMax()->getHTML();
-
 			include_once("./seccs/menu.php");
 		?>
 		<main class="col-xs-12 col-sm-10 col-md-10 col-lg-10">
 			<?php
-
-				if(isset($_GET['vRecID']))
+				if($_SESSION['lab']!==false)
 				{
-					$noLimit=$_GET['vRecID'];
-					$condicion=' ID='.$noLimit;
+					if(isset($_GET['vRecID']))
+					{
+						$noLimit=$_GET['vRecID'];
+						$condicion=' ID='.$noLimit;
+					}
+					else
+					{
+						$noLimit=false;
+						$condicion='PadreID IS NULL';
+					}
+					//Obtengo las opciones.
+					$secciones=$con->query
+					(
+						'	SELECT ID,Visible,Prioridad,HTMLID
+							FROM Secciones
+							WHERE '.$condicion.'
+							ORDER BY Prioridad ASC
+						'
+					);
+					$secciones=fetch_all($secciones , MYSQLI_ASSOC);
+
+					include_once $_SERVER['DOCUMENT_ROOT'] . '/php/seccionesHTML.php';
+
+					seccionesHTML($secciones , $noLimit);
+
+					if(isset($_SESSION['adminID']))
+					{
+						/*
+						$formSec->cMax=1;
+						$formSec->buildActionForm(NULL , 'sec',NULL);
+						*/
+
+						include_once $_SERVER['DOCUMENT_ROOT'] . '/php/edicion/FormCliSecAddBase.php';
+
+						$formCliSecAdd=new FormCliSecAddBase('accionesSec' , 'sec' , gettext('Nueva Sección'));
+						echo $formCliSecAdd->getHTML();
+					}
 				}
 				else
 				{
-					$noLimit=false;
-					$condicion='PadreID IS NULL';
-				}
-				//Obtengo las opciones.
-				$secciones=$con->query
-				(
-					'	SELECT ID,Visible,Prioridad,HTMLID
-						FROM Secciones
-						WHERE '.$condicion.'
-						ORDER BY Prioridad ASC
-					'
-				);
-				$secciones=fetch_all($secciones , MYSQLI_ASSOC);
-
-				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/seccionesHTML.php';
-
-				seccionesHTML($secciones , $noLimit);
-
-				if(isset($_SESSION['adminID']))
-				{
-					/*
-					$formSec->cMax=1;
-					$formSec->buildActionForm(NULL , 'sec',NULL);
-					*/
-
-					include_once $_SERVER['DOCUMENT_ROOT'] . '/php/edicion/FormCliSecAddBase.php';
-
-					$formCliSecAdd=new FormCliSecAddBase('accionesSec' , 'sec' , gettext('Nueva Sección'));
-					echo $formCliSecAdd->getHTML();
+					if(isset($organigrama))
+					{
+						echo $organigrama;
+					}
 				}
 			?>
 		</main>
@@ -236,6 +264,7 @@ $lang=getenv('LANG');
 			<div class="contenedor footer">
 				<?php
 					include_once $_SERVER['DOCUMENT_ROOT'] . '/php/FormCliRecv.php';
+					include_once $_SERVER['DOCUMENT_ROOT'] . '/php/Include_Context.php';
 
 					$contacto=new Include_Context($_SERVER['DOCUMENT_ROOT'] . '/seccs/contacto.php');
 					$contacto->getContent();

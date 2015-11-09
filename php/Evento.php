@@ -7,7 +7,20 @@ class Evento extends SQLTagged_Obj
 	{
 		$nArgs=func_num_args();
 
-		parent::__construct('Eventos',['ID','Tiempo','NombreID','DescripcionID','Visible','Prioridad'] , $con);
+		parent::__construct
+		(
+			'Eventos',
+			[
+				'ID',
+				'Tiempo',
+				'NombreID',
+				'DescripcionID',
+				'Visible',
+				'Prioridad',
+				'TagsGrpID'
+			] ,
+			$con
+		);
 
 		if($props!==NULL)
 		{

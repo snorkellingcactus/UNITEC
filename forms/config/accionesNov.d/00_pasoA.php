@@ -1,5 +1,9 @@
 <?php
-	//echo '<pre>Paso A</pre>';
+
+	if($this->getAction()===2)
+	{
+		$this->redirectToStepName('90_SQL_Evts.php');
+	}
 	
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormLabelTitulo.php';
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormLabelContenido.php';
@@ -7,13 +11,6 @@
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/ClearFix.php';
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormLabelImagen.php';
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormLabelTags.php';
-	//$this->form->ancla='#nNov';
-	/*
-		[
-			'selector_imagen.php',
-			'Imagen'
-		]
-	*/
 
 	$titulo=new FormLabelTitulo($this->form);
 	$descripcion=new FormLabelContenido($this->form);
@@ -79,6 +76,10 @@
 
 		$selectImg->input->selectedValue=$novedad['ImagenID'];
 	}
+	if($this->getAction()===1)
+	{
+		$labelTags->input->setValue(getLabTagTree($_SESSION['lab']));
+	}
 
 	$Imgs=fetch_all
 	(
@@ -119,7 +120,7 @@
 	(
 		$labelTags
 	)->appendChild($continuar)
-	->setAction($this->getNextStepUrl());
+	->setAction($this->getStepUrlByName('90_SQL_Evts.php'));
 
 	if($this->thisIsLast())
 	{

@@ -28,7 +28,5 @@ if(!empty($_SESSION['adminID']))
 
 		elimina($img->Url , 0755);
 	}
-
-	$thumb->show();
 }
 ?>

@@ -1,9 +1,6 @@
 <?php
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/SQL_Evts_List.php';
 
-	error_reporting(-1);
-	ini_set('display_errors', 'On');
-
 	class SQL_Evts_Secciones implements SQL_Evts_List
 	{
 		public function nuevo()
@@ -100,7 +97,8 @@
 			$nSec->Prioridad=reordena
 			(
 				$_POST['Lugar'][0] ,
-				$nSec , $condicion ,
+				$nSec ,
+				$condicion ,
 				'ID' ,
 				$secID,
 				$edita

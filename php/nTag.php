@@ -8,7 +8,7 @@
 
 		$name=nTraduccion(filterTagName($name) , $_SESSION['lang']);
 		$name->insSQL();
-
+/*
 		echo '<pre>nTag:';
 		print_r
 		(
@@ -17,7 +17,7 @@
 			'
 		);
 		echo '</pre>';
-
+*/
 		$con->query
 		(
 			'	INSERT INTO Tags(NombreID)
@@ -29,7 +29,7 @@
 	}
 	function getTagName($id)
 	{
-		include_once($_SERVER['DOCUMENT_ROOT'] . '/php/getTraduccion.php');
+		include_once $_SERVER['DOCUMENT_ROOT'] . '/php/getTraduccion.php';
 		global $con;
 
 		$nameID=fetch_all
@@ -51,7 +51,7 @@
 	function getDuplicatedTag($name)
 	{
 		global $con;
-
+/*
 		echo '<pre>getDuplicates: Consulta:';
 		print_r
 		(
@@ -64,7 +64,7 @@
 			'
 		);
 		echo '</pre>';
-
+*/
 		$duplicates=fetch_all
 		(
 			$con->query
@@ -110,6 +110,22 @@
 				LIMIT 1
 			'
 		);
+		print_r
+		(
+			fetch_all
+			(
+				$con->query
+				(
+					'	SELECT 1
+						FROM TagsTarget
+						WHERE TagsTarget.TagID='.$tagID.'
+						AND GrupoID='.$tagsGrpID.'
+						LIMIT 1
+					'
+				),
+				MYSQLI_NUM
+			)
+		);
 		echo '</pre>';
 */
 		if
@@ -132,8 +148,10 @@
 			)
 		)
 		{
+			//echo '<pre>isDuplicatedTagTarget: Ya existe este target</pre>';
 			return true;
 		}
+		//echo '<pre>isDuplicatedTagTarget: No existe este target</pre>';
 		return false;
 	}
 	function nTagIfNot($name)
@@ -204,11 +222,21 @@
 					VALUES('.$tagID.' , '.$grupoID.')
 				'
 			);
-			//echo '<pre>nTagTarget: Insertado TagTarget: '.$name.'</pre>';
+/*
+			echo '<pre>';
+			print_r
+			(
+				'	INSERT INTO TagsTarget(TagID , GrupoID)
+					VALUES('.$tagID.' , '.$grupoID.')
+				'
+			);
+			echo '</pre>';
+*/
+			echo '<pre>nTagTarget: Insertado TagTarget: '.$name.'</pre>';
 		}
 		else
 		{
-			//echo '<pre>nTagTarget: Ignorando TagTarget duplicado: '.$name.'</pre>';
+			echo '<pre>nTagTarget: Ignorando TagTarget duplicado: '.$name.'</pre>';
 		}
 	}
 	function nTagsTargets($tags , $grupoID)
@@ -366,5 +394,39 @@
 				)
 			'
 		);
+	}
+	function getLabTagTreeLoop($labID , &$array , $arrayLen)
+	{
+		global $con;
+
+		$lab=fetch_all
+		(
+			$lab=$con->query
+			(
+				'	SELECT Laboratorios.PadreID , Tags.NombreID
+					FROM Laboratorios
+					LEFT OUTER JOIN Tags
+					ON Tags.ID=Laboratorios.TagID
+					WHERE Laboratorios.ID='.$labID.'
+					LIMIT 1
+				'
+			),
+			MYSQLI_NUM
+		);
+
+		if(isset($lab[0]))
+		{
+			$array[$arrayLen]=getTraduccion($lab[0][1] , $_SESSION['lang']);
+
+			getLabTagTreeLoop($lab[0][0] , $array , ++$arrayLen);
+		}
+	}
+	function getLabTagTree($labID)
+	{
+		include_once $_SERVER['DOCUMENT_ROOT'] . '/php/getTraduccion.php';
+		$array=array();
+		getLabTagTreeLoop($labID , $array , 0);
+
+		return implode(' , ' , $array);
 	}
 ?>

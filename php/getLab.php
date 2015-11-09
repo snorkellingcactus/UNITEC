@@ -3,21 +3,33 @@
 	{
 		if(isset($_GET['lab']))
 		{
-			$lab=getLab($_GET['lab']);
+			$lab=getLab(urldecode($_GET['lab']));
 
 			if($lab!==false)
 			{
 				$_SESSION['lab']=$lab['ID'];
+
+				return true;
 			}
 		}
-		if(!isset($_SESSION['lab']))
+		if(!isset($_SESSION['lab']) || isset($_SESSION['adminID']))
 		{
 			$lab=getLab();
 
 			if($lab!==false)
 			{
 				$_SESSION['lab']=$lab['ID'];
+				return true;
 			}
+			else
+			{
+				$_SESSION['lab']=false;
+				return false;
+			}
+		}
+		else
+		{
+			return true;
 		}
 	}
 	function getLab()
@@ -86,7 +98,23 @@
 	{
 		include_once($_SERVER['DOCUMENT_ROOT'] . '/php/conexion.php');
 		global $con;
-
+/*
+		echo '<pre>';
+		print_r
+		(
+			htmlentities
+			(
+			'	SELECT Laboratorios.ID
+				FROM Laboratorios
+				LEFT OUTER JOIN Traducciones
+				ON Traducciones.Texto="'.addslashes(htmlentities(trim($_GET['lab']))).'"
+				WHERE Traducciones.ContenidoID=Laboratorios.NombreID
+				LIMIT 1
+			'
+			)
+		);
+		echo '</pre>';
+*/
 		return fetch_all
 		(
 			$con->query
@@ -94,7 +122,7 @@
 				'	SELECT Laboratorios.ID
 					FROM Laboratorios
 					LEFT OUTER JOIN Traducciones
-					ON Traducciones.Texto="'.addslashes(trim($_GET['lab'])).'"
+					ON Traducciones.Texto="'.addslashes(htmlentities(trim($_GET['lab']))).'"
 					WHERE Traducciones.ContenidoID=Laboratorios.NombreID
 					LIMIT 1
 				'
