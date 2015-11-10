@@ -12,6 +12,7 @@
 		include_once $_SERVER['DOCUMENT_ROOT'] . '/php/edicion/FormCliInc.php';
 		include_once $_SERVER['DOCUMENT_ROOT'] . '/php/edicion/FormCliCon.php';
 		include_once $_SERVER['DOCUMENT_ROOT'] . '/php/edicion/FormCliSep.php';
+		include_once $_SERVER['DOCUMENT_ROOT'] . '/php/reordena.php';
 
 		global $con;
 
@@ -60,21 +61,33 @@
 					?>
 				</div>
 			<?php
-			$includes=$con->query
-			(
-				'	SELECT Secciones.ID , Secciones.Visible , Secciones.Prioridad , Secciones.HTMLID, Modulos.Archivo, Modulos.OpcGrpID, Modulos.OpcSetsGrpID, Contenidos.ID as ContenidoID
-					FROM Secciones
-					left outer JOIN Modulos
-					ON Modulos.ID = Secciones.ModuloID
-					left outer JOIN Contenidos
-					ON Contenidos.ID = Secciones.ContenidoID
-					WHERE Secciones.PadreID='.$seccion['ID'].'
-					ORDER BY Prioridad asc
-				'
-			);
-			$includes=fetch_all($includes , MYSQLI_ASSOC);
 
-/*					echo '<pre>Includes: ';
+			$includes=getPriorizados
+			(
+				fetch_all
+				(
+					$con->query
+					(
+						'	SELECT Secciones.ID , Secciones.Visible ,Secciones.PrioridadesGrpID, Secciones.HTMLID, Modulos.Archivo, Modulos.OpcGrpID, Modulos.OpcSetsGrpID, Contenidos.ID as ContenidoID
+							FROM Secciones
+							left outer JOIN Modulos
+							ON Modulos.ID = Secciones.ModuloID
+							left outer JOIN Contenidos
+							ON Contenidos.ID = Secciones.ContenidoID
+							LEFT OUTER JOIN TagsTarget
+							ON TagsTarget.GrupoID=Secciones.TagsGrpID
+							LEFT OUTER JOIN Laboratorios
+							ON Laboratorios.ID='.$_SESSION['lab'].'
+							WHERE Secciones.PadreID='.$seccion['ID'].'
+							AND TagsTarget.TagID=Laboratorios.TagID
+						'
+					),
+					MYSQLI_ASSOC
+				)
+			);
+
+/*
+			echo '<pre>Includes: ';
 			print_r($includes);
 			echo '</pre>';
 */

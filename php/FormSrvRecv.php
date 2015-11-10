@@ -52,7 +52,6 @@
 			{
 				$this->selectedAction=array_search($_SESSION['accion'], $this->actions);
 			}
-			
 			$this->checkActionIn($_POST);
 			
 			if(isset($_GET['accion']))

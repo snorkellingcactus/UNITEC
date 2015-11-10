@@ -1,6 +1,7 @@
 <!-- <script type="text/javascript" src="js/mapa.js"></script> -->
 <!-- Sacado de http://jafrancov.com/2011/12/trazar-rutas-gmaps-api-v3/ -->
 <?php
+/*
 if(isset($_SESSION['lab']))
 {
     echo '<pre>Lab!';
@@ -12,6 +13,7 @@ else
     echo '<pre>NoLab!';
     echo '</pre>';
 }
+*/
 ?>
 <div class="contenedor">
     <img id="map-canvas" class="map-canvas" src="https://maps.googleapis.com/maps/api/staticmap?center=-34.90693 , -57.94290&zoom=17&size=500x500&maptype=roadmap

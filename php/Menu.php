@@ -16,7 +16,7 @@
 					'SeccionID',
 					'Url',
 					'Atajo',
-					'Prioridad',
+					'PrioridadesGrpID',
 					'Visible',
 					'TagsGrpID'
 				],

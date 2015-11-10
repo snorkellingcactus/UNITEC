@@ -13,7 +13,7 @@
 		}
 		function getTagsGrp()
 		{
-
+/*
 			echo '<pre>getTagsGrp:';
 			print_r
 			(
@@ -22,7 +22,7 @@
 							WHERE ID='.$this->ID
 			);
 			echo '</pre>';
-
+*/
 			return fetch_all
 			(
 				$this->con->query

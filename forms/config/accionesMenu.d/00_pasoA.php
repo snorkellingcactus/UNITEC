@@ -79,23 +79,54 @@
 		$tags->input->setValue(getLabTagTree($_SESSION['lab']));
 	}
 
-	$lleno=fetch_all
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/reordena.php';
+/*
+	echo '<pre>Consulta:';
+	print_r
 	(
-		$con->query
+		'	SELECT Menu.ContenidoID, Menu.ContenidoID, Menu.PrioridadesGrpID
+			FROM Menu
+			LEFT OUTER JOIN TagsTarget
+			ON TagsTarget.GrupoID=Menu.TagsGrpID
+			LEFT OUTER JOIN Laboratorios
+			ON Laboratorios.ID='.$_SESSION['lab'].'
+			WHERE TagsTarget.TagID=Laboratorios.TagID
+		'
+	);
+	echo '</pre>';
+*/
+	$lleno=getPriorizados
+	(
+		fetch_all
 		(
-			'	SELECT ContenidoID,ContenidoID
-				FROM Menu
-				WHERE 1
-				ORDER BY Prioridad ASC
-			'
-		),
-		MYSQLI_NUM
+			$con->query
+			(
+				'	SELECT Menu.ContenidoID, Menu.ContenidoID, Menu.PrioridadesGrpID
+					FROM Menu
+					LEFT OUTER JOIN TagsTarget
+					ON TagsTarget.GrupoID=Menu.TagsGrpID
+					LEFT OUTER JOIN Laboratorios
+					ON Laboratorios.ID='.$_SESSION['lab'].'
+					WHERE TagsTarget.TagID=Laboratorios.TagID
+				'
+			),
+			MYSQLI_ASSOC
+		)
 	);
 
 	$iMax=count($lleno);
 	for($i=0;$i<$iMax;$i++)
 	{
-		$lleno[$i][0]=getTraduccion($lleno[$i][0] , $_SESSION['lang']);
+		$conID=$lleno[$i]['ContenidoID'];
+		$lleno[$i]=array
+		(
+			getTraduccion
+			(
+				 $conID ,
+				 $_SESSION['lang']
+			),
+			$conID
+		);
 	}
 
 	$lugar->setOptionsFromSQLRes

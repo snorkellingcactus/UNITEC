@@ -1,4 +1,72 @@
 <?php
+	function getPriorizados($coleccion)
+	{
+		global $con;
+
+		$i=0;
+		$j=0;
+		$priorizados=array();
+		$prioridades=array();
+		while(isset($coleccion[$i]))
+		{
+/*
+			echo '<pre>Consulta Prioriza:';
+			print_r
+			(
+				'	SELECT Prioridad
+					FROM Prioridades
+					WHERE GrupoID='.$coleccion[$i]['PrioridadesGrpID'].'
+					AND LabID='.$_SESSION['lab'].'
+					LIMIT 1
+				'
+			);
+			echo '</pre>';
+*/
+			$prioridad=fetch_all
+				(
+					$con->query
+					(
+						'	SELECT Prioridad , ID
+							FROM Prioridades
+							WHERE GrupoID='.$coleccion[$i]['PrioridadesGrpID'].'
+							AND LabID='.$_SESSION['lab'].'
+							LIMIT 1
+						'
+					),
+					MYSQLI_NUM
+				);
+				if(isset($prioridad[0][0]))
+				{
+					$coleccion[$i]['PrioridadID']=$prioridad[0][1];
+					$coleccion[$i]['Prioridad']=$prioridad[0][0];
+					$prioridades[$j]=$prioridad[0][0];
+
+					$priorizados[$prioridad[0][0]]=$coleccion[$i];
+
+					++$j;
+				}
+
+			++$i;
+		}
+		$coleccion=array();
+
+		$k=0;
+		sort($prioridades);
+		while(isset($prioridades[$k]))
+		{
+			$prioridad=$prioridades[$k];
+
+			$coleccion[$k]=$priorizados[$prioridad];
+
+			++$k;
+		}
+/*
+		echo '<pre>$priorizados=';
+		print_r($coleccion);
+		echo '</pre>';
+*/
+		return $coleccion;
+	}
 	function reordena($lugar , $sqlObj , $condicion , $discProp, $valProp ,$edita)
 	{
 		include_once $_SERVER['DOCUMENT_ROOT'] . '/php/conexion.php';
@@ -8,15 +76,38 @@
 		(
 			$con->query
 			(
-				'	SELECT '.$discProp.', Prioridad
+				'	SELECT '.$sqlObj->table.'.'.$discProp.', '.$sqlObj->table.'.PrioridadesGrpID
 					FROM '.$sqlObj->table.' 
-					WHERE '.$condicion.' 
-					ORDER BY Prioridad ASC'
+					LEFT OUTER JOIN TagsTarget
+					ON TagsTarget.GrupoID='.$sqlObj->table.'.TagsGrpID
+					LEFT OUTER JOIN Laboratorios
+					ON Laboratorios.ID='.$_SESSION['lab'].'
+					WHERE '.$condicion.'
+					AND TagsTarget.TagID=Laboratorios.TagID
+				'
 			)
 			,
 			MYSQLI_ASSOC
 		);
-/*
+
+		echo '<pre>Consulta Coleccion:';
+		print_r
+		(
+			'	SELECT '.$discProp.', PrioridadesGrpID
+				FROM '.$sqlObj->table.'
+				LEFT OUTER JOIN TagsTarget
+				ON TagsTarget.GrupoID='.$sqlObj->table.'.TagsGrpID
+				LEFT OUTER JOIN Laboratorios
+				ON Laboratorios.ID='.$_SESSION['lab'].'
+				WHERE '.$condicion.'
+				AND TagsTarget.TagID=Laboratorios.TagID
+			'
+		);
+		echo '</pre>';
+
+		$coleccion=getPriorizados($coleccion);
+
+
 		echo '<pre>Colección:';
 		print_r($coleccion);
 		echo '</pre>';
@@ -24,7 +115,7 @@
 		echo '<pre>Lugar:';
 		print_r($lugar);
 		echo '</pre>';
-*/
+
 		$seleccionado=0;
 		while(isset($coleccion[$seleccionado]) && $coleccion[$seleccionado][$discProp]!=$lugar)
 		{
@@ -81,7 +172,7 @@
 			}
 			else
 			{
-				$desde=0;
+				$desde=$seleccionado;
 			}
 		}
 
@@ -100,28 +191,42 @@
 		else
 		{
 			$j=$hasta;
-			$jMax=$desde;
+			$jMax=$desde+1;
 			$inc=1;
 		}
-/*
+
 		echo '<pre>Reordena: Se cambiará del número '.$j.' Al '.$jMax.' con '.$inc;
 		echo '</pre>';
-*/
+
 		//Hago un lugar para la nueva seccion desplazando sus siguientes una
 		//posición más.
 		while($j<$jMax)
 		{
-			$con->query
+			echo '<pre>';
+			print_r
 			(
-				'	UPDATE '.$sqlObj->table.
-				'	SET Prioridad='.
+				'	UPDATE Prioridades
+					SET Prioridad='.
 				(
 					intVal
 					(
 						$coleccion[$j]['Prioridad']
 					)+$inc
 				).
-				'	WHERE '.$discProp.'='.$coleccion[$j][$discProp]
+				'	WHERE ID='.$coleccion[$j]['PrioridadID']
+			);
+			echo '</pre>';
+			$con->query
+			(
+				'	UPDATE Prioridades
+					SET Prioridad='.
+				(
+					intVal
+					(
+						$coleccion[$j]['Prioridad']
+					)+$inc
+				).
+				'	WHERE ID='.$coleccion[$j]['PrioridadID']
 			);
 
 			++$j;

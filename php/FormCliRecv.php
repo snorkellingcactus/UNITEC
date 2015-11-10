@@ -1,5 +1,5 @@
 <?php
-	include_once $_SERVER['DOCUMENT_ROOT'] . '//php/FormCfg.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/FormCfg.php';
 
 	class FormCliRecv extends FormCfg
 	{
@@ -17,7 +17,6 @@
 				),
 				func_get_args()
 			);
-
 			
 			$this->SQL_Evts=false;
 		}

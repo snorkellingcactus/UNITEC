@@ -8,7 +8,7 @@
 
 		$name=nTraduccion(filterTagName($name) , $_SESSION['lang']);
 		$name->insSQL();
-/*
+
 		echo '<pre>nTag:';
 		print_r
 		(
@@ -17,7 +17,7 @@
 			'
 		);
 		echo '</pre>';
-*/
+
 		$con->query
 		(
 			'	INSERT INTO Tags(NombreID)
@@ -51,7 +51,7 @@
 	function getDuplicatedTag($name)
 	{
 		global $con;
-/*
+
 		echo '<pre>getDuplicates: Consulta:';
 		print_r
 		(
@@ -64,7 +64,7 @@
 			'
 		);
 		echo '</pre>';
-*/
+
 		$duplicates=fetch_all
 		(
 			$con->query
@@ -79,14 +79,14 @@
 			),
 			MYSQLI_NUM
 		);
-/*
+
 		echo '<pre>getDuplicates: $duplicates:';
 		print_r
 		(
 			$duplicates
 		);
 		echo '</pre>';
-*/
+
 		if(isset($duplicates[0][0]))
 		{
 			return $duplicates[0][0];
@@ -99,7 +99,7 @@
 	function isDuplicatedTagTarget($tagID , $tagsGrpID)
 	{
 		global $con;
-/*
+
 		echo '<pre>getDuplicatedTagTarget: Consulta:';
 		print_r
 		(
@@ -127,7 +127,7 @@
 			)
 		);
 		echo '</pre>';
-*/
+
 		if
 		(
 			isset
@@ -148,10 +148,10 @@
 			)
 		)
 		{
-			//echo '<pre>isDuplicatedTagTarget: Ya existe este target</pre>';
+			echo '<pre>isDuplicatedTagTarget: Ya existe este target</pre>';
 			return true;
 		}
-		//echo '<pre>isDuplicatedTagTarget: No existe este target</pre>';
+		echo '<pre>isDuplicatedTagTarget: No existe este target</pre>';
 		return false;
 	}
 	function nTagIfNot($name)
@@ -172,14 +172,14 @@
 	function nTagsGrp()
 	{
 		global $con;
-/*
+
 		echo '<pre>nTagsGrp: Consulta:';
 		print_r
 		(
 			'	INSERT INTO TagsGrp(ID) VALUES(NULL)'
 		);
 		echo '</pre>';
-*/
+
 		$con->query
 		(
 			'	INSERT INTO TagsGrp(ID) VALUES(NULL)
@@ -222,7 +222,7 @@
 					VALUES('.$tagID.' , '.$grupoID.')
 				'
 			);
-/*
+
 			echo '<pre>';
 			print_r
 			(
@@ -231,7 +231,7 @@
 				'
 			);
 			echo '</pre>';
-*/
+
 			echo '<pre>nTagTarget: Insertado TagTarget: '.$name.'</pre>';
 		}
 		else
@@ -428,5 +428,174 @@
 		getLabTagTreeLoop($labID , $array , 0);
 
 		return implode(' , ' , $array);
+	}
+	function isTagInSQLObj($tagsStr , $sqlObj)
+	{
+		$tags=$sqlObj->getTagsGrp();
+
+		if(!isset($tags[0][0]))
+		{
+			return false;
+		}
+		return strpos
+		(
+			$tagsStr,
+			getTagsStr
+			(
+				$tags[0][0]
+			)
+		) !== false;
+	}
+	function hasSQLObjPriority($sqlObj , $lab)
+	{
+		global $con;
+
+		echo '<pre>';
+		print_r
+		(
+			'	SELECT Prioridad
+				FROM Prioridades
+				WHERE LabID='.$lab.'
+				AND GrupoID='.$sqlObj->PrioridadesGrpID.'
+			'
+		);
+		echo '</pre>';
+
+		
+		return isset
+		(
+			fetch_all
+			(
+				$con->query
+				(
+					'	SELECT Prioridad
+						FROM Prioridades
+						WHERE LabID='.$lab.'
+						AND GrupoID='.$sqlObj->PrioridadesGrpID.'
+					'
+				),
+				MYSQLI_NUM
+			)[0][0]
+		);
+	}
+	function insertSQLObjPriority($grupoID , $labID , $priority)
+	{
+		global $con;
+
+		$con->query
+		(
+			'	INSERT INTO Prioridades(GrupoID , LabID , Prioridad)
+				VALUES('.$grupoID.' , '.$labID.' , '.$priority.')
+			'
+		);
+		return $con->insert_id;
+	}
+	function updSQLObjPriority($grupoID , $labID , $priority)
+	{
+		global $con;
+		
+		$con->query
+		(
+			'	UPDATE Prioridades set Prioridad='.$priority.'
+				WHERE GrupoID='.$grupoID.'
+				AND LabID='.$labID.'
+			'
+		);
+	}
+	function updLabsTagsPriority($tagsStr , $sqlObj , $condicion , $lugar , $discProp , $edita)
+	{
+		include_once $_SERVER['DOCUMENT_ROOT'] . '/php/getLab.php';
+		global $con;
+		$tags=sepTagsStr($tagsStr);
+		echo '<pre>Exploded:';
+		print_r($tags);
+		echo '</pre>';
+		$k=0;
+		while(isset($tags[$k]))
+		{
+			$tag=filterTagName($tags[$k]);
+
+			$labID=getLabByName($tag);
+
+			echo '<pre>Lab:';
+			print_r($labID);
+			echo '</pre>';
+			if(isset($labID[0]['ID']))
+			{
+				$labID=$labID[0]['ID'];
+
+				echo '<pre>Tag '.$tag.' Is Lab '.$labID.'</pre>';
+
+				if(!hasSQLObjPriority($sqlObj , $labID))
+				{
+					echo '<pre>No Priority for this lab, creating new one</pre>';
+					if($labID==$_SESSION['lab'])
+					{
+						$nVal=reordena
+						(
+							$lugar,
+							$sqlObj,
+							$condicion,
+							$discProp,
+							false,
+							false
+						);
+					}
+					else
+					{
+						echo '<pre>GetMax:';
+						print_r
+						(
+							'	SELECT IFNULL(MAX(Prioridad) , 0) AS Prioridad
+								FROM Prioridades
+								WHERE LabID='.$labID.'
+							'
+						);
+						echo '</pre>';
+
+						$nVal=fetch_all
+						(
+							$con->query
+							(
+								'	SELECT IFNULL(MAX(Prioridad) , 0) AS Prioridad
+									FROM Prioridades
+									WHERE LabID='.$labID.'
+								'
+							),
+							MYSQLI_NUM
+						)[0][0]+1;
+					}
+					insertSQLObjPriority
+					(
+						$sqlObj->PrioridadesGrpID,
+						$labID,
+						$nVal
+					);
+				}
+				else
+				{
+					echo '<pre>NoLab';
+					echo '</pre>';
+					if($labID==$_SESSION['lab'] && $edita)
+					{
+						updSQLObjPriority
+						(
+							$sqlObj->PrioridadesGrpID,
+							$labID,
+							reordena
+							(
+								$lugar,
+								$sqlObj,
+								$condicion,
+								$discProp,
+								$sqlObj->$discProp,
+								true
+							)
+						);
+					}
+				}
+			}
+			++$k;
+		}
 	}
 ?>

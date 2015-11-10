@@ -98,7 +98,7 @@
 	{
 		include_once($_SERVER['DOCUMENT_ROOT'] . '/php/conexion.php');
 		global $con;
-/*
+
 		echo '<pre>';
 		print_r
 		(
@@ -107,14 +107,14 @@
 			'	SELECT Laboratorios.ID
 				FROM Laboratorios
 				LEFT OUTER JOIN Traducciones
-				ON Traducciones.Texto="'.addslashes(htmlentities(trim($_GET['lab']))).'"
+				ON Traducciones.Texto="'.addslashes(htmlentities(trim($name))).'"
 				WHERE Traducciones.ContenidoID=Laboratorios.NombreID
 				LIMIT 1
 			'
 			)
 		);
 		echo '</pre>';
-*/
+
 		return fetch_all
 		(
 			$con->query
@@ -122,7 +122,7 @@
 				'	SELECT Laboratorios.ID
 					FROM Laboratorios
 					LEFT OUTER JOIN Traducciones
-					ON Traducciones.Texto="'.addslashes(htmlentities(trim($_GET['lab']))).'"
+					ON Traducciones.Texto="'.addslashes(htmlentities(trim($name))).'"
 					WHERE Traducciones.ContenidoID=Laboratorios.NombreID
 					LIMIT 1
 				'

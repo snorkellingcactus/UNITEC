@@ -215,27 +215,41 @@ $lang=getenv('LANG');
 					if(isset($_GET['vRecID']))
 					{
 						$noLimit=$_GET['vRecID'];
-						$condicion=' ID='.$noLimit;
+						$condicion=' Secciones.ID='.$noLimit;
 					}
 					else
 					{
 						$noLimit=false;
-						$condicion='PadreID IS NULL';
+						$condicion='Secciones.PadreID IS NULL';
 					}
-					//Obtengo las opciones.
-					$secciones=$con->query
-					(
-						'	SELECT ID,Visible,Prioridad,HTMLID
-							FROM Secciones
-							WHERE '.$condicion.'
-							ORDER BY Prioridad ASC
-						'
-					);
-					$secciones=fetch_all($secciones , MYSQLI_ASSOC);
-
 					include_once $_SERVER['DOCUMENT_ROOT'] . '/php/seccionesHTML.php';
+					include_once $_SERVER['DOCUMENT_ROOT'] . '/php/reordena.php';
 
-					seccionesHTML($secciones , $noLimit);
+					//Obtengo las opciones.
+
+					seccionesHTML
+					(
+						getPriorizados
+						(
+							fetch_all
+							(
+								$con->query
+								(
+									'	SELECT Secciones.ID,Secciones.Visible,Secciones.HTMLID, Secciones.PrioridadesGrpID
+										FROM Secciones
+										LEFT OUTER JOIN TagsTarget
+										ON TagsTarget.GrupoID=Secciones.TagsGrpID
+										LEFT OUTER JOIN Laboratorios
+										ON Laboratorios.ID='.$_SESSION['lab'].'
+										WHERE '.$condicion.'
+										AND TagsTarget.TagID=Laboratorios.TagID
+									'
+								),
+								MYSQLI_ASSOC
+							)
+						),
+						$noLimit
+					);
 
 					if(isset($_SESSION['adminID']))
 					{

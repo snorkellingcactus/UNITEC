@@ -25,7 +25,7 @@
 			}
 			if($i===$iMax)
 			{
-				$this->selectedAction=NULL;				
+				//$this->selectedAction=NULL;				
 			}
 			else
 			{

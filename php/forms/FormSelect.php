@@ -85,7 +85,7 @@
 			}
 			else
 			{
-				$this->trySelect($args[0]);
+				$this->trySelect($args[1]);
 			}
 
 			return $this->newOption($args[0] , $args[1]);

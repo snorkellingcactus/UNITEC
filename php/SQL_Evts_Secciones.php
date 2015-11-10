@@ -11,7 +11,13 @@
 		{
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/conexion.php';
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/Seccion.php';
+
 			global $con;
+
+			if(isset($_SESSION['conID'][0]))
+			{
+				$_SESSION['conID']=$_SESSION['conID'][0];
+			}
 
 			$edita=isset($_SESSION['accion']) && $_SESSION['accion']==='edita';
 			$nSec=new Seccion();
@@ -76,33 +82,16 @@
 					$nSec->PadreID=$_SESSION['conID'];
 				}
 				
-
-				$condicion=' PadreID='.$nSec->PadreID;
+				$condicion=' Secciones.PadreID='.$nSec->PadreID;
 			}
 			else
 			{
-				$condicion=' ContenidoID IS NULL AND ModuloID IS NULL';
+				$condicion=' Secciones.ContenidoID IS NULL AND Secciones.ModuloID IS NULL';
 			}
 
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/reordena.php';
 
-			$secID=false;
-
-			if(isset($_SESSION['conID']))
-			{
-				$secID=$_SESSION['conID'];
-			}
-
 			$nSec->Visible=$_POST['Visible'][0];
-			$nSec->Prioridad=reordena
-			(
-				$_POST['Lugar'][0] ,
-				$nSec ,
-				$condicion ,
-				'ID' ,
-				$secID,
-				$edita
-			);
 
 			if($edita)
 			{
@@ -112,17 +101,48 @@
 			}
 			else
 			{
+				$con->query
+				(
+					'	INSERT INTO PrioridadesGrp()
+						VALUES()
+					'
+				);
+				$nSec->PrioridadesGrpID=$con->insert_id;
+
 				$nSec->insSQL();
 			}
+			$nSec->PrioridadesGrpID=fetch_all
+			(
+				$con->query
+				(
+					'	SELECT PrioridadesGrpID
+						FROM Secciones
+						WHERE ID='.$nSec->ID
+				),
+				MYSQLI_NUM
+			)[0][0];
+
+
 			//Revisar. Seguridad.
 
 			if(!empty($_POST['Tags'][0]))
 			{
 				$nSec->updTagsTargets($_POST['Tags'][0]);
+
+				updLabsTagsPriority
+				(
+					$_POST['Tags'][0],
+					$nSec,
+					$condicion,
+					$_POST['Lugar'][0],
+					'ID',
+					$edita
+				);
 			}
 
 			if($nSec->HTMLID!==NULL && $_POST['AgregarAlMenu'][0]==='1')
 			{
+				/*
 				include($_SERVER['DOCUMENT_ROOT'] . '/php/Menu.php');
 				$menu=new Menu(['SeccionID'=>$nSec->HTMLID]);
 
@@ -158,12 +178,13 @@
 				{
 					$menu->updSQL(false , ['ID']);
 				}
+				*/
 			}
+			die();
 			return [$nSec->ID];
 		}
 		public function elimina()
 		{
-
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/conexion.php';
 			global $con;
 
@@ -201,8 +222,9 @@
 			{
 				$con->query('DELETE FROM Secciones WHERE ID='.$secID);
 				
-				//echo '<pre>';print_r('DELETE FROM Secciones WHERE ID='.$secID);echo '</pre>';
+				echo '<pre>';print_r('DELETE FROM Secciones WHERE ID='.$secID);echo '</pre>';
 			}
+			die();
 		}
 		public function configura()
 		{

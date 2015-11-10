@@ -32,28 +32,40 @@
 		<nav>
 			<ul>
 				<?php
+					include_once $_SERVER['DOCUMENT_ROOT'] . '/php/reordena.php';
 
-					$opciones=$con->query
+
+					$opciones=getPriorizados
 					(
-						'	SELECT Menu.* FROM Menu
-							LEFT OUTER JOIN TagsTarget
-							ON TagsTarget.GrupoID=Menu.TagsGrpID
-							LEFT OUTER JOIN Laboratorios
-							ON Laboratorios.ID='.$_SESSION['lab'].'
-							WHERE TagsTarget.TagID=Laboratorios.TagID
-							ORDER BY Prioridad ASC
-						'
+						fetch_all
+						(
+							$con->query
+							(
+								'	SELECT Menu.* FROM Menu
+									LEFT OUTER JOIN TagsTarget
+									ON TagsTarget.GrupoID=Menu.TagsGrpID
+									LEFT OUTER JOIN Laboratorios
+									ON Laboratorios.ID='.$_SESSION['lab'].'
+									WHERE TagsTarget.TagID=Laboratorios.TagID
+								'
+							),
+							MYSQLI_ASSOC
+						)
 					);
 
-					$opciones=fetch_all($opciones , MYSQLI_ASSOC);
-
-					$sMax=count($opciones);
-
-					for($s=0;$s<$sMax;$s++)
+					$s=0;
+					while(isset($opciones[$s]))
 					{
 						$opcion=$opciones[$s];
 
-						$nombre=htmlentities(getTraduccion($opcion['ContenidoID'] , $_SESSION['lang']));
+						$nombre=htmlentities
+						(
+							getTraduccion
+							(
+								$opcion['ContenidoID'],
+								$_SESSION['lang']
+							)
+						);
 
 						if(isset($opcion['SeccionID']))
 						{
@@ -73,7 +85,7 @@
 						?>
 							<li>
 								<a href=
-									"<?php echo 'http://'.$_SERVER['SERVER_NAME'].$opcion['Url']?>"
+									"<?php echo $opcion['Url']?>"
 									<?php
 										echo $clase ;
 										if(!empty($opcion['Atajo']))
@@ -98,6 +110,7 @@
 								</a>
 							</li>
 						<?php
+						++$s;
 					}
 				?>
 			</ul>

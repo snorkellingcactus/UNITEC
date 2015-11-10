@@ -1,5 +1,4 @@
 <?php
-
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormLabelLugar.php';
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/ClearFix.php';
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormLabelVisible.php';
@@ -246,20 +245,41 @@
 			echo '<pre>No group</pre>';
 		}
 	}
-	$selectLugar->setOptionsFromSQLRes
+
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/reordena.php';
+
+	$seccs=getPriorizados
 	(
 		fetch_all
 		(
 			$con->query
 			(
-				'	SELECT HTMLID,ID
+				'	SELECT Secciones.HTMLID, Secciones.ID, Secciones.PrioridadesGrpID
 					FROM Secciones
-					WHERE PadreID '.$padreIDStr.'
-					ORDER BY Prioridad ASC
+					LEFT OUTER JOIN TagsTarget
+					ON TagsTarget.GrupoID=Secciones.TagsGrpID
+					LEFT OUTER JOIN Laboratorios
+					ON Laboratorios.ID='.$_SESSION['lab'].'
+					WHERE Secciones.PadreID '.$padreIDStr.'
+					AND TagsTarget.TagID=Laboratorios.TagID
 				'
 			),
-			MYSQLI_NUM
+			MYSQLI_ASSOC
 		)
+	);
+	$s=0;
+	while(isset($seccs[$s]))
+	{
+		$seccs[$s]=array
+		(
+			$seccs[$s]['HTMLID'],
+			$seccs[$s]['ID']
+		);
+		++$s;
+	}
+	$selectLugar->setOptionsFromSQLRes
+	(
+		$seccs
 	);
 	
 

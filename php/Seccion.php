@@ -13,7 +13,7 @@
 				[
 					'ID',
 					'Visible',
-					'Prioridad',
+					'PrioridadesGrpID',
 					'ModuloID',
 					'ContenidoID',
 					'PadreID',
