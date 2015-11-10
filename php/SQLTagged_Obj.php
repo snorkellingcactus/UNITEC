@@ -50,12 +50,6 @@
 				$grupoID=nTagsGrp();
 			}
 
-			$primary=null;
-			if(!empty($this->data[$this->primary]))
-			{
-				$primary=$this->data[$this->primary];
-			}
-
 			$this->updSQL(['TagsGrpID'=>$grupoID]);
 
 			return $grupoID;

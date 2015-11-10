@@ -89,7 +89,7 @@
 			,
 			MYSQLI_ASSOC
 		);
-
+/*
 		echo '<pre>Consulta Coleccion:';
 		print_r
 		(
@@ -104,10 +104,10 @@
 			'
 		);
 		echo '</pre>';
-
+*/
 		$coleccion=getPriorizados($coleccion);
 
-
+/*
 		echo '<pre>Colección:';
 		print_r($coleccion);
 		echo '</pre>';
@@ -115,7 +115,7 @@
 		echo '<pre>Lugar:';
 		print_r($lugar);
 		echo '</pre>';
-
+*/
 		$seleccionado=0;
 		while(isset($coleccion[$seleccionado]) && $coleccion[$seleccionado][$discProp]!=$lugar)
 		{
@@ -194,14 +194,15 @@
 			$jMax=$desde+1;
 			$inc=1;
 		}
-
+/*
 		echo '<pre>Reordena: Se cambiará del número '.$j.' Al '.$jMax.' con '.$inc;
 		echo '</pre>';
-
+*/
 		//Hago un lugar para la nueva seccion desplazando sus siguientes una
 		//posición más.
 		while($j<$jMax)
 		{
+/*
 			echo '<pre>';
 			print_r
 			(
@@ -216,6 +217,7 @@
 				'	WHERE ID='.$coleccion[$j]['PrioridadID']
 			);
 			echo '</pre>';
+*/
 			$con->query
 			(
 				'	UPDATE Prioridades

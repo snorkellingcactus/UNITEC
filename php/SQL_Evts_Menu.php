@@ -104,7 +104,6 @@
 				$afectados[$afectadosLen]=$conIdAct;
 				++$afectadosLen;
 			}
-			die();
 			return $afectados;
 		}
 		public function nuevo()

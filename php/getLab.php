@@ -98,7 +98,7 @@
 	{
 		include_once($_SERVER['DOCUMENT_ROOT'] . '/php/conexion.php');
 		global $con;
-
+/*
 		echo '<pre>';
 		print_r
 		(
@@ -114,7 +114,7 @@
 			)
 		);
 		echo '</pre>';
-
+*/
 		return fetch_all
 		(
 			$con->query

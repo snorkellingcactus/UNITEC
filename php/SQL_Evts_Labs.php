@@ -81,12 +81,6 @@
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/conexion.php';
 			global $con;
 
-			echo '<pre>$_SESSION:';
-			print_r($_SESSION);
-			echo '</pre>';
-			echo '<pre>$_POST:';
-			print_r($_POST);
-			echo '</pre>';
 			$con->query
 			(
 				'	DELETE FROM Laboratorios

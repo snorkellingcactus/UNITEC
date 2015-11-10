@@ -8,7 +8,7 @@
 
 		$name=nTraduccion(filterTagName($name) , $_SESSION['lang']);
 		$name->insSQL();
-
+/*
 		echo '<pre>nTag:';
 		print_r
 		(
@@ -17,7 +17,7 @@
 			'
 		);
 		echo '</pre>';
-
+*/
 		$con->query
 		(
 			'	INSERT INTO Tags(NombreID)
@@ -51,7 +51,7 @@
 	function getDuplicatedTag($name)
 	{
 		global $con;
-
+/*
 		echo '<pre>getDuplicates: Consulta:';
 		print_r
 		(
@@ -64,7 +64,7 @@
 			'
 		);
 		echo '</pre>';
-
+*/
 		$duplicates=fetch_all
 		(
 			$con->query
@@ -79,14 +79,14 @@
 			),
 			MYSQLI_NUM
 		);
-
+/*
 		echo '<pre>getDuplicates: $duplicates:';
 		print_r
 		(
 			$duplicates
 		);
 		echo '</pre>';
-
+*/
 		if(isset($duplicates[0][0]))
 		{
 			return $duplicates[0][0];
@@ -99,7 +99,7 @@
 	function isDuplicatedTagTarget($tagID , $tagsGrpID)
 	{
 		global $con;
-
+/*
 		echo '<pre>getDuplicatedTagTarget: Consulta:';
 		print_r
 		(
@@ -127,7 +127,7 @@
 			)
 		);
 		echo '</pre>';
-
+*/
 		if
 		(
 			isset
@@ -148,10 +148,10 @@
 			)
 		)
 		{
-			echo '<pre>isDuplicatedTagTarget: Ya existe este target</pre>';
+			//echo '<pre>isDuplicatedTagTarget: Ya existe este target</pre>';
 			return true;
 		}
-		echo '<pre>isDuplicatedTagTarget: No existe este target</pre>';
+		//echo '<pre>isDuplicatedTagTarget: No existe este target</pre>';
 		return false;
 	}
 	function nTagIfNot($name)
@@ -160,11 +160,11 @@
 		if($tagID===false)
 		{
 			$tagID=nTag($name);
-			echo '<pre>nTagTarget: Nuevo Tag: '.$name.'</pre>';
+			//echo '<pre>nTagTarget: Nuevo Tag: '.$name.'</pre>';
 		}
 		else
 		{
-			echo '<pre>nTagTarget: Ignorando Tag Duplicado: '.$name.'</pre>';
+			//echo '<pre>nTagTarget: Ignorando Tag Duplicado: '.$name.'</pre>';
 		}
 
 		return $tagID;
@@ -172,17 +172,17 @@
 	function nTagsGrp()
 	{
 		global $con;
-
+/*
 		echo '<pre>nTagsGrp: Consulta:';
 		print_r
 		(
-			'	INSERT INTO TagsGrp(ID) VALUES(NULL)'
+			'	INSERT INTO TagsGrp() VALUES()'
 		);
 		echo '</pre>';
-
+*/
 		$con->query
 		(
-			'	INSERT INTO TagsGrp(ID) VALUES(NULL)
+			'	INSERT INTO TagsGrp() VALUES()
 			'
 		);
 		return $con->insert_id;
@@ -222,7 +222,7 @@
 					VALUES('.$tagID.' , '.$grupoID.')
 				'
 			);
-
+/*
 			echo '<pre>';
 			print_r
 			(
@@ -231,12 +231,12 @@
 				'
 			);
 			echo '</pre>';
-
-			echo '<pre>nTagTarget: Insertado TagTarget: '.$name.'</pre>';
+*/
+//			echo '<pre>nTagTarget: Insertado TagTarget: '.$name.'</pre>';
 		}
 		else
 		{
-			echo '<pre>nTagTarget: Ignorando TagTarget duplicado: '.$name.'</pre>';
+			//echo '<pre>nTagTarget: Ignorando TagTarget duplicado: '.$name.'</pre>';
 		}
 	}
 	function nTagsTargets($tags , $grupoID)
@@ -449,7 +449,7 @@
 	function hasSQLObjPriority($sqlObj , $lab)
 	{
 		global $con;
-
+/*
 		echo '<pre>';
 		print_r
 		(
@@ -460,7 +460,7 @@
 			'
 		);
 		echo '</pre>';
-
+*/
 		
 		return isset
 		(
@@ -507,28 +507,31 @@
 		include_once $_SERVER['DOCUMENT_ROOT'] . '/php/getLab.php';
 		global $con;
 		$tags=sepTagsStr($tagsStr);
+/*
 		echo '<pre>Exploded:';
 		print_r($tags);
 		echo '</pre>';
+*/
 		$k=0;
 		while(isset($tags[$k]))
 		{
 			$tag=filterTagName($tags[$k]);
 
 			$labID=getLabByName($tag);
-
+/*
 			echo '<pre>Lab:';
 			print_r($labID);
 			echo '</pre>';
+*/
 			if(isset($labID[0]['ID']))
 			{
 				$labID=$labID[0]['ID'];
 
-				echo '<pre>Tag '.$tag.' Is Lab '.$labID.'</pre>';
+//				echo '<pre>Tag '.$tag.' Is Lab '.$labID.'</pre>';
 
 				if(!hasSQLObjPriority($sqlObj , $labID))
 				{
-					echo '<pre>No Priority for this lab, creating new one</pre>';
+//					echo '<pre>No Priority for this lab, creating new one</pre>';
 					if($labID==$_SESSION['lab'])
 					{
 						$nVal=reordena
@@ -543,6 +546,7 @@
 					}
 					else
 					{
+/*
 						echo '<pre>GetMax:';
 						print_r
 						(
@@ -552,7 +556,7 @@
 							'
 						);
 						echo '</pre>';
-
+*/
 						$nVal=fetch_all
 						(
 							$con->query
@@ -574,8 +578,7 @@
 				}
 				else
 				{
-					echo '<pre>NoLab';
-					echo '</pre>';
+					//echo '<pre>NoLab';echo '</pre>';
 					if($labID==$_SESSION['lab'] && $edita)
 					{
 						updSQLObjPriority

@@ -14,7 +14,7 @@
 
 			global $con;
 
-			if(isset($_SESSION['conID'][0]))
+			if(is_array($_SESSION['conID']))
 			{
 				$_SESSION['conID']=$_SESSION['conID'][0];
 			}
@@ -111,18 +111,12 @@
 
 				$nSec->insSQL();
 			}
-			$nSec->PrioridadesGrpID=fetch_all
-			(
-				$con->query
-				(
-					'	SELECT PrioridadesGrpID
-						FROM Secciones
-						WHERE ID='.$nSec->ID
-				),
-				MYSQLI_NUM
-			)[0][0];
-
-
+			$nSec->getSQL(['ID'=>$nSec->ID]);
+/*
+			echo '<pre>nSec:';
+			print_r($nSec);
+			echo '</pre>';
+*/
 			//Revisar. Seguridad.
 
 			if(!empty($_POST['Tags'][0]))
@@ -180,7 +174,6 @@
 				}
 				*/
 			}
-			die();
 			return [$nSec->ID];
 		}
 		public function elimina()
@@ -224,7 +217,6 @@
 				
 				echo '<pre>';print_r('DELETE FROM Secciones WHERE ID='.$secID);echo '</pre>';
 			}
-			die();
 		}
 		public function configura()
 		{
