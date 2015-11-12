@@ -73,7 +73,7 @@
 		function newVal($opcID , $opcSetsGrpID , $valor)
 		{
 			global $con;
-			
+/*
 			echo '<pre>newVal:';
 			print_r
 			(
@@ -92,7 +92,7 @@
 				'
 			);
 			echo '</pre>';
-
+*/
 			$con->query
 			(
 				'	INSERT INTO OpcSets
@@ -186,6 +186,7 @@
 		function setVal($opcID , $opcSetsGrpID , $val)
 		{
 			global $con;
+/*
 			echo '<pre>setVal:';
 			print_r
 			(
@@ -195,7 +196,7 @@
 					AND Grupo='.$opcSetsGrpID
 			);
 			echo '</pre>';
-
+*/
 			$con->query
 			(
 				'	UPDATE OpcSets

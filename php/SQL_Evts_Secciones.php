@@ -25,6 +25,26 @@
 			if(isset($_POST['Modulo']))
 			{
 				$nSec->ModuloID=intVal($_POST['Modulo'][0]);
+
+				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/opciones.php';
+
+				$opcGrp=getOpcGrpModulo($_SESSION['conID']);
+				if(isset($opcGrp[0][0]))
+				{
+					$opciones=getAllOpcGrp($opcGrp[0][0]);
+					$i=0;
+					while(isset($opciones[$i]))
+					{
+						$opcion=$opciones[$i];
+
+						if(isset($_POST[$opcion['Nombre']]) && isset($opcGrp[0][1]))
+						{
+							updVal($opcion['ID'] , $opcGrp[0][1] , $_POST[$opcion['Nombre']][0]);
+						}
+
+						++$i;
+					}
+				}
 			}
 			if(!empty($_POST['Titulo'][0]))
 			{
@@ -210,31 +230,6 @@
 				$con->query('DELETE FROM Secciones WHERE ID='.$secID);
 				
 				echo '<pre>';print_r('DELETE FROM Secciones WHERE ID='.$secID);echo '</pre>';
-			}
-		}
-		public function configura()
-		{
-			echo '<pre>Configura!</pre>';
-
-			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/conexion.php';
-			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/opciones.php';
-
-			$opcGrp=getOpcGrpModulo($_SESSION['conID']);
-			if(isset($opcGrp[0][0]))
-			{
-				$opciones=getAllOpcGrp($opcGrp[0][0]);
-				$i=0;
-				while(isset($opciones[$i]))
-				{
-					$opcion=$opciones[$i];
-
-					if(isset($_POST[$opcion['Nombre']]) && isset($opcGrp[0][1]))
-					{
-						updVal($opcion['ID'] , $opcGrp[0][1] , $_POST[$opcion['Nombre']][0]);
-					}
-
-					++$i;
-				}
 			}
 		}
 	}

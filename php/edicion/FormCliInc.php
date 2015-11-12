@@ -1,6 +1,5 @@
 <?php
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/edicion/FormCliAdmRight.php';
-	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/edicion/FormCliCfg.php';
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/edicion/FormCliDel.php';
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/edicion/FormCliEdit.php';
 
@@ -11,9 +10,6 @@
 			parent::__construct('accionesSec' , 'inc' , $num , $id);
 
 			$this->buttons->appendChild
-			(
-				new FormCliCfg($this)
-			)->appendChild
 			(
 				new FormCliDel($this)
 			)->appendChild

@@ -54,6 +54,11 @@
 	position:relative;
 }
 #gmapsDiag h3{margin-bottom:30px;text-align:center;}
+#gmapsDiag label
+{
+	font-size:1.2em;
+	letter-spacing: 2px;
+}
 #gmapsDiag #buscar{width:100%;}
 #gmapsDiag .gris
 {
