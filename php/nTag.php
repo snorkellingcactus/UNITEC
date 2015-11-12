@@ -388,7 +388,8 @@
 		$con->query
 		(
 			'	DELETE FROM TagsTarget
-				WHERE TagsTarget.TagID in
+				WHERE TagsTarget.GrupoID= '.$tagsGrpID.'
+				AND TagsTarget.TagID in
 				(
 					'.$orphanStr.'
 				)

@@ -10,6 +10,7 @@
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormLabelDireccion.php';
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormLabelTag.php';
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormLabelNombre.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormLabelTelefono.php';
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormLabelEnlace.php';
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormLabelMail.php';
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormLabelFacebook.php';
@@ -20,6 +21,7 @@
 	$direccion=new FormLabelDireccion($this->form);
 	$tag=new FormLabelTag($this->form);
 	$nombre=new FormLabelNombre($this->form);
+	$telefono=new FormLabelTelefono($this->form);
 	$enlace=new FormLabelEnlace($this->form);
 	$mail=new FormLabelMail($this->form);
 	$facebook=new FormLabelFacebook($this->form);
@@ -47,6 +49,7 @@
 		$direccion->input->setValue(getTraduccion($lab->DireccionID , $_SESSION['lang']));
 		$tag->input->setValue(getTagName($lab->TagID));
 		$nombre->input->setValue(getTraduccion($lab->NombreID , $_SESSION['lang']));
+		$telefono->input->setValue($lab->Telefono);
 		$enlace->input->selectedValue=$lab->Enlace;
 		$mail->input->setValue($lab->Mail);
 		$facebook->input->setValue($lab->Facebook);
@@ -54,22 +57,25 @@
 	}
 	$this->form->appendChild
 	(
-		$tag
-	)->appendChild
-	(
 		$nombre
 	)->appendChild
 	(
+		$tag
+	)->appendChild
+	(
 		$mail
+	)->appendChild
+	(
+		$direccion
+	)->appendChild
+	(
+		$telefono
 	)->appendChild
 	(
 		$enlace
 	)->appendChild
 	(
 		$ubicacion
-	)->appendChild
-	(
-		$direccion
 	)->appendChild
 	(
 		$facebook

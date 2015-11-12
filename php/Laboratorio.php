@@ -16,6 +16,7 @@
 					'Longitud',
 					'DireccionID',
 					'Mail',
+					'Telefono',
 					'Facebook',
 					'Twitter',
 					'NombreID',

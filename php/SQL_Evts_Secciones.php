@@ -14,7 +14,7 @@
 
 			global $con;
 
-			if(is_array($_SESSION['conID']))
+			if(isset($_SESSION['conID'][0]) && is_array($_SESSION['conID']))
 			{
 				$_SESSION['conID']=$_SESSION['conID'][0];
 			}
@@ -136,7 +136,7 @@
 
 			if($nSec->HTMLID!==NULL && $_POST['AgregarAlMenu'][0]==='1')
 			{
-				/*
+				
 				include($_SERVER['DOCUMENT_ROOT'] . '/php/Menu.php');
 				$menu=new Menu(['SeccionID'=>$nSec->HTMLID]);
 
@@ -149,30 +149,24 @@
 					$menu->Atajo=strtoupper($_POST['Atajo'][0]);
 				}
 
-				if($menu->ID===NULL)
+				if($menu->ContenidoID===NULL)
 				{
 					include_once($_SERVER['DOCUMENT_ROOT'] . '/php/nTraduccion.php');
 					include_once($_SERVER['DOCUMENT_ROOT'] . '/php/Foranea.php');
+					include_once $_SERVER['DOCUMENT_ROOT'] . '/php/SQL_Evts_Menu.php';
+					
 
-					$menu->Prioridad=fetch_all($con->query('select ifnull(max(Prioridad),0) as max from Menu') , MYSQLI_NUM)[0][0];
+					$menuEvts=new SQL_Evts_Menu();
 
-					$menu->insForanea
-					(
-						nTraduccion
-						(
-							$_POST['Titulo'][0],
-							$_SESSION['lang']
-						),
-						'ContenidoID',
-						'ContenidoID'
-					);
-					$menu->insSQL();
+					$_POST['Url']=[$menu->Url];
+					$_POST['Titulo']=$_POST['Titulo'];
+					$_POST['Lugar']=['b'];
+					$_POST['Atajo']=[$menu->Atajo];
+
+					$menu->ContenidoID=$menuEvts->nuevo()[0];
 				}
-				else
-				{
-					$menu->updSQL(false , ['ID']);
-				}
-				*/
+
+				$menu->updSQL(false , ['ContenidoID']);
 			}
 			return [$nSec->ID];
 		}

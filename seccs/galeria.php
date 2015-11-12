@@ -63,55 +63,69 @@
 	(
 		'	SELECT Imagenes.*
 			FROM Imagenes
-			WHERE 1
-			ORDER BY Prioridad
+			LEFT OUTER JOIN TagsTarget
+			ON TagsTarget.GrupoID=Imagenes.TagsGrpID
+			LEFT OUTER JOIN Laboratorios
+			ON Laboratorios.ID='.$_SESSION['lab'].'
+			WHERE TagsTarget.TagID=Laboratorios.TagID
 		'.$limitStr
 	);
 	$imgLst=fetch_all($imgLst , MYSQLI_ASSOC);	//Respuesta SQL como array asociativo.
 
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/getTraduccion.php';
 
-	$i=0;
-	while(isset($imgLst[$i]))
+	if(isset($imgLst[0]))
 	{
-		$imgAct=& $imgLst[$i];
-
-		$imgAct['TituloCon']=getTraduccion($imgAct['TituloID'] , $_SESSION['lang']);
-		$imgAct['AltCon']=getTraduccion($imgAct['AltID'] , $_SESSION['lang']);
-		$imgAct['Fecha']=new DateTime(date($imgAct['Fecha']));
-		$imgAct['Fecha']=$imgAct['Fecha']->format('Y-m-d');
-		
-		$imgAct['afectado']=false;
-		
-		if(isset($formGal))
+		$i=0;
+		while(isset($imgLst[$i]))
 		{
-			$imgAct['formBuilder']=$formGal;
+			$imgAct=& $imgLst[$i];
+
+			$imgAct['TituloCon']=getTraduccion($imgAct['TituloID'] , $_SESSION['lang']);
+			$imgAct['AltCon']=getTraduccion($imgAct['AltID'] , $_SESSION['lang']);
+			$imgAct['Fecha']=new DateTime(date($imgAct['Fecha']));
+			$imgAct['Fecha']=$imgAct['Fecha']->format('Y-m-d');
+			
+			$imgAct['afectado']=false;
+			
+			if(isset($formGal))
+			{
+				$imgAct['formBuilder']=$formGal;
+			}
+			if
+			(
+				!empty($formGalRecv->afectados) &&
+				in_array($imgAct['ID'], $formGalRecv->afectados)
+			)
+			{
+				$imgAct['afectado']=true;
+			}
+
+			++$i;
 		}
-		if
+
+		$Gal=new Gal_HTML
 		(
-			!empty($formGalRecv->afectados) &&
-			in_array($imgAct['ID'], $formGalRecv->afectados)
-		)
+			$imgLst,
+			new Include_Context($_SERVER['DOCUMENT_ROOT'] . '/esq/gal_img.php')
+		);
+		//Genero el código HTML de la galería.
+		$Gal->gen();
+		if($limit!==false && isset($imgLst[$limit-1]))
 		{
-			$imgAct['afectado']=true;
+			?>
+				<div class="ver-mas">
+					<a href="/?vRecID=<?php echo $this->secID?>" ><?php echo gettext('Ver todas las imágenes') ?></a>
+				</div>
+			<?php
 		}
-
-		++$i;
 	}
-
-	$Gal=new Gal_HTML
-	(
-		$imgLst,
-		new Include_Context($_SERVER['DOCUMENT_ROOT'] . '/esq/gal_img.php')
-	);
-	//Genero el código HTML de la galería.
-	$Gal->gen();
-	if($limit!==false && isset($imgLst[$limit-1]))
+	else
 	{
 		?>
-			<div class="ver-mas">
-				<a href="/?vRecID=<?php echo $this->secID?>" ><?php echo gettext('Ver todas las imágenes') ?></a>
-			</div>
+			<p>
+				<?php echo gettext('Sin Imágenes')?>
+			</p>
 		<?php
 	}
 

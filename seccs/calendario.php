@@ -22,11 +22,6 @@ start_session_if_not();
 ?>
 <!--	:::::::::Calendario:::::::::	-->
 <div class='calendario' id='cal'>
-	<h1 class='titulo'>
-		<?php
-			echo $GenHTML->ano(); 
-		?>
-	</h1>
 		<?php
 			if(!empty($_SESSION['adminID']))
 			{
@@ -188,22 +183,29 @@ start_session_if_not();
 				ob_end_clean();
 			}
 
+			?>
+				<h2 class='offscreen'> <?php gettext('Calendario de eventos')?></h2>
+			<?php
+
 			if(isset($mes))
 			{
 				?>
+					<h2 class='offscreen'> <?php gettext('Referencias del calendario')?></h2>
 					<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
 						<?php $GenHTML->genTable() ?>
 
 						<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 hidden-screader">
 							<div class="calRef">
 								<span><?php echo gettext('Evento') ?></span>
-								<span class="evento"></span>
+								<span class="evento"><span class="offscreen"><?php echo gettext('Con azul')?></span></span>
 							</div>
 						</div>
 						<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 hidden-screader">
 							<div class="calRef">
 								<span><?php echo gettext('Dia Actual')?></span>
-								<span class="hoy"></span>
+								<span class="hoy">
+									<span class="offscreen"><?php echo gettext('Con azul')?></span>
+								</span>
 							</div>
 						</div>
 					</div>
@@ -242,10 +244,10 @@ start_session_if_not();
 				<!--Contenedor de la descripción de la mitad del ancho. -->
 				<div class="desc col-xs-12 col-sm-6 col-md-6 col-lg-6">
 					<ul>
-
-				<?php
-					echo $desc;
-				?>
-				</ul>
+						<h2 class='offscreen'><?php gettext('Lista de eventos')?></h2>
+						<?php
+							echo $desc;
+						?>
+					</ul>
 			</div>
 </div>

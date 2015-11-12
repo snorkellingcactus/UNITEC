@@ -6,7 +6,7 @@
 //error_reporting(E_ALL & ~E_DEPRECATED  & ~E_STRICT);
 ini_set("display_errors", "On");
 
-include_once($_SERVER['DOCUMENT_ROOT'] . '/php/setLang.php');
+include_once $_SERVER['DOCUMENT_ROOT'] . '/php/setLang.php';
 
 
 if(isset($_GET['sesdest']))
@@ -280,19 +280,82 @@ $lang=getenv('LANG');
 					include_once $_SERVER['DOCUMENT_ROOT'] . '/php/FormCliRecv.php';
 					include_once $_SERVER['DOCUMENT_ROOT'] . '/php/Include_Context.php';
 
-					$contacto=new Include_Context($_SERVER['DOCUMENT_ROOT'] . '/seccs/contacto.php');
-					$contacto->getContent();
+					$contacto=new Include_Context($_SERVER['DOCUMENT_ROOT'] . '/seccs/contacto.php');					
 
 					$formSecRecv=new FormCliRecv('Mail');
 					$formSecRecv->SQL_Evts=false;
 					$formSecRecv->checks();
 
 					$mapa=new Include_Context($_SERVER['DOCUMENT_ROOT'] . '/seccs/mapa.php');
-					$mapa->getContent();
-
+					
 					$formSecRecv=new FormCliRecv('Maps');
 					$formSecRecv->SQL_Evts=false;
 					$formSecRecv->checks();
+
+					if(isset($_SESSION['lab']))
+					{
+					    include_once $_SERVER['DOCUMENT_ROOT'] . '/php/Laboratorio.php';
+					    include_once $_SERVER['DOCUMENT_ROOT'] . '/php/getTraduccion.php';
+
+					    $lab=new Laboratorio();
+					    $lab->getSQL(['ID'=>$_SESSION['lab']]);
+
+					    $contacto->labName=getTraduccion($lab->NombreID , $_SESSION['lang']);
+
+					    $info=
+					    [
+					        'DireccionID' =>$lab->DireccionID,
+					        'Mail'=>$lab->Mail ,
+					        'Telefono'=> $lab->Telefono,
+					        'Latitud'=> $lab->Latitud,
+					        'Longitud'=> $lab->Longitud
+					    ];
+
+					    $social=
+					    [
+					        'Facebook' => $lab->Facebook,
+					        'Twitter' => $lab->Twitter,
+					    ];
+
+					    function replaceIfEmpty(&$array , $lab)
+					    {
+					        foreach($array as $clave=>$valor)
+					        {
+					            if(empty($valor))
+					            {
+					                $array[$clave]=$lab->$clave;
+					            }
+					        }
+					    }
+					    $defaultLab=getDefaultLab()[0]['ID'];
+
+
+
+					    if($lab->ID!=$defaultLab)
+					    {
+					        $lab->getSQL
+					        (
+					            ['ID'=>$defaultLab]
+					        );
+
+					        replaceIfEmpty($info , $lab);
+					        replaceIfEmpty($social , $lab);
+					    }
+
+					    $info['DireccionID']=getTraduccion($info['DireccionID'] , $_SESSION['lang']);
+					    
+					    $mapa->latLong=$info['Latitud'].' , '.$info['Longitud'];
+					    $contacto->info=$info;
+					    $contacto->social=$social;
+					}
+					else
+					{
+					    echo '<pre>NoLab!';
+					    echo '</pre>';
+					}
+
+					$contacto->getContent();
+					$mapa->getContent();
 				?>
 				<div class="clearfix"></div>
 				<small>Powered by Bootstrap</small>

@@ -1,23 +1,8 @@
 <!-- <script type="text/javascript" src="js/mapa.js"></script> -->
 <!-- Sacado de http://jafrancov.com/2011/12/trazar-rutas-gmaps-api-v3/ -->
-<?php
-/*
-if(isset($_SESSION['lab']))
-{
-    echo '<pre>Lab!';
-    print_r($_SESSION['lab']);
-    echo '</pre>';
-}
-else
-{
-    echo '<pre>NoLab!';
-    echo '</pre>';
-}
-*/
-?>
 <div class="contenedor">
-    <img id="map-canvas" class="map-canvas" src="https://maps.googleapis.com/maps/api/staticmap?center=-34.90693 , -57.94290&zoom=17&size=500x500&maptype=roadmap
-&markers=color:red%7Clabel:A%7C-34.90693 , -57.94290&key=AIzaSyAc98zfTPT0nZTSERA7bEgBdPiyI6kM6hk" alt="<?php echo gettext('Mapa de la ubicación de unitec')?>">
+    <img id="map-canvas" class="map-canvas" src="https://maps.googleapis.com/maps/api/staticmap?center=<?php echo  $this->latLong ?>&zoom=17&size=500x500&maptype=roadmap
+&markers=color:red%7Clabel:A%7C<?php echo  $this->latLong ?>&key=AIzaSyAc98zfTPT0nZTSERA7bEgBdPiyI6kM6hk" alt="<?php echo sprintf(gettext('Mapa de la ubicación de %s') , $this->labName)?>">
 </div>
 
 <div id="gmapsDiag" class="col-xs-12 col-sm-6 col-md-6 col-lg-6 contenedor">

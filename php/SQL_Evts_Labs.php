@@ -22,6 +22,7 @@
 			$lab=new Laboratorio
 			(
 				[
+					'Telefono'=>$_POST['Telefono'][0],
 					'Enlace'=>intVal($_POST['Enlace'][0]),
 					'Latitud'=>$_POST['Latitud'][0],
 					'Longitud'=>$_POST['Longitud'][0],
@@ -60,6 +61,7 @@
 			$lab->getAsoc
 			(
 				[
+					'Telefono'=>$_POST['Telefono'][0],
 					'Enlace'=>intVal($_POST['Enlace'][0]),
 					'Latitud'=>$_POST['Latitud'][0],
 					'Longitud'=>$_POST['Longitud'][0],

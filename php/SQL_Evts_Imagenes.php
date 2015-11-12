@@ -160,7 +160,7 @@
 
 				if(!empty($_POST['Tags'][$i]))
 				{
-					$nImg->updTagsTargets($_POST['Tags'][$i]);
+					$img->updTagsTargets($_POST['Tags'][$i]);
 				}
 
 				if(!empty($_FILES['File']['name'][$i]))

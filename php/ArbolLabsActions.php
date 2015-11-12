@@ -30,7 +30,7 @@
 				getTraduccion($child['NombreID'] , $_SESSION['lang']),
 				$child['Color']
 			);
-			if(intVal($child['Enlace']))
+			if(intVal($child['Enlace']) && $child['ID']!==$_SESSION['lab'])
 			{
 				$li->setLink($child['Texto']);
 			}

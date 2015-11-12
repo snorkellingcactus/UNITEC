@@ -24,6 +24,10 @@
 	padding-left:15px;
 	padding-right:15px;
 }
+footer.header a
+{
+	float:none;
+}
 footer .footer
 {
 	padding-right:0px;
@@ -63,18 +67,31 @@ footer.header textarea
 {
 	color:black;
 }
-footer.header input, footer.header textarea
+footer div.social
 {
-	
+	margin-bottom:10px;
 }
-footer.header .social a
+footer.header p
 {
-	margin:5px;
-	border-radius:5px;
+	word-break: break-all;
+    word-wrap: break-word;
 }
-footer.header .social a:hover
+footer.header p i
 {
-	box-shadow:0px 0px 3px white;
+	letter-spacing:2px;
+	font-size:1.1em;
+}
+footer .clearboth
+{
+	clear:both;
+	display:block;
+}
+footer.header img.circulo,footer.header p img
+{
+	padding: 5px;
+	border-radius: 50%;
+	border:2px solid white;
+	margin-right:5px;
 }
 .header
 {
