@@ -4,7 +4,6 @@
 	{
 		$this->redirectToStepName('90_SQL_Evts.php');
 	}
-	echo '<pre>Labs!</pre>';
 
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormLabelUbicacion.php';
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormLabelDireccion.php';
@@ -15,6 +14,7 @@
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormLabelMail.php';
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormLabelFacebook.php';
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormLabelTwitter.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormLabelUrlNov.php';
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/VariablePost.php';
 
 	$ubicacion=new FormLabelUbicacion($this->form);
@@ -26,6 +26,7 @@
 	$mail=new FormLabelMail($this->form);
 	$facebook=new FormLabelFacebook($this->form);
 	$twitter=new FormLabelTwitter($this->form);
+	$archivo=new FormLabelUrlNov($this->form);
 
 	if($this->getAction()===0)
 	{
@@ -54,6 +55,12 @@
 		$mail->input->setValue($lab->Mail);
 		$facebook->input->setValue($lab->Facebook);
 		$twitter->input->setValue($lab->Twitter);
+
+		$file= '/img/logos/'.$_SESSION['conID'].'.png';
+		if(file_exists($_SERVER['DOCUMENT_ROOT'] . $file))
+		{
+			$archivo->input->setValue($file);
+		}
 	}
 	$this->form->appendChild
 	(
@@ -61,6 +68,9 @@
 	)->appendChild
 	(
 		$tag
+	)->appendChild
+	(
+		$archivo
 	)->appendChild
 	(
 		$mail

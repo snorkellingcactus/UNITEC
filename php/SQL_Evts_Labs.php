@@ -6,6 +6,45 @@
 
 	class SQL_Evts_Labs implements SQL_Evts_List
 	{
+		public function upload($labID)
+		{
+			if
+			(
+				!empty
+				(
+					trim
+					(
+						$_FILES['File']['name'][0]
+					)
+				)&&
+				!file_exists($_SERVER['DOCUMENT_ROOT'] . $_FILES['File']['name'][0])
+			)
+			{
+				$this->mkUrlArchivo
+				(
+					$labID ,
+					$_FILES['File']['name'][0],
+					$_FILES['File']['tmp_name'][0]
+				);
+			}
+		}
+		public function mkUrlArchivo($labID , $name , $tmpName)
+		{
+			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/uploadImgOk.php';
+			
+			if(uploadImgOk($name))
+			{
+				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/phpthumb/ThumbLib.inc.php';
+				
+				$thumb=PhpThumbFactory::create($tmpName , ['resizeUp'=>true]);
+
+				$thumb->resize(64 , 64)->save($_SERVER['DOCUMENT_ROOT'] . '/img/logos/'.$labID.'.png');
+
+				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/elimina.php';
+
+				elimina($tmpName , 0755);
+			}
+		}
 		public function nuevo()
 		{
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/conexion.php';
@@ -39,6 +78,8 @@
 			);
 
 			$lab->insSQL();
+
+			$this->upload($lab->ID);
 
 			return [$lab->ID];
 		}
@@ -74,6 +115,8 @@
 			);
 
 			$lab->updSQL(false , ['ID']);
+
+			$this->upload($lab->ID);
 			
 			return [$lab->ID];
 		}

@@ -7,26 +7,9 @@
 		//
 		public function mkUrlArchivo($img , $name , $tmpName)
 		{
-			$uploadOk=false;
-				
-			$extension=strtolower
-			(
-				pathinfo
-				(
-					$name,
-					PATHINFO_EXTENSION
-				)
-			);
-			if
-			(
-				$extension=='png'	|| $extension=='jpg' ||
-				$extension=='jpeg'	|| $extension=='gif'
-			)
-			{
-				$uploadOk=true;
-			}
+			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/uploadImgOk.php';
 
-			if($uploadOk)
+			if(uploadImgOk($name))
 			{
 				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/phpthumb/ThumbLib.inc.php';
 				
@@ -163,7 +146,7 @@
 					$img->updTagsTargets($_POST['Tags'][$i]);
 				}
 
-				if(!empty($_FILES['File']['name'][$i]))
+				if(!empty(trim($_FILES['File']['name'][$i])))
 				{
 					$this->mkUrlArchivo
 					(
