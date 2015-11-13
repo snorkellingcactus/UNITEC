@@ -78,7 +78,7 @@
 				<td scope="col">
 					<?php echo $accesStr ?>
 					<span class="atajo">
-						i
+						I
 					</span>
 				</td>
 			</tr>

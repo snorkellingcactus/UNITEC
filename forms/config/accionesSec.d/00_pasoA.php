@@ -1,4 +1,8 @@
 <?php
+	if($this->getAction()===2)
+	{
+		$this->redirectToStepName('90_SQL_Evts.php');
+	}
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormLabelLugar.php';
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/ClearFix.php';
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormLabelVisible.php';
