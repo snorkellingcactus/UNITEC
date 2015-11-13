@@ -7,6 +7,8 @@
 	$selectLugar=new FormLabelLugar($this->form);
 	$visible=new FormLabelVisible($this->form);
 	$labelTags=new FormLabelTags($this->form);
+	
+	$visible->input->default=1;
 
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/conexion.php';
 	global $con;
@@ -253,20 +255,14 @@
 
 				if(isset($opcGrpID[0][1]))
 				{
-					echo '<pre>Exite un OpcSetsGrpID';
-					echo '</pre>';
+					//echo '<pre>Exite un OpcSetsGrpID';echo '</pre>';
 
 					$valor=getVal($opcion['ID'] , $opcGrpID[0][1]);
 
 					if(isset($valor[0][0]))
 					{
 						$valor=$valor[0][0];
-						echo '<pre>Valor seteado:';
-						print_r
-						(
-							$valor
-						);
-						echo '</pre>';
+						//echo '<pre>Valor seteado:';print_r($valor);echo '</pre>';
 					}
 					else
 					{
@@ -275,13 +271,14 @@
 				}
 				if(isset($opcion['Predeterminado']))
 				{
+/*
 					echo '<pre>Valor predeterminado:';
 					print_r
 					(
 						$opcion['Predeterminado']
 					);
 					echo '</pre>';
-
+*/
 					$default=$opcion['Predeterminado'];
 				}
 

@@ -184,14 +184,14 @@ start_session_if_not();
 			}
 
 			?>
-				<h2 class='offscreen'> <?php gettext('Calendario de eventos')?></h2>
+				<h2 class='offscreen'> <?php echo gettext('Calendario de eventos')?></h2>
 			<?php
 
 			if(isset($mes))
 			{
 				?>
-					<h2 class='offscreen'> <?php gettext('Referencias del calendario')?></h2>
-					<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+					<h2 class='offscreen'> <?php echo gettext('Referencias del calendario')?></h2>
+					<div class="col-xs-12 col-sm-7 col-md-7 col-lg-7">
 						<?php $GenHTML->genTable() ?>
 
 						<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 hidden-screader">
@@ -242,7 +242,7 @@ start_session_if_not();
 				?>
 				<div class="clearfix visible-xs"></div>
 				<!--Contenedor de la descripción de la mitad del ancho. -->
-				<div class="desc col-xs-12 col-sm-6 col-md-6 col-lg-6">
+				<div class="desc col-xs-12 col-sm-5 col-md-5 col-lg-5">
 					<ul>
 						<h2 class='offscreen'><?php gettext('Lista de eventos')?></h2>
 						<?php

@@ -4,7 +4,7 @@
 
 	class FormCliAdmSec extends FormCliAdmRight
 	{
-		function __construct($formDirName , $tipo , $orden , $id)
+		function __construct($formDirName , $tipo , $orden , $id , $visible)
 		{
 			parent::__construct($formDirName);
 
@@ -22,6 +22,13 @@
 			(
 				$varConID->setMulti(0)
 			);
+
+			if(!$visible)
+			{
+				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/edicion/FormCliHidden.php';
+
+				$this->buttons->appendChild(new FormCliHidden());
+			}
 		}
 	}
 ?>

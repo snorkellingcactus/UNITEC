@@ -34,6 +34,11 @@
 				<?php
 					include_once $_SERVER['DOCUMENT_ROOT'] . '/php/reordena.php';
 
+					$condVisible='';
+					if(!isset($_SESSION['adminID']))
+					{
+						$condVisible='AND Visible=1';
+					}
 
 					$opciones=getPriorizados
 					(
@@ -47,7 +52,7 @@
 									LEFT OUTER JOIN Laboratorios
 									ON Laboratorios.ID='.$_SESSION['lab'].'
 									WHERE TagsTarget.TagID=Laboratorios.TagID
-								'
+								'.$condVisible
 							),
 							MYSQLI_ASSOC
 						)
@@ -103,7 +108,7 @@
 										{
 											//$formMenu->fId='nMenu'.$s;
 											//$formMenu->buildActionForm($opcion['ContenidoID'] , 'opc' , $s);
-											$jj=new FormCliMenuOpc($opcion['ContenidoID'] , $s);
+											$jj=new FormCliMenuOpc($opcion['ContenidoID'] , $s , $opcion['Visible']);
 											echo $jj->getHTML();
 										}
 									?>

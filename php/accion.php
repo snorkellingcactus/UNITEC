@@ -11,8 +11,9 @@
 
 	$formHandler=new FormSrvBuilder();
 
+	$lang=substr(getenv('LANG'), 0 , 2);
 	?>
-		<html lang="es">
+		<html lang="<?php echo $lang?>">
 			<head>
 				<meta charset="utf-8" />
 

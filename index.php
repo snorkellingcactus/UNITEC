@@ -57,11 +57,15 @@ if($_SESSION['lab']===false && isset($_SESSION['adminID']))
 
 	detectLab();
 }
+else
+{
+	$logo='/img/logos/'.$_SESSION['lab'].'.png';
+}
 
 include_once($_SERVER['DOCUMENT_ROOT'] . '/php/conexion.php');
 global $con;
 
-$lang=getenv('LANG');
+$lang=substr(getenv('LANG'), 0 , 2);
 
 ?>
 <html lang="<?php echo $lang?>">
@@ -71,8 +75,8 @@ $lang=getenv('LANG');
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
     
-		<link rel="icon" type="image/png" href="/img/unitec-favicon.png"  />
-		<link rel="shortcut icon" type="image/ico" href="/img/unitec-favicon.ico"  />
+		<link rel="icon" type="image/png" href="<?php echo $logo?>"  />
+		<link rel="shortcut icon" type="image/ico" href="<?php echo $logo?>"  />
 		<link rel="stylesheet" type="text/css" href="/index.css" />
 		<link rel="stylesheet" type="text/css" href="/forms/forms.css" />
 		<link rel="stylesheet" type="text/css" href="/header.css" />
@@ -177,7 +181,7 @@ $lang=getenv('LANG');
 						for($i=0;$i<$iMax;$i++)
 						{
 							$langAct=$consulta[$i];
-							$langShort=$langAct['Pais'];
+							$langShort=substr($langAct['Pais'] , 0 , 2);
 							?>
 								<li role="menuitem">
 									<?php
@@ -225,6 +229,12 @@ $lang=getenv('LANG');
 					include_once $_SERVER['DOCUMENT_ROOT'] . '/php/seccionesHTML.php';
 					include_once $_SERVER['DOCUMENT_ROOT'] . '/php/reordena.php';
 
+					$condVisible='';
+					if(!isset($_SESSION['adminID']))
+					{
+						$condVisible='AND Visible=1';
+					}
+
 					//Obtengo las opciones.
 
 					seccionesHTML
@@ -243,7 +253,7 @@ $lang=getenv('LANG');
 										ON Laboratorios.ID='.$_SESSION['lab'].'
 										WHERE '.$condicion.'
 										AND TagsTarget.TagID=Laboratorios.TagID
-									'
+										'.$condVisible
 								),
 								MYSQLI_ASSOC
 							)

@@ -5,9 +5,9 @@
 	
 	class FormCliMenuOpc extends FormCliAdmSec
 	{
-		function __construct($id , $num)
+		function __construct($id , $num, $visible)
 		{
-			parent::__construct('accionesMenu' , 'opc' , $num , $id);
+			parent::__construct('accionesMenu' , 'opc' , $num , $id , $visible);
 
 			$this->buttons->appendChild
 			(

@@ -55,12 +55,14 @@
 					<?php
 						if(isset($_SESSION['adminID']))
 						{
-							$formCliColSec=new FormCliColSec($seccion['ID'] , $s);
+							$formCliColSec=new FormCliColSec($seccion['ID'] , $s , $seccion['Visible']);
 							echo $formCliColSec->getHTML();
 						}
 					?>
 				</div>
 			<?php
+			//Revisar.A futuro seleccionar Seccion.Visible y discriminarlo SOLO si
+			//existe o no adminID.
 
 			$includes=getPriorizados
 			(
@@ -131,7 +133,7 @@
 							<?php
 								if(!empty($_SESSION['adminID']))
 								{
-									$formCliCon=new FormCliCon($include['ID'] , $f);
+									$formCliCon=new FormCliCon($include['ID'] , $f , $include['Visible']);
 
 									echo $sep->getHTML();
 									echo $formCliCon->getHTML();
@@ -183,7 +185,7 @@
 								{
 									//$formSec->buildActionForm($include['ID'] , 'inc' , $f);
 									echo $sep->getHTML();
-									$formCliInc=new FormCliInc($include['ID'] , $f);
+									$formCliInc=new FormCliInc($include['ID'] , $f , $include['Visible']);
 									echo $formCliInc->getHTML();
 								}
 								$inc=new Include_Context($include['Archivo']);

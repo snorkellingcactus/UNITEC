@@ -5,7 +5,7 @@
 
 	class FormCliColSec extends FormCliColAB
 	{
-		function __construct($id , $orden)
+		function __construct($id , $orden , $visible)
 		{
 			parent::__construct();
 
@@ -14,7 +14,7 @@
 				new FormCliSecNew($id)
 			)->setColB
 			(
-				new FormCliSec($id , $orden)
+				new FormCliSec($id , $orden , $visible)
 			);
 		}
 	}

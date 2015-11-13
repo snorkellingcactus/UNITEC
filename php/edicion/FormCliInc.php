@@ -5,9 +5,9 @@
 
 	class FormCliInc extends FormCliAdmSec
 	{
-		function __construct($id , $num)
+		function __construct($id , $num , $visible)
 		{
-			parent::__construct('accionesSec' , 'inc' , $num , $id);
+			parent::__construct('accionesSec' , 'inc' , $num , $id , $visible);
 
 			$this->buttons->appendChild
 			(

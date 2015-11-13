@@ -27,6 +27,8 @@
 	$visible=new FormLabelVisible($this->form);
 	$tags=new FormLabelTags($this->form);
 
+	$visible->input->default=1;
+
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/conexion.php';
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/getTraduccion.php';
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/nTag.php';
@@ -51,7 +53,7 @@
 		)[0];
 */
 		$url->input->setValue($opcion->Url);
-		$visible->input->selectedValue=$opcion->Visible;
+		$visible->input->default=$opcion->Visible;
 		//$this->form->autocomp['Prioridad']=$opcion['Prioridad'];
 		$titulo->input->setValue
 		(

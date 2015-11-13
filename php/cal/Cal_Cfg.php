@@ -22,7 +22,7 @@ class Cal_Cfg
 			gettext('Miércoles'),
 			gettext('Jueves'),
 			gettext('Viernes'),
-			gettext('Sabado')
+			gettext('Sábado')
 		];
 		$this->meses=
 		[

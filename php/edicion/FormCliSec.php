@@ -5,9 +5,9 @@
 
 	class FormCliSec extends FormCliAdmSec
 	{
-		function __construct($id , $orden)
+		function __construct($id , $orden , $visible)
 		{
-			parent::__construct('accionesSec' , 'sec' , $orden , $id);
+			parent::__construct('accionesSec' , 'sec' , $orden , $id , $visible);
 
 			$this->buttons->appendChild
 			(

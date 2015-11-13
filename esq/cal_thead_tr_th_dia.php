@@ -1,10 +1,5 @@
-<th scope="col" abbr="<?php echo $esq->nomDia ?>">
+<th>
 	<?php 
-		echo substr
-		(
-			$esq->nomDia,
-			0,
-			2
-		);
+		echo $esq->nomDia
 	?>
 </th>
