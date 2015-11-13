@@ -42,22 +42,6 @@
 		$condVisible='AND Secciones.Visible=1';
 	}
 
-	echo '<pre>';
-	print_r
-	(
-		'	SELECT Menu.Atajo , Menu.ContenidoID, Menu.SeccionID
-			FROM Menu
-			LEFT OUTER JOIN Secciones
-			ON Secciones.HTMLID=Menu.SeccionID '.$condVisible.'
-			LEFT OUTER JOIN TagsTarget
-			ON TagsTarget.GrupoID=Secciones.TagsGrpID
-			LEFT OUTER JOIN Laboratorios
-			ON Laboratorios.ID='.$_SESSION['lab'].'
-			WHERE TagsTarget.TagID=Laboratorios.TagID
-			AND Menu.Atajo IS NOT NULL
-		'
-	);
-	echo '</pre>';
 	$atajos=fetch_all
 	(
 		$con->query
