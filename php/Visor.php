@@ -4,6 +4,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/DOMTagContainer.php';
 include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/DOMTag.php';
 include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/ClearFix.php';
 include_once $_SERVER['DOCUMENT_ROOT'] . '/php/getTraduccion.php';
+include_once $_SERVER['DOCUMENT_ROOT'] . '/php/getLab.php';
 
 
 class Visor extends Desplazador
@@ -151,6 +152,7 @@ class VisorHTMLBase extends Visor
 	public $img;
 	public $thumbPathA;
 	public $thumbExt;
+	public $lName;
 
 	function __construct()
 	{
@@ -159,8 +161,10 @@ class VisorHTMLBase extends Visor
 		$this->html=new DOMTagContainer();
 		$this->img=new DOMTag('img');
 
+		$this->lName=$lName=getLabName();
 		$this->thumbPathA='/img/miniaturas/visor/';
 		$this->thumbExt='.png';
+
 	}
 	public function formatUrlA($id)
 	{
@@ -276,7 +280,6 @@ class VisorImagenes extends VisorHTMLBase
 	public $imgAnt;
 	public $selector;
 	public $thumbPathB;
-	
 
 	function __construct()
 	{
@@ -343,7 +346,7 @@ class VisorImagenes extends VisorHTMLBase
 			$a->setAttribute
 			(
 				'href',
-				'/galeria/'.$fecha->format('Y-m-d').'/'.urlencode($titulo).'-'.$rec.'&vRecIDAnt='.$this->discVal
+				'/espacios/'.$this->lName.'/galeria/'.$fecha->format('Y-m-d').'/'.urlencode($titulo).'-'.$rec.'&vRecIDAnt='.$this->discVal
 			);
 		}
 /*

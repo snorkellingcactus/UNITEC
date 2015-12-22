@@ -89,33 +89,40 @@ $lang=substr(getenv('LANG'), 0 , 2);
 				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/head_include.php';
 				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/getTraduccion.php';
 
-				$headers=$con->query
+				$headers=fetch_all
 				(
-					'	SELECT Modulos.Archivo FROM Modulos ,
-							(
-								SELECT Secciones.ModuloID FROM `Secciones` , 
+					$con->query
+					(
+						'	SELECT Modulos.Archivo FROM Modulos ,
 								(
-									SELECT ID from Secciones
-									WHERE PadreID IS NULL
-								) AS Secs
-								WHERE Secciones.PadreID=Secs.ID
-								AND Secciones.ModuloID IS NOT NULL
-							) AS sub 
-							WHERE Modulos.PadreID=sub.ModuloID
-					'
+									SELECT Secciones.ModuloID FROM `Secciones` , 
+									(
+										SELECT ID from Secciones
+										WHERE PadreID IS NULL
+									) AS Secs
+									WHERE Secciones.PadreID=Secs.ID
+									AND Secciones.ModuloID IS NOT NULL
+								) AS sub 
+								WHERE Modulos.PadreID=sub.ModuloID
+						'
+					),
+					MYSQLI_NUM
 				);
-				$headers=fetch_all($headers , MYSQLI_NUM);
-
 /*
 				echo '<pre>Archivos de cabecera:';
 				print_r($headers);
 				echo '</pre>';
 */
-				$hMax=count($headers);
 
-				for($h=0;$h<$hMax;$h++)
+
+				$h=0;
+				while(isset($headers[$h]))
 				{
-					head_include($header=$headers[$h][0]);
+					head_include
+					(
+						$headers[$h][0]
+					);
+					++$h;
 				}
 
 				$titulo=getTraduccion
@@ -146,16 +153,6 @@ $lang=substr(getenv('LANG'), 0 , 2);
 		<title><?php echo $titulo?></title>
 	</head>
 	<body onLoad="JavaScript:inicializa()" tabindex="1">
-		<?php
-/*
-			echo '<pre>SESSION:';
-			print_r
-			(
-				$_SESSION
-			);	
-			echo '</pre>';
-*/
-		?>
 
 		<!--:::::::::::::::Atajos de teclado:::::::::::::::-->
 
@@ -311,6 +308,7 @@ $lang=substr(getenv('LANG'), 0 , 2);
 					    $lab->getSQL(['ID'=>$_SESSION['lab']]);
 
 					    $contacto->labName=getTraduccion($lab->NombreID , $_SESSION['lang']);
+					    $mapa->labName=$contacto->labName;
 
 					    $info=
 					    [
@@ -358,12 +356,13 @@ $lang=substr(getenv('LANG'), 0 , 2);
 					    $contacto->info=$info;
 					    $contacto->social=$social;
 					}
+/*
 					else
 					{
 					    echo '<pre>NoLab!';
 					    echo '</pre>';
 					}
-
+*/
 					$contacto->getContent();
 					$mapa->getContent();
 				?>

@@ -1,19 +1,20 @@
+
 RewriteEngine on
 
-RewriteRule ^galeria/$ imagenes.php [L]
+RewriteRule ^espacios/([a-z\s]+)[/]?$ /?lab=$1 [NC,L]
+RewriteRule ^espacios/([a-z\s]+)(.*)$ lab=$1&$2 [NC,DPI]
 
-RewriteRule ^galeria/([0-9]+-[0-9]+-[0-9]+)/(.*)-([0-9]+)&(vRecIDAnt=[0-9]+)*$ imagenes.php?date=$1&title=$2&vRecID=$3&$4 [L]
+#RewriteRule (.*)[/]+?galeria[/]?$ imagenes.php?$1 [NC,L]
 
-RewriteRule ^galeria/([0-9]+-[0-9]+-[0-9]+)/(.*)-([0-9]+)$ imagenes.php?date=$1&title=$2&vRecID=$3 [L]
+RewriteRule (.*)[/]+?galeria/([0-9]+-[0-9]+-[0-9]+)/(.*)-([0-9]+)$ imagenes.php?$1date=$2&title=$3&vRecID=$4 [NC,L]
 
-RewriteRule ^novedades/$ novedades.php [L]
+RewriteRule (.*)[/]+?galeria/([0-9]+-[0-9]+-[0-9]+)/(.*)-([0-9]+)[&\(vRecIDAnt=\[0-9\]+\)]+?$ imagenes.php?$1date=$2&title=$3&vRecID=$4$5 [NC,L]
 
-RewriteRule ^novedades/([0-9]+-[0-9]+-[0-9]+)/(.*)-([0-9]+)&(vRecIDAnt=[0-9]+)*$ novedades.php?date=$1&title=$2&vRecID=$3&$4 [L]
+#RewriteRule (.*)[/]+?novedades[/]?$ novedades.php?$1 [NC,L]
 
-RewriteRule ^novedades/([0-9]+-[0-9]+-[0-9]+)/(.*)-([0-9]+)$ novedades.php?date=$1&title=$2&vRecID=$3 [L]
+RewriteRule (.*)[/]+?novedades/([0-9]+-[0-9]+-[0-9]+)/(.*)-([0-9]+)$ novedades.php?$1date=$2&title=$3&vRecID=$4 [NC,L]
 
-RewriteRule ^espacios/(.*)$ index.php?lab=$1 [L]
-RewriteRule ^espacios/(.*)/(.*)$ /$2?lab=$1 [L]
+RewriteRule (.*)[/]+?novedades/([0-9]+-[0-9]+-[0-9]+)/(.*)-([0-9]+)&(vRecIDAnt=[0-9]+)*$ novedades.php?$1date=$2&title=$3&vRecID=$4$5 [NC,L]
 
 ## Set the response header if the "nocache" environment variable is set
 ## in the RewriteRule above.

@@ -58,24 +58,28 @@
 	{
 		$limit=$limitStr=false;
 	}
-	
-	$imgLst=$con->query
+
+	$imgLst=fetch_all
 	(
-		'	SELECT Imagenes.*
-			FROM Imagenes
-			LEFT OUTER JOIN TagsTarget
-			ON TagsTarget.GrupoID=Imagenes.TagsGrpID
-			LEFT OUTER JOIN Laboratorios
-			ON Laboratorios.ID='.$_SESSION['lab'].'
-			WHERE TagsTarget.TagID=Laboratorios.TagID
-		'.$limitStr
-	);
-	$imgLst=fetch_all($imgLst , MYSQLI_ASSOC);	//Respuesta SQL como array asociativo.
+		$con->query
+		(
+			'	SELECT Imagenes.*
+				FROM Imagenes
+				LEFT OUTER JOIN TagsTarget
+				ON TagsTarget.GrupoID=Imagenes.TagsGrpID
+				LEFT OUTER JOIN Laboratorios
+				ON Laboratorios.ID='.$_SESSION['lab'].'
+				WHERE TagsTarget.TagID=Laboratorios.TagID
+			'.$limitStr
+		),
+		MYSQLI_ASSOC
+	);	//Respuesta SQL como array asociativo.
 
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/getTraduccion.php';
 
 	if(isset($imgLst[0]))
 	{
+		$lName=getLabName();
 		$i=0;
 		while(isset($imgLst[$i]))
 		{
@@ -85,6 +89,7 @@
 			$imgAct['AltCon']=getTraduccion($imgAct['AltID'] , $_SESSION['lang']);
 			$imgAct['Fecha']=new DateTime(date($imgAct['Fecha']));
 			$imgAct['Fecha']=$imgAct['Fecha']->format('Y-m-d');
+			$imgAct['lName']=$lName;
 			
 			$imgAct['afectado']=false;
 			

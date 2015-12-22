@@ -10,17 +10,7 @@
 	global $con;
 	if($_SESSION['lab']!==false)
 	{
-		$labName=fetch_all
-		(
-			$con->query
-			(
-				'	SELECT Laboratorios.NombreID
-					FROM Laboratorios
-					WHERE ID='.$_SESSION['lab']
-			),
-			MYSQLI_NUM
-		)[0][0];
-		$labName=getTraduccion($labName, $_SESSION['lang']);
+		$labName=getLabName();
 	}
 	else
 	{

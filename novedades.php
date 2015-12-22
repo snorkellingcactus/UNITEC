@@ -24,6 +24,10 @@
 	include_once($_SERVER['DOCUMENT_ROOT'] . '/php/setLang.php');
 	detectLang();
 
+	echo '<pre>GET:';
+	print_r($_GET);
+	echo '</pre>';
+
 	$recLst=fetch_all
 	(
 		$con->query

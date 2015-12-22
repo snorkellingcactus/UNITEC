@@ -130,4 +130,22 @@
 			MYSQLI_ASSOC
 		);
 	}
+	function getLabName()
+	{
+		global $con;
+		return getTraduccion
+		(
+			fetch_all
+			(
+				$con->query
+				(
+					'	SELECT Laboratorios.NombreID
+						FROM Laboratorios
+						WHERE ID='.$_SESSION['lab']
+				),
+				MYSQLI_NUM
+			)[0][0],
+			$_SESSION['lang']
+		);
+	}
 ?>

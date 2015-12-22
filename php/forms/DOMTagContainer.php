@@ -63,7 +63,7 @@
 				$this->tag
 			);
 
-			if($res instanceof DOMTag)
+			if($res instanceof DOMTag || $res instanceof DOMTagBase)
 			{
 				//echo '<pre>'.$this->getName($this->tag).'->appendChild('.$this->getName($res).')</pre>';
 				$this->tag->appendChild
@@ -162,13 +162,17 @@
 			//echo '<pre>DOMTagContainer::createDoc()';echo '</pre>';
 			$this->domDoc=new DOMDocument('1.0' , 'UTF-8');
 		}
+		public function buildDoc()
+		{
+			$null=null;
+
+			$this->renderChilds($null , $null);
+		}
 		public function getHTML()
 		{
 			//echo '<pre>DOMTagContainer::getHTML()';
 			//echo '</pre>';
-			$null=null;
-
-			$this->renderChilds($null , $null);
+			$this->buildDoc();
 
 			$innerHTML = ""; 
 			$children  = $this->domDoc->childNodes;

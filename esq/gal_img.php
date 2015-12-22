@@ -26,7 +26,7 @@
 			echo $this->formBuilder->buildActionCheckBox($this->TituloID)->getHTML();
 		}
 	?>
-	<a href="<?php echo '/galeria/'.$this->Fecha.'/'.urlencode($this->TituloCon).'-'.$this->ID ?>" target="_blank">
+	<a href="<?php echo '/espacios/'.$this->lName.'/galeria/'.$this->Fecha.'/'.urlencode($this->TituloCon).'-'.$this->ID ?>" target="_blank">
 		<p>
 			<?php echo htmlentities($this->TituloCon) ?>
 			<span class="offscreen"><?php echo ' '.gettext('(se abre en nueva ventana)')?></span>
