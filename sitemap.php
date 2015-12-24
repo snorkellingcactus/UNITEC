@@ -152,6 +152,45 @@
 
 	$urlSet->appendChild($url);
 
+	$labs=fetch_all
+	(
+		$con->query
+		(
+			'	SELECT Laboratorios.NombreID
+				FROM Laboratorios
+				WHERE PadreID IS NOT NULL
+				AND Enlace=1
+			'
+		),
+		MYSQLI_NUM
+	);
+
+	$i=0;
+	while(isset($labs[$i]))
+	{
+		$urlSet->appendChild
+		(
+			new SMapUrl
+			(
+				'http://'.$_SERVER['SERVER_NAME'].
+				'/espacios/'.
+				rawurlencode
+				(
+					strtolower
+					(
+						getTraduccion
+						(
+							$labs[$i][0],
+							$_SESSION['lang']
+						)
+					)
+				)
+			)
+		);
+
+		++$i;
+	}
+
 	$tables=['Imagenes' , 'Novedades'];
 	$urlNames=['galeria' , 'novedades'];
 	$labs=fetch_all

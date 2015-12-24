@@ -59,12 +59,12 @@
 			}
 			$Comentario->RaizID=$vRecID;
 			$Comentario->Fecha=$Fecha;
-	
+/*
 			echo '<pre>A insertar:';
 			print_r('<br>Comentario : ');
 			print_r($Comentario);
 			echo '</pre>';
-	
+*/
 			//Inserto el comentario en la BD.
 			$Comentario->insSQL();
 

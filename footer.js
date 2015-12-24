@@ -7,13 +7,13 @@ function inicializaGMaps()
   directionsService = new google.maps.DirectionsService();
   //pos=new google.maps.LatLng(-34.90693 , -57.94290);
 
-  pos=new google.maps.LatLng(-34.90693 , -57.94290);
+  //pos=new google.maps.LatLng(-34.90693 , -57.94290);
 
   imagenMapa=document.getElementById('map-canvas');
 
   //El punto central del mapa es la ubicación del laboratorio.
   //Obtengo el centro del mapa de la URL de la imagen.
-  var pos=getQueryVariable
+  pos=getQueryVariable
   (
     'center',
     imagenMapa.getAttribute('src').split('?')[1]

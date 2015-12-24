@@ -64,6 +64,28 @@ function setLangFromID($langID)
 		$domain
 	);
 }
+function setLangFromName($name)
+{
+	include_once($_SERVER['DOCUMENT_ROOT'] . '/php/conexion.php');
+	//unset($ro);
+
+	global $con;
+
+	return fetch_all
+	(
+		$con->query
+		(
+			'	SELECT Lenguajes.ID
+				FROM Lenguajes
+				WHERE Lenguajes.Nombre
+				LIKE "'.$name.'%"
+			'
+		),
+		MYSQLI_NUM
+	)[0][0];
+	
+}
+
 function detectLang()
 {
 	include_once($_SERVER['DOCUMENT_ROOT'] . '/php/is_session_started.php');
@@ -76,9 +98,21 @@ function detectLang()
 	}
 	if(isset($_GET['lang']))
 	{
-		$_SESSION['lang']=intVal($_GET['lang']);
-	}
+		$_SESSION['lang']=setLangFromName
+		(
+			urldecode
+			(
+				trim
+				(
+					$_GET['lang']
+				)
+			)
+		);
 
-	setLangFromID($_SESSION['lang']);
+	}
+	else
+	{
+		setLangFromID($_SESSION['lang']);
+	}
 }
 ?>

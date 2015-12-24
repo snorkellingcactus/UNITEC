@@ -1,20 +1,39 @@
 
 RewriteEngine on
 
-RewriteRule ^espacios/([a-z\s]+)[/]?$ /?lab=$1 [NC,L]
-RewriteRule ^espacios/([a-z\s]+)(.*)$ lab=$1&$2 [NC,DPI]
+RewriteCond %{REQUEST_URI}  !^(.*)img/(.*)$
+RewriteCond %{REQUEST_URI}  !^(.*)js/(.*)$
+RewriteRule ^([a-z]{2})/(.*)	$2&lang=$1 [NC,DPI]
+
+#RewriteRule	^es/(.*)	$1 [DPI]
+
+RewriteCond %{REQUEST_URI}  !^(.*)img/(.*)$
+RewriteRule (.*)[/]?galeria[/]+?(.*) $1imagenes.php$2 [DPI]
+
+RewriteRule (.*)[/]?novedades/(.*) $1novedades.php$2
+#RewriteRule	(.*)(&VRecIDAnt=[0-9]*)(.*) $1$3$2
+
+RewriteCond %{REQUEST_URI}  !^(.*)img/(.*)$
+RewriteRule (.*)([0-9]{4}-[0-9]+-[0-9]+)/(.*)-([0-9]+)(.*) $1&date=$2&title=$3&vRecID=$4$5 [NC,DPI]
+
+RewriteCond %{REQUEST_URI}  !^(.*)img/(.*)$
+RewriteRule (.*)espacios/([a-z\s]+)[/]*?(.*) $1$3&lab=$2 [NC,DPI]
+
+#RewriteCond (.*) &
+#RewriteCond (.*) !\?
+RewriteRule ^(.*)&(.*)$	/$1?$2 [L,QSA]
+
+#RewriteRule (.*)php&(.*)	$1php?$2 [L,QSA]
 
 #RewriteRule (.*)[/]+?galeria[/]?$ imagenes.php?$1 [NC,L]
 
-RewriteRule (.*)[/]+?galeria/([0-9]+-[0-9]+-[0-9]+)/(.*)-([0-9]+)$ imagenes.php?$1date=$2&title=$3&vRecID=$4 [NC,L]
-
-RewriteRule (.*)[/]+?galeria/([0-9]+-[0-9]+-[0-9]+)/(.*)-([0-9]+)[&\(vRecIDAnt=\[0-9\]+\)]+?$ imagenes.php?$1date=$2&title=$3&vRecID=$4$5 [NC,L]
+#RewriteRule (.*)[/]+?galeria/([0-9]+-[0-9]+-[0-9]+)/(.*)-([0-9]+)[&\(vRecIDAnt=\[0-9\]+\)]+?$ imagenes.php?$1date=$2&title=$3&vRecID=$4$5 [NC,L]
 
 #RewriteRule (.*)[/]+?novedades[/]?$ novedades.php?$1 [NC,L]
 
-RewriteRule (.*)[/]+?novedades/([0-9]+-[0-9]+-[0-9]+)/(.*)-([0-9]+)$ novedades.php?$1date=$2&title=$3&vRecID=$4 [NC,L]
+#RewriteRule (.*)[/]+?novedades/([0-9]+-[0-9]+-[0-9]+)/(.*)-([0-9]+)$ novedades.php?$1date=$2&title=$3&vRecID=$4 [NC,L]
 
-RewriteRule (.*)[/]+?novedades/([0-9]+-[0-9]+-[0-9]+)/(.*)-([0-9]+)&(vRecIDAnt=[0-9]+)*$ novedades.php?$1date=$2&title=$3&vRecID=$4$5 [NC,L]
+#RewriteRule (.*)[/]+?novedades/([0-9]+-[0-9]+-[0-9]+)/(.*)-([0-9]+)&(vRecIDAnt=[0-9]+)*$ novedades.php?$1date=$2&title=$3&vRecID=$4$5 [NC,L]
 
 ## Set the response header if the "nocache" environment variable is set
 ## in the RewriteRule above.

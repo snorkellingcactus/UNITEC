@@ -346,7 +346,7 @@ class VisorImagenes extends VisorHTMLBase
 			$a->setAttribute
 			(
 				'href',
-				'/espacios/'.$this->lName.'/galeria/'.$fecha->format('Y-m-d').'/'.urlencode($titulo).'-'.$rec.'&vRecIDAnt='.$this->discVal
+				'/'.substr(getenv('LANG'), 0 , 2).'/espacios/'.$this->lName.'/galeria/'.$fecha->format('Y-m-d').'/'.urlencode($titulo).'-'.$rec.'&vRecIDAnt='.$this->discVal
 			);
 		}
 /*
