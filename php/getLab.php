@@ -133,6 +133,12 @@
 	function getLabName()
 	{
 		global $con;
+		$labName=$_SESSION['lab'];
+
+		if(func_num_args())
+		{
+			$labName=func_get_args()[0];
+		}
 		return getTraduccion
 		(
 			fetch_all
@@ -141,7 +147,7 @@
 				(
 					'	SELECT Laboratorios.NombreID
 						FROM Laboratorios
-						WHERE ID='.$_SESSION['lab']
+						WHERE ID='.$labName
 				),
 				MYSQLI_NUM
 			)[0][0],

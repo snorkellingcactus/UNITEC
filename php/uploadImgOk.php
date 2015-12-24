@@ -1,6 +1,11 @@
 <?php
 	function uploadImgOk($name)
 	{
+		$name=trim($name);
+		if(empty($name))
+		{
+			return false;
+		}
 		$uploadOk=false;
 			
 		$extension=strtolower

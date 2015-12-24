@@ -40,6 +40,8 @@
 
 				$nImg->getSQL(['TituloID'=>$_SESSION['conID'][$i]]);
 
+/*
+				//¿Debería autocompletar las URLs?
 				if($nImg->Url!=='/img/miniaturas/galeria/'.$_POST['Url'][$i])
 				{
 					//echo '<pre>Intentando eliminar imagen</pre>';
@@ -48,7 +50,7 @@
 					elimina($_SERVER['DOCUMENT_ROOT'] . '/img/miniaturas/galeria/'.$nImg->ID.'.png' , 0775);
 					elimina($_SERVER['DOCUMENT_ROOT'] . '/img/miniaturas/visor/'.$nImg->ID.'.png' , 0775);
 				}
-
+*/
 
 				$nImg->getAsoc
 				(

@@ -1,4 +1,5 @@
 <?php
+/*
 include_once $_SERVER['DOCUMENT_ROOT'] . '/php/is_session_started.php';
 start_session_if_not();
 
@@ -29,4 +30,5 @@ if(!empty($_SESSION['adminID']))
 		elimina($img->Url , 0755);
 	}
 }
+*/
 ?>

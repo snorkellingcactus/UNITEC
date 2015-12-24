@@ -62,20 +62,25 @@
 	);
 ?>
 <div>
-	<table class="table atajos" summary="Atajos de teclado">
+	<!-- summary="Atajos de teclado" -->
+	<table class="table atajos">
 		<thead>
-			<th><?php echo gettext('Sección')?></th>
-			<th><?php echo gettext('Teclas')?></th>
+			<tr>
+				<th><?php echo gettext('Sección')?></th>
+				<th><?php echo gettext('Teclas')?></th>
+			</tr>
 		</thead>
 		<tbody>
 			<!-- Revisar -->
 			<tr>
-				<td scope="col">
+				<!-- scope="col" -->
+				<td >
 					<b>
 						<?php echo gettext('Inicio')?>
 					</b>
 				</td>
-				<td scope="col">
+				<!-- scope="col" -->
+				<td>
 					<?php echo $accesStr ?>
 					<span class="atajo">
 						I
@@ -89,12 +94,14 @@
 					$atajo=$atajos[$i];
 					?>
 						<tr>
-							<td scope="col">
+							<!-- scope="col" -->
+							<td>
 								<b>
 									<?php echo getTraduccion($atajo['ContenidoID'],$_SESSION['lang']); ?>
 								</b>
 							</td>
-							<td scope="col">
+							<!-- scope="col" -->
+							<td>
 								<?php echo $accesStr ?>
 								<span class="atajo">
 									<?php echo $atajo['Atajo']?>

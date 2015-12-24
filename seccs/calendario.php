@@ -30,7 +30,14 @@ start_session_if_not();
 				$formCal=new FormCliCal();
 				echo $formCal->getHTML();
 			}
-			$consulta='SELECT * FROM Eventos';
+			$consulta=
+			'	SELECT Eventos.* FROM `Eventos`
+				LEFT OUTER JOIN TagsTarget
+				ON TagsTarget.GrupoID=Eventos.TagsGrpID
+				LEFT OUTER JOIN Laboratorios
+				ON Laboratorios.ID='.$_SESSION['lab'].'
+				WHERE TagsTarget.TagID=Laboratorios.TagID
+			';
 
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/opciones.php';
 			
@@ -68,17 +75,24 @@ start_session_if_not();
 				$mesAct=$mesAct->format('Y-m-d 00:00:00');
 				$mesSig=$mesSig->format('Y-m-d 00:00:00');
 
-				$consulta=$consulta.' where Tiempo between "'.$mesAct.'" and "'.$mesSig.'"';
+				$consulta=$consulta.' AND Tiempo between "'.$mesAct.'" and "'.$mesSig.'"';
 			}
 
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/conexion.php';
 			global $con;
 
-			$eventos=$con->query($consulta.' ORDER BY Tiempo,Prioridad ASC');
-
 			//echo '<pre>Consulta eventos:';print_r($consulta.' ORDER BY Prioridad, Tiempo ASC');echo '</pre>';
 			
-			$eventos=fetch_all($eventos , MYSQLI_ASSOC);
+			$eventos=fetch_all
+			(
+				$con->query
+				(
+					$consulta.
+					' ORDER BY Tiempo,Prioridad ASC
+					'
+				),
+				MYSQLI_ASSOC
+			);
 
 			$cantEventos=count($eventos);
 

@@ -24,6 +24,8 @@
 	$prioridad=new FormLabelPrioridad($this->form);
 	$labelTags=new FormLabelTags($this->form);
 
+	$visible->input->default=1;
+
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/nTag.php';
 
 	if($this->getAction()===0)
@@ -52,7 +54,7 @@
 		}
 
 		$archivo->inputUrl->setValue($imagen->Url);
-		$visible->selectedValue=$imagen->Visible;
+		$visible->input->default=intVal($imagen->Visible);
 		//$this->form->autocomp['Prioridad']=$imagen['Prioridad'];
 		$alt->input->setValue
 		(

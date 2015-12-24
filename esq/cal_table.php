@@ -1,4 +1,5 @@
-<table summary="<?php echo sprintf(gettext('Calendario de %1$s del %2$s') , $this->fecha['month'] , $this->fecha['year']) ?>">
+<!-- summary="<?php //echo sprintf(gettext('Calendario de %1$s del %2$s') , $this->fecha['month'] , $this->fecha['year']) ?>" -->
+<table>
 	<thead>
 		<tr>
 			<?php $esq->genTheadTrThMes(); ?>
