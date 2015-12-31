@@ -126,6 +126,15 @@ font.through{text-decoration:line-through;}
 	border-top: 1px solid rgb(227, 225, 225);
 	border-bottom: 1px solid rgb(236, 236, 236);
 }
+body .minimapa
+{
+	color:#C0C0C0;
+	margin-left:5px;
+}
+body .minimapa a
+{
+	vertical-align: inherit;
+}
 section .target, section:target
 {
 	animation-name:sectionBackground;

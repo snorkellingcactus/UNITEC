@@ -7,6 +7,7 @@
 		public $titulo;
 		public $link;
 		public $name;
+		public $target;
 
 		function __construct($name , $color)
 		{
@@ -24,9 +25,17 @@
 				$this->div->appendChild($this->titulo)
 			);
 		}
+		function setTarget($target)
+		{
+			$this->target=$target;
+
+			return $this;
+		}
 		function setLink($link)
 		{
 			$this->link=$link;
+
+			return $this;
 		}
 		function renderChilds(&$tag , &$doc)
 		{
@@ -34,9 +43,14 @@
 			{
 				$a=new DOMTag('a' , $this->name);
 
+				if(!empty($this->target))
+				{
+					$a->setAttribute('target' , $this->target);
+				}
+
 				$this->titulo->appendChild
 				(
-					$a->setAttribute('href' , '/espacios/'.$this->link)
+					$a->setAttribute('href' , $this->link)
 				);
 			}
 			else

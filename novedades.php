@@ -18,7 +18,7 @@
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/conexion.php';
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/SQL_Obj.php';
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/Comentario.php';
-	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/Visor.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/VisorNovedades.php';
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/Include_Context.php';
 	//Si todavía no se inicio sesion, se inicia.
 	include_once($_SERVER['DOCUMENT_ROOT'] . '/php/setLang.php');

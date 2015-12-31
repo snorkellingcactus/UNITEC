@@ -34,6 +34,7 @@
 		}
 		public function importChild($child)
 		{
+			//Agrego dimensiones Bootstrap a cada hijo.
 			$nodosCol=$this->nodosCol;
 
 			if($nodosCol!==false)

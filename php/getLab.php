@@ -133,11 +133,11 @@
 	function getLabName()
 	{
 		global $con;
-		$labName=$_SESSION['lab'];
+		$labID=$_SESSION['lab'];
 
 		if(func_num_args())
 		{
-			$labName=func_get_args()[0];
+			$labID=func_get_args()[0];
 		}
 		return getTraduccion
 		(
@@ -147,11 +147,26 @@
 				(
 					'	SELECT Laboratorios.NombreID
 						FROM Laboratorios
-						WHERE ID='.$labName
+						WHERE ID='.$labID
 				),
 				MYSQLI_NUM
 			)[0][0],
 			$_SESSION['lang']
 		);
+	}
+	function getLabUrl($lName)
+	{
+		if(func_num_args()>1)
+		{
+			$lang=func_get_args()[1];
+		}
+		else
+		{
+			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/setLang.php';
+
+			$lang=getLangCode();
+		}
+
+		return 'http://'.$_SERVER['SERVER_NAME'].'/'.$lang.'/espacios/'.rawurlencode(strtolower(trim($lName)));
 	}
 ?>

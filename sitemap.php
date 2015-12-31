@@ -1,150 +1,20 @@
 <?php
-	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/DOMTag.php';
 
-	class SMapUrlSet extends DOMTagBase
-	{
-		public function __construct()
-		{
-			parent::__construct('urlset');
-
-			$this->setAttribute
-			(
-				'xmlns',
-				'http://www.sitemaps.org/schemas/sitemap/0.9'
-			);
-		}
-		public function renderChilds(&$doc , &$tag)
-		{
-			//echo '<pre>SMapUrlSet::renderChilds';echo '</pre>';
-
-			return parent::renderChilds($doc , $tag);
-		}
-	}
-
-	//include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/DOMTagBase.php';
-	class SMapUrl extends DOMTagBase
-	{
-		public $location;
-		public $lastMod;
-		public $chfreq;
-		public $priority;
-
-		function __construct($location)
-		{
-			parent::__construct('url');
-
-			$this->location=$location;
-			$this->lastMod=false;
-			$this->chfreq=false;
-			$this->priority=false;
-		}
-		public function setLastMod($date)
-		{
-			$this->lastMod=$date;
-
-			return $this;
-		}
-		public function setChFreq($chfreq)
-		{
-			$this->chfreq=$chfreq;
-
-			return $this;
-		}
-		public function setPriority($priority)
-		{
-			$this->priority=$priority;
-
-			return $this;
-		}
-		public function renderChilds(&$doc , &$tag)
-		{
-			//echo '<pre>SMapUrl::renderChilds';echo '</pre>';
-
-			$this->appendChild
-			(
-				new DOMTag
-				(
-					'loc',
-					$this->location
-				)
-			);
-			if($this->lastMod!==false)
-			{
-				$this->appendChild
-				(
-					new DOMTag
-					(
-						'lastmod',
-						$this->lastMod
-					)
-				);
-			}
-			if($this->chfreq!==false)
-			{
-				$this->appendChild
-				(
-					new DOMTag
-					(
-						'changefreq',
-						$this->chfreq
-					)
-				);
-			}
-			if($this->priority!==false)
-			{
-				$this->appendChild
-				(
-					new DOMTag
-					(
-						'priority',
-						$this->priority
-					)
-				);
-			}
-
-			return parent::renderChilds($doc , $tag);
-		}
-	}
-	class SMap extends DOMTagContainer
-	{
-		function __construct()
-		{
-			parent::__construct();
-
-			$this->createDoc();
-		}
-		function load($load)
-		{
-			return $this->domDoc->load($load);
-		}
-		function save($path)
-		{
-			$this->buildDoc();
-
-			return $this->domDoc->save($path);
-		}
-		function saveXML()
-		{
-			$this->buildDoc();
-
-			return $this->domDoc->saveXML();
-		}
-	}
-
-
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/SMapUrl.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/SMapUrlSet.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/SMap.php';
+	
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/conexion.php';
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/is_session_started.php';
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/getLab.php';
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/getTraduccion.php';
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/setLang.php';
+
 	global $con;
-	detectLab();
+
 	detectLang();
-/*
-	echo '<pre>';
-	print_r($_SESSION['lab']);
-	echo '</pre>';
-*/
+	detectLab();
+
 	$sitemap=new SMap();
 	$urlSet=new SMapUrlSet();
 
@@ -158,52 +28,120 @@
 		(
 			'	SELECT Laboratorios.NombreID
 				FROM Laboratorios
-				WHERE PadreID IS NOT NULL
-				AND Enlace=1
+				WHERE Enlace=1
+			'
+		),
+		MYSQLI_NUM
+	);
+	$labsRef=array();
+
+	$langs=fetch_all
+	(
+		$con->query
+		(
+			'	SELECT Lenguajes.Pais
+				FROM Lenguajes
+				WHERE 1
 			'
 		),
 		MYSQLI_NUM
 	);
 
 	$i=0;
-	while(isset($labs[$i]))
+	while(isset($langs[$i]))
 	{
-		$urlSet->appendChild
+		$sitemap->addLang
 		(
-			new SMapUrl
+			substr
 			(
-				'http://'.$_SERVER['SERVER_NAME'].
-				'/espacios/'.
-				rawurlencode
-				(
-					strtolower
-					(
-						getTraduccion
-						(
-							$labs[$i][0],
-							$_SESSION['lang']
-						)
-					)
-				)
+				$langs[$i][0],
+				0,
+				2
 			)
 		);
 
 		++$i;
 	}
 
+//	$sitemap->appendUrlMulti('hola/mundo');
+	//$sitemap->appendUrlMulti('un/recurso/copado');
+
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/DOMLabUl.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/DOMLabLi.php';
+
+	$mainUl=new DOMLabUl();
+
+	$li=new DOMLabLi('Espacios' , 'red');
+	$ulLabs=new DOMLabUl();
+
+	$li->appendChild($ulLabs);
+	$mainUl->appendNodo
+	(
+		$li
+	)->classList->add('organigrama');
+
 	$tables=['Imagenes' , 'Novedades'];
 	$urlNames=['galeria' , 'novedades'];
-	$labs=fetch_all
-	(
-		$con->query
+
+	$i=0;
+	while(isset($labs[$i]))
+	{
+		$labRef=& $labsRef[$labs[$i][0]];
+
+		$name=$labRef[0]=getTraduccion
 		(
-			'	SELECT Laboratorios.*
-				FROM Laboratorios
-				WHERE 1
-			'
-		),
-		MYSQLI_ASSOC
-	);
+			$labs[$i][0],
+			$_SESSION['lang']
+		);
+		$url=$labRef[1]='espacios/'.rawurlencode
+		(
+			strtolower
+			(
+				$name
+			)
+		);
+
+		$urlSet->appendChild
+		(
+			$sitemap->createUrlMulti
+			(
+				$url
+			)
+		);
+
+		$liLab=new DOMLabLi($name , 'blue');
+
+		$ulLabs->appendNodo
+		(
+			$liLab->setLink(getLabUrl($name))->setTarget
+			(
+				'_blank'
+			)
+		);
+
+		$ul=new DOMLabUl();
+
+		$j=0;
+		while(isset($tables[$j]))
+		{
+			$li=new DOMLabLi($tables[$j] , 'colorD');
+
+			$labRef[$j+3]=$ulSeccs=new DOMLabUl();
+
+			$li->appendChild($ulSeccs);
+
+			$ul->appendNodo($li);
+
+			++$j;
+		}
+
+		if($j)
+		{
+			$liLab->appendChild($ul);
+		}
+
+		++$i;
+	}
 
 	$j=0;
 	while(isset($tables[$j]))
@@ -215,7 +153,8 @@
 		(
 			$con->query
 			(
-				'	SELECT '.$tName.'.* , Laboratorios.ID as LabID FROM '.$tName.'
+				'	SELECT '.$tName.'.* , Laboratorios.NombreID as LabNameID
+					FROM '.$tName.'
 					LEFT OUTER JOIN TagsTarget
 					ON TagsTarget.GrupoID='.$tName.'.TagsGrpID
 					LEFT OUTER JOIN Laboratorios
@@ -254,21 +193,20 @@
 				);
 			}
 
-			if(empty($rec['LabID']))
+			if(empty($rec['LabNameID']))
 			{
 				++$i;
 				continue;
-				$rec['LabID']=getDefaultLab()[0]['ID'];
 			}
 
-			$url='http://'.$_SERVER['SERVER_NAME'].'/espacios/'.strtolower(getLabName($rec['LabID'])).'/';
+			$url=getLabUrl($labsRef[$rec['LabNameID']][0]);
 
 			if(isset($rec['Fecha']))
 			{
 				$rec['Fecha']=new DateTime(date($rec['Fecha']));
 				$rec['Fecha']=$rec['Fecha']->format('Y-m-d');
 
-				$url=$url.$urlName.'/'.$rec['Fecha'].'/';
+				$url=$url.'/'.$urlName.'/'.$rec['Fecha'].'/';
 			}
 
 			$url=$url.urlencode
@@ -284,7 +222,18 @@
 				)
 			).
 			'-'.$rec['ID'];
-			$url=new SMapUrl
+
+			$ulSeccs=$labsRef[$rec['LabNameID']][$j+3];
+
+
+			$li=new DOMLabLi( $titulo, 'colorC');
+			
+			$ulSeccs->appendNodo
+			(
+				$li->setLink($url)->setTarget('_blank')
+			);
+
+			$url=$sitemap->createUrlMulti
 			(
 					$url
 			);
@@ -322,9 +271,12 @@
 	{
 		public $buff;
 		public $content;
+		public $num;
+
 		function __construct($content)
 		{
 			$this->content=$content;
+			$this->num=0;
 		}
 		function getHighlighted()
 		{
@@ -342,69 +294,164 @@
 
 			if(isset($childs->length) && $childs->length)
 			{
+				if($content->nodeName!='#document')
+				{
+					$this->appendStartTag($content , substr($tab , 0 , -1));
+				}
+
 				foreach($childs as $child)
 				{
-
-					if($child->nodeName!='#text')
-					{
-						$this->appendStartTag($child->nodeName , $tab);
-					}
-					else
-					{
-						$tab=substr($tab , 0 , -1);
-					}
-					
-
 					$this->highlightLoop($child , $tab);
+				}
 
-					if($child->nodeName!='#text')
-					{
-						$this->appendEndTag($child->nodeName , $tab);
-					}
+				if($content->nodeName!='#document')
+				{
+					$this->newline();
+					$this->appendEndTag($content->nodeName , substr($tab , 0 , -1));
 				}
 			}
 			else
 			{
 				if($content->nodeName!='#text')
 				{
-					$this->appendTag($content->nodeName , $content->nodeValue , $tab);
+					$this->appendTag($content ,  substr($tab , 0 , -1));
 				}
 				else
 				{
-					$tab=substr($tab , 0 , -1);
-					$this->appendTagValue($content->nodeValue , $tab);
+					$tab=substr($tab , 0 , -2);
+
+					if(!empty($content->nodeValue))
+					{
+						$this->appendTagValue($content , $tab);
+					}
 				}
 			}
 		}
-		function appendTag($tName , $tValue , $tab)
+		function appendAttribute($aName , $aValue)
 		{
-			$this->appendStartTag($tName , $tab);
-			$this->appendTagValue($tValue , $tab);
-			$this->appendEndTag($tName , $tab);
+			$this->appendAttrName($aName)->appendAttrValue($aValue);
 		}
-		function appendTagValue($tValue , $tab)
+		function appendAttributes($node)
 		{
+			$merge=[];
+			$mergeLen=0;
+
+			$xpath = new DOMXPath($this->content->domDoc);
+			foreach( $xpath->query('namespace::*', $node) as $attrNode )
+			{
+				if($attrNode->nodeName==='xmlns')
+				{
+					$this->appendAttribute
+					(
+						$attrNode->nodeName,
+						$attrNode->nodeValue
+					);
+				}
+			}
+
+			$attrs=$node->attributes;
+
+			if(empty($attrs))
+			{
+				return $this;
+			}
+
+			foreach($attrs as $attr)
+			{
+				$this->appendAttribute
+				(
+					$attr->name,
+					$attr->value
+				);
+			}
+
+			return $this;
+		}
+		function appendAttrName($name)
+		{
+			return $this->appendHighlight
+			(
+				htmlentities
+				(
+					' '.$name.' = '
+				),
+				'green'
+			);
+		}
+		function testURL($url)
+		{
+			if(substr(trim($url) , 0 , 4)=='http')
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
+		function appendAttrValue($value)
+		{
+			if($this->testURL($value))
+			{
+				$value='<a href="'.htmlentities(trim($value)).'" target="_blank">'.$value.'</a>';
+
+				$color='#FF8000';
+			}
+			return $this->appendHighlight
+			(
+				
+				htmlentities('"').$value.htmlentities('" '),
+				'orange'
+			);	
+		}
+		function appendTag($tag , $tab)
+		{
+			$this->appendStartTag($tag , $tab);
+
+			if(!empty($tag->value))
+			{
+				$this->appendTagValue($tag->nodeValue , $tab);
+				$this->appendEndTag($tag->nodeName , $tab);
+			}
+		}
+		function appendTagValue($tag , $tab)
+		{
+			$this->newline();
 			return $this
 			->append($tab."\t")
-			->appendNodeContent($tValue)
-			->newline();
+			->appendNodeContent($tag->nodeValue)
+			;
 		}
-		function appendStartTag($tName , $tab)
+		function appendStartTag($tag , $tab)
 		{
-			return $this
+			$this->newline();
+			
+			$this
 			->append($tab)
+
 			->appendTagOpener()
-			->appendNodeName($tName)
-			->appendTagCloser()
-			->newline();
+			->appendNodeName($tag->nodeName)
+			->appendAttributes($tag);
+
+			if(empty($tag->nodeValue) || !isset($tag->childNodes->length))
+			{
+				$this->appendTagCloself();
+			}
+			else
+			{
+				$this->appendTagCloser();
+			}
+			
+			return $this;
 		}
 		function appendEndTag($tName , $tab)
 		{
 			return $this
 			->append($tab)
 			->appendTagOpener()
+			->appendHighlight('/' , '#007700')
 			->appendNodeName($tName)
-			->appendTagEndCloser()
+			->appendTagCloser()
 			->newline();
 		}
 		function appendTagOpener()
@@ -415,10 +462,16 @@
 		{
 			return $this->appendHighlight('>' , '#007700');
 		}
+		function appendTagCloself()
+		{
+			return $this->appendHighlight('/>' , '#007700');
+		}
+/*
 		function appendTagEndCloser()
 		{
 			return $this->appendHighlight('/>' , '#007700');
 		}
+*/		
 		function appendNodeName($str)
 		{
 			return $this->appendHighlight($str,'#0000BB');
@@ -427,9 +480,9 @@
 		{
 			$color='#FF8000';
 
-			if(substr(trim($str) , 0 , 4)=='http')
+			if($this->testURL($str))
 			{
-				$str='<a href="'.trim($str).'" target="_blank">'.$str.'</a>';
+				$str='<a href="'.htmlentities(trim($str)).'" target="_blank">'.$str.'</a>';
 
 				$color='#FF8000';
 			}
@@ -454,22 +507,62 @@
 			}
 			return $tabs;
 		}
+		function appendNum()
+		{
+			$this->append('<span style=
+				"
+				bkit-user-select: none;
+				-moz-user-select: none;
+				-ms-user-select: none
+				-o-user-select: none;
+				user-select: none;
+				width:30px;
+				display:block;
+				float:left
+				">'.++$this->num.'</span>');
+		}
 		function newline()
 		{
-			return $this->append("\n");
+			return $this->append("\n")->appendNum();
 		}
+	}
+
+	class SMapHTML extends DOMTag
+	{
+		
 	}
 ?>
 <html>
 	<head>
+		<link rel="stylesheet" type="text/css" href="/seccs/organigrama.css" />
 		<link rel="stylesheet" type="text/css" href="/bootstrap.css" />
 	</head>
 	<body>
+		<style>
+			html body ul {display:block;}
+			html body ul li{padding:0px;}
+			*{padding:0px;}
+			html body pre{display:block;width:100%;}
+		</style>
+
 		<?php
+			echo $mainUl->getHTML();
+
+
 			$jj=new Highlighter($sitemap);
+			//$sitemap->buildDoc();
+			$sitemap->domDoc->formatOutput=1;
+
 			echo '<pre>';
+			//echo htmlentities(highlight_string($sitemap->domDoc->saveXML()));
+			//print_r($sitemap->domDoc);
+			
+			/*echo '<div>'.highlight_string('<?xml version="1.0" encoding="UTF-8"?>')."\n".'</div>';*/
 			echo $jj->getHighlighted();
+			
 			echo '</pre>';
+		
+			//$sitemap->save("sitemap.xml");
 		?>
 	</body>
 </html>

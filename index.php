@@ -185,7 +185,7 @@ $lang=substr(getenv('LANG'), 0 , 2);
 										if($i!==0)
 										{
 											?>
-												<a rel="alternate" href="?lang=<?php echo $langAct['ID'] ?>" hreflang="<?php echo $langShort ?>" lang="<?php echo $langShort ?>" tabindex="1">
+												<a rel="alternate" href="<?php echo getLabUrl(getLabName($_SESSION['lab']) , $langShort)?>" lang="<?php echo $langShort ?>" tabindex="1">
 													<?php
 														echoLang($langAct);
 													?>
@@ -202,6 +202,39 @@ $lang=substr(getenv('LANG'), 0 , 2);
 						}
 					?>
 				</ul>
+			</nav>	
+			<nav>
+				<?php
+					function echoLabHead($lName)
+					{
+						include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/DOMTag.php';
+
+						$a=new DOMTag('a' , $lName);
+						$a->setAttribute('href' , getLabUrl($lName));
+						echo $a->getHTML();
+					}
+					
+					include_once $_SERVER['DOCUMENT_ROOT'] . '/php/nTag.php';
+
+					//Revisar . Seguro se pueda hacer mejor ya que getLabTagTree usa implode
+					//y acá se hace la inversa con explode. Quizá con DOMArbol.
+					
+					$labs=explode(',' , getLabTagTree($_SESSION['lab']));
+
+					echo '<i class="minimapa">';
+					echo htmlentities('>');
+
+					$len=count($labs);
+					for($i=$len;$i>0;$i--)
+					{
+						echoLabHead(' '.trim($labs[$i-1]));
+						if($i>1)
+						{
+							echo htmlentities(' /');
+						}
+					}
+					echo '</i>';
+				?>
 			</nav>
 			<a href="/inicio_sesion.php"><?php echo gettext('Iniciar Sesión') ?></a>
 		</div>

@@ -40,7 +40,7 @@
 			echo '</pre>';
 */			
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/conexion.php';
-			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/Visor.php';
+			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/VisorImagenes.php';
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/getTraduccion.php';
 
 			$recLst=fetch_all

@@ -2,6 +2,7 @@
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/ArbolActions.php';
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/DOMLabUl.php';
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/DOMLabLi.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/getLab.php';
 
 	class ArbolLabsActions implements ArbolActions
 	{
@@ -32,7 +33,7 @@
 			);
 			if(intVal($child['Enlace']) && $child['ID']!==$_SESSION['lab'])
 			{
-				$li->setLink($child['Texto']);
+				$li->setLink(getLabUrl($child['Texto']));
 			}
 
 			if(isset($_SESSION['adminID']))
