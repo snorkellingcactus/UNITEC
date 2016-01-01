@@ -78,7 +78,7 @@ div.menu
 .menu nav li>a:hover , .menu nav li>a:focus
 {
 	text-decoration:underline;
-	background-color:silver;
+	background-color:rgba(117, 117, 117, 0.27);
 }
 .menu nav li>a:hover.resalta
 {

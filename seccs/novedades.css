@@ -8,7 +8,7 @@
 .novedad:last-child{border-bottom:0px solid;}
 .novedad div img{float:left;border-radius:3px;width:100%;box-shadow:0px 0px 5px black;}
 .novedad>div{}
-div.novedad{padding:3em 0px 1em 0px;border-bottom:1px solid darkgray}
+div.novedad{padding:3em 0px 1em 0px;border-bottom:1px solid rgba(105, 105, 105, 0.64)}
 .novedad h2{padding-top:0px;clear:right;color:#F5F5F5;text-shadow: 0px 0px 2px black;}
 /*
 Por bootstrap, que le da a las imágenes 15px de padding.

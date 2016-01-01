@@ -18,3 +18,11 @@
 	font-size:1.4em;
 	vertical-align: middle
 }
+body .atajos tbody tr td
+{
+	border-top: 1px solid rgba(105, 105, 105, 0.64);
+}
+body .atajos thead tr th
+{
+	border-bottom: 1px solid rgba(105, 105, 105, 0.64);
+}
