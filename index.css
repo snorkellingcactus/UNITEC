@@ -77,7 +77,7 @@ main.col-lg-10,main.col-md-10,main.col-sm-10,main.col-xs-12
 	animation-name:main;
 	animation-duration:1s;
 	-moz-animation-name:main;
-	-moz-animation-duration:1s
+	-moz-animation-duration:1s;
 	-webkit-animation-name:main;
 	-webkit-animation-duration:1s;
 }

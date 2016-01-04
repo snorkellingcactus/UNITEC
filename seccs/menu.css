@@ -14,7 +14,7 @@ div.menu
 	animation-name:menu;
 	animation-duration:1s;
 	-moz-animation-name:menu;
-	-moz-animation-duration:1s
+	-moz-animation-duration:1s;
 	-webkit-animation-name:menu;
 	-webkit-animation-duration:1s;
 	z-index:1;

@@ -130,7 +130,7 @@
 		<div class="hidden-xs">
 			<a href="#header" accesskey="i">
 				<h2>
-					<img src="/img/logos/<?php echo $_SESSION['lab']?>.png" alt="<?php echo gettext('Unitec Logo')?>" width="80" height="80"/>
+					<img src="/img/logos/<?php echo $_SESSION['lab']?>.png" alt="<?php echo sprintf(gettext('Logo de %s') , $labName)?>" width="80" height="80"/>
 					<?php echo $labName?>
 				</h2>
 			</a>

@@ -11,6 +11,7 @@
 		public $titulo;
 		public $img;
 		public $thumbPathA;
+		public $thumbPathB;
 		public $thumbExt;
 		public $lName;
 
@@ -23,12 +24,22 @@
 
 			$this->lName=$lName=getLabName();
 			$this->thumbPathA='/img/miniaturas/visor/';
+			$this->thumbPathB='/img/miniaturas/galeria/';
+
 			$this->thumbExt='.png';
 
 		}
+		public function formatUrlFile($id)
+		{
+			return $id.$this->thumbExt;
+		}
 		public function formatUrlA($id)
 		{
-			return $this->thumbPathA.$id.$this->thumbExt;
+			return $this->thumbPathA.$this->formatUrlFile($id);
+		}
+		public function formatUrlB($id)
+		{
+			return $this->thumbPathB.$this->formatUrlFile($id);
 		}
 		public function getContent()
 		{

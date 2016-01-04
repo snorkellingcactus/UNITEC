@@ -70,6 +70,7 @@
 				LEFT OUTER JOIN Laboratorios
 				ON Laboratorios.ID='.$_SESSION['lab'].'
 				WHERE TagsTarget.TagID=Laboratorios.TagID
+				ORDER BY Imagenes.Prioridad DESC
 			'.$limitStr
 		),
 		MYSQLI_ASSOC

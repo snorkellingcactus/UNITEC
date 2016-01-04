@@ -55,7 +55,7 @@
 
 		$archivo->inputUrl->setValue($imagen->Url);
 		$visible->input->default=intVal($imagen->Visible);
-		//$this->form->autocomp['Prioridad']=$imagen['Prioridad'];
+		$this->form->autocomp['Prioridad']=$imagen->Prioridad;
 		$alt->input->setValue
 		(
 			getTraduccion

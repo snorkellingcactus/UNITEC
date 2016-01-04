@@ -18,7 +18,7 @@
 	$fechaStr=sprintf(gettext('Escrito el %1$s de %2$s del %3$s') , strftime('%d' , $fechaStr) , strftime('%B' , $fechaStr) , strftime('%G' , $fechaStr));
 
 	//include_once $_SERVER['DOCUMENT_ROOT'] . '/php/myUrlEncode.php';
-	$link='/'.substr(getenv('LANG'), 0 , 2).'/espacios/'.getLabName().'/novedades/'.$fechaYmd.'/'.urlencode(str_replace('/' , ' ' , $this->Titulo)).'-'.$this->ID;
+	$link='/'.getLangCode().'/espacios/'.getLabName().'/novedades/'.$fechaYmd.'/'.urlencode(str_replace('/' , ' ' , $this->Titulo)).'-'.$this->ID;
 ?>
 <div class="novedad col-xs-12 col-sm-12 col-md-12 col-lg-12 <?php echo $clase ?>">
 	<?php

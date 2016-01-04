@@ -36,7 +36,7 @@
 		}
 		$formHandler->SQL_Evts=$SQL_Evts;
 		$formHandler->checks();
-
+		
 		include_once($_SERVER['DOCUMENT_ROOT'] . '/php/Comentario.php');
 		include_once($_SERVER['DOCUMENT_ROOT'] . '/php/conexion.php');
 		global $con;

@@ -9,7 +9,6 @@
 		public $div;
 		public $imgAnt;
 		public $selector;
-		public $thumbPathB;
 
 		function __construct()
 		{
@@ -19,12 +18,9 @@
 			$this->div=new DOMTag('div');
 			$this->imgAnt=false;
 			$this->selector=new DOMTag('div');
-			
-			$this->thumbPathB='/img/miniaturas/galeria/';
-			
 
 			$this->div->classList->add('imgCont');
-			$this->selector->classList->add('selector');
+			$this->selector->classList->add('selector')->add('sugeridas');
 
 			$this->div->col=	['xs'=> 8, 'sm'=> 10, 'md'=> 10, 'lg'=> 10];
 			$this->titulo->col=		['xs'=> 12, 'sm'=> 12, 'md'=> 12, 'lg'=> 12];
@@ -40,10 +36,6 @@
 			(
 				$this->selector
 			);
-		}
-		public function formatUrlB($id)
-		{
-			return $this->thumbPathB.$id.$this->thumbExt;
 		}
 		public function add($rec , $altID , $tituloID , $fecha)
 		{
@@ -90,14 +82,21 @@
 			}
 	*/
 			$img=new DOMTag('img');
-			$img->col=['xs'=>2 , 'sm'=>2 , 'md'=>2 , 'lg'=>2];
+
+			$div=new DOMTag('div');
+			$div->classList->add('gImg');
+			$div->col=['xs'=>2 , 'sm'=>2 , 'md'=>2 , 'lg'=>2];
+
 			
 			$this->selector->appendChild
 			(
-				$a->appendChild
+				$div->appendChild
 				(
-					$img->setAttribute('src' , $this->formatUrlB($rec))
-					->setAttribute('alt' , $alt)
+					$a->appendChild
+					(
+						$img->setAttribute('src' , $this->formatUrlB($rec))
+						->setAttribute('alt' , $alt)
+					)
 				)
 			);
 

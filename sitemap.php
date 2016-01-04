@@ -78,7 +78,7 @@
 	$mainUl->appendNodo
 	(
 		$li
-	)->classList->add('organimapa');
+	)->classList->add('organigrama');
 
 	$tables=['Imagenes' , 'Novedades'];
 	$urlNames=['galeria' , 'novedades'];

@@ -187,6 +187,7 @@ div.TituloBox{display:block;}
 div.TituloBox label{text-align: center;display:block;}
 h1.MSGBox
 {
+	background:#D3E6F4 url("../img/fondo_contenido.png") repeat scroll 0% 0%;
 	display: block;
 	padding: 9.5px;
 	margin: 0px 0px 10px;
@@ -194,11 +195,11 @@ h1.MSGBox
 	color: #333;
 	word-break: break-all;
 	word-wrap: break-word;
-	background-color: #F5F5F5;
 	border: 1px solid #CCC;
-	border-radius: 4px;
 	font-family:"Open Sans";
 	font-size: 1.5em;
+	border-radius: 3px;
+	box-shadow: -1px -1px 5px #888;
 }
 
 .FormDateCont div.LabelBoxDate:last-of-type{padding-right:0px;}

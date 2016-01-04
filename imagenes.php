@@ -9,6 +9,7 @@
 		<link rel="stylesheet" type="text/css" href="/bootstrap.min.css" />
 		<link rel="stylesheet" type="text/css" href="/seccs/visor.css" />
 		<link rel="stylesheet" type="text/css" href="/forms/forms.css" />
+		<link rel="stylesheet" type="text/css" href="/seccs/galeria.css" />
 
 		<title><?php echo gettext('Visor de imágenes')?></title>
 	</head>
@@ -27,6 +28,7 @@
 */
 			//Si todavía no se inicio sesion, se inicia.
 			$rw=1;
+			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/conexion.php';
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/setLang.php';
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/getLab.php';
 			detectLang();
@@ -39,7 +41,6 @@
 			print_r($_SERVER['QUERY_STRING']);
 			echo '</pre>';
 */			
-			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/conexion.php';
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/VisorImagenes.php';
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/getTraduccion.php';
 
@@ -54,6 +55,7 @@
 						LEFT OUTER JOIN Laboratorios
 						ON Laboratorios.ID='.$_SESSION['lab'].'
 						WHERE TagsTarget.TagID=Laboratorios.TagID
+						ORDER BY Imagenes.Prioridad DESC
 					'
 				),
 				MYSQLI_ASSOC
@@ -77,11 +79,7 @@
 				}
 				++$i;
 			}
-/*
-			echo '<pre>visor:';
-			print_r($visorHTML);
-			echo '</pre>';
-*/
+
 			echo $visorHTML->getContent();
 
 			//echo $selector->getHTML();

@@ -94,15 +94,11 @@
 {
 	text-align:center;
 	overflow:hidden;
-	padding: 10px;
 	font-weight:bold;
-
-	/* En Celeste */
-	
-	
-	
-	/* En Negro */
-/*	border:1px solid #686868;	*/
+}
+.calendario td p, .calendario th
+{
+	padding: 10px;
 }
 .calendario td,.calendario th, .hoy , .evento, .calRef
 {
@@ -117,24 +113,21 @@
 }
 .calendario tbody tr:last-child td
 {
-	padding-bottom:7px;
+/*	padding-bottom:7px;*/
 }
-.calendario td.evento, .evento
+.calendario td.evento p, .calendario tbody td.evento , .evento
 {
-	/*
-	font-weight: bold;
-	color: #C3C3C3;
-	text-shadow: 0px 0px 3px #000;
-	background-color: rgb(117, 117, 117);
-	*/
-	/*box-shadow: 0px 0px 2px black inset;*/
 	background:transparent linear-gradient(to right bottom, #4DD2D2, #43B3B3) repeat scroll 0% 0%;
 }
 .muted p
 {
 	visibility: hidden
 }
-.calendario td.hoy, .hoy
+.calendario td.hoy p
+{
+	border-top-right-radius: 50% 100%;
+}
+.calendario td.hoy, .calendario td.hoy p, .hoy
 {
 	background:transparent linear-gradient(to right bottom, #808EDD, #5566C8) repeat scroll 0% 0%;
 }

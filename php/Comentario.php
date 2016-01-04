@@ -70,25 +70,17 @@ function genComLst($main , $mLen , $dep , $NombreDest=NULL , $formBuilder)
 }
 function GenComGrp($ContID , $con , $formBuilder)
 {
-	$consulta=$con->query
+	$consulta=fetch_all
 	(
-		'	SELECT *
-			FROM Comentarios
-			WHERE Comentarios.RaizID ='.$ContID.
-		'	ORDER BY Fecha ASC'
+		$con->query
+		(
+			'	SELECT *
+				FROM Comentarios
+				WHERE Comentarios.RaizID ='.$ContID.
+			'	ORDER BY Fecha ASC'
+		),
+		MYSQLI_ASSOC
 	);
-/*
-	echo '<pre>Consulta:';
-	print_r
-	(
-		'	SELECT *
-			FROM Comentarios
-			WHERE Comentarios.RaizID ='.$ContID.
-		'	ORDER BY Fecha ASC'
-	);
-	echo '</pre>';
-*/
-	$consulta=fetch_all($consulta , MYSQLI_ASSOC);
 
 	$cLen=count($consulta);
 
