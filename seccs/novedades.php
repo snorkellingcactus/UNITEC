@@ -23,6 +23,7 @@
 			echo $formNov->getHTML();
 		}
 
+		include_once $_SERVER['DOCUMENT_ROOT'] . '/php/reordena.php';
 		include_once $_SERVER['DOCUMENT_ROOT'] . '/php/conexion.php';
 		global $con;
 
@@ -39,20 +40,23 @@
 			$limit=$limitStr=false;
 		}
 
-		$novedades=fetch_all
+		$novedades=getPriorizados
 		(
-			$con->query
+			fetch_all
 			(
-				'	SELECT Novedades.* FROM `Novedades`
-					LEFT OUTER JOIN TagsTarget
-					ON TagsTarget.GrupoID=Novedades.TagsGrpID
-					LEFT OUTER JOIN Laboratorios
-					ON Laboratorios.ID='.$_SESSION['lab'].'
-					WHERE TagsTarget.TagID=Laboratorios.TagID
-					ORDER BY Fecha DESC
-				'.$limitStr
-			),
-			MYSQLI_ASSOC
+				$con->query
+				(
+					'	SELECT Novedades.* FROM `Novedades`
+						LEFT OUTER JOIN TagsTarget
+						ON TagsTarget.GrupoID=Novedades.TagsGrpID
+						LEFT OUTER JOIN Laboratorios
+						ON Laboratorios.ID='.$_SESSION['lab'].'
+						WHERE TagsTarget.TagID=Laboratorios.TagID
+						ORDER BY Fecha DESC
+					'.$limitStr
+				),
+				MYSQLI_ASSOC
+			)
 		);
 
 		if(!isset($novedades[0]))

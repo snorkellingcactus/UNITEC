@@ -16,6 +16,7 @@
 
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/Novedad.php';
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/updTraduccion.php';
+			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/nTag.php';
 
 			$nNov=new Novedad();
 			$iMax=count($_SESSION['conID']);
@@ -38,8 +39,7 @@
 
 				updTraduccion
 				(
-					$_POST['Contenido'][$i]
-					,
+					$_POST['Contenido'][$i],
 					$nNov->DescripcionID,
 					$_SESSION['lang']
 				);
@@ -48,6 +48,13 @@
 				if(!empty($_POST['Tags'][$i]))
 				{
 					$nNov->updTagsTargets($_POST['Tags'][$i]);
+
+					updTagsPriority
+					(
+						$_POST['Tags'][$i],
+						$_POST['Prioridad'][$i],
+						$nNov
+					);
 				}
 
 				$afectados[$afectadosLen]=$nNov->TituloID;
@@ -68,6 +75,7 @@
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/Foranea.php';
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/Novedad.php';
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/nTraduccion.php';
+			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/nTag.php';
 
 			$iMax=1;
 			$afectados=[];
@@ -81,6 +89,8 @@
 
 				$nov->ImagenID=$_POST['Imagen'][$i];
 				$nov->Fecha=$horaLoc['year'].'-'.$horaLoc['mon'].'-'.$horaLoc['mday'];
+				
+				$nov->PrioridadesGrpID=nPriorityGrp();
 
 				$nov->insForanea
 				(
@@ -109,6 +119,12 @@
 				if(!empty($_POST['Tags'][$i]))
 				{
 					$nov->updTagsTargets($_POST['Tags'][$i]);
+					updTagsPriority
+					(
+						$_POST['Tags'][$i],
+						$_POST['Prioridad'][$i],
+						$nov
+					);
 				}
 
 				$afectados[0]=$nov->TituloID;

@@ -17,7 +17,7 @@ class Novedad extends SQLTagged_Obj
 				'DescripcionID',
 				'Fecha',
 				'Visible',
-				'Prioridad',
+				'PrioridadesGrpID',
 				'TagsGrpID'
 			],
 			$con

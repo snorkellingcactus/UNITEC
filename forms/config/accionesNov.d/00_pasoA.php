@@ -11,12 +11,14 @@
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/ClearFix.php';
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormLabelImagen.php';
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormLabelTags.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormLabelPrioridad.php';
 
 	$titulo=new FormLabelTitulo($this->form);
 	$descripcion=new FormLabelContenido($this->form);
 	$visible=new FormLabelVisible($this->form);
 	$selectImg=new FormLabelImagen($this->form , 'Imagen' , 'imagen' , gettext('Imagen'));
 	$labelTags=new FormLabelTags($this->form);
+	$prioridad=new FormLabelPrioridad($this->form);
 
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/conexion.php';
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/getTraduccion.php';
@@ -54,9 +56,15 @@
 		}
 
 		$visible->input->selectedValue=$novedad['Visible'];
+		$prioridad->input->setValue
+		(
+			getSQLObjPriority
+			(
+				$novedad['PrioridadesGrpID'],
+				$_SESSION['lab']
+			)
+		);
 
-		//$this->form->autocomp['Prioridad']=$novedad['Prioridad'];
-		//$this->form->autocomp['Imagen']=$novedad['ImagenID'];
 		$descripcion->input->setValue
 		(
 			getTraduccion
@@ -88,7 +96,6 @@
 			'	SELECT Imagenes.ID,Imagenes.AltID
 				FROM Imagenes
 				WHERE 1
-				ORDER BY Prioridad
 			'
 		),
 		MYSQLI_NUM
@@ -114,8 +121,9 @@
 
 	$this->form->appendChild($titulo)
 	->appendChild($descripcion)
-	->appendChild($visible)
 	->appendChild($selectImg)
+	->appendChild($visible)
+	->appendChild($prioridad)
 	->clearFix()->appendChild
 	(
 		$labelTags

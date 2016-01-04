@@ -23,6 +23,7 @@
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/Include_Context.php';
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/setLang.php';
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/getLab.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/reordena.php';
 
 	detectLang();
 	detectLab();
@@ -50,21 +51,24 @@
 		$notStr='';
 	}
 
-	$recLst=fetch_all
+	$recLst=getPriorizados
 	(
-		$con->query
+		fetch_all
 		(
-			'	SELECT Novedades.* FROM `Novedades`
-				LEFT OUTER JOIN TagsTarget
-				ON TagsTarget.GrupoID=Novedades.TagsGrpID
-				LEFT OUTER JOIN Laboratorios
-				ON Laboratorios.ID='.$_SESSION['lab'].'
-				WHERE TagsTarget.TagID=Laboratorios.TagID '.$notStr.'
-				ORDER BY Fecha DESC
-				LIMIT 5
-			'
-		),
-		MYSQLI_ASSOC
+			$con->query
+			(
+				'	SELECT Novedades.* FROM `Novedades`
+					LEFT OUTER JOIN TagsTarget
+					ON TagsTarget.GrupoID=Novedades.TagsGrpID
+					LEFT OUTER JOIN Laboratorios
+					ON Laboratorios.ID='.$_SESSION['lab'].'
+					WHERE TagsTarget.TagID=Laboratorios.TagID '.$notStr.'
+					ORDER BY Fecha DESC
+					LIMIT 5
+				'
+			),
+			MYSQLI_ASSOC
+		)
 	);
 
 	$visorHTML=new VisorNovedades();
