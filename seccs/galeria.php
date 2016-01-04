@@ -47,6 +47,7 @@
 	global $con;
 
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/opciones.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/reordena.php';
 			
 	$limit=getValFromNombreID('limit' , $this->opcGrpID , $this->opcSetsID);
 	if($this->limit && is_array($limit) && $limit[0]!=='0')
@@ -59,22 +60,24 @@
 		$limit=$limitStr=false;
 	}
 
-	$imgLst=fetch_all
+	$imgLst=getPriorizados
 	(
-		$con->query
+		fetch_all
 		(
-			'	SELECT Imagenes.*
-				FROM Imagenes
-				LEFT OUTER JOIN TagsTarget
-				ON TagsTarget.GrupoID=Imagenes.TagsGrpID
-				LEFT OUTER JOIN Laboratorios
-				ON Laboratorios.ID='.$_SESSION['lab'].'
-				WHERE TagsTarget.TagID=Laboratorios.TagID
-				ORDER BY Imagenes.Prioridad DESC
-			'.$limitStr
-		),
-		MYSQLI_ASSOC
-	);	//Respuesta SQL como array asociativo.
+			$con->query
+			(
+				'	SELECT Imagenes.*
+					FROM Imagenes
+					LEFT OUTER JOIN TagsTarget
+					ON TagsTarget.GrupoID=Imagenes.TagsGrpID
+					LEFT OUTER JOIN Laboratorios
+					ON Laboratorios.ID='.$_SESSION['lab'].'
+					WHERE TagsTarget.TagID=Laboratorios.TagID
+				'.$limitStr
+			),
+			MYSQLI_ASSOC
+		)	//Respuesta SQL como array asociativo.
+	);
 
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/getTraduccion.php';
 

@@ -18,7 +18,7 @@ class Img extends SQLTagged_Obj
 				'LenguajeID',
 				'Fecha',
 				'Visible',
-				'Prioridad',
+				'PrioridadesGrpID',
 				'TagsGrpID'
 			],
 			$con

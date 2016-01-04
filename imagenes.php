@@ -43,22 +43,25 @@
 */			
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/VisorImagenes.php';
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/getTraduccion.php';
+			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/reordena.php';
 
-			$recLst=fetch_all
+			$recLst=getPriorizados
 			(
-				$con->query
+				fetch_all
 				(
-					'	SELECT Imagenes.*
-						FROM Imagenes
-						LEFT OUTER JOIN TagsTarget
-						ON TagsTarget.GrupoID=Imagenes.TagsGrpID
-						LEFT OUTER JOIN Laboratorios
-						ON Laboratorios.ID='.$_SESSION['lab'].'
-						WHERE TagsTarget.TagID=Laboratorios.TagID
-						ORDER BY Imagenes.Prioridad DESC
-					'
-				),
-				MYSQLI_ASSOC
+					$con->query
+					(
+						'	SELECT Imagenes.*
+							FROM Imagenes
+							LEFT OUTER JOIN TagsTarget
+							ON TagsTarget.GrupoID=Imagenes.TagsGrpID
+							LEFT OUTER JOIN Laboratorios
+							ON Laboratorios.ID='.$_SESSION['lab'].'
+							WHERE TagsTarget.TagID=Laboratorios.TagID
+						'
+					),
+					MYSQLI_ASSOC
+				)
 			);
 
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/Visor.php';

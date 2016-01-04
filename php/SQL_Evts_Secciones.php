@@ -121,13 +121,7 @@
 			}
 			else
 			{
-				$con->query
-				(
-					'	INSERT INTO PrioridadesGrp()
-						VALUES()
-					'
-				);
-				$nSec->PrioridadesGrpID=$con->insert_id;
+				$nSec->PrioridadesGrpID=nPriorityGrp();
 
 				$nSec->insSQL();
 			}

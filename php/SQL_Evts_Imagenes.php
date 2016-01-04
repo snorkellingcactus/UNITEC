@@ -29,6 +29,7 @@
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/updTraduccion.php';
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/Img.php';
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/elimina.php';
+			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/nTag.php';
 
 			$iMax=count($_SESSION['conID']);
 			$afectadosLen=0;
@@ -56,7 +57,6 @@
 				(
 					[
 						'Url'=>$_POST['Url'][$i],
-						'Prioridad'=>$_POST['Prioridad'][$i],
 						'Visible'=>$_POST['Visible'][$i],
 					]
 				);
@@ -75,6 +75,13 @@
 				if(!empty($_POST['Tags'][$i]))
 				{
 					$nImg->updTagsTargets($_POST['Tags'][$i]);
+
+					updTagsPriority
+					(
+						$_POST['Tags'][$i],
+						$_POST['Prioridad'][$i],
+						$nImg
+					);
 				}
 
 				$afectados[$afectadosLen]=$nImg->ID;
@@ -86,13 +93,13 @@
 		}
 		public function nuevo()
 		{
-			echo '<pre>FILES:';
-			print_r($_FILES);
-			echo '</pre>';
-
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/Img.php';
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/Foranea.php';
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/nTraduccion.php';
+			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/conexion.php';
+			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/nTag.php';
+
+			global $con;
 
 			$iMax=count($_POST['Titulo']);
 			$afectadosLen=0;
@@ -111,11 +118,18 @@
 				{
 					continue;
 				}
+				$con->query
+				(
+					'	INSERT INTO PrioridadesGrp()
+						VALUES()
+					'
+				);
+
 				$img=new Img
 				(
 					[
 						'Url'=>$_POST['Url'][$i],
-						'Prioridad'=>$_POST['Prioridad'][$i]
+						'PrioridadesGrpID'=>nPriorityGrp()
 					]
 				);
 
@@ -146,6 +160,13 @@
 				if(!empty($_POST['Tags'][$i]))
 				{
 					$img->updTagsTargets($_POST['Tags'][$i]);
+
+					updTagsPriority
+					(
+						$_POST['Tags'][$i],
+						$_POST['Prioridad'][$i],
+						$img
+					);
 				}
 
 				if(!empty(trim($_FILES['File']['name'][$i])))

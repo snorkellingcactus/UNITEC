@@ -479,6 +479,36 @@
 			)[0][0]
 		);
 	}
+	function nPriorityGrp()
+	{
+		global $con;
+
+		$con->query
+		(
+			'	INSERT INTO PrioridadesGrp()
+				VALUES()
+			'
+		);
+		return $con->insert_id;
+	}
+	function getSQLObjPriority($grupoID , $labID)
+	{
+		global $con;
+
+		return fetch_all
+		(
+			$con->query
+			(
+				'	SELECT Prioridad
+					FROM Prioridades
+					WHERE GrupoID='.$grupoID.'
+					AND LabID='.$labID.'
+					LIMIT 1
+				'
+			),
+			MYSQLI_NUM
+		)[0][0];
+	}
 	function insertSQLObjPriority($grupoID , $labID , $priority)
 	{
 		global $con;
@@ -502,6 +532,57 @@
 				AND LabID='.$labID.'
 			'
 		);
+	}
+	function updTagsPriority($tagsStr , $nPriority , $sqlObj)
+	{
+		include_once $_SERVER['DOCUMENT_ROOT'] . '/php/getLab.php';
+		global $con;
+		$tags=sepTagsStr($tagsStr);
+
+		$k=0;
+		while(isset($tags[$k]))
+		{
+			$tag=filterTagName($tags[$k]);
+
+			$labID=getLabByName($tag);
+
+			if(isset($labID[0]['ID']))
+			{
+				$labID=$labID[0]['ID'];
+
+				if(!hasSQLObjPriority($sqlObj , $labID))
+				{
+					if($labID==$_SESSION['lab'])
+					{
+						$nVal=$nPriority;
+					}
+					else
+					{
+						$nVal=0;
+					}
+
+					insertSQLObjPriority
+					(
+						$sqlObj->PrioridadesGrpID,
+						$labID,
+						$nVal
+					);
+				}
+				else
+				{
+					if($labID==$_SESSION['lab'])
+					{
+						updSQLObjPriority
+						(
+							$sqlObj->PrioridadesGrpID,
+							$labID,
+							$nPriority
+						);
+					}
+				}
+			}
+			++$k;
+		}
 	}
 	function updLabsTagsPriority($tagsStr , $sqlObj , $condicion , $lugar , $discProp , $edita)
 	{

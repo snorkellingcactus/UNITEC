@@ -53,9 +53,18 @@
 			echo '<pre>No group</pre>';
 		}
 
+		include_once $_SERVER['DOCUMENT_ROOT'] . '/php/nTag.php';
+
 		$archivo->inputUrl->setValue($imagen->Url);
 		$visible->input->default=intVal($imagen->Visible);
-		$this->form->autocomp['Prioridad']=$imagen->Prioridad;
+		$prioridad->input->setValue
+		(
+			getSQLObjPriority
+			(
+				$imagen->PrioridadesGrpID,
+				$_SESSION['lab']
+			)
+		);
 		$alt->input->setValue
 		(
 			getTraduccion

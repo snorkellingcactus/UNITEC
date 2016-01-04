@@ -7,64 +7,78 @@
 		$j=0;
 		$priorizados=array();
 		$prioridades=array();
+
 		while(isset($coleccion[$i]))
 		{
-/*
-			echo '<pre>Consulta Prioriza:';
-			print_r
-			(
-				'	SELECT Prioridad
-					FROM Prioridades
-					WHERE GrupoID='.$coleccion[$i]['PrioridadesGrpID'].'
-					AND LabID='.$_SESSION['lab'].'
-					LIMIT 1
-				'
-			);
-			echo '</pre>';
-*/
 			$prioridad=fetch_all
+			(
+				$con->query
 				(
-					$con->query
-					(
-						'	SELECT Prioridad , ID
-							FROM Prioridades
-							WHERE GrupoID='.$coleccion[$i]['PrioridadesGrpID'].'
-							AND LabID='.$_SESSION['lab'].'
-							LIMIT 1
-						'
-					),
-					MYSQLI_NUM
-				);
-				if(isset($prioridad[0][0]))
+					'	SELECT Prioridad , ID
+						FROM Prioridades
+						WHERE GrupoID='.$coleccion[$i]['PrioridadesGrpID'].'
+						AND LabID='.$_SESSION['lab'].'
+						LIMIT 1
+					'
+				),
+				MYSQLI_NUM
+			);
+			
+			if(isset($prioridad[0][0]))
+			{
+				$prior=$prioridad[0][0];
+
+				$coleccion[$i]['PrioridadID']=$prioridad[0][1];
+				$coleccion[$i]['Prioridad']=$prior;
+
+				if(isset($priorizados[$prior]))
 				{
-					$coleccion[$i]['PrioridadID']=$prioridad[0][1];
-					$coleccion[$i]['Prioridad']=$prioridad[0][0];
-					$prioridades[$j]=$prioridad[0][0];
-
-					$priorizados[$prioridad[0][0]]=$coleccion[$i];
-
-					++$j;
+					$priorizados[$prior]=[$priorizados[$prior] , $coleccion[$i]];
 				}
+				else
+				{
+					$prioridades[$j]=$prior;
+					$priorizados[$prior]=$coleccion[$i];
+				}
+
+				++$j;
+			}
 
 			++$i;
 		}
 		$coleccion=array();
 
 		$k=0;
+		$i=0;
+
 		sort($prioridades);
+
 		while(isset($prioridades[$k]))
 		{
 			$prioridad=$prioridades[$k];
 
-			$coleccion[$k]=$priorizados[$prioridad];
+			$obj=$priorizados[$prioridad];
+
+			if(isset($obj[0]))
+			{
+				$j=0;
+				while(isset($obj[$j]))
+				{
+					$coleccion[$i]=$obj[$j];
+					++$j;
+					++$i;
+				}
+			}
+			else
+			{
+				$coleccion[$i]=$obj;
+				++$i;
+			}
 
 			++$k;
 		}
-/*
-		echo '<pre>$priorizados=';
-		print_r($coleccion);
-		echo '</pre>';
-*/
+
+
 		return $coleccion;
 	}
 	function reordena($lugar , $sqlObj , $condicion , $discProp, $valProp ,$edita)
