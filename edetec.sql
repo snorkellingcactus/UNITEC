@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 12-11-2015 a las 06:42:40
+-- Tiempo de generación: 04-01-2016 a las 12:24:58
 -- Versión del servidor: 5.6.16
 -- Versión de PHP: 5.5.11
 
@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS `Comentarios` (
   KEY `Comentarios_ibfk_3` (`ContenidoID`),
   KEY `Comentarios_ibfk_2` (`RaizID`),
   KEY `Comentarios_ibfk_4` (`PadreID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=109 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=147 ;
 
 --
 -- Volcado de datos para la tabla `Comentarios`
@@ -50,7 +50,43 @@ INSERT INTO `Comentarios` (`ID`, `ContenidoID`, `RaizID`, `PadreID`, `Fecha`, `B
 (101, 752, 699, 699, '2015-11-01 05:23:26', b'0', 'Hola'),
 (102, 753, 699, 752, '2015-11-01 05:25:25', b'0', 'Hola'),
 (103, 754, 699, 699, '2015-11-01 05:25:32', b'0', 'lo que'),
-(108, 761, 697, 697, '2015-11-03 02:49:21', b'0', 'Nuevo');
+(108, 761, 697, 697, '2015-11-03 02:49:21', b'0', 'Nuevo'),
+(109, 1107, 1091, 1091, '2015-12-24 10:50:59', b'0', 'hola'),
+(110, 1108, 1091, 1091, '2015-12-24 10:53:55', b'0', 'hola'),
+(111, 1109, 1091, 1091, '2015-12-24 10:54:19', b'0', 'hola'),
+(112, 1110, 1091, 1109, '2015-12-24 10:54:28', b'0', 'kmk'),
+(114, 1116, 1089, 1115, '2016-01-04 08:37:37', b'0', 'asx'),
+(115, 1117, 1089, 1116, '2016-01-04 08:37:58', b'0', 'asx'),
+(116, 1118, 1089, 1117, '2016-01-04 08:39:23', b'0', 'asx'),
+(117, 1119, 1089, 1118, '2016-01-04 08:40:03', b'0', 'asx'),
+(118, 1120, 1089, 1119, '2016-01-04 08:40:43', b'0', 'asx'),
+(119, 1121, 1089, 1120, '2016-01-04 08:42:32', b'0', 'asx'),
+(120, 1122, 1089, 1121, '2016-01-04 08:47:33', b'0', 'asx'),
+(121, 1123, 1089, 1122, '2016-01-04 08:48:20', b'0', 'asx'),
+(122, 1124, 1091, 1123, '2016-01-04 08:51:36', b'0', 'loque'),
+(123, 1125, 1091, 1124, '2016-01-04 08:53:19', b'0', 'loque'),
+(124, 1126, 1091, 1125, '2016-01-04 08:55:44', b'0', 'loque'),
+(125, 1127, 1091, 1091, '2016-01-04 08:55:48', b'0', 'loque'),
+(126, 1128, 1091, 1091, '2016-01-04 08:55:51', b'0', 'loque'),
+(127, 1129, 1091, 1091, '2016-01-04 08:56:01', b'0', 'nuevo c'),
+(128, 1130, 1091, 1091, '2016-01-04 08:56:08', b'0', 'nuevo c'),
+(129, 1131, 1091, 1128, '2016-01-04 08:56:16', b'0', 'res'),
+(130, 1132, 1091, 1091, '2016-01-04 08:56:24', b'0', 'hola'),
+(131, 1133, 1089, 1089, '2016-01-04 09:02:34', b'0', 's'),
+(132, 1134, 1089, 1089, '2016-01-04 09:02:39', b'0', 'asx'),
+(133, 1135, 1089, 1134, '2016-01-04 09:02:45', b'0', 'hol'),
+(134, 1136, 1089, 1089, '2016-01-04 09:02:52', b'0', 'lo'),
+(135, 1137, 1089, 1089, '2016-01-04 09:04:22', b'0', 'lo'),
+(137, 1139, 1055, 1138, '2016-01-04 09:09:14', b'0', 'asx'),
+(138, 1140, 1055, 1139, '2016-01-04 09:09:18', b'0', 'hola'),
+(139, 1141, 1055, 1140, '2016-01-04 09:09:47', b'0', 'xsa'),
+(140, 1142, 1055, 1141, '2016-01-04 09:10:57', b'0', 'xsa'),
+(141, 1143, 1055, 1142, '2016-01-04 09:12:13', b'0', 'xsa'),
+(142, 1144, 1055, 1055, '2016-01-04 09:13:15', b'0', 'xsa'),
+(143, 1145, 1055, 1055, '2016-01-04 09:13:21', b'0', 'xsa'),
+(144, 1146, 1055, 1145, '2016-01-04 09:14:17', b'0', 'hola'),
+(145, 1147, 1055, 1055, '2016-01-04 09:14:24', b'0', 'lo que sea'),
+(146, 1148, 1051, 1051, '2016-01-04 09:15:21', b'0', 'H');
 
 -- --------------------------------------------------------
 
@@ -61,7 +97,7 @@ INSERT INTO `Comentarios` (`ID`, `ContenidoID`, `RaizID`, `PadreID`, `Fecha`, `B
 CREATE TABLE IF NOT EXISTS `Contenidos` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1088 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1199 ;
 
 --
 -- Volcado de datos para la tabla `Contenidos`
@@ -630,7 +666,6 @@ INSERT INTO `Contenidos` (`ID`) VALUES
 (1034),
 (1035),
 (1036),
-(1037),
 (1038),
 (1039),
 (1040),
@@ -639,7 +674,6 @@ INSERT INTO `Contenidos` (`ID`) VALUES
 (1043),
 (1044),
 (1046),
-(1047),
 (1048),
 (1049),
 (1050),
@@ -667,7 +701,110 @@ INSERT INTO `Contenidos` (`ID`) VALUES
 (1083),
 (1084),
 (1085),
-(1087);
+(1087),
+(1088),
+(1089),
+(1090),
+(1091),
+(1092),
+(1093),
+(1094),
+(1095),
+(1096),
+(1097),
+(1099),
+(1101),
+(1102),
+(1103),
+(1105),
+(1106),
+(1107),
+(1108),
+(1109),
+(1110),
+(1111),
+(1112),
+(1113),
+(1114),
+(1115),
+(1116),
+(1117),
+(1118),
+(1119),
+(1120),
+(1121),
+(1122),
+(1123),
+(1124),
+(1125),
+(1126),
+(1127),
+(1128),
+(1129),
+(1130),
+(1131),
+(1132),
+(1133),
+(1134),
+(1135),
+(1136),
+(1137),
+(1138),
+(1139),
+(1140),
+(1141),
+(1142),
+(1143),
+(1144),
+(1145),
+(1146),
+(1147),
+(1148),
+(1150),
+(1152),
+(1154),
+(1155),
+(1156),
+(1157),
+(1158),
+(1159),
+(1160),
+(1161),
+(1162),
+(1163),
+(1164),
+(1165),
+(1166),
+(1167),
+(1168),
+(1170),
+(1172),
+(1173),
+(1174),
+(1175),
+(1176),
+(1177),
+(1178),
+(1179),
+(1180),
+(1181),
+(1182),
+(1183),
+(1184),
+(1185),
+(1186),
+(1187),
+(1188),
+(1189),
+(1190),
+(1191),
+(1192),
+(1193),
+(1194),
+(1195),
+(1196),
+(1197),
+(1198);
 
 -- --------------------------------------------------------
 
@@ -687,7 +824,7 @@ CREATE TABLE IF NOT EXISTS `Eventos` (
   KEY `Eventos_ibfk_1` (`DescripcionID`),
   KEY `NombreID` (`NombreID`),
   KEY `TagsGrpID` (`TagsGrpID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=9 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=12 ;
 
 --
 -- Volcado de datos para la tabla `Eventos`
@@ -699,7 +836,10 @@ INSERT INTO `Eventos` (`ID`, `Tiempo`, `NombreID`, `DescripcionID`, `Visible`, `
 (4, '2015-10-07 05:00:00', 648, 647, 0, 0, NULL),
 (5, '2015-10-24 02:00:00', 708, 707, 1, 0, NULL),
 (6, '2015-11-09 12:00:00', 808, 807, 0, 0, 8),
-(8, '2015-11-10 12:00:00', 867, 866, 0, 0, 35);
+(8, '2015-11-10 12:00:00', 867, 866, 0, 0, 35),
+(9, '2015-12-23 12:00:00', 1106, 1105, 0, 3, 268),
+(10, '2016-01-01 12:00:00', 1112, 1111, 1, 0, 271),
+(11, '2016-01-31 12:00:00', 1114, 1113, 0, 0, 272);
 
 -- --------------------------------------------------------
 
@@ -715,27 +855,23 @@ CREATE TABLE IF NOT EXISTS `Imagenes` (
   `LenguajeID` int(11) DEFAULT NULL,
   `Fecha` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `Visible` tinyint(1) NOT NULL DEFAULT '1',
-  `Prioridad` int(11) NOT NULL DEFAULT '1',
+  `PrioridadesGrpID` int(11) DEFAULT '1',
   `TagsGrpID` int(11) DEFAULT NULL,
   PRIMARY KEY (`ID`),
   KEY `LenguajeID` (`LenguajeID`),
   KEY `Imagenes_ibfk_1` (`TituloID`),
   KEY `AltID` (`AltID`),
-  KEY `TagsGrpID` (`TagsGrpID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=112 ;
+  KEY `TagsGrpID` (`TagsGrpID`),
+  KEY `PrioridadesGrpID` (`PrioridadesGrpID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=134 ;
 
 --
 -- Volcado de datos para la tabla `Imagenes`
 --
 
-INSERT INTO `Imagenes` (`ID`, `Url`, `AltID`, `TituloID`, `LenguajeID`, `Fecha`, `Visible`, `Prioridad`, `TagsGrpID`) VALUES
-(104, '', 1044, 1043, NULL, '2015-11-10 15:39:12', 1, 0, NULL),
-(106, '', 1048, 1047, NULL, '2015-11-10 15:43:40', 0, 0, 213),
-(107, '', 1050, 1049, NULL, '2015-11-10 15:45:43', 0, 0, 214),
-(108, '', 1052, 1051, NULL, '2015-11-10 15:45:44', 0, 0, 215),
-(109, '', 1054, 1053, NULL, '2015-11-10 15:48:02', 1, 0, 216),
-(110, '', 1056, 1055, NULL, '2015-11-10 15:48:04', 1, 0, 217),
-(111, '', 1058, 1057, NULL, '2015-11-10 15:48:05', 1, 0, 218);
+INSERT INTO `Imagenes` (`ID`, `Url`, `AltID`, `TituloID`, `LenguajeID`, `Fecha`, `Visible`, `PrioridadesGrpID`, `TagsGrpID`) VALUES
+(132, '', 1188, 1187, NULL, '2016-01-04 06:56:16', 1, 170, 292),
+(133, '', 1190, 1189, NULL, '2016-01-04 07:23:17', 1, 172, 293);
 
 -- --------------------------------------------------------
 
@@ -763,7 +899,7 @@ CREATE TABLE IF NOT EXISTS `Laboratorios` (
   KEY `DireccionID` (`DireccionID`),
   KEY `TagID` (`TagID`),
   KEY `PadreID` (`PadreID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=30 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=32 ;
 
 --
 -- Volcado de datos para la tabla `Laboratorios`
@@ -771,9 +907,11 @@ CREATE TABLE IF NOT EXISTS `Laboratorios` (
 
 INSERT INTO `Laboratorios` (`ID`, `Latitud`, `Longitud`, `DireccionID`, `Mail`, `Telefono`, `Facebook`, `Twitter`, `NombreID`, `TagID`, `Organigrama`, `Enlace`, `Color`, `PadreID`) VALUES
 (26, '-34.90693', '-57.94290', 1030, 'unitec@gmail.com', '4070883', 'https://www.facebook.com/uid.unitec?fref=ts', 'twitter', 1029, 21, 1, 1, NULL, NULL),
-(27, '', '', 1032, '', NULL, '', '', 1031, 40, 1, 0, NULL, 26),
+(27, '', '', 1032, '', '', '', '', 1031, 40, 1, 1, NULL, 26),
 (28, '', '', 1034, 'late@gmail.com', '', '', '', 1033, 32, 1, 1, NULL, 27),
-(29, '', '', 1036, '', NULL, '', '', 1035, 35, 1, 1, NULL, 27);
+(29, '', '', 1036, '', '', '', '', 1035, 35, 1, 1, NULL, 27),
+(30, '', '', 1093, '', '', '', '', 1092, 46, 1, 0, NULL, 26),
+(31, '', '', 1096, '', '', '', '', 1095, 47, 1, 1, NULL, 30);
 
 -- --------------------------------------------------------
 
@@ -795,7 +933,7 @@ CREATE TABLE IF NOT EXISTS `Lenguajes` (
 INSERT INTO `Lenguajes` (`ID`, `Nombre`, `Pais`) VALUES
 (1, 'Español', 'es_AR'),
 (2, 'English', 'en_US'),
-(3, 'Rusia', 'rs_RU');
+(3, 'Rusia', 'ru_RU');
 
 -- --------------------------------------------------------
 
@@ -818,21 +956,20 @@ CREATE TABLE IF NOT EXISTS `Menu` (
   KEY `SeccionID` (`SeccionID`),
   KEY `TagsGrpID` (`TagsGrpID`),
   KEY `PrioridadesGrpID` (`PrioridadesGrpID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=116 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=114 ;
 
 --
 -- Volcado de datos para la tabla `Menu`
 --
 
 INSERT INTO `Menu` (`ID`, `ContenidoID`, `SeccionID`, `Url`, `Atajo`, `PrioridadesGrpID`, `Visible`, `TagsGrpID`) VALUES
-(91, 1008, NULL, 'http://localhost', NULL, 76, 0, 150),
-(95, 1013, NULL, 'http://localhost', NULL, 89, 0, 179),
-(97, 1037, NULL, 'http://localhost', NULL, 106, 0, 197),
-(109, 1077, 'Galeria', '#Galeria', 'G', 137, 0, 243),
-(110, 1078, 'Benvenida', '#Benvenida', 'I', 138, 0, 244),
-(111, 1079, 'Atajos', '#Atajos', 'A', 140, 0, 246),
-(112, 1080, 'Novedades', '#Novedades', 'N', 142, 0, 248),
-(113, 1081, 'Calendario', '#Calendario', NULL, 143, 0, 249);
+(91, 1008, NULL, 'http://localhost', NULL, 76, 1, 150),
+(95, 1013, NULL, 'http://localhost', NULL, 89, 1, 179),
+(109, 1077, 'Galeria', '#Galeria', 'G', 137, 1, 243),
+(110, 1078, 'Benvenida', '#Benvenida', 'I', 138, 1, 244),
+(111, 1079, 'Atajos', '#Atajos', 'A', 140, 1, 246),
+(112, 1080, 'Novedades', '#Novedades', 'N', 142, 1, 248),
+(113, 1081, 'Calendario', '#Calendario', NULL, 143, 1, 249);
 
 -- --------------------------------------------------------
 
@@ -883,22 +1020,23 @@ CREATE TABLE IF NOT EXISTS `Novedades` (
   `DescripcionID` int(11) DEFAULT NULL,
   `Fecha` date NOT NULL,
   `Visible` tinyint(1) DEFAULT '1',
-  `Prioridad` int(11) DEFAULT '1',
+  `PrioridadesGrpID` int(11) DEFAULT '1',
   `TagsGrpID` int(11) DEFAULT NULL,
   PRIMARY KEY (`ID`),
   KEY `Novedades_ibfk_1` (`ImagenID`),
   KEY `Novedades_ibfk_2` (`TituloID`),
   KEY `Novedades_ibfk_3` (`DescripcionID`),
-  KEY `TagsGrpID` (`TagsGrpID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=37 ;
+  KEY `TagsGrpID` (`TagsGrpID`),
+  KEY `PrioridadesGrpID` (`PrioridadesGrpID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=43 ;
 
 --
 -- Volcado de datos para la tabla `Novedades`
 --
 
-INSERT INTO `Novedades` (`ID`, `ImagenID`, `TituloID`, `DescripcionID`, `Fecha`, `Visible`, `Prioridad`, `TagsGrpID`) VALUES
-(35, 108, 1060, 1059, '2015-11-11', 1, 1, 219),
-(36, 106, 1062, 1061, '2015-11-11', 1, 1, 220);
+INSERT INTO `Novedades` (`ID`, `ImagenID`, `TituloID`, `DescripcionID`, `Fecha`, `Visible`, `PrioridadesGrpID`, `TagsGrpID`) VALUES
+(41, 132, 1196, 1195, '2016-01-04', 1, 173, 296),
+(42, 133, 1198, 1197, '2016-01-04', 1, 174, 297);
 
 -- --------------------------------------------------------
 
@@ -968,17 +1106,18 @@ CREATE TABLE IF NOT EXISTS `OpcSets` (
   PRIMARY KEY (`ID`),
   KEY `Opcion` (`Opcion`),
   KEY `Grupo` (`Grupo`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=7 ;
 
 --
 -- Volcado de datos para la tabla `OpcSets`
 --
 
 INSERT INTO `OpcSets` (`ID`, `Valor`, `Opcion`, `Grupo`) VALUES
-(2, '0', 1, 1),
+(2, '6', 1, 1),
 (3, '12', 1, 2),
 (4, 'true', 2, 2),
-(5, '0', 1, 4);
+(5, '1', 1, 4),
+(6, '2', 1, 5);
 
 -- --------------------------------------------------------
 
@@ -1080,7 +1219,7 @@ CREATE TABLE IF NOT EXISTS `Prioridades` (
   PRIMARY KEY (`ID`),
   KEY `GrupoID` (`GrupoID`),
   KEY `LabID` (`LabID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=233 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=267 ;
 
 --
 -- Volcado de datos para la tabla `Prioridades`
@@ -1091,7 +1230,7 @@ INSERT INTO `Prioridades` (`ID`, `LabID`, `Prioridad`, `GrupoID`) VALUES
 (134, 26, 2, 105),
 (135, 28, 2, 105),
 (136, 29, 2, 105),
-(137, 26, 0, 106),
+(137, 26, 1, 106),
 (138, 28, 2, 106),
 (139, 29, 2, 106),
 (140, 28, 3, 104),
@@ -1153,18 +1292,18 @@ INSERT INTO `Prioridades` (`ID`, `LabID`, `Prioridad`, `GrupoID`) VALUES
 (196, 26, 4, 136),
 (197, 29, 17, 137),
 (198, 28, 17, 137),
-(199, 26, 5, 137),
+(199, 26, 6, 137),
 (200, 29, 16, 138),
 (201, 28, 18, 138),
-(202, 26, 4, 138),
+(202, 26, 5, 138),
 (203, 26, 4, 139),
 (204, 26, 8, 140),
 (205, 26, 1, 141),
 (206, 29, 18, 142),
 (207, 28, 19, 142),
-(208, 26, 6, 142),
+(208, 26, 7, 142),
 (209, 28, 20, 143),
-(210, 26, 7, 143),
+(210, 26, 0, 143),
 (211, 29, 19, 143),
 (212, 29, 20, 140),
 (213, 28, 21, 140),
@@ -1186,7 +1325,38 @@ INSERT INTO `Prioridades` (`ID`, `LabID`, `Prioridad`, `GrupoID`) VALUES
 (229, 28, 22, 148),
 (230, 28, 24, 149),
 (231, 28, 22, 150),
-(232, 28, 26, 147);
+(232, 28, 26, 147),
+(233, 26, 5, 151),
+(234, 29, 26, 151),
+(235, 26, 9, 152),
+(236, 29, 27, 152),
+(237, 26, 0, 153),
+(238, 29, 28, 153),
+(239, 26, 5, 154),
+(240, 26, 9, 155),
+(241, 29, 24, 156),
+(242, 27, 2, 156),
+(243, 26, 10, 156),
+(244, 29, 21, 157),
+(245, 27, 3, 157),
+(246, 26, 11, 157),
+(247, 27, 0, 158),
+(248, 26, 12, 158),
+(249, 27, 0, 159),
+(250, 26, 13, 159),
+(251, 27, 4, 105),
+(252, 27, 5, 104),
+(253, 31, 1, 104),
+(254, 26, 10, 164),
+(255, 26, 40, 168),
+(257, 26, 21, 170),
+(260, 26, 20, 172),
+(261, 28, 0, 170),
+(262, 29, 0, 170),
+(263, 28, 1, 172),
+(264, 29, 0, 172),
+(265, 26, 12, 173),
+(266, 26, 12, 174);
 
 -- --------------------------------------------------------
 
@@ -1197,7 +1367,7 @@ INSERT INTO `Prioridades` (`ID`, `LabID`, `Prioridad`, `GrupoID`) VALUES
 CREATE TABLE IF NOT EXISTS `PrioridadesGrp` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=151 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=175 ;
 
 --
 -- Volcado de datos para la tabla `PrioridadesGrp`
@@ -1334,7 +1504,31 @@ INSERT INTO `PrioridadesGrp` (`ID`) VALUES
 (147),
 (148),
 (149),
-(150);
+(150),
+(151),
+(152),
+(153),
+(154),
+(155),
+(156),
+(157),
+(158),
+(159),
+(160),
+(161),
+(162),
+(163),
+(164),
+(165),
+(166),
+(167),
+(168),
+(169),
+(170),
+(171),
+(172),
+(173),
+(174);
 
 -- --------------------------------------------------------
 
@@ -1360,38 +1554,38 @@ CREATE TABLE IF NOT EXISTS `Secciones` (
   KEY `OpcSetID` (`OpcSetID`),
   KEY `TagsGrpID` (`TagsGrpID`),
   KEY `PrioridadesGrpID` (`PrioridadesGrpID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=513 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=512 ;
 
 --
 -- Volcado de datos para la tabla `Secciones`
 --
 
 INSERT INTO `Secciones` (`ID`, `ContenidoID`, `ModuloID`, `PadreID`, `HTMLID`, `Visible`, `PrioridadesGrpID`, `OpcSetID`, `TagsGrpID`) VALUES
-(472, NULL, NULL, NULL, 'Bienvenida', 0, 90, NULL, 180),
-(473, NULL, 17, 472, NULL, 0, 91, NULL, 181),
-(475, NULL, NULL, NULL, 'Bienvenida2', 0, 94, NULL, 184),
-(477, NULL, 17, 475, NULL, 0, 96, NULL, 186),
-(478, 1017, NULL, 475, NULL, 0, 97, NULL, 187),
-(479, 1026, NULL, 475, NULL, 0, 98, NULL, 188),
-(480, 1027, NULL, 475, NULL, 0, 99, NULL, 189),
-(485, NULL, NULL, NULL, 'Benvenida', 0, 104, NULL, 195),
-(486, NULL, 17, 485, NULL, 0, 105, NULL, 196),
-(487, 1038, NULL, 485, NULL, 0, 107, NULL, 198),
-(488, 1039, NULL, 485, NULL, 0, 108, NULL, 199),
-(489, NULL, NULL, NULL, 'Galeria', 0, 109, NULL, 200),
-(490, NULL, 1, 489, NULL, 0, 110, NULL, 201),
-(491, NULL, NULL, NULL, 'Calendario', 0, 111, NULL, 202),
-(492, NULL, 8, 491, NULL, 0, 112, NULL, 203),
-(493, NULL, NULL, NULL, 'Novedades', 0, 113, NULL, 204),
-(494, NULL, 12, 493, NULL, 0, 114, NULL, 205),
-(495, 1063, NULL, 489, NULL, 0, 115, NULL, 221),
-(496, 1064, NULL, 493, NULL, 0, 116, NULL, 222),
-(497, 1065, NULL, 491, NULL, 0, 117, NULL, 223),
-(506, NULL, NULL, NULL, 'Atajos', 0, 139, NULL, 245),
-(507, NULL, 10, 506, NULL, 0, 141, NULL, 247),
-(508, 1082, NULL, 506, NULL, 0, 144, NULL, 250),
-(509, 1083, NULL, 485, NULL, 0, 145, NULL, 251),
-(511, 1085, NULL, 485, NULL, 0, 147, NULL, 253);
+(472, NULL, NULL, NULL, 'Bienvenida', 1, 90, NULL, 180),
+(473, NULL, 17, 472, NULL, 1, 91, NULL, 181),
+(475, NULL, NULL, NULL, 'Bienvenida2', 1, 94, NULL, 184),
+(477, NULL, 17, 475, NULL, 1, 96, NULL, 186),
+(478, 1017, NULL, 475, NULL, 1, 97, NULL, 187),
+(479, 1026, NULL, 475, NULL, 1, 98, NULL, 188),
+(480, 1027, NULL, 475, NULL, 1, 99, NULL, 189),
+(485, NULL, NULL, NULL, 'Benvenida', 1, 104, NULL, 195),
+(486, NULL, 17, 485, NULL, 1, 105, NULL, 196),
+(487, 1038, NULL, 485, NULL, 1, 107, NULL, 198),
+(488, 1039, NULL, 485, NULL, 1, 108, NULL, 199),
+(489, NULL, NULL, NULL, 'Galeria', 1, 109, NULL, 200),
+(490, NULL, 1, 489, NULL, 1, 110, NULL, 201),
+(491, NULL, NULL, NULL, 'Calendario', 1, 111, NULL, 202),
+(492, NULL, 8, 491, NULL, 1, 112, NULL, 203),
+(493, NULL, NULL, NULL, 'Novedades', 1, 113, NULL, 204),
+(494, NULL, 12, 493, NULL, 1, 114, NULL, 205),
+(495, 1063, NULL, 489, NULL, 1, 115, NULL, 221),
+(496, 1064, NULL, 493, NULL, 1, 116, NULL, 222),
+(497, 1065, NULL, 491, NULL, 1, 117, NULL, 223),
+(506, NULL, NULL, NULL, 'Atajos', 1, 139, NULL, 245),
+(507, NULL, 10, 506, NULL, 1, 141, NULL, 247),
+(508, 1082, NULL, 506, NULL, 1, 144, NULL, 250),
+(509, 1083, NULL, 485, NULL, 1, 145, NULL, 251),
+(511, 1085, NULL, 485, NULL, 1, 147, NULL, 253);
 
 -- --------------------------------------------------------
 
@@ -1404,7 +1598,7 @@ CREATE TABLE IF NOT EXISTS `Tags` (
   `NombreID` int(11) DEFAULT NULL,
   PRIMARY KEY (`ID`),
   KEY `Tags_ibfk_1` (`NombreID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=46 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=48 ;
 
 --
 -- Volcado de datos para la tabla `Tags`
@@ -1443,7 +1637,9 @@ INSERT INTO `Tags` (`ID`, `NombreID`) VALUES
 (42, 934),
 (43, 1028),
 (44, 1040),
-(45, 1084);
+(45, 1084),
+(46, 1094),
+(47, 1097);
 
 -- --------------------------------------------------------
 
@@ -1454,7 +1650,7 @@ INSERT INTO `Tags` (`ID`, `NombreID`) VALUES
 CREATE TABLE IF NOT EXISTS `TagsGrp` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=257 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=298 ;
 
 --
 -- Volcado de datos para la tabla `TagsGrp`
@@ -1710,7 +1906,48 @@ INSERT INTO `TagsGrp` (`ID`) VALUES
 (253),
 (254),
 (255),
-(256);
+(256),
+(257),
+(258),
+(259),
+(260),
+(261),
+(262),
+(263),
+(264),
+(265),
+(266),
+(267),
+(268),
+(269),
+(270),
+(271),
+(272),
+(273),
+(274),
+(275),
+(276),
+(277),
+(278),
+(279),
+(280),
+(281),
+(282),
+(283),
+(284),
+(285),
+(286),
+(287),
+(288),
+(289),
+(290),
+(291),
+(292),
+(293),
+(294),
+(295),
+(296),
+(297);
 
 -- --------------------------------------------------------
 
@@ -1725,7 +1962,7 @@ CREATE TABLE IF NOT EXISTS `TagsTarget` (
   PRIMARY KEY (`ID`),
   KEY `GrupoID` (`GrupoID`),
   KEY `TagsTarget_ibfk_1` (`TagID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=582 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=654 ;
 
 --
 -- Volcado de datos para la tabla `TagsTarget`
@@ -1799,12 +2036,8 @@ INSERT INTO `TagsTarget` (`ID`, `TagID`, `GrupoID`) VALUES
 (380, 32, 193),
 (383, 32, 194),
 (384, 35, 194),
-(387, 32, 196),
-(388, 35, 196),
 (390, 32, 197),
 (391, 35, 197),
-(392, 32, 195),
-(393, 35, 195),
 (394, 32, 198),
 (399, 35, 201),
 (400, 32, 201),
@@ -1893,7 +2126,78 @@ INSERT INTO `TagsTarget` (`ID`, `TagID`, `GrupoID`) VALUES
 (577, 21, 249),
 (578, 21, 246),
 (580, 21, 221),
-(581, 21, 253);
+(581, 21, 253),
+(582, 21, 200),
+(583, 21, 201),
+(584, 21, 202),
+(585, 21, 223),
+(586, 21, 203),
+(587, 21, 204),
+(588, 21, 222),
+(589, 21, 205),
+(590, 21, 245),
+(591, 21, 250),
+(592, 21, 247),
+(593, 21, 257),
+(594, 21, 258),
+(595, 21, 259),
+(596, 21, 260),
+(597, 21, 261),
+(598, 35, 261),
+(599, 21, 262),
+(600, 35, 262),
+(601, 21, 263),
+(602, 35, 263),
+(603, 21, 264),
+(604, 21, 265),
+(605, 35, 266),
+(606, 40, 266),
+(607, 21, 266),
+(608, 35, 267),
+(609, 40, 267),
+(610, 21, 267),
+(611, 21, 213),
+(612, 21, 268),
+(613, 35, 268),
+(614, 40, 269),
+(615, 21, 269),
+(616, 40, 270),
+(618, 40, 196),
+(619, 40, 195),
+(620, 32, 195),
+(621, 35, 195),
+(622, 47, 195),
+(623, 21, 271),
+(624, 21, 272),
+(625, 21, 273),
+(626, 21, 274),
+(627, 21, 275),
+(628, 21, 276),
+(629, 21, 277),
+(630, 21, 278),
+(631, 21, 279),
+(632, 21, 280),
+(633, 21, 281),
+(634, 21, 282),
+(635, 21, 283),
+(636, 21, 284),
+(637, 21, 285),
+(638, 21, 286),
+(639, 21, 287),
+(640, 21, 288),
+(641, 21, 289),
+(642, 21, 290),
+(643, 21, 291),
+(644, 21, 292),
+(645, 21, 293),
+(646, 32, 292),
+(647, 35, 292),
+(648, 32, 293),
+(649, 35, 293),
+(650, 21, 294),
+(651, 21, 295),
+(652, 21, 296),
+(653, 21, 297);
 
 -- --------------------------------------------------------
 
@@ -1909,7 +2213,7 @@ CREATE TABLE IF NOT EXISTS `Traducciones` (
   PRIMARY KEY (`ID`),
   KEY `LenguajeID` (`LenguajeID`),
   KEY `Traducciones_ibfk_1` (`ContenidoID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1205 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1320 ;
 
 --
 -- Volcado de datos para la tabla `Traducciones`
@@ -2519,8 +2823,7 @@ INSERT INTO `Traducciones` (`ID`, `ContenidoID`, `LenguajeID`, `Texto`) VALUES
 (1151, 1034, 1, '50 y 120'),
 (1152, 1035, 1, 'labtic'),
 (1153, 1036, 1, ''),
-(1154, 1037, 1, 'Unitec'),
-(1155, 1038, 1, '&lt;p style=&quot;text-align:center&quot;&gt;&lt;strong&gt;Bienvenido a Late&lt;/strong&gt;&lt;/p&gt;\r\n'),
+(1155, 1038, 1, '&lt;p style=&quot;text-align:center&quot;&gt;&lt;strong&gt;Welcome to late!&lt;/strong&gt;&lt;/p&gt;\r\n'),
 (1156, 1039, 1, '&lt;h1 style=&quot;text-align: center;&quot;&gt;&lt;span style=&quot;font-size:18px&quot;&gt;&lt;strong&gt;Bienvenido a UNITEC&lt;/strong&gt;&lt;/span&gt;&lt;/h1&gt;\r\n'),
 (1157, 1040, 1, 'latic'),
 (1158, 1041, 1, '&lt;p&gt;Solo late&lt;/p&gt;\r\n'),
@@ -2528,7 +2831,6 @@ INSERT INTO `Traducciones` (`ID`, `ContenidoID`, `LenguajeID`, `Texto`) VALUES
 (1160, 1043, 1, 'A'),
 (1161, 1044, 1, 'A'),
 (1163, 1046, 1, 'A'),
-(1164, 1047, 1, 'En Todos'),
 (1165, 1048, 1, 'Alt En Todos'),
 (1166, 1049, 1, 'En todos menos Late'),
 (1167, 1050, 1, 'Alt En todos menos Late'),
@@ -2551,12 +2853,118 @@ INSERT INTO `Traducciones` (`ID`, `ContenidoID`, `LenguajeID`, `Texto`) VALUES
 (1195, 1078, 1, 'Benvenida'),
 (1196, 1079, 1, 'Atajos'),
 (1197, 1080, 1, 'Novedades'),
-(1198, 1081, 1, 'Calendario'),
+(1198, 1081, 1, 'Calendarioasd'),
 (1199, 1082, 1, '&lt;h1 style=&quot;text-align:center&quot;&gt;&lt;strong&gt;&lt;span style=&quot;font-size:18px&quot;&gt;Atajos&lt;/span&gt;&lt;/strong&gt;&lt;/h1&gt;\r\n'),
 (1200, 1083, 1, '&lt;p&gt;&lt;strong&gt;Bienvenido a labtic&lt;/strong&gt;&lt;/p&gt;\r\n'),
 (1201, 1084, 1, 'unitce'),
 (1202, 1085, 1, '&lt;h1 style=&quot;text-align:center&quot;&gt;&lt;span style=&quot;font-size:18px&quot;&gt;&lt;strong&gt;Bienvenido a unitec&lt;/strong&gt;&lt;/span&gt;&lt;/h1&gt;\r\n'),
-(1204, 1087, 1, 'Solo Late');
+(1204, 1087, 1, 'Solo Late'),
+(1205, 1088, 1, '&lt;p&gt;Mundo&lt;/p&gt;\r\n'),
+(1206, 1089, 1, 'Hola'),
+(1207, 1090, 1, '&lt;p&gt;Prueba&lt;/p&gt;\r\n'),
+(1208, 1091, 1, 'Una'),
+(1209, 1092, 1, 'Espacios de desarrollo Tecnol&oacute;gico'),
+(1210, 1093, 1, ''),
+(1211, 1094, 1, 'espacios de desarrollo tecnologico'),
+(1212, 1095, 1, 'LING'),
+(1213, 1096, 1, ''),
+(1214, 1097, 1, 'ling'),
+(1216, 1099, 1, 'clear'),
+(1218, 1101, 1, 'clear'),
+(1219, 1102, 1, 'SeccionPrueba'),
+(1220, 1103, 1, '&lt;p style=&quot;text-align:center&quot;&gt;&lt;strong&gt;Seccion de Prueba&lt;/strong&gt;&lt;/p&gt;\r\n'),
+(1221, 1081, 2, 'Calendarioasx'),
+(1223, 1105, 1, 'Un evento de prueba'),
+(1224, 1106, 1, 'Evento en unitec y labtic'),
+(1225, 1107, 1, 'mund'),
+(1226, 1108, 1, 'mund'),
+(1227, 1109, 1, 'mund'),
+(1228, 1110, 1, 'h n'),
+(1229, 1083, 2, '&lt;p&gt;&lt;strong&gt;Welcome to labtic!&lt;/strong&gt;&lt;/p&gt;\r\n'),
+(1231, 1101, 2, 'clear'),
+(1232, 1111, 1, 'peeerffdvdfvdfv'),
+(1233, 1112, 1, 'Evento el primero'),
+(1234, 1113, 1, 'wdcsdcsdc'),
+(1235, 1114, 1, 'El 3ro'),
+(1236, 1115, 1, 'xsa'),
+(1237, 1116, 1, 'xsa'),
+(1238, 1117, 1, 'xsa'),
+(1239, 1118, 1, 'xsa'),
+(1240, 1119, 1, 'xsa'),
+(1241, 1120, 1, 'xsa'),
+(1242, 1121, 1, 'xsa'),
+(1243, 1122, 1, 'xsa'),
+(1244, 1123, 1, 'xsa'),
+(1245, 1124, 1, 'sea'),
+(1246, 1125, 1, 'sea'),
+(1247, 1126, 1, 'sea'),
+(1248, 1127, 1, 'sea'),
+(1249, 1128, 1, 'sea'),
+(1250, 1129, 1, 'omentario'),
+(1251, 1130, 1, 'omentario'),
+(1252, 1131, 1, 'pondiendo'),
+(1253, 1132, 1, 'mundo'),
+(1254, 1133, 1, 's'),
+(1255, 1134, 1, 'xs'),
+(1256, 1135, 1, 'amund'),
+(1257, 1136, 1, 'quesea'),
+(1258, 1137, 1, 'quesea'),
+(1259, 1138, 1, 'xsa'),
+(1260, 1139, 1, 'xsa'),
+(1261, 1140, 1, 'mundo'),
+(1262, 1141, 1, 'sss'),
+(1263, 1142, 1, 'sss'),
+(1264, 1143, 1, 'sss'),
+(1265, 1144, 1, 'sss'),
+(1266, 1145, 1, 'sss'),
+(1267, 1146, 1, 'mundo'),
+(1268, 1147, 1, 'as'),
+(1269, 1148, 1, 'i'),
+(1271, 1150, 1, 'A'),
+(1273, 1152, 1, 'B'),
+(1275, 1154, 1, 'C'),
+(1276, 1155, 1, 'D'),
+(1277, 1156, 1, 'D'),
+(1278, 1157, 1, 'E'),
+(1279, 1158, 1, 'E'),
+(1280, 1159, 1, 'F'),
+(1281, 1160, 1, 'F'),
+(1282, 1161, 1, 'G'),
+(1283, 1162, 1, 'G'),
+(1284, 1163, 1, 'H'),
+(1285, 1164, 1, 'H'),
+(1286, 1165, 1, 'I'),
+(1287, 1166, 1, 'I'),
+(1288, 1167, 1, 'J'),
+(1289, 1168, 1, 'J'),
+(1291, 1170, 1, 'L'),
+(1293, 1172, 1, 'M'),
+(1294, 1173, 1, 'A1'),
+(1295, 1174, 1, 'A1'),
+(1296, 1175, 1, 'B1'),
+(1297, 1176, 1, 'B1'),
+(1298, 1177, 1, 'C1'),
+(1299, 1178, 1, 'C1'),
+(1300, 1179, 1, 'D1'),
+(1301, 1180, 1, 'D1'),
+(1302, 1181, 1, 'Hola'),
+(1303, 1182, 1, 'Mundo'),
+(1304, 1183, 1, 'asx'),
+(1305, 1184, 1, 'xsa'),
+(1306, 1185, 1, 'mundo'),
+(1307, 1186, 1, 'as'),
+(1308, 1187, 1, 'Hola'),
+(1309, 1188, 1, 'Mundo'),
+(1310, 1189, 1, 'Mundo'),
+(1311, 1190, 1, 'Mundi'),
+(1312, 1191, 1, ''),
+(1313, 1192, 1, ''),
+(1314, 1193, 1, '&lt;p&gt;Mundo&lt;/p&gt;\r\n'),
+(1315, 1194, 1, 'Hola'),
+(1316, 1195, 1, '&lt;p&gt;mundo&lt;/p&gt;\r\n'),
+(1317, 1196, 1, 'hola'),
+(1318, 1197, 1, '&lt;p&gt;&lt;strong&gt;novedade&lt;/strong&gt;&lt;/p&gt;\r\n'),
+(1319, 1198, 1, 'Una nueva');
 
 -- --------------------------------------------------------
 
@@ -2608,6 +3016,7 @@ ALTER TABLE `Eventos`
 -- Filtros para la tabla `Imagenes`
 --
 ALTER TABLE `Imagenes`
+  ADD CONSTRAINT `Imagenes_ibfk_5` FOREIGN KEY (`PrioridadesGrpID`) REFERENCES `PrioridadesGrp` (`ID`),
   ADD CONSTRAINT `Imagenes_ibfk_1` FOREIGN KEY (`TituloID`) REFERENCES `Contenidos` (`ID`) ON DELETE CASCADE,
   ADD CONSTRAINT `Imagenes_ibfk_2` FOREIGN KEY (`LenguajeID`) REFERENCES `Lenguajes` (`ID`),
   ADD CONSTRAINT `Imagenes_ibfk_3` FOREIGN KEY (`AltID`) REFERENCES `Contenidos` (`ID`) ON DELETE CASCADE,
@@ -2643,6 +3052,7 @@ ALTER TABLE `Modulos`
 -- Filtros para la tabla `Novedades`
 --
 ALTER TABLE `Novedades`
+  ADD CONSTRAINT `Novedades_ibfk_5` FOREIGN KEY (`PrioridadesGrpID`) REFERENCES `PrioridadesGrp` (`ID`),
   ADD CONSTRAINT `Novedades_ibfk_1` FOREIGN KEY (`ImagenID`) REFERENCES `Imagenes` (`ID`) ON DELETE CASCADE,
   ADD CONSTRAINT `Novedades_ibfk_2` FOREIGN KEY (`TituloID`) REFERENCES `Contenidos` (`ID`) ON DELETE CASCADE,
   ADD CONSTRAINT `Novedades_ibfk_3` FOREIGN KEY (`DescripcionID`) REFERENCES `Contenidos` (`ID`) ON DELETE CASCADE,
