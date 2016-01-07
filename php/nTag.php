@@ -255,14 +255,14 @@
 			++$t;
 		}
 	}
-	
-	function getTagsStr($tagsGrpID)
+
+	function getTagsNamesID($tagsGrpID)
 	{
 		global $con;
 
 		include_once $_SERVER['DOCUMENT_ROOT'] . '/php/getTraduccion.php';
 
-		$tagsNamesID=fetch_all
+		return fetch_all
 		(
 			$con->query
 			(
@@ -274,6 +274,9 @@
 			),
 			MYSQLI_NUM
 		);
+	}
+	function tagsNamesIDToTrad($tagsNamesID)
+	{
 		//Revisar. Optimizar.
 		$t=0;
 		while(isset($tagsNamesID[$t][0]))
@@ -281,6 +284,20 @@
 			$tagsNamesID[$t]=getTraduccion($tagsNamesID[$t][0] , $_SESSION['lang']);
 			++$t;
 		}
+
+		return $tagsNamesID;
+	}
+	function getTagsNamesStr($tagsGrpID)
+	{
+		return tagsNamesIDToTrad
+		(
+			getTagsNamesID($tagsGrpID)
+		);
+	}
+	function getTagsStr($tagsGrpID)
+	{
+		
+		$tagsNamesID=getTagsNamesStr($tagsGrpID);
 
 		sort($tagsNamesID);
 
@@ -516,7 +533,7 @@
 		$con->query
 		(
 			'	INSERT INTO Prioridades(GrupoID , LabID , Prioridad)
-				VALUES('.$grupoID.' , '.$labID.' , '.$priority.')
+				VALUES('.$grupoID.' , '.$labID.' , '.intVal(trim($priority)).')
 			'
 		);
 		return $con->insert_id;

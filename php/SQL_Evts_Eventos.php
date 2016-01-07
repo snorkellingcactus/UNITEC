@@ -12,11 +12,10 @@
 
 			$evento=new Evento();
 
-			$this->cantidad=count($_POST['Titulo']);
-			$afectadosLen=0;
+			$iMax=$_SESSION['cantidad'];
 			$afectados=[];
 
-			for($i=0;$i<$this->cantidad;$i++)
+			for($i=0;$i<$iMax;$i++)
 			{
 				$evento->getSQL(['DescripcionID'=>$_SESSION['conID'][$i]]);
 				$evento->getAsoc
@@ -46,8 +45,7 @@
 					$evento->updTagsTargets($_POST['Tags'][$i]);
 				}
 
-				$afectados[$afectadosLen]=$_SESSION['conID'][$i];
-				++$afectadosLen;
+				$afectados[$i]=$_SESSION['conID'][$i];
 			}
 			return $afectados;
 		}
@@ -58,7 +56,6 @@
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/nTraduccion.php';
 
 			$this->cantidad=count($_POST['Titulo']);
-			$afectadosLen=0;
 			$afectados=[];
 
 			for($i=0;$i<$this->cantidad;$i++)
@@ -118,8 +115,7 @@
 					$evento->updTagsTargets($_POST['Tags'][$i]);
 				}
 
-				$afectados[$afectadosLen]=$evento->DescripcionID;
-				++$afectadosLen;
+				$afectados[$i]=$evento->DescripcionID;
 			}
 			return $afectados;
 		}
@@ -128,7 +124,7 @@
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/conexion.php';
 			global $con;
 
-			$iMax=count($_SESSION['conID']);
+			$iMax=$_SESSION['cantidad'];
 
 			for($i=0;$i<$iMax;$i++)
 			{

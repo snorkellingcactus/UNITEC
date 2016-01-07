@@ -379,6 +379,22 @@ li.turn-left::before
 {
 	content:'↲'
 }
+.tagList span
+{
+	background-color:white;
+	color:black;
+	margin:3px;
+	padding:1px 7px;
+	border-top-left-radius:20px;
+	border-bottom-left-radius:20px;
+	border:1px solid black;
+	line-height: 1em
+}
+.tagList
+{
+	float:right;
+	padding:10px;
+}
 @keyframes comentBackground
 {
 	from

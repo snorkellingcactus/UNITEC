@@ -31,8 +31,7 @@
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/elimina.php';
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/nTag.php';
 
-			$iMax=count($_SESSION['conID']);
-			$afectadosLen=0;
+			$iMax=$_SESSION['cantidad'];
 			$afectados=[];
 
 			for($i=0;$i<$iMax;$i++)
@@ -84,9 +83,7 @@
 					);
 				}
 
-				$afectados[$afectadosLen]=$nImg->ID;
-
-				++$afectadosLen;
+				$afectados[$i]=$nImg->ID;
 			}
 
 			return $afectados;
@@ -101,8 +98,7 @@
 
 			global $con;
 
-			$iMax=count($_POST['Titulo']);
-			$afectadosLen=0;
+			$iMax=$_SESSION['cantidad'];
 			$afectados=[];
 
 			for($i=0;$i<$iMax;$i++)
@@ -179,15 +175,14 @@
 					);
 				}
 
-				$afectados[$afectadosLen]=$img->ID;
-				++$afectadosLen;
+				$afectados[$i]=$img->ID;
 			}
 			return $afectados;
 		}
 		public function elimina()
 		{
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/elimina.php';
-			$iMax=count($_SESSION['conID']);
+			$iMax=$_SESSION['cantidad'];
 
 			global $con;
 

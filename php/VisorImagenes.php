@@ -83,21 +83,22 @@
 	*/
 			$img=new DOMTag('img');
 
-			$div=new DOMTag('div');
-			$div->classList->add('gImg');
-			$div->col=['xs'=>2 , 'sm'=>2 , 'md'=>2 , 'lg'=>2];
-
+			$divA=new DOMTag('div');
+			$divB=new DOMTag('div');
+			$divB->classList->add('gImg');
+			$divB->col=['xs'=>2 , 'sm'=>2 , 'md'=>2 , 'lg'=>2];
+			$divA->classList->add('selectorCont');
 			
 			$this->selector->appendChild
 			(
-				$div->appendChild
-				(
-					$a->appendChild
+					$divB->appendChild
 					(
-						$img->setAttribute('src' , $this->formatUrlB($rec))
-						->setAttribute('alt' , $alt)
+						$a->appendChild
+						(
+							$img->setAttribute('src' , $this->formatUrlB($rec))
+							->setAttribute('alt' , $alt)
+						)
 					)
-				)
 			);
 
 			return $selected;

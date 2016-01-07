@@ -8,6 +8,7 @@
 	{
 		public $section;
 		public $p;
+		public $tagLst;
 
 		function __construct()
 		{
@@ -22,6 +23,7 @@
 			$this->section->classList->add('novedades');
 			$this->section->col=['xs'=>10 , 'sm'=>10 , 'md'=>10 , 'lg'=>10];
 			$this->img->col=	['xs'=>12 , 'sm'=>5 , 'md'=>5 , 'lg'=>5];
+			$this->tagLst=new DOMTagLst();
 
 
 			$this->html->appendChild
@@ -35,10 +37,16 @@
 				)->appendChild
 				(
 					$this->p
+				)->appendChild
+				(
+					new ClearFix()
+				)->appendChild
+				(
+					$this->tagLst
 				)
 			)->appendChild(new ClearFix());
 		}
-		public function add($rec , $imagenID , $tituloID , $descripcionID)
+		public function add($rec , $imagenID , $tituloID , $descripcionID , $tagsGrpID)
 		{
 			global $con;
 
@@ -71,6 +79,15 @@
 				)->setContenido
 				(
 					getTraduccion($descripcionID , $_SESSION['lang'])
+				)->tagLst->buildFromTagsNames
+				(
+					tagsNamesIDToTrad
+					(
+						getTagsNamesID
+						(
+							$tagsGrpID
+						)
+					)
 				);
 			}
 

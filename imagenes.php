@@ -41,6 +41,7 @@
 			print_r($_SERVER['QUERY_STRING']);
 			echo '</pre>';
 */			
+
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/VisorImagenes.php';
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/getTraduccion.php';
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/reordena.php';

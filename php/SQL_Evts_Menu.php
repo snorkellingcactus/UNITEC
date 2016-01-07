@@ -13,8 +13,7 @@
 
 			$_SESSION['conID']=[$_SESSION['conID']];
 
-			$iMax=count($_SESSION['conID']);
-			$afectadosLen=0;
+			$iMax=$_SESSION['cantidad'];
 			$afectados=[];
 
 			for($i=0;$i<$iMax;$i++)
@@ -101,8 +100,7 @@
 */
 				}
 
-				$afectados[$afectadosLen]=$conIdAct;
-				++$afectadosLen;
+				$afectados[$i]=$conIdAct;
 			}
 			return $afectados;
 		}
@@ -117,17 +115,16 @@
 
 			//$_SESSION['conID']=[$_SESSION['conID']];
 
-			$sMax=count($_POST['Titulo']);
-			$afectadosLen=0;
+			$iMax=$_SESSION['cantidad'];
 			$afectados=[];
 
-			for($s=0;$s<$sMax;$s++)
+			for($i=0;$i<$iMax;$i++)
 			{
 				$nMenu=new Menu
 				(
 					[
-						'Url'=>$_POST['Url'][$s],
-						'Visible'=>$_POST['Visible'][$s]
+						'Url'=>$_POST['Url'][$i],
+						'Visible'=>$_POST['Visible'][$i]
 					]
 				);
 
@@ -135,7 +132,7 @@
 				(
 					nTraduccion
 					(
-						$_POST['Titulo'][$s],
+						$_POST['Titulo'][$i],
 						$_SESSION['lang']
 					),
 					'ContenidoID',
@@ -153,23 +150,22 @@
 
 				$nMenu->insSQL();
 
-				if(!empty($_POST['Tags'][$s]))
+				if(!empty($_POST['Tags'][$i]))
 				{
-					$nMenu->updTagsTargets($_POST['Tags'][$s]);;
+					$nMenu->updTagsTargets($_POST['Tags'][$i]);;
 
 					updLabsTagsPriority
 					(
-						$_POST['Tags'][$s],
+						$_POST['Tags'][$i],
 						$nMenu,
 						'1',
-						$_POST['Lugar'][$s],
+						$_POST['Lugar'][$i],
 						'ContenidoID',
 						false
 					);
 				}
 
-				$afectados[$afectadosLen]=$nMenu->ContenidoID;
-				++$afectadosLen;
+				$afectados[$i]=$nMenu->ContenidoID;
 			}
 			return $afectados;
 		}
@@ -180,14 +176,14 @@
 
 			$_SESSION['conID']=[$_SESSION['conID']];
 
-			$sMax=count($_SESSION['conID']);
+			$iMax=$_SESSION['cantidad'];
 
-			for($s=0;$s<$sMax;$s++)
+			for($i=0;$i<$iMax;$i++)
 			{
 				$con->query
 				(
 					'	DELETE FROM Contenidos
-						WHERE ID='.$_SESSION['conID'][$s]
+						WHERE ID='.$_SESSION['conID'][$i]
 				);
 
 				//echo '<pre>';print_r('	DELETE FROM Contenidos WHERE ID='.$_SESSION['conID'][$s]);echo '</pre>';

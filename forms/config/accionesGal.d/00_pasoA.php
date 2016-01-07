@@ -1,9 +1,6 @@
 <?php
 	//echo '<pre>Paso A</pre>';
-	if(isset($_POST['conID']))
-	{
-		$this->form->cantidad=count($_POST['conID']);
-	}
+
 	if($this->getAction()===2)
 	{
 		$this->redirectToStepName('90_SQL_Evts.php');

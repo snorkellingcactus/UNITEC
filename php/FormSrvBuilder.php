@@ -34,9 +34,9 @@
 			$this->actionUrl='http://'.$_SERVER['SERVER_NAME'].'/php/accion.php';
 			$this->form=new Form($this);
 
-			if(isset($_POST['cantidad']))
+			if(isset($_SESSION['cantidad']))
 			{
-				$this->cantidad=intVal($_POST['cantidad']);
+				$this->cantidad=intVal($_SESSION['cantidad']);
 			}
 
 			if(isset($_POST['conID']) && isset($_POST['conID'][0]))
@@ -74,7 +74,6 @@
 			{
 				$desp->actual=$_GET['step'];
 			}
-			
 		}
 		public function getNextStepUrl()
 		{
@@ -167,9 +166,8 @@
 		public function buildAll()
 		{
 			//echo '<pre>buildAll</pre>';
-			$max=10;
 			$j=0;
-			while($this->buildNext() && $j<$max)
+			while($this->buildNext())
 			{
 				++$j;
 			}

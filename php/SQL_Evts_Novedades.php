@@ -19,8 +19,7 @@
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/nTag.php';
 
 			$nNov=new Novedad();
-			$iMax=count($_SESSION['conID']);
-			$afectadosLen=0;
+			$iMax=$_SESSION['cantidad'];
 			$afectados=[];
 
 
@@ -57,27 +56,26 @@
 					);
 				}
 
-				$afectados[$afectadosLen]=$nNov->TituloID;
-				++$afectadosLen;
+				$afectados[$i]=$nNov->TituloID;
 			}
 			return $afectados;
 		}
 		public function nuevo()
 		{
-/*
+
 			echo '<pre>SESSION:';
 			print_r($_SESSION);
 			echo '</pre>';
 			echo '<pre>POST:';
-			echo $_POST['Contenido'][0];
+			print_r($_POST);
 			echo '</pre>';
-*/
+
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/Foranea.php';
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/Novedad.php';
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/nTraduccion.php';
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/nTag.php';
 
-			$iMax=1;
+			$iMax=$_SESSION['cantidad'];
 			$afectados=[];
 
 			for($i=0;$i<$iMax;$i++)
@@ -127,7 +125,7 @@
 					);
 				}
 
-				$afectados[0]=$nov->TituloID;
+				$afectados[$i]=$nov->TituloID;
 			}
 			return $afectados;
 		}
@@ -136,7 +134,7 @@
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/conexion.php';
 			global $con;
 
-			$iMax=count($_SESSION['conID']);
+			$iMax=$_SESSION['cantidad'];
 			for($i=0;$i<$iMax;$i++)
 			{
 				$contenidos=fetch_all

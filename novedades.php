@@ -24,6 +24,9 @@
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/setLang.php';
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/getLab.php';
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/reordena.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/nTag.php';
+
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/DOMTagLst.php';
 
 	detectLang();
 	detectLab();
@@ -34,22 +37,27 @@
 	{
 		$vRecID=intVal($_GET['vRecID']);
 
-		$notStr='AND Novedades.ID != '.$vRecID;
-
-		$mainNov=fetch_all
-		(
-			$con->query
-			(
-				'	SELECT Novedades.* FROM `Novedades`
-					WHERE ID='.intVal($_GET['vRecID'])
-			),
-			MYSQLI_ASSOC
-		)[0];
+		$queryStr='	SELECT Novedades.* FROM `Novedades`
+					WHERE ID='.intVal($_GET['vRecID']);
 	}
 	else
 	{
-		$notStr='';
+		$queryStr='	SELECT Novedades.* FROM `Novedades`
+					LEFT OUTER JOIN TagsTarget
+					ON TagsTarget.GrupoID=Novedades.TagsGrpID
+					LEFT OUTER JOIN Laboratorios
+					ON Laboratorios.ID='.$_SESSION['lab'].'
+					WHERE TagsTarget.TagID=Laboratorios.TagID
+					ORDER BY Fecha DESC
+					LIMIT 1
+				';
 	}
+
+	$mainNov=fetch_all
+	(
+		$con->query($queryStr),
+		MYSQLI_ASSOC
+	)[0];
 
 	$recLst=getPriorizados
 	(
@@ -57,13 +65,26 @@
 		(
 			$con->query
 			(
-				'	SELECT Novedades.* FROM `Novedades`
-					LEFT OUTER JOIN TagsTarget
-					ON TagsTarget.GrupoID=Novedades.TagsGrpID
-					LEFT OUTER JOIN Laboratorios
-					ON Laboratorios.ID='.$_SESSION['lab'].'
-					WHERE TagsTarget.TagID=Laboratorios.TagID '.$notStr.'
-					ORDER BY Fecha DESC
+				'	SELECT DISTINCT Novedades.*
+					FROM
+					Novedades,
+					(
+						SELECT Novedades.ID, TagsTarget.TagID
+						FROM Novedades
+						LEFT OUTER JOIN TagsTarget
+					    ON TagsTarget.GrupoID=Novedades.TagsGrpID
+					) as NToTag1,
+					(
+						SELECT Novedades.ID, TagsTarget.TagID
+						FROM Novedades
+						LEFT OUTER JOIN TagsTarget
+					    ON TagsTarget.GrupoID=Novedades.TagsGrpID
+					) as NToTag2
+					WHERE NToTag1.ID=Novedades.ID
+					AND NToTag1.TagID=NToTag2.TagID
+					AND NToTag2.ID='.$mainNov['ID'].'
+					AND Novedades.ID!='.$mainNov['ID'].'
+					ORDER BY NToTag1.ID
 					LIMIT 5
 				'
 			),
@@ -81,12 +102,12 @@
 		$mainNov['ID'],
 		$mainNov['ImagenID'],
 		$mainNov['TituloID'],
-		$mainNov['DescripcionID']
+		$mainNov['DescripcionID'],
+		$mainNov['TagsGrpID']
 	);
 
 	$selected=$mainNov['TituloID'];
 	
-
 	$sugeridas=new DOMTag('section');
 
 	$iMax=count($recLst);

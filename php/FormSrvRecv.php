@@ -32,9 +32,14 @@
 				$_SESSION['form']=addslashes($_GET['form']);
 			}
 
+			if(isset($_POST['cantidad']))
+			{
+				$_SESSION['cantidad']=intVal($_POST['cantidad']);
+			}
 			if(isset($_POST['conID']))
 			{
 				$_SESSION['conID']=$_POST['conID'];
+				$_SESSION['cantidad']=count($_POST['conID']);
 			}
 			if(isset($_POST['Tipo']))
 			{

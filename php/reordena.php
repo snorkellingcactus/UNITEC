@@ -33,7 +33,16 @@
 
 				if(isset($priorizados[$prior]))
 				{
-					$priorizados[$prior]=[$priorizados[$prior] , $coleccion[$i]];
+					$priorizado=& $priorizados[$prior];
+
+					if(isset($priorizado[1]))
+					{
+						$priorizado[count($priorizado)]=$coleccion[$i];
+					}
+					else
+					{
+						$priorizado=[$priorizado , $coleccion[$i]];
+					}
 				}
 				else
 				{

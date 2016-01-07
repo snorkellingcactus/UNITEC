@@ -9,9 +9,8 @@
 			include_once $_SERVER['DOCUMENT_ROOT'] . '//php/conexion.php';
 			global $con;
 
-			$conID=$_SESSION['conID'];
+			$iMax=$_SESSION['cantidad'];
 
-			$iMax=count($conID);
 			for($i=0;$i<$iMax;$i++)
 			{
 				$con->query('DELETE FROM Contenidos WHERE ID='.$conID[$i]);

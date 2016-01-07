@@ -47,7 +47,7 @@
 */
 				}
 				
-				unset($_SESSION['conID']  , $_SESSION['form'] , $_SESSION['accion']);
+				unset($_SESSION['conID']  , $_SESSION['form'] , $_SESSION['accion'] , $_SESSION['cantidad']);
 			}
 			unset($_SESSION['referer']);
 			unset($_SESSION['cache']);

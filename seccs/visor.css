@@ -218,11 +218,11 @@ body .sangriaJS
 }
 .selector .gImg
 {
-	padding:5px 0px;
-	margin:0px 7px;
-	width:24vh;
+	margin: 0px 1vh;
+	width: 21vh;
 	max-height: 100%;
-	height:100%;
+	height: 100%;
+	padding: 1vh 0px;
 }
 .selector a.selected
 {
