@@ -67,55 +67,106 @@
 		}
 		else
 		{
-			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/Include_Context.php';
-			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/Novedad.php';
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/getTraduccion.php';
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/html2text/html2text.php';
-
-			
-			$novedadHTML=new Include_Context('esq/novedad.php');
+			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/DOMNovedad.php';
 
 			$i=0;
 			while(isset($novedades[$i]))
 			{
+				$novedadHTML=new DOMNovedad();
 				$novAct=$novedades[$i];
 
 				if(isset($formNov))
 				{
-					$novedadHTML->formBuilder=$formNov;
+					$novedadHTML->setCheckBox
+					(
+						$formNov->buildActionCheckBox($novAct['ID'])
+					);
 				}
 
-				$novedadHTML->ID=$novAct['ID'];
-				$novedadHTML->Titulo=getTraduccion($novAct['TituloID'] , $_SESSION['lang']);
-				$novedadHTML->Descripcion=substr
+				
+				$descripcion=getTraduccion
 				(
-					convert_html_to_text
-					(
-						getTraduccion
-						(
-							$novAct['DescripcionID'],
-							$_SESSION['lang']
-						)
-					),
-					0,
-					500
-				)
-				; //Revisar.A futuro guardar en la db una version en texto plano.
-				$novedadHTML->Fecha=$novAct['Fecha'];
-				$novedadHTML->ImagenID=$novAct['ImagenID'];
-				$novedadHTML->ImagenAlt=getTraduccion
-				(
-					fetch_all
-					(
-						$con->query
-						(
-							'	SELECT AltID
-								FROM Imagenes
-								WHERE ID='.$novAct['ImagenID']
-						),
-						MYSQLI_NUM
-					)[0][0],
+					$novAct['DescripcionID'],
 					$_SESSION['lang']
+				);
+				
+
+				$descTrim=trim($descripcion);
+
+				if(!empty($descTrim))
+				{
+					$novedadHTML->setDescripcion
+					(
+						substr
+						(
+							convert_html_to_text
+							(
+								$descTrim
+							),
+							0,
+							500
+						)
+					);
+				}
+
+				
+
+				//Revisar.A futuro guardar en la db una version en texto plano.
+				$novedadHTML->setTitulo
+				(
+					getTraduccion
+					(
+						$novAct['TituloID'],
+						$_SESSION['lang']
+					)
+				)->setFechaFromYmdHis
+				(
+					$novAct['Fecha']
+				)->setImgSrc
+				(
+					'/img/miniaturas/galeria/'.$novAct['ImagenID'].'.png'
+				)->setImgAlt
+				(
+					getTraduccion
+					(
+						fetch_all
+						(
+							$con->query
+							(
+								'	SELECT AltID
+									FROM Imagenes
+									WHERE ID='.$novAct['ImagenID']
+							),
+							MYSQLI_NUM
+						)[0][0],
+						$_SESSION['lang']
+					)
+				)->setFullUrl
+				(
+					'/'.
+					getLangCode().
+					'/espacios/'.
+					getLabName().
+					'/novedades/'.
+					strftime
+					(
+						'%Y-%m-%d',
+						$novedadHTML->fecha
+					).
+					'/'.
+					urlencode
+					(
+						str_replace
+						(
+							'/',
+							' ',
+							$novedadHTML->titulo
+						)
+					).
+					'-'.
+					$novAct['ID']
 				);
 
 				if
@@ -130,7 +181,8 @@
 				{
 					$novedadHTML->afectado=false;
 				}
-				$novedadHTML->getContent();
+
+				echo $novedadHTML->getHTML();
 
 				++$i;
 			}

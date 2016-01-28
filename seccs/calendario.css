@@ -100,7 +100,7 @@
 {
 	padding: 10px;
 }
-.calendario td,.calendario th, .hoy , .evento, .calRef
+.calendario td,.calendario th, .presente , .evento, .calRef
 {
 	border:1px solid #98A3BC;
 }
@@ -119,29 +119,33 @@
 {
 	background:transparent linear-gradient(to right bottom, #4DD2D2, #43B3B3) repeat scroll 0% 0%;
 }
-.muted p
+.dia-mes-anterior p,.dia-mes-siguiente p
 {
 	visibility: hidden
 }
-.calendario td.hoy p
+/*
+table.mes-pasado, table.mes-pasado td, table td.pasado, table.mes-presente td.dia-mes-anterior
 {
-	border-top-right-radius: 50% 100%;
+	background:transparent linear-gradient(to right bottom, #C1EDC4, #A8CFAA) repeat scroll 0% 0%
 }
-.calendario td.hoy, .calendario td.hoy p, .hoy
+table.mes-futuro, table.mes-futuro td, table td.futuro, table.mes-presente td.dia-mes-siguiente
+{
+	background:transparent linear-gradient(to right bottom, #C9CFFF, #B6C8FF) repeat scroll 0% 0%
+}
+*/
+.calendario td.presente p
+{
+	border-top-right-radius: 100% 100%;
+}
+.calendario td.presente p,.calendario td.presente, .presente
 {
 	background:transparent linear-gradient(to right bottom, #808EDD, #5566C8) repeat scroll 0% 0%;
 }
-.hoy , .evento
+.presente , .evento
 {
 	text-shadow: 0px 0px 2px #151515;
 	color:white;
 }
-/*
-body .calendario tbody td.pasado
-{
-	background:silver;
-}
-*/
 div.calRef
 {
 	text-align: center;
@@ -163,7 +167,7 @@ div.calRef
 	font-weight: bold;
 	color: #393939;
 }
-span.hoy, span.evento
+span.presente, span.evento
 {
 	width: 27px;
 	float: left;

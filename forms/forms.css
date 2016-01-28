@@ -1,8 +1,8 @@
 @media screen and (max-width:768px){
-	body .FormLabelBox label, body form h1.left{text-align:center;display:block;}
-	div.FormLabelBox{display:block;}
+	body .Form .FormLabelBox label, body form h1.left{text-align:center;display:block;}
+	.Form  div.FormLabelBox{display:block;}
 
-	div.FormDateCont div.LabelBoxDate:last-of-type{padding-right:5px;}
+	.Form div.FormDateCont div.LabelBoxDate:last-of-type{padding-right:5px;}
 	div.FormDateCont div.LabelBoxDate:first-of-type{padding-left:5px;}
 
 	form input[name*="Continuar"].col-xs-12
@@ -51,10 +51,20 @@ section:hover .clearfix form .acciones, .modulo:hover .acciones input[type="subm
 .menu .accionesMenu .acciones input{opacity:0.3;}
 .menu .accionesMenu .acciones input:focus , .menu .accionesMenu .acciones input:hover{opacity:1;}
 
-.menu li form.right{position:relative;right:7px;float:right;}
+.menu li form.right
+{
+	position:relative;
+	right:0;
+	display: table-cell;
+	vertical-align: middle
+}
+.menu li form.right input
+{
+	float:right;
+}
 .menu input , .acciones input{max-width:30px;}
 .acciones input{box-shadow:none;background-color:transparent;border-radius:2px;}
-.acciones input:hover{background-color:rgba(255,255,255,0.8);}
+body .acciones input:hover, body .acciones input:focus{background-color:rgba(255,255,255,0.8);}
 .menu .accionesMenu
 {
 	width:100%;
@@ -113,10 +123,10 @@ main>.right .acciones:hover,main>.right input[type="submit"]:hover
 body main>form.right{clear:both;margin-bottom:20px;position:static;float:none;}
 body main>form.right input{width:100%;text-align:center;padding:0px;margin:0px;font-size:1.3em;}
 main input.nuevo{background-image:url("/img/10.png")}
-input.elimina{background-image:url("/img/51.png")}
-input.edita{background-image:url("/img/39.png")}
-input.configura{background-image:url("/img/19.png")}
-input.elimina,input.edita,input.configura,main input.nuevo
+.acciones input.elimina{background-image:url("/img/51.png")}
+.acciones input.edita{background-image:url("/img/39.png")}
+.acciones input.configura{background-image:url("/img/19.png")}
+.acciones input.elimina,.acciones input.edita,.acciones input.configura,main input.nuevo
 {
 	background-color:transparent;
 	background-repeat:no-repeat;
@@ -130,22 +140,22 @@ main section input.nuevo:hover, main section input.nuevo:focus
 {
 	background-image:url("/img/10.png")
 }
-input.boton-seccion:hover,input.boton-seccion:focus
+.acciones input.boton-seccion:hover,.acciones input.boton-seccion:focus
 {
 	background-color:linear-gradient(to right bottom, #FFF, #EAEAEA);
 	border:1px solid rgb(144, 144, 144);
 	animation-name:inputHover;
 	animation-duration:0.2s;
 }
-input.elimina:hover, input.elimina:focus
+.acciones  input.elimina:hover,.acciones input.elimina:focus
 {
 	background-image:url("/img/51.png")
 }
-input.edita:hover, input.edita:focus
+.acciones input.edita:hover,.acciones input.edita:focus
 {
 	background-image:url("/img/39.png")
 }
-input.configura:hover,input.configura:focus
+.acciones input.configura:hover,.acciones input.configura:focus
 {
 	background-image:url("/img/19.png")
 }
@@ -210,9 +220,9 @@ form h1.left
 	font-weight: bold;
 }
 
-.FormLabelBox{overflow:hidden;padding:25px 0px 25px 0px;display:table;width:100%;}
+.Form .FormLabelBox{overflow:hidden;padding:25px 0px 25px 0px;display:table;width:100%;}
 
-.FormLabelBox input,.FormLabelBox select, .FormLabelBox label, div.LabelBoxDate input,
+.Form .FormLabelBox input,.Form .FormLabelBox select,.Form .FormLabelBox label, div.LabelBoxDate input,
 input[name^="Continuar"], input.volver{height:40px}
 
 .tresem label, form h1.left{float:left;font-size:2em;color:white;margin:0px;display:table-cell;vertical-align: middle;float:none;}
@@ -222,7 +232,7 @@ body input[type="checkbox"].semitrans{float:right;}
 .Form{width:90%;margin-left:5%;padding-top:50px}
 form hr{margin-top:70px;}
 
-select.orden{height:auto;margin-bottom:20px;}
+.Form .FormLabelBox select.orden{height:auto;margin-bottom:20px;}
 select.orden option
 {
 	height:2em;

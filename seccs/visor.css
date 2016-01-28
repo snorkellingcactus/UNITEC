@@ -78,7 +78,15 @@ h2,h1
 	padding-top:20px;
 	background-color:rgba(255, 255, 255, 0.75); 
 }
-.comentarios input[name="edita"]{display:none;}
+body .comentarios input.edita
+{
+	
+}
+body .comentarios input.edita:hover
+{
+	
+}
+
 .formRes
 {
 	float:left;
@@ -107,7 +115,7 @@ h2,h1
  	background-color:gray;
  	box-shadow: 0px 0px 1px white;
  }
- .comResTxt{color:gray;font-size:90%;}
+ .comentario .remitente , .comentario .fecha{color:dimgray;font-size:90%;}
 .comentario
 {
 	margin-bottom:20px;
@@ -119,13 +127,21 @@ h2,h1
 	height:auto;
 	width:auto
 }
-.comCont{clear:both}
-.nComentForm{position:relative;bottom:0px;display:inline-block;}
-.nComentForm input:last-child{display:block;clear:both;float:none;width:100%;margin-top:5px;}
-.nComentForm input{margin-bottom:5px;width:100%}
-.nComentForm textarea{width:100%;}
+.comentario .contenido{clear:both}
+.FormCliCom{position:relative;bottom:0px;display:inline-block; text-align: center}
+.FormCliCom input:last-child{display:block;clear:both;float:none;width:100%;margin-top:5px;}
+.FormCliCom input{margin-bottom:5px;width:100%}
+.FormCliCom textarea{width:100%;}
+.FormCliCom .FormLabelBox{overflow: visible;padding: 0px}
+.FormCliCom .FormLabelBox label{width:100%;height:auto;padding:0px;}
+.FormCliCom .nuevo , .FormCliCom .FormLabelBox{margin-top:15px;animation:none;}
+.FormCliCom .boton-seccion:hover , .FormCliCom .boton-seccion:focus{animation-name:none;}
 .comentarios, .imgCont>img , .novedades{box-shadow:-1px -1px 3px #888888;}
-.comAutor{font-weight:bold;float:left}
+.comentario .nombre{font-weight:bold;float:left}
+.comentario .header{float: left}
+.FormCliComBtnRes{float:left;}
+.comentario .remitente, .comentario .fecha , .FormCliComBtnRes{margin-left:5px;}
+
 .nHilo
 {
 	margin-left:20px;

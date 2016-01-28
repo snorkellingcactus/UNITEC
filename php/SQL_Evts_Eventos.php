@@ -82,7 +82,8 @@
 				(
 					[
 						'Tiempo'=>$fecha,
-						'Prioridad'=>$_POST['Prioridad'][$i]
+						'Prioridad'=>$_POST['Prioridad'][$i],
+						'Visible'=>$_POST['Prioridad'][$i]
 					]
 				);
 				$evento->insForanea

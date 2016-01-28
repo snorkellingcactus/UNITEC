@@ -17,8 +17,6 @@
 		}
 		function setInput($input)
 		{
-			//$this->appendChild(new ClearFix());
-			
 			parent::setInput($input);
 		}
 	}

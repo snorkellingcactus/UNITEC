@@ -31,7 +31,7 @@
 				isset($_SESSION['accion'])
 			)
 			{
-				if(isset($_POST['Continuar']) || $_SESSION['accion']==='elimina')
+				if(isset($_POST['Continuar']) || isset($_SESSION['accion']))
 				{
 					//echo '<pre>Eureka, rellenaron un form para acá';echo '</pre>';
 					//Se rellenó el formulario correspondiente.

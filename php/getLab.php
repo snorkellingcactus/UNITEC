@@ -96,7 +96,7 @@
 	}
 	function getLabByName($name)
 	{
-		include_once($_SERVER['DOCUMENT_ROOT'] . '/php/conexion.php');
+		include_once $_SERVER['DOCUMENT_ROOT'] . '/php/conexion.php';
 		global $con;
 /*
 		echo '<pre>';
@@ -132,6 +132,8 @@
 	}
 	function getLabName()
 	{
+		include_once $_SERVER['DOCUMENT_ROOT'] . '/php/getTraduccion.php';
+
 		global $con;
 		$labID=$_SESSION['lab'];
 

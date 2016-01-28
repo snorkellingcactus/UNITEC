@@ -5,33 +5,11 @@
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/is_session_started.php';
 	start_session_if_not();
 
-	//Para pruebas, destruye la sesión actual.
-	if(isset($_GET['sesdest']))
-	{
-		session_destroy();
-	}
-	//Cache por defecto vale 0.
-	if(!isset($_SESSION['cache']))
-	{
-		$_SESSION['cache']=0;
-	}
 	if(isset($_SESSION['imgLst']))
 	{
 		unset($_SESSION['imgLst']);
 	}
-	if(isset($_GET['cache']))
-	{
-		$_SESSION['cache']=!$_GET['cache']||0;
-	}
 
-	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/conexion.php';
-	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/Img.php';
-	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/Contenido.php';
-	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/Foranea.php';
-	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/Gal_HTML.php';
-	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/Include_Context.php';
-	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/Traduccion.php';
-	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/nTraduccion.php';
 	$modoAdmin=isset($_SESSION['adminID']);
 
 	if($modoAdmin)
@@ -42,14 +20,14 @@
 		echo $formGal->getHTML();
 	}
 	
-	//:::::::::::::::::::::::::::::::HTML::::::::::::::::::::::::::::::::::::
-	//Valores para las clases col-xx-xx de las imágenes.
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/conexion.php';
 	global $con;
 
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/opciones.php';
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/reordena.php';
 			
 	$limit=getValFromNombreID('limit' , $this->opcGrpID , $this->opcSetsID);
+	
 	if($this->limit && is_array($limit) && $limit[0]!=='0')
 	{
 		$limit=$limit[0];
@@ -80,27 +58,71 @@
 	);
 
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/getTraduccion.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/DOMGalImg.php';
 
 	if(isset($imgLst[0]))
 	{
 		$lName=getLabName();
 		$i=0;
+
 		while(isset($imgLst[$i]))
 		{
 			$imgAct=& $imgLst[$i];
 
-			$imgAct['TituloCon']=getTraduccion($imgAct['TituloID'] , $_SESSION['lang']);
-			$imgAct['AltCon']=getTraduccion($imgAct['AltID'] , $_SESSION['lang']);
-			$imgAct['Fecha']=new DateTime(date($imgAct['Fecha']));
-			$imgAct['Fecha']=$imgAct['Fecha']->format('Y-m-d');
-			$imgAct['lName']=$lName;
+			$img=new DOMGalImg();
+
+			$fecha=new DateTime
+			(
+				date
+				(
+					$imgAct['Fecha']
+				)
+			);
+
+			$img->setTitulo
+			(
+				getTraduccion
+				(
+					$imgAct['TituloID'],
+					$_SESSION['lang']
+				)
+			)->setAlt
+			(
+				getTraduccion
+				(
+					$imgAct['AltID'],
+					$_SESSION['lang']
+				)
+			)->setSrc
+			(
+				'/img/miniaturas/galeria/'.$imgAct['ID'].'.png'
+			)->setUrl
+			(
+				getLangCode().
+				'/espacios/'.
+				$lName.
+				'/galeria/'.
+				$fecha->format('Y-m-d').
+				'/'.
+				urlencode($img->titulo).
+				'-'.$imgAct['ID']
+			);
 			
-			$imgAct['afectado']=false;
+			//$imgAct['afectado']=false;
 			
 			if(isset($formGal))
 			{
-				$imgAct['formBuilder']=$formGal;
+				$img->setActionCheckBox
+				(
+					$formGal->buildActionCheckBox
+					(
+						$imgAct['TituloID']
+					)
+				);
 			}
+
+			echo $img->getHTML();
+/*
 			if
 			(
 				!empty($formGalRecv->afectados) &&
@@ -109,17 +131,12 @@
 			{
 				$imgAct['afectado']=true;
 			}
-
+*/
 			++$i;
 		}
 
-		$Gal=new Gal_HTML
-		(
-			$imgLst,
-			new Include_Context($_SERVER['DOCUMENT_ROOT'] . '/esq/gal_img.php')
-		);
-		//Genero el código HTML de la galería.
-		$Gal->gen();
+		
+
 		if($limit!==false && isset($imgLst[$limit-1]))
 		{
 			?>

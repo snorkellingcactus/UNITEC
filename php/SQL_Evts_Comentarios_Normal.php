@@ -5,16 +5,19 @@
 	{
 		public function edita()
 		{
-			
-		}
-		public function nuevo()
-		{
-			//echo '<pre>Nuevo Comentario (Normal)</pre>';
 			//Include necesario para manejar llaves foráneas.
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/Comentario.php';
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/Contenido.php';
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/Foranea.php';
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/nTraduccion.php';
+
+			//Revisar.
+			if(isset($_SESSION['RaizID']))
+			{
+				$_POST['RaizID']=$_SESSION['RaizID'];
+
+				unset($_SESSION['RaizID']);
+			}
 
 			//Creo un objeto comentario.
 			$FechaAct=getdate();
@@ -31,7 +34,7 @@
 			(
 				nTraduccion
 				(
-					$_POST['comContenido'],
+					$_POST['Mensaje'][0],
 					$_SESSION['lang']
 				),
 				'ContenidoID',
@@ -40,41 +43,44 @@
 
 			global $vRecID;
 
-			if(isset($_POST['comNomUsuario']))
+			if(isset($_POST['Nombre']))
 			{
-				$Comentario->Nombre=$_POST['comNomUsuario'];
+				$Comentario->Nombre=$_POST['Nombre'][0];
 			}
-			if(isset($_SESSION['comConID']))
+			if(isset($_SESSION['conID']))
 			{
 				//echo '<pre>Padre=$_SESSION["comConID"]</pre>';
 
-				$Comentario->PadreID=$_SESSION['comConID'];
+				$Comentario->PadreID=$_SESSION['conID'];
 
-				unset($_SESSION['comConID']);
+				unset($_SESSION['conID']);
 			}
 			else
 			{
 				//echo '<pre>Padre=$vRecID</pre>';
-				$Comentario->PadreID=$vRecID;
+				$Comentario->PadreID=$_POST['RaizID'];
 			}
-			$Comentario->RaizID=$vRecID;
+			
+			$Comentario->RaizID=$_POST['RaizID'];
+			
+
 			$Comentario->Fecha=$Fecha;
-/*
-			echo '<pre>A insertar:';
-			print_r('<br>Comentario : ');
-			print_r($Comentario);
-			echo '</pre>';
-*/
+
 			//Inserto el comentario en la BD.
 			$Comentario->insSQL();
 
 			//Esto hace que se ancle el comentario al que está siendo respondido.
 			//La idea es que se ancle el comentario recién creado, para lo que
 			//a futuro hay que modificar insSQL() para que actualize el ID.
-			$_SESSION['comConID']=$Comentario->ContenidoID;
+			$_SESSION['conID']=$Comentario->ContenidoID;	
+		}
+		public function nuevo()
+		{
+			return $this->edita();	
 		}
 		public function elimina()
 		{
+			echo '<pre>Nuevo Comentario (Normal)</pre>';
 			
 		}
 	}

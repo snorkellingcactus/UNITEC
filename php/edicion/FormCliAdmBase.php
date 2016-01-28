@@ -1,44 +1,19 @@
 <?php
-	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/DOMTag.php';
-	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/VariablePost.php';
-	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/edicion/FormCliButtons.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/edicion/FormCliBase.php';
 
-	class FormCliAdmBase extends DOMTag
+	class FormCliAdmBase extends FormCliBase
 	{
-		public $raiz;
-		public $actionUrl;
-		public $idSuffix;
 		public $buttons;
-		public $formDirName;
 		
 		function __construct($formDirName)
 		{
-			parent::__construct('form');
+			parent::__construct($formDirName);
 
 			$this->buttons=new FormCliButtons();
 
-			$this->raiz='http://'. $_SERVER['SERVER_NAME'].'/';
-			$this->actionUrl=$this->raiz . 'php/accion.php';
-			$this->idSuffix='';
-			$this->formDirName=$formDirName;
-
-			$varForm=new VariablePost($this , 'form' , $formDirName);
-			$varLab=new VariablePost($this , 'lab' , $_SESSION['lab']);
-
-			$this->appendChild($this->buttons)->appendChild
+			$this->appendChild
 			(
-				$varForm->setMulti(0)
-			)->appendChild
-			(
-				$varLab->setMulti(0)
-			)->setAttribute
-			(
-				'method',
-				'POST'
-			)->setAttribute
-			(
-				'action',
-				$this->actionUrl
+				$this->buttons
 			);
 		}
 	}

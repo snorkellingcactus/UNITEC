@@ -26,6 +26,8 @@
 	$prioridad=new FormLabelPrioridad($this->form);
 	$labelTags=new FormLabelTags($this->form);
 
+	$visible->input->default=1;
+
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/nTag.php';
 
 	if($this->getAction()===0)
@@ -63,7 +65,7 @@
 			echo '<pre>No group</pre>';
 		}
 
-		$visible->selectedValue=$evento['Visible'];
+		$visible->input->default=intVal($evento['Visible']);
 		$prioridad->input->setValue($evento['Prioridad']);
 		$titulo->input->setValue
 		(

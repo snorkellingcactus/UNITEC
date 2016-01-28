@@ -121,6 +121,8 @@
 			}
 			else
 			{
+				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/nTag.php';
+
 				$nSec->PrioridadesGrpID=nPriorityGrp();
 
 				$nSec->insSQL();
@@ -152,6 +154,7 @@
 			{
 				
 				include($_SERVER['DOCUMENT_ROOT'] . '/php/Menu.php');
+				
 				$menu=new Menu(['SeccionID'=>$nSec->HTMLID]);
 
 				$menu->getSQL();

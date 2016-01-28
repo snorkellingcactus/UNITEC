@@ -254,7 +254,6 @@
 	}
 
 	$sitemap->appendChild($urlSet);
-	$sitemap->buildDoc();
 /*
 	echo '<pre>Sitemap:';
 	print_r
@@ -526,11 +525,6 @@
 			return $this->append("\n")->appendNum();
 		}
 	}
-
-	class SMapHTML extends DOMTag
-	{
-		
-	}
 ?>
 <html>
 	<head>
@@ -546,20 +540,44 @@
 		</style>
 
 		<?php
-			echo $mainUl->getHTML();
+			//echo $mainUl->getHTML();
+/*
+			$xsSchema=new XSSchema();
 
+			$sitemap->appendChild
+			(
+				$xsSchema->appendChild
+				(
+					new XSImport
+					(
+						'http://www.sitemaps.org/schemas/sitemap/0.9',
+						'http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd'
+					)
+				)->appendChild
+				(
+					new XSImport
+					(
+						'http://www.google.com/schemas/sitemap-image/1.1',
+						'http://www.google.com/schemas/sitemap-image/1.1/sitemap-image.xsd'
+					)
+				)
+			);
+*/
+
+			$sitemap->buildDoc();
 
 			$jj=new Highlighter($sitemap);
-			//$sitemap->buildDoc();
+
 			$sitemap->domDoc->formatOutput=1;
 
 			echo '<pre>';
-			//echo htmlentities(highlight_string($sitemap->domDoc->saveXML()));
+			echo htmlentities(highlight_string($sitemap->domDoc->saveXML()));
 			//print_r($sitemap->domDoc);
-			
-			/*echo '<div>'.highlight_string('<?xml version="1.0" encoding="UTF-8"?>')."\n".'</div>';*/
+/*			
+			echo '<div>'.highlight_string('<?xml version="1.0" encoding="UTF-8"?>')."\n".'</div>';
+
 			echo $jj->getHighlighted();
-			
+*/			
 			echo '</pre>';
 		
 			//$sitemap->save("sitemap.xml");

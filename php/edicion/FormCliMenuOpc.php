@@ -11,10 +11,10 @@
 
 			$this->buttons->appendChild
 			(
-				new FormCliDel($this)
+				new FormCliEdit($this , 1)
 			)->appendChild
 			(
-				new FormCliEdit($this , 1)
+				new FormCliDel($this)
 			);
 		}
 	}

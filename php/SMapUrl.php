@@ -24,27 +24,13 @@
 			$this->chfreq=false;
 			$this->priority=false;
 
-			$this->loc=new DOMTag('loc');
-			$this->lmod=new DOMTag('lastmod');
-			$this->cfreq=new DOMTag('changefreq');
-			$this->prior=new DOMTag('priority');
-
 			//Improvisada forma de lograr que se rendericen primero
 			//los tags de esta clase antes que los de las clases hijas.
 
 			$this->appendChild
 			(
-				$this->loc
-			)->appendChild
-			(
-				$this->lmod
-			)->appendChild
-			(
-				$this->cfreq
-			)->appendChild
-			(
-				$this->prior
-			);
+				$this->loc=new DOMTag('loc')
+			)->loc->setTagValue($this->location);
 		}
 		public function setLastMod($date)
 		{
@@ -69,20 +55,26 @@
 			//echo '<pre>SMapUrl::renderChilds';echo '</pre>';
 			//echo '<pre>SMapUrl::renderChilds location:';print_r($this->location);echo '</pre>';
 
-			
-			$this->loc->setTagValue($this->location);
-
 			if($this->lastMod!==false)
 			{
-				$this->lmod->setTagValue($this->lastMod);
+				$this->appendChild
+				(
+					$this->lmod=new DOMTag('lastmod')
+				)->lmod->setTagValue($this->lastMod);
 			}
 			if($this->chfreq!==false)
 			{
-				$this->cfreq->setTagValue($this->cfreq);
+				$this->appendChild
+				(
+					$this->cfreq=new DOMTag('changefreq')
+				)->cfreq->setTagValue($this->chfreq);
 			}
 			if($this->priority!==false)
 			{
-				$this->prior->setTagValue($this->priority);
+				$this->appendChild
+				(
+					$this->prior=new DOMTag('priority')
+				)->prior->setTagValue($this->priority);
 			}
 
 			return parent::renderChilds($doc , $tag);

@@ -19,6 +19,8 @@
 	$labelTags=new FormLabelTags($this->form);
 	$prioridad=new FormLabelPrioridad($this->form);
 
+	$visible->input->default=1;
+
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/conexion.php';
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/getTraduccion.php';
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/Novedad.php';
@@ -54,7 +56,8 @@
 			echo '<pre>No group</pre>';
 		}
 
-		$visible->input->selectedValue=$novedad['Visible'];
+		$visible->input->default=$novedad['Visible'];
+
 		$prioridad->input->setValue
 		(
 			getSQLObjPriority

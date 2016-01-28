@@ -33,15 +33,21 @@ div.menu
 .menu div img
 {
 	width:60px;
-	height:80px;
-	padding:5% 0px 5% 0px;
+	height:60px;
+	margin:0px;
 	vertical-align:middle
 }	/*	Logo (imagen)	*/
-.menu div h2
+.menu div h2 a
+{
+	text-align:center;
+	display:block;
+}	/*	Logo (Letras)	*/
+.menu div h2 a span
 {
 	color:white;
-	text-align:center
-}	/*	Logo (Letras)	*/
+	display: block;
+	text-shadow:0px 0px 3px #474646
+}
 .menu nav ul
 {
 	display:table;
@@ -143,6 +149,10 @@ div.menu
 	{
 		background-color:transparent;
 	}
+}
+body .shortcutSpan
+{
+	text-decoration: underline;
 }
 @keyframes menu
 {

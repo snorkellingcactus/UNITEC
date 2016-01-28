@@ -2,6 +2,34 @@
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/DOMTagContainer.php';
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/SMapUrlMulti.php';
 
+	class XSSchema extends DOMTag
+	{
+		function __construct()
+		{
+			parent::__construct('xs:schema');
+
+			$this->setAttribute('xmlns:xs' , 'http://www.w3.org/2001/XMLSchema');
+		}
+	}
+
+	class XSImport extends DOMTag
+	{
+		function __construct($nspace , $sloc)
+		{
+			parent::__construct('xs:import');
+
+			$this->setAttribute
+			(
+				'namespace',
+				$nspace
+			)->setAttribute
+			(
+				'schemaLocation',
+				$sloc
+			);
+		}
+	}
+
 	class SMap extends DOMTagContainer
 	{
 		public $baseURL;

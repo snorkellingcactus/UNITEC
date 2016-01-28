@@ -1,23 +1,21 @@
 <?php
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/SQL_Evts_List.php';
 
-	error_reporting(-1);
 	ini_set('display_errors', 'On');
 
 	class SQL_Evts_Labs implements SQL_Evts_List
 	{
 		public function upload($labID)
 		{
+			//empty solo acepta variables.
+			$trimStr=trim($_FILES['File']['name'][0]);
+
 			if
 			(
 				!empty
 				(
-					trim
-					(
-						$_FILES['File']['name'][0]
-					)
-				)&&
-				!file_exists($_SERVER['DOCUMENT_ROOT'] . $_FILES['File']['name'][0])
+					$trimStr
+				)
 			)
 			{
 				$this->mkUrlArchivo

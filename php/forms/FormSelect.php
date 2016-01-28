@@ -105,7 +105,10 @@
 		}
 		function select($index)
 		{
-			$this->options[$index]->setSelected();
+			if(isset($this->options[$index]))
+			{
+				$this->options[$index]->setSelected();
+			}
 
 			return $this;
 		}

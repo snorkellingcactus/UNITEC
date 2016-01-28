@@ -1,13 +1,14 @@
 <?php
-	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/edicion/FormSecBtn.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/edicion/FormCliEditBase.php';
 
-	class FormCliEdit extends FormSecBtn
+	class FormCliEdit extends FormCliEditBase
 	{
 		function __construct($parentForm)
 		{
 			parent::__construct
 			(
-				$parentForm , 'edita' ,gettext('Editar')
+				$parentForm ,
+				gettext('Editar')
 			);
 		}
 	}

@@ -13,9 +13,13 @@
 
 			for($i=0;$i<$iMax;$i++)
 			{
-				$con->query('DELETE FROM Contenidos WHERE ID='.$conID[$i]);
+				$con->query
+				(
+					'	DELETE FROM Contenidos
+						WHERE ID='.$_SESSION['conID'][$i]
+				);
 
-				//echo '<pre>'.'DELETE FROM Contenidos WHERE ID='.$conID[$i].'</pre>';
+				//echo '<pre>'.'DELETE FROM Contenidos WHERE ID='.$_SESSION['conID'][$i].'</pre>';
 			}
 
 			$res=$_SESSION['conID'];

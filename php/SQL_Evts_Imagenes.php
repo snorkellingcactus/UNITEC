@@ -165,7 +165,9 @@
 					);
 				}
 
-				if(!empty(trim($_FILES['File']['name'][$i])))
+				$isEmpty=trim($_FILES['File']['name'][$i]);
+				
+				if(!empty($isEmpty))
 				{
 					$this->mkUrlArchivo
 					(

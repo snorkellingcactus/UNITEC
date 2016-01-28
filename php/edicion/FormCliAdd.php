@@ -1,13 +1,13 @@
 <?php
-	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/edicion/FormSecBtn.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/edicion/FormCliAddBase.php';
 
-	class FormCliAdd extends FormSecBtn
+	class FormCliAdd extends FormCliAddBase
 	{
 		function __construct($parentForm , $cMax)
 		{
 			parent::__construct
 			(
-				$parentForm , 'nuevo' ,ngettext('Nuevo' , 'Nuevo(s)' , $cMax)
+				$parentForm , ngettext('Nuevo' , 'Nuevo(s)' , $cMax) , $cMax
 			);
 		}
 	}

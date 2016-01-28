@@ -236,6 +236,7 @@
 
 		if(!isset($opcGrpID[0][0]))
 		{
+/*
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/MSGBox.php';
 
 			$this->form->appendChild
@@ -245,6 +246,7 @@
 					gettext('No existen opciones para este módulo')
 				)
 			);
+*/
 		}
 		else
 		{
