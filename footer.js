@@ -1,4 +1,4 @@
-compactaLabels(document.getElementsByTagName('footer')[0]);
+compactaLabels(document.getElementsByClassName('FormCliMail')[0]);
 var map,form,rutas,volver,origen,pos,directionsDisplay,directionsService;
 
 function inicializaGMaps()

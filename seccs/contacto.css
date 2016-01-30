@@ -9,7 +9,7 @@
 	{
 		margin-bottom:0px;
 	}
-	#gmapsDiag,#map-canvas{width:100%;min-height:200px;}
+	#gmapsDiag,#map-canvas{min-height:200px;}
 	#gmapsDiag{padding-top:25px;}
 	footer label{text-align: center}
 	#gmapsDiag form,#panel_ruta
@@ -22,11 +22,11 @@
 	}
 }
 @media screen and (min-width:768px){
-	#map-canvas{width:50%;float:left}
 	#gmapsDiag,#map-canvas{min-height:300px}
 	#gmapsDiag .gris
 	{
-		margin-top:7px;
+		float: right;
+		margin-top:10px;
 	}
 	#gmapsDiag form label
 	{
@@ -49,6 +49,7 @@
 #gmapsDiag{clear:both;}
 #panel_ruta{float:left;min-height:300px;min-width:20%;}
 */
+#map-canvas{width:100%;display: block;}
 #gmapsDiag
 {
 	position:relative;

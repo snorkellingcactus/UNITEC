@@ -3,8 +3,6 @@
 	//Si todavía no se inicio sesion, se inicia.
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/is_session_started.php';
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/setLang.php';
-	start_session_if_not();
-	
 	detectLang();
 	
 	//Si se quiere cerrar sesión redirijo.
@@ -37,6 +35,9 @@
 		<link rel="stylesheet" type="text/css" href="./forms/forms.css" />
 		<link rel="stylesheet" type="text/css" href="./seccs/inicio_sesion.css" />
 		<link rel="stylesheet" type="text/css" href="./bootstrap.min.css" />
+
+		<script type="text/javascript" src="/js/compactaLabels.js"></script>
+
 		<title>Unitec - <?php echo gettext('Inicio Sesión')?></title>
 	</head>
 	<body>
@@ -46,30 +47,9 @@
 				<a href='./index.php'><?php echo gettext('Ir al inicio')?></a>
 			</div>
 		</div>
-		<main class="col-xs-10 col-sm-10 col-lg-10">
+		<div>
+		
 			<?php
-				$msg='';		//Mensaje opcional en el cuadro login.
-
-				//Si se rellenó el formulario login lo valido.
-				if(isset($_POST['contrasena'])&&isset($_POST['Nombre']))
-				{
-					include_once $_SERVER['DOCUMENT_ROOT'] . '/php/conexion.php';
-					//Trato de obtener el usuario.
-					$usuario=$con->query('select * from Usuarios where NombreUsuario="'.$_POST['Nombre'].'" and Contrasena="'.sha1($_POST['contrasena']).'"');
-				
-					//Operaciones a realizar si se obtuvo.
-					if($con->affected_rows>0)
-					{
-						$usuario=fetch_all($usuario , MYSQLI_ASSOC)[0];
-						
-						//Variable que define el modo administrador.
-						$_SESSION['adminID']=$usuario['ID'];
-					}
-					else
-					{
-						$msg=gettext('El usuario no existe').'<br/>';
-					}
-				}
 
 				if(isset($_SESSION['adminID']))
 				{
@@ -77,9 +57,10 @@
 				}
 				else
 				{
-					echo '<h2>'.$msg.'</h2>';		//Despliego mensaje opcional.
 					include $_SERVER['DOCUMENT_ROOT'] . '/seccs/login.php';		//Formulario login.
 				}
 			?>
-		</main>
+		</div>
+		<script type="text/javascript" src="/js/login.js"></script>
+	</body>
 </html>

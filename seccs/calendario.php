@@ -161,15 +161,20 @@
 
 			$pFecha->classList->add('fecha');
 
+			if(isset($_SESSION['adminID']))
+			{
+				$pFecha->appendChild
+				(
+					$formCal->buildActionCheckBox($evtAct['DescripcionID'])
+				);
+			}
+
 			$descUl->appendChild
 			(
 				//Agregar target.
 				$li->appendChild
 				(
-					$pFecha->appendChild
-					(
-						$formCal->buildActionCheckBox($evtAct['DescripcionID'])
-					)
+					$pFecha
 				)->appendChild
 				(
 					$h3

@@ -64,7 +64,7 @@ section:hover .clearfix form .acciones, .modulo:hover .acciones input[type="subm
 }
 .menu input , .acciones input{max-width:30px;}
 .acciones input{box-shadow:none;background-color:transparent;border-radius:2px;}
-body .acciones input:hover, body .acciones input:focus{background-color:rgba(255,255,255,0.8);}
+body .acciones input:hover, body .acciones input:focus{background-color:rgba(255,255,255,0.8) !important ;}
 .menu .accionesMenu
 {
 	width:100%;
@@ -122,11 +122,11 @@ main>.right .acciones:hover,main>.right input[type="submit"]:hover
 }
 body main>form.right{clear:both;margin-bottom:20px;position:static;float:none;}
 body main>form.right input{width:100%;text-align:center;padding:0px;margin:0px;font-size:1.3em;}
-main input.nuevo{background-image:url("/img/10.png")}
+main .acciones input.nuevo{background-image:url("/img/10.png")}
 .acciones input.elimina{background-image:url("/img/51.png")}
 .acciones input.edita{background-image:url("/img/39.png")}
 .acciones input.configura{background-image:url("/img/19.png")}
-.acciones input.elimina,.acciones input.edita,.acciones input.configura,main input.nuevo
+.acciones input.elimina,.acciones input.edita,.acciones input.configura,main .acciones input.nuevo
 {
 	background-color:transparent;
 	background-repeat:no-repeat;
@@ -136,11 +136,11 @@ main input.nuevo{background-image:url("/img/10.png")}
 	height: 1.7em;
 	margin:0.05em 3px 0.05em 3px;
 }
-main section input.nuevo:hover, main section input.nuevo:focus
+main section .acciones input.nuevo:hover, main section .acciones input.nuevo:focus
 {
 	background-image:url("/img/10.png")
 }
-.acciones input.boton-seccion:hover,.acciones input.boton-seccion:focus
+.acciones input.boton-seccion:hover,.acciones input.boton-seccion:focus, .acciones input.nuevo:hover
 {
 	background-color:linear-gradient(to right bottom, #FFF, #EAEAEA);
 	border:1px solid rgb(144, 144, 144);
@@ -226,8 +226,46 @@ form h1.left
 input[name^="Continuar"], input.volver{height:40px}
 
 .tresem label, form h1.left{float:left;font-size:2em;color:white;margin:0px;display:table-cell;vertical-align: middle;float:none;}
-.cacho label{color:black;}
-.cacho .clearfix{margin-bottom:0px;}
+
+.FormCliLogin input.nuevo,body .FormCliLogin .FormLabelBox{width:100%;display:block;clear:both;}
+.FormCliLogin input
+{ 
+	height:2em;
+	line-height: 2em
+}
+div.LoginBox
+{
+	background:rgba(255, 255, 255, 0.35)  no-repeat left top;
+	border-radius:3px;
+	box-shadow:0px 0px 10px black;
+	padding: 15px;
+	margin: auto;
+	display: block;
+	float: none;
+	position: static;
+	width: 300px;
+}
+.LoginBox h1
+{
+	color: #E9E9E9;
+	font-size: 25px;
+	margin-top: 10px;
+	text-align: center;
+	text-shadow: 0px 0px 2px #000;
+}
+.FormCliLogin .FormLabelBox
+{
+	position: relative;
+	padding: 0;
+	margin: 0;
+}
+.FormCliLogin input.compacto,.FormCliLogin label.compacto
+{
+	left:0;
+	top:0;
+	height:auto;
+	position: absolute;
+}
 body input[type="checkbox"].semitrans{float:right;}
 .Form{width:90%;margin-left:5%;padding-top:50px}
 form hr{margin-top:70px;}
@@ -251,13 +289,11 @@ select.orden .lleno
 
 
 section form.accionesSec , section form.accionesCon, section form.nCon{float:left;}
-body form.right{right:40px; position:absolute}
+body form.right{ position:relative;float:right;right:0;}
 body form.right input, body form.nCon input, body form.nCon select{float:none;}
 
 div.label
 {
-	position:relative;
-	display:block;
 	font-size:1em;
 	font-weight: normal
 }

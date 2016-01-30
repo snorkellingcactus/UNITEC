@@ -43,6 +43,10 @@
 				$this->setID($args[3]);
 			}
 		}
+		public function setPlaceHolder($placeHolder)
+		{
+			return $this->setAttribute('placeholder' , $placeHolder);
+		}
 		public function setMulti($multi)
 		{
 			$this->multi=$multi;
@@ -55,7 +59,7 @@
 		}
 		public function setName($name)
 		{
-			return $this->setAttribute('name',$name);
+			return $this->setAttribute('name' , $name);
 		}
 		public function renderChilds(&$doc , &$tag)
 		{

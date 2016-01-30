@@ -148,6 +148,7 @@ $lang=substr(getenv('LANG'), 0 , 2);
 		<link rel="stylesheet" type="text/css" href="/bootstrap.css" />
 
 		<script type="text/javascript" src="/js/head.js"></script>
+		<script type="text/javascript" src="/js/compactaLabels.js"></script>
 		<script type="text/javascript" src="/index.js"></script>
 
 		<title><?php echo $titulo?></title>
@@ -315,20 +316,39 @@ $lang=substr(getenv('LANG'), 0 , 2);
 		</main>
 
 		<footer class="header">
-			<div class="contenedor footer">
 				<?php
+					class FooterContainer extends DOMTag
+					{
+						function __construct()
+						{
+							parent::__construct('div');
+
+							$this->classList->add('FooterContainer');
+							$this->col=['xs'=>12 , 'sm'=>6 , 'md'=>6 , 'lg'=>6];
+						}
+					}
+
+					class Footer extends FooterContainer
+					{
+						function __construct()
+						{
+							parent::__construct();
+
+							$this->classList->add('Footer');
+							$this->col=['xs'=>false , 'sm'=>false , 'md'=>false , 'lg'=>false];
+						}
+					}
+
+					$footer=new Footer();
+
 					include_once $_SERVER['DOCUMENT_ROOT'] . '/php/FormCliRecv.php';
 					include_once $_SERVER['DOCUMENT_ROOT'] . '/php/Include_Context.php';
-
-					$contacto=new Include_Context($_SERVER['DOCUMENT_ROOT'] . '/seccs/contacto.php');					
 
 					$formSecRecv=new FormCliRecv('Mail');
 					$formSecRecv->SQL_Evts=false;
 					$formSecRecv->checks();
-
-					$mapa=new Include_Context($_SERVER['DOCUMENT_ROOT'] . '/seccs/mapa.php');
 					
-					$formSecRecv=new FormCliRecv('Maps');
+					$formSecRecv=new FormCliRecv('Mapa');
 					$formSecRecv->SQL_Evts=false;
 					$formSecRecv->checks();
 
@@ -340,8 +360,7 @@ $lang=substr(getenv('LANG'), 0 , 2);
 					    $lab=new Laboratorio();
 					    $lab->getSQL(['ID'=>$_SESSION['lab']]);
 
-					    $contacto->labName=getTraduccion($lab->NombreID , $_SESSION['lang']);
-					    $mapa->labName=$contacto->labName;
+					    $labName=getTraduccion($lab->NombreID , $_SESSION['lang']);
 
 					    $info=
 					    [
@@ -385,24 +404,148 @@ $lang=substr(getenv('LANG'), 0 , 2);
 
 					    $info['DireccionID']=getTraduccion($info['DireccionID'] , $_SESSION['lang']);
 					    
-					    $mapa->latLong=$info['Latitud'].' , '.$info['Longitud'];
-					    $contacto->info=$info;
-					    $contacto->social=$social;
+					    $latLong=$info['Latitud'].' , '.$info['Longitud'];
 					}
-/*
-					else
+
+					include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/DOMTag.php';
+					include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/ClearFix.php';
+					include_once $_SERVER['DOCUMENT_ROOT'] . '/php/edicion/FormCliMail.php';
+
+					$divInfo=new FooterContainer();
+					$titulo=new DOMTag('h1' , gettext('Nos interesa tu opinión!'));
+					$divMail=new FooterContainer();
+
+					$titulo->col=$divMail->col;
+
+					$divMail->appendChild
+					(
+						new FormCliMail()
+					);
+
+					if(!empty($social['Facebook']))
 					{
-					    echo '<pre>NoLab!';
-					    echo '</pre>';
+						include_once $_SERVER['DOCUMENT_ROOT'] . '/php/FooterInfoFacebook.php';
+
+						$f=new FooterInfoFacebook($social['Facebook']);
+
+						$f->col=['xs'=>6 , 'sm'=>6 , 'md'=>6 , 'lg'=>6];
+
+						$divInfo->appendChild($f);
 					}
-*/
-					$contacto->getContent();
-					$mapa->getContent();
+					if(!empty($social['Twitter']))
+					{
+						include_once $_SERVER['DOCUMENT_ROOT'] . '/php/FooterInfoTwitter.php';
+
+						$f=new FooterInfoTwitter($social['Twitter']);
+
+						$f->col=['xs'=>6 , 'sm'=>6 , 'md'=>6 , 'lg'=>6];
+
+						$divInfo->appendChild($f);
+					}
+
+					if(!empty($social['Facebook']) || !empty($social['Twitter']))
+					{
+						$divInfo->appendChild(new ClearFix());
+					}
+
+					if(!empty($info['Telefono']))
+					{
+						include_once $_SERVER['DOCUMENT_ROOT'] . '/php/FooterInfoTelefono.php';
+
+						$f=new FooterInfoTelefono($info['Telefono']);
+
+						$f->col=['xs'=>6 , 'sm'=>6 , 'md'=>6 , 'lg'=>6];
+
+						$divInfo->appendChild($f);
+					}
+					if(!empty($info['Mail']))
+					{
+						include_once $_SERVER['DOCUMENT_ROOT'] . '/php/FooterInfoMail.php';
+
+						$f=new FooterInfoMail($info['Mail']);
+
+						$f->col=['xs'=>6 , 'sm'=>6 , 'md'=>6 , 'lg'=>6];
+
+						$divInfo->appendChild($f);
+					}
+					if(!empty($info['DireccionID']))
+					{
+						include_once $_SERVER['DOCUMENT_ROOT'] . '/php/FooterInfoDireccion.php';
+
+						$f=new FooterInfoDireccion($info['DireccionID']);
+
+						$f->col=['xs'=>6 , 'sm'=>6 , 'md'=>6 , 'lg'=>6];
+
+						$divInfo->appendChild($f);
+					}
+
+					$mapa=new FooterContainer();
+
+				    $imgMapa=new DOMTag('img');
+				    $imgMapa->classList->add('map-canvas');
+
+				    include_once $_SERVER['DOCUMENT_ROOT'] . '/php/edicion/FormCliMapa.php';
+
+				    $gMapsDiag=new FooterContainer();
+				    $gMapsDiag->setAttribute('id' , 'gmapsDiag');
+
+				    $pRuta=new DOMTag('div');
+				    $pRuta->col=['xs'=>12 , 'sm'=>12 , 'md'=>5 , 'lg'=>5];
+
+				    echo $footer->appendChild
+				    (
+				    	$titulo
+				    )->appendChild
+				    (
+				    	new ClearFix()
+				    )->appendChild
+				    (
+				    	$divMail
+				    )->appendChild
+				    (
+				    	$divInfo
+				    )->appendChild
+				    (
+				    	new ClearFix()
+				    )->appendChild
+				    (
+				    	$mapa->appendChild
+					    (
+					        $imgMapa->setAttribute('id' , 'map-canvas')->setAttribute
+					        (
+					            'src', 
+					            'https://maps.googleapis.com/maps/api/staticmap?center='.$latLong.'&zoom=17&size=500x500&maptype=roadmap&markers=color:red%7Clabel:A%7C'.$latLong.'&key=AIzaSyAc98zfTPT0nZTSERA7bEgBdPiyI6kM6hk' 
+					        )->setAttribute
+					        (
+					            'alt',
+					            sprintf
+					            (
+					                gettext('Mapa de la ubicación de %s'),
+					                $labName
+					            )
+					        )
+					    )
+				    )->appendChild
+				    (
+				    	$gMapsDiag->appendChild
+					    (
+					        $pRuta->setAttribute('id' , 'panel_ruta')->appendChild
+					        (
+					            new DOMTag
+					            (
+					                'button',
+					                gettext('Especificar otro origen')
+					            )
+					        )
+					    )->appendChild
+					    (
+					        new FormCliMapa()
+					    )
+				    )->getHTML();
 				?>
 				<div class="clearfix"></div>
 				<small>Powered by Bootstrap</small>
 				<script type="text/javascript" src="/footer.js"></script>
-			</div>
 		</footer>
 	</body>
 </html>

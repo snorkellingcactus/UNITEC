@@ -1,20 +1,17 @@
 label{font-size:1.5em;color:black;}
-.cacho { 
-	background:rgba(255, 255, 255, 0.35)  no-repeat left top;
-	border-radius:3px;
-	box-shadow:-3px -3px 10px #888888;
-	padding:2%;
-	margin-bottom:5%;
-	overflow:hidden;
-	margin-left: 30% ;
-	margin-top: 18%
+html,body
+{
+	height:100%;
 }
-
-html,body {
-	background:url('http://www.crazyleafdesign.com/blog/wp-content/uploads/2012/08/clouds-minimal-wallpaper.jpg?ce0830');
+html body {
+	
+	background-color: transparent;
+}
+html
+{
+	background:url('/img/lightdm.jpg');
 	background-size:100% 100%;
 	background-repeat:no-repeat;
-	min-height:100%
 }
 .pestanas .pestana
 {
@@ -95,4 +92,19 @@ html,body {
 	border:none;
 	width:80%;
 	margin-left:25%;
+}
+.panel-admin
+{
+	min-width:500px;
+	min-height: 500px;
+	background-color:white;
+}
+.MSGLogin
+{
+	position: relative;
+}
+.MSGLogin a
+{
+	position: absolute;
+	right:15px;
 }

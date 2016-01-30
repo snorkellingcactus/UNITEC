@@ -2,12 +2,17 @@
 html , body
 {
 	height:100%;
+	width:100%;
 	font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
 	overflow: auto;
 }
 html body
 {
 	background-color:transparent;
+}
+main
+{
+	width:100%;
 }
 html
 {
@@ -46,7 +51,7 @@ body a[href="#header"]
 .acciones input, .acciones select{float:none;}
 
 .clearfix {
-	margin-bottom: 35px;
+	clear:both;
 }
 section, .seccion
 {
@@ -92,14 +97,12 @@ main ul, main ol
 	clear:both;
 	padding-top:15px;
 	width:100%;
-	overflow:hidden;
-	padding:3px;
 }
 
 span.center{display:block;width:100%;text-align:center;}
 font.through{text-decoration:line-through;}
 
-.sep{border-top:2px dashed gray;}
+.sep{border-top:2px dashed gray;clear: both;}
 .clearfix .sep
 {
 	display:none;
