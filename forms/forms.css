@@ -39,24 +39,25 @@ form a
 }
 select option{background-color:white;}
 form p{color:black}
-.menu:hover li:hover .acciones, .menu:hover .acciones ,section:hover .clearfix form .acciones input[type="submit"],
-section:hover .clearfix form .acciones, .modulo:hover .acciones input[type="submit"] ,.modulo:hover .acciones,.modulo:hover .sep, .modulo:hover .semitrans,
-.contenido:hover .acciones input[type="submit"] ,.contenido:hover .acciones , .contenido:hover .sep, .contenido:hover .semitrans, .contenido:hover >.sep,
+.menu:hover li:hover .acciones, .menu:hover .acciones ,section:hover .FormCliCon .acciones input[type="submit"],
+section:hover .FormCliSec .acciones, section:hover .FormCliSecNew .acciones, .Modulo:hover .acciones input[type="submit"] ,.Modulo:hover .acciones,.Modulo:hover .sep, .Modulo:hover .semitrans,
+.Contenido:hover .acciones input[type="submit"] ,.Contenido:hover .acciones , .Contenido:hover .sep, .Contenido:hover .semitrans, .Contenido:hover >.sep,
 .comentarios:hover .acciones, .comentarios:hover .acciones input,.comentarios:hover .semitrans
 {
 	opacity:1
 }
 
-.menu .accionesMenu .acciones{opacity:1;}
-.menu .accionesMenu .acciones input{opacity:0.3;}
-.menu .accionesMenu .acciones input:focus , .menu .accionesMenu .acciones input:hover{opacity:1;}
+.menu .FormCliSecAddMenu .acciones{opacity:1;}
+.menu .FormCliSecAddMenu .acciones input{opacity:0.3;}
+.menu .FormCliSecAddMenu .acciones input:focus , .menu .FormCliSecAddMenu .acciones input:hover{opacity:1;}
 
 .menu li form.right
 {
 	position:relative;
 	right:0;
 	display: table-cell;
-	vertical-align: middle
+	vertical-align: middle;
+	float:none;
 }
 .menu li form.right input
 {
@@ -65,12 +66,12 @@ section:hover .clearfix form .acciones, .modulo:hover .acciones input[type="subm
 .menu input , .acciones input{max-width:30px;}
 .acciones input{box-shadow:none;background-color:transparent;border-radius:2px;}
 body .acciones input:hover, body .acciones input:focus{background-color:rgba(255,255,255,0.8) !important ;}
-.menu .accionesMenu
+.menu .FormCliSecAddMenu
 {
 	width:100%;
 	position:static;
 }
-.menu .accionesMenu input
+.menu .FormCliSecAddMenu input
 {
 	background:transparent;
 	background-color:silver;
@@ -87,7 +88,7 @@ body .acciones input:hover, body .acciones input:focus{background-color:rgba(255
 	height:auto;
 	animation-name:none;
 }
-.menu .accionesMenu .acciones{width:100%}
+.menu .FormCliSecAddMenu .acciones{width:100%}
 input,form a , button, textarea, select{box-shadow:0px 0px 3px black;border-radius:3px;border:none;}
 button,form a{background-color:silver;font-family:sans-serif;vertical-align:middle;line-height:3em;color:black;}
 textarea{height:auto}

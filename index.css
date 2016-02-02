@@ -30,10 +30,6 @@ a
 	text-decoration:none;
 	transition:color 0.5s;
 }
-a:hover
-{
-	color:white;
-}
 body a[href="#header"]
 {
 	text-decoration: none
@@ -111,14 +107,14 @@ font.through{text-decoration:line-through;}
 {
 	width:100%;
 }
-.ver-mas
+.DOMVerMas
 {
 	clear:both;
 	display:block;
 	width:100%;
 	padding-top:20px;
 }
-.ver-mas a
+.DOMVerMas a
 {
 	display:block;
 	width:100%;

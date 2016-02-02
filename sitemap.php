@@ -540,7 +540,7 @@
 		</style>
 
 		<?php
-			//echo $mainUl->getHTML();
+			echo $mainUl->getHTML();
 /*
 			$xsSchema=new XSSchema();
 

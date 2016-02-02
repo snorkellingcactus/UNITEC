@@ -16,6 +16,8 @@
 			(
 				new FormCliEdit($this)
 			);
+
+			$this->classList->add('FormCliSec');
 		}
 	}
 ?>

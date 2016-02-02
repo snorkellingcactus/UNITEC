@@ -3,6 +3,8 @@
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/VisorHTMLBase.php';
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/ClearFix.php';
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/getTraduccion.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/DOMTagLst.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/nTag.php';
 	
 	class VisorNovedades extends VisorHTMLBase
 	{

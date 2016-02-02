@@ -24,6 +24,14 @@
 	{
 		padding:0px;
 	}
+	.FooterMainContainer
+	{
+		padding-left: 0px
+	}
+	footer label
+	{
+		text-align: center
+	}
 	footer.header .label label
 	{
 		text-align:center;
@@ -34,6 +42,10 @@
 	padding-left:15px;
 	padding-right:15px;
 	margin-bottom: 15px
+}
+.FooterMainContainer
+{
+	padding-right: 0px
 }
 footer.header a
 {
@@ -63,10 +75,6 @@ footer .FormLabelBox label, footer.header h1
 	color:#CCC9C9;
 	text-shadow:0px 0px 2px black;
 }
-footer .FormLabelBox
-{
-	padding:0px;
-}
 footer.header h1
 {
 	color:#E9E9E9;
@@ -88,6 +96,8 @@ footer .FormLabelBox
 {
 	width:100%;
 	position: relative;
+	padding:0px;
+	display: table;
 }
 footer .FormLabelBox label
 {
@@ -170,7 +180,7 @@ footer.header img.circulo,footer.header p img
 	line-height:20px;
 	vertical-align:middle;
 }
-.header a:hover
+footer , .header a:hover
 {
 	color:white;
 	text-decoration:underline

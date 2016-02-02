@@ -23,9 +23,7 @@
 			)->setSectionName
 			(
 				false
-			);
-
-			$this->appendChild
+			)->appendChild
 			(
 				$this->link=new DOMLink()
 			);

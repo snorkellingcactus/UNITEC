@@ -23,7 +23,6 @@
 		}
 		function addOption($name)
 		{
-
 			$this->ul->appendChild
 			(
 				$name

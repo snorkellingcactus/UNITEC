@@ -1,0 +1,1 @@
+compactaLabels(document.getElementsByTagName('FormCliLogin')[0]);

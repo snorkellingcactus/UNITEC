@@ -29,6 +29,8 @@
 			(
 				$varConID->setMulti(false)
 			);
+
+			$this->classList->add('FormCliSecNew');
 		}
 	}
 ?>

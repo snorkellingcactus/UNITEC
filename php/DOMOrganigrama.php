@@ -26,7 +26,7 @@
 		{
 			$this->arbol->render();
 
-			parent::renderChilds($doc , $tag);
+			return parent::renderChilds($doc , $tag);
 		}
 	}
 ?>

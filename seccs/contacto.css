@@ -11,15 +11,13 @@
 	}
 	#gmapsDiag,#map-canvas{min-height:200px;}
 	#gmapsDiag{padding-top:25px;}
-	footer label{text-align: center}
+/*	
 	#gmapsDiag form,#panel_ruta
 	{
 		top:25px;
 	}
-	footer .footer
-	{
-		padding-left:0px;
-	}
+*/
+	
 }
 @media screen and (min-width:768px){
 	#gmapsDiag,#map-canvas{min-height:300px}

@@ -25,7 +25,6 @@
 		}
 		public function onNewChild($child , $newNode)
 		{
-
 			$li=new DOMLabLi
 			(
 				getTraduccion($child['NombreID'] , $_SESSION['lang']),

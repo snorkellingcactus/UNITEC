@@ -141,6 +141,7 @@
 		{
 			$labID=func_get_args()[0];
 		}
+		
 		return getTraduccion
 		(
 			fetch_all

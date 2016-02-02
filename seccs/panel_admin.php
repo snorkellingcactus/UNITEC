@@ -79,7 +79,7 @@ if(isset($_SESSION['adminID']))
 
 ?>
 
-
+<!--
 
 <div class="panelAdmin">
 	<script type="text/javascript" src="js/Caja.js"></script>
@@ -211,7 +211,7 @@ if(isset($_SESSION['adminID']))
 
 	</script>
 </div>
-
+-->
 <?php
 }
 ?>
