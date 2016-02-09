@@ -28,8 +28,6 @@
 			detectLang();
 			detectLab();
 
-			unset($_SESSION['form'] , $_SESSION['conID'] , $_SESSION['accion']);
-
 			$this->appendMeta
 			(
 				$this->newMeta()->setHttpEquiv('X-UA-Compatible')->setContent('IE=edge')

@@ -1,28 +1,52 @@
 .atajos .atajo
 {
+	/*Con Monospace*/
 	font-family:monospace;
-	background-color:white;
+
+	/*Con Courier*/
+	
+	
 	/*background:transparent linear-gradient(to bottom, #E1E1E1, #FCFCFC) repeat scroll 0% 0%;*/
-	background:transparent linear-gradient(to right bottom, #C4D1FF, #CEE5FF) repeat scroll 0% 0%;
 	border-radius:2px;
 	text-align:center;
 	min-width:5em;
-	display:inline-block;
-	padding:1px 6px 1px 6px;
+	display:inline;
+	padding:1px 6px;
+	/*Blanco o celeste con borde*/
+/*
+	background:transparent linear-gradient(to right bottom, #C4D1FF, #CEE5FF) repeat scroll 0% 0%;
 	border:1px outset silver;
+*/
+	/*Blanco con sombra*/
+
+	background-color:white;
+	background: transparent linear-gradient(to right bottom, #FFFAFA, #EAEAEA) repeat scroll 0% 0%;
+	box-shadow: 1px 1px 2px #545454;
+
 }
 .atajos .mas
 {
-	display:inline-block;
-	font-weight:bold;
-	font-size:1.4em;
-	vertical-align: middle
+	display:inline;
+	margin:0px 4px;
 }
-body .atajos tbody tr td
+body .atajos tbody tr.oscura
 {
-	border-top: 1px solid rgba(105, 105, 105, 0.64);
+	background-color:rgba(0, 0, 0, 0.05);
+}
+body .atajos tbody tr td, body .atajos thead tr th
+{
+	border-bottom: 1px solid rgba(105, 105, 105, 0.64);
+	vertical-align: middle;
 }
 body .atajos thead tr th
 {
-	border-bottom: 1px solid rgba(105, 105, 105, 0.64);
+	font-family: georgia;
+	font-style: italic;
+	font-weight: normal;
+	font-size: 1.5em;
+}
+body .atajos tbody tr td:first-child
+{
+	font-family: courier;
+	font-size:1.5em;
 }

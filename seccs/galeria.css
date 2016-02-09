@@ -1,7 +1,8 @@
-.sugeridas div  ,div.col-xs-12 img{max-height:73%;}
 @media screen and (min-width:1170px){
 	
 }
+
+.sugeridas div  ,div.col-xs-12 img{max-height:73%;}
 .gImg img
 {
 	border-radius:3px;
@@ -15,10 +16,12 @@
 	transition: opacity 0.7s;
 	-moz-transition: opacity 0.7s;
 	-webkit-transition: opacity 0.7s;
+	z-index: 5
 }
 .gImg a
 {
 	text-align: center;
+	text-decoration: none;
 	display: block;
 	overflow: visible;
 	height: 100%;
@@ -27,8 +30,8 @@
 	margin: auto;
 	color: #CFCFCF;
 	box-shadow: 0px 0px 50px rgba(128, 128, 128, 0.43) inset;
-	letter-spacing: 2px;
 	border: 1px solid rgba(105, 105, 105, 0.64);
+	letter-spacing: 2px;
 	/*background-color: #BFE1E3;*/
 	background-color:transparent;
 	transition: box-shadow 0.7s , border-color 0.7s,  color 0.7s;
@@ -37,18 +40,18 @@
 }
 .gImg a:focus
 {
-	border:2px solid yellow;
+	outline:2px solid yellow;
 }
 .gImg a:hover p,.gImg a:focus p
 {
 	background-color:#696969;
-	text-decoration:none;
 }
 .gImg a:focus, .gImg a:hover
 {
-	border-color:#696969;
+	border: 1px solid #696969;
 	box-shadow: 0px 0px 50px rgba(128, 128, 128, 0.9) inset;
 	color:white;
+
 }
 .gImg a:hover,.gImg a:focus img
 {
@@ -56,16 +59,21 @@
 }
 .gImg p
 {
-	border-radius: 2px;
-	background-color: #909090;
+	font-size: 1.3em;
+	line-height: 1.3em;
+	font-family: helvetica neue;
+	text-shadow:0px 0px 2px #000;
+	font-style: italic;
+	border-radius: 3px;
+	background-color: #696969;
 	position: relative;
-	box-shadow: 0px 0px 0px rgb(2, 2, 2);
-	padding: 3px 7px 3px 7px;
+	padding: 4px 8px;
 	display: inline;
-	top: -1em;
+	top: -0.65em;
 	transition: background-color 0.7s;
 	-moz-transition: background-color 0.7s;
 	-webkit-transition: background-color 0.7s;
+	z-index: 10;
 }
 .gImg
 {
@@ -74,4 +82,38 @@
   	padding:0px 20px 0px 20px;
 }
 .gImg input{position:absolute;right:0;}
+.gImg input[type="radio"]
+{
+
+	right: -20px;
+	width: 20px;
+	height: 100%;
+	max-height: none;
+	top: 0px;
+	margin: 0px;
+	background: inherit;
+}
+
+body form .gImg img
+{
+	background-color: #BFE1E3;
+}
+body form .gImg p
+{
+	color:white;
+	background-color: dimgray
+}
+body form .gImg a
+{
+	background-color: #BFE1E3;
+	box-shadow: 0px 0px 50px rgba(0, 0, 0, 0.59) inset;
+}
+body form .gImg a:hover
+{
+	box-shadow: 0px 0px 50px rgba(0, 0, 0, 0.59) inset;
+}
+body form .gImg a:hover p
+{
+	text-decoration: underline;
+}
 .sugeridas a img{max-width:73%;}

@@ -1,6 +1,6 @@
 <?php
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormImgRadioLst.php';
-	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/RadioNov.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormImgRadio.php';
 
 	class RadioLstNov extends FormImgRadioLst
 	{
@@ -13,7 +13,7 @@
 
 		function buildNew($value)
 		{
-			return new RadioNov($this->parentForm , $this->name , $value);
+			return new FormImgRadio($this->parentForm , $this->name , $value);
 		}
 		function add($checkbox)
 		{

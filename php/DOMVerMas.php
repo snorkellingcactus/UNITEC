@@ -11,6 +11,8 @@
 			$this->classList->add('DOMVerMas');
 
 			$link=new DOMLink();
+			
+			$link->classList->add('focuseable');
 
 			$this->appendChild
 			(

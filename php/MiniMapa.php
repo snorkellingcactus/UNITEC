@@ -47,6 +47,8 @@
 		{
 			$link=new DOMLink();
 
+			$link->classList->add('focuseable');
+
 			return $link->setName($name)->setUrl($url);
 		}
 		function appendEntry($entry)

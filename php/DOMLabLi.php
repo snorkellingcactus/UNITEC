@@ -41,7 +41,11 @@
 		{
 			if(!empty($this->link))
 			{
-				$a=new DOMTag('a' , $this->name);
+				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/DOMLink.php';
+
+				$a=new DOMLink();
+
+				$a->classList->add('focuseable');
 
 				if(!empty($this->target))
 				{
@@ -50,7 +54,7 @@
 
 				$this->titulo->appendChild
 				(
-					$a->setAttribute('href' , $this->link)
+					$a->setName($this->name)->setUrl($this->link)
 				);
 			}
 			else

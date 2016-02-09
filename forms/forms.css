@@ -14,6 +14,8 @@ body input ,body select{font-size:1em;height:1.7em;color:black;font-family:monos
 
 .fin{margin:50px 0px 50px 0px;border-bottom:2px solid dimgray;}
 
+.able-media-container video{width:100%;height: 100%}
+
 form .fecha
 {
 	margin-bottom: 1%
@@ -31,12 +33,6 @@ form .fecha input
 	text-align: center;
 	display:block;
 }
-form a
-{
-	color:black;
-	text-decoration:none;
-	text-align:center;
-}
 select option{background-color:white;}
 form p{color:black}
 .menu:hover li:hover .acciones, .menu:hover .acciones ,section:hover .FormCliCon .acciones input[type="submit"],
@@ -50,7 +46,13 @@ section:hover .FormCliSec .acciones, section:hover .FormCliSecNew .acciones, .Mo
 .menu .FormCliSecAddMenu .acciones{opacity:1;}
 .menu .FormCliSecAddMenu .acciones input{opacity:0.3;}
 .menu .FormCliSecAddMenu .acciones input:focus , .menu .FormCliSecAddMenu .acciones input:hover{opacity:1;}
-
+.monoWhite
+{
+	font-weight:bold;
+	text-shadow:0px 0px 1px black;
+	font-family:monospace;
+	padding:0px;
+}
 .menu li form.right
 {
 	position:relative;
@@ -89,8 +91,8 @@ body .acciones input:hover, body .acciones input:focus{background-color:rgba(255
 	animation-name:none;
 }
 .menu .FormCliSecAddMenu .acciones{width:100%}
-input,form a , button, textarea, select{box-shadow:0px 0px 3px black;border-radius:3px;border:none;}
-button,form a{background-color:silver;font-family:sans-serif;vertical-align:middle;line-height:3em;color:black;}
+input , button, textarea, select{box-shadow:0px 0px 3px black;border-radius:3px;border:none;}
+button{background-color:silver;font-family:sans-serif;vertical-align:middle;line-height:3em;color:black;}
 textarea{height:auto}
 
 input[type="radio"]{max-height:1em;}
@@ -117,10 +119,6 @@ main>.right .acciones,main>.right input[type="submit"]
 	background-color:#D8F3FF;
 }
 input.nSec{width:100%;}
-main>.right .acciones:hover,main>.right input[type="submit"]:hover
-{
-	background-color:white;
-}
 body main>form.right{clear:both;margin-bottom:20px;position:static;float:none;}
 body main>form.right input{width:100%;text-align:center;padding:0px;margin:0px;font-size:1.3em;}
 main .acciones input.nuevo{background-image:url("/img/10.png")}
@@ -169,7 +167,7 @@ input[name^="Continuar"].col-lg-12
 	float:right;
 }
 
-input:hover ,input:focus, textarea:hover, textarea:focus ,select:hover, select:focus, .MSGBox, button:hover, button:focus, form .focus
+input:hover ,input:focus,input[type="file"]:focus, textarea:hover, textarea:focus ,select:hover, select:focus, .MSGBox, button:hover, button:focus, form .focus, main>.right .acciones:hover, main .right input[type="submit"]:hover, main .right input[type="submit"]:focus
 {
 	background-color:#71BEFF;
 }
@@ -222,6 +220,11 @@ form h1.left
 }
 
 .Form .FormLabelBox{overflow:hidden;padding:25px 0px 25px 0px;display:table;width:100%;}
+
+.Form .FormLabelImagen label
+{
+	margin-bottom:20px;
+}
 
 .Form .FormLabelBox input,.Form .FormLabelBox select,.Form .FormLabelBox label, div.LabelBoxDate input,
 input[name^="Continuar"], input.volver{height:40px}
@@ -300,8 +303,10 @@ div.label
 }
 .label label.compacto
 {
-	color:#7E7E7E;
+	color:#2F2F2F;
+	font-family: courier;
 	text-shadow:none;
+	font-weight: bold;
 	position:absolute;
 	display:block;
 	z-index:5;

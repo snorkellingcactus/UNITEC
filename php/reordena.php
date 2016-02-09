@@ -23,7 +23,19 @@
 				),
 				MYSQLI_NUM
 			);
-			
+/*
+			echo '<pre>getPriorizados: Obteniendo prioridad para el elemento '.$i.': ';
+			print_r
+			(
+				'	SELECT Prioridad , ID
+					FROM Prioridades
+					WHERE GrupoID='.$coleccion[$i]['PrioridadesGrpID'].'
+					AND LabID='.$_SESSION['lab'].'
+					LIMIT 1
+				'
+			);
+			echo '</pre>';
+*/			
 			if(isset($prioridad[0][0]))
 			{
 				$prior=$prioridad[0][0];
@@ -55,6 +67,7 @@
 
 			++$i;
 		}
+
 		$coleccion=array();
 
 		$k=0;

@@ -48,19 +48,16 @@
 
 			$desp=$this->stepDesp=new Desplazador(0,false);
 
-			unset($_SESSION['steps']);
+			
+			$_SESSION['steps']=scandir
+			(
+				$this->dir,
+				SCANDIR_SORT_ASCENDING
+			);
 
-			if(!isset($_SESSION['steps']))
-			{
-				$_SESSION['steps']=scandir
-				(
-					$this->dir,
-					SCANDIR_SORT_ASCENDING
-				);
-
-				array_shift($_SESSION['steps']);
-				array_shift($_SESSION['steps']);
-			}
+			array_shift($_SESSION['steps']);
+			array_shift($_SESSION['steps']);
+			
 
 			$this->steps=$_SESSION['steps'];
 
@@ -80,7 +77,7 @@
 			if($this->stepDesp->thisIsLast())
 			{
 				//echo '<pre>Is The Last</pre>';
-				return $this->referrer.$this->ancla;
+				return $this->getOriginUrl();
 			}
 			return $this->actionUrl.'?step='.$this->stepDesp->getNext();
 		}
@@ -176,7 +173,10 @@
 		}
 		public function redirectToStepN($num)
 		{
-			$this->redirect($this->actionUrl.'?step='.$num);
+			$this->redirect
+			(
+				$this->actionUrl.'?step='.$num
+			);
 		}
 		public function redirectToStepName($name)
 		{

@@ -16,7 +16,7 @@
 
 			$ejemplo=new DOMTag('p' , gettext('Ej : Av 1 y 60, La Plata'));
 			$ejemplo->col=['xs'=>12 , 'sm'=>7 , 'md'=>7 , 'lg'=>7];
-			$ejemplo->classList->add('gris');
+			$ejemplo->classList->add('ejemplo')->add('monoWhite');
 
 			$this->appendLabel
 			(

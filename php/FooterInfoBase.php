@@ -20,6 +20,8 @@
 			(
 				$this->text=new DOMTag('i')
 			)->setLink(false);
+
+			$this->text->classList->add('gris');
 		}
 
 		function setLink($link)

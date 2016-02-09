@@ -91,15 +91,16 @@
 			$desc->classList->add('desc');
 			$desc->col=['xs'=>12 , 'sm'=>5 , 'md'=>5 , 'lg'=>5];
 
+			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/OffText.php';
+
 
 			if(isset($eventos[0]))						//Si hay eventos los muestro.
 			{
 				$descUl=new DOMTag('ul');
-				$offH2=new DOMTag('h2' , gettext('Lista de eventos'));
 				
 				$desc->appendChild
 				(
-					$offH2
+					new OffText('h2' , gettext('Lista de eventos'))
 				)->appendChild
 				(
 					$descUl
@@ -256,7 +257,6 @@
 			}
 
 			$refsCont=new DOMTag('div');
-			$offh2=new DOMTag('h2' , gettext('Referencias del calendario'));
 
 			$clearFix=new DOMTag('div');
 			$clearFix->classList->add('clearfix')->add('visible-xs');
@@ -267,7 +267,7 @@
 			(
 				$contenedor->appendChild
 				(
-					new DOMTag
+					new OffText
 					(
 						'h2',
 						gettext('Calendario de eventos')
@@ -278,7 +278,7 @@
 					(
 						$refsCont->appendChild
 						(
-							$offh2
+							new OffText('h2' , gettext('Referencias del calendario'))
 						)->appendChild
 						(
 							new DOMCalRefBase

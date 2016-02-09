@@ -160,7 +160,16 @@
 		public function createDoc()
 		{
 			//echo '<pre>DOMTagContainer::createDoc()';echo '</pre>';
+
 			$this->domDoc=new DOMDocument('1.0' , 'UTF-8');
+/*
+			DOMImplementation::createDocument
+			(
+				null,
+				null,
+				DOMImplementation::createDocumentType('html')
+			);
+*/
 		}
 		public function buildDoc()
 		{
@@ -174,8 +183,9 @@
 			//echo '</pre>';
 			$this->buildDoc();
 
-			$innerHTML = ""; 
-			$children  = $this->domDoc->childNodes;
+			//$this->domDoc->normalizeDocument();
+			$innerHTML = $this->domDoc->saveHTML(); 
+			//$children  = $this->domDoc->childNodes;
 
 			//echo '<pre>ChildNodes:';
 			//print_r
@@ -183,12 +193,12 @@
 			//	$children
 			//);
 			//echo '</pre>';
-
+/*
 			foreach ($children as $child) 
 			{
 				$innerHTML .= $this->domDoc->saveHTML($child);
 			}
-
+*/
 			return html_entity_decode($innerHTML); 
 		}
 		/*function appendTag(DOMTag $domTag)

@@ -15,6 +15,8 @@
 		public $icon;
 		public $sIcon;
 		public $title;
+		public $toUnset;
+		public $toUnsetLen;
 
 		function __construct()
 		{
@@ -23,6 +25,9 @@
 			$this->meta=new DOMTagContainer();
 			$this->js=new DOMTagContainer();
 			$this->css=new DOMTagContainer();
+
+			$this->toUnset=array();
+			$this->toUnsetLen=0;
 
 			$this
 			->setLang(false)
@@ -42,6 +47,14 @@
 			{
 				$this->setLang($args[0]);
 			}
+		}
+		function addToUnset($toUnset)
+		{
+			$this->toUnset[$this->toUnsetLen]=$toUnset;
+
+			++$this->toUnsetLen;
+
+			return $this;
 		}
 		function setLang($lang)
 		{
@@ -139,6 +152,14 @@
 		}
 		function renderChilds(&$doc , &$tag)
 		{
+			$iLen=$this->toUnsetLen;
+			for($i=0;$i<$iLen;++$i)
+			{
+				//echo '<pre>'.htmlentities('Unsetting $_SESSION["'.$this->toUnset[$i].'"]').'</pre>';
+
+				unset($_SESSION[$this->toUnset[$i]]);
+			}
+
 			if($this->lang!==false)
 			{
 				$this->setAttribute('lang' , $this->lang);

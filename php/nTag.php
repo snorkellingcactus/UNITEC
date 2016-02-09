@@ -89,10 +89,12 @@
 */
 		if(isset($duplicates[0][0]))
 		{
+			//echo '<pre>getDuplicatedTag: ';print_r('Ya existe un duplicado para '.$name.'.');echo '</pre>';
 			return $duplicates[0][0];
 		}
 		else
 		{
+			//echo '<pre>getDuplicatedTag: ';print_r('NO existe un duplicado para '.$name.'.');echo '</pre>';
 			return false;
 		}
 	}
@@ -148,10 +150,10 @@
 			)
 		)
 		{
-			//echo '<pre>isDuplicatedTagTarget: Ya existe este target</pre>';
+			//echo '<pre>isDuplicatedTagTarget: Ya existe un target con grupo "'.$tagsGrpID.'" e ID "'.$tagID.'"</pre>';
 			return true;
 		}
-		//echo '<pre>isDuplicatedTagTarget: No existe este target</pre>';
+		//echo '<pre>isDuplicatedTagTarget: NO existe un target con grupo "'.$tagsGrpID.'" e ID "'.$tagID.'"</pre>';
 		return false;
 	}
 	function nTagIfNot($name)
@@ -223,6 +225,7 @@
 				'
 			);
 /*
+			echo '<pre>nTagTarget: Insertando TagTarget: '.$name.'</pre>';
 			echo '<pre>';
 			print_r
 			(
@@ -232,7 +235,6 @@
 			);
 			echo '</pre>';
 */
-//			echo '<pre>nTagTarget: Insertado TagTarget: '.$name.'</pre>';
 		}
 		else
 		{
@@ -338,7 +340,7 @@
 			}
 			else
 			{
-//				echo '<pre>Is Empty</pre>';
+				//echo '<pre>Is Empty</pre>';
 			}
 
 			++$t;
@@ -468,7 +470,7 @@
 	{
 		global $con;
 /*
-		echo '<pre>';
+		echo '<pre>hasSQLObjPriority: ';
 		print_r
 		(
 			'	SELECT Prioridad
@@ -530,6 +532,16 @@
 	{
 		global $con;
 
+/*
+		echo '<pre>insertSQLObjPriority:';
+		print_r
+		(
+			'	INSERT INTO Prioridades(GrupoID , LabID , Prioridad)
+				VALUES('.$grupoID.' , '.$labID.' , '.intVal(trim($priority)).')
+			'
+		);
+		echo '</pre>';
+*/
 		$con->query
 		(
 			'	INSERT INTO Prioridades(GrupoID , LabID , Prioridad)
@@ -578,6 +590,8 @@
 						$nVal=0;
 					}
 
+					//echo '<pre>Este elemento no tiene prioridad asignada. Creando una...</pre>';
+
 					insertSQLObjPriority
 					(
 						$sqlObj->PrioridadesGrpID,
@@ -587,6 +601,8 @@
 				}
 				else
 				{
+					//echo '<pre>Este elemento ya tiene una prioridad asignada. Se actualizará</pre>';
+
 					if($labID==$_SESSION['lab'])
 					{
 						updSQLObjPriority
@@ -626,11 +642,11 @@
 			{
 				$labID=$labID[0]['ID'];
 
-//				echo '<pre>Tag '.$tag.' Is Lab '.$labID.'</pre>';
+				//echo '<pre>Tag '.$tag.' Is Lab '.$labID.'</pre>';
 
 				if(!hasSQLObjPriority($sqlObj , $labID))
 				{
-//					echo '<pre>No Priority for this lab, creating new one</pre>';
+					//echo '<pre>No Priority for this lab, creating new one</pre>';
 					if($labID==$_SESSION['lab'])
 					{
 						$nVal=reordena

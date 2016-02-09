@@ -26,11 +26,12 @@
 			$this->img=new DOMTag('img');
 			$this->span=new DOMTag('span');
 
-			$this->link->setOpensNewWindow(true);
+			$this->link->setOpensNewWindow(true)->classList->add('focuseable');
 
 			$this->classList->add('gImg')->add('Center-Container');
 			$this->img->classList->add('Absolute-Center');
 			$this->span->classList->add('offscreen');
+			$this->p->classList->add('monoWhite');
 
 			$this->actionCheckBox=false;
 		}

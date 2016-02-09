@@ -31,7 +31,7 @@
 				isset($_SESSION['accion'])
 			)
 			{
-				if(isset($_POST['Continuar']) || isset($_SESSION['accion']))
+				if((isset($_POST['Continuar']) || isset($_SESSION['accion'])) && !isset($_POST['Volver']))
 				{
 					//echo '<pre>Eureka, rellenaron un form para acá';echo '</pre>';
 					//Se rellenó el formulario correspondiente.
@@ -50,7 +50,6 @@
 				unset($_SESSION['conID']  , $_SESSION['form'] , $_SESSION['accion'] , $_SESSION['cantidad']);
 			}
 			unset($_SESSION['referer']);
-			unset($_SESSION['cache']);
 		}
 	}
 ?>

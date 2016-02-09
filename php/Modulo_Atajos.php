@@ -113,6 +113,11 @@
 				$tr=new DOMTr();
 				$tdA=new DOMTd();
 
+				if($i%2===0)
+				{
+					$tr->classList->add('oscura');
+				}
+
 				$tbody->appendChild
 				(
 					$tr->appendChild
@@ -138,7 +143,13 @@
 				++$i;
 			}
 
-			$this->appendChild($tabla);
+			$this->appendChild
+			(
+				new OffText('h1' , gettext('Listado de atajos'))
+			)->appendChild
+			(
+				$tabla
+			);
 
 			return parent::renderChilds($doc , $tag);
 		}

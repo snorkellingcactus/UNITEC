@@ -6,22 +6,11 @@
 			function renderChilds($doc , $tag)
 			{
 				$this->classList->add('novedades');
-				//::::::::::Variables de Sesion::::::::::::::
+				
 				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/is_session_started.php';
 				start_session_if_not();
-				//Cache por defecto vale 0.
-				if(!isset($_SESSION['cache']))
-				{
-					$_SESSION['cache']=0;
-				}
-				//Invierto el valor boleano de cache.
-				if(isset($_GET['cache']))
-				{
-					$_SESSION['cache']=!$_GET['cache']||0;
-				}
-				//:::::::::HTML y Diálogos:::::::::::
-				//Diferencias al ser admin.
-				if(!empty($_SESSION['adminID']))
+
+				if(isset($_SESSION['adminID']))
 				{
 					include_once($_SERVER['DOCUMENT_ROOT'] . '/php/edicion/FormCliNov.php');
 
@@ -94,7 +83,6 @@
 							);
 						}
 
-						
 						$descripcion=getTraduccion
 						(
 							$novAct['DescripcionID'],
@@ -198,6 +186,11 @@
 
 						++$i;
 					}
+
+					include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/ClearFix.php';
+
+					$this->appendChild(new ClearFix());
+
 					if($limit!==false && isset($novedades[$limit-1]))
 					{
 						include_once $_SERVER['DOCUMENT_ROOT'] . '/php/DOMVerMas.php';

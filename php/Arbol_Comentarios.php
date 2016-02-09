@@ -10,7 +10,6 @@
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/conexion.php';
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/ArbolComActions.php';
 			//Prevenir la inclusión en vano, haciendo uso inteligente dentro de ArbolActions.
-			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/edicion/FormCliSelBase.php';
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/DOMTag.php';
 
 			global $con;
@@ -22,11 +21,22 @@
 			$container->classList->add('comentarios');
 			$container->col=['xs'=>10 , 'sm'=>10 , 'md'=>10 , 'lg'=>10];
 
+			$formCom=false;
+			if(isset($_SESSION['adminID']))
+			{
+				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/edicion/FormCliSelBase.php';
+
+				$container->appendChild
+				(
+					$formCom=new FormCliSelBase('accionesCom')
+				);
+			}
+
 			parent::__construct
 			(
 				new ArbolComActions
 				(
-					new FormCliSelBase('accionesCom'),
+					$formCom,
 					$contenidoID,
 					$container
 				)

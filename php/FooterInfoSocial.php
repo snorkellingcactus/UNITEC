@@ -11,6 +11,8 @@
 
 			$link=new DOMLink();
 
+			$link->classList->add('focuseable');
+
 			$base=new FooterInfoBase
 			(
 				$imgSrc,

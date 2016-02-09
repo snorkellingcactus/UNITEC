@@ -4,6 +4,8 @@
 		$this->redirectToStepName('90_SQL_Evts.php');
 	}
 	
+	$this->form->addReq('/seccs/galeria.css');
+	
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormLabelTitulo.php';
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormLabelContenido.php';
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormLabelVisible.php';
@@ -91,32 +93,43 @@
 		$labelTags->input->setValue(getLabTagTree($_SESSION['lab']));
 	}
 
-	$Imgs=fetch_all
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/reordena.php';
+
+	$Imgs=getPriorizados
 	(
-		$con->query
+		fetch_all
 		(
-			'	SELECT Imagenes.ID,Imagenes.AltID
-				FROM Imagenes
-				WHERE 1
-			'
-		),
-		MYSQLI_NUM
+			$con->query
+			(
+				'	SELECT Imagenes.ID , Imagenes.TituloID , Imagenes.AltID, Imagenes.PrioridadesGrpID
+					FROM Imagenes
+					LEFT OUTER JOIN TagsTarget
+					ON TagsTarget.GrupoID=Imagenes.TagsGrpID
+					LEFT OUTER JOIN Laboratorios
+					ON Laboratorios.ID='.$_SESSION['lab'].'
+					WHERE TagsTarget.TagID=Laboratorios.TagID
+				'
+			),
+			MYSQLI_ASSOC
+		)	//Respuesta SQL como array asociativo.
 	);
 
 	$i=0;
 	while(isset($Imgs[$i]))
 	{
-		$imgId=$Imgs[$i][0];
+		$imgId=$Imgs[$i]['ID'];
 
 		$selectImg->input->addNewImgRadio
 		(
 			$imgId,
 			'/img/miniaturas/galeria/'.$imgId.'.png',
-			getTraduccion($Imgs[$i][1] , $_SESSION['lang'])
+			getTraduccion($Imgs[$i]['AltID'] , $_SESSION['lang']),
+			getTraduccion($Imgs[$i]['TituloID'] , $_SESSION['lang'])
 		);
 
 		++$i;
 	}
+
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormContinuar.php';
 
 	$continuar=new FormContinuar($this->form);

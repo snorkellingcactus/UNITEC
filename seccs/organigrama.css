@@ -37,7 +37,7 @@ body .organigrama input.boton-seccion
 	margin:auto;
 	animation:none;
 }
-body .organigrama input.boton-seccion:hover
+body .organigrama input.boton-seccion:hover, body .organigrama input.boton-seccion:focus
 {
 	animation:none;
 }
@@ -65,7 +65,6 @@ body .organigrama ul li
 {
 	padding:3px;
 }
-.organigrama a:focus{border:2px solid yellow;}
 /*
 .colorC
 {

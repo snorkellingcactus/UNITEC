@@ -12,6 +12,8 @@
 	if($this->getAction()===0)
 	{
 		include_once '90_SQL_Evts.php';
+
+		die();
 	}
 
 	//$this->form->ancla='#nEvt';

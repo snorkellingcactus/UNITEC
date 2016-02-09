@@ -134,6 +134,12 @@
 				$descripcion->classList->add('sangria');
 
 				$link=new DOMLink();
+				$link->classList->add('focuseable');
+
+				if($this->checkBox!==false)
+				{
+					$this->appendChild($this->checkBox);
+				}
 
 				$this->appendChild
 				(

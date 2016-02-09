@@ -1,35 +1,20 @@
 <?php
-	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormRadio.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/DOMGalImg.php';
 
-	class FormImgRadio extends DOMTag
+	class FormImgRadio extends DOMGalImg
 	{
-		public $img;
 		public $input;
 
 		function __construct($parentForm , $name , $value)
 		{
-			parent::__construct('div');
-			$this->img=false;
-			$this->input=new FormRadio($parentForm , $name , $value);
+			parent::__construct();
 
-			$this->appendChild($this->input);
-		}
-		function setImgSrc($imgSrc)
-		{
-			if(!$this->img)
-			{
-				$this->img=new DOMTag('img');
-				$this->appendChild($this->img);
-			}
+			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormRadio.php';
 
-			$this->img->setAttribute('src' , $imgSrc);
-
-			return $this;
-		}
-		function setImgAlt($alt)
-		{
-			$this->img->setAttribute('alt' , $alt);
-			return $this;
+			$this->p->appendChild
+			(
+				$this->input=new FormRadio($parentForm , $name , $value)
+			);
 		}
 		function setSelected()
 		{

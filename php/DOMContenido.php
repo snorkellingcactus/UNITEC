@@ -8,6 +8,8 @@
 			parent::__construct();
 
 			$this->classList->add('Contenido');
+
+			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/ClearFix.php';
 		}
 		function load($contID)
 		{
@@ -15,6 +17,9 @@
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/DOMFragment.php';
 
 			$this->appendChild
+			(
+				new ClearFix()
+			)->appendChild
 			(
 				new DOMFragment
 				(

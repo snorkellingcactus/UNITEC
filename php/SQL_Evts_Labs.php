@@ -1,47 +1,14 @@
 <?php
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/SQL_Evts_List.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/SQL_Evts_ImgBase.php';
 
-	ini_set('display_errors', 'On');
-
-	class SQL_Evts_Labs implements SQL_Evts_List
+	class SQL_Evts_Labs extends SQL_Evts_ImgBase implements SQL_Evts_List
 	{
-		public function upload($labID)
+		function __construct()
 		{
-			//empty solo acepta variables.
-			$trimStr=trim($_FILES['File']['name'][0]);
+			parent::__construct();
 
-			if
-			(
-				!empty
-				(
-					$trimStr
-				)
-			)
-			{
-				$this->mkUrlArchivo
-				(
-					$labID ,
-					$_FILES['File']['name'][0],
-					$_FILES['File']['tmp_name'][0]
-				);
-			}
-		}
-		public function mkUrlArchivo($labID , $name , $tmpName)
-		{
-			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/uploadImgOk.php';
-			
-			if(uploadImgOk($name))
-			{
-				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/phpthumb/ThumbLib.inc.php';
-				
-				$thumb=PhpThumbFactory::create($tmpName , ['resizeUp'=>true]);
-
-				$thumb->resize(64 , 64)->save($_SERVER['DOCUMENT_ROOT'] . '/img/logos/'.$labID.'.png');
-
-				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/elimina.php';
-
-				elimina($tmpName , 0755);
-			}
+			$this->addResize(64 , 64 , $_SERVER['DOCUMENT_ROOT'] . '/img/logos/');
 		}
 		public function nuevo()
 		{
@@ -77,7 +44,7 @@
 
 			$lab->insSQL();
 
-			$this->upload($lab->ID);
+			$this->mkUpload(0 , $lab->ID);
 
 			return [$lab->ID];
 		}
@@ -114,7 +81,7 @@
 
 			$lab->updSQL(false , ['ID']);
 
-			$this->upload($lab->ID);
+			$this->mkUpload(0 , $lab->ID);
 			
 			return [$lab->ID];
 		}

@@ -66,7 +66,10 @@
 		{
 			foreach($this->attrList as $attr=>$value)
 			{
-				$this->tag->setAttribute($attr , $value);
+				if(!empty(trim($value)))
+				{
+					$this->tag->setAttribute($attr , $value);
+				}
 			}
 
 			return $this;

@@ -14,7 +14,7 @@
 			$args=func_get_args();
 
 			$this->label=new FormLabel($args[3]);
-			$this->input=new FormInput($parentForm , 'date');
+			$this->input=new FormInput($parentForm , 'text');
 
 			$this->input->setName($args[1])
 			->setID($args[2])

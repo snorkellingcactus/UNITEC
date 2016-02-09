@@ -36,17 +36,11 @@
 		}
 		public function getReqs()
 		{
-			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/head_include.php';
 
 			$iMax=parent::getReqsLen();
 			$requiere=parent::getReqs();
 
-			for($i=0;$i<$iMax;$i++)
-			{
-				head_include($requiere[$i]);
-			}
-
-			return $this;
+			return $requiere;
 		}
 		public function clearFix()
 		{

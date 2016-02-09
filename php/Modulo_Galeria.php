@@ -129,6 +129,11 @@
 					++$i;
 				}
 
+				
+				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/ClearFix.php';
+
+				$this->appendChild(new ClearFix());
+
 				if($limit!==false && isset($imgLst[$limit-1]))
 				{
 					include_once $_SERVER['DOCUMENT_ROOT'] . '/php/DOMVerMas.php';

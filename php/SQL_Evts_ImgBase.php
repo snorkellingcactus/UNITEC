@@ -1,0 +1,139 @@
+<?php
+	class SQL_Evts_ImgBase
+	{
+		public $resizes;
+		public $resizesLen;
+
+		public function __construct()
+		{
+			$this->resizes=array();
+			$this->resizesLen=0;
+		}
+		public function addResize($width , $height , $directory)
+		{
+			$this->resizes[$this->resizesLen]=array($width , $height , $directory);
+
+			++$this->resizesLen;
+
+			return $this;
+		}
+		public function isEmpty($value)
+		{
+			return empty($value);
+		}
+		public function mkUrlArchivo($name , $tmpName , $imgID)
+		{
+			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/uploadImgOk.php';
+
+			if($this->uploadImgOk($name))
+			{
+				//echo '<pre>mkUrlArchivo:'.htmlentities(' La ruta de la imagen es válida!');echo '</pre>';
+
+				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/phpthumb/ThumbLib.inc.php';
+				$thumb=PhpThumbFactory::create($tmpName , ['resizeUp'=>true]);
+
+				$iLen=$this->resizesLen;
+				for($i=0;$i<$iLen;++$i)
+				{
+					$resize=$this->resizes[$i];
+
+					//echo '<pre>'.htmlentities('mkUrlArchivo: Creando miniatura de '.$resize[0].' X '.$resize[1].' en '.$resize[2]);echo '</pre>';
+					$thumb->resize($resize[0] , $resize[1])->save($resize[2].$imgID.'.png');
+				}
+				
+				//echo '<pre>mkUrlArchivo:'.htmlentities(' Eliminando archivo temporal.'.$tmpName);echo '</pre>';
+
+				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/elimina.php';
+				elimina($tmpName , 0755);
+			}
+			
+			else
+			{
+				//echo '<pre>mkUrlArchivo:'.htmlentities(' La ruta de la imagen es inválida!');echo '</pre>';
+			}
+		}
+		public function mkUpload($i , $imgID)
+		{
+			if(isset($_FILES['File']['name'][$i]))
+			{
+				if
+				(
+					!$this->isEmpty
+					(
+						trim
+						(
+							$_FILES['File']['name'][$i]
+						)
+					)
+				)
+				{
+					$name=$_FILES['File']['name'][$i];
+					$tmpName=$_FILES['File']['tmp_name'][$i];
+				}
+			}
+
+			if
+			(
+				!$this->isEmpty
+				(
+					trim
+					(
+						$_POST['Url'][$i]
+					)
+				)
+			)
+			{
+				$name=$tmpName=$_POST['Url'][$i];
+			}
+
+			if(isset($name))
+			{
+				$this->mkUrlArchivo
+				(
+					$name,
+					$tmpName,
+					$imgID
+				);
+			}
+		}
+		function uploadImgOk($name)
+		{
+			//echo '<pre>'.htmlentities('uploadImgOk: Chequeando ruta '.$name);echo '</pre>';
+
+			if
+			(
+				$this->isEmpty
+				(
+					trim
+					(
+						$name
+					)
+				)
+			)
+			{
+				//echo '<pre>uploadImgOk:'.htmlentities(' La ruta está vacía');echo '</pre>';
+				return false;
+			}
+			$uploadOk=false;
+				
+			$extension=strtolower
+			(
+				pathinfo
+				(
+					$name,
+					PATHINFO_EXTENSION
+				)
+			);
+			//echo '<pre>'.htmlentities('uploadImgOk: Chequeando extensión '.$extension);echo '</pre>';
+			if
+			(
+				$extension=='png'	|| $extension=='jpg' ||
+				$extension=='jpeg'	|| $extension=='gif'
+			)
+			{
+				return true;
+			}
+			return false;
+		}
+	}
+?>

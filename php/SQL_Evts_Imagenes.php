@@ -1,27 +1,16 @@
 <?php
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/SQL_Evts_List.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/SQL_Evts_ImgBase.php';
 
-	class SQL_Evts_Imagenes implements SQL_Evts_List
+	class SQL_Evts_Imagenes extends SQL_Evts_ImgBase implements SQL_Evts_List
 	{
-		//$_FILES['File']['name'][$i]
-		//
-		public function mkUrlArchivo($img , $name , $tmpName)
+		function __construct()
 		{
-			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/uploadImgOk.php';
+			parent::__construct();
 
-			if(uploadImgOk($name))
-			{
-				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/phpthumb/ThumbLib.inc.php';
-				
-				$thumb=PhpThumbFactory::create($tmpName , ['resizeUp'=>true]);
-
-				$thumb->resize(800 , 600)->save($_SERVER['DOCUMENT_ROOT'] . '/img/miniaturas/visor/'.$img->ID.'.png');
-				$thumb->resize(280 , 210)->save($_SERVER['DOCUMENT_ROOT'] . '/img/miniaturas/galeria/'.$img->ID.'.png');
-
-				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/elimina.php';
-
-				elimina($tmpName , 0755);
-			}
+			$this
+			->addResize(800 , 600 , $_SERVER['DOCUMENT_ROOT'] . '/img/miniaturas/visor/')
+			->addResize(280 , 210 , $_SERVER['DOCUMENT_ROOT'] . '/img/miniaturas/galeria/');
 		}
 		public function edita()
 		{
@@ -65,12 +54,10 @@
 				updTraduccion($_POST['Titulo'][$i] , $nImg->TituloID , $_SESSION['lang']);
 				updTraduccion($_POST['Alt'][$i] , $nImg->AltID , $_SESSION['lang']);
 
-				$this->mkUrlArchivo
-				(
-					$nImg ,
-					$_FILES['File']['name'][$i],
-					$_FILES['File']['tmp_name'][$i]
-				);
+
+
+				$this->mkUpload($i , $nImg->ID);
+
 				if(!empty($_POST['Tags'][$i]))
 				{
 					$nImg->updTagsTargets($_POST['Tags'][$i]);
@@ -165,17 +152,7 @@
 					);
 				}
 
-				$isEmpty=trim($_FILES['File']['name'][$i]);
-				
-				if(!empty($isEmpty))
-				{
-					$this->mkUrlArchivo
-					(
-						$img ,
-						$_FILES['File']['name'][$i],
-						$_FILES['File']['tmp_name'][$i]
-					);
-				}
+				$this->mkUpload($i , $img->ID);
 
 				$afectados[$i]=$img->ID;
 			}

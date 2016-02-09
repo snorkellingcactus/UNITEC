@@ -25,10 +25,12 @@
 			    include_once $_SERVER['DOCUMENT_ROOT'] . '/php/getTraduccion.php';
 
 			    $lab=new Laboratorio();
-			    $lab->getSQL(['ID'=>$_SESSION['lab']]);
 
-
-			    $labName=getTraduccion($lab->NombreID , $_SESSION['lang']);
+			    if($_SESSION['lab']!==false)
+			    {
+			    	$lab->getSQL(['ID'=>$_SESSION['lab']]);
+					$labName=getLabName($lab->ID , $_SESSION['lang']);
+				}
 
 			    $info=
 			    [
@@ -45,30 +47,47 @@
 			        'Twitter' => $lab->Twitter,
 			    ];
 
-			   
-			    $defaultLab=getDefaultLab()[0]['ID'];
-
-			    if($lab->ID!=$defaultLab)
+			    if($_SESSION['lab']!==false)
 			    {
-			        $lab->getSQL
-			        (
-			            ['ID'=>$defaultLab]
-			        );
+			    	$defaultLab=getDefaultLabID();
 
-			        $this->replaceIfEmpty($info , $lab);
-			        $this->replaceIfEmpty($social , $lab);
+			    	if($lab->ID!=$defaultLab)
+				    {
+				        $lab->getSQL
+				        (
+				            ['ID'=>$defaultLab]
+				        );
+
+				        $this->replaceIfEmpty($info , $lab);
+				        $this->replaceIfEmpty($social , $lab);
+				    }
+
+				    $info['DireccionID']=getTraduccion($info['DireccionID'] , $_SESSION['lang']);
+
+				    include_once $_SERVER['DOCUMENT_ROOT'] . '/php/FooterMapa.php';
+
+				    $mapa=new FooterMapa
+				    (
+				    	$labName ,
+				    	$info['Latitud'].' , '.$info['Longitud']
+				    );
 			    }
+			    else
+			    {
+			    	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/FooterContainer.php';
 
-			    $info['DireccionID']=getTraduccion($info['DireccionID'] , $_SESSION['lang']);
-			    
-			    $latLong=$info['Latitud'].' , '.$info['Longitud'];
+			    	$mapa=new FooterContainer();
+			    	$mapa->appendChild
+			    	(
+			    		new DOMTag('p' , 'NoLab Map')
+			    	);
+			    }
 			}
 
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/DOMTag.php';
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/ClearFix.php';
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/FooterMail.php';
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/FooterInfo.php';
-			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/FooterMapa.php';
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/FooterMapaForm.php';
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/edicion/FormCliMapa.php';
 
@@ -104,7 +123,7 @@
 				new ClearFix()
 			)->appendChild
 			(
-				new FooterMapa($labName , $latLong)
+				$mapa
 			)->appendChild
 			(
 				new FooterMapaForm()

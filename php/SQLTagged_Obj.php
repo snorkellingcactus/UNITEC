@@ -50,7 +50,9 @@
 				$grupoID=nTagsGrp();
 			}
 
+			$this->actForaneas=false;
 			$this->updSQL(['TagsGrpID'=>$grupoID]);
+			$this->actForaneas=true;
 
 			return $grupoID;
 		}

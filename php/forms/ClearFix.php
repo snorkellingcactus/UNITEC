@@ -5,7 +5,7 @@
 	{
 		function __construct()
 		{
-			parent::__construct('div');
+			parent::__construct('span');
 			$this->classList->add('clearfix');
 		}
 	}

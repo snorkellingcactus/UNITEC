@@ -9,5 +9,4 @@
 	$formGalRecv->checks();
 
 	$this->redirect($this->getOriginUrl());
-
 ?>

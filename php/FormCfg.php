@@ -11,7 +11,7 @@
 		function __construct($fId=NULL , $actions=['edita','nuevo','elimina','configura'])
 		{
 			$this->actions=$actions;
-			$this->selectedActio=NULL;
+			$this->selectedAction=NULL;
 			$this->fId=$fId;
 		}
 

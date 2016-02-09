@@ -43,12 +43,11 @@
 				$this->default=$this->lstLen;
 			}
 
-			$this->appendChild($checkBox);
 			$this->lst[$this->lstLen]=$checkBox;
 
 			++$this->lstLen;
 
-			return $this;
+			return $this->appendChild($checkBox);
 		}
 		function buildNew($value)
 		{
@@ -56,7 +55,10 @@
 		}
 		function select($index)
 		{
-			$this->lst[$index]->setSelected();
+			if(isset($this->lst[$index]))
+			{
+				$this->lst[$index]->setSelected();
+			}
 
 			return $this;
 		}

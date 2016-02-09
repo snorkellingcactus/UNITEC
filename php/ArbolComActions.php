@@ -40,18 +40,23 @@
 		{
 			$comentario=new DOMComentario();
 
+			if($this->formBuilder!==false)
+			{
+				$comentario->setCheckBox
+				(
+					$this->formBuilder->buildActionCheckBox
+					(
+						$child['ContenidoID']
+					)
+				);
+			}
+
 			$comentario->setContenido
 			(
 				getTraduccion
 				(
 					$child['ContenidoID'],
 					$_SESSION['lang']
-				)
-			)->setCheckBox
-			(
-				$this->formBuilder->buildActionCheckBox
-				(
-					$child['ContenidoID']
 				)
 			)->setBtnRes
 			(

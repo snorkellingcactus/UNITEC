@@ -67,12 +67,12 @@
 						)
 					);
 
-					$opc->setUrl($opcion['Url']);
-
 					if(isset($opcion['SeccionID']))
 					{
 						$opc->setSectionName($opcion['SeccionID']);
 					}
+
+					$opc->setUrl($opcion['Url']);
 
 					if(!empty($opcion['Atajo']))
 					{
@@ -115,6 +115,8 @@
 			$logo->classList->add('hidden-xs');
 
 			$link=new DOMLink();
+
+			$link->classList->add('focuseable');
 
 			$h2=new DOMTag('h2');
 

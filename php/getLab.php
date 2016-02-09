@@ -72,6 +72,19 @@
 			MYSQLI_ASSOC
 		);
 	}
+	function getDefaultLabID()
+	{
+		$defaultLab=getDefaultLab();
+
+		if(isset($defaultLab[0]))
+		{
+			return $defaultLab[0]['ID'];
+		}
+		else
+		{
+			return false;
+		}
+	}
 	function getLabByTag($tag)
 	{
 		include_once($_SERVER['DOCUMENT_ROOT'] . '/php/conexion.php');
@@ -141,21 +154,28 @@
 		{
 			$labID=func_get_args()[0];
 		}
-		
-		return getTraduccion
+
+		$nameID=fetch_all
 		(
-			fetch_all
+			$con->query
 			(
-				$con->query
-				(
-					'	SELECT Laboratorios.NombreID
-						FROM Laboratorios
-						WHERE ID='.$labID
-				),
-				MYSQLI_NUM
-			)[0][0],
-			$_SESSION['lang']
+				'	SELECT Laboratorios.NombreID
+					FROM Laboratorios
+					WHERE ID='.$labID
+			),
+			MYSQLI_NUM
 		);
+
+		if(isset($nameID[0][0]))
+		{
+			return getTraduccion
+			(
+				$nameID[0][0],
+				$_SESSION['lang']
+			);
+		}
+
+		return 'NoLab';
 	}
 	function getLabUrl($lName)
 	{

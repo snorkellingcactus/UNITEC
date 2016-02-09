@@ -10,6 +10,8 @@
 		{
 			parent::__construct('div');
 
+			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/OffText.php';
+
 			$this->col=['xs'=>12 , 'md'=>2 , 'sm'=>2 , 'lg'=>2];
 			$this->classList->add('menu');
 
@@ -17,6 +19,9 @@
 			$this->nav=new DOMTag('nav');
 
 			$this->appendChild
+			(
+				new OffText('h1' , gettext('Menu Principal'))
+			)->appendChild
 			(
 				$this->nav->appendChild($this->ul)
 			);
