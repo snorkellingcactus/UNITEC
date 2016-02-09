@@ -5,6 +5,7 @@
 	{
 		public $ul;
 		public $nav;
+		public $span;
 
 		function __construct()
 		{
@@ -18,12 +19,18 @@
 			$this->ul=new DOMTag('ul');
 			$this->nav=new DOMTag('nav');
 
+			$this->span=new DOMTag('span');
+			$this->span->classList->add('inset');
+
 			$this->appendChild
 			(
 				new OffText('h1' , gettext('Menu Principal'))
 			)->appendChild
 			(
-				$this->nav->appendChild($this->ul)
+				$this->span->appendChild
+				(
+					$this->nav->appendChild($this->ul)
+				)
 			);
 		}
 		function addOption($name)

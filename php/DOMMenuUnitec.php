@@ -122,7 +122,7 @@
 
 			$img=new DOMTag('img');
 
-			$this->appendChild
+			$this->span->appendChild
 			(
 				$logo->appendChild
 				(
