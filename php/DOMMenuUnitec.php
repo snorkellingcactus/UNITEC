@@ -105,7 +105,7 @@
 			{
 				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/edicion/FormCliSecAddMenu.php';
 				
-				$this->appendChild
+				$this->span->appendChild
 				(
 					new FormCliSecAddMenu()
 				);
