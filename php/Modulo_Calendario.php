@@ -50,7 +50,7 @@
 			{
 				$mes=intVal(getdate()['mon']);
 
-				$mesAct=new DateTime();
+				$mesAct=new DateTime('now' , new DateTimeZone('America/Argentina/Buenos_Aires'));
 				$mesAct->setDate
 				(
 					$cal->fecha->format('Y'),
@@ -58,7 +58,7 @@
 					1
 				);
 
-				$mesSig=new DateTime();
+				$mesSig=new DateTime('now' , new DateTimeZone('America/Argentina/Buenos_Aires'));
 				$mesSig->setTimestamp($mesAct->getTimestamp());
 				$mesSig->add(new DateInterval('P1M'));
 

@@ -66,7 +66,8 @@
 		{
 			foreach($this->attrList as $attr=>$value)
 			{
-				if(!empty(trim($value)))
+				$trimmed=trim($value);
+				if(!empty($trimmed))
 				{
 					$this->tag->setAttribute($attr , $value);
 				}

@@ -248,6 +248,7 @@ div.LoginBox
 	float: none;
 	position: static;
 	width: 300px;
+	overflow: hidden;
 }
 .LoginBox h1
 {

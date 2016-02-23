@@ -13,6 +13,8 @@
 		function __construct()
 		{
 			parent::__construct();
+
+			$this->setTagName('ul');
 		}
 		function setFacebook($facebook)
 		{

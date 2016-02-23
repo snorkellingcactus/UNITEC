@@ -7,7 +7,7 @@
 	{
 		function __construct($text , $imgSrc , $linkUrl)
 		{
-			parent::__construct('div');
+			parent::__construct('li');
 
 			$link=new DOMLink();
 

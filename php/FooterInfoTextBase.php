@@ -8,7 +8,7 @@
 
 		function __construct($imgSrc , $imgAlt)
 		{
-			parent::__construct('p');
+			parent::__construct('li');
 
 			$this->appendChild
 			(
