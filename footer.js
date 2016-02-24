@@ -19,6 +19,9 @@ function inicializaGMaps()
     imagenMapa.getAttribute('src').split('?')[1]
   ).split(',');
 
+  window.console.log('Pos:');
+  window.console.log(pos);
+
   pos=new google.maps.LatLng(pos[0] , pos[1]);
 
   var mapOptions = 
@@ -34,6 +37,7 @@ function inicializaGMaps()
   imagenMapa=document.createElement('div');
   imagenMapa.setAttribute('id' , 'map-canvas');
   imagenMapa.setAttribute('class' , 'map-canvas');
+  imagenMapa.style.height='400px';
 
   padreMapa.appendChild(imagenMapa);
 
@@ -49,6 +53,7 @@ function inicializaGMaps()
   initialMapDiagHidden(rutas);
   initialMapDiagShowed(form);
 
+  //Revisar. Internacionalizar.
   var marcador=new google.maps.Marker
   (
     {
@@ -136,17 +141,23 @@ function solicitaRuta(event)
     var request =
     {
       origin: document.getElementById('origen').value,
-      destination: pos.toString(),
+      destination: pos,
       travelMode: google.maps.DirectionsTravelMode[document.getElementById('modo_viaje').value],
       unitSystem: google.maps.DirectionsUnitSystem[document.getElementById('unidad').value],
       provideRouteAlternatives: true
     };
+
+    window.console.log('Consulta:');
+    window.console.log(request);
 
     directionsService.route(request, trazaRuta);
   }
 }
 function trazaRuta(response, status)
 {
+  window.console.log('Respuesta:');
+  window.console.log(status);
+
   if(status == google.maps.DirectionsStatus.OK)
   {
     directionsDisplay.setMap(map);
