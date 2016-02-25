@@ -98,6 +98,7 @@
 				'h1',
 				gettext('Nos interesa tu opinión!')
 			);
+			$mapScript=new Script('/footer.js');
 
 			//$titulo->col=$divMail->col;;
 
@@ -135,7 +136,7 @@
 				new DOMTag('small' , 'Powered by Bootstrap')
 			)->appendChild
 			(
-				new Script('/footer.js')
+				$mapScript->setAsync(true)->setDefer(true)
 			);
 
 			return parent::renderChilds($doc , $tag);

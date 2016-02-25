@@ -4,6 +4,8 @@
 	class Script extends DOMTag
 	{
 		public $src;
+		public $async;
+		public $defer;
 
 		function __construct()
 		{
@@ -17,6 +19,20 @@
 			{
 				$this->setSrc($args[0]);
 			}
+
+			$this->setAsync(false)->setDefer(false);
+		}
+		function setAsync($async)
+		{
+			$this->async=$async;
+
+			return $this;
+		}
+		function setDefer($defer)
+		{
+			$this->defer=$defer;
+
+			return $this;
 		}
 		function setSrc($src)
 		{
@@ -27,6 +43,15 @@
 		function renderChilds(&$doc , &$tag)
 		{
 			$this->setAttribute('src' , $this->src);
+
+			if($this->async!==false)
+			{
+				$this->setAttribute('async' , 'async');
+			}
+			if($this->defer!==false)
+			{
+				$this->setAttribute('defer' , 'defer');
+			}
 
 			return parent::renderChilds($doc , $tag);		
 		}
