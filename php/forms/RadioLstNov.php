@@ -5,15 +5,15 @@
 	class RadioLstNov extends FormImgRadioLst
 	{
 		public $labelID;
-		function __construct($parentForm , $name , $labelID)
+		function __construct( $name , $labelID)
 		{
-			parent::__construct($parentForm , $name);
+			parent::__construct( $name);
 			$this->labelID=$labelID;
 		}
 
 		function buildNew($value)
 		{
-			return new FormImgRadio($this->parentForm , $this->name , $value);
+			return new FormImgRadio($this->name , $value);
 		}
 		function add($checkbox)
 		{

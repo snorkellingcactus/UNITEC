@@ -3,9 +3,9 @@
 
 	class FormSelectOrdenEmptyOption extends FormSelectOption
 	{
-		function __construct($parentForm , $value)
+		function __construct( $value)
 		{
-			parent::__construct($parentForm , '' , $value);
+			parent::__construct( '' , $value);
 		}
 	}
 ?>

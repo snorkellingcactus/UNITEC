@@ -5,14 +5,14 @@
 
 	class FormLabelContenido extends TituloBox
 	{
-		public function __construct($parentForm)
+		public function __construct()
 		{
 			parent::__construct
 			(
 				'Contenido',
 				'contenido',
 				gettext('Contenido'),
-				new FormTxtAreaEditor($parentForm)
+				new FormTxtAreaEditor()
 			);
 		}
 		function setInput($input)

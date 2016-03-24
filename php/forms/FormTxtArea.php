@@ -3,9 +3,9 @@
 	
 	class FormTxtArea extends FormInputBase
 	{
-		public function __construct($parentForm)
+		public function __construct()
 		{
-			parent::__construct($parentForm , 'textarea');
+			parent::__construct( 'textarea');
 		}
 		public function setCols($colsLen)
 		{

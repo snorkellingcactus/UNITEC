@@ -11,10 +11,10 @@
 		public $selectNext;
 
 		//FormSelectOrden::__construct($names , $default)
-		function __construct($parentForm)
+		function __construct()
 		{
 
-			parent::__construct($parentForm);
+			parent::__construct();
 
 			$this->prefixBottom='b';
 			$this->prefixTop='t';
@@ -34,7 +34,7 @@
 				$value=$this->emptyValue($name);
 			}
 			
-			return new FormSelectOrdenOption($this->parentForm , $name , $value);
+			return new FormSelectOrdenOption($name , $value);
 		}
 		function trySelect($value)
 		{
@@ -76,7 +76,7 @@
 		public function renderChilds(& $doc , & $tag)
 		{
 			//echo '<pre>FormSelectOrden::renderChilds()</pre>';
-			$bottom=new FormSelectOrdenEmptyOption($this->parentForm , $this->prefixBottom);
+			$bottom=new FormSelectOrdenEmptyOption($this->prefixBottom);
 			//Revisar
 			$bottom->setTagValue(gettext('Abajo de todo'));
 			if($this->selectNext)

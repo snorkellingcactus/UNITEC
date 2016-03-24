@@ -19,19 +19,19 @@
 				new ClearFix()
 			)->appendLabel
 			(
-				new FormLabelNombre($this)
+				new FormLabelNombre()
 			)->appendChild
 			(
 				new ClearFix()
 			)->appendLabel
 			(
-				new FormLabelContrasena($this)
+				new FormLabelContrasena()
 			)->appendChild
 			(
 				new ClearFix()
 			)->appendChild
 			(
-				new FormCliOk($this)
+				new FormCliOk()
 			);
 
 			$this->classList->add('FormCliLogin');

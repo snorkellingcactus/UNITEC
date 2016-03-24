@@ -18,12 +18,12 @@
 
 	class FormLabelUbicacion extends FormFieldSet
 	{
-		function __construct($parentForm)
+		function __construct()
 		{
 			parent::__construct('Ubicacion');
 
-			$this->latitud=new FormLabelLatitud($parentForm);
-			$this->longitud=new FormLabelLongitud($parentForm);
+			$this->latitud=new FormLabelLatitud();
+			$this->longitud=new FormLabelLongitud();
 
 			$this->appendChild
 			(

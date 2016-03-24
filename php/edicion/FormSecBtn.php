@@ -3,9 +3,9 @@
 
 	class FormSecBtn extends FormInput
 	{
-		function __construct($parentForm , $name , $value)
+		function __construct($name , $value)
 		{
-			parent::__construct($parentForm , 'submit');
+			parent::__construct('submit');
 
 			$this->setName
 			(
@@ -17,7 +17,7 @@
 			(
 				'title',
 				$value
-			)->setMulti(0)->classList->add('boton-seccion')->add($name);
+			)->classList->add('boton-seccion')->add($name);
 		}
 	}
 ?>

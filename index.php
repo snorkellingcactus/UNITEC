@@ -7,6 +7,9 @@
 
 include_once $_SERVER['DOCUMENT_ROOT'] . '/php/DOMHTMLUIndex.php';
 
+session_start();
+session_destroy();
+
 $html=new DOMHTMLUIndex();
 
 if($_SESSION['lab']!==false)

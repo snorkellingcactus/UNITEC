@@ -2,9 +2,9 @@
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormInputBase.php';
 	class FormInput extends FormInputBase
 	{
-		function __construct($parentForm , $tipo)
+		function __construct($tipo)
 		{
-			parent::__construct($parentForm , 'input');
+			parent::__construct('input');
 			
 			$this->setAttribute('type' , $tipo);
 		}

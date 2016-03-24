@@ -3,9 +3,9 @@
 
 	class FormLabelTwitter extends TextBox
 	{
-		function __construct($parentForm)
+		function __construct()
 		{
-			parent::__construct($parentForm , 'Twitter' , 'twitter' , gettext('Twitter'));
+			parent::__construct( 'Twitter' , 'twitter' , gettext('Twitter'));
 		}
 	}
 ?>

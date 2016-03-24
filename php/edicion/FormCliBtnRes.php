@@ -9,18 +9,18 @@
 		{
 			parent::__construct('accionesCom');
 
-			$raizID=new VariablePost($this , 'RaizID' , $raizID);
-			$conID=new VariablePost($this , 'conID' , $conID);
+			$raizID=new VariablePost('RaizID' , $raizID);
+			$conID=new VariablePost('conID' , $conID);
 
 			$this->appendChild
 			(
-				$raizID->setMulti(0)
+				$raizID
 			)->appendChild
 			(
-				$conID->setMulti(0)
+				$conID
 			)->appendChild
 			(
-				new FormCliResponder($this)
+				new FormCliResponder()
 			)->classList->add
 			(
 				'FormCliComBtnRes'

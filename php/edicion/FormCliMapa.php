@@ -20,19 +20,19 @@
 
 			$this->appendLabel
 			(
-				new FormLabelModoViaje($this)
+				new FormLabelModoViaje()
 			)->appendLabel
 			(
-				new FormLabelUnidad($this)
+				new FormLabelUnidad()
 			)->appendLabel
 			(
-				new FormLabelOrigen($this)
+				new FormLabelOrigen()
 			)->appendChild
 			(
 				$ejemplo
 			)->appendChild
 			(
-				new FormCliBuscarRuta($this)
+				new FormCliBuscarRuta()
 			)->col=['xs'=>12 , 'sm'=>12 , 'md'=>12 , 'lg'=>12];
 		}
 		function appendChild($child)

@@ -4,14 +4,14 @@
 
 	class PassBox extends LabelBox
 	{
-		function __construct($parentForm , $name , $id , $labelText)
+		function __construct( $name , $id , $labelText)
 		{
 			parent::__construct
 			(
 				$name,
 				$id,
 				$labelText,
-				new FormInput($parentForm , 'password')
+				new FormInput( 'password')
 			);
 		}
 	}

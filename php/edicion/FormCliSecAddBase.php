@@ -9,20 +9,20 @@
 		{
 			parent::__construct($formDirName);
 
-			$varTipo=new VariablePost($this , 'Tipo' , $tipo);
+			$varTipo=new VariablePost('Tipo' , $tipo);
 
-			$btnNew=new FormInput($this , 'submit');
+			$btnNew=new FormInput('submit');
 
 			$this->appendChild
 			(
-				$varTipo->setMulti(0)
+				$varTipo
 			)->appendChild
 			(
 				$btnNew->setValue('+')->setAttribute
 				(
 					'title',
 					$title
-				)->setName('nuevo')->setMulti(0)
+				)->setName('nuevo')
 			);
 		}
 	}

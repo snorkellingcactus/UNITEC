@@ -3,9 +3,9 @@
 
 	class FormLabelDireccion extends TextBox
 	{
-		function __construct($parentForm)
+		function __construct()
 		{
-			parent::__construct($parentForm , 'Direccion' , 'direccion' , gettext('Direccion'));
+			parent::__construct('Direccion' , 'direccion' , gettext('Direccion'));
 		}
 	}
 ?>

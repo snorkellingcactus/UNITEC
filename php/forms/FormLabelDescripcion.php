@@ -5,14 +5,14 @@
 
 	class FormLabelDescripcion extends LabelBox
 	{
-		public function __construct($parentForm)
+		public function __construct()
 		{
 			parent::__construct
 			(
 				'Descripcion',
 				'descripcion',
 				gettext('Descripcion'),
-				new FormTxtArea($parentForm)
+				new FormTxtArea()
 			);
 		}
 		function setInput($input)

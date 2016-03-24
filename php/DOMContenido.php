@@ -1,7 +1,7 @@
 <?php
-	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/Modulo.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/DOMModulo.php';
 
-	class DOMContenido extends Modulo
+	class DOMContenido extends DOMModulo
 	{
 		function __construct()
 		{

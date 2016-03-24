@@ -1,7 +1,7 @@
 <?php
-	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/Modulo.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/DOMModulo.php';
 
-	class DOMInclude extends Modulo
+	class DOMInclude extends DOMModulo
 	{
 		public $limit;
 		public $sID;

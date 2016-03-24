@@ -3,9 +3,9 @@
 
 	class FormCheckBox extends FormInput
 	{
-		function __construct($parentForm , $name , $value)
+		function __construct($name , $value)
 		{
-			parent::__construct($parentForm , 'checkbox');
+			parent::__construct('checkbox');
 
 			$this->setName($name);
 			$this->setValue($value);

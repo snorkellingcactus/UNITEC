@@ -4,14 +4,14 @@
 
 	class BoolBox extends LabelBox
 	{
-		function __construct($parentForm , $name , $id , $labelText)
+		function __construct($name , $id , $labelText)
 		{
 			parent::__construct
 			(
 				$name,
 				$id,
 				$labelText,
-				new FormSelectBool($parentForm , gettext('Si') , gettext('No'))
+				new FormSelectBool(gettext('Si') , gettext('No'))
 			);
 		}
 	}

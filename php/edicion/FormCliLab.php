@@ -12,10 +12,10 @@
 		{
 			parent::__construct('accionesLab');
 
-			$add=new FormCliAdd($this , 1);
-			$del=new FormCliDel($this);
-			$edit=new FormCliEdit($this);
-			$varConID=new VariablePost($this , 'conID' , $id);
+			$add=new FormCliAdd(1);
+			$del=new FormCliDel();
+			$edit=new FormCliEdit();
+			$varConID=new VariablePost('conID' , $id);
 
 			$add->classList->add('semitrans');
 			$del->classList->add('semitrans');
@@ -25,7 +25,7 @@
 		
 			$this->appendChild
 			(
-				$varConID->setMulti(0)
+				$varConID
 			)->buttons->appendChild($add)->appendChild($edit)->appendChild($del);
 		}
 	}

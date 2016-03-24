@@ -3,9 +3,9 @@
 
 	class FormLabelFacebook extends TextBox
 	{
-		function __construct($parentForm)
+		function __construct()
 		{
-			parent::__construct($parentForm , 'Facebook' , 'facebook' , gettext('Facebook'));
+			parent::__construct('Facebook' , 'facebook' , gettext('Facebook'));
 		}
 	}
 ?>

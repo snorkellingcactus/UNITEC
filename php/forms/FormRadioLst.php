@@ -9,9 +9,8 @@
 		public $default;
 		public $selectedValue;
 		public $name;
-		public $parentForm;
 
-		function __construct($parentForm , $name)
+		function __construct($name)
 		{
 			parent::__construct();
 
@@ -19,7 +18,6 @@
 			$this->lstLen=0;
 			$this->default=false;
 			$this->selectedValue=NULL;
-			$this->parentForm=$parentForm;
 
 			$this->name=$name;
 		}
@@ -51,7 +49,7 @@
 		}
 		function buildNew($value)
 		{
-			return new FormRadio($this->parentForm , $this->name , $value);
+			return new FormRadio($this->name , $value);
 		}
 		function select($index)
 		{

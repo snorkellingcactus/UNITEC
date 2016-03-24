@@ -8,12 +8,12 @@
 		public $empty;
 		public $fill;
 
-		function __construct($parentForm , $name  , $value)
+		function __construct( $name  , $value)
 		{
 			parent::__construct();
 
-			$this->empty=new FormSelectOrdenEmptyOption($parentForm , $value);
-			$this->fill=new FormSelectOrdenFillOption($parentForm , $name);
+			$this->empty=new FormSelectOrdenEmptyOption( $value);
+			$this->fill=new FormSelectOrdenFillOption( $name);
 
 			//Revisar
 			$this->empty->setTagValue

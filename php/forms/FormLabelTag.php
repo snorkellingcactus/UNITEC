@@ -3,9 +3,9 @@
 
 	class FormLabelTag extends TextBox
 	{
-		function __construct($parentForm)
+		function __construct()
 		{
-			parent::__construct($parentForm , 'Tag' , 'tag' , gettext('Etiqueta'));
+			parent::__construct( 'Tag' , 'tag' , gettext('Etiqueta'));
 		}
 	}
 ?>

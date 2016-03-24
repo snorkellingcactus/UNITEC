@@ -21,7 +21,7 @@
 		{
 			$label->classList->add('label');
 
-			$label->input->setMulti(0)->col=['xs'=>12 , 'sm'=>7 , 'md'=>7 , 'lg'=>7];	
+			$label->input->col=['xs'=>12 , 'sm'=>7 , 'md'=>7 , 'lg'=>7];	
 			$label->label->col=['xs'=>12 , 'sm'=>5 , 'md'=>5 , 'lg'=>5];	
 
 			return parent::appendChild($label);

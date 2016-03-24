@@ -3,9 +3,9 @@
 
 	class FormLabelCorreo extends TextBox
 	{
-		function __construct($parentForm)
+		function __construct()
 		{
-			parent::__construct($parentForm , 'Correo' , 'correo' , gettext('Correo'));
+			parent::__construct('Correo' , 'correo' , gettext('Correo'));
 		}
 	}
 ?>

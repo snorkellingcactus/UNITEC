@@ -3,11 +3,10 @@
 
 	class FormCliEdit extends FormCliEditBase
 	{
-		function __construct($parentForm)
+		function __construct()
 		{
 			parent::__construct
 			(
-				$parentForm ,
 				gettext('Editar')
 			);
 		}

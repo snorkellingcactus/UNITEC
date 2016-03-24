@@ -3,9 +3,9 @@
 
 	class FormCliBuscarRuta extends FormCliAddBase
 	{
-		function __construct($parentForm)
+		function __construct()
 		{
-			parent::__construct($parentForm , gettext('Buscar ruta') , 1);
+			parent::__construct(gettext('Buscar ruta') , 1);
 
 			$this->setID('buscar')->col=['xs'=>12 , 'sm'=>12 , 'md'=>12 , 'lg'=>12];
 		}

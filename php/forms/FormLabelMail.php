@@ -3,9 +3,9 @@
 
 	class FormLabelMail extends TextBox
 	{
-		function __construct($parentForm)
+		function __construct()
 		{
-			parent::__construct($parentForm , 'Mail' , 'mail' , gettext('E-Mail'));
+			parent::__construct( 'Mail' , 'mail' , gettext('E-Mail'));
 		}
 	}
 ?>

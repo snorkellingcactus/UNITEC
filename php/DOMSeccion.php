@@ -1,8 +1,8 @@
 <?php
-	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/ModuloBase.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/DOMModuloBase.php';
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/ClearFix.php';
 
-	class DOMSeccion extends ModuloBase
+	class DOMSeccion extends DOMModuloBase
 	{
 		function __construct()
 		{

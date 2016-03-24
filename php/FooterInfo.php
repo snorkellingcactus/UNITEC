@@ -1,6 +1,5 @@
 <?php
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/FooterContainer.php';
-	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/edicion/FormCliMail.php';
 
 	class FooterInfo extends FooterContainer
 	{

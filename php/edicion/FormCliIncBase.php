@@ -13,7 +13,7 @@
 
 			$this->buttons->appendChild
 			(
-				new FormCliEdit($this)
+				new FormCliEdit()
 			)->appendChild
 			(
 				$buttons->appendChild
@@ -34,7 +34,7 @@
 
 			$buttons->appendChild
 			(
-				new FormCliAdd($this , 1)
+				new FormCliAdd(1)
 			);
 		}
 	}

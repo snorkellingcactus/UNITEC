@@ -3,9 +3,9 @@
 
 	class FormLabelTelefono extends TextBox
 	{
-		function __construct($parentForm)
+		function __construct()
 		{
-			parent::__construct($parentForm , 'Telefono' , 'telefono' , gettext('Teléfono'));
+			parent::__construct( 'Telefono' , 'telefono' , gettext('Teléfono'));
 		}
 	}
 ?>

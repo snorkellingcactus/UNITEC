@@ -17,17 +17,17 @@
 
 			$this->buttons->appendChild
 			(
-				new FormCliSecSelect($this)
+				new FormCliSecSelect()
 			)->appendChild
 			(
-				new FormCliAdd($this , 1)
+				new FormCliAdd(1)
 			);
 
-			$varConID=new VariablePost($this , 'conID' , $num);
+			$varConID=new VariablePost('conID' , $num);
 
 			$this->appendChild
 			(
-				$varConID->setMulti(false)
+				$varConID
 			);
 
 			$this->classList->add('FormCliSecNew');

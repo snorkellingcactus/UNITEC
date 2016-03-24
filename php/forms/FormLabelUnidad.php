@@ -3,11 +3,11 @@
 
 	class FormLabelUnidad extends FormSelectLabel
 	{
-		function __construct($parentForm)
+		function __construct()
 		{	
 			parent::__construct
 			(
-				$parentForm,
+				
 				'Unidad',
 				'unidad',
 				gettext('Medir en')

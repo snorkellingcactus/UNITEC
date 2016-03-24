@@ -3,9 +3,9 @@
 
 	class FormLabelPrioridad extends TextBox
 	{
-		function __construct($parentForm)
+		function __construct()
 		{
-			parent::__construct($parentForm , 'Prioridad' , 'prioridad' , gettext('Prioridad'));
+			parent::__construct( 'Prioridad' , 'prioridad' , gettext('Prioridad'));
 		}
 	}
 ?>

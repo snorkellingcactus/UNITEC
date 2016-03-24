@@ -3,11 +3,11 @@
 
 	class FormCliAddBase extends FormSecBtn
 	{
-		function __construct($parentForm , $name , $cMax)
+		function __construct($name , $cMax)
 		{
 			parent::__construct
 			(
-				$parentForm , 'nuevo' , $name , $cMax
+				'nuevo' , $name , $cMax
 			);
 		}
 	}

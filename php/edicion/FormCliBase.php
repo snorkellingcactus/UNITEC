@@ -2,12 +2,12 @@
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/DOMTag.php';
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/VariablePost.php';
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/edicion/FormCliButtons.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormBase.php';
 
-	class FormCliBase extends DOMTag
+	class FormCliBase extends FormBase
 	{
 		public $raiz;
 		public $actionUrl;
-		public $idSuffix;
 		public $buttons;
 		public $formDirName;
 		
@@ -17,11 +17,10 @@
 
 			$this->raiz='http://'. $_SERVER['SERVER_NAME'].'/';
 			$this->actionUrl=$this->raiz . 'php/accion.php';
-			$this->idSuffix='';
 			$this->formDirName=$formDirName;
 
-			$this->varForm=new VariablePost($this , 'form' , $formDirName);
-			$this->varLab=new VariablePost($this , 'lab' , $_SESSION['lab']);
+			$this->varForm=new VariablePost('form' , $formDirName);
+			$this->varLab=new VariablePost('lab' , $_SESSION['lab']);
 
 			
 		}
@@ -29,10 +28,10 @@
 		{
 			$this->appendChild
 			(
-				$this->varForm->setMulti(0)
+				$this->varForm
 			)->appendChild
 			(
-				$this->varLab->setMulti(0)
+				$this->varLab
 			)->setAttribute
 			(
 				'method',

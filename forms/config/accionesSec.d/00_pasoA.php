@@ -3,6 +3,8 @@
 	{
 		$this->redirectToStepName('90_SQL_Evts.php');
 	}
+
+/*
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormLabelLugar.php';
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/ClearFix.php';
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormLabelVisible.php';
@@ -99,11 +101,12 @@
 				$selectLugar->input->selectedValue
 			);
 			echo '</pre>';
-*/
+
 
 			if(isset($atajoSQL[0]))
 			{
 				$atajo->input->setValue($atajoSQL[0][0]);
+				$aaMenu->input->selectedValue=true;
 			}
 		}
 
@@ -246,7 +249,7 @@
 					gettext('No existen opciones para este módulo')
 				)
 			);
-*/
+
 		}
 		else
 		{
@@ -284,7 +287,7 @@
 						$opcion['Predeterminado']
 					);
 					echo '</pre>';
-*/
+
 					$default=$opcion['Predeterminado'];
 				}
 
@@ -451,14 +454,23 @@
 	(
 		$labelTags
 	);
+*/
 	if($this->thisIsLast())
 	{
 		include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormContinuar.php';
 		include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormVolver.php';
 
-		$this->form->appendChild(new FormContinuar($this->form))
-		->appendChild(new FormVolver($this->form));
+		$this->form->appendChild
+		(
+			new FormContinuar($this->form)
+		)->appendChild
+		(
+			new FormVolver($this->form)
+		);
 
-		$this->form->setAction($this->getStepUrlByName('90_SQL_Evts.php'));
+		$this->form->setAction
+		(
+			$this->getNextStepUrl()
+		);
 	}
 ?>

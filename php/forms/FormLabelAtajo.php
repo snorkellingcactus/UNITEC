@@ -3,9 +3,9 @@
 
 	class FormLabelAtajo extends TextBox
 	{
-		function __construct($parentForm)
+		function __construct()
 		{
-			parent::__construct($parentForm , 'Atajo' , 'atajo' , gettext('Atajo'));
+			parent::__construct('Atajo' , 'atajo' , gettext('Atajo'));
 			$this->input->setAttribute('maxlength','1');
 		}
 	}

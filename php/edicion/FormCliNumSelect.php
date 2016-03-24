@@ -3,9 +3,9 @@
 
 	class FormCliNumSelect extends FormSelect
 	{
-		function __construct($parentForm)
+		function __construct()
 		{
-			parent::__construct($parentForm);
+			parent::__construct();
 
 			$this->setName('cantidad');
 

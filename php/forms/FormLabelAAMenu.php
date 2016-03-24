@@ -3,11 +3,10 @@
 
 	class FormLabelAAlMenu extends BoolBox
 	{
-		function __construct($parentForm)
+		function __construct()
 		{
 			parent::__construct
 			(
-				$parentForm,
 				'AgregarAlMenu',
 				'agregarAlMenu',
 				gettext('Agregar al Menú')

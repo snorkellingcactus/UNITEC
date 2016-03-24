@@ -4,14 +4,14 @@
 
 	class FormLabelVisible extends LabelBox
 	{
-		function __construct($parentForm)
+		function __construct()
 		{
 			parent::__construct
 			(
 				'Visible',
 				'visible',
 				gettext('Visible'),
-				new FormSelectBool($parentForm,gettext('Si'),gettext('No'))
+				new FormSelectBool(gettext('Si'),gettext('No'))
 			);
 		}
 	}

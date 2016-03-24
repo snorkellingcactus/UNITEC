@@ -9,26 +9,25 @@
 	{
 		public $lNombre;
 		public $lMensaje;
-		public $parentForm;
 
 		function __construct($raizID)
 		{
 			parent::__construct('accionesCom');
 
-			$raizID=new VariablePost($this , 'RaizID' , $raizID);
+			$raizID=new VariablePost('RaizID' , $raizID);
 
 			$this->appendChild
 			(
-				$raizID->setMulti(0)
+				$raizID
 			)->appendChild
 			(
-				$this->lNombre=new FormLabelNombre($this)
+				$this->lNombre=new FormLabelNombre()
 			)->appendChild
 			(
-				$this->lMensaje=new FormLabelMensaje($this)
+				$this->lMensaje=new FormLabelMensaje()
 			)->appendChild
 			(
-				new FormCliPublicar($this)
+				new FormCliPublicar()
 			)->classList->add
 			(
 				'FormCliCom'

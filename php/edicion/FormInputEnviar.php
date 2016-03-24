@@ -3,9 +3,9 @@
 
 	class FormInputEnviar extends FormCliAddBase
 	{
-		function __construct($parentForm)
+		function __construct()
 		{
-			parent::__construct($parentForm , gettext('Enviar') , 1);
+			parent::__construct(gettext('Enviar') , 1);
 		}
 	}
 ?>

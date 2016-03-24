@@ -3,9 +3,9 @@
 
 	class FormLabelContrasena extends PassBox
 	{
-		function __construct($parentForm)
+		function __construct()
 		{
-			parent::__construct($parentForm , 'Contrasena' , 'contrasena' , gettext('Contraseña'));
+			parent::__construct('Contrasena' , 'contrasena' , gettext('Contraseña'));
 		}
 	}
 ?>

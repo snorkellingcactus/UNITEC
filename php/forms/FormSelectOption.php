@@ -3,19 +3,19 @@
 	//FormOption::__construct([$nombre[,$valor]])
 	class FormSelectOption extends FormInputBase
 	{
-		function __construct($parentForm)
+		function __construct()
 		{
-			parent::__construct($parentForm , 'option');
+			parent::__construct( 'option');
 
 			$args=func_get_args();
 
+			if(isset($args[0]))
+			{
+				$this->setTagValue($args[0]);
+			}
 			if(isset($args[1]))
 			{
-				$this->setTagValue($args[1]);
-			}
-			if(isset($args[2]))
-			{
-				$this->setValue($args[2]);
+				$this->setValue($args[1]);
 			}
 		}
 		function setSelected()

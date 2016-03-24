@@ -3,9 +3,9 @@
 
 	class FormSelectOrdenFillOption extends FormSelectOption
 	{
-		function __construct($parentForm , $name)
+		function __construct( $name)
 		{
-			parent::__construct($parentForm , $name);
+			parent::__construct( $name);
 		}
 	}
 ?>

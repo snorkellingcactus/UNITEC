@@ -3,7 +3,7 @@
 
 		class Modulo_Novedades extends DOMInclude
 		{
-			function renderChilds($doc , $tag)
+			function renderChilds(&$doc , &$tag)
 			{
 				$this->classList->add('novedades');
 				

@@ -3,9 +3,9 @@
 
 	class FormLabelLatitud extends TextBox
 	{
-		function __construct($parentForm)
+		function __construct()
 		{
-			parent::__construct($parentForm , 'Latitud' , 'latitud' , gettext('Latitud'));
+			parent::__construct('Latitud' , 'latitud' , gettext('Latitud'));
 		}
 	}
 ?>

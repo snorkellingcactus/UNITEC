@@ -120,12 +120,12 @@
 	$startDiv=$html->createElement('span');
 	$startIcon=$html->createElement('img');
 	$startIcon->setAttribute('src' , '/img/marcadorA.png');
-	$startIcon->setAttribute('alt' , gettext('Origen'));
+	$startIcon->setAttribute('alt' , htmlentities(gettext('Origen')));
 
 	$endDiv=$html->createElement('span');
 	$endIcon=$html->createElement('img');
 	$endIcon->setAttribute('src' , '/img/marcadorB.png');
-	$endIcon->setAttribute('alt' , gettext('Destino'));
+	$endIcon->setAttribute('alt' , htmlentities(gettext('Destino')));
 
 	$startDiv->setAttribute('class' , 'start-address');
 	$endDiv->setAttribute('class' , 'end-address');
@@ -141,14 +141,15 @@
 
 	$trThead=$html->createElement('tr');
 
-	$thPasoN=$html->createElement('th', gettext('Paso Número'));
-	$thIns=$html->createElement('th', gettext('Instrucción'));
-	$thDist=$html->createElement('th', gettext('Distancia'));
+	$thPasoN=$html->createElement('th', htmlentities(gettext('Paso Número')));
+	$thIns=$html->createElement('th', htmlentities(gettext('Instrucción')));
+	$thDist=$html->createElement('th', htmlentities(gettext('Distancia')));
 
 	$thPasoN->setAttribute('class' , 'offscreen');
 	$thIns->setAttribute('class' , 'offscreen');
 	$thDist->setAttribute('class' , 'offscreen');
-	$rTabla->setAttribute('summary' , gettext('Indicaciones de cómo llegar'));
+	//Revisar.
+	//$rTabla->setAttribute('summary' , htmlentities(gettext('Indicaciones de cómo llegar')));
 
 	$trThead->appendChild($thPasoN);
 	$trThead->appendChild($thIns);

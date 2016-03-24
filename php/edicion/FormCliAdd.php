@@ -3,11 +3,11 @@
 
 	class FormCliAdd extends FormCliAddBase
 	{
-		function __construct($parentForm , $cMax)
+		function __construct($cMax)
 		{
 			parent::__construct
 			(
-				$parentForm , ngettext('Nuevo' , 'Nuevo(s)' , $cMax) , $cMax
+				ngettext('Nuevo' , 'Nuevo(s)' , $cMax) , $cMax
 			);
 		}
 	}

@@ -3,9 +3,9 @@
 
 	class FormCliOk extends FormCliAddBase
 	{
-		function __construct($parentForm)
+		function __construct()
 		{
-			parent::__construct($parentForm , gettext('0K') , 1);
+			parent::__construct(gettext('0K') , 1);
 		}
 	}
 ?>

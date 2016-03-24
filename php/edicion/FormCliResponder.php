@@ -3,9 +3,9 @@
 
 	class FormCliResponder extends FormCliAddBase
 	{
-		function __construct($parentForm)
+		function __construct()
 		{
-			parent::__construct($parentForm , gettext('Responder') , 1);
+			parent::__construct(gettext('Responder') , 1);
 		}
 	}
 ?>

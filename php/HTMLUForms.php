@@ -24,9 +24,9 @@
 				'/js/loadEditor.js'
 			);
 
-			include $_SERVER['DOCUMENT_ROOT'] . '/php/FormSrvBuilder.php';
+			include $_SERVER['DOCUMENT_ROOT'] . '/php/SrvStepBase.php';
 
-			$formHandler=new FormSrvBuilder();
+			$formHandler=new SrvStepBase();
 			
 			$includes=$formHandler->getReqs();
 

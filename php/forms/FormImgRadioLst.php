@@ -4,9 +4,9 @@
 
 	class FormImgRadioLst extends FormRadioLst
 	{
-		function __construct($parentForm , $name)
+		function __construct($name)
 		{
-			parent::__construct($parentForm , $name);
+			parent::__construct($name);
 		}
 		function addNewImgRadio($value, $imgSrc , $imgAlt , $titulo)
 		{
@@ -19,7 +19,7 @@
 		}
 		function buildNew($value)
 		{
-			return new FormImgRadio($this->parentForm , $this->name , $value);
+			return new FormImgRadio($this->name , $value);
 		}
 	}
 ?>

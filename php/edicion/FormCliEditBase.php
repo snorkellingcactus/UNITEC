@@ -3,11 +3,10 @@
 
 	class FormCliEditBase extends FormSecBtn
 	{
-		function __construct($parentForm , $name)
+		function __construct($name)
 		{
 			parent::__construct
 			(
-				$parentForm ,
 				'edita' ,
 				$name
 			);

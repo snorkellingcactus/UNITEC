@@ -3,9 +3,9 @@
 
 	class FormCliPublicar extends FormCliEditBase
 	{
-		function __construct($parentForm)
+		function __construct()
 		{
-			parent::__construct($parentForm , gettext('Publicar'));
+			parent::__construct(gettext('Publicar'));
 		}
 	}
 ?>

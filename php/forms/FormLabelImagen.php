@@ -3,7 +3,7 @@
 
 	class FormLabelImagen extends TituloBox
 	{
-		function __construct($parentForm , $name , $id , $labelText)
+		function __construct($name , $id , $labelText)
 		{
 			//Revisar []
 			parent::__construct();
@@ -13,7 +13,7 @@
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/ClearFix.php';
 
 			$this->label->setTagValue($labelText);
-			$this->label->setAttribute('id' , $id.$parentForm->idSuffix);
+			$this->label->setAttribute('id' , $id);
 
 			$this->appendChild
 			(
@@ -22,8 +22,7 @@
 			(
 				$this->input=new RadioLstNov
 				(
-					$parentForm ,
-					$name.'['.$parentForm->idSuffix.']',
+					$name
 					$this->label->getAttribute('id')
 				)
 			)->classList->add('FormLabelImagen');

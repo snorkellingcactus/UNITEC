@@ -3,9 +3,9 @@
 
 	class FormLabelArchivo extends FileBox
 	{
-		function __construct($parentForm)
+		function __construct()
 		{
-			parent::__construct($parentForm , 'Archivo' , 'archivo' , gettext('Archivo'));
+			parent::__construct('Archivo' , 'archivo' , gettext('Archivo'));
 		}
 	}
 ?>

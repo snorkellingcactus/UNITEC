@@ -3,11 +3,11 @@
 
 	class FormCliDel extends FormSecBtn
 	{
-		function __construct($parentForm)
+		function __construct()
 		{
 			parent::__construct
 			(
-				$parentForm ,'elimina' ,gettext('Eliminar')
+				'elimina' ,gettext('Eliminar')
 			);
 		}
 	}

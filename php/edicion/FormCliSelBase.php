@@ -22,12 +22,12 @@
 				)
 			)->appendChild
 			(
-				new FormCliDel($this)
+				new FormCliDel()
 			);
 		}
 		function buildActionCheckBox($num)
 		{
-			$checkBox=new FormCheckBox($this , 'conID' , $num);
+			$checkBox=new FormCheckBox('conID' , $num);
 			$checkBox->setAttribute('form' , $this->formId)->classList->add('semitrans');
 
 			return $checkBox;

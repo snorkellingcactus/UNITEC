@@ -5,21 +5,21 @@
 	//Cambiar clase por algo compatible con LabelBox.
 	class FormLabelUrlNov extends LabelBox
 	{
-		function __construct($parentForm)
+		function __construct()
 		{
 			parent::__construct
 			(
 				'Url',
 				'url',
 				gettext('Url o Archivo'),
-				new FormInput($parentForm , 'text')
+				new FormInput( 'text')
 			);
 
 			$this->inputUrl=$this->input;
 
 			$this->setInput
 			(
-				new FormInput($parentForm , 'file')
+				new FormInput( 'file')
 			);
 
 			$this->inputFile=$this->input;

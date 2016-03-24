@@ -6,9 +6,9 @@
 		public $labelA;
 		public $labelB;
 
-		function __construct($parentForm , $labelA , $labelB)
+		function __construct( $labelA , $labelB)
 		{
-			parent::__construct($parentForm);
+			parent::__construct();
 
 			$this->labelA=$labelA;
 			$this->labelB=$labelB;
@@ -26,8 +26,8 @@
 				$labelB=$this->labelA;
 			}
 
-			$this->addOption(new FormSelectOption($this->parentForm , $labelA , intVal($this->selectedValue)));
-			$this->addOption(new FormSelectOption($this->parentForm , $labelB , intVal(!$this->selectedValue)));
+			$this->addOption(new FormSelectOption($labelA , intVal($this->selectedValue)));
+			$this->addOption(new FormSelectOption($labelB , intVal(!$this->selectedValue)));
 /*
 			echo '<pre>SelectedValue (Bool):';
 			var_dump($this->selectedValue);

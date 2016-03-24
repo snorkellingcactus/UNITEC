@@ -1,5 +1,5 @@
 <?php
-	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/Modulo.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/DOMInclude.php';
 
 	class Modulo_Atajos extends DOMInclude
 	{

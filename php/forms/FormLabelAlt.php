@@ -3,9 +3,9 @@
 
 	class FormLabelAlt extends TextBox
 	{
-		function __construct($parentForm)
+		function __construct()
 		{
-			parent::__construct($parentForm , 'Alt' , 'alt' , gettext('Alt'));
+			parent::__construct('Alt' , 'alt' , gettext('Alt'));
 		}
 	}
 ?>

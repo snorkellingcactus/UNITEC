@@ -4,14 +4,14 @@
 
 	class FormSelectLabel extends LabelBox
 	{
-		function __construct($parentForm, $name , $id , $labelText)
+		function __construct( $name , $id , $labelText)
 		{
 			parent::__construct
 			(
 				$name,
 				$id,
 				$labelText,
-				new FormSelect($parentForm)	
+				new FormSelect()	
 			);
 		}
 		function addOption($name , $value)

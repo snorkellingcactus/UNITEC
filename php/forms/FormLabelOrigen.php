@@ -3,9 +3,9 @@
 
 	class FormLabelOrigen extends TextBox
 	{
-		function __construct($parentForm)
+		function __construct()
 		{
-			parent::__construct($parentForm , 'Origen' , 'origen' , gettext('Origen'));
+			parent::__construct( 'Origen' , 'origen' , gettext('Origen'));
 
 			$this->input->setPlaceHolder(gettext('Calle, Ciudad , Estado'));
 		}

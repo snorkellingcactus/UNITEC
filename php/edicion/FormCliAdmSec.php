@@ -8,19 +8,19 @@
 		{
 			parent::__construct($formDirName);
 
-			$varTipo=new VariablePost($this , 'Tipo' , $tipo);
-			$varOrden=new VariablePost($this , 'Orden' , $orden);
-			$varConID=new VariablePost($this , 'conID' , $id);
+			$varTipo=new VariablePost('Tipo' , $tipo);
+			$varOrden=new VariablePost( 'Orden' , $orden);
+			$varConID=new VariablePost('conID' , $id);
 
 			$this->appendChild
 			(
-				$varTipo->setMulti(0)
+				$varTipo
 			)->appendChild
 			(
-				$varOrden->setMulti(0)
+				$varOrden
 			)->appendChild
 			(
-				$varConID->setMulti(0)
+				$varConID
 			);
 
 			if(!$visible)

@@ -3,9 +3,9 @@
 
 	class FormInputSubmit extends FormInput
 	{
-		function __construct($parentForm)
+		function __construct()
 		{
-			parent::__construct($parentForm , 'password');
+			parent::__construct('password');
 		}
 	}
 ?>

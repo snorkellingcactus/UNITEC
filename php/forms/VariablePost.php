@@ -3,9 +3,9 @@
 
 	class VariablePost extends FormInput
 	{
-		function __construct($parentForm , $name , $value)
+		function __construct( $name , $value)
 		{
-			parent::__construct($parentForm , 'hidden');
+			parent::__construct( 'hidden');
 			$this->setName($name)->setValue($value);
 		}
 		function setID($id)

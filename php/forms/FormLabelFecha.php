@@ -15,42 +15,37 @@
 		public $contenedor;
 		public $titulo;
 
-		public function __construct($parentForm)
+		public function __construct()
 		{
 			parent::__construct('div');
 			$this->classList->add('FormLabelBox');
 			
 			$this->inputAno=new LabelBoxDate
 			(
-				$parentForm,
 				'Ano',
 				'ano',
 				gettext('Ano')
 			);
 			$this->inputMes=new LabelBoxDate
 			(
-				$parentForm,
 				'Mes',
 				'mes',
 				gettext('Mes')
 			);
 			$this->inputDia=new LabelBoxDate
 			(
-				$parentForm,
 				'Dia',
 				'dia',
 				gettext('Dia')
 			);
 			$this->inputHora=new LabelBoxDate
 			(
-				$parentForm,
 				'Horas',
 				'hora',
 				gettext('Hora')
 			);
 			$this->inputMin=new LabelBoxDate
 			(
-				$parentForm,
 				'Minutos',
 				'min',
 				gettext('Minuto')
@@ -58,7 +53,7 @@
 			$this->contenedor=new DOMTag('div');
 
 			$this->titulo=new FormLabel(gettext('Fecha'));
-			$this->titulo->setAttribute('id','fecha'.$parentForm->idSuffix);
+			$this->titulo->setAttribute('id','fecha');
 
 			$this->setAriaForLabels($this->inputAno)
 			->setAriaForLabels($this->inputMes)

@@ -3,9 +3,9 @@
 
 	class FormCliSecSelect extends FormSelect
 	{
-		function __construct($parentForm)
+		function __construct()
 		{
-			parent::__construct($parentForm);
+			parent::__construct();
 
 			$this->setName('Tipo')->addOption
 			(
@@ -13,7 +13,7 @@
 			)->addOption
 			(
 				$this->newOption(gettext('Módulo') , 'inc')
-			)->setMulti(0);
+			);
 		}
 	}
 ?>

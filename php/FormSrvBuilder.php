@@ -1,14 +1,13 @@
 <?php
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/FormSrvRecv.php';
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/Desplazador.php';
-	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/Form.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/FormBuilder.php';
 
 	class FormSrvBuilder extends FormSrvRecv
 	{
 		public $ancla;
 		public $form;
 		public $cantidad;
-		public $labels;
 		public $dir;
 		public $contador;
 		public $conIDAct;
@@ -30,9 +29,9 @@
 			$this->cantidad=1;
 			$this->contador=0;
 			$this->firstBuff=NULL;
-			$this->dir=$_SERVER['DOCUMENT_ROOT'] . '/forms/config/'.$_SESSION['form'].'.d/';
+			$this->dir=$_SERVER['DOCUMENT_ROOT'] . '/forms/config/'.$_SESSION['form'][0].'.d/';
 			$this->actionUrl='http://'.$_SERVER['SERVER_NAME'].'/php/accion.php';
-			$this->form=new Form($this);
+			$this->form=new SrvStepForm($_SESSION['form'][0]);
 
 			if(isset($_SESSION['cantidad']))
 			{
@@ -151,7 +150,6 @@
 
 				//echo '<pre>buildNext: Normal</pre>';
 				$this->setConIDAct();
-				$this->form->setIDSuffix($this->contador);
 			
 				include $this->dir.$this->steps[$this->stepDesp->indexRecN($this->stepDesp->actual)];
 

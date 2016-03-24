@@ -1,19 +1,33 @@
 <?php
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormBase.php';
 
-	class Form extends FormBase
+	class For extends FormBase
 	{
-		public $idSuffix;
-		public $srvBuilder;
+		private $idSuffix;
+		private $srvBuilder;
+		private $formName;
 
-		public function __construct($srvBuilder)
+		public function __construct($srvBuilder , $formName)
 		{
 			parent::__construct('form');
 
+			$this->srvBuilder=$srvBuilder;
+
+			$this->setFormName($formName);
+
 			$this->classList->add('Form')->add('tresem');
 
-			$this->srvBuilder=$srvBuilder;
 			$this->setMethod('POST')->setEnctype('multipart/form-data');
+
+			$this->loadFromSession();
+		}
+		public function getFormName()
+		{
+			return $this->formName;
+		}
+		public function setFormName($formName)
+		{
+			$this->formName=$formName;
 		}
 		public function setIDSuffix($suffix)
 		{
@@ -42,12 +56,40 @@
 
 			return $requiere;
 		}
-		public function clearFix()
+		public function setField($fieldName , $fieldValue , $fieldCount)
 		{
-			$clearFix=new DOMTag('div');
-			$clearFix->classList->add('clearfix');
+			if(!isset($this->data[$fieldName]))
+			{
+				$this->data[$fieldName]=array();
+			}
 
-			return $this->appendChild($clearFix);
+			$this->data[$fieldName][$fieldCount]=$fieldValue;
+		}
+		public function appendLabelBox($labelBox)
+		{
+			$this->data[$labelBox->input->getName()]='';
+
+			return parent::appendChild($labelBox);
+		}
+		public function saveToSession()
+		{
+			$_SESSION[$this->formName]=$this->data;
+
+			return $this;
+		}
+		public function loadFromSession()
+		{
+			if(isset($_SESSION[$this->formName]))
+			{
+				$this->data=$_SESSION[$this->formName];
+			}
+			else
+			{
+				echo '<pre>Warning: Trying to load session data from a form "'.$this->formName.'" that does not exists';
+				echo '</pre>';
+			}
+
+			return $this;
 		}
 	}
 ?>

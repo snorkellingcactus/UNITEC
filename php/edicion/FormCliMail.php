@@ -15,16 +15,16 @@
 
 			$this->appendLabel
 			(
-				new FormLabelCorreo($this)
+				new FormLabelCorreo()
 			)->appendLabel
 			(
-				new FormLabelAsunto($this)
+				new FormLabelAsunto()
 			)->appendLabel
 			(
-				new FormLabelMensaje($this)
+				new FormLabelMensaje()
 			)->appendChild
 			(
-				new FormCliEnviar($this)
+				new FormCliEnviar()
 			);
 		}
 		

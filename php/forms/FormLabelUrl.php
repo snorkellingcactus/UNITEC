@@ -3,9 +3,9 @@
 
 	class FormLabelUrl extends TextBox
 	{
-		function __construct($parentForm)
+		function __construct()
 		{
-			parent::__construct($parentForm , 'Url' , 'url' , gettext('Url'));
+			parent::__construct( 'Url' , 'url' , gettext('Url'));
 		}
 	}
 ?>

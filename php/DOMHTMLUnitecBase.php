@@ -5,13 +5,7 @@
 	{
 		function __construct()
 		{
-			parent::__construct
-			(
-				substr
-				(
-					getenv('LANG'), 0 , 2
-				)
-			);
+			parent::__construct();
 
 			ini_set("display_errors", "On");
 
@@ -27,6 +21,14 @@
 
 			detectLang();
 			detectLab();
+
+			$this->setLang
+			(
+				substr
+				(
+					getenv('LANG'), 0 , 2
+				)
+			);
 
 			$this->appendMeta
 			(

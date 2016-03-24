@@ -4,14 +4,14 @@
 
 	class FormLabelEnlace extends LabelBox
 	{
-		function __construct($parentForm)
+		function __construct()
 		{
 			parent::__construct
 			(
 				'Enlace',
 				'enlace',
 				gettext('Es un enlace?'),
-				new FormSelectBool($parentForm,gettext('Si'),gettext('No'))
+				new FormSelectBool(gettext('Si') , gettext('No'))
 			);
 		}
 	}

@@ -11,9 +11,9 @@
 		public $sizeToMax;
 		public $selectedValue;
 
-		function __construct($parentForm)
+		function __construct()
 		{
-			parent::__construct($parentForm , 'select');
+			parent::__construct( 'select');
 
 			$this->options=[];
 			$this->optionsLen=0;
@@ -50,7 +50,7 @@
 		}
 		public function newOption($name , $value)
 		{
-			return new FormSelectOption($this->parentForm , $name , $value);
+			return new FormSelectOption($name , $value);
 		}
 		public function mustBeSelected($value)
 		{

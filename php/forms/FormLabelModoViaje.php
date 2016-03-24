@@ -3,11 +3,11 @@
 
 	class FormLabelModoViaje extends FormSelectLabel
 	{
-		function __construct($parentForm)
+		function __construct()
 		{	
 			parent::__construct
 			(
-				$parentForm,
+				
 				'ModoViaje',
 				'modo_viaje',
 				gettext('Movilidad')

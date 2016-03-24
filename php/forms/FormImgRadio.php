@@ -5,7 +5,7 @@
 	{
 		public $input;
 
-		function __construct($parentForm , $name , $value)
+		function __construct($name , $value)
 		{
 			parent::__construct();
 
@@ -13,7 +13,7 @@
 
 			$this->p->appendChild
 			(
-				$this->input=new FormRadio($parentForm , $name , $value)
+				$this->input=new FormRadio($name , $value)
 			);
 		}
 		function setSelected()
