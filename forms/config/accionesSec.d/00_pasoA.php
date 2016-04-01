@@ -4,15 +4,16 @@
 		$this->redirectToStepName('90_SQL_Evts.php');
 	}
 
-/*
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormLabelLugar.php';
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/ClearFix.php';
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormLabelVisible.php';
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormLabelTags.php';
 
-	$selectLugar=new FormLabelLugar($this->form);
-	$visible=new FormLabelVisible($this->form);
-	$labelTags=new FormLabelTags($this->form);
+	$this->form->loadLabels('Tipo', 'conID' , 'Orden');
+
+	$selectLugar=new FormLabelLugar();
+	$visible=new FormLabelVisible();
+	$labelTags=new FormLabelTags();
 	
 	$visible->input->default=1;
 
@@ -29,12 +30,14 @@
 				(
 					'	SELECT Visible
 						FROM Secciones
-						WHERE ID='.$_SESSION['conID']
+						WHERE ID='.$this->form->getLabel('conID')
 				),
 				MYSQLI_NUM
 			)[0][0]
 		);
 	}
+
+	
 	
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/nTag.php';
 
@@ -54,15 +57,15 @@
 		$visible
 	);
 
-	if($_SESSION['Tipo']==='sec')
+	if($this->form->getLabel('Tipo')==='sec')
 	{
 		include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormLabelTitulo.php';
 		include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormLabelAAMenu.php';
 		include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormLabelAtajo.php';
 
-		$titulo=new FormLabelTitulo($this->form);
-		$aaMenu=new FormLabelAAlMenu($this->form);
-		$atajo=new FormLabelAtajo($this->form);
+		$titulo=new FormLabelTitulo();
+		$aaMenu=new FormLabelAAlMenu();
+		$atajo=new FormLabelAtajo();
 
 		if($this->getAction()===0)
 		{
@@ -72,7 +75,7 @@
 				(
 					'	SELECT HTMLID
 						FROM Secciones
-						WHERE ID='.$_SESSION['conID']
+						WHERE ID='.$this->form->getLabel('conID')
 				),
 				MYSQLI_NUM
 			)[0][0];
@@ -101,7 +104,7 @@
 				$selectLugar->input->selectedValue
 			);
 			echo '</pre>';
-
+*/
 
 			if(isset($atajoSQL[0]))
 			{
@@ -130,12 +133,16 @@
 
 		$this->form->appendChild
 		(
-			new VariablePost($this->form , 'conID' , $_SESSION['conID'])
+			new VariablePost
+			(
+				'conID',
+				$this->form->getLabel('conID')
+			)
 		);
 
 		if($_SESSION['accion']==='nuevo')
 		{
-			$padreID=$_SESSION['conID'];
+			$padreID=$this->form->getLabel('conID');
 		}
 		else
 		{
@@ -145,7 +152,7 @@
 				(
 					'	SELECT PadreID 
 						FROM Secciones
-						WHERE ID='.$_SESSION['conID']
+						WHERE ID='.$this->form->getLabel('conID')
 				),
 				MYSQLI_NUM
 			)[0][0];
@@ -154,12 +161,12 @@
 		$padreIDStr='='.$padreID;
 	}
 
-	if($_SESSION['Tipo']==='con')
+	if($this->form->getLabel('Tipo')==='con')
 	{
 		include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormLabelContenido.php';
 		include_once $_SERVER['DOCUMENT_ROOT'] . '/php/getTraduccion.php';
 
-		$contenido=new FormLabelContenido($this->form);
+		$contenido=new FormLabelContenido();
 
 		if($this->getAction()===0)
 		{
@@ -173,7 +180,7 @@
 						(
 							'	SELECT ContenidoID
 								FROM Secciones
-								WHERE ID='.$_SESSION['conID']
+								WHERE ID='.$this->form->getLabel('conID')
 						),
 						MYSQLI_NUM
 					)[0][0],
@@ -184,11 +191,11 @@
 
 		$this->form->appendChild($contenido);
 	}
-	if($_SESSION['Tipo']==='inc')
+	if($this->form->getLabel('Tipo')==='inc')
 	{
 		include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormLabelModulo.php';
 
-		$modulos=new FormLabelModulo($this->form);
+		$modulos=new FormLabelModulo();
 
 		if($this->getAction()===0)
 		{
@@ -198,7 +205,7 @@
 				(
 					'	SELECT Secciones.ModuloID
 						FROM Secciones
-						WHERE ID='.$_SESSION['conID']
+						WHERE ID='.$this->form->getLabel('conID')
 				),
 				MYSQLI_NUM
 			)[0][0];
@@ -223,9 +230,8 @@
 		(
 			new VariablePost
 			(
-				$this->form,
 				'conID',
-				$_SESSION['conID']
+				$this->form->getLabel('conID')
 			)
 		)->appendChild
 		(
@@ -235,11 +241,11 @@
 
 		global $con;
 
-		$opcGrpID=getOpcGrpModulo($_SESSION['conID']);
+		$opcGrpID=getOpcGrpModulo($this->form->getLabel('conID'));
 
 		if(!isset($opcGrpID[0][0]))
 		{
-/*
+
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/MSGBox.php';
 
 			$this->form->appendChild
@@ -280,7 +286,7 @@
 				}
 				if(isset($opcion['Predeterminado']))
 				{
-/*
+
 					echo '<pre>Valor predeterminado:';
 					print_r
 					(
@@ -312,7 +318,7 @@
 					$min=intVal($opcion['Min']);
 					$max=intVal($opcion['Max']);
 
-					$select=new FormSelect($this->form);
+					$select=new FormSelect();
 
 					if(isset($default))
 					{
@@ -340,7 +346,7 @@
 						{
 							include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormSelect.php';
 
-							$select=new FormSelect($this->form);
+							$select=new FormSelect();
 
 							$j=0;
 							while(isset($valids[$j][0]))
@@ -395,9 +401,9 @@
 	{
 		include_once $_SERVER['DOCUMENT_ROOT'] . '/php/Seccion.php';
 
-		$selectLugar->input->selectedValue=$_SESSION['conID'];
+		$selectLugar->input->selectedValue=$this->form->getLabel('conID');
 
-		$grupoID=new Seccion(['ID'=>$_SESSION['conID']] , $con);
+		$grupoID=new Seccion(['ID'=>$this->form->getLabel('conID')] , $con);
 		$grupoID=$grupoID->getTagsGrp();
 
 		if(isset($grupoID[0][0]))
@@ -454,7 +460,7 @@
 	(
 		$labelTags
 	);
-*/
+
 	if($this->thisIsLast())
 	{
 		include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormContinuar.php';
@@ -462,10 +468,10 @@
 
 		$this->form->appendChild
 		(
-			new FormContinuar($this->form)
+			new FormContinuar()
 		)->appendChild
 		(
-			new FormVolver($this->form)
+			new FormVolver()
 		);
 
 		$this->form->setAction

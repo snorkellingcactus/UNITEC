@@ -78,7 +78,11 @@
 		}
 		public function getValue()
 		{
-			return $this->getAttribute('value');
+			//Revisar.
+			if($this->hasAttribute('value'))
+			{
+				return $this->getAttribute('value');
+			}
 		}
 		public function applyAttributeSuffix($attribute , $suffix)
 		{
