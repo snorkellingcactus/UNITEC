@@ -35,7 +35,7 @@
 			}
 			return $this;
 		}
-		public function renderChilds(&$doc , &$tag)
+		public function renderChilds(&$tag)
 		{
 			$this->appendCol
 			(
@@ -48,7 +48,7 @@
 				$this->colB
 			);
 
-			return parent::renderChilds($doc , $tag);
+			return parent::renderChilds($tag);
 		}
 	}
 ?>

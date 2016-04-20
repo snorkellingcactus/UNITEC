@@ -7,7 +7,7 @@
 		{
 			parent::__construct();
 
-			$this->classList->add('Contenido');
+			$this->addToAttribute('class' , 'Contenido');
 
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/ClearFix.php';
 		}

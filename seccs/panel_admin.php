@@ -12,7 +12,7 @@ class PanelAdmin extends DOMTag
 	{
 		parent::__construct('div');
 
-		$this->classList->add('panel-admin');
+		$this->addToAttribute('panel-admin');
 
 		$this->setTitulo
 		(
@@ -23,7 +23,7 @@ class PanelAdmin extends DOMTag
 	{
 		$this->titulo=$titulo;
 	}
-	function renderChilds(&$doc , &$tag)
+	function renderChilds(&$tag)
 	{
 		if($this->titulo!==false)
 		{
@@ -36,7 +36,7 @@ class PanelAdmin extends DOMTag
 			);
 		}
 
-		return parent::renderChilds($doc , $tag);
+		return parent::renderChilds($tag);
 	}
 }
 
@@ -69,7 +69,7 @@ if(isset($_SESSION['adminID']))
 	);
 	$cSesion=new DOMLink();
 
-	$logueado->classList->add('MSGLogin');
+	$logueado->addToAttribute('class' , 'MSGLogin');
 	$logueado->appendChild
 	(
 		$cSesion->setUrl('/inicio_sesion.php?cSesion')->setName('Cerrar Sesión')

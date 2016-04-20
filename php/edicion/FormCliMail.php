@@ -11,7 +11,7 @@
 		function __construct()
 		{
 			parent::__construct('accionesMail');
-			$this->classList->add('FormCliMail');
+			$this->addToAttribute('class' , 'FormCliMail');
 
 			$this->appendLabel
 			(

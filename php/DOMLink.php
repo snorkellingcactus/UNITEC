@@ -45,7 +45,7 @@
 
 			return $this;
 		}
-		function renderChilds(&$doc , &$tag)
+		function renderChilds(&$tag)
 		{
 			$this->setAttribute
 			(
@@ -88,7 +88,7 @@
 					'span',
 					$this->offsetSuffix.gettext(' en una nueva ventana.')
 				);
-				$span->classList->add('offscreen');
+				$span->addToAttribute('class' , 'offscreen');
 
 				$this->setAttribute('target' , '_blank')->appendChild
 				(
@@ -96,7 +96,7 @@
 				);
 			}
 
-			return parent::renderChilds($doc , $tag);
+			return parent::renderChilds($tag);
 		}
 	}
 ?>

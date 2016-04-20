@@ -3,7 +3,7 @@
 
 	class Modulo_Atajos extends DOMInclude
 	{
-		function renderChilds(&$doc , &$tag)
+		function renderChilds(&$tag)
 		{
 			$accessKeys=[	'[Alt]'	];
 
@@ -103,7 +103,7 @@
 						new DOMTdAtajo($accessKeys , 'I')
 					)
 				)
-			)->classList->add('atajos')->add('table');
+			)->addToAttribute('class' , 'atajos')->addToAttribute('class' ,'table');
 
 
 			$i=0;
@@ -115,7 +115,7 @@
 
 				if($i%2===0)
 				{
-					$tr->classList->add('oscura');
+					$tr->addToAttribute('class' , 'oscura');
 				}
 
 				$tbody->appendChild
@@ -151,7 +151,7 @@
 				$tabla
 			);
 
-			return parent::renderChilds($doc , $tag);
+			return parent::renderChilds($tag);
 		}
 	}
 ?>

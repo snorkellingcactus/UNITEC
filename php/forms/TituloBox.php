@@ -11,7 +11,7 @@
 				func_get_args()
 			);
 
-			$this->classList->add('TituloBox');
+			$this->addToAttribute('class' , 'TituloBox');
 
 			$this->label->setCol
 			(
@@ -21,7 +21,7 @@
 					'md'=>12,
 					'lg'=>12
 				]
-			)->classList->add('center');
+			)->addToAttribute('class' , 'center');
 		}
 		function setInput($input)
 		{

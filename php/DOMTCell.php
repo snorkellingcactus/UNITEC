@@ -17,14 +17,14 @@
 
 			return $this;
 		}
-		function renderChilds(&$doc , &$tag)
+		function renderChilds(&$tag)
 		{
 			if($this->colspan!==false)
 			{
 				$this->setAttribute('colspan' , $this->colspan);
 			}
 
-			return parent::renderChilds($doc , $tag);
+			return parent::renderChilds($tag);
 		}
 	}
 ?>

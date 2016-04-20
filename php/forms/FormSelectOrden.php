@@ -13,7 +13,6 @@
 		//FormSelectOrden::__construct($names , $default)
 		function __construct()
 		{
-
 			parent::__construct();
 
 			$this->prefixBottom='b';
@@ -53,10 +52,11 @@
 
 			if($this->selectNext)
 			{
-				//echo '<pre>Omitida:';print_r($value);echo ' == ';print_r($this->selectedValue);echo '</pre>';
+				//echo '<pre>Omitida:';print_r($value);echo ' == ';print_r($this->valueToSelect);echo '</pre>';
 				$this->selectNext=false;
-				$this->default=$this->optionsLen;
+				$this->defaultIndex=$this->optionsLen;
 			}
+			//Para omitir esta opción y seleccionar la que le sigue.
 			if($this->trySelect($value))
 			{
 				return false;
@@ -73,7 +73,7 @@
 			}
 			return parent::appendChild($child);
 		}
-		public function renderChilds(& $doc , & $tag)
+		public function renderChilds(&$tag)
 		{
 			//echo '<pre>FormSelectOrden::renderChilds()</pre>';
 			$bottom=new FormSelectOrdenEmptyOption($this->prefixBottom);
@@ -88,15 +88,16 @@
 				$bottom
 			);
 
-			return parent::renderChilds($doc , $tag);
+			return parent::renderChilds($tag);
 		}
 		public function addOption($option)
 		{
+			//Para cuando se omite una opción.
 			if($option===false)
 			{
 				return $this;
 			}
-			$option->fill->classList->add($this->classLleno);
+			$option->fill->addToAttribute('class' , $this->classLleno);
 			$option->fill->setAttribute('disabled' , 'disabled');
 
 			parent::addOption($option);
@@ -107,7 +108,7 @@
 		{
 			$size=(2*$size)+1;
 
-			if($this->sizeToMax)
+			if($this->getSizeToMax())
 			{
 				$size=$size-2;
 			}

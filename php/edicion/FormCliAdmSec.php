@@ -4,21 +4,15 @@
 
 	class FormCliAdmSec extends FormCliAdmRight
 	{
-		function __construct($formDirName , $tipo , $orden , $id , $visible)
+		function __construct($formDirName , $orden , $id , $visible)
 		{
 			parent::__construct($formDirName);
 
-			$varTipo=new VariablePost('Tipo' , $tipo);
-			$varOrden=new VariablePost( 'Orden' , $orden);
+
+			//$varOrden=new VariablePost( 'Orden' , $orden);
 			$varConID=new VariablePost('conID' , $id);
 
 			$this->appendChild
-			(
-				$varTipo
-			)->appendChild
-			(
-				$varOrden
-			)->appendChild
 			(
 				$varConID
 			);

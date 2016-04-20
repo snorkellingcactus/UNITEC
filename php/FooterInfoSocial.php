@@ -11,7 +11,7 @@
 
 			$link=new DOMLink();
 
-			$link->classList->add('focuseable');
+			$link->addToAttribute('class' , 'focuseable');
 
 			$base=new FooterInfoBase
 			(
@@ -37,7 +37,7 @@
 				(
 					$base	
 				)
-			)->classList->add('FooterInfoSocial');
+			)->addToAttribute('class' , 'FooterInfoSocial');
 		}
 	}
 ?>

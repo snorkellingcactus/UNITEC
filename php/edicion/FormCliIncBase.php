@@ -2,6 +2,7 @@
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/edicion/FormCliSelBase.php';
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/edicion/FormCliButtons.php';
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/edicion/FormCliAdd.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/FormActions.php';
 	
 	class FormCliIncBase extends FormCliSelBase
 	{
@@ -13,7 +14,7 @@
 
 			$this->buttons->appendChild
 			(
-				new FormCliEdit()
+				new FormCliEdit( FormActions::FORM_ITEM_TYPE_C )
 			)->appendChild
 			(
 				$buttons->appendChild
@@ -34,7 +35,7 @@
 
 			$buttons->appendChild
 			(
-				new FormCliAdd(1)
+				new FormCliAdd( FormActions::FORM_ITEM_TYPE_C , 1 )
 			);
 		}
 	}

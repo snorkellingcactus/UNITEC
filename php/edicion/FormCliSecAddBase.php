@@ -1,28 +1,23 @@
 <?php
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/edicion/FormCliAdmRight.php';
-	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/VariablePost.php';
-	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormInput.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/edicion/FormCliAdd.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/FormActions.php';
 
 	class FormCliSecAddBase extends FormCliAdmRight
 	{
-		function __construct($formDirName , $tipo , $title)
+		function __construct($formDirName , $title)
 		{
 			parent::__construct($formDirName);
 
-			$varTipo=new VariablePost('Tipo' , $tipo);
-
-			$btnNew=new FormInput('submit');
+			$btnNew=new FormCliAdd(FormActions::FORM_ITEM_TYPE_A , 1);
 
 			$this->appendChild
-			(
-				$varTipo
-			)->appendChild
 			(
 				$btnNew->setValue('+')->setAttribute
 				(
 					'title',
 					$title
-				)->setName('nuevo')
+				)
 			);
 		}
 	}

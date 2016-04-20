@@ -19,8 +19,8 @@
 			$this->imgAnt=false;
 			$this->selector=new DOMTag('div');
 
-			$this->div->classList->add('imgCont');
-			$this->selector->classList->add('selector')->add('sugeridas');
+			$this->div->addToAttribute('class' , 'imgCont');
+			$this->selector->addToAttribute('class' , 'selector')->addToAttribute('class' ,'sugeridas');
 
 			$this->div->col=	['xs'=> 8, 'sm'=> 10, 'md'=> 10, 'lg'=> 10];
 			$this->titulo->col=		['xs'=> 12, 'sm'=> 12, 'md'=> 12, 'lg'=> 12];
@@ -61,7 +61,7 @@
 					$this->formatUrlA($rec)
 				);
 
-				$a->setAttribute('href','#')->classList->add('selected');
+				$a->setAttribute('href','#')->addToAttribute('class' , 'selected');
 			}
 			else
 			{
@@ -85,9 +85,9 @@
 
 			$divA=new DOMTag('div');
 			$divB=new DOMTag('div');
-			$divB->classList->add('gImg');
+			$divB->addToAttribute('class' , 'gImg');
 			$divB->col=['xs'=>2 , 'sm'=>2 , 'md'=>2 , 'lg'=>2];
-			$divA->classList->add('selectorCont');
+			$divA->addToAttribute('class' , 'selectorCont');
 			
 			$this->selector->appendChild
 			(
@@ -105,9 +105,10 @@
 		}
 		public function addImgAnt($src)
 		{
-			$this->img->classList->add('siguiente');
+			
+			$this->img->addToAttribute('class' , 'siguiente');
 			$this->imgAnt=new DOMTag('img');
-			$this->imgAnt->classList->add('anterior');
+			$this->imgAnt->addToAttribute('class' , 'anterior');
 			$this->imgAnt->setAttribute('src' , $src);
 			$this->div->appendChild($this->imgAnt);
 
@@ -115,6 +116,7 @@
 		}
 		public function selRecN($n)
 		{
+			
 			parent::selRecN($n);
 
 			if($this->vRecIDAnt!==false)

@@ -15,7 +15,7 @@
 			parent::__construct('nav');
 
 			$this->i=new DOMTag('i');
-			$this->i->classList->add('minimapa');
+			$this->i->addToAttribute('class' , 'minimapa');
 
 			$this->eLen=0;
 
@@ -47,7 +47,7 @@
 		{
 			$link=new DOMLink();
 
-			$link->classList->add('focuseable');
+			$link->addToAttribute('class' , 'focuseable');
 
 			return $link->setName($name)->setUrl($url);
 		}

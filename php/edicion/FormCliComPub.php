@@ -28,8 +28,9 @@
 			)->appendChild
 			(
 				new FormCliPublicar()
-			)->classList->add
+			)->addToAttribute
 			(
+				'class' , 
 				'FormCliCom'
 			);
 			//Revisar.

@@ -22,17 +22,17 @@
 		{
 			parent::__construct('div');
 
-			$this->classList->add('comentario');
+			$this->addToAttribute('class' , 'comentario');
 
 			$this->pAutor=new DOMTag('p');
 			$this->pContenido=new DOMTag('p');
 			$this->spanNombre=new DOMTag('span');
 			$this->spanFecha=new DOMTag('span');
 
-			$this->pAutor->classList->add('header');
-			$this->pContenido->classList->add('contenido');
-			$this->spanFecha->classList->add('fecha');
-			$this->spanNombre->classList->add('nombre');
+			$this->pAutor->addToAttribute('class' , 'header');
+			$this->pContenido->addToAttribute('class' , 'contenido');
+			$this->spanFecha->addToAttribute('class' , 'fecha');
+			$this->spanNombre->addToAttribute('class' , 'nombre');
 
 			$this->setRemitente(false)->appendNHilo(false)->setChildOfMain(false)->checkBox=false;
 		}
@@ -131,7 +131,7 @@
 			return sprintf($rTHumano[$t] , $valorTiempo);
 		}
 
-		function renderChilds(&$doc , &$tag)
+		function renderChilds(&$tag)
 		{
 			$this->appendChild
 			(
@@ -148,7 +148,7 @@
 			if($this->remitente!==false)
 			{
 				$spanRemitente=new DOMTag('span');
-				$spanRemitente->classList->add('remitente');
+				$spanRemitente->addToAttribute('class' , 'remitente');
 
 				$this->pAutor->appendChild
 				(
@@ -206,7 +206,7 @@
 				$this->appendChild($this->nHilo);
 			}
 
-			return parent::renderChilds($doc , $tag);
+			return parent::renderChilds($tag);
 		}
 	}
 ?>

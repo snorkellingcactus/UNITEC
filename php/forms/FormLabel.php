@@ -1,23 +1,39 @@
 <?php
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/DOMTag.php';
-	class FormLabel extends DOMTag
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormInputBase.php';
+
+	class FormLabelBase extends FormMultipleElement
 	{
 		function __construct()
 		{
-			parent::__construct();
-
-			$this->setTagName('label');
-
-			$args=func_get_args();
-
-			if(isset($args[0]))
-			{
-				$this->setTagValue($args[0]);
-			}
+			parent::__construct( 'label' );
 		}
-		function setFor($input)
+	}
+
+	class FormLabel extends FormLabelBase
+	{
+		public $input;
+
+		public function setInput($input)
 		{
-			$this->setAttribute('for' , $input->getID());
+			$this->input=$input;
+		}
+
+		function renderChilds(&$tag)
+		{
+			$this->setAttribute
+			(
+				'for' , 
+				$this->input->getIDReference()->getFormatted()
+			);
+
+			$this->input->addToAttribute
+			(
+				'aria-labelledby' ,
+				$this->getIDReference()->getFormatted()
+			);
+
+			return parent::renderChilds($tag);
 		}
 	}
 ?>

@@ -19,7 +19,7 @@
 			$input
 			->setSizeToMax()
 			->setDefaultToMax()
-			->classList->add('orden');
+			->addToAttribute('class' , 'orden');
 
 			parent::setInput($input);
 		}

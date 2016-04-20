@@ -15,7 +15,7 @@
 				$this->base=new FooterInfoBase($imgSrc , $imgAlt)
 			);
 
-			$this->classList->add('FooterInfoTextBase');
+			$this->addToAttribute('class' , 'FooterInfoTextBase');
 		}
 	}
 ?>

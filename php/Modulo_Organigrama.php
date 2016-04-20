@@ -31,7 +31,7 @@
 				++$i;
 			}
 		}
-		function renderChilds(&$doc , &$tag)
+		function renderChilds(&$tag)
 		{
 			//$formLab=new FormCliLab('accionesLab');
 			if(isset($_SESSION['adminID']))
@@ -101,7 +101,7 @@
 				}
 			}
 
-			return parent::renderChilds($doc , $tag);
+			return parent::renderChilds($tag);
 		}
 	}
 ?>

@@ -34,7 +34,7 @@
 				new FormCliOk()
 			);
 
-			$this->classList->add('FormCliLogin');
+			$this->addToAttribute('class' , 'FormCliLogin');
 		}
 	}
 ?>

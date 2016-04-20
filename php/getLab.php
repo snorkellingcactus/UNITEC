@@ -111,7 +111,7 @@
 	{
 		include_once $_SERVER['DOCUMENT_ROOT'] . '/php/conexion.php';
 		global $con;
-/*
+
 		echo '<pre>';
 		print_r
 		(
@@ -127,7 +127,7 @@
 			)
 		);
 		echo '</pre>';
-*/
+
 		return fetch_all
 		(
 			$con->query
@@ -136,7 +136,9 @@
 					FROM Laboratorios
 					LEFT OUTER JOIN Traducciones
 					ON Traducciones.Texto="'.addslashes(htmlentities(trim($name))).'"
-					WHERE Traducciones.ContenidoID=Laboratorios.NombreID
+					LEFT OUTER JOIN Tags
+                	ON Tags.ID=Laboratorios.TagID
+					WHERE Traducciones.ContenidoID=Tags.NombreID
 					LIMIT 1
 				'
 			),

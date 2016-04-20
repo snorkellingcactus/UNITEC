@@ -11,7 +11,7 @@
 			parent::__construct();
 
 			$img=new DOMTag('img');
-			$img->classList->add('circulo');
+			$img->addToAttribute('class' , 'circulo');
 			
 			$this->appendChild
 			(
@@ -21,7 +21,7 @@
 				$this->text=new DOMTag('i')
 			)->setLink(false);
 
-			$this->text->classList->add('gris');
+			$this->text->addToAttribute('class' , 'gris');
 		}
 
 		function setLink($link)
@@ -29,14 +29,14 @@
 			$this->link=$link;
 		}
 
-		function renderChilds(&$doc , &$tag)
+		function renderChilds(&$tag)
 		{
 			if($this->link!==false)
 			{
 				$this->text->appendChild($this->link);
 			}
 
-			return parent::renderChilds($doc , $tag);
+			return parent::renderChilds($tag);
 		}
 	}
 ?>

@@ -19,7 +19,7 @@
 			->setModuloID(false)
 			->setOpcGrpID(false)
 			->setOpcSetsID(false)
-			->classList->add('contenido');
+			->addToAttribute('class' , 'contenido');
 		}
 		function setLimit($limit)
 		{

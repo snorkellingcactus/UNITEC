@@ -38,7 +38,7 @@
 			
 			return $this;
 		}
-		function renderChilds(&$doc , &$tag)
+		function renderChilds(&$tag)
 		{
 			if($this->name!==false)
 			{
@@ -57,7 +57,7 @@
 				$this->setAttribute('content' , $this->content);
 			}
 
-			return parent::renderChilds($doc , $tag);
+			return parent::renderChilds($tag);
 		}
 	}
 ?>

@@ -15,7 +15,7 @@
 		}
 		function add($toAdd)
 		{
-			return $this->props->add($toAdd);
+			return $this->props->addToAttribute('class' ,$toAdd);
 		}
 		function encode()
 		{

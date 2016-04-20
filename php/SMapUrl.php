@@ -50,7 +50,7 @@
 
 			return $this;
 		}
-		public function renderChilds(&$doc , &$tag)
+		public function renderChilds(&$tag)
 		{
 			//echo '<pre>SMapUrl::renderChilds';echo '</pre>';
 			//echo '<pre>SMapUrl::renderChilds location:';print_r($this->location);echo '</pre>';
@@ -77,7 +77,7 @@
 				)->prior->setTagValue($this->priority);
 			}
 
-			return parent::renderChilds($doc , $tag);
+			return parent::renderChilds($tag);
 		}
 	}
 ?>

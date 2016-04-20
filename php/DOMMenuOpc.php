@@ -52,7 +52,7 @@
 
 			return $this;
 		}
-		function renderChilds(&$doc , &$tag)
+		function renderChilds(&$tag)
 		{
 			if($this->sectionName)
 			{
@@ -73,7 +73,7 @@
 				);
 			}
 
-			return parent::renderChilds($doc , $tag);
+			return parent::renderChilds($tag);
 		}
 	}
 ?>

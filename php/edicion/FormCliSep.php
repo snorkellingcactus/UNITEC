@@ -7,7 +7,7 @@
 		{
 			parent::__construct('div');
 
-			$this->classList->add('sep');
+			$this->addToAttribute('class' , 'sep');
 		}
 	}
 ?>

@@ -3,7 +3,7 @@
 
 	class Modulo_Galeria extends DOMInclude
 	{
-		function renderChilds(&$doc , &$tag)
+		function renderChilds(&$tag)
 		{
 			if(isset($_SESSION['imgLst']))
 			{
@@ -160,7 +160,7 @@
 				);
 			}
 
-			return parent::renderChilds($doc , $tag);
+			return parent::renderChilds($tag);
 		}
 	}
 ?>

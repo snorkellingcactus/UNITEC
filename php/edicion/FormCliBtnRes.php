@@ -21,8 +21,9 @@
 			)->appendChild
 			(
 				new FormCliResponder()
-			)->classList->add
+			)->addToAttribute
 			(
+				'class' , 
 				'FormCliComBtnRes'
 			);
 			

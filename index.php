@@ -5,10 +5,10 @@
 
 //error_reporting(E_ALL & ~E_DEPRECATED  & ~E_STRICT);
 
-include_once $_SERVER['DOCUMENT_ROOT'] . '/php/DOMHTMLUIndex.php';
+include_once $_SERVER['DOCUMENT_ROOT'] . '/php/is_session_started.php';
+reload_session('lang' , 'adminID' , 'lab');
 
-session_start();
-session_destroy();
+include_once $_SERVER['DOCUMENT_ROOT'] . '/php/DOMHTMLUIndex.php';
 
 $html=new DOMHTMLUIndex();
 
@@ -191,7 +191,7 @@ if($_SESSION['lab']!==false)
 
 		$html->main->appendChild
 		(
-			new FormCliSecAddBase('accionesSec' , 'sec' , gettext('Nueva Sección'))
+			new FormCliSecAddBase('accionesSec' , gettext('Nueva Sección'))
 		);
 	}
 }
@@ -217,4 +217,5 @@ else
 }
 
 echo $html->getHTML();
+
 ?>

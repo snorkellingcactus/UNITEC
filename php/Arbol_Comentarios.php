@@ -18,7 +18,7 @@
 			$vRecID=$this->contenidoID=$contenidoID;
 
 			$container=new DOMTag('div');
-			$container->classList->add('comentarios');
+			$container->addToAttribute('class' , 'comentarios');
 			$container->col=['xs'=>10 , 'sm'=>10 , 'md'=>10 , 'lg'=>10];
 
 			$formCom=false;

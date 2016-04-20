@@ -8,11 +8,11 @@
 		{
 			parent::__construct('div');
 
-			$this->classList->add('DOMVerMas');
+			$this->addToAttribute('class' , 'DOMVerMas');
 
 			$link=new DOMLink();
 			
-			$link->classList->add('focuseable');
+			$link->addToAttribute('class' , 'focuseable');
 
 			$this->appendChild
 			(

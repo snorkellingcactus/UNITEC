@@ -11,7 +11,7 @@
 				func_get_args()
 			);
 
-			$this->classList->add('offscreen');
+			$this->addToAttribute('class' , 'offscreen');
 		}
 	}
 ?>

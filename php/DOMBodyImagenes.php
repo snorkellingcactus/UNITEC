@@ -8,7 +8,7 @@
 			parent::__construct();
 		}
 		
-		function renderChilds(&$doc , &$tag)
+		function renderChilds(&$tag)
 		{
 			
 			//Si todavía no se inicio sesion, se inicia.
@@ -50,10 +50,8 @@
 			{
 				$imgAct=& $recLst[$i];
 				
-				if($visorHTML->add($imgAct['ID'] , $imgAct['AltID'] , $imgAct['TituloID'] , $imgAct['Fecha']))
-				{
-					$selected=$imgAct['TituloID'];
-				}
+				$visorHTML->addToAttribute('class' ,$imgAct['ID'] , $imgAct['AltID'] , $imgAct['TituloID'] , $imgAct['Fecha']);
+				
 				++$i;
 			}
 
@@ -64,14 +62,14 @@
 
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/Arbol_Comentarios.php';
 			
-			$comentarios=new Arbol_Comentarios($selected);
+			$comentarios=new Arbol_Comentarios($imgAct['TituloID']);
 			
 			$this->appendChild
 			(
 				$comentarios->render()
 			);
 
-			return parent::renderChilds($doc , $tag);
+			return parent::renderChilds($tag);
 		}
 	}
 ?>

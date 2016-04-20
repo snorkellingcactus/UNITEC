@@ -12,7 +12,7 @@
 				gettext('Nueva Opción')
 			);
 
-			$this->classList->add('FormCliSecAddMenu');
+			$this->addToAttribute('class' , 'FormCliSecAddMenu');
 		}
 	}
 ?>

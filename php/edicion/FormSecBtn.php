@@ -1,23 +1,19 @@
 <?php
-	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormInput.php';
+	/*
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/edicion/FormCliSubmitNew.php';
 
-	class FormSecBtn extends FormInput
+	class FormSecBtn extends FormCliSubmitNew
 	{
-		function __construct($name , $value)
+		function __construct()
 		{
-			parent::__construct('submit');
+			call_user_func_array
+			(
+				array('parent' , '__construct'),
+				func_get_args()
+			);
 
-			$this->setName
-			(
-				$name
-			)->setValue
-			(
-				$value
-			)->setAttribute
-			(
-				'title',
-				$value
-			)->classList->add('boton-seccion')->add($name);
+			$this->addToAttribute('class' , 'boton-seccion');
 		}
 	}
+	*/
 ?>

@@ -1,55 +1,49 @@
 <?php
-	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/DOMTagContainer.php';
-	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormLabel.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormLabelBoxBase.php';
 	
-	class FormLabelBox extends DOMTag
+	class FormLabelBox extends FormLabelBoxBase
 	{
-		public $label;
 		public $input;
-		public $name;
-		public $id;
+		public $inputID;
+		public $inputName;
 
 		//FormLabelBox::__construct([$name [, $id [, $label [, $input]]]])
 		function __construct()
 		{
-			
 			parent::__construct('div');
 
-			$this->label=new FormLabel();
-			$this->classList->add('FormLabelBox');
-
-
 			$args=func_get_args();
-			if(isset($args[2]))
-			{
-				$this->name=$args[0];
-				$this->id=$args[1];
-
-				$this->setLabelName($args[2]);
-			}
-
-			$this->appendChild($this->label);
 
 			if(isset($args[3]))
 			{
 				$this->setInput($args[3]);
 			}
-			
+
+			if(isset($args[2]))
+			{
+				$this->input->setName($args[0]);
+				$this->input->setID($args[1]);
+
+				$this->setLabelName($args[2]);
+			}
 		}
 		function setInput($input)
 		{
-			$this->input=$input;
+			$this->label->setInput
+			(
+				$input
+			);
 
 			$this->appendChild
 			(
-				$input->
-				setID($this->id)->
-				setName($this->name)->appendLabel($this->label)
+				$this->input=$input
 			);
 		}
-		function setLabelName($name)
+		function newLabel()
 		{
-			$this->label->setTagValue($name);
+			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormLabel.php';
+
+			return new FormLabel();
 		}
 	}
 ?>

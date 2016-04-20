@@ -1,7 +1,8 @@
 <?php
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/edicion/FormCliAdmBase.php';
-	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/edicion/FormCliDel.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/edicion/FormCliDelBase.php';
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormCheckBox.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/FormActions.php';
 
 	class FormCliSelBase extends FormCliAdmBase
 	{
@@ -22,13 +23,13 @@
 				)
 			)->appendChild
 			(
-				new FormCliDel()
+				new FormCliDelBase(FormActions::FORM_ITEM_TYPE_A)
 			);
 		}
 		function buildActionCheckBox($num)
 		{
 			$checkBox=new FormCheckBox('conID' , $num);
-			$checkBox->setAttribute('form' , $this->formId)->classList->add('semitrans');
+			$checkBox->setAttribute('form' , $this->formId)->addToAttribute('class' , 'semitrans');
 
 			return $checkBox;
 		}

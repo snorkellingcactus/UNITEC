@@ -7,7 +7,7 @@
 		{
 			parent::__construct('h1' , $msg);
 
-			$this->classList->add('MSGBox');
+			$this->addToAttribute('class' , 'MSGBox');
 		}
 	}
 ?>

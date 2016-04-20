@@ -1,23 +1,23 @@
 <?php
 	class Desplazador
 	{
-		public $max;
-		public $circular;
-		public $siguiente;
-		public $anterior;
+		private $max;
+		private $circular;
 
 		private $fin;
-		public $actual;
+		private $actual;
 
 		public function __construct($max , $circular)
 		{
 			$this->max=$max;
 			$this->circular=$circular;
 
+			$this->actual=0;
+
 			$this->fin=false;
 		}
 		//Me aseguro que el número dado sea un indice sea valido.
-		function indexRecN($num)
+		private function indexN($num)
 		{
 			$max=$this->max;
 
@@ -50,29 +50,43 @@
 
 			return $nRecSel;
 		}
+		private function getIndex($index)
+		{
+			return $this->indexN($index);
+		}
+		private function getRelIndex($inc)
+		{
+			return $this->getIndex($this->actual+$inc);
+		}
 		public function thisIsLast()
 		{
-			return $this->get()===$this->max-1;
+			return $this->actual===$this->max-1;
 		}
-		public function get()
+		public function getIndexN($index)
 		{
-			return $this->actual=$this->indexRecN($this->actual);
+			return $this->actual=$this->getIndex($index);
+		}
+		public function getRelIndexN($inc)
+		{
+			return $this->actual=$this->getRelIndex($inc);
 		}
 		public function getNext()
 		{
-			return $this->siguiente=$this->indexRecN($this->actual+1);
+			return $this->getRelIndex(1);
 		}
 		public function getPrev()
 		{
-			return $this->anterior=$this->indexRecN($this->actual-1);
+			return $this->getRelIndex(-1);
 		}
-		public function set($actual)
+		public function currentIsLast()
 		{
-			$this->actual=$actual;
+			return $this->fin;
+		}
+		public function setMax($max)
+		{
+			$this->max=$max;
 
-			$this->get();
-			$this->getNext();
-			$this->getPrev();
+			return $this;
 		}
 	}
 ?>

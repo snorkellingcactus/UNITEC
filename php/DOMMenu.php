@@ -14,13 +14,13 @@
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/OffText.php';
 
 			$this->col=['xs'=>12 , 'md'=>2 , 'sm'=>2 , 'lg'=>2];
-			$this->classList->add('menu');
+			$this->addToAttribute('class' , 'menu');
 
 			$this->ul=new DOMTag('ul');
 			$this->nav=new DOMTag('nav');
 
 			$this->span=new DOMTag('span');
-			$this->span->classList->add('inset');
+			$this->span->addToAttribute('class' , 'inset');
 
 			$this->appendChild
 			(
@@ -40,9 +40,9 @@
 				$name
 			);
 		}
-		function renderChilds(&$doc , &$tag)
+		function renderChilds(&$tag)
 		{
-			return parent::renderChilds($doc , $tag);
+			return parent::renderChilds($tag);
 		}
 	}
 ?>

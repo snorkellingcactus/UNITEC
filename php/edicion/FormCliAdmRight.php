@@ -7,7 +7,7 @@
 		{
 			parent::__construct($formDirName);
 
-			$this->classList->add('right');
+			$this->addToAttribute('class' , 'right');
 		}
 	}
 ?>

@@ -1,23 +1,23 @@
 <?php
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/edicion/FormCliAdmSec.php';
-	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/edicion/FormCliDel.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/edicion/FormCliDelBase.php';
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/edicion/FormCliEdit.php';
 	
 	class FormCliCon extends FormCliAdmSec
 	{
 		function __construct($num , $id , $visible)
 		{
-			parent::__construct('accionesSec' , 'con' , $id , $num , $visible);
+			parent::__construct('accionesSec' , $id , $num , $visible);
 
 			$this->buttons->appendChild
 			(
-				new FormCliDel()
+				new FormCliDelBase(FormActions::FORM_ITEM_TYPE_B)
 			)->appendChild
 			(
-				new FormCliEdit()
+				new FormCliEdit(FormActions::FORM_ITEM_TYPE_B)
 			);
 
-			$this->classList->add('FormCliCon');
+			$this->addToAttribute('class' , 'FormCliCon');
 		}
 	}
 ?>

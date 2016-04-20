@@ -16,7 +16,7 @@
 		{
 			parent::__construct('div');
 
-			$this->classList->add('novedad');
+			$this->addToAttribute('class' , 'novedad');
 			$this->col=['xs'=>12 , 'sm'=>12 , 'md'=>12 , 'lg'=>12];
 
 			$this
@@ -89,7 +89,7 @@
 
 			return $this;
 		}
-		function renderChilds(&$doc , &$tag)
+		function renderChilds(&$tag)
 		{
 			if($this->imgSrc!==false)
 			{
@@ -131,10 +131,10 @@
 			if($this->descripcion!==false)
 			{
 				$descripcion=new DOMTag('p' , $this->descripcion);
-				$descripcion->classList->add('sangria');
+				$descripcion->addToAttribute('class' , 'sangria');
 
 				$link=new DOMLink();
-				$link->classList->add('focuseable');
+				$link->addToAttribute('class' , 'focuseable');
 
 				if($this->checkBox!==false)
 				{
@@ -167,11 +167,11 @@
 			}
 
 			$fecha=new DOMTag('p' , $this->getFechaStr());
-			$fecha->classList->add('fecha');
+			$fecha->addToAttribute('class' , 'fecha');
 
 			$this->appendChild($fecha);
 
-			return parent::renderChilds($doc , $tag);
+			return parent::renderChilds($tag);
 		}
 	}
 ?>

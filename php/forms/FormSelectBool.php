@@ -13,35 +13,29 @@
 			$this->labelA=$labelA;
 			$this->labelB=$labelB;
 
-			$this->selectedValue=0;
+			$this->setValueToSelect(0);
 		}
-		function renderChilds(&$doc , &$tag)
+		function renderChilds(&$tag)
 		{
 			$labelA=$this->labelA;
 			$labelB=$this->labelB;
 
-			if(!$this->selectedValue)
+			if(!$this->valueToSelect)
 			{
 				$labelA=$this->labelB;
 				$labelB=$this->labelA;
 			}
 
-			$this->addOption(new FormSelectOption($labelA , intVal($this->selectedValue)));
-			$this->addOption(new FormSelectOption($labelB , intVal(!$this->selectedValue)));
-/*
-			echo '<pre>SelectedValue (Bool):';
-			var_dump($this->selectedValue);
-			echo '</pre>';
-*/
-			return parent::renderChilds($doc , $tag);
+
+			$this->addOption( $this->buildOption( $labelA , printBool($this->valueToSelect) ) );
+
+			$this->addOption( $this->buildOption( $labelB , printBool(!$this->valueToSelect) ));
+
+			return parent::renderChilds($tag);
 		}
-		function mustBeSelected($value)
+		public function trySelect($value)
 		{
-			if($this->selectedValue===printBool($value))
-			{
-				return true;
-			}
-			return false;
+			return parent::trySelect(printBool($value));
 		}
 	}
 ?>

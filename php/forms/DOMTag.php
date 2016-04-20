@@ -11,7 +11,8 @@
 		{
 			parent::__construct();
 
-			$this->tagValue=NULL;
+			$this->tagValue=false;
+
 			$this->all=$this->col=
 			[
 				'xs'=>false,
@@ -31,39 +32,24 @@
 				$this->setTagValue($args[1]);
 			}
 		}
-		function renderChilds(&$doc , &$tag)
+		public function setTag($tag)
 		{
-			//echo '<pre>DOMTag::renderChilds()';echo '</pre>';
+			$this->applyBootstrap();
 
-			return parent::renderChilds($doc , $tag);
-		}
-		public function createTag()
-		{
-			parent::createTag();
+			parent::setTag($tag);
 
-			if($this->tagValue!==NULL)
+			if($this->tagValue!==false)
 			{
 				$this->tag->appendChild
 				(
-					$this->domDoc->createTextNode($this->tagValue)
+					$this->getOwnerDocumentOf($this->parent->getTag())->createTextNode($this->tagValue)
 				);
 			}
-			$this->applyBootstrap()->applyClassList();
+
 		}
 		public function setTagValue($tagValue)
 		{
 			$this->tagValue=$tagValue;
-
-			return $this;
-		}
-		public function applyClassList()
-		{
-			$clases=$this->classList->get();
-
-			if($clases!==false)
-			{
-				$this->tag->setAttribute('class' , $clases);
-			}
 
 			return $this;
 		}
@@ -83,12 +69,17 @@
 					$this->applySingleBootstrap('all' , $colName , $all[$colName]);
 				}
 			}
-
+/*
+			echo '<pre>'.$this->tagName.'Class: ';
+			print_r($this->getAttribute('class'));
+			echo '</pre>';
+*/
 			return $this;
 		}
 		public function applySingleBootstrap($colType , $colName , $val)
 		{
-			$this->classList->add($colType.'-'.$colName.'-'.$val);
+			//echo '<pre>$this->addToAttribute( "class" , '.$colType.'-'.$colName.'-'.$val.')';echo '</pre>';
+			$this->addToAttribute('class' , $colType.'-'.$colName.'-'.$val);
 		}
 		public function setBootstrap($cols , $var)
 		{

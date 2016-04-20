@@ -3,6 +3,8 @@
 
 	class FormLabelLugarBase extends LabelBox
 	{
+		public $sqlList;
+
 		function __construct()
 		{
 			call_user_func_array
@@ -11,7 +13,7 @@
 				func_get_args()
 			);
 
-			$this->selectedValue=false;
+			$this->sqlList=false;
 		}
 		function buildOptionFromArray($array)
 		{
@@ -31,20 +33,25 @@
 			);
 		}
 		//Configura las opciones de acuerdo a los lugares llenos.
-		function setOptionsFromSQLRes($llenos)
+		function setOptionsFromSQLRes($sqlList)
+		{
+			$this->sqlList=$sqlList;
+		}
+		function renderChilds(&$tag)
 		{
 			$i=0;
 			$input=$this->input;
-			while(isset($llenos[$i]))
+			while(isset($this->sqlList[$i]))
 			{
 				$input->addOption
 				(
-					$this->buildOptionFromArray($llenos[$i])
+					$this->buildOptionFromArray($this->sqlList[$i])
 				);
 
 				++$i;
 			}
-			return $this;
+
+			parent::renderChilds($tag);
 		}
 	}
 ?>

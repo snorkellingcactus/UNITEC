@@ -31,13 +31,13 @@ ul li ul .organicaja
 	line-height: 1.6em;
 	padding: 3px;
 }
-body .organigrama input.boton-seccion
+body .organigrama .acciones input
 {
 	max-width:none;
 	margin:auto;
 	animation:none;
 }
-body .organigrama input.boton-seccion:hover, body .organigrama input.boton-seccion:focus
+body .organigrama .acciones input:hover, body .organigrama .acciones input:focus
 {
 	animation:none;
 }

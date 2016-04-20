@@ -45,7 +45,7 @@
 		new GMapsColor('red'),
 		new GMapsLabel(gettext('A'))
 	);
-	$urlMapa->props->add($markA)->add($markB)->add
+	$urlMapa->props->addToAttribute('class' ,$markA)->addToAttribute('class' ,$markB)->add
 	(
 		new GMapsImgPath
 		(

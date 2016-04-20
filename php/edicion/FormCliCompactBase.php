@@ -15,11 +15,11 @@
 				func_get_args()
 			);
 
-			$this->classList->add('FormCliCompactBase');
+			$this->addToAttribute('class' , 'FormCliCompactBase');
 		}
 		function appendLabel($label)
 		{
-			$label->classList->add('label');
+			$label->addToAttribute('class' , 'label');
 
 			$label->input->col=['xs'=>12 , 'sm'=>7 , 'md'=>7 , 'lg'=>7];	
 			$label->label->col=['xs'=>12 , 'sm'=>5 , 'md'=>5 , 'lg'=>5];	

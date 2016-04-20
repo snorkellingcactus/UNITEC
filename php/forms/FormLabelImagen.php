@@ -25,7 +25,7 @@
 					$name
 					$this->label->getAttribute('id')
 				)
-			)->classList->add('FormLabelImagen');
+			)->addToAttribute('class' , 'FormLabelImagen');
 		}
 	}
 ?>

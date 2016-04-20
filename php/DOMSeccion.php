@@ -9,11 +9,11 @@
 			parent::__construct('section');
 		}
 		
-		function renderChilds(&$doc , &$tag)
+		function renderChilds(&$tag)
 		{
 			$this->appendChild(new ClearFix());
 
-			return parent::renderChilds($doc , $tag);
+			return parent::renderChilds($tag);
 		}
 	}
 ?>

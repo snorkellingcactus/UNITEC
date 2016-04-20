@@ -7,7 +7,7 @@
 		{
 			parent::__construct('div');
 
-			$this->classList->add('tagList');
+			$this->addToAttribute('class' , 'tagList');
 		}
 		function buildFromTagsNames($tagsNames)
 		{

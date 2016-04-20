@@ -23,21 +23,21 @@
 			
 			return parent::appendChild($nodo);
 		}
-		public function renderChilds(&$doc , &$tag)
+		public function renderChilds(&$tag)
 		{
 			if($this->nodos>1)
 			{
 				$this->nodosCol=12/$this->nodos;
 			}
 
-			return parent::renderChilds($doc , $tag);
+			return parent::renderChilds($tag);
 		}
 		public function importChild($child)
 		{
 			//Agrego dimensiones Bootstrap a cada hijo.
 			$nodosCol=$this->nodosCol;
 
-			if($nodosCol!==false)
+			if($child instanceof DOMTag && $nodosCol!==false)
 			{
 				$child->col=
 				[
@@ -47,6 +47,7 @@
 					'lg'=>$nodosCol
 				];
 			}
+
 			return parent::importChild($child);
 		}
 	}

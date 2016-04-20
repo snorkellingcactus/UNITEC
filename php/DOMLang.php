@@ -52,7 +52,7 @@
 			(
 				'tabindex',
 				1
-			)->classList->add('focuseable');
+			)->addToAttribute('class' , 'focuseable');
 
 			return $this->newBaseOption()->appendChild
 			(

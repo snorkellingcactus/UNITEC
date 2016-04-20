@@ -13,8 +13,8 @@
 			->setAttribute('src' , '/img/invisible.png')
 			->setAttribute('width' , '30px')
 			->setAttribute('height' , '25px')
-			->setAttribute('title' , gettext('Contenido invisible'));
-
+			->setAttribute('title' , gettext('Contenido invisible'))
+			->addToAttribute('class' , 'indicator-invisible');
 		}
 	}
 ?>

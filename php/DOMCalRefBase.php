@@ -16,12 +16,12 @@
 			$spanOff=new DOMTag('span' , $offText);
 
 
-			$spanB->classList->add($class);;
-			$spanOff->classList->add('offscreen');
-			$div->classList->add('calRef');
+			$spanB->addToAttribute('class' , $class);;
+			$spanOff->addToAttribute('class' , 'offscreen');
+			$div->addToAttribute('class' , 'calRef');
 
 			//Revisar
-			//$this->classList->add('hidden-screader');
+			//$this->addToAttribute('class' , 'hidden-screader');
 
 			$this->appendChild
 			(

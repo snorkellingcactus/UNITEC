@@ -7,7 +7,7 @@
 		{
 			parent::__construct();
 			
-			$this->addReq('/ckeditor/ckeditor.js')->addReq('/js/loadEditor.js')->classList->add('ckeditorjs');
+			$this->addReq('/ckeditor/ckeditor.js')->addReq('/js/loadEditor.js')->addToAttribute('class' , 'ckeditorjs');
 		}
 	}
 ?>

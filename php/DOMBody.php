@@ -19,14 +19,14 @@
 			return $this;
 		}
 
-		function renderChilds(&$doc , &$tag)
+		function renderChilds(&$tag)
 		{
 			if($this->onLoad!==false)
 			{
 				$this->setAttribute('onLoad' , $this->onLoad);
 			}
 
-			return parent::renderChilds($doc , $tag);
+			return parent::renderChilds($tag);
 		}
 	}
 ?>

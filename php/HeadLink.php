@@ -36,14 +36,14 @@
 
 			return $this;
 		}
-		function renderChilds(&$doc , &$tag)
+		function renderChilds(&$tag)
 		{
 
 			$this->setAttribute('rel' , $this->rel);
 			$this->setAttribute('type' , $this->type);
 			$this->setAttribute('href' , $this->href);
 
-			return parent::renderChilds($doc , $tag);
+			return parent::renderChilds($tag);
 		}
 	}
 ?>

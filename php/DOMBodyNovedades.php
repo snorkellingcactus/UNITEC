@@ -8,7 +8,7 @@
 			parent::__construct();
 		}
 		
-		function renderChilds(&$doc , &$tag)
+		function renderChilds(&$tag)
 		{
 			$rw=1;
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/conexion.php';
@@ -107,7 +107,7 @@
 				$nov=& $recLst[$i];
 
 				$container=new DOMTag('div');
-				$container->classList->add('gImg');
+				$container->addToAttribute('class' , 'gImg');
 				$container->col=['xs'=>12 , 'sm'=>6 , 'md'=>4 , 'lg'=>3];
 
 				$link=new DOMTag('a');
@@ -162,7 +162,7 @@
 
 			if($i)
 			{
-				$sugeridas->classList->add('sugeridas')->add('novedades');
+				$sugeridas->addToAttribute('class' , 'sugeridas')->addToAttribute('class' ,'novedades');
 				$sugeridas->col=['lg'=>10 , 'md'=>10 , 'sm'=>10 , 'xs'=>10];
 
 				$this->appendChild($sugeridas);
@@ -176,7 +176,7 @@
 			(
 				$comentarios->render()
 			);
-			return parent::renderChilds($doc , $tag);
+			return parent::renderChilds($tag);
 		}
 	}
 ?>

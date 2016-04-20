@@ -1,7 +1,7 @@
 <?php
 	class DOMClassList
 	{
-		public $attrLst;
+		private $attrLst;
 		private $count;
 
 		function __construct()
@@ -36,10 +36,6 @@
 			}
 			$this->attrLst=$attrLst;
 
-			if(empty($attrLst) && $this->padre->hasAttribute('class'))
-			{
-				$this->padre->removeAttribute('class');
-			}
 			return $this;
 		}
 		function get()
@@ -49,6 +45,10 @@
 				return false;
 			}
 			return implode(' ' , $this->attrLst);
+		}
+		function set($value)
+		{
+			$this->attrLst=array($value);
 		}
 	}
 ?>

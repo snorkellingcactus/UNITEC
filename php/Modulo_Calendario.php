@@ -7,13 +7,13 @@
 		{
 			parent::__construct();
 		}
-		function renderChilds(&$doc , &$tag)
+		function renderChilds(&$tag)
 		{
 			include $_SERVER['DOCUMENT_ROOT'] . '/php/DOMCal.php';
 			$cal=new DOMCal();
 
 			$contenedor=new DOMTag('div');
-			$contenedor->classList->add('calendario');
+			$contenedor->addToAttribute('class' , 'calendario');
 
 			if(!empty($_SESSION['adminID']))
 			{
@@ -88,7 +88,7 @@
 			$desc=new DOMTag('div');
 			
 
-			$desc->classList->add('desc');
+			$desc->addToAttribute('class' , 'desc');
 			$desc->col=['xs'=>12 , 'sm'=>5 , 'md'=>5 , 'lg'=>5];
 
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/OffText.php';
@@ -166,7 +166,7 @@
 						)
 					);
 
-					$pFecha->classList->add('fecha');
+					$pFecha->addToAttribute('class' , 'fecha');
 
 					if(isset($_SESSION['adminID']))
 					{
@@ -242,14 +242,14 @@
 					if($m%3===0)
 					{
 						$divB=new DOMTag('div');
-						$divB->classList->add('clearfix')->add('visible-md')->add('visible-lg');
+						$divB->addToAttribute('class' , 'clearfix')->addToAttribute('class' ,'visible-md')->addToAttribute('class' ,'visible-lg');
 
 						$calCont->appendChild($divB);
 					}
 					if($m%2===0)
 					{
 						$divC=new DOMTag('div');
-						$divC->classList->add('clearfix')->add('visible-sm');
+						$divC->addToAttribute('class' , 'clearfix')->addToAttribute('class' ,'visible-sm');
 
 						$calCont->appendChild($divC);
 					}
@@ -259,7 +259,7 @@
 			$refsCont=new DOMTag('div');
 
 			$clearFix=new DOMTag('div');
-			$clearFix->classList->add('clearfix')->add('visible-xs');
+			$clearFix->addToAttribute('class' , 'clearfix')->addToAttribute('class' ,'visible-xs');
 
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/DOMCalRefBase.php';
 			
@@ -306,7 +306,7 @@
 				)
 			);
 
-			return parent::renderChilds($doc , $tag);
+			return parent::renderChilds($tag);
 		}
 	}
 ?>

@@ -60,7 +60,7 @@
 
 			return $this;
 		}
-		function renderChilds(& $doc , & $tag)
+		function renderChilds(&$tag)
 		{
 			if($this->default===false)
 			{
@@ -71,7 +71,7 @@
 				$this->select($this->default);
 			}
 
-			return parent::renderChilds($doc , $tag);
+			return parent::renderChilds($tag);
 		}
 	}
 ?>

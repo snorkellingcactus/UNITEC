@@ -152,7 +152,8 @@
 
 			if($nSec->HTMLID!==NULL && $_POST['AgregarAlMenu'][0]==='1')
 			{
-				include_once	$_SERVER['DOCUMENT_ROOT'] . '/php/Menu.php';
+				
+				include($_SERVER['DOCUMENT_ROOT'] . '/php/Menu.php');
 				
 				$menu=new Menu(['SeccionID'=>$nSec->HTMLID]);
 
@@ -170,6 +171,7 @@
 					include_once($_SERVER['DOCUMENT_ROOT'] . '/php/nTraduccion.php');
 					include_once($_SERVER['DOCUMENT_ROOT'] . '/php/Foranea.php');
 					include_once $_SERVER['DOCUMENT_ROOT'] . '/php/SQL_Evts_Menu.php';
+					
 
 					$menuEvts=new SQL_Evts_Menu();
 
@@ -177,7 +179,6 @@
 					$_POST['Titulo']=$_POST['Titulo'];
 					$_POST['Lugar']=['b'];
 					$_POST['Atajo']=[$menu->Atajo];
-					$_SESSION['cantidad']=1;
 
 					$menu->ContenidoID=$menuEvts->nuevo()[0];
 				}
@@ -225,7 +226,7 @@
 			{
 				$con->query('DELETE FROM Secciones WHERE ID='.$secID);
 				
-				//echo '<pre>';print_r('DELETE FROM Secciones WHERE ID='.$secID);echo '</pre>';
+				echo '<pre>';print_r('DELETE FROM Secciones WHERE ID='.$secID);echo '</pre>';
 			}
 		}
 	}

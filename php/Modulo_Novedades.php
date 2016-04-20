@@ -3,9 +3,9 @@
 
 		class Modulo_Novedades extends DOMInclude
 		{
-			function renderChilds(&$doc , &$tag)
+			function renderChilds(&$tag)
 			{
-				$this->classList->add('novedades');
+				$this->addToAttribute('class' , 'novedades');
 				
 				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/is_session_started.php';
 				start_session_if_not();
@@ -206,7 +206,7 @@
 					}
 				}
 
-				return parent::renderChilds($doc , $tag);
+				return parent::renderChilds($tag);
 			}
 		}
 ?>

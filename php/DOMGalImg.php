@@ -26,12 +26,12 @@
 			$this->img=new DOMTag('img');
 			$this->span=new DOMTag('span');
 
-			$this->link->setOpensNewWindow(true)->classList->add('focuseable');
+			$this->link->setOpensNewWindow(true)->addToAttribute('class' , 'focuseable');
 
-			$this->classList->add('gImg')->add('Center-Container');
-			$this->img->classList->add('Absolute-Center');
-			$this->span->classList->add('offscreen');
-			$this->p->classList->add('monoWhite');
+			$this->addToAttribute('class' , 'gImg')->addToAttribute('class' ,'Center-Container');
+			$this->img->addToAttribute('class' , 'Absolute-Center');
+			$this->span->addToAttribute('class' , 'offscreen');
+			$this->p->addToAttribute('class' , 'monoWhite');
 
 			$this->actionCheckBox=false;
 		}
@@ -59,7 +59,7 @@
 
 			return $this;
 		}
-		function renderChilds(&$doc , &$tag)
+		function renderChilds(&$tag)
 		{
 			if($this->actionCheckBox!==false)
 			{
@@ -105,7 +105,7 @@
 				)
 			);
 
-			return parent::renderChilds($doc , $tag);
+			return parent::renderChilds($tag);
 		}
 
 		public function setActionCheckBox($actionCheckBox)

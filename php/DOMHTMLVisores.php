@@ -23,9 +23,9 @@
 				'/seccs/galeria.css'
 			);
 		}
-		function renderChilds(&$doc , &$tag)
+		function renderChilds(&$tag)
 		{
-			return parent::renderChilds($doc , $tag);
+			return parent::renderChilds($tag);
 		}
 	}
 ?>

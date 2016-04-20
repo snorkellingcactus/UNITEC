@@ -9,7 +9,7 @@
 		{
 			parent::__construct('footer');
 
-			$this->classList->add('Footer')->add('header');
+			$this->addToAttribute('class' , 'Footer')->addToAttribute('class' ,'header');
 
 
 
@@ -19,7 +19,7 @@
 			);
 
 			$this->container->col=['xs'=>12 , 'sm'=>12 , 'md'=>12 , 'lg'=>12];
-			$this->container->classList->add('FooterMainContainer');
+			$this->container->addToAttribute('class' , 'FooterMainContainer');
 		}
 		function appendChild($child)
 		{

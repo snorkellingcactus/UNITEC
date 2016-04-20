@@ -18,7 +18,7 @@
 			$this->div=new DOMTag('div');
 			$this->titulo=new DOMTag('h1');
 
-			$this->div->classList->add('organicaja')->add($color);
+			$this->div->addToAttribute('class' , 'organicaja')->addToAttribute('class' ,$color);
 
 			$this->appendChild
 			(
@@ -37,7 +37,7 @@
 
 			return $this;
 		}
-		function renderChilds(&$tag , &$doc)
+		function renderChilds(&$tag)
 		{
 			if(!empty($this->link))
 			{
@@ -45,7 +45,7 @@
 
 				$a=new DOMLink();
 
-				$a->classList->add('focuseable');
+				$a->addToAttribute('class' , 'focuseable');
 
 				if(!empty($this->target))
 				{
@@ -62,7 +62,7 @@
 				$this->titulo->setTagValue($this->name);
 			}
 
-			return parent::renderChilds($tag , $doc);
+			return parent::renderChilds($tag);
 		}
 	}
 ?>

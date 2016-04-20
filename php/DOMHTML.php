@@ -150,7 +150,7 @@
 		{
 			return new HeadLink($src);
 		}
-		function renderChilds(&$doc , &$tag)
+		function renderChilds(&$tag)
 		{
 			$iLen=$this->toUnsetLen;
 			for($i=0;$i<$iLen;++$i)
@@ -214,7 +214,7 @@
 				);
 			}
 
-			return parent::renderChilds($doc , $tag);
+			return parent::renderChilds($tag);
 		}
 	}
 ?>

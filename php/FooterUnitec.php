@@ -17,7 +17,7 @@
 				}
 			}
 		}
-		function renderChilds(&$doc , &$tag)
+		function renderChilds(&$tag)
 		{
 			if(isset($_SESSION['lab']))
 			{
@@ -139,7 +139,7 @@
 				$mapScript->setAsync(true)->setDefer(true)
 			);
 
-			return parent::renderChilds($doc , $tag);
+			return parent::renderChilds($tag);
 		}
 	}
 ?>

@@ -1,229 +1,116 @@
 <?php
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/DOMTag.php';
 	
-	class DOMTagContainer
+	class DOMTagObjectBase
+	{
+		public $tag;
+
+		function __construct()
+		{
+			$this->tag=false;
+		}
+
+		public function &getTag()
+		{
+			return $this->tag;
+		}
+		public function DOMAppendChild($tag)
+		{
+			$this->tag->appendChild($tag->getTag());
+		}
+	}
+	class DOMTagContainer extends DOMTagObjectBase
 	{
 		public $hijos;
 		public $hijosLen;
-		public $domDoc;
-		public $tag;
+		public $delegatedParent;
 
 		public function __construct()
 		{
+			parent::__construct();
+
 			$this->hijos=[];
 			$this->hijosLen=0;
+			$this->delegatedParent=false;
+			$this->delegate=true;
 		}
-		public function appendChild($domTag)
+		public function appendChild($tagObject)
 		{
-			$this->hijos[$this->hijosLen]= $domTag;
+			$this->hijos[$this->hijosLen]= $tagObject;
 
 			++$this->hijosLen;
 
 			return $this;
 		}
-		/*
-		public function render($childs , $childsLen)
+		public function DOMAppendChild($child)
 		{
-			echo '<pre>DOMTagContainer::render()';
-			echo '</pre>';
-			for($i=0;$i<$childsLen;$i++)
+			if($this->delegatedParent===false)
 			{
-				$child=$childs[$i];
-
-				$tName='Doc';
-				if(isset($this->tag->tagName))
-				{
-					$tName=$this->tag->tagName;
-				}
-				echo '<pre>'.$tName.'->appendChild->';
-				echo '</pre>';
-				$this->tag->appendChild
-				(
-					$child->renderChilds($this->domDoc)->tag ,
-					true
-				);
+				parent::DOMAppendChild($child);
 			}
-
-			return $this;
+			else
+			{
+				$this->delegatedParent->DOMAppendChild($child);
+			}
 		}
-		*/
-		public function importChild($child)
+		public function renderChild(&$child)
 		{
-			/*
-			echo '<pre>DOMTag::importChild()'."\n";
-			echo '$this->tag : ';
-			echo $this->getName($this->tag)."\n";
-			echo '$this->domDoc : ';
-			echo $this->getName($this->domDoc)."\n";
-			*/
-
-			$res=$child->renderChilds
+			$child->renderChilds
 			(
-				$this->domDoc ,
-				$this->tag
+				$this
 			);
-
-			if($res instanceof DOMTag || $res instanceof DOMTagBase)
-			{
-				//echo '<pre>'.$this->getName($this->tag).'->appendChild('.$this->getName($res).')</pre>';
-				$this->tag->appendChild
-				(
-					$res->tag
-				);
-			}
-/*
-		function getName($tag)
-		{
-			$tName='Doc';
-			if(isset($tag->tagName))
-			{
-				$tName=$tag->tagName;
-			}
-
-			return $tName;
 		}
-*/
-/*
-			echo 'DOMTag::importChild()'."\n";
-			echo '$child->tag : ';
-			echo $this->getName($res->tag)."\n";
-			echo '$child->domDoc : ';
-			echo $this->getName($res)."\n";
-			echo '$child->className : ';
-			echo ($res instanceof DOMTag)."\n";
-			echo '</pre>';
-*/
-			return $res;
-		}
-		public function render()
+		public function renderChilds(&$tag)
 		{
+			$this->setTag($tag);
+
 			$childs=$this->hijos;
 			$childsLen=$this->hijosLen;
 
 			for($i=0;$i<$childsLen;$i++)
 			{
-				$this->importChild($childs[$i]);
+				$this->renderChild($childs[$i]);
 			}
 
 			return $this;
 		}
-		public function renderChilds(&$doc , &$tag)
+		public function getOwnerDocumentOf($node)
 		{
-			//echo '<pre>DOMTagContainer::renderChilds()</pre>';
+			if($node->ownerDocument!==NULL)
+			{
+				return $node->ownerDocument;
+			}
 
-			if($doc!==null)
-			{
-				$this->importDoc($doc);
-			}
-			else
-			{
-				$this->createDoc();
-			}
-			if($tag!==null)
-			{
-				$this->importTag($tag);
-			}
-			else
-			{
-				$this->createTag();
-			}
-/*
-			$tName='Doc';
-			if(isset($this->tag->tagName))
-			{
-				$tName=$this->tag->tagName;
-			}
-			echo '<pre>DOMTagContainer::renderChilds()';
-			echo 'Tag: '.$tName;
-			echo '</pre>';
-*/
-
-			return  $this->render();
-		}
-		public function importDoc($doc)
-		{
-			//echo '<pre>DOMTagContainer::importDoc()';echo '</pre>';
-			$this->domDoc=$doc;
-		}
-		public function importTag($tag)
-		{
-/*
-			$tName='Doc';
-			if(isset($tag->tagName))
-			{
-				$tName=$tag->tagName;
-			}
-			echo '<pre>DOMTagContainer::importTag()'.$tName;echo '</pre>';
-*/
-			$this->tag=$tag;
-		}
-		public function createDoc()
-		{
-			//echo '<pre>DOMTagContainer::createDoc()';echo '</pre>';
-
-			$this->domDoc=new DOMDocument('1.0' , 'UTF-8');
-/*
-			DOMImplementation::createDocument
-			(
-				null,
-				null,
-				DOMImplementation::createDocumentType('html')
-			);
-*/
-		}
-		public function buildDoc()
-		{
-			$null=null;
-
-			$this->renderChilds($null , $null);
+			return $node;
 		}
 		public function getHTML()
 		{
-			//echo '<pre>DOMTagContainer::getHTML()';
-			//echo '</pre>';
-			$this->buildDoc();
+			$this->delegate=false;
+			$this->renderChilds(new DOMInitialTag());
 
-			//$this->domDoc->normalizeDocument();
-			$innerHTML = $this->domDoc->saveHTML(); 
-			//$children  = $this->domDoc->childNodes;
-
-			//echo '<pre>ChildNodes:';
-			//print_r
-			//(
-			//	$children
-			//);
-			//echo '</pre>';
-/*
-			foreach ($children as $child) 
-			{
-				$innerHTML .= $this->domDoc->saveHTML($child);
-			}
-*/
-			return html_entity_decode($innerHTML); 
+			//Revisar.
+			return html_entity_decode
+			(
+				$this->getOwnerDocumentOf($this->tag)->saveHTML($this->tag)
+			);
 		}
-		/*function appendTag(DOMTag $domTag)
+		public function setTag($tagObject)
 		{
-			if(is_subclass_of($domTag, 'DOMTagContainer'))
+			if($this->delegate)
 			{
-				$iMax=$domTag->hermanosLen;
-				for($i=0;$i<$iMax;$i++)
-				{
-					$this->appendTag($domTag->hermanos[$i]);
-				}
+				$this->delegatedParent=$tagObject;
 			}
-			else
-			{
-				$this->hermanos[$this->hermanosLen]=$domTag;
+			$this->tag=$tagObject->getTag();
+		}
+	}
 
-				++$this->hermanosLen;
-			}
-			return $this;
-		}*/
-		public function createTag()
+	class DOMInitialTag extends DOMTagObjectBase
+	{
+		function __construct()
 		{
-			//echo '<pre>DOMTagContainer::createTag()';echo '</pre>';
+			parent::__construct();
 
-			$this->importTag($this->domDoc);
+			$this->tag=new DOMDocument('1.0' , 'UTF-8');
 		}
 	}
 ?>

@@ -20,9 +20,9 @@
 			$this->titulo=new DOMTag('h1');
 			$this->p=new DOMTag('span');
 
-			$this->p->classList->add('sangria');
-			$this->img->classList->add('shadow');
-			$this->section->classList->add('novedades');
+			$this->p->addToAttribute('class' , 'sangria');
+			$this->img->addToAttribute('class' , 'shadow');
+			$this->section->addToAttribute('class' , 'novedades');
 			$this->section->col=['xs'=>10 , 'sm'=>10 , 'md'=>10 , 'lg'=>10];
 			$this->img->col=	['xs'=>12 , 'sm'=>5 , 'md'=>5 , 'lg'=>5];
 			$this->tagLst=new DOMTagLst();

@@ -121,13 +121,13 @@
 
 			if($mesActual>$mesDestino)
 			{
-				$td->classList->add('dia-mes-siguiente');
+				$td->addToAttribute('class' , 'dia-mes-siguiente');
 
 				$posiblePresente=false;
 			}
 			if($mesActual<$mesDestino)
 			{
-				$td->classList->add('dia-mes-anterior');
+				$td->addToAttribute('class' , 'dia-mes-anterior');
 
 				$posiblePresente=false;
 			}
@@ -136,21 +136,21 @@
 			{
 				if($diaActual<$diaReal)
 				{
-					$td->classList->add('pasado');
+					$td->addToAttribute('class' , 'pasado');
 				}
 				if($diaActual===$diaReal)
 				{
-					$td->classList->add('presente');
+					$td->addToAttribute('class' , 'presente');
 				}
 				if($diaActual>$diaReal)
 				{
-					$td->classList->add('futuro');
+					$td->addToAttribute('class' , 'futuro');
 				}
 			}
 			
 			if($posiblePresente && $this->eventoEnFecha($fechaActual)!=-1)
 			{
-				$td->classList->add('evento');
+				$td->addToAttribute('class' , 'evento');
 			}
 
 			return $td->appendChild
@@ -278,15 +278,15 @@
 
 			if($nMes>$mesReal)
 			{
-				$table->classList->add('mes-futuro');
+				$table->addToAttribute('class' , 'mes-futuro');
 			}
 			if($nMes<$mesReal)
 			{
-				$table->classList->add('mes-pasado');
+				$table->addToAttribute('class' , 'mes-pasado');
 			}
 			if($nMes==$mesReal)
 			{
-				$table->classList->add('mes-presente');
+				$table->addToAttribute('class' , 'mes-presente');
 			}
 
 			return $table;

@@ -17,7 +17,7 @@
 			$this->resource=$resource;
 		}
 		
-		function renderChilds(&$doc , &$tag)
+		function renderChilds(&$tag)
 		{
 			$i=0;
 			while(isset($this->langs[$i]))
@@ -37,7 +37,7 @@
 			}
 
 			//echo '<pre>SMapUrlMulti::renderChilds';;echo '</pre>';
-			return parent::renderChilds($doc , $tag);
+			return parent::renderChilds($tag);
 		}
 
 	}

@@ -13,7 +13,7 @@
 			$this->char=$char;
 			$this->str=$str;
 
-			//$this->classList->add('shortcutChar');
+			//$this->addToAttribute('class' , 'shortcutChar');
 		}
 		function addSpan($str)
 		{
@@ -37,11 +37,11 @@
 		{
 			$span=$this->newSpan($str);
 
-			$span->classList->add('shortcutSpan');
+			$span->addToAttribute('class' , 'shortcutSpan');
 
 			return $this->appendChild($span);
 		}
-		function renderChilds(&$doc , &$tag)
+		function renderChilds(&$tag)
 		{
 			$pos=strrpos
 			(
@@ -95,7 +95,7 @@
 
 			}
 
-			return parent::renderChilds($doc , $tag);
+			return parent::renderChilds($tag);
 		}
 	}
 ?>

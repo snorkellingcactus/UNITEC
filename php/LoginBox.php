@@ -8,7 +8,7 @@
 		{
 			parent::__construct('div');
 
-			$this->classList->add('LoginBox');
+			$this->addToAttribute('class' , 'LoginBox');
 			$this->col=['xs'=>10 , 'sm'=>9 , 'md'=>7 , 'lg'=>7];
 
 			$this->appendChild

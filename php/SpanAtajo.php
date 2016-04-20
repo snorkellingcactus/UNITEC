@@ -7,7 +7,7 @@
 		{
 			parent::__construct('span' , $atajo);
 
-			$this->classList->add('atajo');
+			$this->addToAttribute('class' , 'atajo');
 		}
 	}
 ?>

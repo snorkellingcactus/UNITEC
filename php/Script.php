@@ -40,7 +40,7 @@
 
 			return $this;
 		}
-		function renderChilds(&$doc , &$tag)
+		function renderChilds(&$tag)
 		{
 			$this->setAttribute('src' , $this->src);
 
@@ -53,7 +53,7 @@
 				$this->setAttribute('defer' , 'defer');
 			}
 
-			return parent::renderChilds($doc , $tag);		
+			return parent::renderChilds($tag);		
 		}
 	}
 ?>

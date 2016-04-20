@@ -7,7 +7,7 @@
 		{
 			parent::__construct('div');
 
-			$this->classList->add('header');
+			$this->addToAttribute('class' , 'header');
 		}
 	}
 ?>

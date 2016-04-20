@@ -23,7 +23,7 @@
 			(
 				'/js/loadEditor.js'
 			);
-
+/*
 			include $_SERVER['DOCUMENT_ROOT'] . '/php/SrvStepBase.php';
 
 			$formHandler=new SrvStepBase();
@@ -49,6 +49,7 @@
 			(
 				$formHandler->buildAll()->form
 			);
+*/
 		}
 	}
 

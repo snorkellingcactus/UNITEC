@@ -7,7 +7,7 @@
 		{
 			parent::__construct('span' , '+');
 
-			$this->classList->add('mas');
+			$this->addToAttribute('class' , 'mas');
 		}
 	}
 ?>

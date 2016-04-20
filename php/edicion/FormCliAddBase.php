@@ -1,14 +1,19 @@
 <?php
-	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/edicion/FormSecBtn.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/edicion/FormCliSubmit.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/FormActions.php';
 
-	class FormCliAddBase extends FormSecBtn
+	class FormCliAddBase extends FormCliSubmit
 	{
-		function __construct($name , $cMax)
+		function __construct($form_item_type , $name ,  $cMax)
 		{
 			parent::__construct
 			(
-				'nuevo' , $name , $cMax
+				FormActions::FORM_ACTIONS_NEW | $form_item_type ,
+				$name ,
+				$cMax
 			);
+
+			$this->addToAttribute('class' , 'nuevo');
 		}
 	}
 ?>

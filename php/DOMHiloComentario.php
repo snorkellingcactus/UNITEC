@@ -11,7 +11,7 @@
 
 			$this->setName(false);
 
-			$this->classList->add('nHilo');
+			$this->addToAttribute('class' , 'nHilo');
 		}
 		function setName($name)
 		{
@@ -21,13 +21,15 @@
 		}
 		function importChild($com)
 		{
-			return parent::importChild
-			(
-				$com->setRemitente
+			if($child instanceof DOMComentario)
+			{
+				$child->setRemitente
 				(
 					$this->name
-				)
-			);
+				);
+			}
+
+			return parent::importChild($child);
 		}
 	}
 

@@ -6,7 +6,7 @@
 		function __construct()
 		{
 			parent::__construct('span');
-			$this->classList->add('clearfix');
+			$this->addToAttribute('class' , 'clearfix');
 		}
 	}
 ?>

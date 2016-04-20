@@ -3,7 +3,7 @@
 
 	class DOMBodyInicioSesion extends DOMBody
 	{	
-		function renderChilds(&$doc , &$tag)
+		function renderChilds(&$tag)
 		{
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/Script.php';
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/DOMHeaderInicioSesion.php';
@@ -35,7 +35,7 @@
 				);
 				$cSesion=new DOMLink();
 
-				$logueado->classList->add('MSGLogin');
+				$logueado->addToAttribute('class' , 'MSGLogin');
 
 				$this->appendChild
 				(
@@ -57,7 +57,7 @@
 				new Script('/js/login.js')
 			);
 
-			return parent::renderChilds($doc , $tag);
+			return parent::renderChilds($tag);
 		}
 	}
 ?>

@@ -14,8 +14,10 @@
 				$this->setInnerXML($args[0]);
 			}
 		}
-		public function render()
+		public function renderChilds(&$tag)
 		{
+			parent::renderChilds($tag);
+
 			$hdoc=new DOMDocument();
 			$hdoc->loadHTML('<div id="domtohtml">'.$this->innerXML.'</div>');
 
@@ -24,11 +26,11 @@
 
 			for($i=0;$i<$childsLen;$i++)
 			{
-				$child=$this->domDoc->importNode($childs->item($i) , true);
-				$this->tag->appendChild($child);
+				$this->getTag()->appendChild
+				(
+					$this->getOwnerDocumentOf($this->getTag())->importNode($childs->item($i) , true)
+				);
 			}
-			
-			return $this;
 		}
 		public function setInnerXML($xml)
 		{

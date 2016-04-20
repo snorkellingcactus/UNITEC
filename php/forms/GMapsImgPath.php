@@ -14,7 +14,7 @@
 
 			while(isset($args[0]))
 			{
-				$this->add(array_shift($args));
+				$this->addToAttribute('class' ,array_shift($args));
 			}
 			
 			while(isset($paths[0]) && $paths[0] instanceof GMapsImgMarker)

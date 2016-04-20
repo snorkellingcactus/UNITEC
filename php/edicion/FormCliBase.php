@@ -24,7 +24,7 @@
 
 			
 		}
-		function renderChilds(&$doc , &$tag)
+		function renderChilds(&$tag)
 		{
 			$this->appendChild
 			(
@@ -42,7 +42,7 @@
 				$this->actionUrl
 			);
 
-			return parent::renderChilds($doc , $tag);
+			return parent::renderChilds($tag);
 		}
 	}
 ?>

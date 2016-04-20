@@ -1,7 +1,7 @@
 <?php
-	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/FormCfg.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/FormActions.php';
 
-	class FormCliRecv extends FormCfg
+	class FormCliRecv
 	{
 		public $SQL_Evts;
 		public $afectados;

@@ -11,7 +11,7 @@
 		{
 			parent::__construct();
 
-			$this->classList->add('organigrama');
+			$this->addToAttribute('class' , 'organigrama');
 
 			$this->arbol=new Arbol
 			(
@@ -22,11 +22,11 @@
 		{
 			$this->arbol->solveDeps($sqlArray , 'PadreID' , 'ID' , $parentKey);
 		}
-		function renderChilds(&$doc , &$tag)
+		function renderChilds(&$tag)
 		{
 			$this->arbol->render();
 
-			return parent::renderChilds($doc , $tag);
+			return parent::renderChilds($tag);
 		}
 	}
 ?>

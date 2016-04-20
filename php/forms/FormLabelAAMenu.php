@@ -1,7 +1,7 @@
 <?php
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/BoolBox.php';
 
-	class FormLabelAAlMenu extends BoolBox
+	class FormLabelAAMenu extends BoolBox
 	{
 		function __construct()
 		{

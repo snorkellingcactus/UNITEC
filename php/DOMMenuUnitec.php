@@ -8,7 +8,7 @@
 			parent::__construct();
 		}
 
-		function renderChilds(&$doc , &$tag)
+		function renderChilds(&$tag)
 		{
 			$condVisible='';
 			if(!isset($_SESSION['adminID']))
@@ -112,11 +112,11 @@
 			}
 
 			$logo=new DOMTag('div');
-			$logo->classList->add('hidden-xs');
+			$logo->addToAttribute('class' , 'hidden-xs');
 
 			$link=new DOMLink();
 
-			$link->classList->add('focuseable');
+			$link->addToAttribute('class' , 'focuseable');
 
 			$h2=new DOMTag('h2');
 
@@ -158,7 +158,7 @@
 				)
 			);
 
-			return parent::renderChilds($doc , $tag);
+			return parent::renderChilds($tag);
 		}
 	}
 ?>

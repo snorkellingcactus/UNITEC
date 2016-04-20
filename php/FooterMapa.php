@@ -9,7 +9,7 @@
 			parent::__construct();
 
 			$imgMapa=new DOMTag('img');
-			$imgMapa->classList->add('map-canvas');
+			$imgMapa->addToAttribute('class' , 'map-canvas');
 
 			$this->appendChild
 		    (

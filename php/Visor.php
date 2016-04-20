@@ -48,7 +48,7 @@
 		//números fuera de rango.
 		function selRecN($num)
 		{
-			$this->nRecSel=$this->indexRecN($num);
+			$this->nRecSel=$this->getIndexN($num);
 
 			$this->recSel=& $this->recLst[$this->nRecSel];
 
@@ -60,10 +60,9 @@
 		}
 		private function autoSetRecIDAnt()
 		{
-			if($this->setRecIDAntIfValid($_SESSION))
-			{
+			
 				$this->setRecIDAntIfValid($_GET);
-			}
+			
 
 			$_SESSION['vRecIDAnt']=$this->recSel;
 		}
@@ -88,7 +87,7 @@
 		{
 			return $this->recLst
 			[
-				$this->indexRecN($n)
+				$this->getIndexN($n)
 			];
 		}
 		//Discrimina un objeto imagen segun el resultado de compararla con los valores de $this->disc.

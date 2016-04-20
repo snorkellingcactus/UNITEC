@@ -1,5 +1,6 @@
 <?php
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormSelect.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/FormActions.php';
 
 	class FormCliSecSelect extends FormSelect
 	{
@@ -9,10 +10,10 @@
 
 			$this->setName('Tipo')->addOption
 			(
-				$this->newOption(gettext('Texto') , 'con')
+				$this->newOption(gettext('Texto') , strval(FormActions::FORM_ITEM_TYPE_B))
 			)->addOption
 			(
-				$this->newOption(gettext('Módulo') , 'inc')
+				$this->newOption(gettext('Módulo') , strval(FormActions::FORM_ITEM_TYPE_C))
 			);
 		}
 	}

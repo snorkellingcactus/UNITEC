@@ -4,41 +4,47 @@
 
 	class FormSelect extends FormInputBase
 	{
-		public $options;
+		private $options;
 		public $optionsLen;
-		public $default;
-		public $defaultToMax;
-		public $sizeToMax;
-		public $selectedValue;
+
+		//deberia ser private con la creación de metodos apropiados:
+		public $defaultIndex;
+		public $valueToSelect;
+		
+		private $defaultToMax;
+		private $sizeToMax;
+		
+		private $selectedIndex;
 
 		function __construct()
 		{
-			parent::__construct( 'select');
+			parent::__construct( 'select' );
 
 			$this->options=[];
 			$this->optionsLen=0;
-			$this->default=false;
-			$this->selectedValue=NULL;
+			$this->valueToSelect=NULL;
+			$this->selectedIndex=false;
+			$this->defaultIndex=false;
 			$this->defaultToMax=false;
 			$this->sizeToMax=false;
 		}
 
-		function renderChilds(& $doc , & $tag)
+		function renderChilds(&$tag)
 		{
-			if($this->defaultToMax && $this->default===false)
+			if($this->defaultToMax && $this->defaultIndex===false)
 			{
-				$this->select($this->optionsLen-1);
+				$this->setSelected($this->optionsLen-1);
 			}
 			else
 			{
-				if($this->default===false)
+				if($this->defaultIndex===false)
 				{
-					$this->select(0);
+					$this->setSelected(0);
 				}
 				else
 				{
 					//echo '<pre>Default: ';print_r($this->default);echo '</pre>';
-					$this->select($this->default);
+					$this->setSelected($this->defaultIndex);
 				}
 			}
 			if($this->sizeToMax)
@@ -46,7 +52,7 @@
 				$this->setSize($this->optionsLen);
 			}
 
-			return parent::renderChilds($doc , $tag);
+			return parent::renderChilds($tag);
 		}
 		public function newOption($name , $value)
 		{
@@ -54,7 +60,7 @@
 		}
 		public function mustBeSelected($value)
 		{
-			if($value===$this->selectedValue)
+			if($value===$this->valueToSelect)
 			{
 				return true;
 /*
@@ -69,7 +75,7 @@
 		{
 			if($this->mustBeSelected($value))
 			{
-				$this->default=$this->optionsLen;
+				$this->defaultIndex=$this->optionsLen;
 			}
 		}
 		public function buildOption()
@@ -103,12 +109,14 @@
 		{
 			return $this->setAttribute('size' , $size);
 		}
-		function select($index)
+		function setSelected($index)
 		{
 			if(isset($this->options[$index]))
 			{
 				$this->options[$index]->setSelected();
 			}
+
+			$this->selectedIndex=$index;
 
 			return $this;
 		}
@@ -118,12 +126,39 @@
 
 			return $this;
 		}
+		function getSizeToMax()
+		{
+			return $this->sizeToMax;
+		}
 		function setDefaultToMax()
 		{
-			//echo '<pre>Default To Max</pre>';
 			$this->defaultToMax=true;
 
 			return $this;
+		}
+		function getDefaultValue()
+		{
+			if(!isset($this->options[$this->selectedIndex]))
+			{
+				return $this->valueToSelect;
+			}
+			return $this->options[$this->selectedIndex]->getValue();
+		}
+		function getValue()
+		{
+			return $this->getDefaultValue();
+		}
+		function setDefaultIndex($index)
+		{
+			$this->defaultIndex=$index;
+		}
+		function setValueToSelect($valueToSelect)
+		{
+			$this->valueToSelect=$valueToSelect;
+		}
+		function getValueToSelect()
+		{
+			return $this->valueToSelect;
 		}
 	}
 ?>

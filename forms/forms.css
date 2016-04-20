@@ -10,7 +10,15 @@
 		width:100%;
 	}
 }
-body input ,body select{font-size:1em;height:1.7em;color:black;font-family:monospace;text-align:center}
+body input ,body select{font-size:1em;color:black;font-family:monospace;text-align:center}
+body input ,body select, .indicator-invisible
+{
+	/*
+		Las medidas height y margin deben ser las mismas que
+		las de los input dentro de .acciones
+	*/
+	height:25px;
+}
 
 .fin{margin:50px 0px 50px 0px;border-bottom:2px solid dimgray;}
 
@@ -65,7 +73,7 @@ section:hover .FormCliSec .acciones, section:hover .FormCliSecNew .acciones, .Mo
 {
 	float:right;
 }
-.menu input , .acciones input{max-width:30px;}
+.acciones input, .acciones select, .indicator-invisible{margin:3px;}
 .acciones input{box-shadow:none;background-color:transparent;border-radius:2px;}
 body .acciones input:hover, body .acciones input:focus{background-color:rgba(255,255,255,0.8) !important ;}
 .menu .FormCliSecAddMenu
@@ -96,7 +104,7 @@ button{background-color:silver;font-family:sans-serif;vertical-align:middle;line
 textarea{height:auto}
 
 input[type="radio"]{max-height:1em;}
-input[type="submit"], button{font-family:"Monospace";padding:0px 5px 0px 5px;vertical-align: top;height:1.7em}
+input[type="submit"], button{font-family:"Monospace";vertical-align: top;}
 input , textarea, select,main>.right input[type="submit"], button
 {
 	-moz-transition:background-color 0.5s;
@@ -124,22 +132,21 @@ body main>form.right input{width:100%;text-align:center;padding:0px;margin:0px;f
 main .acciones input.nuevo{background-image:url("/img/10.png")}
 .acciones input.elimina{background-image:url("/img/51.png")}
 .acciones input.edita{background-image:url("/img/39.png")}
-.acciones input.configura{background-image:url("/img/19.png")}
-.acciones input.elimina,.acciones input.edita,.acciones input.configura,main .acciones input.nuevo
+
+.acciones input.elimina,.acciones input.edita ,main .acciones input.nuevo
 {
 	background-color:transparent;
 	background-repeat:no-repeat;
 	background-position:center;
 	color:transparent;
 	max-width: 30px;
-	height: 1.7em;
-	margin:0.05em 3px 0.05em 3px;
+	height: 25px;
 }
 main section .acciones input.nuevo:hover, main section .acciones input.nuevo:focus
 {
 	background-image:url("/img/10.png")
 }
-.acciones input.boton-seccion:hover,.acciones input.boton-seccion:focus, .acciones input.nuevo:hover
+.acciones input:hover, .acciones input:focus, .acciones input.nuevo:hover
 {
 	background-color:linear-gradient(to right bottom, #FFF, #EAEAEA);
 	border:1px solid rgb(144, 144, 144);
@@ -153,10 +160,6 @@ main section .acciones input.nuevo:hover, main section .acciones input.nuevo:foc
 .acciones input.edita:hover,.acciones input.edita:focus
 {
 	background-image:url("/img/39.png")
-}
-.acciones input.configura:hover,.acciones input.configura:focus
-{
-	background-image:url("/img/19.png")
 }
 input[name^="Continuar"], input.volver{width:47%;float:left;margin:25px 0px 25px 0px;}
 input.volver{float:right;}
@@ -461,16 +464,23 @@ li.turn-left::before
 }
 @keyframes inputHover
 {
+	/*
+		La diferencia de margen o de altura en ambos estados
+		debe ser la misma. En este caso, 31-25 o 36-30 = 6.
+
+		Por el momento funciona con errores si el padre del
+		input animado tiene display table o table row.
+	*/
 	from
 	{
-		margin:0em 0px 0em 0px;
-		height:1.8em;
+		margin:0;
+		height:31px;
 		max-width:36px;
 	}
 	to
 	{
-		margin:0.05em 3px 0.05em 3px;
-		height:1.7em;
+		margin:3px;
+		height:25px;
 		max-width: 30px;
 	}
 }

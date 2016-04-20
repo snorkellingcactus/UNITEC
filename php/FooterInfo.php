@@ -51,7 +51,7 @@
 
 			return parent::appendChild($child);
 		}
-		function renderChilds(&$doc , &$tag)
+		function renderChilds(&$tag)
 		{
 			if(!empty($this->facebook))
 			{
@@ -108,7 +108,7 @@
 				);
 			}
 
-			return parent::renderChilds($doc , $tag);
+			return parent::renderChilds($tag);
 		}
 	}
 ?>

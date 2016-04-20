@@ -23,19 +23,7 @@
 				),
 				MYSQLI_NUM
 			);
-/*
-			echo '<pre>getPriorizados: Obteniendo prioridad para el elemento '.$i.': ';
-			print_r
-			(
-				'	SELECT Prioridad , ID
-					FROM Prioridades
-					WHERE GrupoID='.$coleccion[$i]['PrioridadesGrpID'].'
-					AND LabID='.$_SESSION['lab'].'
-					LIMIT 1
-				'
-			);
-			echo '</pre>';
-*/			
+			
 			if(isset($prioridad[0][0]))
 			{
 				$prior=$prioridad[0][0];
@@ -62,7 +50,28 @@
 					$priorizados[$prior]=$coleccion[$i];
 				}
 
+
+
 				++$j;
+			}
+			else
+			{
+				/*
+				if(isset($coleccion[0]['SeccionID']))
+				{
+					echo '<pre>getPriorizados: Obteniendo prioridad para el elemento '.$i.': ';
+					print_r
+					(
+						'	SELECT Prioridad , ID
+							FROM Prioridades
+							WHERE GrupoID='.$coleccion[$i]['PrioridadesGrpID'].'
+							AND LabID='.$_SESSION['lab'].'
+							LIMIT 1
+						'
+					);
+					echo '</pre>';
+				}
+				*/
 			}
 
 			++$i;
@@ -99,8 +108,23 @@
 
 			++$k;
 		}
-
-
+/*
+		if(isset($priorizados[$prioridades[0]] ['SeccionID']))
+		{
+			echo '<pre>Prioridades';
+			print_r
+			(
+				$prioridades
+			);
+			echo '</pre>';
+			echo '<pre>Coleccion';
+			print_r
+			(
+				$coleccion
+			);
+			echo '</pre>';
+		}
+*/
 		return $coleccion;
 	}
 	function reordena($lugar , $sqlObj , $condicion , $discProp, $valProp ,$edita)

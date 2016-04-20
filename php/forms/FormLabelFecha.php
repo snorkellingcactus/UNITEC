@@ -5,7 +5,46 @@
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/ClearFix.php';
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/LabelBoxDate.php';
 
-	class FormLabelFecha extends DOMTag
+	class FormLabelBoxMultiple extends FormLabelBoxBase
+	{
+		public $lBoxList;
+		public $lBoxListLen;
+		public $contenedor;
+
+		function __construct()
+		{
+			parent::__construct();
+
+			$this->lBoxList=array();
+			$this->lBoxListLen=0;
+
+			$this->appendChild
+			(
+				$this->contenedor=new DOMTag('div')
+			);
+
+			$this->contenedor->col	=['xs'=>12	, 'sm'=>12	, 'md'=>12	, 'lg'=>12	];
+		}
+
+		//Revisar efectos secundarios de &
+		function appendLBox($lBox)
+		{
+			//Quizá esto sea tarea del lBox...
+			$lBox->input->addToAttribute
+			(
+				'aria-labelledby' ,
+				$this->label->getIDReference()->getFormatted()
+			);
+
+			$lBox->col=['xs'=>6	, 'sm'=>2	, 'md'=>2	, 'lg'=>2	];
+
+			$this->contenedor->appendChild($lBox);
+
+			return $this;
+		}
+	}
+
+	class FormLabelFecha extends FormLabelBoxMultiple
 	{
 		public $inputDia;
 		public $inputMes;
@@ -17,83 +56,58 @@
 
 		public function __construct()
 		{
-			parent::__construct('div');
-			$this->classList->add('FormLabelBox');
+			parent::__construct();
+
+			$this->setLabelName(gettext('Fecha'));
+			$this->label->setID('fecha');
+
+			//$this->label->addToAttribute('class' , 'left');
 			
-			$this->inputAno=new LabelBoxDate
+			$this->appendLBox
 			(
-				'Ano',
-				'ano',
-				gettext('Ano')
-			);
-			$this->inputMes=new LabelBoxDate
+				$this->inputAno=new LabelBoxDate
+				(
+					'Ano',
+					'ano',
+					gettext('Ano')
+				)
+			)->appendLBox
 			(
-				'Mes',
-				'mes',
-				gettext('Mes')
-			);
-			$this->inputDia=new LabelBoxDate
+				$this->inputMes=new LabelBoxDate
+				(
+					'Mes',
+					'mes',
+					gettext('Mes')
+				)
+			)->appendLBox
 			(
-				'Dia',
-				'dia',
-				gettext('Dia')
-			);
-			$this->inputHora=new LabelBoxDate
+				$this->inputDia=new LabelBoxDate
+				(
+					'Dia',
+					'dia',
+					gettext('Dia')
+				)
+			)->appendLBox
 			(
-				'Horas',
-				'hora',
-				gettext('Hora')
-			);
-			$this->inputMin=new LabelBoxDate
+				$this->inputHora=new LabelBoxDate
+				(
+					'Horas',
+					'hora',
+					gettext('Hora')
+				)
+			)->appendLBox
 			(
-				'Minutos',
-				'min',
-				gettext('Minuto')
+				$this->inputMin=new LabelBoxDate
+				(
+					'Minutos',
+					'min',
+					gettext('Minuto')
+				)
 			);
-			$this->contenedor=new DOMTag('div');
 
-			$this->titulo=new FormLabel(gettext('Fecha'));
-			$this->titulo->setAttribute('id','fecha');
-
-			$this->setAriaForLabels($this->inputAno)
-			->setAriaForLabels($this->inputMes)
-			->setAriaForLabels($this->inputDia)
-			->setAriaForLabels($this->inputHora)
-			->setAriaForLabels($this->inputMin);
-
-
-			$this->titulo->col		=['xs'=>23	, 'sm'=>5	, 'md'=>5	, 'lg'=>5	];
+			$this->col		=['xs'=>23	, 'sm'=>5	, 'md'=>5	, 'lg'=>5	];
 			$this->inputAno->col	=['xs'=>12	, 'sm'=>4	, 'md'=>4	, 'lg'=>4	];
-			$this->contenedor->col	=['xs'=>12	, 'sm'=>12	, 'md'=>12	, 'lg'=>12	];
-			$this->contenedor->classList->add('FormDateCont');
-
-			$this->titulo->classList->add('left');
-
-			$this->appendChild($this->titulo)
-			->appendChild
-			(
-				$this->contenedor->appendChild($this->inputAno)
-				->appendChild($this->inputMes)
-				->appendChild($this->inputDia)
-				->appendChild($this->inputHora)
-				->appendChild($this->inputMin)
-			);
-		}
-		public function setAriaForLabels($input)
-		{
-			//A futuro crear clases que soporten labels mútiples.
-			$input->label->setAttribute
-			(
-				'id',
-				'label'.$input->input->getAttribute('id')
-			);
-			$input->input->setAttribute
-			(
-				'aria-labelledby',
-				$this->titulo->getAttribute('id').' '.$input->label->getAttribute('id')
-			);
-
-			return $this;
+			$this->contenedor->addToAttribute('class' , 'FormDateCont');//ainer
 		}
 	}
 ?>

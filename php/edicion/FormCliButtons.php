@@ -7,7 +7,7 @@
 		{
 			parent::__construct('p');
 			
-			$this->classList->add('acciones');
+			$this->addToAttribute('class' , 'acciones');
 		}
 	}
 ?>

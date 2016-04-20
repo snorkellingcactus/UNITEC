@@ -39,7 +39,7 @@
 
 			return $this;
 		}
-		function renderChilds(&$doc , &$tag)
+		function renderChilds(&$tag)
 		{
 			if($this->role!==false)
 			{
@@ -54,7 +54,7 @@
 				$this->setAttribute('aria-hidden' , $this->hidden);
 			}
 
-			return parent::renderChilds($doc , $tag);
+			return parent::renderChilds($tag);
 		}
 	}
 ?>
