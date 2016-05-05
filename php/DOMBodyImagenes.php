@@ -50,7 +50,13 @@
 			{
 				$imgAct=& $recLst[$i];
 				
-				$visorHTML->addToAttribute('class' ,$imgAct['ID'] , $imgAct['AltID'] , $imgAct['TituloID'] , $imgAct['Fecha']);
+				$visorHTML->add
+				(
+					$imgAct['ID'] ,
+					$imgAct['AltID'] ,
+					$imgAct['TituloID'] ,
+					$imgAct['Fecha']
+				);
 				
 				++$i;
 			}

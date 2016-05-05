@@ -9,14 +9,14 @@
 			$this->attrLst=[];
 			$this->count=0;
 		}
-		function add($name)
+		function add(&$name)
 		{
 			if(array_key_exists($name, $this->attrLst))
 			{
 				return;
 			}
 
-			$this->attrLst[$this->count]=$name;
+			$this->attrLst[$this->count]=&$name;
 
 			++$this->count;
 
@@ -44,6 +44,7 @@
 			{
 				return false;
 			}
+
 			return implode(' ' , $this->attrLst);
 		}
 		function set($value)

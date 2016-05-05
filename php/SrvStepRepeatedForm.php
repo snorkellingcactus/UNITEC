@@ -39,6 +39,9 @@
 		{
 			//Returns LabelsCollection
 			return parent::makeLabels()->setIndex($this->contador);
+
+			echo '<pre>SetIndex( '.$this->contador.' )';
+			echo '</pre>';
 		}
 		public function thisIsLast()
 		{

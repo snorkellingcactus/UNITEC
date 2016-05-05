@@ -1,6 +1,5 @@
 <?php
-	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/Requirer.php';
-
+/*
 	class ExeptionsUtil
 	{
 		public function ErrorHandler($name)
@@ -20,59 +19,13 @@
 			}
 		}
 	}
-	class Formatter_Attr_ID
-	{
-		private $suffix;
-		private $preffix;
+*/
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/Requirer.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/interfaces/Indexable.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/Formatter_Attr_ID.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/Formatter_Attr_Name.php';
 
-		function __construct(&$suffix)
-		{
-			$this->setPreffix(false);
-			$this->setSuffix($suffix);
-		}
-		public function hasSetted()
-		{
-			return $this->preffix!==false;
-		}
-		public function getFormatted()
-		{
-			if($this->hasSetted())
-			{
-				return $this->getPreffix().$this->getFormattedSuffix();
-			}
-		}
-		public function setPreffix($preffix)
-		{
-			$this->preffix=$preffix;
-
-			return $this;
-		}
-		public function setSuffix(&$suffix)
-		{
-			$this->suffix=$suffix;
-		}
-		public function getPreffix()
-		{
-			return $this->preffix;
-		}
-		public function getSuffix()
-		{
-			return $this->suffix;
-		}
-		public function getFormattedSuffix()
-		{
-			return $this->getSuffix();
-		}
-	}
-	class Formatter_Attr_Name extends Formatter_Attr_ID
-	{
-		public function getFormattedSuffix()
-		{
-			return '['.parent::getFormattedSuffix().']';
-		}
-	}
-
-	class FormMultipleElement extends Requirer
+	class FormMultipleElement extends Requirer implements Indexable
 	{
 		public $name;
 		public $id;
@@ -121,16 +74,20 @@
 		{
 			return $this->id->getPreffix();
 		}
-		public function &getIDReference()
+		public function getIDReference()
 		{
 			return $this->id;
 		}
-		public function setIndex($index)
+		public function setIndex(&$index)
 		{
-			$this->index=$index;
+			$this->index=&$index;
 
 			$this->id->setSuffix($index);
 			$this->name->setSuffix($index);
+		}
+		public function &getIndex()
+		{
+			return $this->index;
 		}
 		public function renderChilds(&$tag)
 		{

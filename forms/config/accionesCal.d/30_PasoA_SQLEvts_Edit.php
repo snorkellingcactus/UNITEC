@@ -25,7 +25,6 @@
 			$session=new FormSession();
 			$session->autoloadLabels();
 
-			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/conexion.php';
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/Evento.php';
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/Traduccion.php';
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/updTraduccion.php';
@@ -33,7 +32,7 @@
 			$evento=new Evento();
 
 			$iMax=$_SESSION['cantidad'];
-			$afectados=[];
+			//$afectados=[];
 
 			for($i=0;$i<$iMax;$i++)
 			{

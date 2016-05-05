@@ -5,11 +5,14 @@
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/ClearFix.php';
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/LabelBoxDate.php';
 
-	class FormLabelBoxMultiple extends FormLabelBoxBase
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/interfaces/Indexable.php';
+
+	class FormLabelBoxMultiple extends FormLabelBoxBase implements Indexable
 	{
 		public $lBoxList;
 		public $lBoxListLen;
-		public $contenedor;
+		//public $contenedor;
+		private $index;
 
 		function __construct()
 		{
@@ -17,20 +20,20 @@
 
 			$this->lBoxList=array();
 			$this->lBoxListLen=0;
-
+/*
 			$this->appendChild
 			(
 				$this->contenedor=new DOMTag('div')
 			);
-
-			$this->contenedor->col	=['xs'=>12	, 'sm'=>12	, 'md'=>12	, 'lg'=>12	];
+*/
+			//$this->contenedor->col	=['xs'=>12	, 'sm'=>12	, 'md'=>12	, 'lg'=>12	];
 		}
 
 		//Revisar efectos secundarios de &
 		function appendLBox($lBox)
 		{
 			//Quizá esto sea tarea del lBox...
-			$lBox->input->addToAttribute
+			$lBox->input->addReferenceToAttr
 			(
 				'aria-labelledby' ,
 				$this->label->getIDReference()->getFormatted()
@@ -38,9 +41,25 @@
 
 			$lBox->col=['xs'=>6	, 'sm'=>2	, 'md'=>2	, 'lg'=>2	];
 
-			$this->contenedor->appendChild($lBox);
-
+			//$this->contenedor->appendChild($lBox);
+			$this->appendChild($lBox);
 			return $this;
+		}
+		function renderChild($child)
+		{
+			if($child instanceof Indexable)
+			{
+				$child->setIndex
+				(
+					$this->index
+				);
+			}
+
+			return parent::renderChild($child);
+		}
+		public function setIndex(&$index)
+		{
+			$this->index=&$index;
 		}
 	}
 
@@ -51,7 +70,7 @@
 		public $inputAno;
 		public $inputHora;
 		public $inputMin;
-		public $contenedor;
+		//public $contenedor;
 		public $titulo;
 
 		public function __construct()
@@ -107,7 +126,7 @@
 
 			$this->col		=['xs'=>23	, 'sm'=>5	, 'md'=>5	, 'lg'=>5	];
 			$this->inputAno->col	=['xs'=>12	, 'sm'=>4	, 'md'=>4	, 'lg'=>4	];
-			$this->contenedor->addToAttribute('class' , 'FormDateCont');//ainer
+			//$this->contenedor->addToAttribute('class' , 'FormDateCont');//ainer
 		}
 	}
 ?>

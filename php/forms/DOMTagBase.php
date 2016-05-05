@@ -43,12 +43,21 @@
 		}
 		public function renderChilds(&$tag)
 		{
+			echo '<pre>DOMTagBase '.get_class($this).'::renderChilds(&'.get_class($tag).')';
+
 			parent::renderChilds($tag);
 
 			if($this->tagName!==false)
 			{
+				
+				echo '<pre>Appending this to parent:';
+
 				$this->parent->DOMAppendChild($this);
+
+				echo '</pre>';
 			}
+
+			echo '</pre>';
 		}
 		public function setTagName($tagName)
 		{
@@ -77,10 +86,6 @@
 		{
 			foreach($this->attrList as $attr=>$value)
 			{
-/*
-				echo '<pre>Attribute Name '.$attr;
-				echo '</pre>';
-*/
 
 				if($value instanceof DOMClassList)
 				{
@@ -148,7 +153,20 @@
 
 			if(!isset($this->attrList[$attrName]))
 			{
-				$this->attrList[$attrName]=new DOMClassList($attrName);
+				$this->attrList[$attrName]=new DOMClassList();
+			}
+
+			$this->attrList[$attrName]->add($attrValue);
+
+			return $this;
+		}
+		public function addReferenceToAttr($attrName , &$attrValue)
+		{
+			$this->attrSetFilter($attrValue);
+
+			if(!isset($this->attrList[$attrName]))
+			{
+				$this->attrList[$attrName]=new DOMClassList();
 			}
 
 			$this->attrList[$attrName]->add($attrValue);

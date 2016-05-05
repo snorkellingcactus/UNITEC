@@ -16,6 +16,8 @@
 		}
 		public function DOMAppendChild($tag)
 		{
+			echo '<pre>'.$this->tag->nodeName.'::appendChild('.$tag->getTag()->nodeName.')';
+			echo '</pre>';
 			$this->tag->appendChild($tag->getTag());
 		}
 	}
@@ -24,6 +26,8 @@
 		public $hijos;
 		public $hijosLen;
 		public $delegatedParent;
+		public $delegateRender;
+		public $delegateAppend;
 
 		public function __construct()
 		{
@@ -32,7 +36,9 @@
 			$this->hijos=[];
 			$this->hijosLen=0;
 			$this->delegatedParent=false;
-			$this->delegate=true;
+
+			$this->delegateRender=false;
+			$this->delegateAppend=true;
 		}
 		public function appendChild($tagObject)
 		{
@@ -44,24 +50,48 @@
 		}
 		public function DOMAppendChild($child)
 		{
-			if($this->delegatedParent===false)
+			echo '<pre>'.get_class($this).'::DOMAppendChild('.get_class($child).')';
+			
+
+			if(!$this->delegatedParent===false && $this->delegateAppend)
 			{
-				parent::DOMAppendChild($child);
+
+				echo '<pre>Delegate to '.
+				get_class($this->delegatedParent).
+				'::DOMAppendChild('.get_class($child).')';
+				
+
+				$this->delegatedParent->DOMAppendChild($child);
+
+				echo '</pre>';
 			}
 			else
 			{
-				$this->delegatedParent->DOMAppendChild($child);
+				parent::DOMAppendChild($child);
 			}
+
+			echo '</pre>';
 		}
 		public function renderChild(&$child)
 		{
-			$child->renderChilds
-			(
-				$this
-			);
+			if(!$this->delegatedParent===false && $this->delegateRender)
+			{
+				$child->renderChilds
+				(
+					$this->delegatedParent
+				);
+			}
+			else
+			{
+				$child->renderChilds
+				(
+					$this
+				);
+			}
 		}
 		public function renderChilds(&$tag)
 		{
+			echo '<pre>DOMTagContainer '.get_class($this).'::renderChilds(&'.get_class($tag).')';
 			$this->setTag($tag);
 
 			$childs=$this->hijos;
@@ -69,8 +99,13 @@
 
 			for($i=0;$i<$childsLen;$i++)
 			{
+				echo '<pre>Initialize rendering of '.get_class($this).' child '.$i;echo '</pre>';
 				$this->renderChild($childs[$i]);
+
+				echo '<pre>Finalize   rendering of '.get_class($this).' child '.$i;echo '</pre>';
 			}
+
+			echo '</pre>';
 
 			return $this;
 		}
@@ -96,10 +131,11 @@
 		}
 		public function setTag($tagObject)
 		{
-			if($this->delegate)
+			if($this->delegateRender || $this->delegateAppend)
 			{
 				$this->delegatedParent=$tagObject;
 			}
+
 			$this->tag=$tagObject->getTag();
 		}
 	}

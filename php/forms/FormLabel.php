@@ -17,6 +17,8 @@
 		public function setInput($input)
 		{
 			$this->input=$input;
+
+			$this->setIndex($this->input->getIndex());
 		}
 
 		function renderChilds(&$tag)
@@ -27,7 +29,7 @@
 				$this->input->getIDReference()->getFormatted()
 			);
 
-			$this->input->addToAttribute
+			$this->input->addReferenceToAttr
 			(
 				'aria-labelledby' ,
 				$this->getIDReference()->getFormatted()

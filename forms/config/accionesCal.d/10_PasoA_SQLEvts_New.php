@@ -36,7 +36,6 @@
 			$contentID=FormActions::getContentID()[0];
 
 			$session=new FormSession();
-			$session->autoloadLabels();
 
 			//$afectados=[];
 
@@ -46,6 +45,9 @@
 				//$grupo=$con->query('select ifnull(max(Grupo),0) as Grupo from Contenido');
 				
 				//$grupo=fetch_all($grupo , MYSQLI_ASSOC)[0]['Grupo']+1;
+
+				$session->autoloadLabels();
+				$session->loadLabels('Horas' , 'Minutos' , 'Mes' , 'Dia' , 'Ano');
 
 				$fecha=date
 				(
@@ -110,7 +112,15 @@
 				}
 
 				++$i;
-			}	
+
+				echo '<pre>$session->setIDSuffix( '.$i.' ) !==false :';
+				var_dump
+				(
+					$session->setIDSuffix( $i ) !==false
+				);
+				echo '</pre>';
+				$session->setIDSuffix( $i ) !==false;
+			}
 
 		}
 		//$this->router->gotoOrigin();

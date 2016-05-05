@@ -1,7 +1,8 @@
 <?php
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormLabelBoxBase.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/interfaces/Indexable.php';
 	
-	class FormLabelBox extends FormLabelBoxBase
+	class FormLabelBox extends FormLabelBoxBase implements Indexable
 	{
 		public $input;
 		public $inputID;
@@ -38,6 +39,11 @@
 			(
 				$this->input=$input
 			);
+		}
+		function setIndex(&$index)
+		{
+			$this->input->setIndex($index);
+			$this->label->setIndex($index);
 		}
 		function newLabel()
 		{
