@@ -1,7 +1,8 @@
 <?php
 function setLang($langName , $domain)
 {
-/*	
+	$langName=$langName.'.UTF-8';
+	
 	echo '<pre>langName:';
 	print_r
 	(
@@ -14,7 +15,7 @@ function setLang($langName , $domain)
 		$domain
 	);
 	echo '</pre>';
-*/
+
 	//A futuro averiguar más variables de entorno.
 	putenv('LANG='.$langName);
 	setlocale(LC_ALL,$langName);
