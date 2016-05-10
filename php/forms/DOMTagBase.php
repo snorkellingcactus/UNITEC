@@ -43,21 +43,20 @@
 		}
 		public function renderChilds(&$tag)
 		{
-			echo '<pre>DOMTagBase '.get_class($this).'::renderChilds(&'.get_class($tag).')';
+			//echo '<pre>DOMTagBase '.get_class($this).'::renderChilds(&'.get_class($tag).')';
 
 			parent::renderChilds($tag);
 
 			if($this->tagName!==false)
 			{
-				
-				echo '<pre>Appending this to parent:';
+				//echo '<pre>Appending this to parent:';
 
 				$this->parent->DOMAppendChild($this);
 
-				echo '</pre>';
+				//echo '</pre>';
 			}
 
-			echo '</pre>';
+			//echo '</pre>';
 		}
 		public function setTagName($tagName)
 		{

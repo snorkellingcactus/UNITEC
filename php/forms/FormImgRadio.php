@@ -1,7 +1,10 @@
 <?php
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/DOMGalImg.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/interfaces/Indexable.php';
 
-	class FormImgRadio extends DOMGalImg
+	//Revisar . implements FormRadio
+	
+	class FormImgRadio extends DOMGalImg implements Indexable
 	{
 		public $input;
 
@@ -15,6 +18,8 @@
 			(
 				$this->input=new FormRadio($name , $value)
 			);
+
+			$this->addToAttribute('role' , 'radio');
 		}
 		function setSelected()
 		{
@@ -23,6 +28,10 @@
 		function getValue()
 		{
 			return $this->input->getValue();
+		}
+		function setIndex(&$index)
+		{
+			$this->input->setIndex($index);
 		}
 	}
 ?>

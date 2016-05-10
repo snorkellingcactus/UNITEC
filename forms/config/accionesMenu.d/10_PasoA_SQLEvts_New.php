@@ -92,6 +92,7 @@
 				);
 			}
 
+			$router->gotoOrigin();
 			//$this->router->gotoOrigin();
 
 			//$afectados[$i]=$nMenu->ContenidoID;

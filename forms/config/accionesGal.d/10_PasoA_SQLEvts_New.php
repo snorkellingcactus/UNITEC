@@ -2,9 +2,9 @@
 	//include_once $_SERVER['DOCUMENT_ROOT'] . '/php/FormCliRecv.php';
 	//include_once $_SERVER['DOCUMENT_ROOT'] . '/php/SQL_Evts_Secciones.php';
 
-	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/SrvStepImgUploadBase.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/SrvStepGalBase.php';
 
-	class PasoA_SQLEvts_New extends SrvStepImgUploadBase
+	class PasoA_SQLEvts_New extends SrvStepGalBase
 	{
 		function setRouter(SrvStepRouter &$router)
 		{
@@ -21,26 +21,6 @@
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/conexion.php';
 			global $con;
 
-			echo '<pre>$_SESSION:';
-			print_r
-			(
-				$_SESSION
-			);
-			echo '</pre>';
-
-			echo '<pre>$_POST:';
-			print_r
-			(
-				$_POST
-			);
-			echo '</pre>';
-			echo '<pre>$_FILES:';
-			print_r
-			(
-				$_FILES
-			);
-			echo '</pre>';
-
 			$contentID=FormActions::getContentID()[0];
 
 			$session=new FormSession();
@@ -50,8 +30,6 @@
 			$i=0;
 			while( $session->setIDSuffix( $i ) !== false )
 			{
-				echo '<pre>Processing request '.$i;
-				echo '</pre>';
 				$session->autoloadLabels();
 				$session->loadLabel( 'Url' );
 
@@ -139,6 +117,8 @@
 
 				++$i;
 			}
+
+			$router->gotoOrigin();
 		}
 		//$this->router->gotoOrigin();
 

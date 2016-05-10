@@ -9,9 +9,9 @@
 		private $padreIDStr;
 		public $con;
 
-		function __construct()
+		function __construct(&$index)
 		{
-			parent::__construct(0);
+			parent::__construct($index);
 
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/conexion.php';
 			global $con;

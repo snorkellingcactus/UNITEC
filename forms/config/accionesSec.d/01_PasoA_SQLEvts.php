@@ -165,11 +165,7 @@
 					'ID'=>$nSec->ID
 				]
 			);
-/*
-			echo '<pre>nSec:';
-			print_r($nSec);
-			echo '</pre>';
-*/
+			
 			//Revisar. Seguridad.
 
 			if($session->hasLabel('Tags'))
@@ -220,15 +216,6 @@
 					$nSec->HTMLID
 				);
 
-				echo '<pre>';
-				print_r
-				(
-					'	SELECT ContenidoID
-						FROM Menu
-						WHERE SeccionID="'.$nSec->HTMLID.'"'
-				);
-				echo '</pre>';
-
 
 
 				$mContentID=fetch_all
@@ -269,8 +256,6 @@
 				}
 				else
 				{
-
-					echo '<pre>Edit'.'</pre>';
 					//Revisar . Realizar mediante FormActions.
 					$_SESSION['conID']=[$mContentID[0][0]];
 
@@ -282,14 +267,10 @@
 
 				$router->redirectToStepName('00_PasoA.class.php');
 			}
+
+			$router->gotoOrigin();
 		}
 	}
-
-	echo '<pre>$_SESSION:';
-	print_r($_SESSION);
-	echo '</pre>';
-
-	//$this->router->gotoOrigin();
 	//$formLab=new FormCliRecv('Sec');
 	//$formLab->SQL_Evts=new SQL_Evts_Secciones();
 	//$formLab->checks();

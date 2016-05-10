@@ -46,15 +46,15 @@
 		start_session_if_not();
 
 		$i=0;
-		$j=0;
 
 		while(isset($args[$i]))
 		{
 			$name=$args[$i];
 			if(isset($_SESSION[$name]))
 			{
+				//echo '<pre>$_SESSION['.$name.'] exists';echo '</pre>';
+
 				$toSave[$i]=$_SESSION[$name];
-				++$j;
 			}
 
 			++$i;
@@ -63,9 +63,14 @@
 		session_destroy();
 		start_session_if_not();
 
-		for($i=0;$i<$j;++$i)
+		for($j=0;$j<$i;++$j)
 		{
-			$_SESSION[$args[$i]]=$toSave[$i];
+			if(isset($toSave[$j]))
+			{
+				//echo '<pre>$_SESSION['.$args[$j].'] = '.$toSave[$j];echo '</pre>';
+
+				$_SESSION[$args[$j]]=$toSave[$j];
+			}
 		}
 	}
 ?>

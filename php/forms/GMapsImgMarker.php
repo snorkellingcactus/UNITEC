@@ -21,10 +21,10 @@
 
 			while(isset($args[0]))
 			{
-				$this->addToAttribute('class' ,array_shift($args));
+				$this->add(array_shift($args));
 			}
 			
-			$this->addToAttribute('class' ,$coords);
+			$this->add($coords);
 
 			$this->coords=$coords;
 		}

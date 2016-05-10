@@ -8,14 +8,11 @@
 	{
 		function setRouter(SrvStepRouter &$router)
 		{
-			echo '<pre>$_SESSION:';
-			print_r($_SESSION);
-			echo '</pre>';
 			parent::setRouter($router);
 
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/FormActions.php';
 
-			$contentID=FormActions::getContentID()[0];
+			$contentID=FormActions::getContentID();
 
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/FormSession.php';
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/conexion.php';
@@ -31,23 +28,34 @@
 
 			$evento=new Evento();
 
-			$iMax=$_SESSION['cantidad'];
-			//$afectados=[];
-
-			for($i=0;$i<$iMax;$i++)
+			$i=0;
+			while( $session->setIDSuffix( $i ) )
 			{
-				$evento->getSQL(['DescripcionID'=>$_SESSION['conID'][$i]]);
+				$contentIDAct=each($contentID)['value'];
+				$session->autoloadLabels();
+				$session->loadLabels( 'Ano' , 'Mes' , 'Dia' , 'Horas' , 'Minutos' );
+
+				$evento->getSQL
+				(
+					[
+						'DescripcionID'=>$contentIDAct
+					]
+				);
 				$evento->getAsoc
 				(
 					[
-						'Tiempo'=>$_POST['Ano'][$i].'-'.$_POST['Mes'][$i].'-'.$_POST['Dia'][$i].' '.$_POST['Horas'][$i].':'.$_POST['Minutos'][$i],
-						'Visible'=>$_POST['Visible'][$i],
-						'Prioridad'=>$_POST['Prioridad'][$i]
+						'Tiempo'	=>	$session->getLabel('Ano').'-'.
+										$session->getLabel('Mes').'-'.
+										$session->getLabel('Dia').' '.
+										$session->getLabel('Horas').':'.
+										$session->getLabel('Minutos'),
+						'Visible'	=>	$session->getLabel('Visible'),
+						'Prioridad'	=>	$session->getLabel('Prioridad')
 					]
 				);
 
-				updTraduccion($_POST['Descripcion'][$i] , $_SESSION['conID'][$i] , $_SESSION['lang']);
-				updTraduccion($_POST['Titulo'][$i] , $evento->NombreID , $_SESSION['lang']);
+				updTraduccion( $session->getLabel('Descripcion'),	$contentIDAct		, $_SESSION['lang']	);
+				updTraduccion( $session->getLabel('Titulo')		,	$evento->NombreID	, $_SESSION['lang']	);
 
 				//echo '<pre>A insertar: ';print_r($evento);echo '</pre>';
 
@@ -55,24 +63,25 @@
 				(
 					false,
 					[
-						'DescripcionID'=>$_SESSION['conID'][$i]
+						'DescripcionID'=>$contentIDAct
 					]
 				);
 
-				if(!empty($_POST['Tags'][$i]))
+				if(!$session->emptyTrimLabel('Tags'))
 				{
-					$evento->updTagsTargets($_POST['Tags'][$i]);
+					$evento->updTagsTargets
+					(
+						$session->getLabel('Tags')
+					);
 				}
 
-				$afectados[$i]=$_SESSION['conID'][$i];
+				++$i;
 			}
-			return $afectados;
+			//return $afectados;
 
 			//$afectados[$i]=$conIdAct;
 			
-			//return $afectados;
-
-			//$this->router->gotoOrigin();
+			$router->gotoOrigin();
 		}
 	}
 ?>

@@ -5,9 +5,9 @@
 	{
 		public $contenido;
 
-		function __construct()
+		function __construct(&$index)
 		{
-			parent::__construct();
+			parent::__construct($index);
 
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormLabelContenido.php';
 

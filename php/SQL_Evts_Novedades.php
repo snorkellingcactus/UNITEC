@@ -65,8 +65,9 @@
 
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/Foranea.php';
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/Novedad.php';
-			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/nTraduccion.php';
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/nTag.php';
+			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/nTraduccion.php';
+			
 
 			$iMax=$_SESSION['cantidad'];
 			$afectados=[];

@@ -35,14 +35,6 @@
 
 			parent::__construct();
 		}
-		public function makeLabels()
-		{
-			//Returns LabelsCollection
-			return parent::makeLabels()->setIndex($this->contador);
-
-			echo '<pre>SetIndex( '.$this->contador.' )';
-			echo '</pre>';
-		}
 		public function thisIsLast()
 		{
 			if($this->contador===$this->cantidad-1)

@@ -3,11 +3,11 @@
 
 	class SrvFormSecEdit extends SrvFormSecEditBase
 	{
-		function newLabelsCollection()
+		function newLabelsCollection(&$index)
 		{
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/LabelsSec.php';
 			
-			return new LabelsSec();
+			return new LabelsSec($index);
 		}
 		function autocomplete()
 		{

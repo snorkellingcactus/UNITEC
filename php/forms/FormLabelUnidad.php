@@ -1,32 +1,19 @@
 <?php
-	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormSelectLabel.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/LabelBox.php';
 
-	class FormLabelUnidad extends FormSelectLabel
+	class FormLabelUnidad extends LabelBox
 	{
 		function __construct()
 		{	
+			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormSelectUnidad.php';
+			
 			parent::__construct
 			(
 				
 				'Unidad',
 				'unidad',
-				gettext('Medir en')
-			);
-
-			$this->input->addOption
-			(
-				$this->input->buildOption
-				(
-					gettext('Metros'),
-					'METRIC'
-				)->setSelected()
-			)->addOption
-			(
-				$this->input->buildOption
-				(
-					gettext('Imperial'),
-					'IMPERIAL'
-				)
+				gettext('Medir en'),
+				new FormSelectUnidad()
 			);
 		}
 	}

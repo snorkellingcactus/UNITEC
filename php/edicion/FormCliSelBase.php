@@ -6,6 +6,8 @@
 
 	class FormCliSelBase extends FormCliAdmBase
 	{
+		private $checkBoxCount;
+
 		function __construct($formDirName)
 		{
 			parent::__construct($formDirName);
@@ -25,11 +27,15 @@
 			(
 				new FormCliDelBase(FormActions::FORM_ITEM_TYPE_A)
 			);
+
+			$this->checkBoxCount=0;
 		}
 		function buildActionCheckBox($num)
 		{
 			$checkBox=new FormCheckBox('conID' , $num);
-			$checkBox->setAttribute('form' , $this->formId)->addToAttribute('class' , 'semitrans');
+			$checkBox->setIndex($this->checkBoxCount)->setAttribute('form' , $this->formId)->addToAttribute('class' , 'semitrans');
+
+			++$this->checkBoxCount;
 
 			return $checkBox;
 		}

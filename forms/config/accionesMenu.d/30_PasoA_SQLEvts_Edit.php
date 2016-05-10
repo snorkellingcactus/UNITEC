@@ -8,9 +8,6 @@
 	{
 		function setRouter(SrvStepRouter &$router)
 		{
-			echo '<pre>$_SESSION:';
-			print_r($_SESSION);
-			echo '</pre>';
 			parent::setRouter($router);
 
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/FormActions.php';
@@ -95,7 +92,7 @@
 			
 			//return $afectados;
 
-			//$this->router->gotoOrigin();
+			$router->gotoOrigin();
 		}
 	}
 ?>

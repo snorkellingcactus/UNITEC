@@ -10,6 +10,8 @@
 
 		public function __construct()
 		{
+			//echo '<pre>new '.get_class($this).'</pre>';
+
 			$this->data=array();
 
 			if(isset($_SESSION['form']))
@@ -44,9 +46,21 @@
 
 		public function setIDSuffix($idSuffix)
 		{
-			//$this->saveToSession();
+			//echo '<pre>'.get_class($this).'::setIDSuffix('.$idSuffix.')';echo '</pre>';
+
+			if($idSuffix !== $this->idSuffix)
+			{
+				//echo '<pre>'.get_class($this).' Different from previous. Saving data:';print_r($this->data);echo '</pre>';
+
+				$this->save();
+
+				unset($this->data);
+
+				$this->data=array();
+			}
 
 			$this->idSuffix=$idSuffix;
+
 
 			//Revisar. Posible automatizacion: Si falla al cargar la sesion, que la guarde.
 			return $this->load();
@@ -77,26 +91,32 @@
 		}
 		public function load()
 		{
+			//echo '<pre>Trying to load $_SESSION['.$this->formName.']['.$this->idSuffix.']'."\n";echo '</pre>';
 			if(empty($_SESSION[$this->formName][$this->idSuffix]))
 			{
+				//echo '<pre>$_SESSION['.$this->formName.']['.$this->idSuffix.'] wont exists</pre>';
 				return false;
 			}
 
 			$this->data=&$_SESSION[$this->formName][$this->idSuffix];
+
+			//echo '<pre>Loaded data:';print_r($this->data);echo '</pre>';
 
 			return $this;
 			
 		}
 		public function tryLoadLabel($methodVar , $labelName)
 		{
-			if(isset($methodVar[$labelName]))
+//			echo '<pre>';print_r('Trying to load '.$labelName.'['.$this->idSuffix.']');echo '</pre>';
+			if(isset($methodVar[$labelName][$this->idSuffix]))
 			{
 				$this->data[$labelName]=$methodVar[$labelName][$this->idSuffix];
 
-				//echo '<pre>Loaded '.$this->data[$labelName];echo '</pre>';
+//				echo '<pre>Loaded '.$labelName.'['.$this->idSuffix.'] = '.$this->data[$labelName];echo '</pre>';
 
 				return true;
 			}
+//			echo '<pre>Not loaded</pre>';
 
 			return false;
 		}
@@ -125,9 +145,9 @@
 
 			while(isset($args[$i]))
 			{
-				++$i;
-
 				$this->loadLabel($args[$i]);
+
+				++$i;
 			}
 		}
 		public function autoloadLabels()
@@ -142,6 +162,21 @@
 		{
 			return isset($this->data[$name]);
 		}
+		public function emptyTrimLabel($name)
+		{
+			if( $this->hasLabel($name) )
+			{
+				return empty
+				(
+					trim
+					(
+						$this->getLabel($name)
+					)
+				);
+			}
+
+			return true;
+		}
 		public function getLabel($name)
 		{
 /*
@@ -153,6 +188,7 @@
 
 			echo '<pre>'.'$_SESSION['.$this->formName.']['.$this->idSuffix.']['.$name.']? = '.$debug.'</pre>';
 */
+
 			return $this->data[$name];
 		}
 		public function setLabel($name , $value)

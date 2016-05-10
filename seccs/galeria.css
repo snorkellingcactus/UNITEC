@@ -6,7 +6,8 @@
 .gImg img
 {
 	border-radius:3px;
-	max-width:100%;
+	/*max-width:100%;*/
+	max-width:85%;
 	overflow: auto;
 	margin: auto;
 	position: absolute;

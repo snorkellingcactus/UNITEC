@@ -43,8 +43,7 @@
 			{
 				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/SrvFormSecEdit.php';
 				$labels=new SrvFormSecEdit();
-
-				echo '<pre>Edit TypeA</pre>';
+				$operacionStr=gettext( 'Editar Sección' );
 			}
 			if
 			(
@@ -58,8 +57,7 @@
 			{
 				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/SrvFormSecConEdit.php';
 				$labels=new SrvFormSecConEdit();
-
-				echo '<pre>Edit TypeB</pre>';
+				$operacionStr=gettext( 'Editar Contenido' );
 			}
 			if
 			(
@@ -73,8 +71,7 @@
 			{
 				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/SrvFormSecIncEdit.php';
 				$labels=new SrvFormSecIncEdit();
-
-				echo '<pre>Edit TypeC</pre>';
+				$operacionStr=gettext( 'Ajustar Módulo' );
 			}
 			if
 			(
@@ -88,8 +85,7 @@
 			{
 				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/SrvFormSecNew.php';
 				$labels=new SrvFormSecNew();
-
-				echo '<pre>New TypeA</pre>';
+				$operacionStr=gettext( 'Nueva Sección' );
 			}
 			if
 			(
@@ -117,8 +113,7 @@
 				{
 					include_once $_SERVER['DOCUMENT_ROOT'] . '/php/SrvFormSecConNew.php';
 					$labels=new SrvFormSecConNew();
-
-					echo '<pre>New TypeB</pre>';
+					$operacionStr=gettext( 'Insertar Contenido' );
 				}
 
 				if
@@ -132,8 +127,7 @@
 				{
 					include_once $_SERVER['DOCUMENT_ROOT'] . '/php/SrvFormSecIncNew.php';
 					$labels=new SrvFormSecIncNew();
-
-					echo '<pre>New TypeC</pre>';					
+					$operacionStr=gettext( 'Insertar Módulo' );
 				}
 
 			}
@@ -155,25 +149,13 @@
 				
 			if($labels!==false)
 			{
-				$body->appendChild($labels);
+				$body->appendChild
+				(
+					new DOMTag( 'h1' , $operacionStr )
+				)->appendChild($labels);
 			}
 
 			echo $html->getHTML();
-		}
-		function __construct()
-		{
-			echo '<pre>$_SESSION:';
-			htmlentities
-			(
-				print_r($_SESSION)
-			);
-			echo '</pre>';
-			echo '<pre>$_POST:';
-			htmlentities
-			(
-				print_r($_POST)
-			);
-			echo '</pre>';
 		}
 	}
 ?>

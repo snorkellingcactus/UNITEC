@@ -12,9 +12,11 @@
 		}
 		function makeLabels()
 		{
+			$index=0;
+
 			$this->appendChild
 			(
-				$labels=parent::makeLabels()
+				$labels=parent::makeLabels($index)
 			);
 		}
 	}

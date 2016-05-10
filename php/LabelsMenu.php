@@ -11,9 +11,9 @@
 
 		//public $con;
 
-		function __construct()
+		function __construct(&$index)
 		{
-			parent::__construct(0);
+			parent::__construct($index);
 
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/conexion.php';
 			global $con;
@@ -44,7 +44,7 @@
 				$this->tags=new FormLabelTags()
 			);
 
-			$this->visible->input->setValueToSelect(1);
+			$this->visible->input->controller->setValueToSelect(1);
 
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/reordena.php';
 			$lleno=getPriorizados

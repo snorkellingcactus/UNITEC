@@ -3,9 +3,9 @@
 
 	class LabelsCalNew extends LabelsCalBase
 	{
-		function __construct()
+		function __construct(&$index)
 		{
-			parent::__construct();
+			parent::__construct($index);
 
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/nTag.php';
 			
@@ -17,7 +17,7 @@
 				)
 			);
 
-			$this->visible->input->setValueToSelect(1);
+			$this->visible->input->controller->setValueToSelect(1);
 		}
 	}
 ?>

@@ -26,7 +26,7 @@
 				$array[1]=NULL;
 			}
 
-			return $this->input->buildOption
+			return $this->input->controller->buildOption
 			(
 				html_entity_decode($array[0]),
 				$array[1]
@@ -43,7 +43,7 @@
 			$input=$this->input;
 			while(isset($this->sqlList[$i]))
 			{
-				$input->addOption
+				$input->controller->addOption
 				(
 					$this->buildOptionFromArray($this->sqlList[$i])
 				);

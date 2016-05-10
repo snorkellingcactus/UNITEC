@@ -12,9 +12,9 @@
 
 		//public $con;
 
-		function __construct()
+		function __construct(&$index)
 		{
-			parent::__construct(0);
+			parent::__construct($index);
 			
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormLabelTitulo.php';
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormLabelFecha.php';

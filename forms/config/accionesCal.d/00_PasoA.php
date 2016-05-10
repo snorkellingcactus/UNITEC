@@ -42,7 +42,7 @@
 			{
 				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/SrvFormCalEdit.php';
 				$labels=new SrvFormCalEdit();
-				$stepName='30_PasoA_SQLEvts_Edit';
+				$stepName='30_PasoA_SQLEvts_Edit.php';
 
 				echo '<pre>Edit</pre>';
 			}
@@ -94,10 +94,8 @@
 
 					$labels->appendChild
 					(
-						$labels->makeLabels()
+						$labels->makeLabels($labels->getCount())
 					);
-
-					$labels->labels->setIndex($labels->getCount());
 
 					$labels->increment();
 				}

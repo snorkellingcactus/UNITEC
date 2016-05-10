@@ -24,7 +24,7 @@
 					WHERE ID='.$contentID
 			);
 
-			//$this->router->gotoOrigin();
+			$router->gotoOrigin();
 
 			//$afectados[$i]=$nMenu->ContenidoID;
 			//return $afectados;

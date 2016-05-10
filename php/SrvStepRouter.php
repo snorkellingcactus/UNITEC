@@ -56,7 +56,7 @@
 			}
 			if(!isset($_SESSION['form']) && !isset($_POST['form']) && isset($_GET['form']))
 			{
-				$_SESSION['form']=addslashes($_GET['form'][0]);
+				$_SESSION['form']=addslashes($_GET['form']);
 			}
 
 			$this->ancla='#targeted';

@@ -3,11 +3,11 @@
 
 	class SrvFormMenuNew extends SrvStepForm
 	{
-		function newLabelsCollection()
+		function newLabelsCollection(&$index)
 		{
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/LabelsMenuNew.php';
 			
-			return new LabelsMenuNew();
+			return new LabelsMenuNew($index);
 		}
 	}
 ?>

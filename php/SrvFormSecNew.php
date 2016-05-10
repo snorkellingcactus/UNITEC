@@ -3,11 +3,11 @@
 
 	class SrvFormSecNew extends SrvFormSecNewBase
 	{
-		function newLabelsCollection()
+		function newLabelsCollection(&$index)
 		{
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/LabelsSecNew.php';
 			
-			return new LabelsSecNew();
+			return new LabelsSecNew($index);
 		}
 	}
 ?>

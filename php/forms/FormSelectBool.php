@@ -1,6 +1,36 @@
 <?php
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormSelect.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormSelectBase.php';
+
+
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/printBool.php';
+	class FormSelectBoolController extends FormSelectController
+	{
+		public function trySelect($value)
+		{
+			return parent::trySelect
+			(
+				printBool
+				(
+					$value
+				)
+			);
+		}
+		public function buildOption()
+		{
+			$args=func_get_args();
+
+			return parent::buildOption
+			(
+				$args[0] ,
+				printBool
+				(
+					$args[1]
+				)
+			);
+		}
+	}
+
 	class FormSelectBool extends FormSelect
 	{
 		public $labelA;
@@ -13,29 +43,46 @@
 			$this->labelA=$labelA;
 			$this->labelB=$labelB;
 
-			$this->setValueToSelect(0);
+			$this->controller->setValueToSelect(0);
+		}
+		function newController()
+		{
+			return new FormSelectBoolController();
 		}
 		function renderChilds(&$tag)
 		{
-			$labelA=$this->labelA;
-			$labelB=$this->labelB;
+			$controller=$this->controller;
 
-			if(!$this->valueToSelect)
+			$valueToSelect=$controller->getValueToSelect();
+
+			if(!$valueToSelect)
 			{
 				$labelA=$this->labelB;
 				$labelB=$this->labelA;
 			}
+			else
+			{
+				$labelA=$this->labelA;
+				$labelB=$this->labelB;
+			}
 
-
-			$this->addOption( $this->buildOption( $labelA , printBool($this->valueToSelect) ) );
-
-			$this->addOption( $this->buildOption( $labelB , printBool(!$this->valueToSelect) ));
+			$controller->addOption
+			(
+				$controller->buildOption
+				(
+					$labelA ,
+					$valueToSelect		
+				)
+			)->addOption
+			(
+				$controller->buildOption
+				(
+					$labelB ,
+					!$valueToSelect
+				)
+			);
 
 			return parent::renderChilds($tag);
-		}
-		public function trySelect($value)
-		{
-			return parent::trySelect(printBool($value));
 		}
 	}
 ?>

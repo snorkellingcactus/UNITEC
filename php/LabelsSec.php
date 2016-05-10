@@ -6,9 +6,9 @@
 		public $titulo;
 		public $atajo;
 
-		function __construct()
+		function __construct(&$index)
 		{
-			parent::__construct();
+			parent::__construct($index);
 
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormLabelTitulo.php';
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormLabelAtajo.php';

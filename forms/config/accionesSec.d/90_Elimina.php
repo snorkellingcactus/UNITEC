@@ -40,9 +40,8 @@
 						y las traducciones relacionadas.
 					*/
 						
-					$con->query('DELETE FROM Contenidos WHERE ID='.$contentID);
+					$jj=$con->query('DELETE FROM Contenidos WHERE ID='.$contenidoID);
 
-					//echo '<pre>';print_r('DELETE FROM Contenidos WHERE ID='.$contenidoID);echo '</pre>';echo '<pre>';
 					$contentID=false;
 				}
 			}
@@ -56,11 +55,9 @@
 				*/
 
 				$con->query('DELETE FROM Secciones WHERE ID='.$contentID);
-				
-				//echo '<pre>';print_r('DELETE FROM Secciones WHERE ID='.$contentID);echo '</pre>';
 			}
 
-			$this->router->gotoOrigin();
+			$router->gotoOrigin();
 		}
 	}
 ?>

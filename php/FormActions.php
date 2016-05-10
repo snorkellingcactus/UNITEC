@@ -46,16 +46,18 @@
 
 			return false;
 		}
-		function checkContentIDIn($arr)
+		function &checkContentIDIn($arr)
 		{
 			if(isset($arr['conID']))
 			{
 				return $arr['conID'];
 			}
 
-			return false;
+			$res=false;
+
+			return $res;
 		}
-		function getContentID()
+		function &getContentID()
 		{
 
 			//Revisar . Seguridad.

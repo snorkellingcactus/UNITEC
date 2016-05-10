@@ -8,10 +8,6 @@
 	{
 		function setRouter(SrvStepRouter &$router)
 		{
-			echo '<pre>';
-			print_r('existo');
-			echo '</pre>';
-
 			parent::setRouter($router);
 
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/elimina.php';
@@ -21,10 +17,6 @@
 			global $con;
 
 			$contentID=FormActions::getContentID();
-
-			echo '<pre>contentID : ';
-			print_r($contentID);
-			echo '</pre>';
 
 			$i=0;
 			foreach( $contentID as $name=>$contentIDAct )
@@ -44,14 +36,6 @@
 				elimina ( $_SERVER['DOCUMENT_ROOT'] . '/img/miniaturas/galeria/'.$imgID.'.png'	, 0775	);
 				elimina ( $_SERVER['DOCUMENT_ROOT'] . '/img/miniaturas/visor/'	.$imgID.'.png'	, 0775	);
 
-				echo '<pre>';
-				print_r
-				(
-					'	DELETE FROM Contenidos
-						WHERE ID='.$contentIDAct
-				);
-				echo '</pre>';
-
 				$con->query
 				(
 					'	DELETE FROM Contenidos
@@ -61,8 +45,7 @@
 				++$i;
 			}
 			
-
-			//$this->router->gotoOrigin();
+			$router->gotoOrigin();
 
 			//$afectados[$i]=$nMenu->ContenidoID;
 			//return $afectados;

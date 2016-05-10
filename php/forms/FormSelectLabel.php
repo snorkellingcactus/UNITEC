@@ -1,4 +1,5 @@
 <?php
+/*
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/TextBox.php';
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormSelect.php';
 
@@ -22,4 +23,5 @@
 			);
 		}
 	}
+*/
 ?>

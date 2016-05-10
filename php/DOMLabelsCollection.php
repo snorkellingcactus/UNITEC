@@ -11,7 +11,7 @@
 		private $session;
 		private $formName;
 
-		function __construct($index)
+		function __construct(&$index)
 		{
 			parent::__construct();
 
@@ -54,17 +54,49 @@
 		}
 		public function setIndex(&$index)
 		{
-			$this->index=&$index;
-
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/FormActions.php';
-
+			
 			$contentID=FormActions::getContentID();
 
-			if(isset($contentID[$index]))
+			$j=$this->index;
+
+			if ( $contentID!==false )
 			{
-				$this->contentID=$contentID[$index];
+				if($j != $index)
+				{
+					while($j != $index)
+					{
+						if($j<$index)
+						{
+							next($contentID);
+
+							++$j;
+						}
+						else
+						{
+							prev($contentID);
+
+							--$j;
+						}
+					}
+
+					$this->contentID=current($contentID);
+				}
+				else
+				{
+					if($this->contentID===false)
+					{
+						$this->contentID=current($contentID);
+					}
+				}
 			}
 
+			$this->index=&$index;
+/*
+			echo '<pre>'.get_class($this).'::setIndex('.$index.')'."\n";
+			echo debug_print_backtrace();
+			echo '</pre>';
+*/
 			return $this;
 		}
 		public function getContentID()
@@ -216,6 +248,7 @@
 		public function createSession($formName)
 		{
 			$this->session=$this->newSession()->setFormName($formName);
+			$this->session->setIDSuffix($this->index);
 		}
 	}
 ?>

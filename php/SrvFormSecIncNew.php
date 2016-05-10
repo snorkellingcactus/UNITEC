@@ -3,11 +3,11 @@
 
 	class SrvFormSecIncNew extends SrvFormSecNewBase
 	{
-		function newLabelsCollection()
+		function newLabelsCollection(&$index)
 		{
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/LabelsSecInc.php';
 			
-			return new LabelsSecInc();
+			return new LabelsSecInc($index);
 		}
 	}
 ?>

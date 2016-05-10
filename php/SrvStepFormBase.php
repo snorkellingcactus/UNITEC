@@ -20,15 +20,15 @@
 			$this->continuar=false;
 			$this->volver=false;
 		}
-		public function makeLabels()
+		public function makeLabels(&$index)
 		{
-			$this->labels=$this->newLabelsCollection();
+			$this->labels=$this->newLabelsCollection($index);
 
 			$this->autocomplete();
 
 			return $this->labels;
 		}
-		public function newLabelsCollection()
+		public function newLabelsCollection(&$index)
 		{
 
 		}

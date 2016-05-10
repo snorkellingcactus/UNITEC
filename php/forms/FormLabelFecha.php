@@ -1,67 +1,5 @@
 <?php
-	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/TituloBox.php';
-	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormTxtAreaEditor.php';
-	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormLabel.php';
-	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/ClearFix.php';
-	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/LabelBoxDate.php';
-
-	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/interfaces/Indexable.php';
-
-	class FormLabelBoxMultiple extends FormLabelBoxBase implements Indexable
-	{
-		public $lBoxList;
-		public $lBoxListLen;
-		//public $contenedor;
-		private $index;
-
-		function __construct()
-		{
-			parent::__construct();
-
-			$this->lBoxList=array();
-			$this->lBoxListLen=0;
-/*
-			$this->appendChild
-			(
-				$this->contenedor=new DOMTag('div')
-			);
-*/
-			//$this->contenedor->col	=['xs'=>12	, 'sm'=>12	, 'md'=>12	, 'lg'=>12	];
-		}
-
-		//Revisar efectos secundarios de &
-		function appendLBox($lBox)
-		{
-			//Quizá esto sea tarea del lBox...
-			$lBox->input->addReferenceToAttr
-			(
-				'aria-labelledby' ,
-				$this->label->getIDReference()->getFormatted()
-			);
-
-			$lBox->col=['xs'=>6	, 'sm'=>2	, 'md'=>2	, 'lg'=>2	];
-
-			//$this->contenedor->appendChild($lBox);
-			$this->appendChild($lBox);
-			return $this;
-		}
-		function renderChild($child)
-		{
-			if($child instanceof Indexable)
-			{
-				$child->setIndex
-				(
-					$this->index
-				);
-			}
-
-			return parent::renderChild($child);
-		}
-		public function setIndex(&$index)
-		{
-			$this->index=&$index;
-		}
-	}
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormLabelBoxMultiple.php';
 
 	class FormLabelFecha extends FormLabelBoxMultiple
 	{
@@ -76,6 +14,8 @@
 		public function __construct()
 		{
 			parent::__construct();
+
+			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/LabelBoxDate.php';
 
 			$this->setLabelName(gettext('Fecha'));
 			$this->label->setID('fecha');
@@ -127,6 +67,17 @@
 			$this->col		=['xs'=>23	, 'sm'=>5	, 'md'=>5	, 'lg'=>5	];
 			$this->inputAno->col	=['xs'=>12	, 'sm'=>4	, 'md'=>4	, 'lg'=>4	];
 			//$this->contenedor->addToAttribute('class' , 'FormDateCont');//ainer
+		}
+		public function appendLBox($lBox)
+		{
+			parent::appendLBox($lBox);
+
+			$lBox->col=['xs'=>6	, 'sm'=>2	, 'md'=>2	, 'lg'=>2	];
+
+			return $this->appendChild
+			(
+				$lBox
+			);
 		}
 	}
 ?>

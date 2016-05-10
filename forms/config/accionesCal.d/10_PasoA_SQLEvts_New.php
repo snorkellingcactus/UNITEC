@@ -19,20 +19,6 @@
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/conexion.php';
 			global $con;
 
-			echo '<pre>$_SESSION:';
-			print_r
-			(
-				$_SESSION
-			);
-			echo '</pre>';
-
-			echo '<pre>$_POST:';
-			print_r
-			(
-				$_POST
-			);
-			echo '</pre>';
-
 			$contentID=FormActions::getContentID()[0];
 
 			$session=new FormSession();
@@ -113,19 +99,10 @@
 
 				++$i;
 
-				echo '<pre>$session->setIDSuffix( '.$i.' ) !==false :';
-				var_dump
-				(
-					$session->setIDSuffix( $i ) !==false
-				);
-				echo '</pre>';
-				$session->setIDSuffix( $i ) !==false;
+				//$session->setIDSuffix( $i ) !==false;
 			}
 
+			$router->gotoOrigin();
 		}
-		//$this->router->gotoOrigin();
-
-		//$afectados[$i]=$evento->DescripcionID;
-		//return $afectados;
 	}
 ?>

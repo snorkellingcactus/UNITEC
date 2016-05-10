@@ -622,31 +622,31 @@
 		include_once $_SERVER['DOCUMENT_ROOT'] . '/php/getLab.php';
 		global $con;
 		$tags=sepTagsStr($tagsStr);
-
+/*
 		echo '<pre>Exploded:';
 		print_r($tags);
 		echo '</pre>';
-
+*/
 		$k=0;
 		while(isset($tags[$k]))
 		{
 			$tag=filterTagName($tags[$k]);
 
 			$labID=getLabByName($tag);
-
+/*
 			echo '<pre>Lab:';
 			print_r($labID);
 			echo '</pre>';
-
+*/
 			if(isset($labID[0]['ID']))
 			{
 				$labID=$labID[0]['ID'];
 
-				echo '<pre>Tag '.$tag.' Is Lab '.$labID.'</pre>';
+				//echo '<pre>Tag '.$tag.' Is Lab '.$labID.'</pre>';
 
 				if(!hasSQLObjPriority($sqlObj , $labID))
 				{
-					echo '<pre>No Priority for this lab, creating new one</pre>';
+					//echo '<pre>No Priority for this lab, creating new one</pre>';
 					if($labID==$_SESSION['lab'])
 					{
 						$nVal=reordena
@@ -661,7 +661,7 @@
 					}
 					else
 					{
-
+/*
 						echo '<pre>GetMax:';
 						print_r
 						(
@@ -671,7 +671,7 @@
 							'
 						);
 						echo '</pre>';
-
+*/
 						$nVal=fetch_all
 						(
 							$con->query
@@ -693,7 +693,7 @@
 				}
 				else
 				{
-					echo '<pre>NoLab';echo '</pre>';
+					//echo '<pre>NoLab';echo '</pre>';
 					if($labID==$_SESSION['lab'] && $edita)
 					{
 						updSQLObjPriority

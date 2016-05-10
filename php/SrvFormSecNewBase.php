@@ -17,7 +17,7 @@
 				)
 			);
 
-			$this->labels->visible->input->setValueToSelect(1);
+			$this->labels->visible->input->controller->setValueToSelect(1);
 		}
 	}
 ?>

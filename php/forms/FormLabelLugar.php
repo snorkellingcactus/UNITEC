@@ -16,10 +16,8 @@
 		}
 		function setInput($input)
 		{
-			$input
-			->setSizeToMax()
-			->setDefaultToMax()
-			->addToAttribute('class' , 'orden');
+			$input->addToAttribute('class' , 'orden')->setSizeToMax()
+			->controller->setDefaultToMax();
 
 			parent::setInput($input);
 		}

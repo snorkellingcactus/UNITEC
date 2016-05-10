@@ -2,26 +2,36 @@
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormSelect.php';
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormSelectOrdenOption.php';
 	
-	
-	class FormSelectOrden extends FormSelect
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormSelectBase.php';
+
+	class FormSelectOrdenController extends FormSelectController
 	{
 		public $classLleno;
 		public $prefixTop;
 		public $prefixBottom;
 		public $selectNext;
 
-		//FormSelectOrden::__construct($names , $default)
-		function __construct()
+		function trySelect($value)
+		{
+			if($this->mustBeSelected($value))
+			{
+				$this->selectNext=true;
+
+				return true;
+			}
+			return false;
+		}
+		public function __construct()
 		{
 			parent::__construct();
 
 			$this->prefixBottom='b';
 			$this->prefixTop='t';
-			$this->classLleno='lleno';
-			//$this->default=0;
+
 			$this->selectNext=false;
-			//$args=func_get_args();
+			$this->classLleno='lleno';
 		}
+
 		public function newOption($name , $value)
 		{
 			if(empty($name))
@@ -35,17 +45,7 @@
 			
 			return new FormSelectOrdenOption($name , $value);
 		}
-		function trySelect($value)
-		{
-			if($this->mustBeSelected($value))
-			{
-				$this->selectNext=true;
-
-				return true;
-			}
-			return false;
-		}
-		function buildOption()
+		public function buildOption()
 		{
 			$args=func_get_args();
 			$value=$args[1];
@@ -64,32 +64,7 @@
 
 			return parent::buildOption($args[0] , $value);
 		}
-		public function appendChild($child)
-		{
-			if($child instanceof FormSelectOrdenOption)
-			{
-				parent::appendChild($child->empty);
-				return parent::appendChild($child->fill);
-			}
-			return parent::appendChild($child);
-		}
-		public function renderChilds(&$tag)
-		{
-			//echo '<pre>FormSelectOrden::renderChilds()</pre>';
-			$bottom=new FormSelectOrdenEmptyOption($this->prefixBottom);
-			//Revisar
-			$bottom->setTagValue(gettext('Abajo de todo'));
-			if($this->selectNext)
-			{
-				$bottom->setSelected();
-			}
-			parent::addOption
-			(
-				$bottom
-			);
 
-			return parent::renderChilds($tag);
-		}
 		public function addOption($option)
 		{
 			//Para cuando se omite una opción.
@@ -97,6 +72,7 @@
 			{
 				return $this;
 			}
+
 			$option->fill->addToAttribute('class' , $this->classLleno);
 			$option->fill->setAttribute('disabled' , 'disabled');
 
@@ -104,7 +80,43 @@
 
 			//if($this->options[$this->optionsLen-1]->getValue()==$this->selectedValue )
 		}
-		function setSize($size)
+		public function OnRenderChilds()
+		{
+
+			//echo '<pre>FormSelectOrden::renderChilds()</pre>';
+			$bottom=new FormSelectOrdenEmptyOption($this->prefixBottom);
+			//Revisar
+			$bottom->setTagValue
+			(
+				gettext('Abajo de todo')
+			);
+
+			if($this->selectNext)
+			{
+				$bottom->setSelected();
+			}
+
+			parent::addOption
+			(
+				$bottom
+			);
+
+			parent::OnRenderChilds();
+		}
+
+		private function emptyName($name)
+		{
+			return $this->optionsLen+1;
+		}
+		private function emptyValue($name)
+		{
+			return $this->prefixTop.$this->optionsLen;
+		}
+
+	}
+	class FormSelectOrden extends FormSelect
+	{
+		public function setSize($size)
 		{
 			$size=(2*$size)+1;
 
@@ -114,13 +126,22 @@
 			}
 			return parent::setSize($size);
 		}
-		private function emptyName($name)
+
+		public function newController()
 		{
-			return $this->optionsLen+1;
+			return new FormSelectOrdenController();
 		}
-		private function emptyValue($name)
+
+		public function appendChild($child)
 		{
-			return $this->prefixTop.$this->optionsLen;
+			if($child instanceof FormSelectOrdenOption)
+			{
+				parent::appendChild($child->empty);
+
+				return parent::appendChild($child->fill);
+			}
+
+			return parent::appendChild($child);
 		}
 	}
 ?>

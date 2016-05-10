@@ -2,15 +2,12 @@
 	//include_once $_SERVER['DOCUMENT_ROOT'] . '/php/FormCliRecv.php';
 	//include_once $_SERVER['DOCUMENT_ROOT'] . '/php/SQL_Evts_Secciones.php';
 
-	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/SrvStepImgUploadBase.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/SrvStepGalBase.php';
 
-	class PasoA_SQLEvts_Edit extends SrvStepImgUploadBase
+	class PasoA_SQLEvts_Edit extends SrvStepGalBase
 	{
 		function setRouter(SrvStepRouter &$router)
 		{
-			echo '<pre>$_SESSION:';
-			print_r($_SESSION);
-			echo '</pre>';
 			parent::setRouter($router);
 
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/FormActions.php';
@@ -30,9 +27,10 @@
 
 			global $con;
 
-			foreach( $contentID as $index=>$contentIDAct )
+			$index=0;
+
+			while( $session->setIDSuffix( $index ) )
 			{
-				$session->setIDSuffix( $index );
 				$session->autoloadLabels();
 				$session->loadLabels( 'Url' );
 				
@@ -41,7 +39,7 @@
 				$nImg->getSQL
 				(
 					[
-						'TituloID'=>$contentIDAct
+						'TituloID'=>each($contentID)['value']
 					]
 				);
 
@@ -98,13 +96,15 @@
 						$nImg
 					);
 				}
+
+				++$index;
 			}
 
 			//$afectados[$i]=$conIdAct;
 			
 			//return $afectados;
 
-			//$this->router->gotoOrigin();
+			$router->gotoOrigin();
 		}
 	}
 ?>

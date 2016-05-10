@@ -8,10 +8,6 @@
 	{
 		function setRouter(SrvStepRouter &$router)
 		{
-			echo '<pre>';
-			print_r('existo');
-			echo '</pre>';
-
 			parent::setRouter($router);
 
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/FormActions.php';
@@ -19,10 +15,6 @@
 			global $con;
 
 			$contentID=FormActions::getContentID();
-
-			echo '<pre>contentID : ';
-			print_r($contentID);
-			echo '</pre>';
 
 			$i=0;
 			while( isset($contentID[$i]) )
@@ -46,6 +38,7 @@
 				++$i;
 			}
 			
+			$router->gotoOrigin();
 
 			//$this->router->gotoOrigin();
 

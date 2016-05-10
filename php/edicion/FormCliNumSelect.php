@@ -11,7 +11,7 @@
 
 			for($i=1;$i<=20;$i++)
 			{
-				$this->addOption($this->newOption($i , $i));
+				$this->controller->addOption($this->controller->newOption($i , $i));
 			}
 		}
 	}

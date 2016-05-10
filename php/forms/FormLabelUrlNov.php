@@ -1,50 +1,45 @@
 <?php
-	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/DOMTagContainer.php';
-	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormLabel.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormLabelBoxMultiple.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormLabelArchivo.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormLabelUrl.php';
 	
 	//Cambiar clase por algo compatible con LabelBox.
-	class FormLabelUrlNov extends LabelBox
+	class FormLabelUrlNov extends FormLabelBoxMultiple
 	{
+		public $inputUrl;
+		public $inputFile;
+
 		function __construct()
 		{
-			parent::__construct
+			parent::__construct();
+
+			$this->setLabelName
 			(
-				'Url',
-				'url',
-				gettext('Url o Archivo'),
-				new FormInput( 'text')
+				gettext('Url o Archivo')
+			);
+			$this->label->setID('file');
+
+			$this->appendLBox
+			(
+				$this->inputFile=new FormLabelArchivo()
+			)->appendLBox
+			(
+				$this->inputUrl=new FormLabelUrl()
 			);
 
-			$this->inputUrl=$this->input;
-
-			$this->setInput
-			(
-				new FormInput( 'file')
-			);
-
-			$this->inputFile=$this->input;
-
-			$this->inputFile->col=
+			$this->inputFile->col=$this->inputUrl->col=
 			[
 				'xs'=>6,
 				'sm'=>6,
 				'md'=>6,
 				'lg'=>6
 			];
-
-			$this->inputUrl->col=
-			[
-				'xs'=>6,
-				'sm'=>6,
-				'md'=>6,
-				'lg'=>6
-			];
-
-			$this->inputFile->setName('File')->setID('file');
 		}
-		function setLabelName($name)
+		function appendLBox($lBox)
 		{
-			$this->label->setTagValue($name);
+			$this->appendChild($lBox);
+
+			return parent::appendLBox($lBox);
 		}
 	}
 ?>

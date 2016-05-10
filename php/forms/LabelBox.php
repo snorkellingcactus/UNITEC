@@ -11,9 +11,5 @@
 				func_get_args()
 			);
 		}
-		function setInput($input)
-		{
-			parent::setInput($input);
-		}
 	}
 ?>

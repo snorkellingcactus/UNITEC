@@ -84,6 +84,8 @@
 
 			$this->id->setSuffix($index);
 			$this->name->setSuffix($index);
+
+			return $this;
 		}
 		public function &getIndex()
 		{

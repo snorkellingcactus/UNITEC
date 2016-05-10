@@ -1,31 +1,52 @@
 <?php
-	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/TituloBox.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormLabelBoxMultiple.php';
 
-	class FormLabelImagen extends TituloBox
+	class FormLabelImagen extends FormLabelBoxMultiple
 	{
-		function __construct($name , $id , $labelText)
+		public $controller;
+
+		function __construct( $names , $id , $labelText )
 		{
-			//Revisar []
+			//Revisar . Pasar directamente o por call_user_func_array() ?
 			parent::__construct();
 
-			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormInput.php';
-			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/RadioLstNov.php';
-			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/ClearFix.php';
+			$this->setLabelName($labelText);
+			$this->label->setID($id);
 
-			$this->label->setTagValue($labelText);
-			$this->label->setAttribute('id' , $id);
+//			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/RadioLstNov.php';
 
-			$this->appendChild
-			(
-				new ClearFix()
-			)->appendChild
-			(
-				$this->input=new RadioLstNov
-				(
-					$name
-					$this->label->getAttribute('id')
-				)
-			)->addToAttribute('class' , 'FormLabelImagen');
+
+			$this->controller=$this->newController()->setView($this)->setRadioNames($names);
+
+			$this->addToAttribute('role' , 'radiogroup');
+
+			//include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/ClearFix.php';
+
+			//$this->label->setTagValue($labelText);
+			//$this->label->setAttribute('id' , $id);
+
+			//$this->appendChild( new ClearFix() );
+		}
+		function renderChilds(&$tag)
+		{
+			$this->controller->onRenderChilds();
+
+			return parent::renderChilds($tag);
+		}
+		function newController()
+		{
+			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormImgRadioLstController.php';
+
+			return new FormImgRadioLstController();
+		}
+		function appendChild($child)
+		{
+			if($child instanceof FormImgRadio)
+			{
+				$this->appendLBox($child);
+			}
+
+			return parent::appendChild($child);
 		}
 	}
 ?>

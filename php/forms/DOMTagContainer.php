@@ -16,8 +16,7 @@
 		}
 		public function DOMAppendChild($tag)
 		{
-			echo '<pre>'.$this->tag->nodeName.'::appendChild('.$tag->getTag()->nodeName.')';
-			echo '</pre>';
+//			echo '<pre>'.$this->tag->nodeName.'::appendChild('.$tag->getTag()->nodeName.')'; echo '</pre>';
 			$this->tag->appendChild($tag->getTag());
 		}
 	}
@@ -50,27 +49,27 @@
 		}
 		public function DOMAppendChild($child)
 		{
-			echo '<pre>'.get_class($this).'::DOMAppendChild('.get_class($child).')';
+			//echo '<pre>'.get_class($this).'::DOMAppendChild('.get_class($child).')';
 			
 
 			if(!$this->delegatedParent===false && $this->delegateAppend)
 			{
-
+/*
 				echo '<pre>Delegate to '.
 				get_class($this->delegatedParent).
 				'::DOMAppendChild('.get_class($child).')';
-				
+*/				
 
 				$this->delegatedParent->DOMAppendChild($child);
 
-				echo '</pre>';
+//				echo '</pre>';
 			}
 			else
 			{
 				parent::DOMAppendChild($child);
 			}
 
-			echo '</pre>';
+			//echo '</pre>';
 		}
 		public function renderChild(&$child)
 		{
@@ -91,7 +90,7 @@
 		}
 		public function renderChilds(&$tag)
 		{
-			echo '<pre>DOMTagContainer '.get_class($this).'::renderChilds(&'.get_class($tag).')';
+			//echo '<pre>DOMTagContainer '.get_class($this).'::renderChilds(&'.get_class($tag).')';
 			$this->setTag($tag);
 
 			$childs=$this->hijos;
@@ -99,13 +98,13 @@
 
 			for($i=0;$i<$childsLen;$i++)
 			{
-				echo '<pre>Initialize rendering of '.get_class($this).' child '.$i;echo '</pre>';
+				//echo '<pre>Initialize rendering of '.get_class($this).' child '.$i;echo '</pre>';
 				$this->renderChild($childs[$i]);
 
-				echo '<pre>Finalize   rendering of '.get_class($this).' child '.$i;echo '</pre>';
+				//echo '<pre>Finalize   rendering of '.get_class($this).' child '.$i;echo '</pre>';
 			}
 
-			echo '</pre>';
+			//echo '</pre>';
 
 			return $this;
 		}

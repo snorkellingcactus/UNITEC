@@ -8,13 +8,6 @@
 		{
 			parent::setRouter($router);
 
-			echo '<pre>Session:';
-			print_r
-			(
-				$_SESSION
-			);
-			echo '</pre>';
-
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/FormActions.php';
 
 			$action=FormActions::checkActionIn($_POST);
@@ -23,10 +16,6 @@
 			{
 				$action=FormActions::checkActionIn($_SESSION);
 			}
-
-			echo '<pre>Action:';
-			print_r($action);
-			echo '</pre>';
 
 			$_SESSION['ACTION'.$action]=true;
 
@@ -54,8 +43,9 @@
 				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/SrvFormMenuNew.php';
 				$labels=new SrvFormMenuNew();
 
-				echo '<pre>New</pre>';
 				$action='10_PasoA_SQLEvts_New.php';
+
+				$operacionStr=gettext( 'Nueva opción de Menú' );
 			}
 			if
 			(
@@ -71,7 +61,7 @@
 
 				$action='30_PasoA_SQLEvts_Edit.php';
 
-				echo '<pre>Edit</pre>';
+				$operacionStr=gettext( 'Editar opción de Menú' );
 			}
 
 			$labels->setAction($router->getStepUrlByName($action));
@@ -89,7 +79,10 @@
 				
 			if($labels!==false)
 			{
-				$body->appendChild($labels);
+				$body->appendChild
+				(
+					new DOMTag( 'h1' , $operacionStr )
+				)->appendChild($labels);
 			}
 
 			echo $html->getHTML();

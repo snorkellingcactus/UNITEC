@@ -1,25 +1,18 @@
 <?php
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormRadioLst.php';
-	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormImgRadio.php';
 
 	class FormImgRadioLst extends FormRadioLst
 	{
-		function __construct($name)
+		function __construct($tagName)
 		{
-			parent::__construct($name);
-		}
-		function addNewImgRadio($value, $imgSrc , $imgAlt , $titulo)
-		{
-			$this->add
-			(
-				$this->buildNew($value)->setSrc($imgSrc)->setAlt($imgAlt)->setTitulo($titulo)
-			);
+			parent::__construct($tagName);
 
-			return $this;
+			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormImgRadio.php';
 		}
-		function buildNew($value)
+		//$this->buildNew($value)->setSrc($imgSrc)->setAlt($imgAlt)->setTitulo($titulo)
+		function newOption($name , $value)
 		{
-			return new FormImgRadio($this->name , $value);
+			return new FormImgRadio($name , $value);
 		}
 	}
 ?>

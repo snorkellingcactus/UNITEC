@@ -3,11 +3,11 @@
 	
 	class SrvFormCalEdit extends SrvStepRepeatedForm
 	{
-		function newLabelsCollection()
+		function newLabelsCollection(&$index)
 		{
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/LabelsCalBase.php';
 			
-			return new LabelsCalBase();
+			return new LabelsCalBase($index);
 		}
 		function autocomplete()
 		{
@@ -38,6 +38,8 @@
 				]
 			);
 			$grupoID=$grupoID->getTagsGrp();
+
+			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/nTag.php';
 
 			if(isset($grupoID[0][0]))
 			{

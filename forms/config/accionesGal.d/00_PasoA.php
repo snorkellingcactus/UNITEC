@@ -7,13 +7,6 @@
 		function setRouter(SrvStepRouter &$router)
 		{
 			parent::setRouter($router);
-			
-			echo '<pre>$_POST';
-			print_r
-			(
-				$_POST
-			);
-			echo '</pre>';
 
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/FormActions.php';
 

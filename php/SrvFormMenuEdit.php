@@ -3,11 +3,11 @@
 
 	class SrvFormMenuEdit extends SrvStepForm
 	{
-		function newLabelsCollection()
+		function newLabelsCollection(&$index)
 		{
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/LabelsMenu.php';
 			
-			return new LabelsMenu();
+			return new LabelsMenu($index);
 		}
 		function autocomplete()
 		{
@@ -36,7 +36,7 @@
 			)[0];
 	*/
 			$this->labels->url->input->setValue($opcion->Url);
-			$this->labels->visible->input->setValueToSelect($opcion->Visible);
+			$this->labels->visible->input->controller->setValueToSelect($opcion->Visible);
 			//$this->form->autocomp['Prioridad']=$opcion['Prioridad'];
 
 			$this->labels->titulo->input->setValue
@@ -48,7 +48,7 @@
 				)
 			);
 
-			$this->labels->lugar->input->setValueToSelect
+			$this->labels->lugar->input->controller->setValueToSelect
 			(
 				$this->labels->getContentID()
 			);

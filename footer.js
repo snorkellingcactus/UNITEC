@@ -45,7 +45,7 @@ function inicializaGMaps()
   form=document.getElementById('gmapsDiag').getElementsByTagName('form')[0];
   rutas=document.getElementById('panel_ruta');
   volver=rutas.getElementsByTagName('button')[0];
-  origen=document.getElementById('origen');
+  origen=document.getElementById('origen0');
 
   volver.style.width='100%';
   volver.style.display='block';
@@ -64,7 +64,7 @@ function inicializaGMaps()
   );
 
   map.setCenter(pos);
-  map.setZoom(17)
+  map.setZoom(17);
 
   volver.addEventListener
   (
@@ -76,12 +76,12 @@ function inicializaGMaps()
       origen.focus();
     }
   );
-  document.getElementById('buscar').addEventListener
+  document.getElementById('buscar0').addEventListener
   (
     'click',
       solicitaRuta
   );
-  document.getElementById('origen').addEventListener
+  document.getElementById('origen0').addEventListener
   (
     'keypress',
       solicitaRuta
@@ -140,10 +140,10 @@ function solicitaRuta(event)
 
     var request =
     {
-      origin: document.getElementById('origen').value,
+      origin: document.getElementById('origen0').value,
       destination: pos,
-      travelMode: google.maps.DirectionsTravelMode[document.getElementById('modo_viaje').value],
-      unitSystem: google.maps.DirectionsUnitSystem[document.getElementById('unidad').value],
+      travelMode: google.maps.DirectionsTravelMode[document.getElementById('modo_viaje0').value],
+      unitSystem: google.maps.DirectionsUnitSystem[document.getElementById('unidad0').value],
       provideRouteAlternatives: true
     };
 

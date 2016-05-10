@@ -1,77 +1,25 @@
 <?php
-	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/DOMTagContainer.php';
-	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormRadio.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormSelectBase.php';
 
-	class FormRadioLst extends DOMTagContainer
+	class FormRadioLst extends FormSelectBase
 	{
-		public $lst;
-		public $lstLen;
-		public $default;
-		public $selectedValue;
-		public $name;
-
-		function __construct($name)
+		function __construct($tagName)
 		{
-			parent::__construct();
+			parent::__construct($tagName);
 
-			$this->lst=[];
-			$this->lstLen=0;
-			$this->default=false;
-			$this->selectedValue=NULL;
-
-			$this->name=$name;
+			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormRadio.php';
 		}
-		function setName($name)
+		function newOption($name , $value)
 		{
-			$this->name=$name;
-
-			return $this;
+			return new FormRadio($name , $value);
 		}
-		function addNew($value)
+		function buildOption()
 		{
-			$this->add
+			return parent::buildOption
 			(
-				$this->buildNew($value)
+				$this->getName() ,
+				func_get_args()[0]
 			);
-		}
-		function add($checkBox)
-		{
-			if($this->selectedValue===$checkBox->getValue())
-			{
-				$this->default=$this->lstLen;
-			}
-
-			$this->lst[$this->lstLen]=$checkBox;
-
-			++$this->lstLen;
-
-			return $this->appendChild($checkBox);
-		}
-		function buildNew($value)
-		{
-			return new FormRadio($this->name , $value);
-		}
-		function select($index)
-		{
-			if(isset($this->lst[$index]))
-			{
-				$this->lst[$index]->setSelected();
-			}
-
-			return $this;
-		}
-		function renderChilds(&$tag)
-		{
-			if($this->default===false)
-			{
-				$this->select(0);
-			}
-			else
-			{
-				$this->select($this->default);
-			}
-
-			return parent::renderChilds($tag);
 		}
 	}
 ?>

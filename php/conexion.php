@@ -32,7 +32,6 @@
 	$con=new mysqli('localhost',$usuario,$pass,'edetec');	//CDMON.
 	
 */
-	$_SESSION['adminID']=1;
 	//unset($_SESSION['adminID']);
 	$usuario='ro';
 	if(isset($_SESSION['adminID']) || !empty($rw))
