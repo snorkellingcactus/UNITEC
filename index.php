@@ -111,7 +111,8 @@ if($_SESSION['lab']!==false)
 		);
 
 		$f=0;
-		while(isset($includes[$f]) && $f<2)
+		//while(isset($includes[$f]) && $f<2)
+		while(isset($includes[$f]))
 		{
 			$includeAct=$includes[$f];
 

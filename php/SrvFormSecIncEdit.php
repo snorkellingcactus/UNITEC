@@ -3,17 +3,17 @@
 
 	class SrvFormSecIncEdit extends SrvFormSecOtherEdit
 	{
-		function newLabelsCollection()
+		function newLabelsCollection(&$index)
 		{
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/LabelsSecInc.php';
 			
-			return new LabelsSecInc();
+			return new LabelsSecInc($index);
 		}
 		function autocomplete()
 		{
 			parent::autocomplete();
 
-			$this->labels->modulos->input->setValueToSelect
+			$this->labels->modulos->input->controller->setValueToSelect
 			(
 				fetch_all
 				(

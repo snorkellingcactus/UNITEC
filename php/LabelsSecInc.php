@@ -40,7 +40,7 @@
 	/*
 				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/MSGBox.php';
 
-				$this->form->appendChild
+				$this->appendChild
 				(
 					new MSGBox
 					(
@@ -62,14 +62,14 @@
 
 					if(isset($opcGrpID[0][1]))
 					{
-						//echo '<pre>Exite un OpcSetsGrpID';echo '</pre>';
+						echo '<pre>Exite un OpcSetsGrpID';echo '</pre>';
 
 						$valor=getVal($opcion['ID'] , $opcGrpID[0][1]);
 
 						if(isset($valor[0][0]))
 						{
 							$valor=$valor[0][0];
-							//echo '<pre>Valor seteado:';print_r($valor);echo '</pre>';
+							echo '<pre>Valor seteado:';print_r($valor);echo '</pre>';
 						}
 						else
 						{
@@ -78,14 +78,14 @@
 					}
 					if(isset($opcion['Predeterminado']))
 					{
-	/*
+	
 						echo '<pre>Valor predeterminado:';
 						print_r
 						(
 							$opcion['Predeterminado']
 						);
 						echo '</pre>';
-	*/
+	
 						$default=$opcion['Predeterminado'];
 					}
 
@@ -114,16 +114,19 @@
 
 						if(isset($default))
 						{
-							$select->setValueToSelect($default);
+							$select->controller->setValueToSelect($default);
 						}
 						if(isset($valor))
 						{
-							$select->setValueToSelect($valor);
+							$select->controller->setValueToSelect($valor);
 						}
 
 						for($j=$min;$j<=$max;$j++)
 						{
-							$select->addOption($select->newOption($j , $j));
+							$select->controller->addOption
+							(
+								$select->controller->newOption($j , $j)
+							);
 						}
 
 						$lBox->setInput($select);
@@ -153,7 +156,7 @@
 										$valid[1]=getTraduccion($valid[1] , $_SESSION['lang']);
 									}
 
-									$option=$select->newOption($valid[1],$valid[0]);
+									$option=$select->controller->newOption($valid[1],$valid[0]);
 
 									if(isset($valor))
 									{

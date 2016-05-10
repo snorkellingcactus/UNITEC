@@ -52,8 +52,8 @@
 			{
 				echo '<pre>No group</pre>';
 			}
-
-			$this->labels->visible->input->setValueToSelect($evento['Visible']);
+			
+			$this->labels->visible->input->controller->setValueToSelect($evento['Visible']);
 			$this->labels->prioridad->input->setValue($evento['Prioridad']);
 
 			$this->labels->titulo->input->setValue

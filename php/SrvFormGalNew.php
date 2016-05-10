@@ -6,9 +6,6 @@
 		function __construct()
 		{
 			parent::__construct();
-
-			echo '<pre>New '.get_class($this);
-			echo '</pre>';
 		}
 		function newLabelsCollection(&$index)
 		{

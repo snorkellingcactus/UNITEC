@@ -22,22 +22,10 @@
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/nTraduccion.php';
 
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/FormSession.php';
+
+			$rw=1;
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/conexion.php';
 			global $con;
-
-			echo '<pre>$_SESSION:';
-			print_r
-			(
-				$_SESSION
-			);
-			echo '</pre>';
-
-			echo '<pre>$_POST:';
-			print_r
-			(
-				$_POST
-			);
-			echo '</pre>';
 
 			$contentID=FormActions::getContentID();
 

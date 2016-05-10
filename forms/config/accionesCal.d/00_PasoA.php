@@ -43,8 +43,6 @@
 				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/SrvFormCalEdit.php';
 				$labels=new SrvFormCalEdit();
 				$stepName='30_PasoA_SQLEvts_Edit.php';
-
-				echo '<pre>Edit</pre>';
 			}
 			if
 			(
@@ -59,8 +57,6 @@
 				$labels=new SrvFormCalNew();
 
 				$stepName='10_PasoA_SQLEvts_New.php';
-
-				echo '<pre>New</pre>';
 			}
 			
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/DOMBody.php';

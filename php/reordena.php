@@ -77,6 +77,8 @@
 			++$i;
 		}
 
+
+
 		$coleccion=array();
 
 		$k=0;
@@ -108,6 +110,8 @@
 
 			++$k;
 		}
+
+
 /*
 		if(isset($priorizados[$prioridades[0]] ['SeccionID']))
 		{

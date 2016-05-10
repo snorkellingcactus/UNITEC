@@ -10,7 +10,7 @@
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/Seccion.php';
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/nTag.php';
 
-			$this->labels->selectLugar->input->setValueToSelect( $this->labels->getContentID() );
+			$this->labels->selectLugar->input->controller->setValueToSelect( $this->labels->getContentID() );
 
 			$grupoID=new Seccion
 			(
@@ -33,7 +33,7 @@
 			}
 
 			//Revisar metodo correcto
-			$this->labels->visible->input->setValueToSelect
+			$this->labels->visible->input->controller->setValueToSelect
 			(
 				intVal
 				(

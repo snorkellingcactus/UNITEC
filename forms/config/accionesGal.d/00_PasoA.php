@@ -43,8 +43,6 @@
 				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/SrvFormGalEdit.php';
 				$labels=new SrvFormGalEdit();
 				$stepName='30_PasoA_SQLEvts_Edit.php';
-
-				echo '<pre>Edit</pre>';
 			}
 			if
 			(
@@ -59,8 +57,6 @@
 				$labels=new SrvFormGalNew();
 
 				$stepName='10_PasoA_SQLEvts_New.php';
-
-				echo '<pre>New</pre>';
 			}
 			
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/DOMBody.php';
@@ -97,22 +93,13 @@
 						$labels->makeLabels($labels->getCount())
 					);
 
-					echo '<pre>$labels->setIndex('.$labels->getCount().')';
 					$labels->labels->setIndex($labels->getCount());
-					echo '</pre>';
 
 					$labels->increment();
 				}
 
 				$body->appendChild($labels);
 			}
-
-			echo '<pre>$_SESSION';
-			print_r
-			(
-				$_SESSION
-			);
-			echo '</pre>';
 
 			echo $html->getHTML();
 		}
