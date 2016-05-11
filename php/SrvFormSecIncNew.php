@@ -1,7 +1,7 @@
 <?php
-	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/SrvFormSecNewBase.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/SrvFormCommonNew.php';
 
-	class SrvFormSecIncNew extends SrvFormSecNewBase
+	class SrvFormSecIncNew extends SrvFormCommonNew
 	{
 		function newLabelsCollection(&$index)
 		{

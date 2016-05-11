@@ -145,14 +145,14 @@
 		}
 
 
-		function setRouter(SrvStepRouter &$router)
+		function onSetRouter()
 		{
-			parent::setRouter($router);	
-			
 			$this->setNextStepName
 			(
 				$this->getRouter()->getNextStepUrl()
 			);
+
+			parent::onSetRouter();
 		}
 	}
 ?>

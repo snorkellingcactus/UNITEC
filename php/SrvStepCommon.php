@@ -87,11 +87,15 @@
 			
 		}
 
+		function setRouter(SrvStepRouter &$router)
+		{
+			$this->setLabels		( false );
+			$this->setNextStepName	( false );
+			
+			parent::setRouter($router);
+		}
 		function onSetRouter()
 		{
-			$this->labels=false;
-			$this->nextStepName=false;
-
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/FormActions.php';
 
 			$action=$this->action=FormActions::checkActionIn($_POST);
