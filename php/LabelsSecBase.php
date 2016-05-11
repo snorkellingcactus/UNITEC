@@ -1,11 +1,9 @@
 <?php
-	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/DOMLabelsCollection.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/LabelsCommon.php';
 
-	class LabelsSecBase extends DOMLabelsCollection
+	class LabelsSecBase extends LabelsCommon
 	{
-		public $visible;
 		public $selectLugar;
-		public $labelTags;
 		private $padreIDStr;
 		public $con;
 
@@ -17,18 +15,10 @@
 			global $con;
 
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormLabelLugar.php';
-			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormLabelVisible.php';
-			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormLabelTags.php';
 
 			$this->appendChild
 			(
-				$this->visible=new FormLabelVisible()
-			)->appendChild
-			(
 				$this->selectLugar=new FormLabelLugar()
-			)->appendChild
-			(
-				$this->labelTags=new FormLabelTags()
 			);
 
 			$this->con=$con;

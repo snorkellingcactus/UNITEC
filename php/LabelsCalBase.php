@@ -1,14 +1,13 @@
 <?php
-	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/DOMLabelsCollection.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/LabelsCommon.php';
 
-	class LabelsCalBase extends DOMLabelsCollection
+	class LabelsCalBase extends LabelsCommon
 	{
 		public $titulo;
 		public $fecha;
 		public $descripcion;
-		public $visible;
 		public $prioridad;
-		public $labelTags;
+		
 
 		//public $con;
 
@@ -36,13 +35,7 @@
 				$this->descripcion=new FormLabelDescripcion()
 			)->appendChild
 			(
-				$this->visible=new FormLabelVisible()
-			)->appendChild
-			(
 				$this->prioridad=new FormLabelPrioridad()
-			)->appendChild
-			(
-				$this->labelTags=new FormLabelTags()
 			);
 		}
 	}

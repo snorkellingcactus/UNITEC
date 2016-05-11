@@ -1,7 +1,8 @@
 <?php
-	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/SrvStepForm.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/SrvStepRepeatedForm.php';
 
-	class SrvFormMenuEdit extends SrvStepForm
+	//Se usa repeatedForm en vez de stepForm por problemas con OOP, para tener una base de código común.
+	class SrvFormMenuEdit extends SrvStepRepeatedForm
 	{
 		function newLabelsCollection(&$index)
 		{

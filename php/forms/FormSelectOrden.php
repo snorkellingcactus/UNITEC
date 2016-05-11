@@ -1,8 +1,5 @@
 <?php
-	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormSelect.php';
-	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormSelectOrdenOption.php';
-	
-	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormSelectBase.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormSelectController.php';
 
 	class FormSelectOrdenController extends FormSelectController
 	{
@@ -23,6 +20,8 @@
 		}
 		public function __construct()
 		{
+			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormSelectOrdenOption.php';
+
 			parent::__construct();
 
 			$this->prefixBottom='b';

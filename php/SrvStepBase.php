@@ -8,6 +8,16 @@
 		function setRouter(SrvStepRouter &$router)
 		{
 			$this->router=$router;
+
+			$this->onSetRouter();
+		}
+		function getRouter()
+		{
+			return $this->router;
+		}
+		function onSetRouter()
+		{
+
 		}
 	}
 ?>

@@ -1,17 +1,14 @@
 <?php
-	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/DOMLabelsCollection.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/LabelsCommon.php';
 
-	class LabelsNovBase extends DOMLabelsCollection
+	class LabelsNovBase extends LabelsCommon
 	{
 		public $titulo;
 		public $descripcion;
-		public $visible;
-		public $selectImg;
-		public $labelTags;
+
 		public $prioridad;
 		
-
-		//public $con;
+		public $selectImg;
 
 		function __construct(&$index)
 		{
@@ -35,16 +32,8 @@
 				$this->descripcion=new FormLabelContenido()
 			)->appendChild
 			(
-				$this->visible=new FormLabelVisible()
-			)->appendChild
-			(
 				$this->prioridad=new FormLabelPrioridad()
-			)->appendChild
-			(
-				$this->labelTags=new FormLabelTags()
 			);
-
-			
 		}
 		function renderChilds(&$tag)
 		{

@@ -49,7 +49,14 @@
 										$session->getLabel('Dia').' '.
 										$session->getLabel('Horas').':'.
 										$session->getLabel('Minutos'),
-						'Visible'	=>	$session->getLabel('Visible'),
+						'Visible'	=>	intVal
+										(
+											filter_var
+											(
+												$session->getLabel('Visible') ,
+												FILTER_VALIDATE_BOOLEAN
+											)
+										),
 						'Prioridad'	=>	$session->getLabel('Prioridad')
 					]
 				);

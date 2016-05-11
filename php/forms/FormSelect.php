@@ -26,7 +26,7 @@
 		{
 			parent::__construct( 'select' );
 
-			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormSelectBase.php';
+			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormSelectController.php';
 
 			$this->controller=$this->newController();
 			$this->controller->setView($this);

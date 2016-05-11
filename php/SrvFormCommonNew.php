@@ -1,7 +1,7 @@
 <?php
-	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/SrvStepForm.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/SrvStepRepeatedForm.php';
 	
-	class SrvFormSecNewBase extends SrvStepForm
+	class SrvFormCommonNew extends SrvStepRepeatedForm
 	{
 		function autocomplete()
 		{

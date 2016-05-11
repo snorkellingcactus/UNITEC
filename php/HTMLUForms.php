@@ -23,33 +23,6 @@
 			(
 				'/js/loadEditor.js'
 			);
-/*
-			include $_SERVER['DOCUMENT_ROOT'] . '/php/SrvStepBase.php';
-
-			$formHandler=new SrvStepBase();
-			
-			$includes=$formHandler->getReqs();
-
-			$i=0;
-			while(isset($includes[$i]))
-			{
-				$this->head_include($includes[$i]);
-
-				++$i;
-			}
-
-			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/DOMBody.php';
-
-			$this->appendChild
-			(
-				$body=new DOMBody()
-			);
-
-			$body->appendChild
-			(
-				$formHandler->buildAll()->form
-			);
-*/
 		}
 	}
 

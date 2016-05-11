@@ -1,13 +1,11 @@
 <?php
-	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/DOMLabelsCollection.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/LabelsCommon.php';
 
-	class LabelsMenu extends DOMLabelsCollection
+	class LabelsMenu extends LabelsCommon
 	{
 		public $titulo;
 		public $url;
-		public $tags;
 		public $lugar;
-		public $visible;
 
 		//public $con;
 
@@ -23,8 +21,6 @@
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormLabelTitulo.php';
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormLabelUrl.php';
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormLabelLugar.php';
-			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormLabelVisible.php';
-			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormLabelTags.php';
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/getTraduccion.php';
 
 			$this->appendChild
@@ -36,12 +32,6 @@
 			)->appendChild
 			(
 				$this->lugar=new FormLabelLugar()
-			)->appendChild
-			(
-				$this->visible=new FormLabelVisible()
-			)->appendChild
-			(
-				$this->tags=new FormLabelTags()
 			);
 
 			$this->visible->input->controller->setValueToSelect(1);

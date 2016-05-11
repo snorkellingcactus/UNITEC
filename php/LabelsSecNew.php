@@ -15,17 +15,6 @@
 			(
 				$this->aaMenu=new FormLabelAAMenu()
 			);
-
-			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/nTag.php';
-/*
-			$this->aaMenu->input->setValue
-			(
-				getLabTagTree
-				(
-					$_SESSION['lab']
-				)
-			);
-*/
 		}
 	}
 ?>

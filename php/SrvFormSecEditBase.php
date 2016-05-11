@@ -1,7 +1,8 @@
 <?php
-	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/SrvStepForm.php';
-	
-	class SrvFormSecEditBase extends SrvStepForm
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/SrvStepRepeatedForm.php';
+
+	//Se usa repeatedForm en vez de stepForm por problemas con OOP, para tener una base de código común.
+	class SrvFormSecEditBase extends SrvStepRepeatedForm
 	{
 		function autocomplete()
 		{

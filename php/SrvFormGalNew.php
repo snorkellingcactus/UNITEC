@@ -1,12 +1,8 @@
 <?php
-	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/SrvStepRepeatedForm.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/SrvFormCommonNew.php';
 	
-	class SrvFormGalNew extends SrvStepRepeatedForm
+	class SrvFormGalNew extends SrvFormCommonNew
 	{
-		function __construct()
-		{
-			parent::__construct();
-		}
 		function newLabelsCollection(&$index)
 		{
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/LabelsGalNew.php';

@@ -12,7 +12,16 @@
 				return true;
 			}
 		}
-		if(!isset($_SESSION['lab']) || isset($_SESSION['adminID']))
+
+		//if(!isset($_SESSION['lab']) || isset($_SESSION['adminID']))
+		if
+		(
+			!	isset( $_SESSION['lab'] ) ||
+			(
+				!	isset( $_SESSION['lab']		) &&
+					isset( $_SESSION['adminID']	)
+			)
+		)
 		{
 			$lab=getLab();
 

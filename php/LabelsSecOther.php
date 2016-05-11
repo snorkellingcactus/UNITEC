@@ -12,15 +12,10 @@
 		{
 			parent::__construct($index);
 
-			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/VariablePost.php';
-
-			$this->setParentID($this->getContentID());
-/*
-			$this->appendChild
+			$this->setParentID
 			(
-				new VariablePost('conID' , $this->contentID)
+				$this->getContentID()
 			);
-*/
 		}
 	}
 ?>

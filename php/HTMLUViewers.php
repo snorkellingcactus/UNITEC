@@ -1,7 +1,7 @@
 <?php
-	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/HTMLUNormal.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/DOMHTMLUnitecBase.php';
 
-	class HTMLUViewers extends HTMLUNormal
+	class HTMLUViewers extends DOMHTMLUnitecBase
 	{
 		function __construct()
 		{

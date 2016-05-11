@@ -1,5 +1,5 @@
 <?php
-	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormSelectBase.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormSelectController.php';
 
 	class FormRadioLstController extends FormSelectController
 	{

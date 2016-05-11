@@ -13,7 +13,6 @@
 			parent::__construct();
 
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormRadio.php';
-
 			$this->p->appendChild
 			(
 				$this->input=new FormRadio($name , $value)

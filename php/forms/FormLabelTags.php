@@ -7,11 +7,12 @@
 		{
 			parent::__construct
 			(
-				
 				'Tags' ,
 				'etiquetas' ,
 				gettext('Etiquetas')
 			);
 		}
+
+
 	}
 ?>

@@ -1,99 +1,93 @@
 <?php
-	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/SrvStepBase.php';
-	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/HTMLUForms.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/SrvStepBodyCommon.php';
 
-	class PasoA extends SrvStepBase
-	{	
-		function setRouter(SrvStepRouter &$router)
+	class PasoA extends SrvStepBodyCommon
+	{
+		function onEdit()
 		{
-			parent::setRouter($router);
-
-			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/FormActions.php';
-
-			$action=FormActions::checkActionIn($_POST);
-
-			if($action===false)
-			{
-				$action=FormActions::checkActionIn($_SESSION);
-			}
-
-			$_SESSION['ACTION'.$action]=true;
-
-			$_SESSION['conID']=FormActions::getContentID();
-
-			$labels=false;
-
-			if
-			(
-				FormActions::isFlagSet($action , FormActions::FORM_ACTIONS_DELETE)
-			)
-			{
-				$router->redirectToStepName('90_Elimina.php');
-			}
+			parent::onEdit();
+			$action=$this->getAction();
 
 			if
 			(
 				FormActions::isFlagSet
 				(
 					$action,
-					FormActions::FORM_ACTIONS_EDIT	| FormActions::FORM_ITEM_TYPE_A,
-					true
+					FormActions::FORM_ITEM_TYPE_A
 				)
 			)
 			{
 				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/SrvFormSecEdit.php';
-				$labels=new SrvFormSecEdit();
-				$operacionStr=gettext( 'Editar Sección' );
+				
+				$this->setLabels
+				(
+					new SrvFormSecEdit()
+				);
+
+				//$operacionStr=gettext( 'Editar Sección' );
 			}
 			if
 			(
 				FormActions::isFlagSet
 				(
 					$action,
-					FormActions::FORM_ACTIONS_EDIT	| FormActions::FORM_ITEM_TYPE_B,
-					true
+					FormActions::FORM_ITEM_TYPE_B
 				)
 			)
 			{
 				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/SrvFormSecConEdit.php';
-				$labels=new SrvFormSecConEdit();
-				$operacionStr=gettext( 'Editar Contenido' );
+
+				$this->setLabels
+				(
+					new SrvFormSecConEdit()
+				);
+
+				//$operacionStr=gettext( 'Editar Contenido' );
 			}
 			if
 			(
 				FormActions::isFlagSet
 				(
 					$action,
-					FormActions::FORM_ACTIONS_EDIT	| FormActions::FORM_ITEM_TYPE_C,
-					true
+					FormActions::FORM_ITEM_TYPE_C
 				)
 			)
 			{
 				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/SrvFormSecIncEdit.php';
-				$labels=new SrvFormSecIncEdit();
-				$operacionStr=gettext( 'Ajustar Módulo' );
+				$this->setLabels
+				(
+					new SrvFormSecIncEdit()
+				);
+				
+				//$operacionStr=gettext( 'Ajustar Módulo' );
 			}
+		}
+
+		function onNew()
+		{
+			parent::onNew();
+			$action=$this->getAction();
+
 			if
 			(
 				FormActions::isFlagSet
 				(
 					$action,
-					FormActions::FORM_ACTIONS_NEW	| FormActions::FORM_ITEM_TYPE_A,
-					true
+					FormActions::FORM_ITEM_TYPE_A
 				)
 			)
 			{
 				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/SrvFormSecNew.php';
-				$labels=new SrvFormSecNew();
-				$operacionStr=gettext( 'Nueva Sección' );
+
+				$this->setLabels
+				(
+					new SrvFormSecNew()
+				);
+
+				//$operacionStr=gettext( 'Nueva Sección' );
 			}
 			if
 			(
-				FormActions::isFlagSet
-				(
-					$action,
-					FormActions::FORM_ACTIONS_NEW
-				) &&
 				isset
 				(
 					$_POST['Tipo'][0]
@@ -112,8 +106,13 @@
 				)
 				{
 					include_once $_SERVER['DOCUMENT_ROOT'] . '/php/SrvFormSecConNew.php';
-					$labels=new SrvFormSecConNew();
-					$operacionStr=gettext( 'Insertar Contenido' );
+
+					$this->setLabels
+					(
+						new SrvFormSecConNew()
+					);
+
+					//$operacionStr=gettext( 'Insertar Contenido' );
 				}
 
 				if
@@ -126,36 +125,34 @@
 				)
 				{
 					include_once $_SERVER['DOCUMENT_ROOT'] . '/php/SrvFormSecIncNew.php';
-					$labels=new SrvFormSecIncNew();
-					$operacionStr=gettext( 'Insertar Módulo' );
+					
+					$this->setLabels
+					(
+						new SrvFormSecIncNew()
+					);
+
+					//$operacionStr=gettext( 'Insertar Módulo' );
 				}
 
 			}
+		}
+
+		function onDelete()
+		{
+			parent::onDelete();
+
+			$this->getRouter()->redirectToStepName('90_Elimina.php');
+		}
+
+
+		function setRouter(SrvStepRouter &$router)
+		{
+			parent::setRouter($router);	
 			
-			
-			$labels->setAction($router->getNextStepUrl());
-			$labels->enableVolver();
-			
-			
-			
-			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/DOMBody.php';
-			//FormActions::FORM_ACTIONS_DELETE:
-			$html=new HTMLUForms();
-			$html->appendChild
+			$this->setNextStepName
 			(
-				$body=new DOMBody()
+				$this->getRouter()->getNextStepUrl()
 			);
-
-				
-			if($labels!==false)
-			{
-				$body->appendChild
-				(
-					new DOMTag( 'h1' , $operacionStr )
-				)->appendChild($labels);
-			}
-
-			echo $html->getHTML();
 		}
 	}
 ?>
