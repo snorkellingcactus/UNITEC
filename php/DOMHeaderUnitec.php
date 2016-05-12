@@ -23,8 +23,6 @@
 			(
 				$iniciarSesion->setName(gettext('Iniciar Sesión'))->setUrl('/inicio_sesion.php')
 			)->setAttribute('id' , 'header');
-
-			$this->addToAttribute('class' , 'hidden-xs');
 		}
 	}
 ?>

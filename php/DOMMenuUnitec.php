@@ -3,11 +3,6 @@
 
 	class DOMMenuUnitec extends DOMMenu
 	{
-		function __construct()
-		{
-			parent::__construct();
-		}
-
 		function renderChilds(&$tag)
 		{
 			$condVisible='';
