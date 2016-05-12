@@ -17,7 +17,7 @@
 			$contentID=FormActions::getContentID();
 
 			$i=0;
-			while( isset($contentID[$i]) )
+			foreach( $contentID as $name=>$contentIDAct )
 			{
 				$nombreID=fetch_all
 				(
@@ -25,15 +25,23 @@
 					(
 						'	SELECT NombreID
 							FROM Eventos
-							WHERE DescripcionID = '.FormActions::getContentID()[$i]
+							WHERE DescripcionID = '.$contentIDAct
 					),
 					MYSQLI_NUM
 				)[0][0];
 
-				//echo '<pre>Elimina Evento: '.'delete from Contenidos where ID='.FormActions::getContentID()[$i].'</pre>';
+//				echo '<pre>Elimina Evento: '.'	DELETE FROM Contenidos WHERE ID='.$contentIDAct.'</pre>';
 
-				$con->query('delete from Contenidos where ID='.$nombreID);
-				$con->query('delete from Contenidos where ID='.FormActions::getContentID()[$i]);
+				$con->query
+				(
+					'	DELETE FROM Contenidos
+						WHERE ID='.$nombreID
+				);
+				$con->query
+				(
+					'	DELETE FROM Contenidos
+						WHERE ID='.$contentIDAct
+				);
 
 				++$i;
 			}

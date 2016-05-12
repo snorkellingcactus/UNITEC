@@ -195,7 +195,7 @@
 			(
 				$nSec->HTMLID!==NULL &&
 				(
-					$session->hasLabel('Atajo') ||
+					!$session->emptyTrimLabel( 'Atajo' ) ||
 					(
 						$session->hasLabel('AgregarAlMenu') &&
 						$session->getLabel('AgregarAlMenu')==='true'
@@ -273,7 +273,7 @@
 				$router->redirectToStepName('00_PasoA.class.php');
 			}
 
-			//$router->gotoOrigin();
+			$router->gotoOrigin();
 		}
 	}
 	//$formLab=new FormCliRecv('Sec');

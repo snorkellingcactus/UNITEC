@@ -18,10 +18,8 @@
 
 			$contentID=FormActions::getContentID();
 
-			$i=0;
 			foreach( $contentID as $name=>$contentIDAct )
 			{
-
 				$imgID=fetch_all
 				(
 					$con->query
@@ -41,8 +39,6 @@
 					'	DELETE FROM Contenidos
 						WHERE ID='.$contentIDAct
 				);
-
-				++$i;
 			}
 			
 			$router->gotoOrigin();

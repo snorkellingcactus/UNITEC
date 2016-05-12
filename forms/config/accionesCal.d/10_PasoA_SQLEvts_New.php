@@ -134,7 +134,7 @@
 				//$session->setIDSuffix( $i ) !==false;
 			}
 
-			//$router->gotoOrigin();
+			$router->gotoOrigin();
 		}
 	}
 ?>

@@ -16,11 +16,8 @@
 
 			$contentID=FormActions::getContentID();
 
-			$i=0;
-			while( isset($contentID[$i]) )
+			foreach( $contentID as $name=>$contentIDAct )
 			{
-				$contentIDAct=$contentID[$i];
-
 				$contenidos=fetch_all
 				(
 					$con->query
@@ -43,8 +40,6 @@
 						WHERE ID='.$contenidos['TituloID'].'
 						OR ID='.$contenidos['DescripcionID']
 				);
-
-				++$i;
 			}
 			
 			$router->gotoOrigin();

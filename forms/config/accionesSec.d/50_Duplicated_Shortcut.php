@@ -1,8 +1,33 @@
 <?php
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/SrvStepCommon.php';
 	
-	class Duplicated_Shortcut extends SrvStepBase
+	class Duplicated_Shortcut extends SrvStepCommon
 	{
+		public $parentStr;
+
+		public function onNew()
+		{
+			$this->parentStr='';
+		}
+		public function onEdit()
+		{
+			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/conexion.php';
+			global $con;
+
+			$this->parentStr=
+			'
+				AND Menu.SeccionID <> "'.
+				fetch_all
+				(
+					$con->query
+					(
+						'	SELECT Secciones.HTMLID
+							FROM Secciones
+							WHERE Secciones.ID='.FormActions::getContentID()[0]
+					),
+					MYSQLI_NUM
+				)[0][0].'"';
+		}
 		public function OnSetRouter()
 		{
 			parent::OnSetRouter();
@@ -20,9 +45,9 @@
 
 			if( !$session->emptyTrimLabel( 'Atajo' ) )
 			{
-				$atajoTxt=trim
+				$atajoTxt=strtoupper
 				(
-					strtolower
+					trim
 					(
 						$session->getLabel('Atajo')
 					)
@@ -32,15 +57,34 @@
 				(
 					$con->query
 					(
-						
-						'	SELECT	1
-							FROM	Menu
-							WHERE	Atajo = "'.$atajoTxt.'"
-						'
+						'	SELECT 1 FROM Menu
+							LEFT OUTER JOIN TagsTarget
+							ON TagsTarget.GrupoID=Menu.TagsGrpID
+							LEFT OUTER JOIN Laboratorios
+							ON Laboratorios.ID='.$_SESSION['lab'].'
+							WHERE TagsTarget.TagID=Laboratorios.TagID
+							AND Menu.Atajo="'.$atajoTxt.'"
+						'.$this->parentStr
 					),
 					MYSQLI_NUM
 				);
+/*
+				echo '<pre>';
+				print_r
+				(
+					'	SELECT 1 FROM Menu
+						LEFT OUTER JOIN TagsTarget
+						ON TagsTarget.GrupoID=Menu.TagsGrpID
+						LEFT OUTER JOIN Laboratorios
+						ON Laboratorios.ID='.$_SESSION['lab'].'
+						WHERE TagsTarget.TagID=Laboratorios.TagID
+						AND Menu.Atajo="'.$atajoTxt.'"
+					'.$this->parentStr
+				);
+				echo '</pre>';
 
+				die();
+*/
 				if(isset($atajo[0][0]))
 				{
 					include_once $_SERVER['DOCUMENT_ROOT'] . '/php/SrvFormBaseCommon.php';
