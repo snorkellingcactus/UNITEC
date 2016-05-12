@@ -12,11 +12,21 @@
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/conexion.php';
 			global $con;
 
+			$contentIDAct=FormActions::getContentID()[0];
+
 			$con->query
 			(
 				'	DELETE FROM Laboratorios
-					WHERE ID='.FormActions::getContentID()[0]
+					WHERE ID='.$contentIDAct
 			);
+
+			if($contentIDAct === $_SESSION['lab'])
+			{
+				unset
+				(
+					$_SESSION['lab']
+				);
+			}
 
 			$router->gotoOrigin();
 		}

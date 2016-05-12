@@ -41,7 +41,7 @@
 				'/bootstrap.css'
 			);
 
-			if($_SESSION['lab']!==false)
+			if( $_SESSION['lab']!==false )
 			{
 				//Revisar. A futuro crear un .ico para SIcon.
 				$logo='/img/logos/'.$_SESSION['lab'].'.png';

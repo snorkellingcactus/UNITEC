@@ -89,7 +89,12 @@
 
 					include_once	$_SERVER['DOCUMENT_ROOT'] . '/php/updTraduccion.php';
 
-					updTraduccion($_POST['Contenido'][0] , $nSec->ContenidoID , $_SESSION['lang']);
+					updTraduccion
+					(
+						$session->getLabel( 'Contenido' ) ,
+						$nSec->ContenidoID ,
+						$_SESSION['lang']
+					);
 				}
 				else
 				{
@@ -268,7 +273,7 @@
 				$router->redirectToStepName('00_PasoA.class.php');
 			}
 
-			$router->gotoOrigin();
+			//$router->gotoOrigin();
 		}
 	}
 	//$formLab=new FormCliRecv('Sec');

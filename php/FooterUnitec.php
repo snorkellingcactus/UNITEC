@@ -3,10 +3,6 @@
 
 	class FooterUnitec extends Footer
 	{
-		function __construct()
-		{
-			parent::__construct();
-		}
 		function replaceIfEmpty(&$array , $lab)
 		{
 			foreach($array as $clave=>$valor)
@@ -19,70 +15,68 @@
 		}
 		function renderChilds(&$tag)
 		{
-			if(isset($_SESSION['lab']))
-			{
-			    include_once $_SERVER['DOCUMENT_ROOT'] . '/php/Laboratorio.php';
-			    include_once $_SERVER['DOCUMENT_ROOT'] . '/php/getTraduccion.php';
+			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/Laboratorio.php';
+			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/getTraduccion.php';
 
-			    $lab=new Laboratorio();
+		    $lab=new Laboratorio();
 
-			    if($_SESSION['lab']!==false)
-			    {
-			    	$lab->getSQL(['ID'=>$_SESSION['lab']]);
-					$labName=getLabName($lab->ID , $_SESSION['lang']);
-				}
 
-			    $info=
-			    [
-			        'DireccionID' =>$lab->DireccionID,
-			        'Mail'=>$lab->Mail ,
-			        'Telefono'=> $lab->Telefono,
-			        'Latitud'=> $lab->Latitud,
-			        'Longitud'=> $lab->Longitud
-			    ];
+			$lab->getSQL
+			(
+				[
+					'ID'=>$_SESSION['lab']
+				]
+			);
+			$labName=getLabName
+			(
+				$lab->ID ,
+				$_SESSION['lang']
+			);
+			
 
-			    $social=
-			    [
-			        'Facebook' => $lab->Facebook,
-			        'Twitter' => $lab->Twitter,
-			    ];
+		    $info=
+		    [
+		        'DireccionID' =>$lab->DireccionID,
+		        'Mail'=>$lab->Mail ,
+		        'Telefono'=> $lab->Telefono,
+		        'Latitud'=> $lab->Latitud,
+		        'Longitud'=> $lab->Longitud
+		    ];
 
-			    if($_SESSION['lab']!==false)
-			    {
-			    	$defaultLab=getDefaultLabID();
+		    $social=
+		    [
+		        'Facebook' => $lab->Facebook,
+		        'Twitter' => $lab->Twitter,
+		    ];
 
-			    	if($lab->ID!=$defaultLab)
-				    {
-				        $lab->getSQL
-				        (
-				            ['ID'=>$defaultLab]
-				        );
+	    	$defaultLab=getDefaultLabID();
 
-				        $this->replaceIfEmpty($info , $lab);
-				        $this->replaceIfEmpty($social , $lab);
-				    }
+	    	if($lab->ID!=$defaultLab)
+		    {
+		        $lab->getSQL
+		        (
+		            [
+		            	'ID'=>$defaultLab
+		            ]
+		        );
 
-				    $info['DireccionID']=getTraduccion($info['DireccionID'] , $_SESSION['lang']);
+		        $this->replaceIfEmpty($info , $lab);
+		        $this->replaceIfEmpty($social , $lab);
+		    }
 
-				    include_once $_SERVER['DOCUMENT_ROOT'] . '/php/FooterMapa.php';
+		    $info['DireccionID']=getTraduccion
+		    (
+		    	$info['DireccionID'] ,
+		    	$_SESSION['lang']
+		    );
 
-				    $mapa=new FooterMapa
-				    (
-				    	$labName ,
-				    	$info['Latitud'].' , '.$info['Longitud']
-				    );
-			    }
-			    else
-			    {
-			    	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/FooterContainer.php';
+		    include_once $_SERVER['DOCUMENT_ROOT'] . '/php/FooterMapa.php';
 
-			    	$mapa=new FooterContainer();
-			    	$mapa->appendChild
-			    	(
-			    		new DOMTag('p' , 'NoLab Map')
-			    	);
-			    }
-			}
+		    $mapa=new FooterMapa
+		    (
+		    	$labName ,
+		    	$info['Latitud'].' , '.$info['Longitud']
+		    );
 
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/DOMTag.php';
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/ClearFix.php';
@@ -92,6 +86,16 @@
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/edicion/FormCliMapa.php';
 
 			$divInfo=new FooterInfo();
+
+			if( $_SESSION['lab'] !== false )
+			{
+				$divInfo
+				->setFacebook($social['Facebook'])
+				->setTwitter($social['Twitter'])
+				->setDireccion($info['DireccionID'])
+				->setTelefono($info['Telefono'])
+				->setMail($info['Mail']);
+			}
 
 			$titulo=new DOMTag
 			(
@@ -114,11 +118,6 @@
 			)->appendChild
 			(
 				$divInfo
-				->setFacebook($social['Facebook'])
-				->setTwitter($social['Twitter'])
-				->setDireccion($info['DireccionID'])
-				->setTelefono($info['Telefono'])
-				->setMail($info['Mail'])
 			)->appendChild
 			(
 				new ClearFix()

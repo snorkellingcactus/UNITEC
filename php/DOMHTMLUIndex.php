@@ -11,12 +11,6 @@
 			parent::__construct();
 
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/DOMBodyUnitec.php';
-			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/DOMTag.php';
-			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/DOMMenuUnitec.php';
-			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/FooterUnitec.php';
-
-			$this->body=new DOMBodyUnitec();
-			$this->main=new DOMTag('main');
 
 			$this->setDescription
 			(
@@ -47,21 +41,42 @@
 				'/index.js'
 			)->appendChild
 			(
-				$this->body
+				$this->body=new DOMBodyUnitec()
 			)->loadModulesHeaders();
 
+			if($_SESSION['lab'] !== false)
+			{
+				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/DOMMenuUnitec.php';
+				
+				$this->appendChild
+				(
+					new DOMMenuUnitec()
+				);	
+			}
+			
+			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/DOMTag.php';
 			$this->appendChild
 			(
-				new DOMMenuUnitec()
-			)->appendChild
-			(
-				$this->main
-			)->appendChild
-			(
-				new FooterUnitec()
+				$this->main=new DOMTag('main')
 			);
 
-			$this->main->col=['xs'=>12 , 'sm'=>10 , 'md'=>10 , 'lg'=>10];
+			if($_SESSION['lab'] !== false)
+			{
+				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/FooterUnitec.php';
+
+				$this->appendChild
+				(
+					new FooterUnitec()
+				);
+
+				$this->main->col=['xs'=>12 , 'sm'=>10 , 'md'=>10 , 'lg'=>10];
+			}
+			else
+			{
+				$this->main->col=['xs'=>12 , 'sm'=>12 , 'md'=>12 , 'lg'=>12];
+			}
+
+			
 		}
 		function loadModulesHeaders()
 		{

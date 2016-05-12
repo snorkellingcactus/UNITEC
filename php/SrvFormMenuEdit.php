@@ -60,7 +60,7 @@
 
 			if(isset($grupoID[0][0]))
 			{
-				$this->labels->tags->input->setValue
+				$this->labels->labelTags->input->setValue
 				(
 					getTagsStr($grupoID[0][0])
 				);

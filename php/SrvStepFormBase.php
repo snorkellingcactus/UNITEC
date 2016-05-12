@@ -1,25 +1,11 @@
 <?php
-	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormBase.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/SrvFormBaseCommon.php';
 	
-
-	class SrvStepFormBase extends FormBase
+	class SrvStepFormBase extends SrvFormBaseCommon
 	{
 		public $con;
 		public $labels;
-		private $continuar;
-		private $volver;
-		//private 
-		public function __construct()
-		{
-			parent::__construct('form');
 
-			$this->addToAttribute('class' , 'Form')->addToAttribute('class' ,'tresem');
-
-			$this->setMethod('POST')->setEnctype('multipart/form-data');
-
-			$this->continuar=false;
-			$this->volver=false;
-		}
 		public function makeLabels(&$index)
 		{
 			$this->labels=$this->newLabelsCollection($index);
@@ -28,10 +14,12 @@
 
 			return $this->labels;
 		}
+		//Que valla a una interface.
 		public function newLabelsCollection(&$index)
 		{
 
 		}
+
 		public function autocomplete()
 		{
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/conexion.php';
@@ -53,40 +41,6 @@
 
 			return parent::setAction($action);
 		}
-		public function enableVolver()
-		{
-			$this->volver=true;
-		}
-		function renderChilds(&$tag)
-		{
-			if($this->continuar===true)
-			{
-				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormContinuar.php';
-				$this->appendChild
-				(
-					new FormContinuar()
-				);
-			}
-			if($this->volver===true)
-			{
-				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormVolver.php';
-				$this->appendChild
-				(
-					new FormVolver()
-				);
-			}
-
-			return parent::renderChilds($tag);
-		}
-		/*
-		public function getReqs()
-		{
-			$iMax=parent::getReqsLen();
-			$requiere=parent::getReqs();
-
-			return $requiere;
-		}
-		*/
 	}
 ?>
 

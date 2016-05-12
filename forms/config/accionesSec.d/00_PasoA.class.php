@@ -68,6 +68,7 @@
 			parent::onNew();
 			$action=$this->getAction();
 
+
 			if
 			(
 				FormActions::isFlagSet
@@ -86,15 +87,18 @@
 
 				//$operacionStr=gettext( 'Nueva Sección' );
 			}
+
+			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/FormSession.php';
+			
+			$session=new FormSession();
+			$session->loadLabel( 'Tipo' );
+
 			if
 			(
-				isset
-				(
-					$_POST['Tipo'][0]
-				)
+				$session->hasLabel( 'Tipo' )
 			)
 			{
-				$tipo=$_POST['Tipo'][0];
+				$tipo=$session->getLabel( 'Tipo' );
 
 				if
 				(
@@ -133,8 +137,9 @@
 
 					//$operacionStr=gettext( 'Insertar Módulo' );
 				}
-
 			}
+
+			$session->save();
 		}
 
 		function onDelete()
@@ -149,7 +154,7 @@
 		{
 			$this->setNextStepName
 			(
-				$this->getRouter()->getNextStepUrl()
+				'50_Duplicated_Shortcut.php'
 			);
 
 			parent::onSetRouter();

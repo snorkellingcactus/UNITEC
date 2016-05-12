@@ -130,6 +130,7 @@
 
 			return $this;
 		}
+		
 		function getDefaultValue()
 		{
 			if(!isset($this->options[$this->selectedIndex]))
@@ -138,6 +139,7 @@
 			}
 			return $this->options[$this->selectedIndex]->getValue();
 		}
+		
 		function getValue()
 		{
 			return $this->getDefaultValue();
@@ -154,6 +156,7 @@
 		{
 			return $this->valueToSelect;
 		}
+
 		function getOptionsLen()
 		{
 			return $this->optionsLen;

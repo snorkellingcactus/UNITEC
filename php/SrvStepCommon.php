@@ -3,8 +3,7 @@
 
 	class SrvStepCommon extends SrvStepBase
 	{
-		private $labels;
-		private $nextStepName;
+		private $nextStepUrl;
 		private $action;
 /*
 		function setAction(&$action)
@@ -16,64 +15,22 @@
 		{
 			return $this->action;
 		}
-		function setLabels($labels)
-		{
-			$this->labels=$labels;
+		function setNextStepName($stepName)
+		{			
+			$this->setNextStepUrl
+			(
+				$this->getRouter()->getStepUrlByName($stepName)
+			);
 		}
-		function getLabels()
+		function setNextStepUrl( $nextStepUrl )
 		{
-			return $this->labels;
+			$this->nextStepUrl=$nextStepUrl;
 		}
-		function setNextStepName( $nextStepName )
+		function getNextStepUrl()
 		{
-			$this->nextStepName=$nextStepName;
+			return $this->nextStepUrl;
 		}
-		function getNextStepName()
-		{
-			return $this->nextStepName;
-		}
-		function buildLabelsTo($body)
-		{
-			$labels=$this->labels;
-
-			if($labels!==false)
-			{
-				$labels->enableVolver();
-
-				$nextStepName=$this->getNextStepName();
-
-				if($nextStepName!==false)
-				{
-					$labels->setAction
-					(
-						$this->getRouter()->getStepUrlByName( $nextStepName )
-					);
-				}
-
-				while($labels->hasNext()===true)
-				{
-					if(!$labels->thisIsFirst())
-					{
-						$labels->appendChild
-						(
-							new DOMTag
-							(
-								'hr'
-							)
-						);
-					}
-
-					$labels->appendChild
-					(
-						$labels->makeLabels($labels->getCount())
-					);
-
-					$labels->increment();
-				}
-
-				$body->appendChild($labels);
-			}
-		}
+		//Usar una interface.
 		function onEdit()
 		{
 
@@ -86,14 +43,6 @@
 		{
 			
 		}
-
-		function setRouter(SrvStepRouter &$router)
-		{
-			$this->setLabels		( false );
-			$this->setNextStepName	( false );
-			
-			parent::setRouter($router);
-		}
 		function onSetRouter()
 		{
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/FormActions.php';
@@ -102,7 +51,13 @@
 
 			if($action===false)
 			{
-				$action=FormActions::checkActionIn($_SESSION);
+				$action=$this->action=FormActions::checkActionIn($_SESSION);
+			}
+
+			//Revisar
+			if($action===false)
+			{
+				$action=FormActions::checkActionIn($_GET);
 			}
 
 			$_SESSION['ACTION'.$action]=true;

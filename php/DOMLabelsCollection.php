@@ -145,14 +145,20 @@
 			//Revisar.
 			if($session->hasLabel($name))
 			{
-				$input->setValue
-				(
-					$session->getLabel($name)
-				);
-			}
-			else
-			{
-				
+				if( isset($input->controller) )
+				{
+					$input->controller->setValueToSelect
+					(
+						$session->getLabel($name)
+					);	
+				}
+				else
+				{
+					$input->setValue
+					(
+						$session->getLabel($name)
+					);
+				}
 			}
 		}
 		public function renderChild($child)
@@ -190,11 +196,22 @@
 
 					$session->loadLabel($name);
 
-					$session->setLabel
-					(
-						$name ,
-						$input->getValue()
-					);
+					if( isset($input->controller) )
+					{
+						$session->setLabel
+						(
+							$name ,
+							$input->controller->getValue()
+						);
+					}
+					else
+					{
+						$session->setLabel
+						(
+							$name ,
+							$input->getValue()
+						);
+					}
 				}
 			}
 			else

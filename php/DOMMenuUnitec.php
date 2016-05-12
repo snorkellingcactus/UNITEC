@@ -91,10 +91,6 @@
 					++$s;
 				}
 			}
-			else
-			{
-				$labName='NoLab';
-			}
 
 			if(isset($_SESSION['adminID']))
 			{

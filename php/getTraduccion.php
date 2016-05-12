@@ -19,7 +19,6 @@
 		);
 		echo '</pre>';
 */
-
 		return html_entity_decode
 		(
 			fetch_all

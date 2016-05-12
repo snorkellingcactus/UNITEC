@@ -54,8 +54,10 @@
 			{
 				$_SESSION['form']=$_POST['form'][0];
 			}
+			
 			if(!isset($_SESSION['form']) && !isset($_POST['form']) && isset($_GET['form']))
 			{
+
 				$_SESSION['form']=addslashes($_GET['form']);
 			}
 
@@ -98,17 +100,40 @@
 				}
 			}
 
+
 			$nStep=$desp->getRelIndexN(0);
 
-			if($_SESSION['HISTORY'][$this->historyLen-1] !== $nStep)
+
+			$inHistory=array_search
+			(
+				$nStep,
+				$_SESSION['HISTORY']
+			);
+
+			if($inHistory === false)
 			{
 				$_SESSION['HISTORY'][$this->historyLen]=$nStep;
 			}
 			else
 			{
-				//Recarga de página.
-			}
+				for($i=$inHistory+1 ; $i<$this->historyLen ; ++$i)
+				{
+					unset
+					(
+						$_SESSION['HISTORY'][$i]
+					);
+				}
 
+				$this->historyLen=$inHistory;
+			}
+/*
+			echo '<pre>History : ';
+			print_r
+			(
+				$_SESSION['HISTORY']
+			);
+			echo '</pre>';
+*/
 			$this->invokeStepNumber
 			(
 				$nStep
@@ -164,6 +189,48 @@
 		public function getPrevStepUrl()
 		{
 			return $this->getRelStepN(-1);
+		}
+		public function getHistoryPrev()
+		{
+			if( isset($_SESSION['HISTORY'][$this->historyLen-1]) )
+			{
+				return 	$_SESSION['HISTORY'][$this->historyLen-1];
+			}
+
+			return false;
+		}
+		public function getHistoryPrevUrl()
+		{
+			$nStep=$this->getHistoryPrev();
+
+
+			if(	$nStep !==false	)
+			{
+/*
+				echo '<pre>nStep:';var_dump($nStep);echo '</pre>';
+				echo '<pre>nStep Sanitized:';
+				var_dump($this->stepDesp->getIndexN
+						(
+							$nStep
+						));
+				echo '</pre>';
+*/				
+				return $this->newStepFormatter()->setFileName
+				(
+					$this->steps
+					[
+						$this->stepDesp->getIndexN
+						(
+							$nStep
+						)
+					]
+				)->setNumber
+				(
+					$nStep
+				)->getClientUrl();
+			}
+
+			return false;
 		}
 		public function redirect($url)
 		{
