@@ -123,9 +123,14 @@ div.menu
 	div.menu nav a
 	{
 		color:gray;
-		display:inline;
+		display:block;
 		padding:0px;
 		text-align:center;
+		text-shadow: 0px 0px 4px black;
+	}
+	div.menu nav a:hover
+	{
+		text-shadow: none;
 	}
 	div.menu ul
 	{

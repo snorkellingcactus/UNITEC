@@ -41,7 +41,7 @@
 
 			global $con;
 
-			$shouldRedirect=true;
+			$msg=false;
 
 			if( !$session->emptyTrimLabel( 'Atajo' ) )
 			{
@@ -52,8 +52,7 @@
 						$session->getLabel('Atajo')
 					)
 				);
-
-				$msg=false;
+				
 				if($atajoTxt === 'I')
 				{
 					$msg=gettext

@@ -255,8 +255,13 @@ footer , .header a:hover
 }
 .header nav ul:hover
 {
+	z-index: 15
+}
+main:hover
+{
 	z-index: 30
 }
+
 .header nav ul:hover li a,.header nav ul:focus li a, .header nav ul li a:focus,.header nav ul.focus li a
 {
 	opacity:1;

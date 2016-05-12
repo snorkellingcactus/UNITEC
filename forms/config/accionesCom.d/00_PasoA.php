@@ -44,7 +44,7 @@
 		}
 		function onDelete()
 		{
-			$session->save();
+			$this->session->save();
 
 			$this->getRouter()->redirectToStepName('20_PasoA_SQLEvts_Delete.php');
 		}

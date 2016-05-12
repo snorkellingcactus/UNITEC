@@ -6,12 +6,10 @@
 	{
 		function __construct($formDirName)
 		{
-			$select=new FormCliNumSelect();
-
 			parent::__construct
 			(
 				$formDirName ,
-				$select
+				new FormCliNumSelect()
 			);
 		}
 	}

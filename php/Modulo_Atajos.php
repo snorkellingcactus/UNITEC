@@ -24,6 +24,7 @@
 			}
 
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/conexion.php';
+			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/reordena.php';
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/getTraduccion.php';
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/DOMTable.php';
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/DOMThead.php';
@@ -41,23 +42,26 @@
 				$condVisible='AND Secciones.Visible=1';
 			}
 
-			$atajos=fetch_all
+			$atajos=getPriorizados
 			(
-				$con->query
+				fetch_all
 				(
-					'	SELECT Menu.Atajo , Menu.ContenidoID, Menu.SeccionID
-						FROM Menu
-						LEFT OUTER JOIN Secciones
-						ON Secciones.HTMLID=Menu.SeccionID '.$condVisible.'
-						LEFT OUTER JOIN TagsTarget
-						ON TagsTarget.GrupoID=Secciones.TagsGrpID
-						LEFT OUTER JOIN Laboratorios
-						ON Laboratorios.ID='.$_SESSION['lab'].'
-						WHERE TagsTarget.TagID=Laboratorios.TagID
-						AND Menu.Atajo IS NOT NULL
-					'
-				),
-				MYSQLI_ASSOC
+					$con->query
+					(
+						'	SELECT Menu.Atajo , Menu.ContenidoID, Menu.SeccionID, Secciones.PrioridadesGrpID
+							FROM Menu
+							LEFT OUTER JOIN Secciones
+							ON Secciones.HTMLID=Menu.SeccionID '.$condVisible.'
+							LEFT OUTER JOIN TagsTarget
+							ON TagsTarget.GrupoID=Secciones.TagsGrpID
+							LEFT OUTER JOIN Laboratorios
+							ON Laboratorios.ID='.$_SESSION['lab'].'
+							WHERE TagsTarget.TagID=Laboratorios.TagID
+							AND Menu.Atajo IS NOT NULL
+						'
+					),
+					MYSQLI_ASSOC
+				)
 			);
 
 			$tabla=new DOMTable();

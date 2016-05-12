@@ -191,11 +191,13 @@
 				);
 			}
 
+			$atajoIsSet=!$session->emptyTrimLabel( 'Atajo' );
+
 			if
 			(
 				$nSec->HTMLID!==NULL &&
 				(
-					!$session->emptyTrimLabel( 'Atajo' ) ||
+					$atajoIsSet ||
 					(
 						$session->hasLabel('AgregarAlMenu') &&
 						$session->getLabel('AgregarAlMenu')==='true'
@@ -234,14 +236,17 @@
 					MYSQLI_NUM
 				);
 
-				if($session->hasLabel('Atajo'))
+				if($atajoIsSet)
 				{
 					$menuSession->setLabel
 					(
 						'Atajo' ,
 						strtoupper
 						(
-							$session->getLabel('Atajo')
+							trim
+							(
+								$session->getLabel('Atajo')
+							)
 						)
 					);
 				}

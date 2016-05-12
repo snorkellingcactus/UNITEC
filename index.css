@@ -12,8 +12,9 @@ html body
 }
 main
 {
-	width:100%;
+	width:100%;	
 }
+
 html
 {
 	background-color: #6DB0F1;
@@ -83,12 +84,14 @@ main.col-lg-10,main.col-md-10,main.col-sm-10,main.col-xs-12
 	padding-top:1%;
 	min-height: 100%;
 	float:right;
+/*
 	animation-name:main;
 	animation-duration:1s;
 	-moz-animation-name:main;
 	-moz-animation-duration:1s;
 	-webkit-animation-name:main;
 	-webkit-animation-duration:1s;
+*/
 }
 /* ¿Porqué estaba?
 main ul, main ol

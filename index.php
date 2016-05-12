@@ -104,7 +104,7 @@ if($_SESSION['lab']!==false)
 						ON Laboratorios.ID='.$_SESSION['lab'].'
 						WHERE Secciones.PadreID='.$seccionAct['ID'].'
 						AND TagsTarget.TagID=Laboratorios.TagID
-					'
+					'.$condVisible
 				),
 				MYSQLI_ASSOC
 			)
