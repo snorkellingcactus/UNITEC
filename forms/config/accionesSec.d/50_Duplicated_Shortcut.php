@@ -53,39 +53,42 @@
 					)
 				);
 
-				$atajo=fetch_all
-				(
-					$con->query
+				$msg=false;
+				if($atajoTxt === 'I')
+				{
+					$msg=gettext
 					(
-						'	SELECT 1 FROM Menu
-							LEFT OUTER JOIN TagsTarget
-							ON TagsTarget.GrupoID=Menu.TagsGrpID
-							LEFT OUTER JOIN Laboratorios
-							ON Laboratorios.ID='.$_SESSION['lab'].'
-							WHERE TagsTarget.TagID=Laboratorios.TagID
-							AND Menu.Atajo="'.$atajoTxt.'"
-						'.$this->parentStr
-					),
-					MYSQLI_NUM
-				);
-/*
-				echo '<pre>';
-				print_r
-				(
-					'	SELECT 1 FROM Menu
-						LEFT OUTER JOIN TagsTarget
-						ON TagsTarget.GrupoID=Menu.TagsGrpID
-						LEFT OUTER JOIN Laboratorios
-						ON Laboratorios.ID='.$_SESSION['lab'].'
-						WHERE TagsTarget.TagID=Laboratorios.TagID
-						AND Menu.Atajo="'.$atajoTxt.'"
-					'.$this->parentStr
-				);
-				echo '</pre>';
+						'El atajo especificado ( "%s" ) está reservado para el encabezado. Por favor ingrese uno distinto.'
+					);
+				}
+				else
+				{
+					$atajo=fetch_all
+					(
+						$con->query
+						(
+							'	SELECT 1 FROM Menu
+								LEFT OUTER JOIN TagsTarget
+								ON TagsTarget.GrupoID=Menu.TagsGrpID
+								LEFT OUTER JOIN Laboratorios
+								ON Laboratorios.ID='.$_SESSION['lab'].'
+								WHERE TagsTarget.TagID=Laboratorios.TagID
+								AND Menu.Atajo="'.$atajoTxt.'"
+							'.$this->parentStr
+						),
+						MYSQLI_NUM
+					);
 
-				die();
-*/
-				if(isset($atajo[0][0]))
+					if(isset($atajo[0][0]))
+					{
+						$msg=gettext
+						(
+							'El atajo especificado ( "%s" ) ya existe. Por favor ingrese uno distinto.'
+						);
+					}
+				}
+
+				if( $msg !== false )
 				{
 					include_once $_SERVER['DOCUMENT_ROOT'] . '/php/SrvFormBaseCommon.php';
 					include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/MSGBox.php';
@@ -104,10 +107,7 @@
 						(
 							sprintf
 							(
-								gettext
-								(
-									'El atajo especificado ( "%s" ) ya existe. Por favor intente con otro.'
-								),
+								$msg,
 								$atajoTxt
 							)
 						)
@@ -116,13 +116,11 @@
 						$this->getRouter()->getHistoryPrevUrl()
 					);
 
-					$shouldRedirect=false;
-
 					echo $html->getHTML();
 				}
 			}
 
-			if( $shouldRedirect )
+			if( $msg === false )
 			{
 				$this->getRouter()->redirectToStepName
 				(
