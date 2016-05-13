@@ -86,8 +86,6 @@
 			{
 				if(isset($_SESSION['adminID']))
 				{
-					include_once $_SERVER['DOCUMENT_ROOT'] . '/php/FormActions.php';
-
 					$p=new DOMTag('p' , 'No se creó ningun laboratorio. Quizá desee ');
 					$link=new DOMLink();
 
@@ -98,10 +96,7 @@
 							$link
 							->setUrl
 							(
-								'/php/accion.php?form=accionesLab&ACTION'.
-								(
-									FormActions::FORM_ITEM_TYPE_A | FormActions::FORM_ACTIONS_NEW
-								)
+								'/php/accion.php?form=accionesLab&step=4'
 							)->setName('crear uno nuevo')
 						)
 					);
