@@ -19,24 +19,33 @@
 
 			$this->eLen=0;
 
-			$labs=explode
-			(
-				',',
-				getLabTagTree($_SESSION['lab'])
-			);
+			$labs=array();
 
+			getLabTagTreeLoop
+			(
+				$_SESSION['lab'],
+				$labs,
+				0
+			);
+	
 			$len=count($labs);
 
 			for($i=$len;$i>0;$i--)
 			{
-				$lName=trim($labs[$i-1]);
+				$lName=trim( $labs[$i-1] );
 
 				$this->appendEntry
 				(
 					$this->newEntry
 					(
-						$lName,
-						getLabUrl($lName)
+						getLabName
+						(
+							getLabByName
+							(
+								$lName
+							)[0]['ID']
+						),
+						getLabUrl( $lName )
 					)
 				);
 			}

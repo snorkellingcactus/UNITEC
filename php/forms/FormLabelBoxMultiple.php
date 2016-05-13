@@ -41,7 +41,7 @@
 				$this->label->getIDReference()->getFormatted()
 			);
 		}
-		function renderChild($child)
+		function renderChild(&$child)
 		{	
 			if($child instanceof Indexable)
 			{

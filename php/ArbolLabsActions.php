@@ -32,7 +32,13 @@
 			);
 			if(intVal($child['Enlace']) && $child['ID']!==$_SESSION['lab'])
 			{
-				$li->setLink(getLabUrl($child['Texto']));
+				$li->setLink
+				(
+					getLabUrl
+					(
+						$child['Texto']
+					)
+				);
 			}
 
 			if(isset($_SESSION['adminID']))

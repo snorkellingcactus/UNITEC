@@ -102,7 +102,7 @@
 				'	SELECT Laboratorios.*, Traducciones.Texto
 					FROM Laboratorios
 					LEFT OUTER JOIN Traducciones
-					ON Traducciones.Texto="'.addslashes(trim($_GET['lab'])).'"
+					ON Traducciones.Texto="'.trim( $tag ).'"
 					LEFT OUTER JOIN Tags
 					ON Tags.ID=Laboratorios.TagID
 					WHERE Traducciones.ContenidoID=Tags.NombreID and Tags.ID = Laboratorios.TagID
@@ -110,7 +110,7 @@
 				'
 			),
 			MYSQLI_ASSOC
-		);
+		)[0][0];
 	}
 	function getLabByName($name)
 	{

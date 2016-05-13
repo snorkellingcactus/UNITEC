@@ -16,8 +16,10 @@
 					(
 						'	SELECT Laboratorios.ID, Laboratorios.PadreID, Laboratorios.Color, Laboratorios.Enlace, Laboratorios.NombreID, Traducciones.Texto
 							FROM Laboratorios
+							LEFT OUTER JOIN Tags
+							ON Tags.ID = Laboratorios.TagID
 							LEFT OUTER JOIN Traducciones
-							ON Traducciones.ContenidoID=Laboratorios.NombreID
+							ON Traducciones.ContenidoID=Tags.NombreID
 							WHERE Laboratorios.PadreID='.$labs[$i]['ID']
 					),
 					MYSQLI_ASSOC
@@ -65,8 +67,10 @@
 					(
 						'	SELECT Laboratorios.ID, Laboratorios.PadreID, Laboratorios.Color, Laboratorios.Enlace, Laboratorios.NombreID, Traducciones.Texto
 							FROM Laboratorios
+							LEFT OUTER JOIN Tags
+							ON Tags.ID = Laboratorios.TagID
 							LEFT OUTER JOIN Traducciones
-							ON Traducciones.ContenidoID=Laboratorios.NombreID
+							ON Traducciones.ContenidoID=Tags.NombreID
 							WHERE Laboratorios.ID='.$_SESSION['lab'].'
 							LIMIT 1
 						'
