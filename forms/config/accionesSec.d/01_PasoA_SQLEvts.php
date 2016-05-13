@@ -41,7 +41,7 @@
 			//Un módulo.
 			if($session->hasLabel('Modulo'))
 			{
-				$nSec->ModuloID=intVal($session->getLabel('Modulo'));
+				$nSec->ModuloID=intVal( $session->getLabel('Modulo') );
 
 				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/opciones.php';
 
@@ -49,15 +49,23 @@
 
 				if(isset($opcGrp[0][0]))
 				{
-					$opciones=getAllOpcGrp($opcGrp[0][0]);
+					$opciones=getAllOpcGrp( $opcGrp[0][0] );
+
 					$i=0;
 					while(isset($opciones[$i]))
 					{
 						$opcion=$opciones[$i];
 
-						if(isset($_POST[$opcion['Nombre']]) && isset($opcGrp[0][1]))
+						//Revisar. Si no existe $opcGrp[0][1], crearlo.
+
+						if( !$session->emptyTrimLabel( $opcion['NombreID'] ) && isset($opcGrp[0][1]) )
 						{
-							updVal($opcion['ID'] , $opcGrp[0][1] , $_POST[$opcion['Nombre']][0]);
+							updVal
+							(
+								$opcion['ID'] ,
+								$opcGrp[0][1] ,
+								$session->getLabel( $opcion['NombreID'] )
+							);
 						}
 
 						++$i;
@@ -275,6 +283,7 @@
 				$menuSession->save();
 				$router->setFormDir('accionesMenu');
 
+				//Nombre del fichero en accionesMenu.d
 				$router->redirectToStepName('00_PasoA.class.php');
 			}
 

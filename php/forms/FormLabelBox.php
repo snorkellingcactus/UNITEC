@@ -5,8 +5,8 @@
 	class FormLabelBox extends FormLabelBoxBase implements Indexable
 	{
 		public $input;
-		public $inputID;
-		public $inputName;
+		public $inputID;	//Figurita?
+		public $inputName;	//Figurita?
 
 		//FormLabelBox::__construct([$name [, $id [, $label [, $input]]]])
 		function __construct()

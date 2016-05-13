@@ -51,7 +51,8 @@
 			}
 			else
 			{
-				$opciones=getAllOpcGrp($opcGrpID[0][0]);
+				//Obtengo la lista de opciónes por el grupo que figura en el módulo.
+				$opciones=getAllOpcGrp( $opcGrpID[0][0] );
 
 				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/getTraduccion.php';
 
@@ -62,14 +63,18 @@
 
 					if(isset($opcGrpID[0][1]))
 					{
-						echo '<pre>Exite un OpcSetsGrpID';echo '</pre>';
+						//echo '<pre>Exite un OpcSetsGrpID';echo '</pre>';
 
-						$valor=getVal($opcion['ID'] , $opcGrpID[0][1]);
+						$valor=getVal
+						(
+							$opcion['ID'] ,
+							$opcGrpID[0][1]
+						);
 
 						if(isset($valor[0][0]))
 						{
 							$valor=$valor[0][0];
-							echo '<pre>Valor seteado:';print_r($valor);echo '</pre>';
+							//echo '<pre>Valor seteado:';print_r($valor);echo '</pre>';
 						}
 						else
 						{
@@ -78,30 +83,17 @@
 					}
 					if(isset($opcion['Predeterminado']))
 					{
-	
+/*
 						echo '<pre>Valor predeterminado:';
 						print_r
 						(
 							$opcion['Predeterminado']
 						);
 						echo '</pre>';
+*/
 	
 						$default=$opcion['Predeterminado'];
 					}
-
-					include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormLabelBox.php';
-					include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/LabelBox.php';
-
-					$lBox=new LabelBox
-					(
-						$opcion['Nombre'],
-						$opcion['Nombre'],
-						getTraduccion
-						(
-							$opcion['Nombre'],
-							$_SESSION['lang']
-						)
-					);
 
 					if(isset($opcion['Min']) && isset($opcion['Max']))
 					{
@@ -123,19 +115,18 @@
 
 						for($j=$min;$j<=$max;$j++)
 						{
+							//''.$j para convertir a string, ya que por ej. "5" !== 5.
 							$select->controller->addOption
 							(
-								$select->controller->newOption($j , $j)
+								$select->controller->buildOption( ''.$j , ''.$j)
 							);
 						}
-
-						$lBox->setInput($select);
 					}
 					else
 					{
 						if(isset($opcion['ValGrp']))
 						{
-							$valids=getValids($opcion['ValGrp']);
+							$valids=getValids( $opcion['ValGrp'] );
 
 							if(isset($valids[0][0]))
 							{
@@ -153,39 +144,57 @@
 									}
 									else
 									{
-										$valid[1]=getTraduccion($valid[1] , $_SESSION['lang']);
+										$valid[1]=getTraduccion
+										(
+											$valid[1] ,
+											$_SESSION['lang']
+										);
 									}
-
-									$option=$select->controller->newOption($valid[1],$valid[0]);
 
 									if(isset($valor))
 									{
-										if($valor===$valid[0])
-										{
-											$option->setSelected();
-										}
+										$select->controller->setValueToSelect( $valid[0] );
 									}
 									else
 									{
 										if(isset($default) && $default===$valid[0])
 										{
-											$option->setSelected();
+											$select->controller->setValueToSelect( $valid[0] );
 										}
 									}
 
-									$select->addOption
+									$select->controller->addOption
 									(
-										$option
+										$select->controller->buildOption( $valid[1] , $valid[0] )
 									);
+
 									++$j;
 								}
-
-								$lBox->setInput($select);
 							}
 						}
 					}
 
-					$this->appendChild($lBox);
+
+					if(isset($select))
+					{
+						include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormLabelBox.php';
+
+						$this->appendChild
+						(
+							$lBox=new FormLabelBox
+							(
+								$opcion['NombreID'],
+								$opcion['NombreID'],
+								getTraduccion
+								(
+									$opcion['Nombre'],
+									$_SESSION['lang']
+								),
+								$select
+							)
+						);
+					}
+					
 
 					++$i;
 				}
