@@ -142,6 +142,7 @@
 							)
 						)->setFullUrl
 						(
+							//Revisar . Código en común con VisorImagenes, DOMMenuOpc, Modulo_Novedades , Modulo_Imagenes
 							'/'.
 							getLangCode().
 							'/espacios/'.

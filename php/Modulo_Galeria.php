@@ -102,13 +102,22 @@
 							'/img/miniaturas/galeria/'.$imgAct['ID'].'.png'
 						)->setUrl
 						(
-							getLangCode().
-							'/espacios/'.
-							$lName.
-							'/galeria/'.
-							$fecha->format('Y-m-d').
-							'/'.
-							urlencode($img->titulo).
+							//Revisar . Código en común con VisorImagenes, DOMMenuOpc, Modulo_Novedades , Modulo_Imagenes
+							getLangCode()				.
+							'/espacios/'				.
+							$lName						.
+							'/galeria/'					.
+							$fecha->format('Y-m-d')		.
+							'/'							.
+							urlencode
+							(
+								str_replace
+								(
+									'/' ,
+									' ' ,
+									$img->titulo
+								)
+							)							.
 							'-'.$imgAct['ID']
 						)
 					);

@@ -18,6 +18,8 @@ if($_SESSION['lab']!==false)
 	{
 		$noLimit=$_GET['vRecID'];
 		$condicion=' Secciones.ID='.$noLimit;
+
+		$html->menu->setAbsoluteUrls( true );
 	}
 	else
 	{

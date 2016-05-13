@@ -3,6 +3,20 @@
 
 	class DOMMenuUnitec extends DOMMenu
 	{
+		private $absoluteUrls;
+
+		function __construct()
+		{
+			parent::__construct();
+
+			$this->setAbsoluteUrls( false );
+		}
+		function setAbsoluteUrls( $absoluteUrls )
+		{
+			$this->absoluteUrls=$absoluteUrls;
+
+			return $this;
+		}
 		function renderChilds(&$tag)
 		{
 			$condVisible='';
@@ -61,6 +75,8 @@
 							)
 						)
 					);
+
+					$opc->setAbsoluteUrl( $this->absoluteUrls );
 
 					if(isset($opcion['SeccionID']))
 					{

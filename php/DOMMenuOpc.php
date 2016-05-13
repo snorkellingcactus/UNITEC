@@ -9,6 +9,7 @@
 		public $shortcutChar;
 		public $sectionName;
 		public $link;
+		private $absoluteUrl;
 
 		function __construct($name)
 		{
@@ -23,6 +24,9 @@
 			)->setSectionName
 			(
 				false
+			)->setAbsoluteUrl
+			(
+				false
 			)->appendChild
 			(
 				$this->link=new DOMLink()
@@ -31,6 +35,12 @@
 		function setUrl($url)
 		{
 			$this->url=$url;
+
+			return $this;
+		}
+		function setAbsoluteUrl($absoluteUrl)
+		{
+			$this->absoluteUrl=$absoluteUrl;
 
 			return $this;
 		}
@@ -56,13 +66,32 @@
 		{
 			if($this->sectionName)
 			{
-				$this->setUrl('#'.$this->sectionName);
+				$urlStr='#'.$this->sectionName;
+				
+				if( $this->absoluteUrl !== false )
+				{
+					include_once $_SERVER['DOCUMENT_ROOT'] . '/php/getLab.php';
+
+					//Revisar . Código en común con VisorImagenes, DOMMenuOpc, Modulo_Novedades , Modulo_Imagenes
+					$urlStr=
+					'/'								.
+					substr( getenv('LANG'), 0 , 2 )	.
+					'/espacios/'					.
+					getLabName()					.
+					'/'								.
+					$urlStr;
+				}
+
+				$this->setUrl
+				(
+					$urlStr
+				);
 			}
 
 			$this->link->setUrl
 			(
 				$this->url
-			)->setName($this->name);
+			)->setName( $this->name );
 
 
 			if($this->shortcutChar!==false)

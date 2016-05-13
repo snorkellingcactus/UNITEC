@@ -65,10 +65,30 @@
 			}
 			else
 			{
+				//Revisar . Código en común con VisorImagenes, DOMMenuOpc, Modulo_Novedades , Modulo_Imagenes
 				$a->setAttribute
 				(
 					'href',
-					'/'.substr(getenv('LANG'), 0 , 2).'/espacios/'.$this->lName.'/galeria/'.$fecha->format('Y-m-d').'/'.urlencode($titulo).'-'.$rec.'&vRecIDAnt='.$this->discVal
+					'/'								.
+					substr( getenv('LANG'), 0 , 2 )	.
+					'/espacios/'					.
+					$this->lName					.
+					'/galeria/'						.
+					$fecha->format( 'Y-m-d' )		.
+					'/'								.
+					urlencode
+					(
+						str_replace
+						(
+							'/' ,
+							' ' ,
+							$titulo
+						)
+					)								.
+					'-'								.
+					$rec							.
+					'&vRecIDAnt='					.
+					$this->discVal
 				);
 			}
 	/*

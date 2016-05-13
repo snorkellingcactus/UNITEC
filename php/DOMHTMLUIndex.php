@@ -5,6 +5,7 @@
 	{
 		public $body;
 		public $main;
+		public $menu;
 
 		function __construct()
 		{
@@ -50,7 +51,7 @@
 				
 				$this->appendChild
 				(
-					new DOMMenuUnitec()
+					$this->menu=new DOMMenuUnitec()
 				);	
 			}
 			

@@ -147,10 +147,32 @@
 								'src' ,
 								$visorHTML->formatUrlB($nov['ImagenID'])
 							)
-						)->setAttribute
+						)->setAttribute	//Revisar . Código en común con VisorImagenes, DOMMenuOpc, Modulo_Novedades , Modulo_Imagenes
 						(
 							'href',
-							$link='/'.getLangCode().'/espacios/'.getLabName().'/novedades/'.$fechaYmd.'/'.urlencode(str_replace('/' , ' ' , getTraduccion($nov['TituloID'] , $_SESSION['lang']))).'-'.$nov['ID']
+							$link=
+							'/'									.
+							getLangCode()						.
+							'/espacios/'						.
+							getLabName()						.
+							'/novedades/'						.
+							$fechaYmd							.
+							'/'									.
+							urlencode
+							(
+								str_replace
+								(
+									'/' ,
+									' ' ,
+									getTraduccion
+									(
+										$nov['TituloID'] ,
+										$_SESSION['lang']
+									)
+								)
+							)									.
+							'-'									.
+							$nov['ID']
 						)
 					)
 				);
