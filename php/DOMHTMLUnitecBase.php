@@ -1,13 +1,14 @@
 <?php
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/DOMHTML.php';
 
+	ini_set("display_errors", "On");
+	error_reporting(E_ALL);
+
 	class DOMHTMLUnitecBase extends DOMHTML
 	{
 		function __construct()
 		{
 			parent::__construct();
-
-			ini_set("display_errors", "On");
 
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/setLang.php';
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/getLab.php';

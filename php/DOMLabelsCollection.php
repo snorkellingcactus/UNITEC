@@ -161,7 +161,7 @@
 				}
 			}
 		}
-		public function renderChild($child)
+		public function renderChild( &$child )
 		{
 			if($this->session !== false)
 			{

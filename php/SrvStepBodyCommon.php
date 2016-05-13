@@ -56,9 +56,12 @@
 						);
 					}
 
+					//"Only Variables should be passed by reference"
+					$index=$labels->getCount();
+
 					$labels->appendChild
 					(
-						$labels->makeLabels($labels->getCount())
+						$labels->makeLabels( $index )
 					);
 
 					$labels->increment();

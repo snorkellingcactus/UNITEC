@@ -14,7 +14,7 @@
 		const FORM_ACTION_PREFIX	=	'ACTION';
 
 		//http://stackoverflow.com/questions/2791869/most-efficient-way-to-extract-bit-flags
-		function isFlagSet($Flag,$Setting,$All=false)
+		public static function isFlagSet($Flag,$Setting,$All=false)
 		{
 		  $setFlags = $Flag & $Setting;
 		  if($setFlags and !$All) // at least one of the flags passed is set
@@ -25,7 +25,7 @@
 		     return false;
 		}
 
-		public function checkActionIn($arr)
+		public static function checkActionIn($arr)
 		{
 			$prefix=FormActions::FORM_ACTION_PREFIX;
 
@@ -46,7 +46,7 @@
 
 			return false;
 		}
-		function &checkContentIDIn($arr)
+		public static function &checkContentIDIn($arr)
 		{
 			if(isset($arr['conID']))
 			{
@@ -57,7 +57,7 @@
 
 			return $res;
 		}
-		function &getContentID()
+		public static function &getContentID()
 		{
 
 			//Revisar . Seguridad.
@@ -70,7 +70,7 @@
 
 			return $contentID;
 		}
-		function replaceSessionAction($oldAction , $action)
+		public static function replaceSessionAction($oldAction , $action)
 		{
 			unset
 			(
@@ -79,7 +79,7 @@
 
 			FormActions::setSessionAction($action);
 		}
-		function setSessionAction($action)
+		public static function setSessionAction($action)
 		{
 			$_SESSION[FormActions::FORM_ACTION_PREFIX.strval($action)]=true;
 		}
