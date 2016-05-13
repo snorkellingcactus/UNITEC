@@ -3,7 +3,6 @@
 	footer.header
 	{
 		padding-left:15.45%;
-		width: 100%;
 	}
 	footer.header .label label
 	{
@@ -78,6 +77,7 @@ footer.header form
 }
 footer.header
 {
+	width: 100%;
 	display:table;
 	background:dimgray;
 	color:white;

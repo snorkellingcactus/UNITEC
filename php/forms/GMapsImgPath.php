@@ -10,7 +10,7 @@
 			parent::__construct('path');
 
 			$args=func_get_args();
-			array_shift($args);
+			//array_shift($args);
 
 			while(isset($args[0]))
 			{

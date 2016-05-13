@@ -6,6 +6,8 @@
 		public function __construct()
 		{
 			parent::__construct('form');
+
+			$this->setMethod('POST')->setEnctype('multipart/form-data');
 		}
 		public function setEnctype($enctype)
 		{

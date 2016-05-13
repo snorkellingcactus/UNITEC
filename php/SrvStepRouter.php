@@ -40,6 +40,10 @@
 
 			if(isset($_POST['Continuar']))
 			{
+				echo '<pre>Existo!';
+				echo '</pre>';
+
+				die();
 				$this->cPressed=true;
 			}
 			if(isset($_POST['Volver']))

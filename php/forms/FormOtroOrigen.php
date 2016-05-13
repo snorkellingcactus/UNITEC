@@ -1,7 +1,7 @@
 <?php
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormContinuarBase.php';
 
-	class FormContinuar extends FormContinuarBase
+	class FormOtroOrigen extends FormContinuarBase
 	{
 		function __construct()
 		{
@@ -11,7 +11,7 @@
 			(
 				gettext
 				(
-					'Continuar'
+					'Especificar otro origen'
 				)
 			);
 		}

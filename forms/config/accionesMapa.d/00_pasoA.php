@@ -75,7 +75,7 @@
 			$modo=strtolower($session->getLabel( 'ModoViaje' ));
 
 
-		/*
+/*
 			echo '<pre>GMapsImg:';
 			print_r($url=$jj->encode());
 			echo '</pre>';
@@ -87,9 +87,10 @@
 						&markers=color:red%7Clabel:B%7C-34.90693 , -57.94290&markers=color:red%7Clabel:A%7C'.urlencode($origen).'&path=color:0x0000ff|weight:5|-34.90693 , -57.94290|'.urlencode($origen).'&key=AIzaSyAc98zfTPT0nZTSERA7bEgBdPiyI6kM6hk')
 			);
 			echo '</pre>';
-		*/	
+*/
+		
 
-			$html=new DOMDocument();
+			$html=new DOMDocument('1.0' , 'UTF-8');
 
 
 			//Revisar. Si está offline, que salte un mensaje.
@@ -113,29 +114,30 @@
 
 			$urlMapa=new GMapsImg(800 , 600 , 'AIzaSyAc98zfTPT0nZTSERA7bEgBdPiyI6kM6hk' , 'roadmap');
 			//Revisar Url Ícono.
+			$leg=$xml->getElementsByTagName( 'leg' )->item(0);
+
+			$location=$leg->getElementsByTagName( 'end_location' )->item(0);
+
 			$markA=new GMapsImgMarker
 			(
 				[
-					'-34.90693',
-					'-57.94290'
+					$location->getElementsByTagName( 'lat' )->item(0)->nodeValue,
+					$location->getElementsByTagName( 'lng' )->item(0)->nodeValue
 				],
-				new GMapsColor('red'),
-				new GMapsLabel(gettext('B'))
+				new GMapsColor( 'red' ),
+				new GMapsLabel( gettext('B') )
 			);
-/*
-			echo '<pre>start_location:';
-			print_r
-			(
-				$xml
-			);
-			echo '</pre>';
-*/
+
+			$location=$leg->getElementsByTagName( 'start_location' )->item(0);
+
 			$markB=new GMapsImgMarker
 			(
-				$xml->getElementsByTagName( 'leg' )->item(0)
-					->getElementsByTagName( 'start_location' )->item(0)->nodeValue,
-				new GMapsColor('red'),
-				new GMapsLabel(gettext('A'))
+				[
+					$location->getElementsByTagName( 'lat' )->item(0)->nodeValue,
+					$location->getElementsByTagName( 'lng' )->item(0)->nodeValue
+				],
+				new GMapsColor( 'red' ),
+				new GMapsLabel( gettext('A') )
 			);
 			
 			$enc=new GMapsObj('enc' , ':' , new GMapsProps('|') );
@@ -151,28 +153,26 @@
 				)->item(0)->nodeValue
 			);
 
-			$urlMapa->props->add( $markA )->add( $markB )->add
+			$urlMapa->props->add($markA)->add($markB)->add
 			(
+
 				new GMapsImgPath
 				(
-					[
-						
-					],
 					new GMapsColor('blue'),
 					new GMapsWeight(2),
+					/*
+					$markA->coords,
+					$markB->coords
+					*/
+
 					$enc
 				)
-				
-
 			);
 
 			$jj=$urlMapa->encode();
 /*
-			echo '<pre>GMapsImg Url: ';
-			print_r
-			(
-				$jj
-			);
+			echo '<pre>Url:';
+			echo htmlentities($jj);
 			echo '</pre>';
 */
 			$imgMapa=$html->createElement('img');
@@ -190,7 +190,7 @@
 
 
 //			$xml->textContent==='REQUEST_DENIED';
-			//echo '<pre>';print_r(htmlentities($jj));echo '</pre>';
+//			echo '<pre>';print_r(htmlentities($xml->saveXML()));echo '</pre>';
 
 
 			$pasos=$xml->getElementsByTagName('step');
@@ -269,7 +269,10 @@
 
 				$distancia=$paso->getElementsByTagName('distance')->item(0)->getElementsByTagName('text')->item(0)->nodeValue;
 
-				$instruccion=$paso->getElementsByTagName('html_instructions')->item(0)->nodeValue;
+				$instruccion=
+				
+					$paso->getElementsByTagName('html_instructions')->item(0)->nodeValue
+				;
 
 				$fragment=$html->createDocumentFragment();
 				$fragment->appendXML($instruccion);
@@ -316,6 +319,46 @@
 			$contenedor=$html->createElement('div');
 			$contenedor->setAttribute('class' , 'gmaps');
 			$contenedor->appendChild($mapa);
+
+			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormOtroOrigen.php';
+			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormVolver.php';
+			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormBase.php';
+			//include_once $_SERVER['DOCUMENT_ROOT'] . '/php/FormActions.php';
+
+			//FormActions::SetSessionAction( FormActions::FORM_ACTIONS_NEW );
+
+			$form=new FormBase();
+			$form->setAction
+			(
+				$this->getRouter()->getStepUrlByName
+				(
+					'10_Select_Origin.php'
+				)
+			)->appendChild
+			(
+				$otroOrigen=new FormOtroOrigen()
+			)->appendChild
+			(
+				$volver=new FormVolver()
+			)->addToAttribute
+			(
+				'class' ,
+				'GMapsForm'
+			);
+
+			$otroOrigen->col=['xs' => 12 , 'sm' => 6 , 'md' => 6 , 'lg' => 6];
+			$otroOrigen->addToAttribute( 'class' , 'GMapsFormSubmit' );
+			$volver->addToAttribute( 'class' , 'GMapsFormSubmit' );
+
+			$form->renderChilds
+			(
+				new DOMInitialTag()
+			);
+
+			$contenedor->appendChild
+			(
+				$html->importNode($form->tag , 1)
+			);
 			$contenedor->appendChild($rutasCont);
 			$contenedor->appendChild($clearFix);
 
@@ -331,10 +374,15 @@
 			(
 				new DOMFragment
 				(
-					$html->saveXML($contenedor)
+					utf8_decode
+					(
+						$html->saveHTML($contenedor)
+					)
+					
 				)
 			);
 
+			
 			echo $mainHTML->getHTML();
 		}
 	}

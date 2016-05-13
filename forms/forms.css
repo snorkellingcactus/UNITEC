@@ -435,6 +435,15 @@ li.turn-left::before
 {
 	content:'↲'
 }
+input.GMapsFormSubmit
+{
+	margin:0px;
+}
+form.GMapsForm
+{
+	overflow: hidden;
+	padding: 15px
+}
 .tagList span
 {
 	background-color:white;

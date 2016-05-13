@@ -71,6 +71,7 @@ function inicializaGMaps()
     'click',
     function()
     {
+      window.console.log('hello!');
       animationStartShow(form);
       animationStartHide(rutas);
       origen.focus();
