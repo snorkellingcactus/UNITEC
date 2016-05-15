@@ -21,7 +21,6 @@
 
 			$contentID=FormActions::getContentID()[0];
 
-
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/FormSession.php';
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/conexion.php';
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/Seccion.php';
@@ -72,13 +71,6 @@
 					}
 				}
 			}
-			if($session->hasLabel('Titulo'))
-			{
-				$nSec->HTMLID=htmlentities
-				(
-					$session->getLabel('Titulo')
-				);
-			}
 
 			if($session->hasLabel('Contenido'))
 			{
@@ -106,7 +98,7 @@
 				}
 				else
 				{
-					include_once	$_SERVER['DOCUMENT_ROOT'] . '/php/nTraduccion.php';
+					include_once $_SERVER['DOCUMENT_ROOT'] . '/php/nTraduccion.php';
 
 					$descripcion=nTraduccion
 					(
@@ -158,26 +150,87 @@
 				)
 			);
 
-			if($action & FormActions::FORM_ACTIONS_EDIT)
+			$atajo=false;
+			if( !$session->emptyTrimLabel( 'Atajo' ) )
+			{
+				$atajo=strtoupper
+				(
+					trim
+					(
+						$session->getLabel( 'Atajo' )
+					)
+				);
+			}
+
+			$titulo=false;
+			if( $session->hasLabel( 'Titulo' ) )
+			{
+				$titulo=htmlentities( $session->getLabel( 'Titulo' ) );
+			}
+
+			if( $action & FormActions::FORM_ACTIONS_EDIT )
 			{
 				$nSec->ID=$contentID;
 				
-				$nSec->updSQL(false,['ID']);
+				$nSec->updSQL( false , [ 'ID' ] );
 			}
 			else
 			{
+				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/nTraduccion.php';
+
+				if( $atajo !== false )
+				{
+					$nSec->insForanea
+					(
+						nTraduccion
+						(
+							$atajo,
+							$_SESSION['lang']
+						),
+						'AtajoID',
+						'ContenidoID'
+					);
+				}
+
+				$nSec->insForanea
+				(
+					nTraduccion
+					(
+						$titulo,
+						$_SESSION['lang']	
+					),
+					'TituloID',
+					'ContenidoID'
+				);
+
 				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/nTag.php';
 
 				$nSec->PrioridadesGrpID=nPriorityGrp();
 
 				$nSec->insSQL();
 			}
+
 			$nSec->getSQL
 			(
 				[
 					'ID'=>$nSec->ID
 				]
 			);
+
+			if( $action & FormActions::FORM_ACTIONS_EDIT )
+			{
+				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/updTraduccion.php';
+
+				if( $titulo !== false )
+				{
+					updTraduccion( $titulo, $nSec->TituloID , $_SESSION['lang'] );
+				}
+
+				if( $atajo !== false )
+				{
+					updTraduccion( $atajo , $nSec->AtajoID , $_SESSION['lang'] );
+				}
+			}
 			
 			//Revisar. Seguridad.
 
@@ -199,71 +252,47 @@
 				);
 			}
 
-			$atajoIsSet=!$session->emptyTrimLabel( 'Atajo' );
-
-			if
+			$enMenu=filter_var
 			(
-				$nSec->HTMLID!==NULL &&
+				$session->getLabel('AgregarAlMenu') ,
+				FILTER_VALIDATE_BOOLEAN
+			);
+			$menuID=fetch_all
+			(
+				$con->query
 				(
-					$atajoIsSet ||
-					(
-						$session->hasLabel('AgregarAlMenu') &&
-						$session->getLabel('AgregarAlMenu')==='true'
-					)
-				)
-			)
+					'	SELECT Menu.ID
+						FROM Menu
+						WHERE Menu.SeccionID = '.$nSec->ID
+				),
+				MYSQLI_NUM
+			);
+
+			if( isset( $menuID[0][0] ) != $enMenu )
 			{
 				$_SESSION['form']='accionesMenu';
 
 				$menuSession=new FormSession();
 
-				$menuSession->setLabel
-				(
-					'Url' ,
-					'#'.rawurlencode( $nSec->HTMLID )
-				)->setLabel
-				(
-					'Visible' ,
-					$nSec->Visible
-				)->setLabel
-				(
-					'SeccionID' ,
-					$nSec->HTMLID
-				);
-
-
-
-				$mContentID=fetch_all
-				(
-					$con->query
-					(
-						'	SELECT ContenidoID
-							FROM Menu
-							WHERE SeccionID="'.$nSec->HTMLID.'"'
-					),
-					MYSQLI_NUM
-				);
-
-				if($atajoIsSet)
+				if( $enMenu )
 				{
 					$menuSession->setLabel
 					(
-						'Atajo' ,
-						strtoupper
-						(
-							trim
-							(
-								$session->getLabel('Atajo')
-							)
-						)
+						'Url' ,
+						'#'.rawurlencode( $titulo )
+					)->setLabel
+					(
+						'Visible' ,
+						$nSec->Visible
+					)->setLabel
+					(
+						'SeccionID' ,
+						$nSec->ID
+					)->setLabel
+					(
+						'Titulo' ,
+						$titulo
 					);
-				}
-
-				if(empty($mContentID[0][0]))
-				{
-					$menuSession
-					->setLabel( 'Titulo' , $nSec->HTMLID )
-					->setLabel( 'Lugar' , 'b' );
 
 					if($session->hasLabel('Tags'))
 					{
@@ -274,19 +303,17 @@
 				}
 				else
 				{
-					//Revisar . Realizar mediante FormActions.
-					$_SESSION['conID']=[$mContentID[0][0]];
-
-					FormActions::replaceSessionAction( $action , FormActions::FORM_ACTIONS_EDIT );
+					$_SESSION['conID']=$menuID[0][0];
+					FormActions::replaceSessionAction( $action , FormActions::FORM_ACTIONS_DELETE );
 				}
 
 				$menuSession->save();
+
 				$router->setFormDir('accionesMenu');
 
 				//Nombre del fichero en accionesMenu.d
-				$router->redirectToStepName('00_PasoA.class.php');
+				$router->redirectToStepName( '00_PasoA.class.php' );
 			}
-
 			$router->gotoOrigin();
 		}
 	}

@@ -6,7 +6,7 @@
 		public $con;
 		public $labels;
 
-		public function makeLabels(&$index)
+		public function makeLabels($index)
 		{
 			$this->labels=$this->newLabelsCollection($index);
 

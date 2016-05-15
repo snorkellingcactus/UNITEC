@@ -5,6 +5,7 @@
 	{
 		public $titulo;
 		public $atajo;
+		public $aaMenu;
 
 		function __construct(&$index)
 		{
@@ -12,6 +13,7 @@
 
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormLabelTitulo.php';
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormLabelAtajo.php';
+			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormLabelAAMenu.php';
 
 			$this->appendChild
 			(
@@ -19,6 +21,9 @@
 			)->appendChild
 			(
 				$this->atajo=new FormLabelAtajo()
+			)->appendChild
+			(
+				$this->aaMenu=new FormLabelAAMenu()
 			);
 
 			$this->setParentStr('IS NULL');

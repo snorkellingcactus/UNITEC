@@ -45,22 +45,22 @@
 					FILTER_VALIDATE_BOOLEAN
 				)
 			);
-			//Repetido en New .
-			if($session->hasLabel('Atajo'))
-			{
-				$nMenu->Atajo=$session->getLabel('Atajo');
-			}
-			if($session->hasLabel('SeccionID'))
-			{
-				$nMenu->SeccionID=$session->getLabel('SeccionID');
-			}
-			else
-			{
-				$nMenu->Url=$session->getLabel('Url');
-			}
 
-			$nMenu->updSQL(false , ['ContenidoID'=>$contentID]);
-			$nMenu->getSQL(['ContenidoID'=>$contentID]);
+			$nMenu->updSQL
+			(
+				false ,
+				[
+					'ContenidoID'=>$contentID
+				]
+			);
+			$nMenu->getSQL
+			(
+				[
+					'ContenidoID'=>$contentID
+				]
+			);
+
+			updTraduccion( $session->getLabel('Url') , $nMenu->UrlID , $_SESSION['lang'] );
 
 			if($session->hasLabel('Tags'))
 			{

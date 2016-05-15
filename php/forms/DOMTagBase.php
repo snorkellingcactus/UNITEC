@@ -16,6 +16,7 @@
 
 			$this->attrList=[];
 
+			$this->parent=false;
 			$this->setTagName(false);
 
 			$args=func_get_args();

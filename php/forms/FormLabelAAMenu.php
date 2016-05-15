@@ -9,7 +9,7 @@
 			(
 				'AgregarAlMenu',
 				'agregarAlMenu',
-				gettext('Agregar al Menú')
+				gettext('En el Menú')
 			);
 		}
 	}

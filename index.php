@@ -41,7 +41,7 @@ if($_SESSION['lab']!==false)
 		(
 			$con->query
 			(
-				'	SELECT Secciones.ID,Secciones.Visible,Secciones.HTMLID, Secciones.PrioridadesGrpID
+				'	SELECT Secciones.ID,Secciones.Visible,Secciones.TituloID, Secciones.PrioridadesGrpID, Secciones.AtajoID
 					FROM Secciones
 					LEFT OUTER JOIN TagsTarget
 					ON TagsTarget.GrupoID=Secciones.TagsGrpID
@@ -82,8 +82,41 @@ if($_SESSION['lab']!==false)
 
 		$section->setHTMLID
 		(
-			$seccionAct['HTMLID']
+			getTraduccion
+			(
+				$seccionAct['TituloID'],
+				$_SESSION['lang']
+			)
 		);
+
+		if( $seccionAct['AtajoID'] !== NULL )
+		{
+			$urlStr='#'.$seccionAct['TituloID'];
+
+			$html->body->appendChild
+			(
+				$link=new DOMLink()
+			);
+
+			if(isset($_GET['vRecID']))
+			{
+				//Revisar . Código en común con VisorImagenes, DOMMenuOpc, Modulo_Novedades , Modulo_Imagenes
+				
+				$urlStr=
+				'/'								.
+				substr( getenv('LANG'), 0 , 2 )	.
+				'/espacios/'					.
+				getLabName()					.
+				'/'								.
+				$urlStr;
+			}
+/*
+			$link
+			->setName( $seccionAct['TituloID'] )
+			->setUrl( $urlStr )
+			->setAccessKey( $seccionAct['AtajoID'] );
+*/
+		}
 
 		//Revisar.A futuro seleccionar Seccion.Visible y discriminarlo SOLO si
 		//existe o no adminID.
@@ -94,12 +127,10 @@ if($_SESSION['lab']!==false)
 			(
 				$con->query
 				(
-					'	SELECT Secciones.ID , Secciones.Visible ,Secciones.PrioridadesGrpID, Secciones.HTMLID, Modulos.Archivo, Modulos.OpcGrpID, Modulos.OpcSetsGrpID, Contenidos.ID as ContenidoID
+					'	SELECT Secciones.ID , Secciones.Visible ,Secciones.PrioridadesGrpID, Secciones.TituloID, Modulos.Archivo, Modulos.OpcGrpID, Modulos.OpcSetsGrpID, Secciones.ContenidoID
 						FROM Secciones
 						left outer JOIN Modulos
 						ON Modulos.ID = Secciones.ModuloID
-						left outer JOIN Contenidos
-						ON Contenidos.ID = Secciones.ContenidoID
 						LEFT OUTER JOIN TagsTarget
 						ON TagsTarget.GrupoID=Secciones.TagsGrpID
 						LEFT OUTER JOIN Laboratorios
@@ -175,7 +206,7 @@ if($_SESSION['lab']!==false)
 			(
 				$include->setHTMLID
 				(
-					$includeAct['HTMLID']
+					$includeAct['TituloID']
 				)
 			);
 			
@@ -188,13 +219,17 @@ if($_SESSION['lab']!==false)
 		++$s;
 	}
 
-	if(isset($_SESSION['adminID']))
+	if( isset( $_SESSION['adminID'] ) )
 	{
 		include_once $_SERVER['DOCUMENT_ROOT'] . '/php/edicion/FormCliSecAddBase.php';
 
 		$html->main->appendChild
 		(
-			new FormCliSecAddBase('accionesSec' , gettext('Nueva Sección'))
+			new FormCliSecAddBase
+			(
+				'accionesSec' ,
+				gettext('Nueva Sección')
+			)
 		);
 	}
 }

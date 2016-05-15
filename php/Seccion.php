@@ -17,7 +17,8 @@
 					'ModuloID',
 					'ContenidoID',
 					'PadreID',
-					'HTMLID',
+					'TituloID',
+					'AtajoID',
 					'OpcSetID',
 					'TagsGrpID'
 				],

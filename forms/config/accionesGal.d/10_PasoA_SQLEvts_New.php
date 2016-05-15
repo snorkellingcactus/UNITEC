@@ -15,19 +15,16 @@
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/nTraduccion.php';
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/nTag.php';
 
-			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/FormActions.php';
-
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/FormSession.php';
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/conexion.php';
 			global $con;
-
-			$contentID=FormActions::getContentID()[0];
 
 			$session=new FormSession();
 
 			//$afectados=[];
 
-			$i=0;
+			$i=$session->getNextIDSuffix();
+
 			while( $session->setIDSuffix( $i ) !== false )
 			{
 				$session->autoloadLabels();
@@ -42,8 +39,7 @@
 					)
 				)
 				{
-					
-					++$i;
+					$i=$session->getNextIDSuffix();
 
 					continue;
 				}
@@ -115,7 +111,7 @@
 
 				$this->mkUpload ( $i , $img->ID , $session );
 
-				++$i;
+				$i=$session->getNextIDSuffix();
 			}
 
 			$router->gotoOrigin();

@@ -36,7 +36,14 @@
 				MYSQLI_ASSOC
 			)[0];
 	*/
-			$this->labels->url->input->setValue($opcion->Url);
+			$this->labels->url->input->setValue
+			(
+				getTraduccion
+				(
+					$opcion->UrlID ,
+					$_SESSION['lang']
+				)
+			);
 			$this->labels->visible->input->controller->setValueToSelect($opcion->Visible);
 			//$this->form->autocomp['Prioridad']=$opcion['Prioridad'];
 
@@ -44,7 +51,7 @@
 			(
 				getTraduccion
 				(
-					strval($this->labels->getContentID()),
+					strval( $this->labels->getContentID() ) ,
 					$_SESSION['lang']
 				)
 			);

@@ -86,7 +86,11 @@
 				$span=new DOMTag
 				(
 					'span',
-					$this->offsetSuffix.gettext(' en una nueva ventana.')
+					sprintf
+					(
+						gettext('%s en una nueva ventana.'),
+						$this->offsetSuffix
+					)
 				);
 				$span->addToAttribute('class' , 'offscreen');
 

@@ -48,16 +48,16 @@
 				(
 					$con->query
 					(
-						'	SELECT Menu.Atajo , Menu.ContenidoID, Menu.SeccionID, Secciones.PrioridadesGrpID
-							FROM Menu
-							LEFT OUTER JOIN Secciones
-							ON Secciones.HTMLID=Menu.SeccionID '.$condVisible.'
+						'	SELECT Secciones.AtajoID , Menu.ContenidoID , Secciones.TituloID, Secciones.PrioridadesGrpID
+							FROM Secciones
+							LEFT OUTER JOIN Menu
+							ON Secciones.TituloID=Menu.SeccionID '.$condVisible.'
 							LEFT OUTER JOIN TagsTarget
 							ON TagsTarget.GrupoID=Secciones.TagsGrpID
 							LEFT OUTER JOIN Laboratorios
 							ON Laboratorios.ID='.$_SESSION['lab'].'
 							WHERE TagsTarget.TagID=Laboratorios.TagID
-							AND Menu.Atajo IS NOT NULL
+							AND Secciones.AtajoID IS NOT NULL
 						'
 					),
 					MYSQLI_ASSOC
@@ -107,17 +107,40 @@
 						new DOMTdAtajo($accessKeys , 'I')
 					)
 				)
-			)->addToAttribute('class' , 'atajos')->addToAttribute('class' ,'table');
+			)->addToAttribute( 'class' , 'atajos' )->addToAttribute( 'class' ,'table' );
 
+
+			$html=$tag;
+
+			while( ! ( $html instanceof DOMHTML ) )
+			{
+				$html=$html->parent;
+			}
 
 			$i=0;
 			while(isset($atajos[$i]))
 			{
 				$atajo=$atajos[$i];
+
+				if( $atajo['ContenidoID'] === NULL )
+				{
+					$atajo_nom=$atajo['TituloID'];
+				}
+				else
+				{
+					$atajo_nom=$atajo['ContenidoID'];
+				}
+
+				$atajo_nom=getTraduccion
+				(
+					$atajo_nom,
+					$_SESSION['lang']
+				);
+
 				$tr=new DOMTr();
 				$tdA=new DOMTd();
 
-				if($i%2===0)
+				if( $i%2===0 )
 				{
 					$tr->addToAttribute('class' , 'oscura');
 				}
@@ -128,18 +151,18 @@
 					(
 						$tdA->setTagValue
 						(
-							getTraduccion
-							(
-								$atajo['ContenidoID'],
-								$_SESSION['lang']
-							)	
+							$atajo_nom
 						)
 					)->appendChild
 					(
 						new DOMTdAtajo
 						(
 							$accessKeys,
-							$atajo['Atajo']
+							getTraduccion
+							(
+								$atajo['AtajoID'],
+								$_SESSION['lang']
+							)
 						)
 					)
 				);

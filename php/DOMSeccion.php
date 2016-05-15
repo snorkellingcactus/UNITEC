@@ -11,7 +11,27 @@
 		
 		function renderChilds(&$tag)
 		{
-			$this->appendChild(new ClearFix());
+			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/OffText.php';
+
+			$this->appendChild
+			(
+				new ClearFix()
+			);
+/*
+			->appendChild
+			(
+				new OffText
+				(
+					'h1',
+					rawurldecode
+					(
+						$this->htmlID
+					)
+				)
+			);
+*/
+
+
 
 			return parent::renderChilds($tag);
 		}

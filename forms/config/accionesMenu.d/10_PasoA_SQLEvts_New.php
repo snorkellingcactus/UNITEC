@@ -57,18 +57,22 @@
 			);
 			$nMenu->PrioridadesGrpID=$con->insert_id;
 
-			if($session->hasLabel('Atajo'))
-			{
-				$nMenu->Atajo=$session->getLabel('Atajo');
-			}
 			if($session->hasLabel('SeccionID'))
 			{
-				$nMenu->SeccionID=$session->getLabel('SeccionID');
+				$nMenu->SeccionID=$session->getLabel( 'SeccionID' );
 			}
-			else
-			{
-				$nMenu->Url=$session->getLabel('Url');
-			}
+			
+			$nMenu->insForanea
+			(
+				nTraduccion
+				(
+					$session->getLabel( 'Url' ),
+					$_SESSION['lang']
+				),
+				'UrlID',
+				'ContenidoID'
+			);
+			
 
 			$nMenu->insSQL();
 

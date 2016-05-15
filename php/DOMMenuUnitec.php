@@ -22,7 +22,7 @@
 			$condVisible='';
 			if(!isset($_SESSION['adminID']))
 			{
-				$condVisible='AND Visible=1';
+				$condVisible='AND Menu.Visible=1';
 			}
 
 			if($_SESSION['lab']!==false)
@@ -31,6 +31,7 @@
 				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/conexion.php';
 				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/DOMMenuOpc.php';
 				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/getLab.php';
+				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/getTraduccion.php';
 				
 				if(isset($_SESSION['adminID']))
 				{
@@ -47,9 +48,12 @@
 					(
 						$con->query
 						(
-							'	SELECT Menu.* FROM Menu
+							'	SELECT Menu.*, Secciones.AtajoID, Secciones.TituloID
+								FROM Menu
 								LEFT OUTER JOIN TagsTarget
 								ON TagsTarget.GrupoID=Menu.TagsGrpID
+								LEFT OUTER JOIN Secciones
+								ON Secciones.ID=Menu.SeccionID
 								LEFT OUTER JOIN Laboratorios
 								ON Laboratorios.ID='.$_SESSION['lab'].'
 								WHERE TagsTarget.TagID=Laboratorios.TagID
@@ -78,19 +82,40 @@
 
 					$opc->setAbsoluteUrl( $this->absoluteUrls );
 
-					if(isset($opcion['SeccionID']))
+					if(isset($opcion['TituloID']))
 					{
-						$opc->setSectionName($opcion['SeccionID']);
+						$opc->setSectionName
+						(
+							getTraduccion
+							(
+								$opcion['TituloID'],
+								$_SESSION['lang']
+							)
+						);
 					}
 
-					$opc->setUrl($opcion['Url']);
+					$opc->setUrl
+					(
+						getTraduccion
+						(
+							$opcion['UrlID'],
+							$_SESSION['lang']
+						)
+					);
 
-					if(!empty($opcion['Atajo']))
+					if( $opcion['AtajoID'] !== NULL )
 					{
-						$opc->setShortcutChar($opcion['Atajo']);
+						$opc->setShortcutChar
+						(
+							getTraduccion
+							(
+								$opcion['AtajoID'],
+								$_SESSION['lang']
+							)
+						);
 					}
 
-					if(!empty($_SESSION['adminID']))
+					if( isset( $_SESSION['adminID'] ) )
 					{
 						$opc->appendChild
 						(

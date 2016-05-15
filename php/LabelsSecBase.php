@@ -34,7 +34,7 @@
 				(
 					$this->con->query
 					(
-						'	SELECT Secciones.HTMLID, Secciones.ID, Secciones.PrioridadesGrpID
+						'	SELECT Secciones.TituloID, Secciones.ID, Secciones.PrioridadesGrpID
 							FROM Secciones
 							LEFT OUTER JOIN TagsTarget
 							ON TagsTarget.GrupoID=Secciones.TagsGrpID
@@ -48,12 +48,18 @@
 				)
 			);
 
+			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/getTraduccion.php';
+
 			$s=0;
 			while(isset($seccs[$s]))
 			{
 				$seccs[$s]=array
 				(
-					$seccs[$s]['HTMLID'],
+					getTraduccion
+					(
+						$seccs[$s]['TituloID'],
+						$_SESSION['lab']
+					),
 					$seccs[$s]['ID']
 				);
 				++$s;

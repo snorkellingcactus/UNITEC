@@ -34,7 +34,6 @@
 */			
 
 		}
-
 		public function volverPressed()
 		{
 			return $this->vPressed;
@@ -43,7 +42,10 @@
 		{
 			return $this->cPressed;
 		}
-
+		public function getNextIDSuffix()
+		{
+			return each($_SESSION[$this->formName])['key'];
+		}
 		public function setIDSuffix($idSuffix)
 		{
 			//echo '<pre>'.get_class($this).'::setIDSuffix('.$idSuffix.')';echo '</pre>';
@@ -92,7 +94,10 @@
 		public function load()
 		{
 			//echo '<pre>Trying to load $_SESSION['.$this->formName.']['.$this->idSuffix.']'."\n";echo '</pre>';
-			if(empty($_SESSION[$this->formName][$this->idSuffix]))
+			if
+			(
+				empty($_SESSION[$this->formName][$this->idSuffix])
+			)
 			{
 				//echo '<pre>$_SESSION['.$this->formName.']['.$this->idSuffix.'] wont exists</pre>';
 				return false;

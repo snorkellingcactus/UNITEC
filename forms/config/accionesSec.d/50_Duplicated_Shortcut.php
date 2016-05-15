@@ -16,17 +16,8 @@
 
 			$this->parentStr=
 			'
-				AND Menu.SeccionID <> "'.
-				fetch_all
-				(
-					$con->query
-					(
-						'	SELECT Secciones.HTMLID
-							FROM Secciones
-							WHERE Secciones.ID='.FormActions::getContentID()[0]
-					),
-					MYSQLI_NUM
-				)[0][0].'"';
+				AND Secciones.ID <> '.FormActions::getContentID()[0].'
+			';
 		}
 		public function OnSetRouter()
 		{
@@ -62,17 +53,22 @@
 				}
 				else
 				{
+					
 					$atajo=fetch_all
 					(
 						$con->query
 						(
-							'	SELECT 1 FROM Menu
+							'	SELECT Traducciones.Texto
+								FROM Traducciones
+								LEFT OUTER JOIN Secciones
+								ON Secciones.AtajoID=Traducciones.ContenidoID
 								LEFT OUTER JOIN TagsTarget
-								ON TagsTarget.GrupoID=Menu.TagsGrpID
+								ON TagsTarget.GrupoID=Secciones.TagsGrpID
 								LEFT OUTER JOIN Laboratorios
 								ON Laboratorios.ID='.$_SESSION['lab'].'
-								WHERE TagsTarget.TagID=Laboratorios.TagID
-								AND Menu.Atajo="'.$atajoTxt.'"
+								WHERE Secciones.AtajoID=Traducciones.ContenidoID
+								AND Traducciones.LenguajeID='.$_SESSION['lang'].'
+								AND Traducciones.Texto="'.$atajoTxt.'"
 							'.$this->parentStr
 						),
 						MYSQLI_NUM
@@ -85,6 +81,7 @@
 							'El atajo especificado ( "%s" ) ya existe. Por favor ingrese uno distinto.'
 						);
 					}
+					
 				}
 
 				if( $msg !== false )
@@ -126,6 +123,7 @@
 					'01_PasoA_SQLEvts.php'
 				);
 			}
+
 		}
 	}
 ?>

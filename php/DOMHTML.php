@@ -17,6 +17,8 @@
 		public $title;
 		public $toUnset;
 		public $toUnsetLen;
+		private $head;
+		private $body;
 
 		function __construct()
 		{
@@ -47,6 +49,14 @@
 			{
 				$this->setLang($args[0]);
 			}
+		}
+		function setBody($body)
+		{
+			$this->body=$body;
+		}
+		function getHead()
+		{
+			return $this->head;
 		}
 		function addToUnset($toUnset)
 		{

@@ -13,43 +13,57 @@
 		{
 			parent::autocomplete();
 
-			$htmlID=fetch_all
+			$sec=fetch_all
 			(
 				$this->con->query
 				(
-					'	SELECT HTMLID
+					'	SELECT Secciones.TituloID, Secciones.AtajoID
 						FROM Secciones
-						WHERE ID='.$this->labels->getContentID()
+						WHERE Secciones.ID='.$this->labels->getContentID()
 				),
 				MYSQLI_NUM
-			)[0][0];
+			)[0];
 
 			$this->labels->titulo->input->setValue
 			(
 				html_entity_decode
 				(
-					$htmlID
+					getTraduccion
+					(
+						$sec[0],
+						$_SESSION['lang']
+					)
 				)
 			);
 
-			$atajoSQL=fetch_all
-			(
-				$this->con->query
-				(
-					'	SELECT Atajo
-						FROM Menu
-						WHERE SeccionID="'.$htmlID.'"'
-				),
-				MYSQLI_NUM
-			);
-
-			if(isset($atajoSQL[0]))
+			if( $sec[1] !== NULL )
 			{
 				$this->labels->atajo->input->setValue
 				(
-					$atajoSQL[0][0]
+					getTraduccion
+					(
+						$sec[1],
+						$_SESSION['lang']
+					)
 				);
 			}
+
+			$this->labels->aaMenu->input->controller->setValueToSelect
+			(
+				isset
+				(
+					fetch_all
+					(
+						$this->con->query
+						(
+							'	SELECT Menu.ID
+								FROM Menu
+								WHERE Menu.SeccionID = '.$this->labels->getContentID()
+						),
+						MYSQLI_NUM
+					)[0][0]
+				)
+			);
 		}
 	}
 ?>
