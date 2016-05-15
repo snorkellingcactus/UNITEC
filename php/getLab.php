@@ -5,7 +5,7 @@
 		{
 			$lab=getLab(urldecode($_GET['lab']));
 
-			if($lab!==false)
+			if($lab !== false)
 			{
 				$_SESSION['lab']=$lab['ID'];
 
@@ -16,7 +16,7 @@
 		//if(!isset($_SESSION['lab']) || isset($_SESSION['adminID']))
 		if
 		(
-			!isset( $_SESSION['lab']		) 	|| ( $_SESSION['lab'] === false )
+			!isset( $_SESSION['lab'] ) 	|| ( $_SESSION['lab'] === "false" )
 		)
 		{
 			$lab=getLab();
@@ -61,7 +61,7 @@
 	}
 	function getDefaultLab()
 	{
-		include_once($_SERVER['DOCUMENT_ROOT'] . '/php/conexion.php');
+		include_once $_SERVER['DOCUMENT_ROOT'] . '/php/conexion.php';
 		global $con;
 
 		return fetch_all

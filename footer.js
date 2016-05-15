@@ -1,9 +1,14 @@
 compactaLabels(document.getElementsByClassName('FormCliMail')[0]);
-var map,form,rutas,volver,origen,pos,directionsDisplay,directionsService;
+var map,form,rutas,volver,origen,pos,directionsDisplay,directionsService, marcadorA;
 
 function inicializaGMaps()
 {
-  directionsDisplay = new google.maps.DirectionsRenderer();
+  directionsDisplay = new google.maps.DirectionsRenderer
+  (
+    {
+      'suppressMarkers':true
+    }
+  );
   directionsService = new google.maps.DirectionsService();
   //pos=new google.maps.LatLng(-34.90693 , -57.94290);
 
@@ -54,12 +59,25 @@ function inicializaGMaps()
   initialMapDiagShowed(form);
 
   //Revisar. Internacionalizar.
-  var marcador=new google.maps.Marker
+  marcadorA=new google.maps.Marker
   (
     {
       position: pos,
       map:map,
+      icon:'https://mts.googleapis.com/maps/vt/icon/name=icons/spotlight/spotlight-waypoint-b.png&text=B&psize=16&font=fonts/Roboto-Regular.ttf&color=ff333333&ax=44&ay=48&scale=1',
       title:'Departamento de Electrotecnia'
+    }
+  );
+  marcadorB=new google.maps.Marker
+  (
+    {
+      icon:'https://mts.googleapis.com/maps/vt/icon/name=icons/spotlight/spotlight-waypoint-a.png&text=A&psize=16&font=fonts/Roboto-Regular.ttf&color=ff333333&ax=44&ay=48&scale=1'
+/*
+      new google.maps.Icon
+      (
+        '/img/marcadorA.png'
+      )
+*/
     }
   );
 
@@ -161,19 +179,54 @@ function trazaRuta(response, status)
 
   if(status == google.maps.DirectionsStatus.OK)
   {
-    directionsDisplay.setMap(map);
-    directionsDisplay.setPanel(document.getElementById("panel_ruta"));
-    directionsDisplay.setDirections(response);
-
+/*
+    if(marcador !== false)
+    {
+      marcador.setMap(null);
+      marcador=false;
+    }
+*/
     animationStartShow(rutas);
     animationStartHide(form);
 
     volver.focus();
+
+    window.console.log(response);
+    var overview_path=startLoc=response.routes[0].overview_path[0];
+
+/*
+  (
+    {
+      position: new google.maps.LatLng( startLoc.lat() , startLoc.lng() ),
+      map:map
+    }
+  );
+*/
+
+    marcadorB.setPosition
+    (
+      new google.maps.LatLng
+      (
+        startLoc.lat() ,
+        startLoc.lng()
+      )
+    );
+    marcadorB.setTitle( response.request.origin );
+    marcadorB.setMap( null );
+
+    directionsDisplay.setMap( map );
+    directionsDisplay.setPanel( document.getElementById("panel_ruta") );
+    directionsDisplay.setDirections( response );
+
+    marcadorB.setMap( map );
   }
   else 
   {
-    alert("No existen rutas entre ambos puntos");
+    alert
+    (
+      "No existen rutas entre ambos puntos"
+    );
   }
 }
 
-head.load('https://maps.googleapis.com/maps/api/js?v=3.exp&callback=inicializaGMaps');
+head.load( 'https://maps.googleapis.com/maps/api/js?v=3.exp&callback=inicializaGMaps' );

@@ -45,7 +45,7 @@
 				$this->body=new DOMBodyUnitec()
 			)->loadModulesHeaders();
 
-			if($_SESSION['lab'] !== false)
+			if( $_SESSION['lab'] !== false )
 			{
 				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/DOMMenuUnitec.php';
 				

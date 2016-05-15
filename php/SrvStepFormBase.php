@@ -35,12 +35,6 @@
 
 			return $this;
 		}
-		public function setAction($action)
-		{
-			$this->continuar=true;
-
-			return parent::setAction($action);
-		}
 	}
 ?>
 

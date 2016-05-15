@@ -6,14 +6,14 @@
 		function onNew()
 		{
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/LabelsMapa.php';
-			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/SrvFormBaseCommon.php';
+			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/SrvForm.php';
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/HTMLUForms.php';
 
-			$form=new SrvFormBaseCommon();
+			$form=new SrvForm();
 			
 			$html=new HTMLUForms();
 			$html->head_include( '/seccs/contacto.css' );
-			$html->setAttribute( 'id' , 'gmapsDiag' );
+			$html->addToAttribute( 'class' , 'MapsSelOrigin' );
 
 			$html->appendChild
 			(
@@ -26,6 +26,9 @@
 					(
 						'00_pasoA.php'
 					)
+				)->setMethod
+				(
+					'GET'
 				)
 			);
 

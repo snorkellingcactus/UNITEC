@@ -276,6 +276,7 @@ div.LoginBox
 }
 body input[type="checkbox"].semitrans{float:right;}
 .Form{width:90%;margin-left:5%;padding-top:50px}
+.gmaps .Form{width:auto;}
 form hr{margin-top:70px;}
 
 .Form .FormLabelBox select.orden{height:auto;margin-bottom:20px;}

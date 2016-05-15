@@ -5,7 +5,7 @@
 		margin-bottom:7px;
 		margin-top:7px;
 	}
-	#gmapsDiag .ejemplo
+	#gmapsDiag .ejemplo, .MapsSelOrigin .ejemplo
 	{
 		margin-bottom:0px;
 	}
@@ -21,7 +21,7 @@
 }
 @media screen and (min-width:768px){
 	#gmapsDiag,#map-canvas{min-height:300px}
-	#gmapsDiag .ejemplo
+	#gmapsDiag .ejemplo, .MapsSelOrigin .ejemplo
 	{
 		float: right;
 		margin-top:10px;
@@ -33,6 +33,10 @@
 	#gmapsDiag form,#panel_ruta
 	{
 		top:0px;
+	}
+	.MapsSelOrigin .label
+	{
+		text-align: left;
 	}
 }
 @media screen and (min-width:992px){
@@ -59,7 +63,7 @@
 	letter-spacing: 2px;
 }
 #gmapsDiag #buscar{width:100%;}
-#gmapsDiag .ejemplo
+#gmapsDiag .ejemplo, .MapsSelOrigin .ejemplo
 {
 	color:white;
 	text-align:center;
