@@ -9,6 +9,8 @@
 		{
 			parent::__construct($formDirName);
 
+			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/edicion/FormCliButtons.php';
+
 			$this->buttons=new FormCliButtons();
 
 			$this->appendChild

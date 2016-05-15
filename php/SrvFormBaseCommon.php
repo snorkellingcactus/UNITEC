@@ -1,8 +1,7 @@
 <?php
-	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormBase.php';
-	
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/SrvForm.php';
 
-	class SrvFormBaseCommon extends FormBase
+	class SrvFormBaseCommon extends SrvForm
 	{
 		private $continuar;
 		private $volver;

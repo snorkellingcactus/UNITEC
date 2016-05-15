@@ -1,4 +1,6 @@
 <?php
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/DOMTagContainer.php';
+	
 	//Cambiar a futuro los nombres con XML por HTML
 	class DOMFragment extends DOMTagContainer
 	{

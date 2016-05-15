@@ -39,8 +39,6 @@
 		        'DireccionID' =>$lab->DireccionID,
 		        'Mail'=>$lab->Mail ,
 		        'Telefono'=> $lab->Telefono,
-		        'Latitud'=> $lab->Latitud,
-		        'Longitud'=> $lab->Longitud
 		    ];
 
 		    $social=
@@ -72,11 +70,15 @@
 
 		    include_once $_SERVER['DOCUMENT_ROOT'] . '/php/FooterMapa.php';
 
-		    $mapa=new FooterMapa
-		    (
-		    	$labName ,
-		    	$info['Latitud'].' , '.$info['Longitud']
-		    );
+		    $labPos=getLabPos( $_SESSION['lab'] );
+			if($labPos !== false)
+			{
+				$mapa=new FooterMapa
+				(
+					$labName ,
+					$labPos[0].' , '.$labPos[1]
+				);
+			}
 
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/DOMTag.php';
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/ClearFix.php';
@@ -121,16 +123,23 @@
 			)->appendChild
 			(
 				new ClearFix()
-			)->appendChild
-			(
-				$mapa
-			)->appendChild
-			(
-				new FooterMapaForm()
-			)->appendChild
-			(
-				new ClearFix()
-			)->appendChild
+			);
+
+			if( isset( $mapa ) )
+			{
+				$this->appendChild
+				(
+					$mapa
+				)->appendChild
+				(
+					new FooterMapaForm()
+				)->appendChild
+				(
+					new ClearFix()
+				);
+			}
+
+			$this->appendChild
 			(
 				new DOMTag('small' , 'Powered by Bootstrap')
 			)->appendChild

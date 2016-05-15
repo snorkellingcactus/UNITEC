@@ -184,6 +184,47 @@
 
 		return 'NoLab';
 	}
+	function getLabPosLoop($labID)
+	{
+		global $con;
+
+		$lab=fetch_all
+		(
+			$con->query
+			(
+				'	SELECT Laboratorios.PadreID, Laboratorios.Latitud, Laboratorios.Longitud
+					FROM Laboratorios
+					WHERE ID='.$labID
+			),
+			MYSQLI_NUM
+		)[0];
+
+		if
+		(
+			!empty( $lab[1] )	||
+			!empty( $lab[2] )
+		)
+		{
+			return [ $lab[1] , $lab[2] ];
+		}
+
+		if
+		(
+			( $lab[0] === NULL )
+		)
+		{
+			return false;
+		}
+
+		return getLabPosLoop( $lab[0] );
+	}
+	function getLabPos($labID)
+	{
+		include_once $_SERVER['DOCUMENT_ROOT'] . '/php/getTraduccion.php';
+		global $con;
+
+		return getLabPosLoop( $labID );
+	}
 	function getLabUrl($lName)
 	{
 		if(func_num_args()>1)

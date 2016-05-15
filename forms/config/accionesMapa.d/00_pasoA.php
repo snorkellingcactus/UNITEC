@@ -1,6 +1,5 @@
 <?php
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/SrvStepBase.php';
-	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/HTMLUForms.php';
 
 	class PasoA extends SrvStepBase
 	{
@@ -29,10 +28,7 @@
 			)
 			{
 				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/conexion.php';
-				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/DOMTag.php';
 				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/DOMFragment.php';
-
-				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/FormSession.php';
 
 				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/GMapsImg.php';
 				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/GMapsImgMarker.php';
@@ -41,6 +37,8 @@
 				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/GMapsWeight.php';
 				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/GMapsIcon.php';
 				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/GMapsLabel.php';
+
+				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/FormSession.php';
 
 				$session=new FormSession();
 				$session->loadLabels( 'ModoViaje' , 'Origen' );
@@ -80,55 +78,65 @@
 				);
 				echo '</pre>';
 	*/
-				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/Laboratorio.php';
-				$lab=new Laboratorio();
-
-				$lab->getSQL
-				(
-					[
-						'ID'=>$_SESSION['lab']
-					]
-				);
-				//Revisar . Pedir solo lat y lng.
+				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/getLab.php';
+				$lab=getLabPos( $_SESSION['lab'] ) ;
 				
-				$labLat=$lab->Latitud;
-				$labLng=$lab->Longitud;
+				if( $lab === false )
+				{
+					$status=false;
 
-				unset($lab);
+					if( isset( $_SESSION['adminID'] ) )
+					{
+						$msg=gettext
+						(
+							'
+								Parece ser que no se han indicado las posiciones de este laboratorio o alguno de
+								sus laboratorios padre. Por favor edite los laboratorios especificando una
+								Latitud y una Longitud. '
+						);
+					}
+					else
+					{
+						$msg=gettext
+						(
+							' Lo sentimos. Surgió un problema interno y no podemos brindarte lo que buscabas. '
+						);
+					}
+				}
+				else
+				{
+					$labLat=$lab[0];
+					$labLng=$lab[1];
 
-				$xml=new DOMDocument();
-				$xml->loadXML
-				(
-					$jj=file_get_contents
+					$xml=new DOMDocument();
+					$xml->loadXML
 					(
-						'https://maps.googleapis.com/maps/api/directions/xml?origin='.
-						urlencode($origen).
-						'&destination='.
-						urlencode( $labLat.' , '.$labLng ).
-						'&language='.
-						urlencode($langName).
-						'&mode='.
-						urlencode($modo).
-						'&key=AIzaSyBYdVjZ_Ox7egY1pCBo1Cr_PFOZsvfb5n4'
-					)
-				);
-	/*
-				echo '<pre>';
-				print_r
-				(
-					htmlentities
-					(
-						$xml->saveXML()
-					)
-				);
-				echo '</pre>';
-	*/
-				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormOtroOrigen.php';
-				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormVolver.php';
+						$jj=file_get_contents
+						(
+							'https://maps.googleapis.com/maps/api/directions/xml?origin='.
+							urlencode($origen).
+							'&destination='.
+							urlencode( $labLat.' , '.$labLng ).
+							'&language='.
+							urlencode($langName).
+							'&mode='.
+							urlencode($modo).
+							'&key=AIzaSyBYdVjZ_Ox7egY1pCBo1Cr_PFOZsvfb5n4'
+						)
+					);
+
+	//				echo '<pre>';print_r(htmlentities($xml->saveXML()));echo '</pre>';
+
+					include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormOtroOrigen.php';
+
+					$status=$xml->getElementsByTagName( 'status' )->item(0)->nodeValue;
+				}
+
 				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormBase.php';
 
 				$form=new FormBase();
 
+				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/HTMLUForms.php';
 				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/DOMBody.php';
 
 				$mainHTML=new HTMLUForms();
@@ -136,8 +144,6 @@
 				(
 					$body=new DOMBody()
 				);
-
-				$status=$xml->getElementsByTagName( 'status' )->item(0)->nodeValue;
 
 				if( $status === 'ZERO_RESULTS' )
 				{
@@ -203,6 +209,7 @@
 					$otroOrigen->addToAttribute( 'class' , 'GMapsFormSubmit' );
 				}
 
+				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormVolver.php';
 				$form->appendChild
 				(
 					$volver=new FormVolver()
