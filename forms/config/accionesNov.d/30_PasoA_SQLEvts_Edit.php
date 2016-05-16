@@ -34,6 +34,18 @@
 				$session->autoloadLabels();
 				$session->loadLabels( 'Imagen' );
 
+				if
+				(
+					$session->emptyTrimLabel( 'Contenido' ) ||
+					$session->emptyTrimLabel( 'Titulo' ) ||
+					$session->emptyTrimLabel( 'Tags' )
+				)
+				{
+					++$i;
+
+					continue;
+				}
+
 				//$session->loadLabels( 'Ano' , 'Mes' , 'Dia' , 'Horas' , 'Minutos' );
 
 				$nNov->getSQL

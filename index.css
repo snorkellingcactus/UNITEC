@@ -99,11 +99,14 @@ main ul, main ol
 	margin-left:15px;
 }
 */
-.contenido, .modulo
+.Contenido, .Modulo
 {
 	clear:both;
-	padding-top:15px;
 	width:100%;
+}
+body .Contenido hr
+{
+	border-top:1px solid #737373;
 }
 
 span.center{display:block;width:100%;text-align:center;}

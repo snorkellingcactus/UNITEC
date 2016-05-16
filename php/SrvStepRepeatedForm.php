@@ -17,9 +17,22 @@
 				$_SESSION['cantidad']=intVal($_POST['cantidad'][0]);
 			}
 			//Revisar.
-			if(isset($_POST['conID'][0]))
+			if(isset($_POST['conID']))
 			{
-				$_SESSION['cantidad']=count($_POST['conID']);
+				$count=count( $_POST['conID'] );
+
+				if( isset( $_SESSION['cantidad'] ) )
+				{
+					$_SESSION['cantidad']=max
+					(
+						$_SESSION['cantidad'] ,
+						$count
+					);
+				}
+				else
+				{
+					$_SESSION['cantidad']=$count;
+				}
 			}
 			if(isset($_SESSION['cantidad']))
 			{

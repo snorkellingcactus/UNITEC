@@ -33,6 +33,16 @@
 			{
 				$session->autoloadLabels();
 				$session->loadLabels( 'Url' );
+
+				if
+				(
+					$session->emptyTrimLabel( 'Titulo' )
+				)
+				{
+					++$index;
+
+					continue;
+				}
 				
 				$nImg=new Img();
 
@@ -42,6 +52,9 @@
 						'TituloID'=>each($contentID)['value']
 					]
 				);
+				$nImg->Fecha=date("Y-m-d H:i:s");
+
+
 
 /*
 				//Revisar. ¿Debería autocompletar las URLs?
@@ -54,12 +67,24 @@
 					elimina($_SERVER['DOCUMENT_ROOT'] . '/img/miniaturas/visor/'.$nImg->ID.'.png' , 0775);
 				}
 */
+				$uploadByUrl=!$session->emptyTrimLabel( 'Url' ) &&
+					trim
+					(
+						$session->getLabel('Url')!=$nImg->Url
+					);
 
 				$nImg->getAsoc
 				(
 					[
 						'Url'=>$session->getLabel('Url') ,
-						'Visible'=>$session->getLabel('Visible') ,
+						'Visible'=>intVal
+						(
+							filter_var
+							(
+								$session->getLabel('Visible'),
+								FILTER_VALIDATE_BOOLEAN
+							)
+						) ,
 					]
 				);
 
@@ -78,9 +103,15 @@
 					$_SESSION['lang']
 				);
 
+				if
+				(
+					$uploadByUrl || !empty($_FILES['Archivo']['name'][$index])
+				)
+				{
+					$this->mkUpload($index , $nImg->ID , $session);
+				}
 
-
-				$this->mkUpload($index , $nImg->ID , $session);
+				
 
 				if(!$session->emptyTrimLabel( 'Tags' ))
 				{

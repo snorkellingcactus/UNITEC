@@ -70,7 +70,7 @@
 			$this->mkUpload(0 , $lab->ID , $session);
 
 			//return [$lab->ID];
-			$router->gotoOrigin();
+			//$router->gotoOrigin();
 		}
 		//$this->router->gotoOrigin();
 

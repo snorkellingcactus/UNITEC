@@ -29,10 +29,21 @@
 			$i=0;
 			while( $session->setIDSuffix( $i ) !==false )
 			{
-
 				$session->autoloadLabels();
 				$session->loadLabel( 'Imagen' );
 				//$session->loadLabels('Horas' , 'Minutos' , 'Mes' , 'Dia' , 'Ano');
+
+				if
+				(
+					$session->emptyTrimLabel( 'Contenido' ) ||
+					$session->emptyTrimLabel( 'Titulo' ) ||
+					$session->emptyTrimLabel( 'Tags' )
+				)
+				{
+					++$i;
+
+					continue;
+				}
 
 				$horaLoc=getdate();
 

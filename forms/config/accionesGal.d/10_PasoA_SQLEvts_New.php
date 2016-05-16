@@ -23,7 +23,7 @@
 
 			//$afectados=[];
 
-			$i=$session->getNextIDSuffix();
+			$i=0;
 
 			while( $session->setIDSuffix( $i ) !== false )
 			{
@@ -32,14 +32,14 @@
 
 				if
 				(
-					!$session->hasLabel( 'Titulo' ) ||
+					$session->emptyTrimLabel( 'Titulo' ) ||
 					(
 						$session->emptyTrimLabel( 'Url' ) &&
 						empty($_FILES['Archivo']['name'][$i])
 					)
 				)
 				{
-					$i=$session->getNextIDSuffix();
+					++$i;
 
 					continue;
 				}
@@ -59,6 +59,17 @@
 				}
 
 				$img->PrioridadesGrpID=nPriorityGrp();
+
+				$img->Visible=intVal
+				(
+					filter_var
+					(
+						$session->getLabel('Visible'),
+						FILTER_VALIDATE_BOOLEAN
+					)
+				);
+
+				$img->Fecha=date("Y-m-d H:i:s");
 
 				$img->insForanea
 				(
@@ -111,7 +122,7 @@
 
 				$this->mkUpload ( $i , $img->ID , $session );
 
-				$i=$session->getNextIDSuffix();
+				++$i;
 			}
 
 			$router->gotoOrigin();

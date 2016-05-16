@@ -16,7 +16,9 @@
 		//if(!isset($_SESSION['lab']) || isset($_SESSION['adminID']))
 		if
 		(
-			!isset( $_SESSION['lab'] ) 	|| ( $_SESSION['lab'] === "false" )
+			!isset( $_SESSION['lab'] ) 	||
+			( $_SESSION['lab'] === "false" ) ||
+			( $_SESSION['lab'] === false )
 		)
 		{
 			$lab=getLab();

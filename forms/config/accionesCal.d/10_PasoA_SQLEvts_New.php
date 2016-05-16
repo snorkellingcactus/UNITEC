@@ -53,6 +53,20 @@
 				$session->autoloadLabels();
 				$session->loadLabels('Horas' , 'Minutos' , 'Mes' , 'Dia' , 'Ano');
 
+				if
+				(
+					$session->emptyTrimLabel( 'Titulo' ) ||
+					$session->emptyTrimLabel( 'Mes' ) ||
+					$session->emptyTrimLabel( 'Dia' ) ||
+					$session->emptyTrimLabel( 'Ano' ) ||
+					$session->emptyTrimLabel( 'Descripcion' )
+				)
+				{
+					++$i;
+
+					continue;
+				}
+
 				$evento=new Evento
 				(
 					[
