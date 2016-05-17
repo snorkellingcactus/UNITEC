@@ -15,40 +15,47 @@
 			);
 
 			$this->nodos=0;
-			$this->nodosCol=false;
+		}
+		function resetNodosCol()
+		{
+			unset( $this->nodosCol );
+			//$this->nodosCol=[ 'xs'=> 12 , 'sm'=> 12 , 'md'=> 12 , 'lg'=> 12 ];
 		}
 		public function appendNodo($nodo)
 		{
+			$nVal=12 / 
+			(
+				(
+					$this->nodos - 3*intVal
+					(
+						($this->nodos) / 3
+					)
+				)+1
+			);
+
 			++$this->nodos;
+
+			$nodo->col=&$this->nodosCol;
+
+			$this->nodosCol=[ 'xs'=> 12 , 'sm'=> $nVal , 'md'=> $nVal , 'lg'=> $nVal ];
+
+			if( $this->nodos % 3 === 0)
+			{
+				$this->resetNodosCol();
+			}
+
+			//Agrego dimensiones Bootstrap a cada hijo.
+			//$nodosCol=$this->nodosCol;
 			
 			return parent::appendChild($nodo);
 		}
 		public function renderChilds(&$tag)
 		{
-			if($this->nodos>1)
-			{
-				$this->nodosCol=12/$this->nodos;
-			}
-
 			return parent::renderChilds($tag);
 		}
-		public function importChild($child)
+		public function renderChild(&$child)
 		{
-			//Agrego dimensiones Bootstrap a cada hijo.
-			$nodosCol=$this->nodosCol;
-
-			if($child instanceof DOMTag && $nodosCol!==false)
-			{
-				$child->col=
-				[
-					'xs'=>12,
-					'sm'=>$nodosCol,
-					'md'=>$nodosCol,
-					'lg'=>$nodosCol
-				];
-			}
-
-			return parent::importChild($child);
+			return parent::renderChild($child);
 		}
 	}
 ?>

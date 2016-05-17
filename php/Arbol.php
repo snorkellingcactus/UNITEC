@@ -69,15 +69,15 @@
 			$newNode=$this->actions->onNewNode();
 
 			$i=0;
-			while(isset($main[$i]))
+			while( isset( $main[$i] ) )
 			{
 				$ramas=& $dep[$main[$i]];
 
-				$newChild=$this->actions->onNewChild($ramas[0] , $newNode);
+				$newChild=$this->actions->onNewChild( $ramas[0] , $newNode );
 
 				$childs=$ramas[1];
 
-				if(isset($childs[0]))
+				if( isset( $childs[0] ) )
 				{
 					$this->actions->onHasChilds
 					(

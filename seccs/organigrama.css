@@ -5,8 +5,12 @@
 	list-style-position: outside;
 	padding:0px;
 }
-.organigrama li, .organigrama ul li
+.organigrama .col-sm-4>ul, .organigrama .col-sm-6>ul
 {
+	/*
+	position: absolute;
+	bottom:0;
+	*/
 }
 .organicaja
 {
@@ -41,22 +45,23 @@ body .organigrama .acciones input:hover, body .organigrama .acciones input:focus
 {
 	animation:none;
 }
-.organigrama ul li div h1
+.organigrama ul li div.organicaja h1
 {
 	font-size:1.6em;
 }
-.organigrama ul li div
+.organigrama ul li div.organicaja
 {
 	background-color:rgba(11, 188, 0, 0.22)
 }
-.organigrama ul li ul li div
+.organigrama ul li ul li div.organicaja
 {
 	background-color:rgba(255, 0, 0, 0.22);
 }
-.organigrama ul li ul li ul li div
+.organigrama ul li ul li ul li div.organicaja
 {
 	background-color:rgba(255, 243, 0, 0.22);
 }
+.fila{overflow: hidden;}
 body .organigrama a
 {
 	text-shadow:none;
