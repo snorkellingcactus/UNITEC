@@ -219,7 +219,7 @@ div.header
 	line-height:20px;
 	vertical-align:middle;
 }
-footer , .header a:hover
+footer , .header a:hover, .header a:focus
 {
 	color:white;
 	text-decoration:underline
@@ -253,7 +253,7 @@ footer , .header a:hover
 	top:-2px;
 	left:-2px;
 }
-.header nav ul:hover
+.header nav ul:hover,.header nav ul:focus
 {
 	z-index: 15
 }

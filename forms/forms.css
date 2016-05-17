@@ -9,6 +9,49 @@
 	{
 		width:100%;
 	}
+	body .menu .FormCliSecAddMenu
+	{
+		width:auto;
+		float: left
+	}
+	body .menu .FormCliSecAddMenu input
+	{
+		background: none;
+	    color: white;
+	    padding: 10px;
+	}
+	body .menu nav
+	{
+		float: left;
+		width: auto;
+	}
+	.menu .acciones input.elimina, body .menu nav .acciones input.edita
+	{
+		opacity: 0.3
+	}
+
+	body .menu:hover li .acciones,body .menu:hover li .acciones, body .menu nav .acciones input.elimina:hover, body .menu nav .acciones input.edita:hover
+	{
+		background-color:transparent;
+		opacity: 1
+	}
+	body .menu nav .acciones
+	{
+		opacity: 1
+	}
+
+	.menu .acciones input.elimina{background-image:url("/img/51.white.png")}
+	.menu .acciones input.edita{background-image:url("/img/39.white.png")}
+
+	body .menu .acciones input.elimina:hover, .acciones input.elimina:focus
+	{
+		opacity: 1;
+		background-image:url("/img/51.white.png")
+	}
+	.menu .acciones input.edita:hover,.acciones input.edita:focus
+	{
+		background-image:url("/img/39.white.png")
+	}
 }
 body input ,body select{font-size:1em;color:black;font-family:monospace;text-align:center}
 body input ,body select, .indicator-invisible
@@ -75,7 +118,7 @@ section:hover .FormCliSec .acciones, section:hover .FormCliSecNew .acciones, .Mo
 }
 .acciones input, .acciones select, .indicator-invisible{margin:3px;}
 .acciones input{box-shadow:none;background-color:transparent;border-radius:2px;}
-body .acciones input:hover, body .acciones input:focus{background-color:rgba(255,255,255,0.8) !important ;}
+html body .acciones input[type="submit"]:hover,html body .acciones input[type="submit"]:focus{background-color:rgba(255,255,255,0.8)  ;}
 .menu .FormCliSecAddMenu
 {
 	width:100%;
@@ -133,6 +176,19 @@ main .acciones input.nuevo{background-image:url("/img/10.png")}
 .acciones input.elimina{background-image:url("/img/51.png")}
 .acciones input.edita{background-image:url("/img/39.png")}
 
+main section .acciones input.nuevo:hover, main section .acciones input.nuevo:focus
+{
+	background-image:url("/img/10.png")
+}
+.acciones  input.elimina:hover,.acciones input.elimina:focus
+{
+	background-image:url("/img/51.png")
+}
+.acciones input.edita:hover,.acciones input.edita:focus
+{
+	background-image:url("/img/39.png")
+}
+
 .acciones input.elimina,.acciones input.edita ,main .acciones input.nuevo
 {
 	background-color:transparent;
@@ -142,24 +198,12 @@ main .acciones input.nuevo{background-image:url("/img/10.png")}
 	max-width: 30px;
 	height: 25px;
 }
-main section .acciones input.nuevo:hover, main section .acciones input.nuevo:focus
-{
-	background-image:url("/img/10.png")
-}
 .acciones input:hover, .acciones input:focus, .acciones input.nuevo:hover
 {
 	background-color:linear-gradient(to right bottom, #FFF, #EAEAEA);
 	border:1px solid rgb(144, 144, 144);
 	animation-name:inputHover;
 	animation-duration:0.2s;
-}
-.acciones  input.elimina:hover,.acciones input.elimina:focus
-{
-	background-image:url("/img/51.png")
-}
-.acciones input.edita:hover,.acciones input.edita:focus
-{
-	background-image:url("/img/39.png")
 }
 input[name^="Continuar"], input.volver{width:47%;float:left;margin:25px 0px 25px 0px;}
 input.volver{float:right;}
