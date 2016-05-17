@@ -12,6 +12,7 @@
 				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/conexion.php';
 				global $con;
 
+				//Revisar. Workarround.
 				$con->query
 				(
 					'	DELETE FROM Secciones
