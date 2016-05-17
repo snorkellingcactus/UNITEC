@@ -8,7 +8,6 @@
 		function __construct()
 		{
 			parent::__construct();
-			$this->setAttribute('style' , 'visibility:hidden');
 
 			$this->setAbsoluteUrls( false );
 		}

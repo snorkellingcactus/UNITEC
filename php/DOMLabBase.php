@@ -5,6 +5,7 @@
 	{
 		public $nodos;
 		public $nodosCol;
+		public $nodosColValue;
 
 		function __construct()
 		{
@@ -15,42 +16,63 @@
 			);
 
 			$this->nodos=0;
+			$this->resetNodosCol();
 		}
 		function resetNodosCol()
 		{
 			unset( $this->nodosCol );
-			//$this->nodosCol=[ 'xs'=> 12 , 'sm'=> 12 , 'md'=> 12 , 'lg'=> 12 ];
+			unset( $this->nodosColValue );
+
+			$this->nodosColValue=12;
+
+			$val=&$this->nodosColValue;
+
+			$this->nodosCol=
+			[
+				'xs'=> 12 ,
+				'sm'=> &$val ,
+				'md'=> &$val ,
+				'lg'=> &$val
+			];
+		}
+		public function threeMult()
+		{
+			return $this->nodos % 3 === 0;
+		}
+		public function calcCols($nodos)
+		{
+			return $this->nodosColValue=12 / 
+			(
+				(
+					$nodos - 3*intVal
+					(
+						$nodos / 3
+					)
+				) + 1
+			);
 		}
 		public function appendNodo($nodo)
 		{
-			$nVal=12 / 
-			(
-				(
-					$this->nodos - 3*intVal
-					(
-						($this->nodos) / 3
-					)
-				)+1
-			);
-
 			++$this->nodos;
 
 			$nodo->col=&$this->nodosCol;
 
-			$this->nodosCol=[ 'xs'=> 12 , 'sm'=> $nVal , 'md'=> $nVal , 'lg'=> $nVal ];
-
-			if( $this->nodos % 3 === 0)
+			if( $this->threeMult() )
 			{
+				$this->calcCols( $this->nodos -1 );
+
 				$this->resetNodosCol();
 			}
-
-			//Agrego dimensiones Bootstrap a cada hijo.
-			//$nodosCol=$this->nodosCol;
 			
 			return parent::appendChild($nodo);
 		}
 		public function renderChilds(&$tag)
 		{
+			if( ! $this->threeMult() )
+			{
+				$this->calcCols( $this->nodos -1 );
+			}
+			
 			return parent::renderChilds($tag);
 		}
 		public function renderChild(&$child)
