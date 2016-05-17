@@ -67,18 +67,7 @@
 
 			if(! ( $infoIsEmpty && $socialIsEmpty ) )
 			{
-				echo '<pre>Social is empty:';
-				var_dump($socialIsEmpty);
-				echo '</pre>';
-
-				echo '<pre>Info is empty:';
-				var_dump($infoIsEmpty);
-				echo '</pre>';
 				$divInfo=new FooterInfo();
-
-				echo '<pre>DireccionID:';
-				print_r($lab['DireccionID']);
-				echo '</pre>';
 
 				$divInfo
 				->setFacebook	( $lab['Facebook']		)
