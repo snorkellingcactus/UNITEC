@@ -14,6 +14,17 @@
 			parent::__construct();
 
 			$this->setTagName('ul');
+
+			$this->appendChild
+			(
+				$titulo=new DOMTag
+				(
+					'h1',
+					gettext( 'Otros medios' )
+				)
+			);
+
+			$titulo->col=[ 'xs'=> 12 , 'sm'=> 12 , 'md'=> 12 , 'lg'=> 12];
 		}
 		function setFacebook($facebook)
 		{

@@ -10,6 +10,17 @@
 
 			$this->appendChild
 			(
+				$titulo=new DOMTag
+				(
+					'h1',
+					gettext( 'Escribinos' )
+				)
+			);
+
+			$titulo->col=[ 'xs'=> 12 , 'sm'=> 12 , 'md'=> 12 , 'lg'=> 12];
+
+			$this->appendChild
+			(
 				new FormCliMail()
 			);
 		}

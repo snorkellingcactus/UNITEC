@@ -9,6 +9,17 @@
 		{
 			parent::__construct();
 
+			$this->appendChild
+			(
+				$titulo=new DOMTag
+				(
+					'h1',
+					gettext( '¿Cómo llegar?' )
+				)
+			);
+
+			$titulo->col=[ 'xs'=> 12 , 'sm'=> 12 , 'md'=> 12 , 'lg'=> 12];
+
 			$pRuta=new DOMTag('div');
 			$pRuta->col=['xs'=>12 , 'sm'=>12 , 'md'=>5 , 'lg'=>5];
 

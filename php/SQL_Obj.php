@@ -161,9 +161,9 @@ class SQL_Obj
 		}
 
 		$this->buff=$this->buff.$valor.'=';
-		$this->buff=$this->buff.$this->sqlVal($this->data[$valor]).' and ';
+		$this->buff=$this->buff.$this->sqlVal( $this->data[ $valor ] ).' and ';
 	}
-	private function insFnA($clave , $valor)
+	private function insFnA( $clave , $valor )
 	{
 		if($this->omiteNULL && $valor === NULL)
 		{
@@ -184,7 +184,7 @@ class SQL_Obj
 	}
 	public function where($data=false)
 	{
-		if(!$data)
+		if( !$data )
 		{
 			$data=$this->data;
 		}
@@ -215,25 +215,26 @@ class SQL_Obj
 		//Saco comas finales, cierro parentesis y agrego espacio.
 		return $this->buff=substr($this->buff,0,strlen($this->buff)-1);
 	}
-	public function getSQL($data=false)
+	public function getSQL( $data=false )
 	{
 		$this->buff='select * from '.$this->table.' where ';
 
-		$this->buff=$this->where($data).' limit 1';
+		$this->buff=$this->where( $data ).' limit 1';
 
 //		echo '<pre>'.$this->buff.'</pre>';
 
-		$res=$this->con->query($this->buff);
+		$res=$this->con->query( $this->buff );
 
 		if($res->num_rows)
 		{
-			$res=fetch_all($res , MYSQLI_ASSOC)[0];
+			$res=fetch_all( $res , MYSQLI_ASSOC )[0];
 
 			foreach($res as $clave=>$valor)
 			{
 				$this->$clave=$valor;
 			}
 		}
+
 		$this->buff='';
 	}
 	//Crea un nuevo registro de este elemento en la base de datos.

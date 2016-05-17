@@ -227,6 +227,81 @@
 
 		return getLabPosLoop( $labID );
 	}
+	function getHeredatedLabDataLoop( $labID , $toFetch , $fetched, $txt )
+	{
+		global $con;
+
+		$what='';
+
+		$i=0;
+		while( isset( $toFetch[$i] ) )
+		{
+			if($i>0)
+			{
+				$what=$what.', ';
+			}
+
+			$what=$what.'Laboratorios.'.$toFetch[$i];
+
+			++$i;
+		}
+		if($i===0)
+		{
+			return $fetched;
+		}
+
+		$lab=fetch_all
+		(
+			$con->query
+			(
+				'	SELECT Laboratorios.PadreID, '.$what.'
+					FROM Laboratorios
+					WHERE ID='.$labID
+			),
+			MYSQLI_ASSOC
+		)[0];
+
+		$i=0;
+		foreach( $toFetch as $clave=>$valor )
+		{
+			if( ! empty( $lab[$valor]) )
+			{
+				if( isset( $txt[$valor] ) )
+				{
+					$lab[$valor]=getTraduccion
+					(
+						$lab[$valor] ,
+						$_SESSION['lang']
+					);
+
+					unset( $txt[$valor] );
+				}
+
+				$fetched[$valor]=$lab[$valor];
+
+				unset( $toFetch[$clave] );
+
+				++$i;
+			}
+		}
+
+		if
+		(
+			$lab['PadreID'] === NULL
+		)
+		{
+			return $fetched;
+		}
+
+		return getHeredatedLabDataLoop( $lab['PadreID'] , $toFetch , $fetched , $txt );
+	};
+	function getHeredatedLabData($labID , $toFetch , $txt)
+	{
+		include_once $_SERVER['DOCUMENT_ROOT'] . '/php/getTraduccion.php';
+		global $con;
+
+		return getHeredatedLabDataLoop( $labID , $toFetch , [] , $txt);
+	}
 	function getLabUrl($lName)
 	{
 		if(func_num_args()>1)

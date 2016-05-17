@@ -8,6 +8,17 @@
 		{
 			parent::__construct();
 
+			$this->appendChild
+			(
+				$titulo=new DOMTag
+				(
+					'h1',
+					gettext( '¿Dónde estamos?' )
+				)
+			);
+
+			$titulo->col=[ 'xs'=> 12 , 'sm'=> 12 , 'md'=> 12 , 'lg'=> 12];
+
 			$imgMapa=new DOMTag('img');
 			$imgMapa->addToAttribute('class' , 'map-canvas');
 

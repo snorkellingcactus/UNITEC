@@ -563,15 +563,22 @@
 				)
 			);
 */
+			$domDoc=new DOMInitialTag();
 
-			$sitemap->buildDoc();
+			$sitemap->renderChilds($domDoc);
 
 			$jj=new Highlighter($sitemap);
 
-			$sitemap->domDoc->formatOutput=1;
+			$domDoc->getTag()->formatOutput=1;
 
 			echo '<pre>';
-			echo htmlentities(highlight_string($sitemap->domDoc->saveXML()));
+			echo htmlentities
+			(
+				highlight_string
+				(
+					$domDoc->getTag()->saveXML()
+				)
+			);
 			//print_r($sitemap->domDoc);
 /*			
 			echo '<div>'.highlight_string('<?xml version="1.0" encoding="UTF-8"?>')."\n".'</div>';

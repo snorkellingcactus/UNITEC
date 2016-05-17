@@ -254,6 +254,8 @@ else
 	}
 }
 
+getHeredatedLabData( $_SESSION['lab'] , ['Facebook' , 'Mail' , 'Twitter' , 'Telefono', 'DireccionID'] , [ 'DireccionID' =>0]);
+
 echo $html->getHTML();
 
 ?>

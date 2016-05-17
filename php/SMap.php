@@ -41,8 +41,6 @@
 
 			$this->setBaseURL('http://'.$_SERVER['SERVER_NAME'].'/');
 			$this->langs=[];
-
-			$this->createDoc();
 		}
 		function setBaseURL($url)
 		{
