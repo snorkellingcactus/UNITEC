@@ -11,7 +11,7 @@
 
 			$this->setAbsoluteUrls( false );
 
-			$this->addToAttribute('style' , 'visibility:hidden');
+			//$this->addToAttribute('style' , 'visibility:hidden');
 		}
 		function setAbsoluteUrls( $absoluteUrls )
 		{
