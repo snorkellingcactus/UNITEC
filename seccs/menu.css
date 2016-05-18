@@ -12,7 +12,7 @@ div.menu
 	z-index:1;
 	top:30px;
 }
-.menu:hover
+.menu:hover, .menu ul:hover
 {
 	z-index:7;
 }
