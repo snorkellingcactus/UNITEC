@@ -1,25 +1,6 @@
 <?php
-	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/DOMTag.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/DOMTagObjectBase.php';
 	
-	class DOMTagObjectBase
-	{
-		public $tag;
-
-		function __construct()
-		{
-			$this->tag=false;
-		}
-
-		public function &getTag()
-		{
-			return $this->tag;
-		}
-		public function DOMAppendChild($tag)
-		{
-//			echo '<pre>'.$this->tag->nodeName.'::appendChild('.$tag->getTag()->nodeName.')'; echo '</pre>';
-			$this->tag->appendChild($tag->getTag());
-		}
-	}
 	class DOMTagContainer extends DOMTagObjectBase
 	{
 		public $hijos;
@@ -38,6 +19,14 @@
 
 			$this->delegateRender=false;
 			$this->delegateAppend=true;
+		}
+		public function setDelegateRender( $delegateRender )
+		{
+			$this->delegateRender=$delegateRender;
+		}
+		public function setDelegateAppend( $delegateAppend )
+		{
+			
 		}
 		public function appendChild($tagObject)
 		{
@@ -71,9 +60,9 @@
 
 			//echo '</pre>';
 		}
-		public function renderChild(&$child)
+		public function renderChild( &$child )
 		{
-			if(!$this->delegatedParent===false && $this->delegateRender)
+			if($this->delegatedParent!==false && $this->delegateRender)
 			{
 				$child->renderChilds
 				(
@@ -90,21 +79,15 @@
 		}
 		public function renderChilds(&$tag)
 		{
-			//echo '<pre>DOMTagContainer '.get_class($this).'::renderChilds(&'.get_class($tag).')';
 			$this->setTag($tag);
 
 			$childs=$this->hijos;
 			$childsLen=$this->hijosLen;
 
-			for($i=0;$i<$childsLen;$i++)
+			for($i=0;$i<$childsLen;++$i)
 			{
-				//echo '<pre>Initialize rendering of '.get_class($this).' child '.$i;echo '</pre>';
 				$this->renderChild($childs[$i]);
-
-				//echo '<pre>Finalize   rendering of '.get_class($this).' child '.$i;echo '</pre>';
 			}
-
-			//echo '</pre>';
 
 			return $this;
 		}
@@ -117,18 +100,26 @@
 
 			return $node;
 		}
+		public function initRender()
+		{
+			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/DOMInitialTag.php';
+
+			$this->renderChilds
+			(
+				new DOMInitialTag()
+			);
+		}
 		public function getHTML()
 		{
-			$this->delegate=false;
-			$this->renderChilds(new DOMInitialTag());
+			$this->initRender();
 
 			//Revisar.
 			return html_entity_decode
 			(
-				$this->getOwnerDocumentOf($this->tag)->saveHTML($this->tag)
+				$this->getOwnerDocumentOf( $this->tag )->saveHTML( $this->tag )
 			);
 		}
-		public function setTag($tagObject)
+		public function setTag( $tagObject )
 		{
 			if($this->delegateRender || $this->delegateAppend)
 			{
@@ -136,16 +127,6 @@
 			}
 
 			$this->tag=$tagObject->getTag();
-		}
-	}
-
-	class DOMInitialTag extends DOMTagObjectBase
-	{
-		function __construct()
-		{
-			parent::__construct();
-
-			$this->tag=new DOMDocument('1.0' , 'UTF-8');
 		}
 	}
 ?>

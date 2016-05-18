@@ -227,7 +227,7 @@
 					$startIcon->setAttribute
 					(
 						'src' ,
-						'https://mts.googleapis.com/maps/vt/icon/name=icons/spotlight/spotlight-waypoint-b.png&text=B&psize=16&font=fonts/Roboto-Regular.ttf&color=ff333333&ax=44&ay=48&scale=1'
+						'https://mts.googleapis.com/maps/vt/icon/name=icons/spotlight/spotlight-waypoint-a.png&text=A&psize=16&font=fonts/Roboto-Regular.ttf&color=ff333333&ax=44&ay=48&scale=1'
 					); //Igual al del footer.js para apariencia uniforme.
 					$startIcon->setAttribute('alt' , htmlentities(gettext('Origen')));
 
@@ -235,7 +235,7 @@
 					$endIcon->setAttribute
 					(
 						'src' ,
-						'https://mts.googleapis.com/maps/vt/icon/name=icons/spotlight/spotlight-waypoint-a.png&text=A&psize=16&font=fonts/Roboto-Regular.ttf&color=ff333333&ax=44&ay=48&scale=1'
+						'https://mts.googleapis.com/maps/vt/icon/name=icons/spotlight/spotlight-waypoint-b.png&text=B&psize=16&font=fonts/Roboto-Regular.ttf&color=ff333333&ax=44&ay=48&scale=1'
 					); //Igual al del footer.js para apariencia uniforme.
 					$endIcon->setAttribute('alt' , htmlentities(gettext('Destino')));
 

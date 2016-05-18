@@ -68,7 +68,13 @@
 		
 		public function newTag()
 		{
-			$tag=$this->getOwnerDocumentOf($this->parent->getTag())->createElement($this->tagName);
+			$tag=$this->getOwnerDocumentOf
+			(
+				$this->parent->getTag()
+			)->createElement
+			(
+				$this->tagName
+			);
 
 			return $tag;
 		}
@@ -84,20 +90,12 @@
 		}
 		public function applyAttrList()
 		{
-			foreach($this->attrList as $attr=>$value)
-			{
+			$attrList=&$this->attrList;
 
+			foreach($attrList as $attr=>$value)
+			{
 				if($value instanceof DOMClassList)
 				{
-/*
-					echo '<pre>Attribute Value:';
-					print_r
-					(
-						$value->get()
-					);
-					echo '</pre>';
-*/
-
 					$value=$value->get();
 				}
 
@@ -106,6 +104,7 @@
 				if($trimmed!=='')
 				{
 					$this->tag->setAttribute($attr , $value);
+					unset($attrList[$attr]);
 				}
 			}
 
@@ -149,22 +148,13 @@
 		}
 		public function addToAttribute($attrName , $attrValue)
 		{
-			$this->attrSetFilter($attrValue);
-
-			if(!isset($this->attrList[$attrName]))
-			{
-				$this->attrList[$attrName]=new DOMClassList();
-			}
-
-			$this->attrList[$attrName]->add($attrValue);
-
-			return $this;
+			return $this->addReferenceToAttr($attrName , $attrValue);
 		}
 		public function addReferenceToAttr($attrName , &$attrValue)
 		{
 			$this->attrSetFilter($attrValue);
 
-			if(!isset($this->attrList[$attrName]))
+			if( !isset( $this->attrList[$attrName] ) )
 			{
 				$this->attrList[$attrName]=new DOMClassList();
 			}

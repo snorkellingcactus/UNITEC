@@ -34,7 +34,8 @@
 		}
 		public function setTag($tag)
 		{
-			$this->applyBootstrap();
+			
+			$this->bootstrapApply();
 
 			parent::setTag($tag);
 
@@ -53,51 +54,58 @@
 
 			return $this;
 		}
-		public function applyBootstrap()
+		private function bootstrapApply()
 		{
-			$col=& $this->col;
-			$all=& $this->all;
-
-			foreach($col as $colName=>$val)
+			$this->bootstrapApplySingle($this->col , 'col');
+			$this->bootstrapApplySingle($this->all , 'all');
+		}
+		private function bootstrapApplySingle($cols , $suffix)
+		{
+			foreach($cols as $colName=>$val)
 			{
 				if($val!==false)
 				{
-					$this->applySingleBootstrap('col' , $colName , $val);
-				}
-				if($all[$colName]!==false)
-				{
-					$this->applySingleBootstrap('all' , $colName , $all[$colName]);
+					$this->bootstrapAppendClass($suffix , $colName , $val);
 				}
 			}
-/*
-			echo '<pre>'.$this->tagName.'Class: ';
-			print_r($this->getAttribute('class'));
-			echo '</pre>';
-*/
-			return $this;
 		}
-		public function applySingleBootstrap($colType , $colName , $val)
+		private function bootstrapAppendClass($colType , $colName , $val)
 		{
-			//echo '<pre>$this->addToAttribute( "class" , '.$colType.'-'.$colName.'-'.$val.')';echo '</pre>';
 			$this->addToAttribute('class' , $colType.'-'.$colName.'-'.$val);
 		}
-		public function setBootstrap($cols , $var)
+		public function setBootstrap($cols , &$var)
 		{
-			$thisCols=& $this->$var;
 			foreach($cols as $col=>$val)
 			{
-				$thisCols[$col]=$val;
+				$var[$col]=$val;
 			}
 
 			return $this;
 		}
+		public function &getColRef()
+		{
+			return $this->col;
+		}
+		public function &getAllRef()
+		{
+			return $this->all;
+		}
+		public function setColRef(&$col)
+		{
+			$this->col=&$col;
+		}
+		public function setAllRef(&$col)
+		{
+			$this->all=&$col;
+		}
+		//Cambiar a setCols() o eliminar.
 		public function setCol($cols)
 		{
-			return $this->setBootstrap($cols , 'col');
+			return $this->setBootstrap( $cols , $this->col );
 		}
 		public function setAll($cols)
 		{
-			return $this->setBootstrap($cols , 'all');
+			return $this->setBootstrap( $cols , $this->all );
 		}
 	}
 ?>
