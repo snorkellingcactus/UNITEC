@@ -5,14 +5,29 @@
 	{
 		function objEmpty( &$obj , $properties)
 		{
-			$empty=false;
+			$empty=true;
 			foreach( $properties as $clave=>$valor )
 			{
+//				echo '<pre>! isset($obj['.$valor.'])';
+//				echo '</pre>';
 				if( !isset( $obj[$valor] ) )
 				{
-					$empty = true;
+					/*
+					echo '<pre>NOT Exists';
+
+					echo '</pre>';
+					*/
 
 					$obj[$valor]=NULL;
+				}
+				else
+				{
+					$empty = false;
+					/*
+					echo '<pre>Exists:';
+					print_r($obj[$valor]);
+					echo '</pre>';
+					*/
 				}
 			}
 
