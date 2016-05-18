@@ -31,10 +31,29 @@
 					)
 				]=true;
 
-				$this->getRouter()->redirectToStepName
+				$router=$this->getRouter();
+
+				echo '<pre>Is '.$router->getActionUrl().' IN '.$_SERVER['HTTP_REFERER'].' ?';
+				echo '</pre>';
+
+				if
 				(
-					'00_PasoA.php'
-				);
+					strrpos
+					(
+						$_SERVER['HTTP_REFERER'],
+						$router->getActionUrl()
+					) === false
+				)
+				{
+					$router->redirectToStepName
+					(
+						'00_PasoA.php'
+					);
+				}
+				else
+				{
+					$router->gotoOrigin();
+				}
 			}
 		}
 	}

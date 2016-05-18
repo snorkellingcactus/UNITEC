@@ -66,6 +66,7 @@
 			$number=$this->number;
 			$strPrefix='';
 
+			//Revisar. ¿Funciona?
 			if($number<10)
 			{
 				$strPrefix='0';
@@ -109,6 +110,36 @@
 		{
 			return $this->clientUrl;
 		}
+/*
+		public function setClientUrl($clientUrl)
+		{
+
+			$clientUrl=trim( $clientUrl );
+
+			$pos=strrpos
+			(
+				$clientUrl ,
+				'?step='
+			);
+
+			if($pos !== false)
+			{
+				//Revisar. Seguridad
+				return $this->setNumber
+				(
+					substr
+					(
+						$clientUrl,
+						+6
+					)
+				);
+			}
+			else
+			{
+				return false;
+			}
+		}
+*/
 		public function getLocalUrl()
 		{
 			return $this->localUrl;

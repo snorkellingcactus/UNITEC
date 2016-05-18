@@ -44,6 +44,9 @@
 			}
 			if(isset($_POST['Volver']))
 			{
+				echo '<pre>Volver';
+
+				echo '</pre>';
 				$this->vPressed=true;
 			}
 
@@ -274,6 +277,10 @@
 		public function getOriginUrl()
 		{
 			return $this->referer.$this->ancla;
+		}
+		public function getActionUrl()
+		{
+			return $this->actionUrl;
 		}
 		public function gotoOrigin()
 		{
