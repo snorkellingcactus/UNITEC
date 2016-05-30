@@ -28,7 +28,7 @@ ul li ul .organicaja
 {
 	margin-top:10px;
 }
-.organicaja h1
+.organicaja h1, .organicaja h2
 {
 	margin-top:0px;
 	margin-bottom:0px;
@@ -45,7 +45,7 @@ body .organigrama .acciones input:hover, body .organigrama .acciones input:focus
 {
 	animation:none;
 }
-.organigrama ul li div.organicaja h1
+.organigrama ul li div.organicaja h1, .organigrama ul li div.organicaja h2
 {
 	font-size:1.6em;
 }

@@ -8,7 +8,7 @@
 			$organigrama->solveDeps($labs , $padreID);
 
 			$i=0;
-			while(isset($labs[$i]) && $i<15)
+			while( isset( $labs[ $i ] ) )
 			{
 				$childs=fetch_all
 				(
@@ -25,7 +25,7 @@
 					MYSQLI_ASSOC
 				);
 
-				if(isset($childs[0]))
+				if( isset( $childs[0] ) )
 				{
 					$this->arbolLabs($childs , $organigrama , $con , $padreID);
 				}

@@ -19,7 +19,7 @@
 			$this->ul=new DOMTag('ul');
 			$this->nav=new DOMTag('nav');
 
-			$this->span=new DOMTag('span');
+			$this->span=new DOMTag('div');
 			$this->span->addToAttribute('class' , 'inset');
 
 			$this->appendChild

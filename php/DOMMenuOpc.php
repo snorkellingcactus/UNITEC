@@ -66,7 +66,10 @@
 		{
 			if($this->sectionName)
 			{
-				$urlStr='#'.$this->sectionName;
+				$urlStr='#'.urlencode
+				(
+					$this->sectionName
+				);
 				
 				if( $this->absoluteUrl !== false )
 				{
@@ -84,7 +87,9 @@
 
 				$this->setUrl
 				(
-					$urlStr
+
+						$urlStr	
+					
 				);
 			}
 

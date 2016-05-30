@@ -15,6 +15,7 @@
 
 			$this->setTagName('ul');
 
+			//Revisar. h1 not allowed in this context.
 			$this->appendChild
 			(
 				$titulo=new DOMTag

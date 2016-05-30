@@ -51,7 +51,9 @@
 			}
 			if($this->hidden!==false)
 			{
-				$this->setAttribute('aria-hidden' , $this->hidden);
+				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/printBool.php';
+
+				$this->setAttribute('aria-hidden' , printBool($this->hidden));
 			}
 
 			return parent::renderChilds($tag);

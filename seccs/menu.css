@@ -16,7 +16,7 @@ div.menu
 {
 	z-index:7;
 }
-.menu div
+.menu div.hidden-xs
 {
 	margin-top:5%;
 	background-image:url("../img/fondo_contenido.png");

@@ -80,12 +80,16 @@ if($_SESSION['lab']!==false)
 			);
 		}
 
+		//El ID de la sección debe estar codificado de la misma forma que en el ancla de la opción del menú.
 		$section->setHTMLID
 		(
-			getTraduccion
+			urlencode
 			(
-				$seccionAct['TituloID'],
-				$_SESSION['lang']
+				getTraduccion
+				(
+					$seccionAct['TituloID'],
+					$_SESSION['lang']
+				)
 			)
 		);
 

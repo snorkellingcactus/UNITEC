@@ -5,7 +5,7 @@
 	{
 		function __construct()
 		{
-			parent::__construct('span');
+			parent::__construct('div');
 			$this->addToAttribute('class' , 'clearfix');
 		}
 	}
