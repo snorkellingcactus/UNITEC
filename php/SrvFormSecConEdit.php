@@ -3,6 +3,12 @@
 
 	class SrvFormSecConEdit extends SrvFormSecOtherEdit
 	{
+		function __construct()
+		{
+			parent::__construct();
+
+			$this->setTitle( gettext(' Editar Contenido ') );
+		}
 		function newLabelsCollection(&$index)
 		{
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/LabelsSecCon.php';

@@ -3,6 +3,12 @@
 
 	class SrvFormSecIncEdit extends SrvFormSecOtherEdit
 	{
+		function __construct()
+		{
+			parent::__construct();
+
+			$this->setTitle( gettext(' Configurar Módulo ') );
+		}
 		function newLabelsCollection(&$index)
 		{
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/LabelsSecInc.php';
