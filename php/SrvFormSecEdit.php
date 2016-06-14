@@ -3,6 +3,12 @@
 
 	class SrvFormSecEdit extends SrvFormSecEditBase
 	{
+		function __construct()
+		{
+			parent::__construct();
+
+			$this->setTitle( gettext(' Editar Sección ') );
+		}
 		function newLabelsCollection(&$index)
 		{
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/LabelsSec.php';

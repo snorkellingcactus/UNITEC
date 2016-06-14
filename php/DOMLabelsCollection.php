@@ -52,7 +52,7 @@
 		{
 			$this->formName=$formName;
 		}
-		public function setIndex(&$index)
+		public function setIndex( &$index )
 		{
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/FormActions.php';
 			

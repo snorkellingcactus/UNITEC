@@ -10,39 +10,13 @@
 
 			$this->appendChild(new DOMHeaderInicioSesion());
 
-			if(isset($_SESSION['adminID']))
+			if( isset( $_SESSION['adminID'] ) )
 			{
-				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/conexion.php';
-				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/MSGBox.php';
-				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/DOMLink.php';
-				//include_once $_SERVER['DOCUMENT_ROOT'] . '/php/SQL_DOM.php';
-
-				global $con;
-
-				$usuario=fetch_all
-				(
-					$con->query
-					(
-						'	SELECT * FROM Usuarios
-							WHERE ID='.$_SESSION['adminID']
-					),
-					MYSQLI_ASSOC
-				)[0];
-
-				$logueado=new MSGBox
-				(
-					gettext('Estas logueado!')
-				);
-				$cSesion=new DOMLink();
-
-				$logueado->addToAttribute('class' , 'MSGLogin');
+				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/PanelAdmin.php';
 
 				$this->appendChild
 				(
-					$logueado->appendChild
-					(
-						$cSesion->setUrl('/inicio_sesion.php?cSesion')->setName('Cerrar Sesión')
-					)
+					new PanelAdmin()
 				);
 			}
 			else

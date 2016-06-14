@@ -4,6 +4,12 @@
 	//Se usa repeatedForm en vez de stepForm por problemas con OOP, para tener una base de código común.
 	class SrvFormMenuEdit extends SrvStepRepeatedForm
 	{
+		function __construct()
+		{
+			parent::__construct();
+
+			$this->setTitle( gettext(' Editar Opción ') );
+		}
 		function newLabelsCollection(&$index)
 		{
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/LabelsMenu.php';

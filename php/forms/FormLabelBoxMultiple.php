@@ -53,7 +53,7 @@
 
 			return parent::renderChild($child);
 		}
-		public function setIndex(&$index)
+		public function setIndex( &$index )
 		{
 			$this->index=&$index;
 		}

@@ -5,7 +5,17 @@
 	{
 		public $con;
 		public $labels;
+		private $title;
 
+		function __construct()
+		{
+			parent::__construct();
+
+			$this->appendChild
+			(
+				$this->title= new DOMTag('h1')
+			);
+		}
 		public function makeLabels($index)
 		{
 			$this->labels=$this->newLabelsCollection($index);
@@ -18,6 +28,10 @@
 		public function newLabelsCollection(&$index)
 		{
 
+		}
+		public function setTitle( $title )
+		{
+			$this->title->setTagValue( $title );
 		}
 
 		public function autocomplete()

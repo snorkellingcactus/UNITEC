@@ -5,6 +5,8 @@
 	{
 		function __construct()
 		{
+			parent::__construct();
+
 			$args=func_get_args();
 
 			array_push
@@ -18,6 +20,8 @@
 				array('parent', '__construct'),
 				$args
 			);
+
+			$this->setDelegateRender(1);
 
 			$this->label->setID($args[1]);
 

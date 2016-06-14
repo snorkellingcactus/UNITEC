@@ -3,6 +3,12 @@
 	
 	class SrvFormGalEdit extends SrvStepRepeatedForm
 	{
+		function __construct()
+		{
+			parent::__construct();
+
+			$this->setTitle( gettext(' Editar Imagen ') );
+		}
 		function newLabelsCollection(&$index)
 		{
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/LabelsGalBase.php';

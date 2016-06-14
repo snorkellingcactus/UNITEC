@@ -3,7 +3,13 @@
 	
 	class SrvFormLabEdit extends SrvStepRepeatedForm
 	{
-		function newLabelsCollection(&$index)
+		function __construct()
+		{
+			parent::__construct();
+
+			$this->setTitle( gettext(' Editar Laboratorio ') );
+		}
+		function newLabelsCollection( &$index )
 		{
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/LabelsLabBase.php';
 			
