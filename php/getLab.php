@@ -247,10 +247,6 @@
 		}
 		if($i===0)
 		{
-			echo '<pre>Nothing to fetch, bye!</pre>';
-			echo '<pre>toFetch:';
-			print_r($toFetch);
-			echo '</pre>';
 			return $fetched;
 		}
 
@@ -287,21 +283,13 @@
 
 				++$i;
 			}
-		}
-
-		echo '<pre>toFetch:';
-		print_r($toFetch);
-		echo '</pre>';
-		echo '<pre>fetched:';
-		print_r($fetched);
-		echo '</pre>';
+		
 
 		if
 		(
 			$lab['PadreID'] === NULL
 		)
 		{
-			echo '<pre>No parent, bye!</pre>';
 			return $fetched;
 		}
 
