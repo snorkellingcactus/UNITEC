@@ -53,7 +53,14 @@
 				$nov->Fecha=$horaLoc['year'].'-'.$horaLoc['mon'].'-'.$horaLoc['mday'];
 				
 				$nov->PrioridadesGrpID=nPriorityGrp();
-				$nov->Visible=$session->getLabel( 'Visible' );
+				$nov->Visible=intVal
+				(
+					filter_var
+					(
+						$session->getLabel('Visible'),
+						FILTER_VALIDATE_BOOLEAN
+					)
+				);
 
 				$nov->insForanea
 				(

@@ -63,7 +63,7 @@ section, .seccion
 	background-image:url("./img/fondo_contenido.png");
 	background-color:rgba(255, 255, 255, 0.78); 
 	border-radius:3px;
-	box-shadow:-1px -1px 5px #888888;
+	box-shadow:0px 0px 5px #888888;
 	padding:2%;
 	margin-bottom:5%;
 	overflow:hidden;

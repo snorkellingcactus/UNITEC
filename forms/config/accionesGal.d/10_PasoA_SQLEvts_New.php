@@ -49,7 +49,7 @@
 					'	INSERT INTO PrioridadesGrp()
 						VALUES()
 					'
-				);
+				);w
 */
 				$img=new Img();
 
