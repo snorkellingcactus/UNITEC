@@ -33,10 +33,7 @@
 				if
 				(
 					$session->emptyTrimLabel( 'Titulo' ) ||
-					(
-						$session->emptyTrimLabel( 'Url' ) &&
-						empty($_FILES['Archivo']['name'][$i])
-					)
+					$this->isImgUploadEmpty( $session , 0 )
 				)
 				{
 					++$i;

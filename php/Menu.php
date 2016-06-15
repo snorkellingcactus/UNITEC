@@ -15,6 +15,7 @@
 					'ContenidoID',
 					'SeccionID',
 					'UrlID',
+					'UrlIconID',
 					'Atajo',
 					'PrioridadesGrpID',
 					'Visible',

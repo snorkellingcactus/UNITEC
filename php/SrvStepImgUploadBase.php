@@ -15,11 +15,10 @@
 
 			$this->resizes=array();
 			$this->resizesLen=0;
-			
 		}
 		public function addResize($width , $height , $directory)
 		{
-			$this->resizes[$this->resizesLen]=array($width , $height , $directory);
+			$this->resizes[$this->resizesLen]=array( $width , $height , $directory );
 
 			++$this->resizesLen;
 
@@ -72,6 +71,7 @@
 		}
 		public function mkUpload($i , $imgID , $session)
 		{
+			//Revisar. Redundante relativo a métodos recientes.
 			if(isset($_FILES['Archivo']['name'][$i]))
 			{
 				if
@@ -104,6 +104,25 @@
 					$imgID
 				);
 			}
+		}
+		//Revisar . Solo se usa al editar.
+		function getUploadUrl( $url_new , $url_old )
+		{
+			$trimmed=trim( $url_new );
+
+			if( !empty( $trimmed ) && $trimmed != $url_old )
+			{
+				return $trimmed;
+			};
+
+			return false;
+		}
+		//Exclusivo para uso con while.
+		function isImgUploadEmpty( $session , $i )
+		{
+
+			return	$session->emptyTrimLabel( 'Url' ) &&
+					empty( $_FILES['Archivo']['name'][$i] );
 		}
 		function uploadImgOk($name)
 		{

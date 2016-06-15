@@ -1,19 +1,15 @@
 <?php
-	//include_once $_SERVER['DOCUMENT_ROOT'] . '/php/FormCliRecv.php';
-	//include_once $_SERVER['DOCUMENT_ROOT'] . '/php/SQL_Evts_Secciones.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/SrvStepMenuBase.php';
 
-	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/SrvStepBase.php';
-
-	class PasoA_SQLEvts_New extends SrvStepBase
+	class PasoA_SQLEvts_New extends SrvStepMenuBase
 	{
-		function setRouter(SrvStepRouter &$router)
+		function setRouter( SrvStepRouter &$router )
 		{
-			parent::setRouter($router);
+			parent::setRouter( $router );
 
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/FormActions.php';
 
 			$contentID=FormActions::getContentID()[0];
-
 
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/FormSession.php';
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/conexion.php';

@@ -67,11 +67,7 @@
 					elimina($_SERVER['DOCUMENT_ROOT'] . '/img/miniaturas/visor/'.$nImg->ID.'.png' , 0775);
 				}
 */
-				$uploadByUrl=!$session->emptyTrimLabel( 'Url' ) &&
-					trim
-					(
-						$session->getLabel('Url')!=$nImg->Url
-					);
+				$uploadByUrl=$this->getUploadUrl( $session->getLabel('Url') , $nImg->Url );
 
 				$nImg->getAsoc
 				(
@@ -105,7 +101,7 @@
 
 				if
 				(
-					$uploadByUrl || !empty($_FILES['Archivo']['name'][$index])
+					( $uploadByUrl !== false ) )
 				)
 				{
 					$this->mkUpload($index , $nImg->ID , $session);
@@ -113,7 +109,7 @@
 
 				
 
-				if(!$session->emptyTrimLabel( 'Tags' ))
+				if( !$session->emptyTrimLabel( 'Tags' ) )
 				{
 					$nImg->updTagsTargets
 					(

@@ -50,6 +50,15 @@
 					$_SESSION['lang']
 				)
 			);
+			$this->labels->icono->input->setValue
+			(
+				getTraduccion
+				(
+					$opcion->UrlIconID ,
+					$_SESSION['lang']
+				)
+			);
+
 			$this->labels->visible->input->controller->setValueToSelect($opcion->Visible);
 			//$this->form->autocomp['Prioridad']=$opcion['Prioridad'];
 
