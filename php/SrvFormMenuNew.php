@@ -11,11 +11,11 @@
 			$this->setTitle( gettext(' Nueva Opción ') );
 		}
 
-		function newLabelsCollection(&$index)
+		function newLabelsCollection( &$index )
 		{
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/LabelsMenuNew.php';
 			
-			return new LabelsMenuNew($index);
+			return new LabelsMenuNew( $index );
 		}
 	}
 ?>

@@ -66,15 +66,16 @@
 		}
 		function applyLangImg($option , $langName , $shortLangName)
 		{
-			$img=new DOMRoleTag('img');
+			$img=new DOMRoleTag( 'img' );
 
 			//Revisar si un alt vacío funciona para que la imagen
 			//no sea leída por lectores de pantalla.
+			//Código en común con DOMMenuUnitec.
 
 			return $option->appendChild
 			(
 				$img
-				->setHidden(true)
+				->setHidden( true )
 				->setAttribute('src' , '/img/idiomas/'.$shortLangName.'.png')
 				->setAttribute('alt' , '')
 			)->appendChild

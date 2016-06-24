@@ -24,15 +24,11 @@
 
 			return $this;
 		}
-		public function isEmpty($value)
-		{
-			return empty($value);
-		}
 		public function mkUrlArchivo($name , $tmpName , $imgID)
 		{
 			if($this->uploadImgOk($name))
 			{
-				//echo '<pre>mkUrlArchivo:'.htmlentities(' La ruta de la imagen es válida!');echo '</pre>';
+				echo '<pre>mkUrlArchivo:'.htmlentities(' La ruta de la imagen es válida!');echo '</pre>';
 
 				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/phpthumb/ThumbLib.inc.php';
 				try
@@ -44,11 +40,11 @@
 					{
 						$resize=$this->resizes[$i];
 
-						//echo '<pre>'.htmlentities('mkUrlArchivo: Creando miniatura de '.$resize[0].' X '.$resize[1].' en '.$resize[2]);echo '</pre>';
+						echo '<pre>'.htmlentities('mkUrlArchivo: Creando miniatura de '.$resize[0].' X '.$resize[1].' en '.$resize[2].$imgID);echo '</pre>';
 						$thumb->resize($resize[0] , $resize[1])->save($resize[2].$imgID.'.png');
 					}
 					
-					//echo '<pre>mkUrlArchivo:'.htmlentities(' Eliminando archivo temporal.'.$tmpName);echo '</pre>';
+					echo '<pre>mkUrlArchivo:'.htmlentities(' Eliminando archivo temporal.'.$tmpName);echo '</pre>';
 
 					include_once $_SERVER['DOCUMENT_ROOT'] . '/php/elimina.php';
 					elimina($tmpName , 0755);
@@ -71,8 +67,13 @@
 		}
 		public function mkUpload($i , $imgID , $session)
 		{
+			//El orden de los if importa. Especificar un archivo debe tener prioridad.
+			if( !$session->emptyTrimLabel( 'FileUrl' ) )
+			{
+				$name=$tmpName=$session->getLabel( 'FileUrl' );
+			}
 			//Revisar. Redundante relativo a métodos recientes.
-			if(isset($_FILES['Archivo']['name'][$i]))
+			if( isset($_FILES['FileArchivo']['name'][$i]) )
 			{
 				if
 				(
@@ -80,22 +81,17 @@
 					(
 						trim
 						(
-							$_FILES['Archivo']['name'][$i]
+							$_FILES['FileArchivo']['name'][$i]
 						)
 					)
 				)
 				{
-					$name=$_FILES['Archivo']['name'][$i];
-					$tmpName=$_FILES['Archivo']['tmp_name'][$i];
+					$name=$_FILES['FileArchivo']['name'][$i];
+					$tmpName=$_FILES['FileArchivo']['tmp_name'][$i];
 				}
 			}
 
-			if( !$session->emptyTrimLabel( 'Url' ) )
-			{
-				$name=$tmpName=$session->getLabel( 'Url' );
-			}
-
-			if(isset($name))
+			if( isset( $name ) )
 			{
 				$this->mkUrlArchivo
 				(
@@ -105,28 +101,36 @@
 				);
 			}
 		}
+		public function isEmpty($value)
+		{
+			return empty($value);
+		}
 		//Revisar . Solo se usa al editar.
 		function getUploadUrl( $url_new , $url_old )
 		{
 			$trimmed=trim( $url_new );
 
-			if( !empty( $trimmed ) && $trimmed != $url_old )
+			if( !empty( $trimmed ) && ( $trimmed != $url_old ) )
 			{
 				return $trimmed;
 			};
 
 			return false;
 		}
+		function isImgFileEmpty( $i )
+		{
+			return empty( $_FILES['FileArchivo']['name'][$i] );
+		}
 		//Exclusivo para uso con while.
 		function isImgUploadEmpty( $session , $i )
 		{
 
-			return	$session->emptyTrimLabel( 'Url' ) &&
-					empty( $_FILES['Archivo']['name'][$i] );
+			return	$session->emptyTrimLabel( 'FileUrl' ) &&
+					$this->isImgFileEmpty( $i );
 		}
 		function uploadImgOk($name)
 		{
-			//echo '<pre>'.htmlentities('uploadImgOk: Chequeando ruta '.$name);echo '</pre>';
+			echo '<pre>'.htmlentities('uploadImgOk: Chequeando ruta '.$name);echo '</pre>';
 
 			if
 			(
@@ -139,11 +143,12 @@
 				)
 			)
 			{
-				//echo '<pre>uploadImgOk:'.htmlentities(' La ruta está vacía');echo '</pre>';
+				echo '<pre>uploadImgOk:'.htmlentities(' La ruta está vacía');echo '</pre>';
 				return false;
 			}
 			$uploadOk=false;
 				
+			//Revisar. Siendo posible urls, la url válida .jpg?urldata no pasa.
 			$extension=strtolower
 			(
 				pathinfo
@@ -152,7 +157,7 @@
 					PATHINFO_EXTENSION
 				)
 			);
-			//echo '<pre>'.htmlentities('uploadImgOk: Chequeando extensión '.$extension);echo '</pre>';
+			echo '<pre>'.htmlentities('uploadImgOk: Chequeando extensión '.$extension);echo '</pre>';
 			if
 			(
 				$extension=='png'	|| $extension=='jpg' ||

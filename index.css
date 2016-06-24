@@ -61,6 +61,11 @@ a.focuseable:hover, a.focuseable:focus
 section, .seccion
 {
 	background-image:url("./img/fondo_contenido.png");
+	/*:::Versión sin fondo_contenido:::	*/
+	/*background-color:#b9d4df			*/
+	/*:::Version sin opacidad:::*/
+	background-color:#d3f3ff;
+	/*:::Version con opacidad y fondo_contenido:::*/
 	background-color:rgba(255, 255, 255, 0.78); 
 	border-radius:3px;
 	box-shadow:0px 0px 5px #888888;
@@ -77,7 +82,7 @@ section, .seccion
 }
 .subtitulo
 {
-	font-size:3em
+	font-size:3em;
 }
 main.col-lg-10,main.col-md-10,main.col-sm-10,main.col-xs-12
 {
@@ -171,7 +176,7 @@ section .target, section:target
 {
 	from
 	{
-		background-color:rgba(220, 220, 220, 0.78); ;
+		background-color:rgba(220, 220, 220, 0.78);
 	}
 	to
 	{

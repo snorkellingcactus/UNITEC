@@ -12,6 +12,12 @@ div.menu
 	z-index:1;
 	top:30px;
 }
+div.inset li a img
+{
+	width:32px;
+	height:32px;
+	
+}
 .menu:hover, .menu ul:hover
 {
 	z-index:7;
@@ -64,6 +70,8 @@ div.menu
 	font-family: Georgia;
 	display:table-cell;
 	vertical-align:middle;
+	/*:::Para los íconos absolutos:::*/
+	position: relative;
 }
 .menu .resalta , .menu nav li>a:active , .menu nav li>a:focus.resalta
 {
@@ -94,6 +102,13 @@ div.menu
 		-webkit-animation-name:menu;
 		-webkit-animation-duration:1s;
 	}
+	div.inset li a img
+	{
+		position: absolute;
+		right: 10px;
+		margin-top: -16px;
+		top: 50%;
+	}
 }
 @media screen and (max-width:768px){
 	div.menu
@@ -115,7 +130,10 @@ div.menu
 	{
 		padding:0px 5px 0px 5px;
 		border-right:1px dashed silver;
-		display:inline-block;
+		/*
+			Previene un problema, donde una opción sin ícono, contigua a una con ícono no tiene el 100% de su altura
+		*/
+		display:table-cell;
 		font-size:0.8em;
 		width:auto;
 		margin-left:0%;
@@ -145,6 +163,18 @@ div.menu
 	div.menu .resalta
 	{
 		background-color:transparent;
+	}
+	div.menu li form.right
+	{
+		display: block;
+	}
+	div.menu li form.right input.elimina
+	{
+		float:left;
+	}
+	div.inset li a img
+	{
+		margin:5px 10px 5px 5px;
 	}
 }
 body .shortcutSpan

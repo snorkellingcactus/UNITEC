@@ -7,22 +7,17 @@
 		{
 			parent::setRouter( $router );
 
-			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/FormActions.php';
-
-			$contentID=FormActions::getContentID()[0];
-
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/FormSession.php';
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/conexion.php';
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/Menu.php';
-			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/Foranea.php';
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/nTraduccion.php';
-			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/nTag.php';
+
 
 			global $con;
 
 			$session=new FormSession();
+			$session->loadLabels( 'FileUrl' , 'Icono' ); //¿Necesario?
 			$session->autoloadLabels();
-			
 			
 			$nMenu=new Menu();
 
@@ -57,6 +52,17 @@
 			{
 				$nMenu->SeccionID=$session->getLabel( 'SeccionID' );
 			}
+
+			$nMenu->insForanea
+			(
+				nTraduccion
+				(
+					$session->getLabel( 'FileUrl' ),
+					$_SESSION['lang']
+				),
+				'UrlIconID',
+				'ContenidoID'
+			);
 			
 			$nMenu->insForanea
 			(
@@ -69,10 +75,10 @@
 				'ContenidoID'
 			);
 			
-
 			$nMenu->insSQL();
 
-			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/reordena.php';
+			//Si no obtengo Menu de la BD, nMenu->ID no existe, así que usamos nMenu->ContenidoID.
+			$this->mkUpload( 0 , $nMenu->ContenidoID , $session );
 
 			if($session->hasLabel('Tags'))
 			{
@@ -80,6 +86,8 @@
 				(
 					$session->getLabel('Tags')
 				);
+
+				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/nTag.php';
 
 				updLabsTagsPriority
 				(
@@ -92,8 +100,7 @@
 				);
 			}
 
-			$router->gotoOrigin();
-			//$this->router->gotoOrigin();
+			//$router->gotoOrigin();
 
 			//$afectados[$i]=$nMenu->ContenidoID;
 			//return $afectados;

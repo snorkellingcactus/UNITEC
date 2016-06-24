@@ -12,9 +12,9 @@
 		}
 		function newLabelsCollection(&$index)
 		{
-			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/LabelsMenu.php';
+			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/LabelsMenuEdit.php';
 			
-			return new LabelsMenu($index);
+			return new LabelsMenuEdit($index);
 		}
 		function autocomplete()
 		{
@@ -50,7 +50,7 @@
 					$_SESSION['lang']
 				)
 			);
-			$this->labels->icono->input->setValue
+			$this->labels->icono->inputUrl->input->setValue
 			(
 				getTraduccion
 				(
@@ -59,7 +59,14 @@
 				)
 			);
 
-			$this->labels->visible->input->controller->setValueToSelect($opcion->Visible);
+			$this->labels->visible->input->controller->setValueToSelect( $opcion->Visible );
+			$this->labels->hasIcon->input->controller->setValueToSelect
+			(
+				file_exists
+				(
+					$_SERVER['DOCUMENT_ROOT'] . '/img/menu/'.$opcion->ContenidoID.'.png'
+				)
+			);
 			//$this->form->autocomp['Prioridad']=$opcion['Prioridad'];
 
 			$this->labels->titulo->input->setValue

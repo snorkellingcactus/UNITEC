@@ -10,6 +10,7 @@
 		public $sectionName;
 		public $link;
 		private $absoluteUrl;
+		private $iconUrl;
 
 		function __construct($name)
 		{
@@ -27,10 +28,19 @@
 			)->setAbsoluteUrl
 			(
 				false
+			)->setIconUrl
+			(
+				false
 			)->appendChild
 			(
 				$this->link=new DOMLink()
 			);
+		}
+		function setIconUrl( $url )
+		{
+			$this->iconUrl=$url;
+
+			return $this;
 		}
 		function setUrl($url)
 		{
@@ -85,18 +95,31 @@
 					$urlStr;
 				}
 
-				$this->setUrl
-				(
-
-						$urlStr	
-					
-				);
+				$this->setUrl( $urlStr	);
 			}
 
 			$this->link->setUrl
 			(
 				$this->url
-			)->setName( $this->name );
+			)->setName
+			(
+				$this->name
+			);
+
+			if( $this->iconUrl !== false )
+			{
+				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/DOMRoleTag.php';
+
+				$img=new DOMRoleTag( 'img' );
+
+				$this->link->appendChild
+				(
+					$img->setHidden( true )
+					->setAttribute( 'src' , $this->iconUrl )
+					->setAttribute( 'alt' , '' )
+				);
+			}
+
 
 
 			if($this->shortcutChar!==false)

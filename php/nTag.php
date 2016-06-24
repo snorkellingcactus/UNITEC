@@ -620,7 +620,10 @@
 	function updLabsTagsPriority($tagsStr , $sqlObj , $condicion , $lugar , $discProp , $edita)
 	{
 		include_once $_SERVER['DOCUMENT_ROOT'] . '/php/getLab.php';
+		include_once $_SERVER['DOCUMENT_ROOT'] . '/php/reordena.php';
+
 		global $con;
+		
 		$tags=sepTagsStr($tagsStr);
 /*
 		echo '<pre>Exploded:';

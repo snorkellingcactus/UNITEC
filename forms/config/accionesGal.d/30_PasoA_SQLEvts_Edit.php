@@ -32,7 +32,7 @@
 			while( $session->setIDSuffix( $index ) )
 			{
 				$session->autoloadLabels();
-				$session->loadLabels( 'Url' );
+				$session->loadLabels( 'FileUrl' );
 
 				if
 				(
@@ -67,12 +67,12 @@
 					elimina($_SERVER['DOCUMENT_ROOT'] . '/img/miniaturas/visor/'.$nImg->ID.'.png' , 0775);
 				}
 */
-				$uploadByUrl=$this->getUploadUrl( $session->getLabel('Url') , $nImg->Url );
+				$uploadByUrl=$this->getUploadUrl( $session->getLabel('FileUrl') , $nImg->Url );
 
 				$nImg->getAsoc
 				(
 					[
-						'Url'=>$session->getLabel('Url') ,
+						'Url'=>$session->getLabel('FileUrl') ,
 						'Visible'=>intVal
 						(
 							filter_var
@@ -84,7 +84,7 @@
 					]
 				);
 
-				$nImg->updSQL(false , ['TituloID']);
+				$nImg->updSQL( false , ['TituloID'] );
 
 				updTraduccion
 				(
@@ -99,12 +99,10 @@
 					$_SESSION['lang']
 				);
 
-				if
-				(
-					( $uploadByUrl !== false ) )
-				)
+				//Revisar .Redundancia interna en los chequeos. I18n de url de imágenes, como sería en Menu Edit.
+				if( $uploadByUrl !== false ||  !$this->isImgFileEmpty( $index ) )
 				{
-					$this->mkUpload($index , $nImg->ID , $session);
+					$this->mkUpload( $index , $nImg->ID , $session );
 				}
 
 				
@@ -131,7 +129,7 @@
 			
 			//return $afectados;
 
-			$router->gotoOrigin();
+			//$router->gotoOrigin();
 		}
 	}
 ?>

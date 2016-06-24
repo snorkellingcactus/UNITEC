@@ -59,9 +59,9 @@
 				]
 			);
 
-			$lab->updSQL(false , ['ID']);
+			$lab->updSQL( false , ['ID'] );
 
-			$this->mkUpload(0 , $lab->ID , $session);
+			$this->mkUpload( 0 , $lab->ID , $session );
 
 			$router->gotoOrigin();
 			

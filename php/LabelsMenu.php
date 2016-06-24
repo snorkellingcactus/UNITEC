@@ -34,10 +34,9 @@
 			)->appendChild
 			(
 				$this->lugar=new FormLabelLugar()
-			)->appendChild
-			(
-				$this->icono=new FormLabelUrlNov();
 			);
+
+			$this->icono=new FormLabelUrlNov();
 
 			$this->visible->input->controller->setValueToSelect(1);
 
@@ -84,6 +83,12 @@
 			(
 				$lleno
 			);
+		}
+		function renderChilds( &$tag )
+		{
+			$this->appendChild( $this->icono );
+
+			return parent::renderChilds( $tag );
 		}
 	}
 ?>

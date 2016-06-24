@@ -66,7 +66,7 @@
 				);
 
 				$s=0;
-				while(isset($opciones[$s]))
+				while( isset( $opciones[$s] ) )
 				{
 					$opcion=$opciones[$s];
 
@@ -84,7 +84,7 @@
 
 					$opc->setAbsoluteUrl( $this->absoluteUrls );
 
-					if(isset($opcion['TituloID']))
+					if( isset( $opcion['TituloID'] ) )
 					{
 						$opc->setSectionName
 						(
@@ -93,6 +93,16 @@
 								$opcion['TituloID'],
 								$_SESSION['lang']
 							)
+						);
+					}
+
+					$iconUrl='/img/menu/'.$opcion['ContenidoID'].'.png';
+					
+					if( file_exists( $_SERVER['DOCUMENT_ROOT'] . $iconUrl ) )
+					{
+						$opc->setIconUrl
+						(
+							$iconUrl
 						);
 					}
 

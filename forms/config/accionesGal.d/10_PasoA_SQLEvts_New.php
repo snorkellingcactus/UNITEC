@@ -28,7 +28,7 @@
 			while( $session->setIDSuffix( $i ) !== false )
 			{
 				$session->autoloadLabels();
-				$session->loadLabel( 'Url' );
+				$session->loadLabel( 'FileUrl' );
 
 				if
 				(
@@ -50,9 +50,9 @@
 */
 				$img=new Img();
 
-				if ( !$session->emptyTrimLabel( 'Url' ) )
+				if ( !$session->emptyTrimLabel( 'FileUrl' ) )
 				{
-					$img->Url=$session->getLabel( 'Url' );
+					$img->Url=$session->getLabel( 'FileUrl' );
 				}
 
 				$img->PrioridadesGrpID=nPriorityGrp();

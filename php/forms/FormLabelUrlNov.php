@@ -34,6 +34,9 @@
 				'md'=>6,
 				'lg'=>6
 			];
+
+			$this->inputUrl->input->setName( 'FileUrl' );
+			$this->inputFile->input->setName( 'FileArchivo' );
 		}
 		function appendLBox($lBox)
 		{
