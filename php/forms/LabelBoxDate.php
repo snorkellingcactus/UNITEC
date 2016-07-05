@@ -23,8 +23,6 @@
 
 			$this->setDelegateRender(1);
 
-			$this->label->setID($args[1]);
-
 			$this->setBoxClassName('LabelBoxDate');
 
 			$this->col=			['xs'=>6	, 'sm'=>2	, 'md'=>2	, 'lg'=>2	];

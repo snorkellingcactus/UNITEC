@@ -16,9 +16,8 @@
 
 			$this->name=$name;
 
-			$this->div=new DOMTag('div');
-			$this->titulo=new DOMTag();
-			$this->setMainTitle(false);
+			$this->div=new DOMTag( 'div' );
+			$this->titulo=new DOMTag( 'span' );
 
 			$this->div->addToAttribute('class' , 'organicaja')->addToAttribute('class' ,$color);
 
@@ -26,10 +25,6 @@
 			(
 				$this->div->appendChild($this->titulo)
 			);
-		}
-		function setMainTitle($mainTitle)
-		{
-			$this->mainTitle=$mainTitle;
 		}
 		function setTarget($target)
 		{
@@ -45,15 +40,6 @@
 		}
 		function renderChilds(&$tag)
 		{
-			if($this->mainTitle)
-			{
-				$this->titulo->setTagName('h1');
-			}
-			else
-			{
-				$this->titulo->setTagName('h2');
-			}
-
 			if(!empty($this->link))
 			{
 				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/DOMLink.php';

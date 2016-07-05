@@ -36,9 +36,9 @@
 		{
 			return $this->name->getPreffix();
 		}
-		public function setID($id)
+		public function setID( $id )
 		{
-			$this->id->setPreffix($id);
+			$this->id->setPreffix( $id );
 
 /*
 			//Revisar. Cambiar a un sistema de eventos, donde se emiten.
@@ -61,8 +61,8 @@
 		{
 			$this->index=&$index;
 
-			$this->id->setSuffix($index);
-			$this->name->setSuffix($index);
+			$this->id->setSuffix( $index );
+			$this->name->setSuffix( $index );
 
 			return $this;
 		}
@@ -70,18 +70,18 @@
 		{
 			return $this->index;
 		}
-		public function renderChilds(&$tag)
+		public function renderChilds( &$tag )
 		{
-			if($this->name->hasSetted())
+			if( $this->name->hasSetted() )
 			{
 				$this->setAttribute(	"name"	, $this->name->getFormatted()	);
 			}
-			if($this->id->hasSetted())
+			if( $this->id->hasSetted() )
 			{
 				$this->setAttribute(	"id"	, $this->id->getFormatted()		);
 			}
 
-			return parent::renderChilds($tag);
+			return parent::renderChilds( $tag );
 		}
 	}
 ?>

@@ -18,7 +18,7 @@
 				$img->setAttribute('src' , $imgSrc)->setAttribute('alt' , $imgAlt)
 			)->appendChild
 			(
-				$this->text=new DOMTag('i')
+				$this->text=new DOMTag('span')
 			)->setLink(false);
 
 			$this->text->addToAttribute('class' , 'gris');

@@ -22,8 +22,11 @@
 
 			if(isset($args[2]))
 			{
-				$this->input->setName($args[0]);
-				$this->input->setID($args[1]);
+				$this->input->setName( $args[0] );
+				$this->input->setID( $args[1] );
+
+				
+				$this->label->setID( 'label'.$args[1] );
 
 				$this->setLabelName($args[2]);
 			}
@@ -40,10 +43,10 @@
 				$this->input=$input
 			);
 		}
-		function setIndex(&$index)
+		function setIndex( &$index )
 		{
-			$this->input->setIndex($index);
-			$this->label->setIndex($index);
+			$this->input->setIndex( $index );
+			$this->label->setIndex( $index );
 		}
 		function newLabel()
 		{

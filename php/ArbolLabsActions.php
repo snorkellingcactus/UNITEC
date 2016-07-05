@@ -50,10 +50,13 @@
 					new FormCliLab($child['ID'])
 				);
 			}
+			//Nada que hacer con el nodo inicial.
+/*
 			if( $newNode === $this->initialNode )
 			{
-				$li->setMainTitle(true);
+				
 			}
+*/
 			$newNode->appendNodo($li);
 
 			return $li;

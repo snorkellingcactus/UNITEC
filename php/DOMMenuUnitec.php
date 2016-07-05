@@ -162,7 +162,7 @@
 
 			$link->addToAttribute('class' , 'focuseable');
 
-			$h2=new DOMTag('h2');
+			$h2=new DOMTag('span');
 
 			$img=new DOMTag('img');
 

@@ -28,24 +28,32 @@ div.inset li a img
 	background-image:url("../img/fondo_contenido.png");
 	width:100%;
 	float:left
-}	/*	Menu div es el contenedor del logo	*/
+}	/*	.menu div es el contenedor del logo	*/
 .menu div img
 {
-	width:60px;
-	height:60px;
+	/*:::Se escala a 64x64:::*/
+	width:64px;
+	height:64px;
 	margin:0px;
 	vertical-align:middle
-}	/*	Logo (imagen)	*/
-.menu div h2 a
+}	/*	Logo ( Imagen )	*/
+.menu div span a
 {
 	text-align:center;
 	display:block;
-}	/*	Logo (Letras)	*/
-.menu div h2 a span
+	padding-top:15px;
+	padding-bottom: 15px
+}	/*	Logo ( Letras )	*/
+.menu span span
 {
 	color:white;
 	display: block;
-	text-shadow:0px 0px 3px #474646
+	text-shadow:0px 0px 3px #474646;
+	font-size: 2em;
+	/*:::Por alguna razón se exede de su altura:::*/
+	line-height:100%;
+	/*:::La misma cantidad que el padding top/bottom en .menu span:::*/
+	margin-top:15px;
 }
 .menu nav ul
 {

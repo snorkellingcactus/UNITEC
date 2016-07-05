@@ -163,7 +163,7 @@ footer .FooterInfoTextBase, footer .FooterInfoLink, footer .FooterInfoSocial a
 {
 	display:table;
 }
-footer .FooterInfoTextBase i, footer .FooterInfoLink i a, footer .FooterInfoSocial i
+footer .FooterInfoTextBase span, footer .FooterInfoLink span a, footer .FooterInfoSocial span
 {
 	display:table-cell;
 	vertical-align: middle;
@@ -181,7 +181,7 @@ footer div.FooterInfoSocial
 	margin-bottom:10px;
 	font-size: 1.2em
 }
-footer.header p i
+footer.header p span
 {
 	letter-spacing:2px;
 	font-size:1.1em;

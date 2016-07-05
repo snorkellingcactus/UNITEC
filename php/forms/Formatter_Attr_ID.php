@@ -7,8 +7,8 @@
 
 		function __construct(&$suffix)
 		{
-			$this->setPreffix(false);
-			$this->setSuffix($suffix);
+			$this->setPreffix( false );
+			$this->setSuffix( $suffix );
 		}
 		public function hasSetted()
 		{
@@ -20,14 +20,13 @@
 		}
 		public function update()
 		{
-			if($this->hasSetted())
+			if( $this->hasSetted() )
 			{
 				$this->formatted=$this->getPreffix().$this->getFormattedSuffix();
 			}
 		}
 		public function setPreffix($preffix)
 		{
-
 			$this->preffix=$preffix;
 
 			$this->update();

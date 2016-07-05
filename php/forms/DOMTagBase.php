@@ -100,12 +100,15 @@
 				}
 
 				$trimmed=trim($value);
-
+/*
 				if($trimmed!=='')
 				{
+*/
 					$this->tag->setAttribute($attr , $value);
 					unset($attrList[$attr]);
+/*				
 				}
+*/
 			}
 
 			return $this;

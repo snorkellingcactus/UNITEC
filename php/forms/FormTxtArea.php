@@ -5,7 +5,7 @@
 	{
 		public function __construct()
 		{
-			parent::__construct( 'textarea');
+			parent::__construct( 'textarea' );
 		}
 		public function setCols($colsLen)
 		{
@@ -17,7 +17,7 @@
 		}
 		public function setValue($value)
 		{
-			return $this->setTagValue(html_entity_decode($value));
+			return $this->setTagValue( html_entity_decode( $value ) );
 		}
 	}
 ?>

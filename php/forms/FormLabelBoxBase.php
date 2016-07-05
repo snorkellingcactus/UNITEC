@@ -9,9 +9,9 @@
 		//FormLabelBox::__construct([$name [, $id [, $label [, $input]]]])
 		function __construct()
 		{
-			parent::__construct('div');
+			parent::__construct( 'div' );
 
-			$this->setBoxClassName('FormLabelBox');
+			$this->setBoxClassName( 'FormLabelBox' );
 
 			$this->appendChild
 			(
@@ -24,23 +24,25 @@
 
 			return new FormLabelBase();
 		}
-		function renderChilds(&$tag)
+		function renderChilds( &$tag )
 		{
-			$this->addToAttribute('class' , $this->boxClassName);
+			$this->addToAttribute( 'class' , $this->boxClassName );
 
-			return parent::renderChilds($tag);
+			return parent::renderChilds( $tag );
 		}
-		function setBoxClassName($class)
+		function setBoxClassName( $class )
 		{
 			$this->boxClassName=$class;
 		}
-		function setLabelName($name)
+		function setLabelName( $name )
 		{
-			$this->label->setTagValue($name);
+			$this->label->setTagValue( $name );
 		}
-		function setLabelID($labelID)
+/*
+		function setLabelID( $labelID )
 		{
-			$this->label->setID($labelID);
+			$this->label->setID( $labelID );
 		}
+*/
 	}
 ?>

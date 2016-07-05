@@ -14,7 +14,7 @@
 		{
 			parent::__construct('nav');
 
-			$this->i=new DOMTag('i');
+			$this->i=new DOMTag('span');
 			$this->i->addToAttribute('class' , 'minimapa');
 
 			$this->eLen=0;

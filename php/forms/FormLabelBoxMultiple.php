@@ -4,8 +4,10 @@
 
 	class FormLabelBoxMultiple extends FormLabelBoxBase implements Indexable
 	{
+/*
 		public $lBoxList;
 		public $lBoxListLen;
+*/
 		//public $contenedor;
 		private $index;
 
@@ -25,15 +27,15 @@
 		}
 
 		//Revisar efectos secundarios de &
-		public function appendLBox($lBox)
+		public function appendLBox( $lBox )
 		{
 			//Quizá esto sea tarea del lBox...
-			$this->appendInput($lBox->input);
+			$this->appendInput( $lBox->input );
 
 			//$this->contenedor->appendChild($lBox);
 			return $this;
 		}
-		public function appendInput($input)
+		public function appendInput( $input )
 		{
 			$input->addReferenceToAttr
 			(
@@ -41,7 +43,7 @@
 				$this->label->getIDReference()->getFormatted()
 			);
 		}
-		function renderChild(&$child)
+		function renderChild( &$child )
 		{	
 			if($child instanceof Indexable)
 			{
@@ -51,7 +53,7 @@
 				);
 			}
 
-			return parent::renderChild($child);
+			return parent::renderChild( $child );
 		}
 		public function setIndex( &$index )
 		{

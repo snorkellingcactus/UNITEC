@@ -15,9 +15,5 @@
 				new FormTxtArea()
 			);
 		}
-		function setInput($input)
-		{
-			parent::setInput($input);
-		}
 	}
 ?>

@@ -18,7 +18,7 @@
 		{
 			$this->input=$input;
 
-			$this->setIndex($this->input->getIndex());
+			$this->setIndex( $this->input->getIndex() );
 		}
 
 		function renderChilds(&$tag)
@@ -37,5 +37,12 @@
 
 			return parent::renderChilds($tag);
 		}
+		/*
+		function setID()
+		{
+			echo '<pre>';
+			echo debug_print_backtrace();
+			echo '</pre>';
+		}*/
 	}
 ?>
