@@ -21,7 +21,7 @@
 				new MiniMapa()
 			)->appendChild
 			(
-				$iniciarSesion->setName(gettext('Iniciar Sesión'))->setUrl('/inicio_sesion.php')
+				$iniciarSesion->setName( gettext('Iniciar Sesión') )->setUrl( '/inicio_sesion.php' )
 			)->setAttribute('id' , 'header');
 		}
 	}

@@ -109,20 +109,17 @@
 
 
 				$h=0;
-				while(isset($headers[$h]))
+				while( isset( $headers[$h] ) )
 				{
-					$this->head_include
-					(
-						$headers[$h][0]
-					);
+					$this->head_include( $headers[$h][0] );
 					++$h;
 				}
 
-				$this->setTitle(getLabName());
+				$this->setTitle( getLabName( ) );
 			}
 			else
 			{
-				$this->setTitle('NoLab');
+				$this->setTitle( 'NoLab' );
 			}
 		}
 	}

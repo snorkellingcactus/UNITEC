@@ -5,19 +5,19 @@
 	{
 		function renderChilds(&$tag)
 		{
-			$accessKeys=[	'[Alt]'	];
+			$accessKeys=[ '[Alt]' ];
 
 			$navStrings=
 			[
-				'Firefox'	=>	[gettext('Alt')		,	gettext('Shift')],
-				'Mac OS X'	=>	[gettext('Control')	,	gettext('Alt')	]
+				'Firefox'	=>	[ gettext('Alt')		,	gettext('Shift') ],
+				'Mac OS X'	=>	[ gettext('Control')	,	gettext('Alt')	 ]
 			];
 
 			$agent=$_SERVER['HTTP_USER_AGENT'];
 
-			foreach($navStrings as $clave=>$valor)
+			foreach( $navStrings as $clave=>$valor )
 			{
-				if(strrpos($agent,$clave)!==FALSE)
+				if( strrpos($agent,$clave)!==FALSE )
 				{
 					$accessKeys=$valor;
 				}
@@ -109,16 +109,17 @@
 				)
 			)->addToAttribute( 'class' , 'atajos' )->addToAttribute( 'class' ,'table' );
 
-
+/*
 			$html=$tag;
 
 			while( ! ( $html instanceof DOMHTML ) )
 			{
 				$html=$html->parent;
 			}
+*/
 
 			$i=0;
-			while(isset($atajos[$i]))
+			while( isset( $atajos[$i] ) )
 			{
 				$atajo=$atajos[$i];
 
@@ -172,7 +173,7 @@
 
 			$this->appendChild
 			(
-				new OffText('h1' , gettext('Listado de atajos'))
+				new OffText( 'h1' , gettext('Listado de atajos') )
 			)->appendChild
 			(
 				$tabla

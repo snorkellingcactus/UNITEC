@@ -16,15 +16,15 @@
 			$this->col=['xs'=>12 , 'md'=>2 , 'sm'=>2 , 'lg'=>2];
 			$this->addToAttribute('class' , 'menu');
 
-			$this->ul=new DOMTag('ul');
-			$this->nav=new DOMTag('nav');
+			$this->ul=new DOMTag( 'ul' );
+			$this->nav=new DOMTag( 'nav' );
 
-			$this->span=new DOMTag('div');
+			$this->span=new DOMTag( 'div' );
 			$this->span->addToAttribute('class' , 'inset');
 
 			$this->appendChild
 			(
-				new OffText('h1' , gettext('Menu Principal'))
+				new OffText( 'h1' , gettext( 'Menu Principal' ) )
 			)->appendChild
 			(
 				$this->span->appendChild
@@ -40,7 +40,7 @@
 				$name
 			);
 		}
-		function renderChilds(&$tag)
+		function renderChilds( &$tag )
 		{
 			return parent::renderChilds($tag);
 		}

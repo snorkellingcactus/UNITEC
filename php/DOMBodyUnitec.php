@@ -9,17 +9,12 @@
 
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/DOMHeaderUnitec.php';
 
-			$this->setOnLoad('JavaScript:inicializa()')->setAttribute('tabindex' , 1);
+			$this->setOnLoad( 'JavaScript:inicializa()' )->setAttribute( 'tabindex' , 1 );
 
 			$this->appendChild
 			(
 				new DOMHeaderUnitec()
 			);
-		}
-		
-		function renderChilds(&$tag)
-		{
-			return parent::renderChilds($tag);
 		}
 	}
 ?>

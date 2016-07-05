@@ -6,7 +6,6 @@
 	{
 		public $link;
 		public $p;
-		public $span;
 
 		public $titulo;
 		public $alt;
@@ -21,16 +20,14 @@
 
 			$this->col=['xs'=>12 , 'sm'=>6 , 'md'=>4];
 
-			$this->link=new DOMLink();
-			$this->p=new DOMTag('p');
-			$this->img=new DOMTag('img');
-			$this->span=new DOMTag('span');
+			$this->link=new DOMLink(  );
+			$this->p=new DOMTag( 'p' );
+			$this->img=new DOMTag( 'img' );
 
-			$this->link->setOpensNewWindow(true)->addToAttribute('class' , 'focuseable');
+			$this->link->setOpensNewWindow( true )->addToAttribute('class' , 'focuseable');
 
 			$this->addToAttribute('class' , 'gImg')->addToAttribute('class' ,'Center-Container');
 			$this->img->addToAttribute('class' , 'Absolute-Center');
-			$this->span->addToAttribute('class' , 'offscreen');
 			$this->p->addToAttribute('class' , 'monoWhite');
 
 			$this->actionCheckBox=false;
@@ -78,9 +75,6 @@
 						(
 							$this->titulo
 						)
-					)->appendChild
-					(
-						$this->span
 					)
 				)->setUrl
 				(

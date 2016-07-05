@@ -107,7 +107,7 @@
 				}
 			}
 
-			return parent::renderChilds($tag);
+			return parent::renderChilds( $tag );
 		}
 	}
 ?>

@@ -6,7 +6,7 @@
 //error_reporting(E_ALL & ~E_DEPRECATED  & ~E_STRICT);
 
 include_once $_SERVER['DOCUMENT_ROOT'] . '/php/is_session_started.php';
-reload_session('lang' , 'adminID' , 'lab');
+reload_session( 'lang' , 'adminID' , 'lab' );
 
 include_once $_SERVER['DOCUMENT_ROOT'] . '/php/DOMHTMLUIndex.php';
 
@@ -97,11 +97,13 @@ if($_SESSION['lab']!==false)
 		{
 			$urlStr='#'.$seccionAct['TituloID'];
 
+			/*:::Por aquí intentando resolver los atajos "anónimos":::*/
+/*
 			$html->body->appendChild
 			(
 				$link=new DOMLink()
 			);
-
+*/
 			if(isset($_GET['vRecID']))
 			{
 				//Revisar . Código en común con VisorImagenes, DOMMenuOpc, Modulo_Novedades , Modulo_Imagenes
@@ -184,7 +186,7 @@ if($_SESSION['lab']!==false)
 
 					$include->appendForm
 					(
-						new FormCliInc($includeAct['ID'] , $f , $includeAct['Visible'])
+						new FormCliInc( $includeAct['ID'] , $f , $includeAct['Visible'] )
 					);
 				}
 

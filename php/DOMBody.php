@@ -7,26 +7,26 @@
 
 		function __construct()
 		{
-			parent::__construct('body');
+			parent::__construct( 'body' );
 
-			$this->setOnLoad(false);
+			$this->setOnLoad( false );
 		}
 
-		function setOnLoad($onLoad)
+		function setOnLoad( $onLoad )
 		{
 			$this->onLoad=$onLoad;
 
 			return $this;
 		}
 
-		function renderChilds(&$tag)
+		function renderChilds( &$tag )
 		{
-			if($this->onLoad!==false)
+			if( $this->onLoad!==false )
 			{
-				$this->setAttribute('onLoad' , $this->onLoad);
+				$this->setAttribute( 'onLoad' , $this->onLoad );
 			}
 
-			return parent::renderChilds($tag);
+			return parent::renderChilds( $tag );
 		}
 	}
 ?>

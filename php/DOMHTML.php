@@ -106,9 +106,9 @@
 		{
 			$pos=strrpos( $str , '.');
 
-			if($pos)
+			if( $pos )
 			{
-				$tipo=substr($str , $pos+1);
+				$tipo=substr( $str , $pos+1 );
 
 				switch($tipo)
 				{
@@ -134,19 +134,19 @@
 				new Script($src)
 			);
 		}
-		function appendMeta($meta)
+		function appendMeta( $meta )
 		{
 			$this->meta->appendChild($meta);
 
 			return $this;
 		}
-		function appendLink($link)
+		function appendLink( $link )
 		{
 			$this->css->appendChild($link);
 
 			return $this;
 		}
-		function appendScript($script)
+		function appendScript( $script )
 		{
 			$this->js->appendChild($script);
 
@@ -156,18 +156,18 @@
 		{
 			return new Meta();
 		}
-		function newLink($src)
+		function newLink( $src )
 		{
-			return new HeadLink($src);
+			return new HeadLink( $src );
 		}
-		function renderChilds(&$tag)
+		function renderChilds( &$tag )
 		{
 			$iLen=$this->toUnsetLen;
-			for($i=0;$i<$iLen;++$i)
+			for( $i=0 ; $i<$iLen ; ++$i )
 			{
 				//echo '<pre>'.htmlentities('Unsetting $_SESSION["'.$this->toUnset[$i].'"]').'</pre>';
 
-				unset($_SESSION[$this->toUnset[$i]]);
+				unset( $_SESSION[ $this->toUnset[ $i ] ] );
 			}
 
 			if($this->lang!==false)
@@ -197,14 +197,14 @@
 			{
 				$this->head->appendChild
 				(
-					$this->newLink($this->icon)->setRel('icon')->setType('image/ico')
+					$this->newLink( $this->icon )->setRel( 'icon' )->setType( 'image/ico' )
 				);
 			}
-			if($this->sIcon!==false)
+			if( $this->sIcon!==false )
 			{
 				$this->head->appendChild
 				(
-					$this->newLink($this->icon)->setRel('shortcut icon')->setType('image/png')
+					$this->newLink( $this->icon )->setRel( 'shortcut icon' )->setType( 'image/png' )
 				);
 			}
 
@@ -220,10 +220,9 @@
 			{
 				$this->head->appendChild
 				(
-					new DOMTag('title' , $this->title)
+					new DOMTag( 'title' , $this->title )
 				);
 			}
-
 			return parent::renderChilds($tag);
 		}
 	}

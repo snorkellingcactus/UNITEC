@@ -13,7 +13,7 @@
 		{
 			parent::__construct('a');
 
-			$this->setOffsetSuffix('')->setOpensNewWindow(false)->setAccessKey(false);
+			$this->setOffsetSuffix('')->setOpensNewWindow( false )->setAccessKey(false);
 		}
 		function setUrl($url)
 		{
