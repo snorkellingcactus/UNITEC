@@ -1,3 +1,12 @@
 [submodule "php/localization"]
 	path = php/localization
 	url = https://github.com/fisharebest/localization
+[submodule "php/html2text"]
+	path = php/html2text
+	url = https://github.com/soundasleep/html2text
+[submodule "php/getID3"]
+	path = php/getID3
+	url = https://github.com/JamesHeinrich/getID3
+[submodule "php/PHPThumb"]
+	path = php/PHPThumb
+	url = https://github.com/masterexploder/PHPThumb

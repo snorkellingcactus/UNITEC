@@ -30,10 +30,11 @@
 			{
 				echo '<pre>mkUrlArchivo:'.htmlentities(' La ruta de la imagen es válida!');echo '</pre>';
 
-				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/phpthumb/ThumbLib.inc.php';
+				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/PHPThumb/src/PHPThumb/PHPThumb.php';
+				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/PHPThumb/src/PHPThumb/GD.php';				
 				try
 				{
-					$thumb=PhpThumbFactory::create($tmpName , ['resizeUp'=>true]);
+					$thumb=new PHPThumb\GD ($tmpName , ['resizeUp'=>true]);
 
 					$iLen=$this->resizesLen;
 					for($i=0;$i<$iLen;++$i)
