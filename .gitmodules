@@ -1,0 +1,3 @@
+[submodule "php/localization"]
+	path = php/localization
+	url = https://github.com/fisharebest/localization
