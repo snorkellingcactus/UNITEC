@@ -123,6 +123,6 @@ function detectLang()
 }
 function getLangCode()
 {
-	return substr(getenv('LANG'), 0 , 2);
+	return substr( getenv( 'LANG' ), 0 , 2 );
 }
 ?>

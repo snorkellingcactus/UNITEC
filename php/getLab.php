@@ -175,7 +175,7 @@
 			MYSQLI_NUM
 		);
 
-		if(isset($nameID[0][0]))
+		if( isset( $nameID[0][0]) )
 		{
 			return getTraduccion
 			(
@@ -184,7 +184,46 @@
 			);
 		}
 
-		return 'NoLab';
+		return gettext( 'NoLab' );
+	}
+	function getLabAbbr( )
+	{
+		global $con;
+		$labID=$_SESSION['lab'];
+
+		if(func_num_args())
+		{
+			$labID=func_get_args()[0];
+		}
+
+		$nameID=fetch_all
+		(
+			$con->query
+			(
+				'	SELECT Laboratorios.Abbr
+					FROM Laboratorios
+					WHERE ID='.$labID
+			),
+			MYSQLI_NUM
+		);
+
+		if( isset( $nameID[0][0]) )
+		{
+			return $nameID[0][0];
+		}
+
+		return 0;
+	}
+	function getLabNameContainer()
+	{
+		if( getLabAbbr() )
+		{
+			return 'abbr';
+		}
+		else
+		{
+			return 'span';
+		}
 	}
 	function getLabPosLoop($labID)
 	{

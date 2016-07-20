@@ -6,23 +6,20 @@
 		function __construct()
 		{
 			parent::__construct();
-
-			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/DOMLangUnitec.php';
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/MiniMapa.php';
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/DOMLink.php';
 
-			$iniciarSesion=new DOMLink();
+			/*$iniciarSesion=new DOMLink();*/
 
 			$this->appendChild
 			(
-				new DOMLangUnitec()
-			)->appendChild
-			(
 				new MiniMapa()
-			)->appendChild
+			)/*->appendChild
 			(
 				$iniciarSesion->setName( gettext('Iniciar Sesión') )->setUrl( '/inicio_sesion.php' )
-			)->setAttribute('id' , 'header');
+			)*/->setAttribute('id' , 'header');
+
+			$this->col=['xs' =>12 , 'sm' =>12 , 'md' =>12 , 'lg' =>12];
 		}
 	}
 ?>

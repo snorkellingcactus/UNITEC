@@ -11,8 +11,6 @@
 		{
 			parent::__construct('div');
 
-			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/OffText.php';
-
 			$this->col=['xs'=>12 , 'md'=>2 , 'sm'=>2 , 'lg'=>2];
 			$this->addToAttribute('class' , 'menu');
 
@@ -22,27 +20,23 @@
 			$this->span=new DOMTag( 'div' );
 			$this->span->addToAttribute('class' , 'inset');
 
+			$menu=new DOMTag( 'h1' , gettext( 'Menu' ) );
+
+			$this->nav->appendChild
+			(
+				$menu->addToAttribute( 'class' , 'hidden-xs' )
+			);
 			$this->appendChild
 			(
-				new OffText( 'h1' , gettext( 'Menu Principal' ) )
-			)->appendChild
-			(
-				$this->span->appendChild
-				(
-					$this->nav->appendChild($this->ul)
-				)
+				$this->span
 			);
 		}
-		function addOption($name)
+		function addOption( $name )
 		{
 			$this->ul->appendChild
 			(
 				$name
 			);
-		}
-		function renderChilds( &$tag )
-		{
-			return parent::renderChilds($tag);
 		}
 	}
 ?>

@@ -1,7 +1,7 @@
 <?php
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/LabelBox.php';
 
-	class FormLabelVisible extends LabelBox
+	class FormLabelAbbr extends LabelBox
 	{
 		function __construct()
 		{
@@ -9,10 +9,10 @@
 			
 			parent::__construct
 			(
-				'Visible',
-				'visible',
-				gettext( 'Visible' ),
-				new FormSelectBool( gettext('Si') , gettext('No') )
+				'Abbr',
+				'abbr',
+				gettext('Abreviatura'),
+				new FormSelectBool(gettext('Si'),gettext('No'))
 			);
 		}
 	}

@@ -132,11 +132,33 @@
 
 			$this->appendChild
 			(
+				new Script( '/footer.js' )
+			);
+
+			$this->appendChild
+			(
+				$div=new DOMTag('div')
+			);
+
+			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/DOMLink.php';
+
+			$div->setAttribute('class' , 'end')->appendChild
+			(
 				new DOMTag( 'small' , 'Powered by Bootstrap' )
 			)->appendChild
 			(
-				new Script( '/footer.js' )
+				$admin=new DOMLink()
+			)->appendChild
+			(
+				$sitemap=new DOMLink( 'Mapa del Sitio' )
+			)->appendChild
+			(
+				$sobre=new DOMLink( 'Sobre esta web' )
 			);
+
+			$admin->setName( 'Zona Administrativa' )->setUrl( '/inicio_sesion.php' );
+			$sitemap->setName( 'Mapa del Sitio' )->setUrl( '#' );
+			$sobre->setName( 'Sobre esta Web' )->setUrl( '#' );
 
 			return parent::renderChilds($tag);
 		}

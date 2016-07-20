@@ -8,6 +8,7 @@
 			parent::__construct($index);
 
 			$this->enlace->input->controller->setValueToSelect(1);
+			$this->abbr->input->controller->setValueToSelect(1);
 		}
 	}
 ?>

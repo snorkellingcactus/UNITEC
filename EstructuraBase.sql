@@ -99,6 +99,7 @@ CREATE TABLE IF NOT EXISTS `Laboratorios` (
   `TagID` int(11) NOT NULL,
   `Organigrama` tinyint(1) DEFAULT NULL,
   `Enlace` tinyint(1) DEFAULT NULL,
+  `Abbr` tinyint(1) DEFAULT NULL,
   `Color` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
   `PadreID` int(11) DEFAULT NULL,
   PRIMARY KEY (`ID`),

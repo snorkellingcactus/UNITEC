@@ -46,6 +46,7 @@
 			$this->labels->nombre->input->setValue(getTraduccion($lab->NombreID , $_SESSION['lang']));
 			$this->labels->telefono->input->setValue($lab->Telefono);
 			$this->labels->enlace->input->controller->setValueToSelect($lab->Enlace);
+			$this->labels->abbr->input->controller->setValueToSelect($lab->Abbr);
 			$this->labels->mail->input->setValue($lab->Mail);
 			$this->labels->facebook->input->setValue($lab->Facebook);
 			$this->labels->twitter->input->setValue($lab->Twitter);

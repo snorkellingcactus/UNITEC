@@ -4,6 +4,7 @@
 	class DOMMenuUnitec extends DOMMenu
 	{
 		private $absoluteUrls;
+		private $navLang;
 
 		function __construct()
 		{
@@ -19,8 +20,45 @@
 
 			return $this;
 		}
+		function appendTitledElement( $title , $element )
+		{
+			$this->span
+			->appendChild( new DOMTag( 'h1' , $title ) )
+			->appendChild( $element );
+		}
 		function renderChilds(&$tag)
 		{
+
+			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/DOMLangUnitec.php';
+			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/OffText.php';
+
+			$this->navLang=new DOMLangUnitec();
+
+			$container=new DOMTag('span');
+			$idioma=new DOMTag( 'h1' , gettext( 'Idioma ' ) );
+
+			$this->span->appendChild
+			(
+				$idioma->addToAttribute( 'class' , 'hidden-xs' )
+			)->appendChild
+			(
+				$this->navLang->appendChild
+				(
+					$this->navLang->addToAttribute( 'class' , 'MenuNavLang' )->applyCurrentLang
+					(
+						$container->setAttribute( 'class' , 'DOMLangTxtContainer' )->appendChild
+						(
+							new OffText( 'span' , gettext( ' Seleccionado : ' ) )
+						)
+					)->appendChild( new OffText( 'span' , '. Disponibles : ' ) )
+				)
+			)->appendChild
+			(
+				$this->nav->appendChild( $this->ul )->setAttribute( 'class' , 'MenuNavMain' )
+			);
+
+
+
 			$condVisible='';
 			if(!isset($_SESSION['adminID']))
 			{
@@ -42,8 +80,6 @@
 
 				global $con;
 
-				$labName=getLabName();
-
 				$opciones=getPriorizados
 				(
 					fetch_all
@@ -64,6 +100,8 @@
 						MYSQLI_ASSOC
 					)
 				);
+
+				$noIconClass=NULL;
 
 				$s=0;
 				while( isset( $opciones[$s] ) )
@@ -100,10 +138,19 @@
 					
 					if( file_exists( $_SERVER['DOCUMENT_ROOT'] . $iconUrl ) )
 					{
+						if( $noIconClass===NULL )
+						{
+							$noIconClass='noIcon';
+						}
+
 						$opc->setIconUrl
 						(
 							$iconUrl
 						);
+					}
+					else
+					{
+						$opc->addReferenceToAttr( 'class' , $noIconClass );
 					}
 
 					$opc->setUrl
@@ -166,6 +213,9 @@
 
 			$img=new DOMTag('img');
 
+			$labName=getLabName();
+			$labNameContainer=new DOMTag( getLabNameContainer() , $labName );
+
 			$this->span->appendChild
 			(
 				$logo->appendChild
@@ -192,17 +242,17 @@
 							)->setAttribute
 							(
 								'alt',
-								sprintf(gettext('Logo de %s') , $labName)
+								sprintf( gettext('Logo de %s') , $labName )
 							)
 						)->appendChild
 						(
-							new DOMTag('span' , $labName)
+							$labNameContainer->setAttribute( 'class' , 'LabNameContainer' )
 						)
 					)
 				)
 			);
 
-			return parent::renderChilds($tag);
+			return parent::renderChilds( $tag );
 		}
 	}
 ?>

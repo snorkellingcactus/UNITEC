@@ -6,7 +6,7 @@
 		public $link;
 		public $text;
 
-		function __construct($imgSrc , $imgAlt)
+		function __construct( $imgSrc )
 		{
 			parent::__construct();
 
@@ -15,7 +15,7 @@
 			
 			$this->appendChild
 			(
-				$img->setAttribute('src' , $imgSrc)->setAttribute('alt' , $imgAlt)
+				$img->setAttribute('src' , $imgSrc)->setAttribute('alt' , '')
 			)->appendChild
 			(
 				$this->text=new DOMTag('span')

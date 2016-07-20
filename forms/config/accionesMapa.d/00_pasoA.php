@@ -453,6 +453,8 @@
 					$contenedor->setAttribute('class' , 'gmaps');
 					$contenedor->appendChild($mapa);
 
+					include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/DOMInitialTag.php';
+
 					$form->addToAttribute
 					(
 						'class' ,

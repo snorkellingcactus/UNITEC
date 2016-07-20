@@ -1,17 +1,17 @@
 <?php
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/LabelBox.php';
 
-	class FormLabelVisible extends LabelBox
+	class FormLabelIcono extends LabelBox
 	{
 		function __construct()
 		{
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormSelectBool.php';
-			
+
 			parent::__construct
 			(
-				'Visible',
-				'visible',
-				gettext( 'Visible' ),
+				'Icono',
+				'icono',
+				gettext('Icono'),
 				new FormSelectBool( gettext('Si') , gettext('No') )
 			);
 		}

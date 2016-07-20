@@ -9,6 +9,7 @@
 	{
 		width:100%;
 	}
+/*
 	body .menu .FormCliSecAddMenu
 	{
 		width:auto;
@@ -20,16 +21,11 @@
 	    color: white;
 	    padding: 10px;
 	}
-	body .menu nav
-	{
-		float: left;
-		width: auto;
-	}
 	.menu .acciones input.elimina, body .menu nav .acciones input.edita
 	{
 		opacity: 0.3
 	}
-
+*/
 	body .menu:hover li .acciones,body .menu:hover li .acciones, body .menu nav .acciones input.elimina:hover, body .menu nav .acciones input.edita:hover
 	{
 		background-color:transparent;
@@ -38,19 +34,6 @@
 	body .menu nav .acciones
 	{
 		opacity: 1
-	}
-
-	.menu .acciones input.elimina{background-image:url("/img/51.white.png")}
-	.menu .acciones input.edita{background-image:url("/img/39.white.png")}
-
-	body .menu .acciones input.elimina:hover, .acciones input.elimina:focus
-	{
-		opacity: 1;
-		background-image:url("/img/51.white.png")
-	}
-	.menu .acciones input.edita:hover,.acciones input.edita:focus
-	{
-		background-image:url("/img/39.white.png")
 	}
 }
 body input ,body select{font-size:1em;color:black;font-family:monospace;text-align:center}
@@ -118,31 +101,55 @@ section:hover .FormCliSec .acciones, section:hover .FormCliSecNew .acciones, .Mo
 }
 .acciones input, .acciones select, .indicator-invisible{margin:3px;}
 .acciones input{box-shadow:none;background-color:transparent;border-radius:2px;}
-html body .acciones input[type="submit"]:hover,html body .acciones input[type="submit"]:focus{background-color:rgba(255,255,255,0.8)  ;}
+html body section .acciones input[type="submit"]:hover,html body .acciones input[type="submit"]:focus
+{
+	background-color:rgba( 255 , 255 , 255 , 0.8 );
+}
 .menu .FormCliSecAddMenu
 {
 	width:100%;
 	position:static;
 }
+.menu .FormCliSecAddMenu input:hover,.menu .FormCliSecAddMenu input:focus
+{
+	color:white;
+}
 .menu .FormCliSecAddMenu input
 {
-	background:transparent;
-	background-color:silver;
-	border-radius:0px;
-	color:silver;
-	text-shadow:0px 0px 2px black;
+	transition: color 0.5s;
 	font-size:2em;
-	box-shadow:none;
-	padding:0px;
+	
 	width:100%;
 	max-width:100%;
-	line-height:1em;
+	height:100%;
 	font-weight:bold;
-	height:auto;
+
+	border-top:1px solid dimgray;
+	
+
+	padding:0px;
+	/*:::Revierte estilos puestos a input:::*/
+	background:transparent;
+	border-radius: 0px;
+	box-shadow: none;
 	animation-name:none;
 }
 .menu .FormCliSecAddMenu .acciones{width:100%}
 input , button, textarea, select{box-shadow:0px 0px 3px black;border-radius:3px;border:none;}
+
+	.menu .acciones input.elimina{background-image:url("/img/51.white.png")}
+	.menu .acciones input.edita{background-image:url("/img/39.white.png")}
+
+	body .menu .acciones input.elimina:hover, .acciones input.elimina:focus
+	{
+		opacity: 1;
+		background-image:url("/img/51.white.png")
+	}
+	.menu .acciones input.edita:hover,.acciones input.edita:focus
+	{
+		background-image:url("/img/39.white.png")
+	}
+
 button{background-color:silver;font-family:sans-serif;vertical-align:middle;line-height:3em;color:black;}
 textarea{height:auto}
 
@@ -178,15 +185,23 @@ main .acciones input.nuevo{background-image:url("/img/10.png")}
 
 main section .acciones input.nuevo:hover, main section .acciones input.nuevo:focus
 {
-	background-image:url("/img/10.png")
+	background-image:url("/img/10.png");
 }
 .acciones  input.elimina:hover,.acciones input.elimina:focus
 {
-	background-image:url("/img/51.png")
+	background-image:url("/img/51.png");
 }
 .acciones input.edita:hover,.acciones input.edita:focus
 {
-	background-image:url("/img/39.png")
+	background-image:url("/img/39.png");
+}
+.menu .acciones  input.elimina:hover,.acciones input.elimina:focus
+{
+	background-image:url("/img/51.white.png");
+}
+.menu .acciones input.edita:hover,.acciones input.edita:focus
+{
+	background-image:url("/img/39.white.png");
 }
 
 .acciones input.elimina,.acciones input.edita ,main .acciones input.nuevo

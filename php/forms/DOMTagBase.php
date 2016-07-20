@@ -105,7 +105,7 @@
 				{
 */
 					$this->tag->setAttribute($attr , $value);
-					unset($attrList[$attr]);
+					unset( $attrList[$attr] );
 /*				
 				}
 */

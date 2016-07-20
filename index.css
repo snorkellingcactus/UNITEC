@@ -4,7 +4,10 @@ html , body
 	height:100%;
 	width:100%;
 	font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
+
+	/*:::Magia. Para que un div fixed no tape el scroll:::*/
 	overflow: auto;
+	overflow: initial;
 }
 html body
 {

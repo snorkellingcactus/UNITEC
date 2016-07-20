@@ -1,35 +1,106 @@
-div.menu
+.menu
 {
-	width:15.45%;
-	overflow:hidden;
+	/*width:15.45%;*/
+	/*:::Impide el funcinamiento del selector de lenguaje:::*/
+	/*overflow:hidden;*/
+	color:silver;
 	position:fixed;
-	margin:1% 0px 1% 0px;
-	left:10px;
-	border-top-left-radius:5px;
-	
+	margin:0;
+	left:0;
+	top:0;
+	background-color: rgba(0, 0, 0, 0.85);
 	display:inline-block;
-	padding:0px;
-	z-index:1;
-	top:30px;
+	/*:::Debajo del header, encima de las imágenes de la galería:::*/
+	z-index:15;
+	box-shadow: 1px 0px 10px black;
 }
-div.inset li a img
+.inset h1
+{
+	font-size:1.3em;
+	text-align: center;
+	border-bottom: 1px solid dimgray;
+	padding-bottom: 3px;
+	margin:5px 0px 0px 0px;
+}
+.MenuNavMain li a img
 {
 	width:32px;
 	height:32px;
-	
 }
-.menu:hover, .menu ul:hover
+
+/*:::IDIOMA:::*/;
+
+.DOMLangTxtContainer
 {
-	z-index:7;
+	/*
+		Agrupo el texto y lo floto a la derecha para que el ul
+		con los idiomas no se baje.
+	*/;
+	float: left;
 }
-.menu div.hidden-xs
+.MenuNavLang
 {
-	margin-top:5%;
-	background-image:url("../img/fondo_contenido.png");
+	position:relative;
+
+	/*:::Revert Bootstrap:::*/
+	margin-bottom: 0px;
+}
+/*:::Boton Lenguaje:::*/
+.MenuNavLang .FirstLang span
+{
+	padding: 10px;
+	vertical-align: middle;
+}
+.MenuNavLang li
+{
+	position: relative;
+	left:0;
+	list-style: none;
+}
+.MenuNavLang a
+{
+	position: relative;
+	z-index:0;
+	opacity:0;
+	display:block;
+
+	/*:::Mismo que el menú:::*/
+	background-color:rgba(0, 0, 0, 0.85);
+}
+.MenuNavLang:hover a,.MenuNavLang li:hover a, .MenuNavLang:focus a, .MenuNavLang a:focus, .focus a
+{
+	transition: opacity, 0.5s;
+	opacity:1;
+	/*:::Encima de las opciones de menú, en xs:::*/;
+	z-index: 15;
+}
+.MenuNavLang li a img
+{
+	opacity:0.5;
+}
+nav.MenuNavLang a:hover, nav.MenuNavLang a:focus
+{
+	color:white;
+}
+nav.MenuNavLang a:hover img, nav.MenuNavLang a:focus img
+{
+	transition: opacity, 0.5s;
+	opacity: 1;
+}
+/* Espacio entre la bandera del idioma y el nombre del idioma */
+.MenuNavLang img
+{
+	margin-right:5px;
+}
+
+/*:::Logo - Contenedor:::*/
+.menu div div
+{
 	width:100%;
-	float:left
+	float:left;
+	border-top:1px solid dimgray;
 }	/*	.menu div es el contenedor del logo	*/
-.menu div img
+.MenuNavMain img
 {
 	/*:::Se escala a 64x64:::*/
 	width:64px;
@@ -44,7 +115,7 @@ div.inset li a img
 	padding-top:15px;
 	padding-bottom: 15px
 }	/*	Logo ( Letras )	*/
-.menu span span
+.menu .LabNameContainer
 {
 	color:white;
 	display: block;
@@ -55,70 +126,122 @@ div.inset li a img
 	/*:::La misma cantidad que el padding top/bottom en .menu span:::*/
 	margin-top:15px;
 }
-.menu nav ul
+nav ul
 {
-	display:table;
-	width:100%;
 	list-style:none
 }	/*	Contenedor opciones menu	*/
-.menu nav li
+.menu .FormCliSecAddMenu input, .MenuNavMain a
 {
-	display:table-row;
-	width:100%;
-	margin-left:2%
-}	/*	Opciones Menu	*/
-.menu nav li:hover
-{
-	color:black;
+	color:gray;
+	text-shadow: 0px 0px 4px black;
 }
-.menu nav a
+.MenuNavMain a
 {
 	padding:10px;
-	color:inherit;
 	font-family: Georgia;
-	display:table-cell;
 	vertical-align:middle;
+
 	/*:::Para los íconos absolutos:::*/
 	position: relative;
 }
-.menu .resalta , .menu nav li>a:active , .menu nav li>a:focus.resalta
-{
-	color:black;
-	background-color:#929193;
-	background-image:url("../img/fondo_contenido.png");
-	border-left:3px solid #929193;
-}
-.menu nav li>a:hover , .menu nav li>a:focus
+.MenuNavMain li a:hover , .MenuNavMain li>a:focus
 {
 	text-decoration:underline;
-	background-color:rgba(117, 117, 117, 0.27);
+	color:white;
 }
-.menu nav li>a:hover.resalta
+/*
+	.menu .resalta , .MenuNavMain li>a:active , .MenuNavMain li>a:focus.resalta
+	{
+		color:white;
+	}
+.MenuNavMain li a:hover.resalta
 {
 	background-color:#929193;
 }
+*/
 @media screen and (min-width:768px){
+	nav ul
+	{
+		width:100%;
+	}
 	div.menu
 	{
-		box-shadow:0px 0px 5px #888888;
-		background-color:lightgray;
-		background-image:url("../img/fondo_contenido.png");
-		animation-name:menu;
-		animation-duration:1s;
-		-moz-animation-name:menu;
-		-moz-animation-duration:1s;
-		-webkit-animation-name:menu;
-		-webkit-animation-duration:1s;
+		height: 100%;
+		padding-top:30px;
 	}
-	div.inset li a img
+	nav.MenuNavMain
+	{
+		margin-bottom: 15px;
+	}
+	nav.MenuNavMain ul
+	{
+		display:table;
+	}
+	nav.MenuNavMain li
+	{
+		display:table-row;
+		width:100%;
+		margin-left:2%
+	}	/*	Opciones Menu	*/
+	nav.MenuNavMain a
+	{
+		display:table-cell;
+	}
+	nav.MenuNavMain li a img
 	{
 		position: absolute;
 		right: 10px;
 		margin-top: -16px;
 		top: 50%;
 	}
+	nav.MenuNavLang ul
+	{
+		height: 0px;
+		margin: 0px;
+		position: absolute;
+		width: 100%;
+		top:-2px;
+		/*:::Mismo padding que el menú:::*/
+		left: 17px;
+	}
+	.MenuNavLang .FirstLang img
+	{
+		margin-left:7px;
+	}
+	nav.MenuNavLang:hover a,nav.MenuNavLang li:hover a, nav.MenuNavLang:focus a, nav.MenuNavLang a:focus, .focus a
+	{
+		left: 100%;
+	}
 }
 @media screen and (max-width:768px){
+	nav.MenuNavMain
+	{
+		clear: both;
+	}
+	nav.MenuNavLang
+	{
+		height:2em;
+		float: right;
+	}
+	nav.MenuNavLang li a:focus
+	{
+		top:1000px;
+	}
+	nav.MenuNavLang:hover ul, nav.MenuNavLang:focus ul
+	{
+		top:0;
+	}
+
+	nav.MenuNavLang ul
+	{
+		/*:::Para que no sea molesta la zona interactiva:::*/
+		position: relative;
+		top:-1000px;
+
+		/*:::Para que las banderitas queden alineadas:::*/
+		left:-2px;
+	}
+
 	div.menu
 	{
 		/*::El mismo background del header::*/
@@ -127,34 +250,31 @@ div.inset li a img
 		left:0;
 		/*z-index:10;*/
 		/*::Padding Left y Right alineados a ajímetro a main Left y Right::*/
-		padding:2px 10px 7px 10px;
-		border-radius:3px;
-		width:100%;
-		margin:0px;
-		position:relative;
-		border-radius:0px;
+		padding:0;
+		margin:0;
+		border-radius:0;
 	}
-	div.menu nav li
+	nav.MenuNavMain li
 	{
-		padding:0px 5px 0px 5px;
 		border-right:1px dashed silver;
-		/*
-			Previene un problema, donde una opción sin ícono, contigua a una con ícono no tiene el 100% de su altura
-		*/
-		display:table-cell;
-		font-size:0.8em;
-		width:auto;
-		margin-left:0%;
+		float: left;
+		text-align: center;
 	}
-	div.menu nav a
+	nav.MenuNavMain li:last-child
 	{
-		color:gray;
-		display:block;
-		padding:0px;
-		text-align:center;
-		text-shadow: 0px 0px 4px black;
+		border-right: 0px solid;
 	}
-	div.menu nav a:hover
+	nav.MenuNavMain li.noIcon a
+	{
+		/*:::10px + 32px de la imagen:::*/
+		padding-top: 42px;
+	}
+	nav.MenuNavMain a
+	{
+		display: block;
+		text-align:center;
+	}
+	nav.MenuNavMain a:hover
 	{
 		text-shadow: none;
 	}
@@ -162,7 +282,7 @@ div.inset li a img
 	{
 		margin-bottom:0px;
 	}
-	div.menu nav li a:hover, .menu nav li a:focus, .menu nav li> a:focus.resalta, .menu .resalta
+	div.MenuNavMain li a:hover, .MenuNavMain li a:focus, .MenuNavMain li> a:focus.resalta, .menu .resalta
 	{
 		color:white;
 		text-decoration:underline;
@@ -180,51 +300,15 @@ div.inset li a img
 	{
 		float:left;
 	}
-	div.inset li a img
+	.MenuNavMain li a img
 	{
-		margin:5px 10px 5px 5px;
+		display: block;
+		position: relative;
+		margin-left:50%;
+		left:-16px;
 	}
 }
 body .shortcutSpan
 {
 	text-decoration: underline;
-}
-@keyframes menu
-{
-	from
-	{
-		opacity:0;
-		left:-20px;
-	}
-	to
-	{
-		opacity:1;
-		left:10px;
-	}
-}
-@-moz-keyframes menu
-{
-	from
-	{
-		opacity:0;
-		left:-20px;
-	}
-	to
-	{
-		opacity:1;
-		left:10px;
-	}
-}
-@-webkit-keyframes menu
-{
-	from
-	{
-		opacity:0;
-		left:-20px;
-	}
-	to
-	{
-		opacity:1;
-		left:10px;
-	}
 }

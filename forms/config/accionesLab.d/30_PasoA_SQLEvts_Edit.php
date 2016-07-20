@@ -34,8 +34,16 @@
 				]
 			);
 
-			updTraduccion($session->getLabel( 'Nombre' ) , $lab->NombreID , $_SESSION['lang']);
-			updTraduccion($session->getLabel( 'Direccion' ) , $lab->DireccionID , $_SESSION['lang']);
+			updTraduccion
+			(
+				$session->getLabel( 'Nombre' ) ,
+				$lab->NombreID , $_SESSION['lang']
+			);
+			updTraduccion
+			(
+				$session->getLabel( 'Direccion' ) ,
+				$lab->DireccionID , $_SESSION['lang']
+			);
 
 			$lab->getAsoc
 			(
@@ -46,6 +54,14 @@
 						filter_var
 						(
 							$session->getLabel		( 'Enlace' 		) ,
+							FILTER_VALIDATE_BOOLEAN
+						)
+					),
+					'Abbr'=>intval
+					(
+						filter_var
+						(
+							$session->getLabel		( 'Abbr' 		) ,
 							FILTER_VALIDATE_BOOLEAN
 						)
 					),

@@ -4,7 +4,8 @@
 
 	class DOMLang extends DOMRoleTag
 	{
-		public $ul;
+		private $ul;
+		private $current;
 
 		function __construct()
 		{
@@ -12,59 +13,21 @@
 
 			$this->ul=new DOMRoleTag('ul');
 
-			$this->appendChild
-			(
-				$this->ul->setRole('menu')->setTabindex(1)
-			)->setRole('navigation');
+			/*:::Nav con role navigation puede duplicar el anuncio de secciones navegables.:::*/
+			
+			
+			$this->ul->setRole( 'menu' );
+			$this->setTabindex( 1 )->addToAttribute( 'class' , 'focuseable' );//->setRole( 'navigation' );
 		}
-		function newFirstOption($lang)
+		function setCurrent( array $current )
 		{
-			return $this->applyLangImg
-			(
-				$this->newBaseOption(),
-				$lang['Nombre'],
-				$lang['Pais'][0].$lang['Pais'][1]
-			);
+			$this->current=$current;
 		}
-		function newOption($lang)
+		function getCurrent()
 		{
-			$shortLangName=$lang['Pais'][0].$lang['Pais'][1];
-
-			$a=new DOMTag('a');
-
-			$a->setAttribute
-			(
-				'rel',
-				'alternate'
-			)->setAttribute
-			(
-				'href',
-				getLabUrl
-				(
-					getLabName($_SESSION['lab']),
-					$shortLangName
-				)
-			)->setAttribute
-			(
-				'lang',
-				$shortLangName
-			)->setAttribute
-			(
-				'tabindex',
-				1
-			)->addToAttribute('class' , 'focuseable');
-
-			return $this->newBaseOption()->appendChild
-			(
-				$this->applyLangImg
-				(
-					$a,
-					$lang['Nombre'],
-					$shortLangName
-				)
-			);
+			return $this->current;
 		}
-		function applyLangImg($option , $langName , $shortLangName)
+		function applyLang( $option , $langName , $shortLangName )
 		{
 			$img=new DOMRoleTag( 'img' );
 
@@ -80,7 +43,7 @@
 				->setAttribute('alt' , '')
 			)->appendChild
 			(
-				new DOMTag('span' , utf8_encode($langName))
+				new DOMTag( 'span' , utf8_encode( $langName ) )
 			);
 		}
 		function newBaseOption()
@@ -89,11 +52,71 @@
 
 			return $nOpt->setRole('menuitem');
 		}
+		function newLink( $shortLangName )
+		{
+			$a=new DOMTag('a');
+
+			return $a->setAttribute
+			(
+				'rel',
+				'alternate'
+			)->setAttribute
+			(
+				'href',
+				getLabUrl
+				(
+					getLabName( $_SESSION['lab'] ),
+					$shortLangName
+				)
+			)->setAttribute
+			(
+				'hreflang',
+				$shortLangName
+			)->setAttribute
+			(
+				'lang',
+				$shortLangName
+			)->setAttribute
+			(
+				'tabindex',
+				1
+			)->addToAttribute( 'class' , 'focuseable' );
+		}
+		function applyCurrentLang( $tag )
+		{
+			$lang=$this->getCurrent();
+
+			return $this->applyLang
+			(
+				$tag,
+				$lang['Nombre'],
+				$lang['Pais'][0].$lang['Pais'][1]
+			);
+		}
+		function newOption( $lang )
+		{
+			$shortLangName=$lang['Pais'][0].$lang['Pais'][1];
+
+			return $this->newBaseOption()->appendChild
+			(
+				$this->applyLang
+				(
+					$this->newLink( $shortLangName ),
+					$lang['Nombre'],
+					$shortLangName
+				)
+			);
+		}
 		function addOption($child)
 		{
 			$this->ul->appendChild($child);
 
 			return $this;
+		}
+		function renderChilds( &$tag )
+		{
+			$this->appendChild( $this->ul );
+			return parent::renderChilds( $tag );
 		}
 	}
 ?>

@@ -436,6 +436,7 @@
 
 		if(isset($lab[0]))
 		{
+			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/getTraduccion.php';
 			$array[$arrayLen]=getTraduccion($lab[0][1] , $_SESSION['lang']);
 
 			getLabTagTreeLoop($lab[0][0] , $array , ++$arrayLen);

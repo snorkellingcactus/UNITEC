@@ -51,6 +51,14 @@
 											FILTER_VALIDATE_BOOLEAN
 										)
 									),
+					'Abbr'		=>intval
+									(
+										filter_var
+										(
+											$session->getLabel		( 'Abbr' 		) ,
+											FILTER_VALIDATE_BOOLEAN
+										)
+									)
 					'Latitud'		=>$session->getLabel			( 'Latitud' 	),
 					'Longitud'		=>$session->getLabel			( 'Longitud' 	),
 					'Mail'			=>$session->getLabel			( 'Mail' 		),

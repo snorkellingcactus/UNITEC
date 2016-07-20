@@ -23,6 +23,7 @@
 					'TagID',
 					'Organigrama',
 					'Enlace',
+					'Abbr',
 					'Color',
 					'PadreID'
 				],

@@ -28,7 +28,7 @@
 		{
 			if($this->uploadImgOk($name))
 			{
-				echo '<pre>mkUrlArchivo:'.htmlentities(' La ruta de la imagen es válida!');echo '</pre>';
+				//echo '<pre>mkUrlArchivo:'.htmlentities(' La ruta de la imagen es válida!');echo '</pre>';
 
 				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/PHPThumb/src/PHPThumb/PHPThumb.php';
 				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/PHPThumb/src/PHPThumb/GD.php';				
@@ -41,11 +41,11 @@
 					{
 						$resize=$this->resizes[$i];
 
-						echo '<pre>'.htmlentities('mkUrlArchivo: Creando miniatura de '.$resize[0].' X '.$resize[1].' en '.$resize[2].$imgID);echo '</pre>';
+						//echo '<pre>'.htmlentities('mkUrlArchivo: Creando miniatura de '.$resize[0].' X '.$resize[1].' en '.$resize[2].$imgID);echo '</pre>';
 						$thumb->resize($resize[0] , $resize[1])->save($resize[2].$imgID.'.png');
 					}
 					
-					echo '<pre>mkUrlArchivo:'.htmlentities(' Eliminando archivo temporal.'.$tmpName);echo '</pre>';
+					//echo '<pre>mkUrlArchivo:'.htmlentities(' Eliminando archivo temporal.'.$tmpName);echo '</pre>';
 
 					include_once $_SERVER['DOCUMENT_ROOT'] . '/php/elimina.php';
 					elimina($tmpName , 0755);
@@ -54,8 +54,8 @@
 				{
 					if( $e->getMessage() == 'Image file not found: ' )
 					{
-						echo '<pre>No se encontró';
-						echo '</pre>';
+						//echo '<pre>No se encontró';
+						//echo '</pre>';
 						//$
 					}
 				}
@@ -131,7 +131,7 @@
 		}
 		function uploadImgOk($name)
 		{
-			echo '<pre>'.htmlentities('uploadImgOk: Chequeando ruta '.$name);echo '</pre>';
+			//echo '<pre>'.htmlentities('uploadImgOk: Chequeando ruta '.$name);echo '</pre>';
 
 			if
 			(
@@ -144,7 +144,7 @@
 				)
 			)
 			{
-				echo '<pre>uploadImgOk:'.htmlentities(' La ruta está vacía');echo '</pre>';
+				//echo '<pre>uploadImgOk:'.htmlentities(' La ruta está vacía');echo '</pre>';
 				return false;
 			}
 			$uploadOk=false;
@@ -158,7 +158,7 @@
 					PATHINFO_EXTENSION
 				)
 			);
-			echo '<pre>'.htmlentities('uploadImgOk: Chequeando extensión '.$extension);echo '</pre>';
+			//echo '<pre>'.htmlentities('uploadImgOk: Chequeando extensión '.$extension);echo '</pre>';
 			if
 			(
 				$extension=='png'	|| $extension=='jpg' ||

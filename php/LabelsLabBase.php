@@ -9,6 +9,7 @@
 		public $nombre;
 		public $telefono;
 		public $enlace;
+		public $abbr;
 		public $mail;
 		public $facebook;
 		public $twitter;
@@ -24,6 +25,7 @@
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormLabelDireccion.php';
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormLabelTag.php';
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormLabelNombre.php';
+			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormLabelAbbr.php';
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormLabelTelefono.php';
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormLabelEnlace.php';
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormLabelMail.php';
@@ -36,8 +38,10 @@
 				$this->nombre=new FormLabelNombre()
 			)->appendChild
 			(
+				$this->abbr=new FormLabelAbbr()
+			)->appendChild
+			(
 				$this->tag=new FormLabelTag()
-				
 			)->appendChild
 			(
 				$this->archivo=new FormLabelUrlNov()

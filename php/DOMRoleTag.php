@@ -3,9 +3,9 @@
 	
 	class DOMRoleTag extends DOMTag
 	{
-		public $role;
-		public $tabindex;
-		public $hidden;
+		private $role;
+		private $tabindex;
+		private $hidden;
 
 		function __construct()
 		{

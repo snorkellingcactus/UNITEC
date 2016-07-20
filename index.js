@@ -210,7 +210,7 @@ function quitFocus(event , shift)
 }
 function inicializa()
 {
-	var hijos=document.getElementsByClassName('header')[0].getElementsByTagName('ul')[0].getElementsByTagName('a');
+	var hijos=document.getElementsByClassName('MenuNavLang')[0].getElementsByTagName('ul')[0].getElementsByTagName('a');
 
 	hijos[hijos.length-1].addEventListener
 	(

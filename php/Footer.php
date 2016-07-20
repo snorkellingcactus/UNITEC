@@ -20,6 +20,8 @@
 
 			$this->container->col=['xs'=>12 , 'sm'=>12 , 'md'=>12 , 'lg'=>12];
 			$this->container->addToAttribute('class' , 'FooterMainContainer');
+
+			$this->col=['xs'=>12 , 'sm'=>10 , 'md'=>10 , 'lg'=>10];
 		}
 		function appendChild($child)
 		{

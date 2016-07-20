@@ -13,15 +13,7 @@
 
 			$link->addToAttribute('class' , 'focuseable');
 
-			$base=new FooterInfoBase
-			(
-				$imgSrc,
-				sprintf
-				(
-					gettext('Página de %s'),
-					$text
-				)
-			);
+			$base=new FooterInfoBase( $imgSrc );
 
 			$base->text->setTagValue($text);
 

@@ -26,21 +26,16 @@
 			);
 
 			$i=0;
-			while(isset($lenguajes[$i]))
+			while( isset( $lenguajes[$i] ) )
 			{
 				if($i===0)
 				{
-					$option=$this->newFirstOption($lenguajes[$i]);
+					$this->setCurrent( $lenguajes[$i] );
 				}
 				else
 				{
-					$option=$this->newOption($lenguajes[$i]);
+					$this->addOption( $this->newOption( $lenguajes[$i] ) );
 				}
-
-				$this->addOption
-				(
-					$option
-				);
 
 				++$i;
 			}

@@ -17,7 +17,15 @@
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormLabelUnidad.php';
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormLabelOrigen.php';
 
-			$ejemplo=new DOMTag('p' , gettext('Ej : Av 1 y 60, La Plata'));
+			$ejemplo=new DOMTag('p');
+			$ejemplo->appendChild
+			(
+				new DOMTag( 'abbr' , gettext( 'Ej :' ) )
+			)->appendChild
+			(
+				new DOMTag( 'span' , gettext(' Av 1 y 60, La Plata') )
+			);
+
 			$ejemplo->col=['xs'=>12 , 'sm'=>7 , 'md'=>7 , 'lg'=>7];
 			$ejemplo->addToAttribute('class' , 'ejemplo')->addToAttribute('class' ,'monoWhite');
 
