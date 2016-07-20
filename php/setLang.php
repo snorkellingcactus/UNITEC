@@ -80,7 +80,7 @@ function setLangFromName($name)
 		(
 			'	SELECT Lenguajes.ID
 				FROM Lenguajes
-				WHERE Lenguajes.Nombre
+				WHERE Lenguajes.Pais
 				LIKE "'.$name.'%"
 			'
 		),

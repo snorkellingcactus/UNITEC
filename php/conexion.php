@@ -41,6 +41,7 @@
 	//echo '<pre>Como '.$usuario.'</pre>';
 
 	$con=new mysqli('localhost',$usuario,'s2r9v3->149','edetec');	//Casa Gonza.
+	$con->set_charset('utf8');
 
 	unset($usuario , $pass);
 ?>

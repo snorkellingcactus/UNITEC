@@ -68,15 +68,13 @@
 		
 		public function newTag()
 		{
-			$tag=$this->getOwnerDocumentOf
+			return $this->getOwnerDocumentOf
 			(
 				$this->parent->getTag()
 			)->createElement
 			(
 				$this->tagName
 			);
-
-			return $tag;
 		}
 		public function appendXML($xml)
 		{
@@ -92,6 +90,10 @@
 		{
 			$attrList=&$this->attrList;
 
+			if( empty($attrList) )
+			{
+				return $this;
+			}
 			foreach($attrList as $attr=>$value)
 			{
 				if($value instanceof DOMClassList)

@@ -43,7 +43,7 @@
 				->setAttribute('alt' , '')
 			)->appendChild
 			(
-				new DOMTag( 'span' , utf8_encode( $langName ) )
+				new DOMTag( 'span' ,  $langName )
 			);
 		}
 		function newBaseOption()

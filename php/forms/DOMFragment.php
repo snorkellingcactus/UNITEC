@@ -2,25 +2,20 @@
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/DOMTagContainer.php';
 	
 	//Cambiar a futuro los nombres con XML por HTML
-	class DOMFragment extends DOMTagContainer
+	class DOMFragment extends DOMTagBase
 	{
 		private $innerXML;
 
-		public function __construct()
+		public function __construct($inner)
 		{
-			parent::__construct();
 
-			$args=func_get_args();
-			if(isset($args[0]))
-			{
-				$this->setInnerXML($args[0]);
-			}
+			$this->setInnerXML($inner);
 		}
 		public function renderChilds(&$tag)
 		{
 			parent::renderChilds($tag);
 
-			$hdoc=new DOMDocument();
+			$hdoc=new DOMDocument( '1.0' , 'UTF-8');
 			$hdoc->loadHTML('<div id="domtohtml">'.$this->innerXML.'</div>');
 
 			$childs=$hdoc->getElementById('domtohtml')->childNodes;
@@ -33,6 +28,22 @@
 					$this->getOwnerDocumentOf($this->getTag())->importNode($childs->item($i) , true)
 				);
 			}
+		}
+		public function newTag()
+		{
+			$fragment=$this->getOwnerDocumentOf
+			(
+				$this->parent->getTag()
+			)->createDocumentFragment();
+
+			$fragment->appendXML
+			(
+				html_entity_decode
+				(
+					$this->innerXML
+				)
+			);
+			return $fragment;
 		}
 		public function setInnerXML($xml)
 		{

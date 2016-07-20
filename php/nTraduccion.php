@@ -11,7 +11,7 @@
 		$traduccion=new Traduccion
 		(
 			[
-				'Texto'=>htmlentities($contenido),
+				'Texto'=>htmlentities($contenido , ENT_COMPAT | ENT_HTML5 , 'UTF-8'),
 				'LenguajeID'=>$lenguaje
 			]
 		);
