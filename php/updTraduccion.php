@@ -27,12 +27,12 @@ function updTraduccion($texto , $conID , $lang)
 		$con->query
 		(
 			'	UPDATE Traducciones
-				SET Texto="'.htmlentities($texto).'"
+				SET Texto="'.utf8_encode(addslashes($texto)).'"
 				WHERE ID='.$traduccion[0][0]
 		);
 /*
 		echo '<pre>'.'	UPDATE Traducciones
-				SET Texto="'.htmlentities($texto).'"
+				SET Texto="'.utf8_encode(addslashes($texto)).'"
 				WHERE ID='.$traduccion[0][0].'</pre>';
 */
 	}
@@ -45,7 +45,7 @@ function updTraduccion($texto , $conID , $lang)
 			[
 				'ContenidoID'=>$conID,
 				'LenguajeID'=>$lang,
-				'Texto'=>htmlentities($texto)
+				'Texto'=>$texto
 			]
 		);
 		$traduccion->insSQL();

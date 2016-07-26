@@ -26,11 +26,7 @@
 				$array[1]=NULL;
 			}
 
-			return $this->input->controller->buildOption
-			(
-				html_entity_decode($array[0]),
-				$array[1]
-			);
+			return $this->input->controller->buildOption( $array[0] , $array[1] );
 		}
 		//Configura las opciones de acuerdo a los lugares llenos.
 		function setOptionsFromSQLRes($sqlList)

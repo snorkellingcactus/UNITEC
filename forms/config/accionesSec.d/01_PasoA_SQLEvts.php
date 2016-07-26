@@ -72,7 +72,7 @@
 				}
 			}
 
-			if($session->hasLabel('Contenido'))
+			if( $session->hasLabel('Contenido') )
 			{
 				if($action & FormActions::FORM_ACTIONS_EDIT)
 				{
@@ -102,7 +102,7 @@
 
 					$descripcion=nTraduccion
 					(
-						$session->getLabel('Contenido') ,
+						$session->getLabel( 'Contenido' ) ,
 						$_SESSION['lang']
 					);
 
@@ -191,17 +191,19 @@
 						'ContenidoID'
 					);
 				}
-
-				$nSec->insForanea
-				(
-					nTraduccion
+				if( $titulo!==false )
+				{
+					$nSec->insForanea
 					(
-						$titulo,
-						$_SESSION['lang']	
-					),
-					'TituloID',
-					'ContenidoID'
-				);
+						nTraduccion
+						(
+							$titulo,
+							$_SESSION['lang']	
+						),
+						'TituloID',
+						'ContenidoID'
+					);
+				}
 
 				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/nTag.php';
 
@@ -252,7 +254,7 @@
 				);
 			}
 
-			$enMenu=filter_var
+			$enMenu=$session->hasLabel('AgregarAlMenu') && filter_var
 			(
 				$session->getLabel('AgregarAlMenu') ,
 				FILTER_VALIDATE_BOOLEAN

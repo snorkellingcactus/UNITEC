@@ -77,7 +77,7 @@
 				);
 			}
 		}
-		public function renderChilds(&$tag)
+		public function renderChilds( &$tag )
 		{
 			$this->setTag($tag);
 

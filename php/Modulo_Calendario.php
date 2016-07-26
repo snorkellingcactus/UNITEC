@@ -15,15 +15,9 @@
 			$contenedor=new DOMTag('div');
 			$contenedor->addToAttribute('class' , 'calendario');
 
-			if(!empty($_SESSION['adminID']))
-			{
-				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/edicion/FormCliCal.php';
-				
-				$this->appendChild
-				(
-					$formCal=new FormCliCal()
-				);
-			}
+			$this->setAdminFormName( 'FormCliCal' );
+
+			$form=$this->getAdminForm();
 
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/opciones.php';
 			
@@ -79,6 +73,7 @@
 				$con->query
 				(
 					$consulta.
+					$this->getFilterVisible().//$this->getFilterLimit().
 					'	ORDER BY Tiempo,Prioridad ASC	'
 				),
 				MYSQLI_ASSOC
@@ -168,11 +163,11 @@
 
 					$pFecha->addToAttribute('class' , 'fecha');
 
-					if(isset($_SESSION['adminID']))
+					if( $form !== false )
 					{
 						$pFecha->appendChild
 						(
-							$formCal->buildActionCheckBox($evtAct['DescripcionID'])
+							$form->buildActionCheckBox( $evtAct['DescripcionID'] )
 						);
 					}
 

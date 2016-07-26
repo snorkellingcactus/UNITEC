@@ -81,7 +81,7 @@
 		{
 			$newChild->appendNHilo
 			(
-					$newNode->setName($newChild->nombre)
+				$newNode->setName( $newChild->nombre )
 			);
 		}
 	}

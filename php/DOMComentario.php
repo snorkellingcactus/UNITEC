@@ -97,6 +97,10 @@
 
 			return $this;
 		}
+		function getName()
+		{
+			return $this->name;
+		}
 		function formatFecha()
 		{
 			$rangoTiempo=['y' , 'm' , 'd' , 'h' , 'i' , 's'];
@@ -145,7 +149,7 @@
 				$this->btnRes
 			);
 
-			if($this->remitente!==false)
+			if( $this->remitente!==false )
 			{
 				$spanRemitente=new DOMTag('span');
 				$spanRemitente->addToAttribute('class' , 'remitente');
@@ -157,7 +161,7 @@
 						sprintf
 						(
 							gettext('En respuesta a %s'),
-							htmlentities($this->remitente)
+							htmlentities( $this->remitente )
 						)
 					)
 				);
@@ -188,7 +192,10 @@
 			(
 				htmlentities
 				(
-					$this->nombre
+					utf8_decode //Ya que es un simple campo SQL, no se trata de una traducción.
+					(
+						$this->nombre
+					)
 				)
 			);
 

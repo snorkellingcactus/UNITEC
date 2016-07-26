@@ -1,78 +1,82 @@
 <?php
-	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/DOMModulo.php';
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/DOMIncludeBase.php';
 
-	class DOMInclude extends DOMModulo
+	// implements DomIncludeInterface;
+	class DOMInclude extends DOMIncludeBase
 	{
-		public $limit;
-		public $sID;
-		public $mID;
-		public $opcGrpID;
-		public $opcSetsID;
+		private $filter_visible;
+		private $filter_limit;
+		private $admin_form;
 
 		function __construct()
 		{
 			parent::__construct();
 
-			$this
-			->setLimit(false)
-			->setSectionID(false)
-			->setModuloID(false)
-			->setOpcGrpID(false)
-			->setOpcSetsID(false)
-			->addToAttribute('class' , 'contenido');
+			$this->setAdminForm( false );
 		}
-		function setLimit($limit)
+		public function calcLimit()
 		{
-			$this->limit=$limit;
+			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/conexion.php';
+			global $con;
+
+			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/opciones.php';
+					
+			$limit=getValFromNombreID( 'limit' , $this->opcGrpID , $this->opcSetsID );
+
+			if( $this->isLimited() && is_array( $limit ) && $limit[0]!=='0' )
+			{
+				$this->setLimit( $limit[0] );
+				$this->setFilterLimit( ' LIMIT '.$limit[0] );
+			}
+			else
+			{
+				$this->setLimit( false );
+				$this->setFilterLimit( false );
+			}
 
 			return $this;
 		}
-		function setSectionID($sID)
+		private function setFilterVisible( $filterStr )
 		{
-			$this->sID=$sID;
-
-			return $this;
+			$this->filter_visible=$filterStr;
 		}
-		function setModuloID($mID)
+		protected function getFilterVisible()
 		{
-			$this->mID=$mID;
-
-			return $this;
+			return $this->filter_visible;
 		}
-		function setOpcGrpID($opcGrpID)
+		private function setFilterLimit( $filterStr )
 		{
-			$this->opcGrpID=$opcGrpID;
-
-			return $this;
+			$this->filter_limit=$filterStr;
 		}
-		function setOpcSetsID($opcSetsID)
+		protected function getFilterLimit()
 		{
-			$this->opcSetsID=$opcSetsID;
-
-			return $this;
+			return $this->filter_limit;
 		}
-		function load($modName)
+
+		protected function setAdminFormName( $formName )
 		{
-			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/ClearFix.php';
+			if( isset( $_SESSION['adminID'] ) )
+			{
+				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/edicion/'.$formName.'.php';
+				
+				$this->setAdminForm( new $formName() );
 
-			$modName='Modulo_'.$modName;
-
-			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/'.$modName.'.php';
-
-			$module=new $modName;
-
-			return $this->appendChild
-			(
-				$module
-				->setSectionID($this->sID)
-				->setModuloID($this->mID)
-				->setOpcGrpID($this->opcGrpID)
-				->setOpcSetsID($this->opcSetsID)
-				->setLimit($this->limit)
-			)->appendChild
-			(
-				new ClearFix()
-			);
+				$this->appendChild( $this->getAdminForm() );
+				
+				$this->setFilterVisible('');
+			}
+			else
+			{
+				$this->setFilterVisible(' AND Visible=1 ');
+			}
+		}
+		protected function setAdminForm( $adminForm )
+		{
+			$this->admin_form=$adminForm;
+		}
+		public function getAdminForm()
+		{
+			return $this->admin_form;
 		}
 	}
 ?>

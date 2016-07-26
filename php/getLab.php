@@ -157,11 +157,24 @@
 		include_once $_SERVER['DOCUMENT_ROOT'] . '/php/getTraduccion.php';
 
 		global $con;
-		$labID=$_SESSION['lab'];
 
-		if(func_num_args())
+		$args=func_get_args();
+
+		if( isset( $args[0] ) )
 		{
-			$labID=func_get_args()[0];
+			$labID=$args[0];
+		}
+		else
+		{
+			$labID=$_SESSION['lab'];
+		}
+		if( isset( $args[1] ) )
+		{
+			$lang=$args[1];
+		}
+		else
+		{
+			$lang=$_SESSION['lang'];
 		}
 
 		$nameID=fetch_all
@@ -180,7 +193,7 @@
 			return getTraduccion
 			(
 				$nameID[0][0],
-				$_SESSION['lang']
+				$lang
 			);
 		}
 
@@ -355,6 +368,6 @@
 			$lang=getLangCode();
 		}
 
-		return 'http://'.$_SERVER['SERVER_NAME'].'/'.$lang.'/espacios/'.rawurlencode(strtolower(trim($lName)));
+		return 'http://'.$_SERVER['SERVER_NAME'].'/'.$lang.'/espacios/'.$lName;
 	}
 ?>

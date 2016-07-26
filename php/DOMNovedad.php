@@ -130,7 +130,7 @@
 
 			if($this->descripcion!==false)
 			{
-				$descripcion=new DOMTag('p' , htmlentities( $this->descripcion ) );
+				$descripcion=new DOMTag('p' ,  $this->descripcion );
 				$descripcion->addToAttribute('class' , 'sangria');
 
 				$link=new DOMLink();

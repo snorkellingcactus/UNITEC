@@ -475,11 +475,7 @@
 					(
 						new DOMFragment
 						(
-							utf8_decode
-							(
-								$html->saveHTML($contenedor)
-							)
-							
+							$html->saveHTML( $contenedor )
 						)
 					);
 				}

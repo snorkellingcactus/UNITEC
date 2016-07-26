@@ -124,7 +124,6 @@
 
 			$router->gotoOrigin();
 		}
-		$this->router->gotoOrigin();
 
 		//$afectados[$i]=$evento->DescripcionID;
 		//return $afectados;

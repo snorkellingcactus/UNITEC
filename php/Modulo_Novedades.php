@@ -6,36 +6,12 @@
 			function renderChilds(&$tag)
 			{
 				$this->addToAttribute('class' , 'novedades');
-				
-				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/is_session_started.php';
-				start_session_if_not();
 
-				if(isset($_SESSION['adminID']))
-				{
-					include_once($_SERVER['DOCUMENT_ROOT'] . '/php/edicion/FormCliNov.php');
-
-					$this->appendChild
-					(
-						$formNov=new FormCliNov()
-					);
-				}
+				$this->setAdminFormName( 'FormCliNov' );
 
 				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/reordena.php';
 				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/conexion.php';
 				global $con;
-
-				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/opciones.php';
-						
-				$limit=getValFromNombreID('limit' , $this->opcGrpID , $this->opcSetsID);
-				if($this->limit && is_array($limit) && $limit[0]!=='0')
-				{
-					$limit=$limit[0];
-					$limitStr='LIMIT '.$limit;
-				}
-				else
-				{
-					$limit=$limitStr=false;
-				}
 
 				$novedades=getPriorizados
 				(
@@ -48,15 +24,15 @@
 								ON TagsTarget.GrupoID=Novedades.TagsGrpID
 								LEFT OUTER JOIN Laboratorios
 								ON Laboratorios.ID='.$_SESSION['lab'].'
-								WHERE TagsTarget.TagID=Laboratorios.TagID
-								ORDER BY Fecha DESC
-							'.$limitStr
+								WHERE TagsTarget.TagID=Laboratorios.TagID'.
+								$this->getFilterVisible().$this->getFilterLimit().
+								' ORDER BY Fecha DESC'
 						),
 						MYSQLI_ASSOC
 					)
 				);
 
-				if(!isset($novedades[0]))
+				if( !isset($novedades[0] ) )
 				{
 					$this->appendChild
 					(
@@ -69,17 +45,19 @@
 					include_once $_SERVER['DOCUMENT_ROOT'] . '/php/html2text/html2text.php';
 					include_once $_SERVER['DOCUMENT_ROOT'] . '/php/DOMNovedad.php';
 
+					$form=$this->getAdminForm();
+
 					$i=0;
-					while(isset($novedades[$i]))
+					while( isset( $novedades[$i] ) )
 					{
 						$novedadHTML=new DOMNovedad();
 						$novAct=$novedades[$i];
 
-						if(isset($formNov))
+						if( $form !== false )
 						{
 							$novedadHTML->setCheckBox
 							(
-								$formNov->buildActionCheckBox($novAct['ID'])
+								$form->buildActionCheckBox( $novAct['ID'] )
 							);
 						}
 
@@ -90,9 +68,9 @@
 						);
 						
 
-						$descTrim=trim($descripcion);
+						$descTrim=trim( $descripcion );
 
-						if(!empty($descTrim))
+						if( !empty( $descTrim ) )
 						{
 							$novedadHTML->setDescripcion
 							(
@@ -107,7 +85,6 @@
 								)
 							);
 						}
-
 						
 
 						//Revisar.A futuro guardar en la db una version en texto plano.
@@ -190,9 +167,11 @@
 
 					include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/ClearFix.php';
 
-					$this->appendChild(new ClearFix());
+					$this->appendChild( new ClearFix() );
 
-					if($limit!==false && isset($novedades[$limit-1]))
+					$limit=$this->getLimit();
+
+					if( $limit!==false && isset( $novedades[$limit-1] ) )
 					{
 						include_once $_SERVER['DOCUMENT_ROOT'] . '/php/DOMVerMas.php';
 
@@ -200,7 +179,7 @@
 						(
 							new DOMVerMas
 							(
-								'/?vRecID='.$this->sID,
+								'/?vRecID='.$this->sID ,
 								gettext('Ver todas las novedades')
 							)
 						);

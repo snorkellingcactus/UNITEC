@@ -9,7 +9,7 @@
 		{
 			parent::__construct('div');
 
-			$this->setName(false);
+			$this->setName( false );
 
 			$this->addToAttribute('class' , 'nHilo');
 		}
@@ -19,7 +19,7 @@
 
 			return $this;
 		}
-		function importChild($com)
+		function renderChild( &$child )
 		{
 			if($child instanceof DOMComentario)
 			{
@@ -29,7 +29,7 @@
 				);
 			}
 
-			return parent::importChild($child);
+			return parent::renderChild( $child );
 		}
 	}
 

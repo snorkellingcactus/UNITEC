@@ -51,17 +51,31 @@
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/getTraduccion.php';
 
 			$s=0;
+			$j=1;
 			while(isset($seccs[$s]))
 			{
+				$sec=$seccs[$s];
+				$titulo=$j;
+
+				if(!isset($sec['TituloID']))
+				{
+					++$j;
+				}
+				else
+				{
+					$titulo=getTraduccion
+					(
+						$sec['TituloID'],
+						$_SESSION['lang']
+					);
+				}
+
 				$seccs[$s]=array
 				(
-					getTraduccion
-					(
-						$seccs[$s]['TituloID'],
-						$_SESSION['lab']
-					),
-					$seccs[$s]['ID']
+					$titulo,
+					$sec['ID']
 				);
+				
 				++$s;
 			}
 

@@ -192,11 +192,11 @@ if($_SESSION['lab']!==false)
 
 				if($seccionAct['ID']==$noLimit)
 				{
-					$include->setLimit(false);
+					$include->setLimited(false);
 				}
 				else
 				{
-					$include->setLimit(true);
+					$include->setLimited(true);
 				}
 
 				$include
@@ -205,7 +205,8 @@ if($_SESSION['lab']!==false)
 				->setOpcGrpID($includeAct['OpcGrpID'])
 				->setOpcSetsID($includeAct['OpcSetsGrpID'])
 				//->load('Modulo_Novedades');
-				->load($includeAct['Archivo']);
+				->load($includeAct['Archivo'])
+				->calcLimit();
 			}
 
 			$section->appendChild

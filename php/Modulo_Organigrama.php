@@ -59,7 +59,7 @@
 			
 			global $con;
 			
-			if($_SESSION['lab']!==false)
+			if( $_SESSION['lab']!==false )
 			{
 				$labs=fetch_all
 				(

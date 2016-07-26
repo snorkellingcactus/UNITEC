@@ -2,21 +2,25 @@
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/DOMTagContainer.php';
 	
 	//Cambiar a futuro los nombres con XML por HTML
-	class DOMFragment extends DOMTagBase
+	class DOMFragment extends DOMTagContainer
 	{
 		private $innerXML;
 
-		public function __construct($inner)
+		public function __construct( $innerHTML )
 		{
-
-			$this->setInnerXML($inner);
+			$this->setInnerXML( $innerHTML );
 		}
 		public function renderChilds(&$tag)
 		{
+			/*
+				http://stackoverflow.com/questions/12376686/php-dom-append-html-to-existing-document-without-domdocumentfragmentappendxml
+
+				Error con utf-8 solucionado gracias al capo de http://php.net/manual/es/domdocument.loadhtml.php
+			*/
 			parent::renderChilds($tag);
 
-			$hdoc=new DOMDocument( '1.0' , 'UTF-8');
-			$hdoc->loadHTML('<div id="domtohtml">'.$this->innerXML.'</div>');
+			$hdoc=new DOMDocument('1.0' , 'UTF-8');
+			$hdoc->loadHTML('<?xml encoding="UTF-8">' .'<div id="domtohtml">'.$this->innerXML.'</div>');
 
 			$childs=$hdoc->getElementById('domtohtml')->childNodes;
 			$childsLen=$childs->length;
@@ -25,25 +29,16 @@
 			{
 				$this->getTag()->appendChild
 				(
-					$this->getOwnerDocumentOf($this->getTag())->importNode($childs->item($i) , true)
+					$this->getOwnerDocumentOf
+					(
+						$this->getTag()
+					)->importNode
+					(
+						$childs->item($i) ,
+						true
+					)
 				);
 			}
-		}
-		public function newTag()
-		{
-			$fragment=$this->getOwnerDocumentOf
-			(
-				$this->parent->getTag()
-			)->createDocumentFragment();
-
-			$fragment->appendXML
-			(
-				html_entity_decode
-				(
-					$this->innerXML
-				)
-			);
-			return $fragment;
 		}
 		public function setInnerXML($xml)
 		{
