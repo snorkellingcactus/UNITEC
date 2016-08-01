@@ -85,6 +85,7 @@
 				->setOpcSetsID( $this->opcSetsID )
 				->setLimit( $this->getLimit() )
 				->setLimited( $this->isLimited() )
+				->calcLimit()
 			)->appendChild
 			(
 				new ClearFix()

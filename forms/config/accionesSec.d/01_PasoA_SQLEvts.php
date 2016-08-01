@@ -165,7 +165,7 @@
 			$titulo=false;
 			if( $session->hasLabel( 'Titulo' ) )
 			{
-				$titulo=htmlentities( $session->getLabel( 'Titulo' ) );
+				$titulo=$session->getLabel( 'Titulo' );
 			}
 
 			if( $action & FormActions::FORM_ACTIONS_EDIT )

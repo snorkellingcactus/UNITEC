@@ -52,7 +52,7 @@
 
 			return $nOpt->setRole('menuitem');
 		}
-		function newLink( $shortLangName )
+		function newLink( $shortLangName , $langId )
 		{
 			$a=new DOMTag('a');
 
@@ -65,7 +65,7 @@
 				'href',
 				getLabUrl
 				(
-					getLabName( $_SESSION['lab'] ),
+					getLabName( $_SESSION['lab'] , $langId ),
 					$shortLangName
 				)
 			)->setAttribute
@@ -101,7 +101,7 @@
 			(
 				$this->applyLang
 				(
-					$this->newLink( $shortLangName ),
+					$this->newLink( $shortLangName , $lang['ID'] ),
 					$lang['Nombre'],
 					$shortLangName
 				)

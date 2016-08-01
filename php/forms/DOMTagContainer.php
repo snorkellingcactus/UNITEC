@@ -114,10 +114,7 @@
 			$this->initRender();
 
 			//Revisar.
-			return html_entity_decode
-			(
-				$this->getOwnerDocumentOf( $this->tag )->saveHTML( $this->tag )
-			);
+			return $this->getOwnerDocumentOf( $this->tag )->saveHTML( $this->tag );
 		}
 		public function setTag( $tagObject )
 		{

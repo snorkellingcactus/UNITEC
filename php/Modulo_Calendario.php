@@ -107,21 +107,15 @@
 				{
 					$evtAct=$eventos[$i];
 
-					$descripcion=htmlentities
+					$descripcion=getTraduccion
 					(
-						getTraduccion
-						(
-							$evtAct['DescripcionID'],
-							$_SESSION['lang']
-						)
+						$evtAct['DescripcionID'],
+						$_SESSION['lang']
 					);
-					$nombre=htmlentities
+					$nombre=getTraduccion
 					(
-						getTraduccion
-						(
-							$evtAct['NombreID'],
-							$_SESSION['lang']
-						)
+						$evtAct['NombreID'],
+						$_SESSION['lang']
 					);
 
 					$fecha=DateTime::createFromFormat('Y-m-d H:i:s' , $evtAct['Tiempo']);

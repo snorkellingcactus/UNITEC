@@ -1,4 +1,4 @@
-<!DOCTYPE HTML >
+<!DOCTYPE html>
 <?php
 //error_reporting(E_ALL & ~E_DEPRECATED & ~E_STRICT );
 //Si todavía no se inicio sesion, se inicia.
@@ -180,7 +180,7 @@ if($_SESSION['lab']!==false)
 
 				$include=new DOMInclude();
 
-				if(isset($_SESSION['adminID']))
+				if( isset($_SESSION['adminID']) )
 				{
 					include_once $_SERVER['DOCUMENT_ROOT'] . '/php/edicion/FormCliInc.php';
 

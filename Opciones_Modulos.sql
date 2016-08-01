@@ -35,7 +35,7 @@ INSERT INTO `Contenidos` () VALUES();
 
 INSERT INTO Traducciones ( `ContenidoID` , `LenguajeID` , `Texto` )
 
-SELECT ID, 1 , "Elementos M&aacute;ximos"
+SELECT ID, 1 , "Elementos mÃ¡ximos"
 FROM Contenidos
 WHERE 1
 ORDER BY ID DESC

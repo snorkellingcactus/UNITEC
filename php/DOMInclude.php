@@ -23,6 +23,8 @@
 					
 			$limit=getValFromNombreID( 'limit' , $this->opcGrpID , $this->opcSetsID );
 
+
+
 			if( $this->isLimited() && is_array( $limit ) && $limit[0]!=='0' )
 			{
 				$this->setLimit( $limit[0] );

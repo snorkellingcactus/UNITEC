@@ -415,7 +415,32 @@
 			'
 		);
 	}
-	function getLabTagTreeLoop($labID , &$array , $arrayLen)
+	function getLabNameTreeLoop( $labID , &$array , $arrayLen )
+	{
+		getLabTreeLoop
+		(
+			$labID ,
+			$array ,
+			$arrayLen ,
+			$field='Laboratorios.NombreID' ,
+			$join=''
+		);
+	}
+	function getLabTagTreeLoop( $labID , &$array , $arrayLen )
+	{
+		getLabTreeLoop
+		(
+			$labID ,
+			$array ,
+			$arrayLen ,
+			$field='Tags.NombreID' ,
+			$join='
+				LEFT OUTER JOIN Tags
+				ON Tags.ID=Laboratorios.TagID
+			'
+		);
+	}
+	function getLabTreeLoop( $labID , &$array , $arrayLen , $field , $join )
 	{
 		global $con;
 
@@ -423,10 +448,8 @@
 		(
 			$lab=$con->query
 			(
-				'	SELECT Laboratorios.PadreID , Tags.NombreID
-					FROM Laboratorios
-					LEFT OUTER JOIN Tags
-					ON Tags.ID=Laboratorios.TagID
+				'	SELECT Laboratorios.PadreID , '.$field.'
+					FROM Laboratorios'.$join.'
 					WHERE Laboratorios.ID='.$labID.'
 					LIMIT 1
 				'
@@ -437,18 +460,35 @@
 		if(isset($lab[0]))
 		{
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/getTraduccion.php';
-			$array[$arrayLen]=getTraduccion($lab[0][1] , $_SESSION['lang']);
+			$array[$arrayLen]=getTraduccion( $lab[0][1] , $_SESSION['lang'] );
 
-			getLabTagTreeLoop($lab[0][0] , $array , ++$arrayLen);
+			getLabTreeLoop( $lab[0][0] , $array , ++$arrayLen , $field , $join );
 		}
 	}
-	function getLabTagTree($labID)
+	function getLabTree( $labID , $tagOrName )
 	{
 		include_once $_SERVER['DOCUMENT_ROOT'] . '/php/getTraduccion.php';
-		$array=array();
-		getLabTagTreeLoop($labID , $array , 0);
 
-		return implode(' , ' , $array);
+		$array=array();
+
+		if( $tagOrName )
+		{
+			getLabTagTreeLoop( $labID , $array , 0 );
+		}
+		else
+		{
+			getLabNameTreeLoop( $labID , $array , 0 );
+		}
+
+		return implode( ' , ' , $array );
+	}
+	function getLabNameTree( $labID )
+	{
+		return getLabTree( $labID , false );
+	}
+	function getLabTagTree( $labID )
+	{
+		return getLabTree( $labID , true );	
 	}
 	function isTagInSQLObj($tagsStr , $sqlObj)
 	{

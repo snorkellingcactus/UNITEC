@@ -29,7 +29,7 @@
 		public function setTag($tag)
 		{
 			//Condición para que funcione con Requirer.
-			if($this->tagName!==false)
+			if( $this->tagName!==false )
 			{
 				$this->parent=$tag;
 

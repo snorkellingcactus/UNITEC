@@ -19,6 +19,15 @@
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/conexion.php';
 			global $con;
 
+			if( isset( $_SESSION['adminID'] ) )
+			{			
+				$filter_visible='';
+			}
+			else
+			{
+				$filter_visible=' AND Visible = 1 ';
+			}
+
 			$recLst=getPriorizados
 			(
 				fetch_all
@@ -32,7 +41,7 @@
 							LEFT OUTER JOIN Laboratorios
 							ON Laboratorios.ID='.$_SESSION['lab'].'
 							WHERE TagsTarget.TagID=Laboratorios.TagID
-						'
+						'.$filter_visible
 					),
 					MYSQLI_ASSOC
 				)
@@ -46,7 +55,7 @@
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/DOMTagContainer.php';
 
 			$i=0;
-			while(isset($recLst[$i]))
+			while( isset( $recLst[$i] ) )
 			{
 				$imgAct=& $recLst[$i];
 				

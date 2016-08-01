@@ -20,19 +20,18 @@
 			parent::renderChilds($tag);
 
 			$hdoc=new DOMDocument('1.0' , 'UTF-8');
-			$hdoc->loadHTML('<?xml encoding="UTF-8">' .'<div id="domtohtml">'.$this->innerXML.'</div>');
+			$hdoc->loadHTML( '<?xml encoding="UTF-8">' .'<div id="domtohtml">'.$this->innerXML.'</div>' , LIBXML_COMPACT );
 
 			$childs=$hdoc->getElementById('domtohtml')->childNodes;
 			$childsLen=$childs->length;
+
+			$owner=$this->getOwnerDocumentOf( $this->getTag() );
 
 			for($i=0;$i<$childsLen;$i++)
 			{
 				$this->getTag()->appendChild
 				(
-					$this->getOwnerDocumentOf
-					(
-						$this->getTag()
-					)->importNode
+					$owner->importNode
 					(
 						$childs->item($i) ,
 						true

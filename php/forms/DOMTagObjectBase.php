@@ -1,7 +1,6 @@
 <?php
 	class DOMTagObjectBase
 	{
-		public $tag;
 
 		function __construct()
 		{

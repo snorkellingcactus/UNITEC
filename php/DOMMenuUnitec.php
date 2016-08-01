@@ -110,13 +110,10 @@
 
 					$opc=new DOMMenuOpc
 					(
-						htmlentities
+						getTraduccion
 						(
-							getTraduccion
-							(
-								$opcion['ContenidoID'],
-								$_SESSION['lang']
-							)
+							$opcion['ContenidoID'],
+							$_SESSION['lang']
 						)
 					);
 

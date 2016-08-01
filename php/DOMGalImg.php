@@ -71,10 +71,7 @@
 				(
 					$this->p->setTagValue
 					(
-						htmlentities
-						(
-							$this->titulo
-						)
+						$this->titulo
 					)
 				)->setUrl
 				(
@@ -84,22 +81,16 @@
 					$this->img->setAttribute
 					(
 						'src',
-						htmlentities
-						(
-							$this->src
-						)
+						$this->src
 					)->setAttribute
 					(
 						'alt',
-						htmlentities
-						(
-							$this->alt
-						)
+						$this->alt
 					)
 				)
 			);
 
-			return parent::renderChilds($tag);
+			return parent::renderChilds( $tag );
 		}
 
 		public function setActionCheckBox($actionCheckBox)

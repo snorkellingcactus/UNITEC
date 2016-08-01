@@ -36,7 +36,7 @@
 				(
 					getLabUrl
 					(
-						$child['Texto']
+						getTraduccion($child['NombreID'] , $_SESSION['lang'])
 					)
 				);
 			}

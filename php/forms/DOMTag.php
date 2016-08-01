@@ -29,7 +29,7 @@
 			}
 			if(isset($args[1]))
 			{
-				$this->setTagValue($args[1]);
+				$this->setTagValue( $args[1] );
 			}
 		}
 		public function setTag($tag)
@@ -43,7 +43,10 @@
 			{
 				$this->tag->appendChild
 				(
-					$this->getOwnerDocumentOf($this->parent->getTag())->createTextNode($this->tagValue)
+					$this->getOwnerDocumentOf($this->parent->getTag())->createTextNode
+					(
+						$this->tagValue
+					)
 				);
 			}
 

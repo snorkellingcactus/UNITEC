@@ -14,12 +14,8 @@
 				(
 					$con->query
 					(
-						'	SELECT Laboratorios.ID, Laboratorios.PadreID, Laboratorios.Color, Laboratorios.Enlace, Laboratorios.NombreID, Traducciones.Texto
+						'	SELECT Laboratorios.ID, Laboratorios.PadreID, Laboratorios.Color, Laboratorios.Enlace, Laboratorios.NombreID
 							FROM Laboratorios
-							LEFT OUTER JOIN Tags
-							ON Tags.ID = Laboratorios.TagID
-							LEFT OUTER JOIN Traducciones
-							ON Traducciones.ContenidoID=Tags.NombreID
 							WHERE Laboratorios.PadreID='.$labs[$i]['ID']
 					),
 					MYSQLI_ASSOC
@@ -27,7 +23,7 @@
 
 				if( isset( $childs[0] ) )
 				{
-					$this->arbolLabs($childs , $organigrama , $con , $padreID);
+					$this->arbolLabs( $childs , $organigrama , $con , $padreID);
 				}
 
 				++$i;
@@ -65,12 +61,8 @@
 				(
 					$con->query
 					(
-						'	SELECT Laboratorios.ID, Laboratorios.PadreID, Laboratorios.Color, Laboratorios.Enlace, Laboratorios.NombreID, Traducciones.Texto
+						'	SELECT Laboratorios.ID, Laboratorios.PadreID, Laboratorios.Color, Laboratorios.Enlace, Laboratorios.NombreID
 							FROM Laboratorios
-							LEFT OUTER JOIN Tags
-							ON Tags.ID = Laboratorios.TagID
-							LEFT OUTER JOIN Traducciones
-							ON Traducciones.ContenidoID=Tags.NombreID
 							WHERE Laboratorios.ID='.$_SESSION['lab'].'
 							LIMIT 1
 						'

@@ -76,12 +76,12 @@
 					'/galeria/'						.
 					$fecha->format( 'Y-m-d' )		.
 					'/'								.
-					urlencode
+					str_replace
 					(
-						str_replace
+						['%2F' , '%3F' , '%2C'],
+						'',
+						urlencode
 						(
-							'/' ,
-							' ' ,
 							$titulo
 						)
 					)								.

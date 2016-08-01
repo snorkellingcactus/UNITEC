@@ -21,7 +21,7 @@
 
 			$labs=array();
 
-			getLabTagTreeLoop
+			getLabNameTreeLoop
 			(
 				$_SESSION['lab'],
 				$labs,
@@ -84,7 +84,7 @@
 			return new DOMTag
 			(
 				'span',
-				htmlentities(' > ')
+				' > '
 			);
 		}
 	}

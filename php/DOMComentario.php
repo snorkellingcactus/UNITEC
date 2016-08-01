@@ -161,7 +161,7 @@
 						sprintf
 						(
 							gettext('En respuesta a %s'),
-							htmlentities( $this->remitente )
+							$this->remitente
 						)
 					)
 				);
@@ -181,21 +181,15 @@
 			(
 				$this->pContenido->setTagValue
 				(
-					htmlentities
-					(
-						$this->contenido
-					)
+					$this->contenido
 				)
 			);
 
 			$this->spanNombre->setTagValue
 			(
-				htmlentities
+				utf8_decode //Ya que es un simple campo SQL, no se trata de una traducción.
 				(
-					utf8_decode //Ya que es un simple campo SQL, no se trata de una traducción.
-					(
-						$this->nombre
-					)
+					$this->nombre
 				)
 			);
 

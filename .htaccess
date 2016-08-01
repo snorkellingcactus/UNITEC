@@ -10,12 +10,12 @@ RewriteRule (.*)[/]?galeria[/]+?(.*) $1imagenes.php$2 [DPI]
 RewriteRule (.*)[/]?novedades/(.*) $1novedades.php/$2
 
 RewriteCond %{REQUEST_URI}  !^(.*)img/(.*)$
-RewriteRule (.*)([0-9]{4}-[0-9]+-[0-9]+)/(.*)-([0-9]+)(.*) $1&date=$2&title=$3&vRecID=$4$5 [NC,DPI]
+RewriteRule (.*)([0-9]{4}-[0-9]+-[0-9]+)/(.*)-([0-9]+)(.*) $1&date=$2&title=$3&vRecID=$4$5 [NC]
 
 RewriteCond %{REQUEST_URI}  !^(.*)img/(.*)$
 RewriteRule (.*)espacios/([^/]*)/?(.*) $1$3&lab=$2 [NC,DPI]
 
-RewriteRule ^(.*)&(.*)$	/$1?$2 [L,QSA]
+RewriteRule ^(.*)&(.*)$	/$1?$2 [QSA]
 
 
 

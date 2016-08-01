@@ -116,10 +116,7 @@
 				$h2=new DOMTag
 				(
 					'h2',
-					htmlentities
-					(
-						$this->titulo
-					)
+					$this->titulo
 				);
 
 				$this->appendChild

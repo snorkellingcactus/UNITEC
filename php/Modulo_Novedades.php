@@ -3,6 +3,12 @@
 
 		class Modulo_Novedades extends DOMInclude
 		{
+			function calcLimit()
+			{
+				parent::calcLimit();
+
+				return $this;
+			}
 			function renderChilds(&$tag)
 			{
 				$this->addToAttribute('class' , 'novedades');
@@ -25,8 +31,8 @@
 								LEFT OUTER JOIN Laboratorios
 								ON Laboratorios.ID='.$_SESSION['lab'].'
 								WHERE TagsTarget.TagID=Laboratorios.TagID'.
-								$this->getFilterVisible().$this->getFilterLimit().
-								' ORDER BY Fecha DESC'
+								$this->getFilterVisible().
+								' ORDER BY Fecha DESC'.$this->getFilterLimit()
 						),
 						MYSQLI_ASSOC
 					)
@@ -74,14 +80,15 @@
 						{
 							$novedadHTML->setDescripcion
 							(
-								substr
+								mb_substr //http://stackoverflow.com/a/15138120
 								(
 									convert_html_to_text
 									(
 										$descTrim
 									),
 									0,
-									500
+									500,
+									'utf-8'
 								)
 							);
 						}
@@ -131,13 +138,14 @@
 								$novedadHTML->fecha
 							).
 							'/'.
-							urlencode
+							str_replace
 							(
-								str_replace
+								['%2F' , '%3F' , '%2C'],
+								'',
+								urlencode
 								(
-									'/',
-									' ',
 									$novedadHTML->titulo
+										
 								)
 							).
 							'-'.

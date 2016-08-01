@@ -24,6 +24,15 @@
 
 			$mainNov=false;
 
+			if( isset( $_SESSION['adminID'] ) )
+			{			
+				$filter_visible='';
+			}
+			else
+			{
+				$filter_visible=' AND Novedades.Visible = 1 ';
+			}
+
 			if(isset($_GET['vRecID']))
 			{
 				$vRecID=intVal($_GET['vRecID']);
@@ -38,7 +47,8 @@
 							ON TagsTarget.GrupoID=Novedades.TagsGrpID
 							LEFT OUTER JOIN Laboratorios
 							ON Laboratorios.ID='.$_SESSION['lab'].'
-							WHERE TagsTarget.TagID=Laboratorios.TagID
+							WHERE TagsTarget.TagID=Laboratorios.TagID '.
+							$filter_visible.'
 							ORDER BY Fecha DESC
 							LIMIT 1
 						';
@@ -46,7 +56,7 @@
 
 			$mainNov=fetch_all
 			(
-				$con->query($queryStr),
+				$con->query( $queryStr ),
 				MYSQLI_ASSOC
 			)[0];
 
@@ -74,7 +84,8 @@
 							WHERE NToTag1.ID=Novedades.ID
 							AND NToTag1.TagID=NToTag2.TagID
 							AND NToTag2.ID='.$mainNov['ID'].'
-							AND Novedades.ID!='.$mainNov['ID'].'
+							AND Novedades.ID!='.$mainNov['ID'].
+							$filter_visible.'
 							ORDER BY NToTag1.ID
 							LIMIT 5
 						'
@@ -157,20 +168,20 @@
 							getLabName()						.
 							'/novedades/'						.
 							$fechaYmd							.
-							'/'									.
-							urlencode
+							'/'.
+							str_replace
 							(
-								str_replace
+								['%2F' , '%3F' , '%2C'],
+								'',
+								urlencode
 								(
-									'/' ,
-									' ' ,
 									getTraduccion
 									(
 										$nov['TituloID'] ,
 										$_SESSION['lang']
 									)
 								)
-							)									.
+							).
 							'-'									.
 							$nov['ID']
 						)
@@ -180,9 +191,9 @@
 				++$i;
 			}
 
-			$this->appendChild($visorHTML->html);
+			$this->appendChild( $visorHTML->html );
 
-			if($i)
+			if( $i )
 			{
 				$sugeridas->addToAttribute('class' , 'sugeridas')->addToAttribute('class' ,'novedades');
 				$sugeridas->col=['lg'=>10 , 'md'=>10 , 'sm'=>10 , 'xs'=>10];

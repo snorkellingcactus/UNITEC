@@ -54,7 +54,7 @@
 
 			$selected=$this->addRec($rec);
 
-			if($selected)
+			if( $selected )
 			{
 				$this->setTitulo
 				(

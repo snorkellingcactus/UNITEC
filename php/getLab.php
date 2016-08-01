@@ -92,7 +92,7 @@
 			return false;
 		}
 	}
-	function getLabByTag($tag)
+	function getLabByTag( $tag )
 	{
 		include_once($_SERVER['DOCUMENT_ROOT'] . '/php/conexion.php');
 		global $con;
@@ -114,27 +114,11 @@
 			MYSQLI_ASSOC
 		)[0][0];
 	}
-	function getLabByName($name)
+	function getLabByName( $name )
 	{
 		include_once $_SERVER['DOCUMENT_ROOT'] . '/php/conexion.php';
 		global $con;
-/*
-		echo '<pre>';
-		print_r
-		(
-			htmlentities
-			(
-			'	SELECT Laboratorios.ID
-				FROM Laboratorios
-				LEFT OUTER JOIN Traducciones
-				ON Traducciones.Texto="'.addslashes(htmlentities(trim($name))).'"
-				WHERE Traducciones.ContenidoID=Laboratorios.NombreID
-				LIMIT 1
-			'
-			)
-		);
-		echo '</pre>';
-*/
+
 		return fetch_all
 		(
 			$con->query
@@ -142,10 +126,8 @@
 				'	SELECT Laboratorios.ID
 					FROM Laboratorios
 					LEFT OUTER JOIN Traducciones
-					ON Traducciones.Texto="'.addslashes(htmlentities(trim($name))).'"
-					LEFT OUTER JOIN Tags
-                	ON Tags.ID=Laboratorios.TagID
-					WHERE Traducciones.ContenidoID=Tags.NombreID
+					ON Traducciones.Texto="'.utf8_encode(addslashes(rawurldecode(trim($name)))).'"
+					WHERE Traducciones.ContenidoID=Laboratorios.NombreID
 					LIMIT 1
 				'
 			),
@@ -368,6 +350,6 @@
 			$lang=getLangCode();
 		}
 
-		return 'http://'.$_SERVER['SERVER_NAME'].'/'.$lang.'/espacios/'.$lName;
+		return 'http://'.$_SERVER['SERVER_NAME'].'/'.$lang.'/espacios/'.urlencode($lName);
 	}
 ?>
