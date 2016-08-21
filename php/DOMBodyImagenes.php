@@ -59,36 +59,32 @@
 			{
 				$imgAct=& $recLst[$i];
 				
-				if
+				$visorHTML->add
 				(
-					$visorHTML->add
-					(
-						$imgAct['ID'] ,
-						$imgAct['AltID'] ,
-						$imgAct['TituloID'] ,
-						$imgAct['Fecha']
-					)
-				)
-				{
-					$selected=$imgAct['TituloID'];
-				};
+					$imgAct['ID'] ,
+					$imgAct['AltID'] ,
+					$imgAct['TituloID'] ,
+					$imgAct['Fecha']
+				);
 				
 				++$i;
 			}
 
-			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/Arbol_Comentarios.php';
-			
-			$comentarios=new Arbol_Comentarios( $selected );
-
 			$this->appendChild
 			(
 				$visorHTML->html
-			)->appendChild
+			);
+
+			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/Arbol_Comentarios.php';
+			
+			$comentarios=new Arbol_Comentarios($imgAct['TituloID']);
+			
+			$this->appendChild
 			(
 				$comentarios->render()
 			);
 
-			return parent::renderChilds( $tag );
+			return parent::renderChilds($tag);
 		}
 	}
 ?>

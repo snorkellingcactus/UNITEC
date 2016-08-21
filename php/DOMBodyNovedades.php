@@ -164,7 +164,11 @@
 						)->setAttribute	//Revisar . Código en común con VisorImagenes, DOMMenuOpc, Modulo_Novedades , Modulo_Imagenes
 						(
 							'href',
-							getLabUrl(getLabName()).
+							$link=
+							'/'									.
+							getLangCode()						.
+							'/espacios/'						.
+							getLabName()						.
 							'/novedades/'						.
 							$fechaYmd							.
 							'/'.

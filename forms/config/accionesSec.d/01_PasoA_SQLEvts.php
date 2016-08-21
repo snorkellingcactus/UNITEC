@@ -75,13 +75,8 @@
 			if( $session->hasLabel('Contenido') )
 			{
 				include_once	$_SERVER['DOCUMENT_ROOT'] . '/php/splitInlineCssToFile.php';
-				$content=splitInlineCssToFile
-				(
-					$session->getLabel( 'Contenido' ) ,
-					$nSec->ContenidoID
-				);
 
-				if($action & FormActions::FORM_ACTIONS_EDIT)
+				if( $action & FormActions::FORM_ACTIONS_EDIT )
 				{
 					$nSec->ContenidoID=fetch_all
 					(
@@ -93,15 +88,6 @@
 						),
 						MYSQLI_NUM
 					)[0][0];
-
-					include_once	$_SERVER['DOCUMENT_ROOT'] . '/php/updTraduccion.php';
-
-					updTraduccion
-					(
-						$content,
-						$nSec->ContenidoID ,
-						$_SESSION['lang']
-					);
 				}
 				else
 				{
@@ -109,7 +95,7 @@
 
 					$descripcion=nTraduccion
 					(
-						$content ,
+						'' ,
 						$_SESSION['lang']
 					);
 
@@ -117,6 +103,19 @@
 
 					$nSec->ContenidoID=$descripcion->ContenidoID;
 				}
+
+				include_once	$_SERVER['DOCUMENT_ROOT'] . '/php/updTraduccion.php';
+
+				updTraduccion
+				(
+					splitInlineCssToFile
+					(
+						$session->getLabel( 'Contenido' ) ,
+						$nSec->ContenidoID
+					),
+					$nSec->ContenidoID ,
+					$_SESSION['lang']
+				);
 			}
 
 			if($session->hasLabel('Modulo') || $session->hasLabel('Contenido'))
@@ -323,7 +322,7 @@
 				//Nombre del fichero en accionesMenu.d
 				$router->redirectToStepName( '00_PasoA.class.php' );
 			}
-			//$router->gotoOrigin();
+			$router->gotoOrigin();
 		}
 	}
 	//$formLab=new FormCliRecv('Sec');

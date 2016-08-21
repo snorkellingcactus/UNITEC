@@ -1,2 +1,6 @@
 .gitignore
 untitled.*
+css/generated/*.css
+img/miniaturas/galeria/*.png
+img/miniaturas/visor/*.png
+img/logos/*.png

@@ -28,7 +28,7 @@
 				(
 					getTraduccion
 					(
-						fetch_all
+						$content_id=fetch_all
 						(
 							$this->con->query
 							(
@@ -40,7 +40,7 @@
 						)[0][0],
 						$_SESSION['lang']
 					),
-					$this->labels->getContentID()
+					$content_id
 				)
 			);
 		}

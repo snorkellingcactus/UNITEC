@@ -79,6 +79,7 @@
 					$nNov->DescripcionID,
 					$_SESSION['lang']
 				);
+
 				updTraduccion
 				(
 					$session->getLabel( 'Titulo' ) ,
@@ -111,7 +112,7 @@
 			
 			//return $afectados;
 
-			//$router->gotoOrigin();
+			$router->gotoOrigin();
 		}
 	}
 ?>

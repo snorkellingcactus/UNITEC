@@ -15,6 +15,7 @@
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/Novedad.php';
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/nTag.php';
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/nTraduccion.php';
+			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/updTraduccion.php';
 
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/FormSession.php';
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/conexion.php';
@@ -66,7 +67,7 @@
 				(
 					nTraduccion
 					(
-						$session->getLabel( 'Contenido' ),
+						'',
 						$_SESSION['lang']
 					),
 					'DescripcionID',
@@ -84,6 +85,18 @@
 				);
 
 				$nov->insSQL();
+
+				//Minify.
+				updTraduccion
+				(
+					splitInlineCssToFile
+					(
+						$session->getLabel( 'Contenido' ) ,
+						$nov->ContenidoID
+					)
+					$nov->ContenidoID ,
+					$_SESSION['lang']
+				);
 
 				if(!$session->emptyTrimLabel( 'Tags' ))
 				{

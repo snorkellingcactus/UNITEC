@@ -501,11 +501,11 @@
 	}
 	function getLabNameTree( $labID )
 	{
-		return getLabTree( $labID , false );
+		return getLabTree( $labID , 2 );
 	}
 	function getLabTagTree( $labID )
 	{
-		return getLabTree( $labID , true );	
+		return getLabTree( $labID , 1 );	
 	}
 	function isTagInSQLObj($tagsStr , $sqlObj)
 	{

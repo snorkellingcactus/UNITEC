@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <?php
 //error_reporting(E_ALL & ~E_DEPRECATED & ~E_STRICT );
 //Si todavía no se inicio sesion, se inicia.

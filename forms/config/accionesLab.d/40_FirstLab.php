@@ -33,8 +33,8 @@
 
 				$router=$this->getRouter();
 
-				echo '<pre>Is '.$router->getActionUrl().' IN '.$_SERVER['HTTP_REFERER'].' ?';
-				echo '</pre>';
+				//echo '<pre>Is '.$router->getActionUrl().' IN '.$_SERVER['HTTP_REFERER'].' ?';
+				//echo '</pre>';
 
 				if
 				(
