@@ -27,7 +27,7 @@
 
 		return $con->insert_id;
 	}
-	function getTagName($id)
+	function getTagName( $id )
 	{
 		include_once $_SERVER['DOCUMENT_ROOT'] . '/php/getTraduccion.php';
 		global $con;
@@ -42,10 +42,11 @@
 			),
 			MYSQLI_NUM
 		);
-		if(isset($nameID[0][0]))
+		if( isset( $nameID[0][0] ) )
 		{
-			return getTraduccion($nameID[0][0] , $_SESSION['lang']);
+			return getTraduccion( $nameID[0][0] , $_SESSION['lang'] );
 		}
+
 		return false;
 	}
 	function getDuplicatedTag($name)
@@ -246,19 +247,19 @@
 		$tags=sepTagsStr($tags);
 
 		$t=0;
-		while(isset($tags[$t]))
+		while( isset( $tags[$t] ) )
 		{
-			$tagName=filterTagName($tags[$t]);
-			if(!empty($tagName))
+			$tagName=filterTagName( $tags[$t] );
+			if( !empty($tagName) )
 			{
-				nTagTarget($tagName , $grupoID);
+				nTagTarget( $tagName , $grupoID );
 			}
 
 			++$t;
 		}
 	}
 
-	function getTagsNamesID($tagsGrpID)
+	function getTagsNamesID( $tagsGrpID )
 	{
 		global $con;
 
@@ -281,15 +282,15 @@
 	{
 		//Revisar. Optimizar.
 		$t=0;
-		while(isset($tagsNamesID[$t][0]))
+		while( isset( $tagsNamesID[$t][0] ) )
 		{
-			$tagsNamesID[$t]=getTraduccion($tagsNamesID[$t][0] , $_SESSION['lang']);
+			$tagsNamesID[$t]=getTraduccion( $tagsNamesID[$t][0] , $_SESSION['lang'] );
 			++$t;
 		}
 
 		return $tagsNamesID;
 	}
-	function getTagsNamesStr($tagsGrpID)
+	function getTagsNamesStr( $tagsGrpID )
 	{
 		return tagsNamesIDToTrad
 		(
@@ -299,9 +300,9 @@
 	function getTagsStr($tagsGrpID)
 	{
 		
-		$tagsNamesID=getTagsNamesStr($tagsGrpID);
+		$tagsNamesID=getTagsNamesStr( $tagsGrpID );
 
-		sort($tagsNamesID);
+		sort( $tagsNamesID );
 
 		return implode
 		(
@@ -426,6 +427,17 @@
 			$join=''
 		);
 	}
+	function getLabIDTreeLoop( $labID , &$array , $arrayLen )
+	{
+		getLabTreeLoop
+		(
+			$labID ,
+			$array ,
+			$arrayLen ,
+			$field='Laboratorios.ID' ,
+			$join=''
+		);
+	}
 	function getLabTagTreeLoop( $labID , &$array , $arrayLen )
 	{
 		getLabTreeLoop
@@ -465,19 +477,24 @@
 			getLabTreeLoop( $lab[0][0] , $array , ++$arrayLen , $field , $join );
 		}
 	}
-	function getLabTree( $labID , $tagOrName )
+	function getLabTree( $labID , $which )
 	{
 		include_once $_SERVER['DOCUMENT_ROOT'] . '/php/getTraduccion.php';
 
 		$array=array();
 
-		if( $tagOrName )
+		//Revisar. A futuro crear una clase de utilidad con constantes para tag, name o ID.
+		if( $which === 1 )
 		{
-			getLabTagTreeLoop( $labID , $array , 0 );
+			getLabTagTreeLoop	( $labID , $array , 0 );
 		}
-		else
+		if( $which === 2 )
 		{
-			getLabNameTreeLoop( $labID , $array , 0 );
+			getLabNameTreeLoop	( $labID , $array , 0 );
+		}
+		if( $which === 3 )
+		{
+			getLabIDTreeLoop	( $labID , $array , 0 );
 		}
 
 		return implode( ' , ' , $array );
@@ -494,17 +511,14 @@
 	{
 		$tags=$sqlObj->getTagsGrp();
 
-		if(!isset($tags[0][0]))
+		if( !isset( $tags[0][0] ) )
 		{
 			return false;
 		}
 		return strpos
 		(
 			$tagsStr,
-			getTagsStr
-			(
-				$tags[0][0]
-			)
+			getTagsStr( $tags[0][0] )
 		) !== false;
 	}
 	function hasSQLObjPriority($sqlObj , $lab)

@@ -38,8 +38,6 @@
 				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/getTraduccion.php';
 
 				$form=$this->getAdminForm();
-
-				$lName=getLabName();
 				$i=0;
 
 				while( isset( $imgLst[$i] ) )
@@ -78,9 +76,7 @@
 						)->setUrl
 						(
 							//Revisar . Código en común con VisorImagenes, DOMMenuOpc, Modulo_Novedades , Modulo_Imagenes
-							getLangCode()				.
-							'/espacios/'				.
-							$lName						.
+							getLabUrl( getLabName() )	.
 							'/galeria/'					.
 							$fecha->format('Y-m-d')		.
 							'/'							.
@@ -144,7 +140,6 @@
 					)
 				);
 			}
-
 			return parent::renderChilds( $tag );
 		}
 	}

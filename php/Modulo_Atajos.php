@@ -3,7 +3,7 @@
 
 	class Modulo_Atajos extends DOMInclude
 	{
-		function renderChilds(&$tag)
+		function renderChilds( &$tag )
 		{
 			$accessKeys=[ '[Alt]' ];
 
@@ -178,8 +178,7 @@
 			(
 				$tabla
 			);
-
-			return parent::renderChilds($tag);
+			return parent::renderChilds( $tag );
 		}
 	}
 ?>

@@ -12,7 +12,7 @@
 
 			$this->setAbsoluteUrls( false );
 
-			//$this->addToAttribute('style' , 'visibility:hidden');
+			$this->addToAttribute('style' , 'visibility:hidden');
 		}
 		function setAbsoluteUrls( $absoluteUrls )
 		{
@@ -28,25 +28,44 @@
 		}
 		function renderChilds(&$tag)
 		{
-
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/DOMLangUnitec.php';
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/OffText.php';
-
-			$this->navLang=new DOMLangUnitec();
-
-			$container=new DOMTag('span');
-			$idioma=new DOMTag( 'h1' , gettext( 'Idioma ' ) );
+			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/FormInput.php';
+			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/edicion/FormCliBase.php';
+			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/FormActions.php';
 
 			$this->span->appendChild
 			(
-				$idioma->addToAttribute( 'class' , 'hidden-xs' )
+				new DOMTag( 'h1' , gettext( 'Fuente ' ) )
+			)->appendChild
+			(
+				( new FormCliBase( 'accionesFuente' ) )->appendChild
+				(
+					( new FormInput( 'image' ) )->setAttribute( 'alt' , gettext( 'Aumentar' ) )->setValue('A+')->setName( FormActions::FORM_ACTION_PREFIX.FormActions::FORM_ACTIONS_NEW )
+				)->appendChild
+				(
+					( new FormInput( 'image' ) )->setAttribute( 'alt' ,  gettext( 'Disminuir' ) )->setValue('A-')->setName( FormActions::FORM_ACTION_PREFIX.FormActions::FORM_ACTIONS_DELETE )
+				)
+			);
+
+			$this->navLang=new DOMLangUnitec();
+
+			$this->span->appendChild
+			(
+				(
+					new DOMTag( 'h1' , gettext( 'Idioma ' ) )
+				)->addToAttribute( 'class' , 'hidden-xs' )
 			)->appendChild
 			(
 				$this->navLang->appendChild
 				(
 					$this->navLang->addToAttribute( 'class' , 'MenuNavLang' )->applyCurrentLang
 					(
-						$container->setAttribute( 'class' , 'DOMLangTxtContainer' )->appendChild
+						( new DOMTag('span') )->setAttribute
+						(
+							'class',
+							'DOMLangTxtContainer'
+						)->appendChild
 						(
 							new OffText( 'span' , gettext( ' Seleccionado : ' ) )
 						)
@@ -60,12 +79,12 @@
 
 
 			$condVisible='';
-			if(!isset($_SESSION['adminID']))
+			if( !isset( $_SESSION['adminID'] ) )
 			{
 				$condVisible='AND Menu.Visible=1';
 			}
 
-			if($_SESSION['lab']!==false)
+			if( $_SESSION['lab']!==false )
 			{
 				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/reordena.php';
 				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/conexion.php';
@@ -108,16 +127,17 @@
 				{
 					$opcion=$opciones[$s];
 
-					$opc=new DOMMenuOpc
-					(
-						getTraduccion
+					$opc=
 						(
-							$opcion['ContenidoID'],
-							$_SESSION['lang']
-						)
-					);
-
-					$opc->setAbsoluteUrl( $this->absoluteUrls );
+							new DOMMenuOpc
+							(
+								getTraduccion
+								(
+									$opcion['ContenidoID'],
+									$_SESSION['lang']
+								)
+							)
+						)->setAbsoluteUrl( $this->absoluteUrls );
 
 					if( isset( $opcion['TituloID'] ) )
 					{
@@ -189,7 +209,7 @@
 				}
 			}
 
-			if(isset($_SESSION['adminID']))
+			if( isset( $_SESSION['adminID'] ) )
 			{
 				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/edicion/FormCliSecAddMenu.php';
 				
@@ -199,27 +219,15 @@
 				);
 			}
 
-			$logo=new DOMTag('div');
-			$logo->addToAttribute('class' , 'hidden-xs');
-
-			$link=new DOMLink();
-
-			$link->addToAttribute('class' , 'focuseable');
-
-			$h2=new DOMTag('span');
-
-			$img=new DOMTag('img');
-
 			$labName=getLabName();
-			$labNameContainer=new DOMTag( getLabNameContainer() , $labName );
 
 			$this->span->appendChild
 			(
-				$logo->appendChild
+				( new DOMTag('div') )->addToAttribute('class' , 'hidden-xs')->appendChild
 				(
-					$h2->appendChild
+					( new DOMTag('span') )->appendChild
 					(
-						$link->setUrl
+						( new DOMLink() )->addToAttribute('class' , 'focuseable')->setUrl
 						(
 							'#header'
 						)->setAttribute
@@ -228,7 +236,7 @@
 							'i'
 						)->appendChild
 						(
-							$img->setAttribute
+							( new DOMTag('img') )->setAttribute
 							(
 								'width',
 								'80'
@@ -243,7 +251,9 @@
 							)
 						)->appendChild
 						(
-							$labNameContainer->setAttribute( 'class' , 'LabNameContainer' )
+							(
+								new DOMTag( getLabNameContainer() , $labName )
+							)->setAttribute( 'class' , 'LabNameContainer' )
 						)
 					)
 				)

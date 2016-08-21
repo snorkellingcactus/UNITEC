@@ -42,7 +42,6 @@
 				)
 			);
 
-
 			$this->solveDeps
 			(
 				fetch_all

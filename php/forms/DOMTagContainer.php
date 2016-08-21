@@ -28,9 +28,14 @@
 		{
 			
 		}
-		public function appendChild($tagObject)
+
+		public function appendChild( $tagObject )
 		{
-			$this->hijos[$this->hijosLen]= $tagObject;
+			return $this->appendChildRef( $tagObject );
+		}
+		public function appendChildRef( &$tagObject )
+		{
+			$this->hijos[$this->hijosLen]= &$tagObject;
 
 			++$this->hijosLen;
 
@@ -39,7 +44,6 @@
 		public function DOMAppendChild($child)
 		{
 			//echo '<pre>'.get_class($this).'::DOMAppendChild('.get_class($child).')';
-			
 
 			if(!$this->delegatedParent===false && $this->delegateAppend)
 			{
@@ -62,7 +66,7 @@
 		}
 		public function renderChild( &$child )
 		{
-			if($this->delegatedParent!==false && $this->delegateRender)
+			if( $this->delegatedParent!==false && $this->delegateRender )
 			{
 				$child->renderChilds
 				(

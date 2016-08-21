@@ -29,7 +29,7 @@
 				++$i;
 			}
 		}
-		function renderChilds(&$tag)
+		function renderChilds( &$tag )
 		{
 			//$formLab=new FormCliLab('accionesLab');
 			if(isset($_SESSION['adminID']))

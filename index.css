@@ -33,6 +33,7 @@ a
 	font-weight:900;
 	text-decoration:none;
 	transition:color 0.5s;
+	word-wrap: break-word
 }
 body a[href="#header"]
 {

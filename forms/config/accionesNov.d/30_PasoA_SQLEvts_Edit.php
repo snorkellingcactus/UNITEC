@@ -71,9 +71,11 @@
 					['ID']
 				);
 
+				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/splitInlineCssToFile.php';
+				
 				updTraduccion
 				(
-					$session->getLabel( 'Contenido' ),
+					splitInlineCssToFile( $session->getLabel( 'Contenido' ) , $nNov->TituloID ),
 					$nNov->DescripcionID,
 					$_SESSION['lang']
 				);
@@ -109,7 +111,7 @@
 			
 			//return $afectados;
 
-			$router->gotoOrigin();
+			//$router->gotoOrigin();
 		}
 	}
 ?>

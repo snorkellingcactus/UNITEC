@@ -74,6 +74,13 @@
 
 			if( $session->hasLabel('Contenido') )
 			{
+				include_once	$_SERVER['DOCUMENT_ROOT'] . '/php/splitInlineCssToFile.php';
+				$content=splitInlineCssToFile
+				(
+					$session->getLabel( 'Contenido' ) ,
+					$nSec->ContenidoID
+				);
+
 				if($action & FormActions::FORM_ACTIONS_EDIT)
 				{
 					$nSec->ContenidoID=fetch_all
@@ -91,7 +98,7 @@
 
 					updTraduccion
 					(
-						$session->getLabel( 'Contenido' ) ,
+						$content,
 						$nSec->ContenidoID ,
 						$_SESSION['lang']
 					);
@@ -102,7 +109,7 @@
 
 					$descripcion=nTraduccion
 					(
-						$session->getLabel( 'Contenido' ) ,
+						$content ,
 						$_SESSION['lang']
 					);
 
@@ -316,7 +323,7 @@
 				//Nombre del fichero en accionesMenu.d
 				$router->redirectToStepName( '00_PasoA.class.php' );
 			}
-			$router->gotoOrigin();
+			//$router->gotoOrigin();
 		}
 	}
 	//$formLab=new FormCliRecv('Sec');

@@ -51,11 +51,15 @@
 				) + 1
 			);
 		}
-		public function appendNodo($nodo)
+		public function appendNodo( $nodo )
+		{
+			$nodo->col=&$this->nodosCol;
+
+			return $this->appendNodoRef( $nodo );
+		}
+		public function appendNodoRef( &$nodo )
 		{
 			++$this->nodos;
-
-			$nodo->col=&$this->nodosCol;
 
 			if( $this->threeMult() )
 			{
@@ -64,20 +68,20 @@
 				$this->resetNodosCol();
 			}
 			
-			return parent::appendChild($nodo);
+			return parent::appendChildRef( $nodo );
 		}
-		public function renderChilds(&$tag)
+		public function renderChilds( &$tag )
 		{
 			if( ! $this->threeMult() )
 			{
 				$this->calcCols( $this->nodos -1 );
 			}
 			
-			return parent::renderChilds($tag);
+			return parent::renderChilds( $tag );
 		}
-		public function renderChild(&$child)
+		public function renderChild( &$child )
 		{
-			return parent::renderChild($child);
+			return parent::renderChild( $child );
 		}
 	}
 ?>

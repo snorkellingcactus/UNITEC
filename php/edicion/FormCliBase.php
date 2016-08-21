@@ -4,7 +4,6 @@
 	class FormCliBase extends FormBase
 	{
 		public $raiz;
-		public $actionUrl;
 		public $buttons;
 		public $formDirName;
 		
@@ -13,7 +12,7 @@
 			parent::__construct();
 
 			$this->raiz='http://'. $_SERVER['SERVER_NAME'].'/';
-			$this->actionUrl=$this->raiz . 'php/accion.php';
+			$this->setAction( $this->raiz . 'php/accion.php' );
 			$this->formDirName=$formDirName;
 
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/VariablePost.php';
@@ -31,14 +30,6 @@
 			)->appendChild
 			(
 				$this->varLab
-			)->setAttribute
-			(
-				'method',
-				'POST'
-			)->setAttribute
-			(
-				'action',
-				$this->actionUrl
 			);
 
 			return parent::renderChilds($tag);

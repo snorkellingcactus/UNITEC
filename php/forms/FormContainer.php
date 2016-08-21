@@ -1,4 +1,5 @@
 <?php
+/*
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/DOMTag.php';
 	class FormContainer extends DOMTag
 	{
@@ -7,4 +8,5 @@
 			parent::__construct();
 		}
 	}
+*/
 ?>

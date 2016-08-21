@@ -39,7 +39,7 @@
 
 			parent::setTag($tag);
 
-			if($this->tagValue!==false)
+			if( $this->tagValue!==false )
 			{
 				$this->tag->appendChild
 				(

@@ -110,7 +110,7 @@
 			{
 				$tipo=substr( $str , $pos+1 );
 
-				switch($tipo)
+				switch( $tipo )
 				{
 					case 'css':
 						return $this->includeCSS($str);
@@ -124,7 +124,7 @@
 		{
 			return $this->appendLink
 			(
-				new StylesHeet($src)
+				new StylesHeet( $src )
 			);
 		}
 		function includeJS($src)
@@ -142,7 +142,7 @@
 		}
 		function appendLink( $link )
 		{
-			$this->css->appendChild($link);
+			$this->css->appendChild( $link );
 
 			return $this;
 		}
@@ -177,14 +177,14 @@
 
 			$this->head->appendChild
 			(
-				$this->newMeta()->setCharset($this->charset)
+				$this->newMeta()->setCharset( $this->charset )
 			);
 
 			if($this->description!==false)
 			{
 				$this->head->appendChild
 				(
-					$this->newMeta()->setName('description')->setContent($this->description)
+					$this->newMeta()->setName('description')->setContent( $this->description )
 				);
 			}
 
@@ -223,7 +223,8 @@
 					new DOMTag( 'title' , $this->title )
 				);
 			}
-			return parent::renderChilds($tag);
+
+			parent::renderChilds($tag);
 		}
 	}
 ?>

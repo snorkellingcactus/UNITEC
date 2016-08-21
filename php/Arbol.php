@@ -7,53 +7,82 @@
 		public $dep;
 		public $mLen;
 
-		function __construct($actions)
+		function __construct( $actions )
 		{
 			$this->actions=$actions;
 
-			$this->main=array();
 			$this->dep=array();
-			$this->mLen=0;
+			$this->main=array( 0 );
+			$this->mLen=&$this->main[0];
+
 		}
-		public function solveDeps($sqlArray , $parentKey , $childsKey , $parentVal)
+		protected function onNewNode()
 		{
-			$dep=&$this->dep;
-			$main=&$this->main;
+			return $this->actions->onNewNode();
+		}
+		protected function onNewChild($child , $newNode)
+		{
+			return $this->actions->onNewChild( $child ,  $newNode );
+		}
+		protected function onHasChilds( $newChild , $newNode )
+		{
+			return $this->actions->onHasChilds( $newChild , $newNode );
+		}
 
-			$i=0;
-			while(isset($sqlArray[$i]))
+		protected function solve_new_node( $index , $data )
+		{
+			$this->dep[ $index ]=[ $data , [ 0 ] ];
+		}
+		protected function solve_set_data( $index , $data )
+		{
+			$this->dep[ $index ][ 0 ]=$data;
+		}
+		protected function solve_add_child( $parent_index , $child_index )
+		{
+			$childs=& $this->dep[ $parent_index ][1];
+
+			$count=&$childs[0];
+
+			$childs[ ++$count ]=$child_index;
+		}
+		protected function solve_has_node( $index )
+		{
+			return isset( $this->dep[ $index ] );
+		}
+		protected function solve_process_child( $data , $node_index , $parent_index , $main_index )
+		{
+			if( $this->solve_has_node( $node_index ) )
 			{
-				$fila=$sqlArray[$i];
+				$this->solve_set_data( $node_index , $data );
+			}
+			else
+			{
+				$this->solve_new_node( $node_index ,  $data );
+			}
 
-				$padreID=$fila[$parentKey];
-				$hijoID=$fila[$childsKey];
-
-				//echo '<pre>Padre : '.$padreID.' ; Contenido : '.$conID.'</pre>';
-				if(!isset($dep[$hijoID]))
+			if( $parent_index == $main_index )
+			{
+				$this->main[ ++$this->mLen ] = $node_index;
+			}
+			else
+			{
+				if( !$this->solve_has_node( $parent_index ) )
 				{
-					$dep[$hijoID]=[$fila,[]];
-				}
-				else
-				{
-					$dep[$hijoID][0]=$fila;
+					$this->solve_new_node( $parent_index ,  NULL );
 				}
 
-				if($padreID==$parentVal)
-				{
-					$main[$this->mLen]=$hijoID;
-					++$this->mLen;
-				}
-				else
-				{
-					if(!isset($dep[$padreID]))
-					{
-						$dep[$padreID]=[false,[$hijoID]];
-					}
+				$this->solve_add_child( $parent_index , $node_index );
+			}
+		}
+		public function solveDeps( $sqlArray , $parentKey , $childKey , $main_index )
+		{
+			$i=0;
+			while( isset( $sqlArray[$i] ) )
+			{
+				$data=$sqlArray[$i];
 
-					$depAct=& $dep[$padreID][1];
+				$this->solve_process_child( $data , $data[$childKey] , $data[$parentKey] , $main_index );
 
-					$depAct[count($depAct)]=$hijoID;
-				}
 
 				++$i;
 			}
@@ -62,31 +91,32 @@
 		}
 		public function render()
 		{
-			return $this->renderLoop($this->main , $this->dep);
+			return $this->renderLoop( $this->main , $this->dep );
 		}
-		public function renderLoop($main , $dep)
+		public function renderLoop( &$main , &$dep )
 		{
-			$newNode=$this->actions->onNewNode();
+			$newNode=$this->onNewNode();
 
-			$i=0;
-			while( isset( $main[$i] ) )
+			$max= &$main[0];
+
+			for( $i = 1 ; $i <= $max ; ++$i )
 			{
-				$ramas=& $dep[$main[$i]];
+				$ramas=& $dep[ $main[ $i ] ];
 
-				$newChild=$this->actions->onNewChild( $ramas[0] , $newNode );
+				$newChild=$this->onNewChild( $ramas[0] , $newNode );
 
-				$childs=$ramas[1];
+				$childs=&$ramas[1];
 
-				if( isset( $childs[0] ) )
+				if( $childs[0] !== 0 )
 				{
-					$this->actions->onHasChilds
+					$this->onHasChilds
 					(
 						$newChild,
-						$this->renderLoop($childs , $dep)
+						$this->renderLoop( $childs , $dep )
 					);
 				}
-				++$i;
 			}
+
 			return $newNode;
 		}
 	}

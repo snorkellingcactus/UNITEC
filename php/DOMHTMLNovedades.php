@@ -12,7 +12,7 @@
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/DOMBodyNovedades.php';
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/getLab.php';
 
-			$this->body=new DOMBodyNovedades();
+			$this->body=new DOMBodyNovedades( $this );
 
 			$this->head_include
 			(

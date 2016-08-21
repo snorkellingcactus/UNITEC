@@ -20,22 +20,27 @@
 			parent::autocomplete();
 
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/getTraduccion.php';
+			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/revertSplitInlineCss.php';
 				
 			$this->labels->contenido->input->setValue
 			(
-				getTraduccion
+				revertSplitInlineCss
 				(
-					fetch_all
+					getTraduccion
 					(
-						$this->con->query
+						fetch_all
 						(
-							'	SELECT ContenidoID
-								FROM Secciones
-								WHERE ID='.$this->labels->getContentID()
-						),
-						MYSQLI_NUM
-					)[0][0],
-					$_SESSION['lang']
+							$this->con->query
+							(
+								'	SELECT ContenidoID
+									FROM Secciones
+									WHERE ID='.$this->labels->getContentID()
+							),
+							MYSQLI_NUM
+						)[0][0],
+						$_SESSION['lang']
+					),
+					$this->labels->getContentID()
 				)
 			);
 		}

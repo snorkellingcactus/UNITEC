@@ -3,28 +3,60 @@
 
 	class DOMLabLi extends DOMLabBase
 	{
-		public $div;
-		public $titulo;
-		public $link;
-		public $name;
-		public $target;
+		private $div;
+		private $titulo;
+		private $link;
+		private $name;
+		private $color;
+		private $target;
 		private $mainTitle;
 
-		function __construct($name , $color)
+
+		function __construct()
 		{
 			parent::__construct('li');
 
-			$this->name=$name;
+			$args=func_get_args();
 
-			$this->div=new DOMTag( 'div' );
-			$this->titulo=new DOMTag( 'span' );
-
-			$this->div->addToAttribute('class' , 'organicaja')->addToAttribute('class' ,$color);
+			if( isset( $args[0] ) )
+			{
+				$this->setName( $args[0] );
+			}
 
 			$this->appendChild
 			(
-				$this->div->appendChild($this->titulo)
+				$this->div=
+				(
+					new DOMTag( 'div' )
+				)->addToAttribute('class' , 'organicaja')->appendChild
+				(
+					$this->titulo=new DOMTag
+					(
+						'span'
+					)
+				)
 			);
+
+			if( isset( $args[1] ) )
+			{
+				$this->setColor( $args[1] );
+			}
+		}
+		function setName( $name )
+		{
+			$this->name=$name;
+
+			return $this;
+		}
+		function getName()
+		{
+			return $this->name;
+		}
+		function setColor( $color )
+		{
+			$this->color=$color;
+
+			return $this;
 		}
 		function setTarget($target)
 		{
@@ -40,30 +72,32 @@
 		}
 		function renderChilds(&$tag)
 		{
-			if(!empty($this->link))
+			//$this->div->addToAttribute( 'class' , $this->color );
+
+			if( !empty( $this->link ) )
 			{
 				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/DOMLink.php';
 
 				$a=new DOMLink();
 
-				$a->addToAttribute('class' , 'focuseable');
+				$a->addToAttribute( 'class' , 'focuseable' );
 
 				if(!empty($this->target))
 				{
-					$a->setAttribute('target' , $this->target);
+					$a->setAttribute( 'target' , $this->target );
 				}
 
 				$this->titulo->appendChild
 				(
-					$a->setName($this->name)->setUrl($this->link)
+					$a->setName( $this->name )->setUrl( $this->link )
 				);
 			}
 			else
 			{
-				$this->titulo->setTagValue($this->name);
+				$this->titulo->setTagValue( $this->name );
 			}
 
-			return parent::renderChilds($tag);
+			return parent::renderChilds( $tag );
 		}
 	}
 ?>

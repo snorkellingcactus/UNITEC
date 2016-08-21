@@ -11,7 +11,7 @@
 
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/ClearFix.php';
 		}
-		function load($contID)
+		function load( $contID )
 		{
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/getTraduccion.php';
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/DOMFragment.php';

@@ -6,7 +6,7 @@
 //error_reporting(E_ALL & ~E_DEPRECATED  & ~E_STRICT);
 
 include_once $_SERVER['DOCUMENT_ROOT'] . '/php/is_session_started.php';
-reload_session( 'lang' , 'adminID' , 'lab' );
+reload_session( 'lang' , 'adminID' , 'lab' , 'FONT_SIZE' );
 
 include_once $_SERVER['DOCUMENT_ROOT'] . '/php/DOMHTMLUIndex.php';
 
@@ -133,7 +133,7 @@ if($_SESSION['lab']!==false)
 			(
 				$con->query
 				(
-					'	SELECT Secciones.ID , Secciones.Visible ,Secciones.PrioridadesGrpID, Secciones.TituloID, Modulos.Archivo, Modulos.OpcGrpID, Modulos.OpcSetsGrpID, Secciones.ContenidoID
+					$jj='	SELECT Secciones.ID , Secciones.Visible ,Secciones.PrioridadesGrpID, Secciones.TituloID, Modulos.Archivo, Modulos.OpcGrpID, Modulos.OpcSetsGrpID, Secciones.ContenidoID
 						FROM Secciones
 						left outer JOIN Modulos
 						ON Modulos.ID = Secciones.ModuloID
@@ -150,12 +150,11 @@ if($_SESSION['lab']!==false)
 		);
 
 		$f=0;
-		//while(isset($includes[$f]) && $f<2)
-		while(isset($includes[$f]))
+		while( isset( $includes[ $f ] ) )
 		{
 			$includeAct=$includes[$f];
 
-			if($includeAct['ContenidoID']!==NULL)
+			if( $includeAct['ContenidoID'] !== NULL )
 			{
 				$include=new DOMContenido();
 
@@ -168,13 +167,19 @@ if($_SESSION['lab']!==false)
 						new FormCliCon($includeAct['ID'] , $f , $includeAct['Visible'])
 					);
 				}
-				
+
+				$f_name='/css/generated/'.$includeAct['ContenidoID'].'.css';
+				if( file_exists( $_SERVER['DOCUMENT_ROOT'] . $f_name ) )
+				{
+					$html->head_include( $f_name );
+				}
+
 				$include->load
 				(
 					$includeAct['ContenidoID']
 				);
 			}
-			if($includeAct['Archivo']!==NULL)
+			if( $includeAct['Archivo'] !== NULL )
 			{
 				global $con;
 

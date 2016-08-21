@@ -7,7 +7,7 @@
 		{
 			parent::__construct();
 		}
-		function renderChilds(&$tag)
+		function renderChilds( &$tag )
 		{
 			include $_SERVER['DOCUMENT_ROOT'] . '/php/DOMCal.php';
 			$cal=new DOMCal();
@@ -294,8 +294,7 @@
 					$desc	
 				)
 			);
-
-			return parent::renderChilds($tag);
+			return parent::renderChilds( $tag );
 		}
 	}
 ?>

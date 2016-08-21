@@ -1,8 +1,6 @@
 <?php
 
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/VisorHTMLBase.php';
-	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/ClearFix.php';
-	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/getTraduccion.php';
 
 	class VisorImagenes extends VisorHTMLBase
 	{
@@ -13,6 +11,10 @@
 		function __construct()
 		{
 			parent::__construct();
+
+			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/forms/ClearFix.php';
+			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/getTraduccion.php';
+			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/getLab.php';
 
 			$this->titulo=new DOMTag('h2');
 			$this->div=new DOMTag('div');
@@ -69,10 +71,7 @@
 				$a->setAttribute
 				(
 					'href',
-					'/'								.
-					substr( getenv('LANG'), 0 , 2 )	.
-					'/espacios/'					.
-					$this->lName					.
+					getLabUrl($this->lName)			.
 					'/galeria/'						.
 					$fecha->format( 'Y-m-d' )		.
 					'/'								.

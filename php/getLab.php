@@ -70,7 +70,7 @@
 		(
 			$con->query
 			(
-				'	SELECT Laboratorios.ID
+				'	SELECT Laboratorios.ID, Laboratorios.NombreID
 					FROM Laboratorios
 					WHERE PadreID is NULL
 					LIMIT 1

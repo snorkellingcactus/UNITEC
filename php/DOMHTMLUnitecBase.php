@@ -55,6 +55,19 @@
 					$logo
 				);
 			}
+			if( !isset( $_SESSION['FONT_SIZE'] ) )
+			{
+				echo '<pre style="float:right">';
+				print_r($_SESSION);
+				echo '</pre>';
+				$_SESSION['FONT_SIZE']=14;
+			}
+		}
+		function renderChilds( &$tag )
+		{
+			$this->includeCSS( '/font_size.css.php' );
+
+			return parent::renderChilds( $tag );
 		}
 	}
 ?>

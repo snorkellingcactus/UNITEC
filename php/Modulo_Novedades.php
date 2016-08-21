@@ -9,7 +9,7 @@
 
 				return $this;
 			}
-			function renderChilds(&$tag)
+			function renderChilds( &$tag )
 			{
 				$this->addToAttribute('class' , 'novedades');
 
@@ -127,10 +127,7 @@
 						)->setFullUrl
 						(
 							//Revisar . Código en común con VisorImagenes, DOMMenuOpc, Modulo_Novedades , Modulo_Imagenes
-							'/'.
-							getLangCode().
-							'/espacios/'.
-							getLabName().
+							getLabUrl(getLabName()).
 							'/novedades/'.
 							strftime
 							(
@@ -194,7 +191,7 @@
 					}
 				}
 
-				return parent::renderChilds($tag);
+				return parent::renderChilds( $tag );
 			}
 		}
 ?>

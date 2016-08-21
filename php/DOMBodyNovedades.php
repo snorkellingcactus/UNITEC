@@ -3,13 +3,10 @@
 
 	class DOMBodyNovedades extends DOMBody
 	{
-		function __construct()
+		function __construct( $mainHTML )
 		{
 			parent::__construct();
-		}
 		
-		function renderChilds(&$tag)
-		{
 			$rw=1;
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/conexion.php';
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/SQL_Obj.php';
@@ -109,6 +106,12 @@
 			);
 
 			$selected=$mainNov['TituloID'];
+
+			$f_name='/css/generated/'.$selected.'.css';
+			if( file_exists($_SERVER['DOCUMENT_ROOT'].$f_name ) )
+			{
+				$mainHTML->includeCSS( $f_name );
+			}
 			
 			$sugeridas=new DOMTag('section');
 
@@ -161,11 +164,7 @@
 						)->setAttribute	//Revisar . Código en común con VisorImagenes, DOMMenuOpc, Modulo_Novedades , Modulo_Imagenes
 						(
 							'href',
-							$link=
-							'/'									.
-							getLangCode()						.
-							'/espacios/'						.
-							getLabName()						.
+							getLabUrl(getLabName()).
 							'/novedades/'						.
 							$fechaYmd							.
 							'/'.
@@ -209,7 +208,6 @@
 			(
 				$comentarios->render()
 			);
-			return parent::renderChilds($tag);
 		}
 	}
 ?>

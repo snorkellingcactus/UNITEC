@@ -51,7 +51,7 @@
 
 			$grupoID=$grupoID->getTagsGrp();
 
-			if(isset($grupoID[0][0]))
+			if( isset( $grupoID[0][0] ) )
 			{
 				$this->labels->labelTags->input->setValue
 				(
@@ -77,12 +77,18 @@
 				)
 			);
 
+			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/revertSplitInlineCss.php';
+
 			$this->labels->descripcion->input->setValue
 			(
-				getTraduccion
+				revertSplitInlineCss
 				(
-					$novedad['DescripcionID'] ,
-					$_SESSION['lang']
+					getTraduccion
+					(
+						$novedad['DescripcionID'] ,
+						$_SESSION['lang']
+					),
+					$novedad['TituloID']
 				)
 			);
 

@@ -111,24 +111,6 @@
 			++$k;
 		}
 
-
-/*
-		if(isset($priorizados[$prioridades[0]] ['SeccionID']))
-		{
-			echo '<pre>Prioridades';
-			print_r
-			(
-				$prioridades
-			);
-			echo '</pre>';
-			echo '<pre>Coleccion';
-			print_r
-			(
-				$coleccion
-			);
-			echo '</pre>';
-		}
-*/
 		return $coleccion;
 	}
 	function reordena($lugar , $sqlObj , $condicion , $discProp, $valProp ,$edita)
