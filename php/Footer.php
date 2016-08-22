@@ -7,25 +7,27 @@
 
 		function __construct()
 		{
-			parent::__construct('footer');
+			parent::__construct( 'footer' );
 
-			$this->addToAttribute('class' , 'Footer')->addToAttribute('class' ,'header');
-
-
+			//Revisar. Por favor, que feo el footer header.
+			$this
+			->addToAttribute( 'class' , 'Footer' )
+			->addToAttribute( 'class' ,'header' )
+			->setAttribute( 'id' , 'footer' );
 
 			parent::appendChild
 			(
 				$this->container=new DOMTag('div')
 			);
 
-			$this->container->col=['xs'=>12 , 'sm'=>12 , 'md'=>12 , 'lg'=>12];
+			$this->container->col=[ 'xs'=>12 , 'sm'=>12 , 'md'=>12 , 'lg'=>12 ];
 			$this->container->addToAttribute('class' , 'FooterMainContainer');
 
-			$this->col=['xs'=>12 , 'sm'=>10 , 'md'=>10 , 'lg'=>10];
+			$this->col=[ 'xs'=>12 , 'sm'=>10 , 'md'=>10 , 'lg'=>10 ];
 		}
-		function appendChild($child)
+		function appendChild( $child )
 		{
-			$this->container->appendChild($child);
+			$this->container->appendChild( $child );
 
 			return $this;
 		}

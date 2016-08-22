@@ -76,7 +76,7 @@
 				)
 			)->appendChild
 			(
-				$this->nav->appendChild( $this->ul )->setAttribute( 'class' , 'MenuNavMain' )
+				$this->nav->appendChild( $this->ul )->setAttribute( 'class' , 'MenuNavMain' )->setAttribute( 'id', 'navigation' )
 			);
 
 

@@ -82,9 +82,7 @@
 
 			if(! ( $infoIsEmpty && $socialIsEmpty ) )
 			{
-				$divInfo=new FooterInfo();
-
-				$divInfo
+				$divInfo=( new FooterInfo() )
 				->setFacebook	( $lab['Facebook']		)
 				->setTwitter	( $lab['Twitter']		)
 				->setDireccion	( $lab['DireccionID']	)
@@ -130,35 +128,27 @@
 				);
 			}
 
+			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/DOMLink.php';
+
 			$this->appendChild
 			(
 				new Script( '/footer.js' )
-			);
-
-			$this->appendChild
-			(
-				$div=new DOMTag('div')
-			);
-
-			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/DOMLink.php';
-
-			$div->setAttribute('class' , 'end')->appendChild
-			(
-				new DOMTag( 'small' , 'Powered by Bootstrap' )
 			)->appendChild
 			(
-				$admin=new DOMLink()
-			)->appendChild
-			(
-				$sitemap=new DOMLink( 'Mapa del Sitio' )
-			)->appendChild
-			(
-				$sobre=new DOMLink( 'Sobre esta web' )
+				( new DOMTag('div') )->setAttribute('class' , 'end')->appendChild
+				(
+					new DOMTag( 'small' , 'Powered by Bootstrap' )
+				)->appendChild
+				(
+					( new DOMLink( ) )->setName( 'Zona Administrativa' )->setUrl( '/inicio_sesion.php' )
+				)->appendChild
+				(
+					( new DOMLink( ) )->setName( 'Mapa del Sitio' )->setUrl( '#' )
+				)->appendChild
+				(
+					( new DOMLink( ) )->setName( 'Sobre esta Web' )->setUrl( '#' )
+				)
 			);
-
-			$admin->setName( 'Zona Administrativa' )->setUrl( '/inicio_sesion.php' );
-			$sitemap->setName( 'Mapa del Sitio' )->setUrl( '#' );
-			$sobre->setName( 'Sobre esta Web' )->setUrl( '#' );
 
 			return parent::renderChilds($tag);
 		}

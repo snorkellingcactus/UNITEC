@@ -62,6 +62,18 @@ if($_SESSION['lab']!==false)
 
 	global $con;
 
+	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/DOMLink.php';
+	$html->appendChild
+	(
+		( new DOMLink() )
+		->setName( 'Saltar al pie' )
+		->setUrl( '#footer' )
+		->setAccessKey( 'P' )
+		->setAttribute( 'tabindex' , 3 )
+		->setAttribute( 'id' , 'skip-to-footer' )
+		->setCol( [ 'xs' => 12 , 'sm' => 10 , 'md' => 10 , 'lg' => 10 ] )
+	);
+
 	$s=0;
 	while(isset($secciones[$s]))
 	{
@@ -69,20 +81,20 @@ if($_SESSION['lab']!==false)
 
 		$section=new DOMSeccion();
 
-		if(isset($_SESSION['adminID']))
+		if( isset( $_SESSION['adminID'] ) )
 		{
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/edicion/FormCliColSec.php';
 
 			$section->appendForm
 			(
-				new FormCliColSec($seccionAct['ID'] , $s , $seccionAct['Visible'])
+				new FormCliColSec( $seccionAct['ID'] , $s , $seccionAct['Visible'] )
 			);
 		}
 
 		//El ID de la sección debe estar codificado de la misma forma que en el ancla de la opción del menú.
 		$section->setHTMLID
 		(
-			urlencode
+			$htmlid=urlencode
 			(
 				getTraduccion
 				(
@@ -91,6 +103,22 @@ if($_SESSION['lab']!==false)
 				)
 			)
 		);
+
+		include_once $_SERVER['DOCUMENT_ROOT'] . '/php/DOMLink.php';
+
+		if( $s === 0 )
+		{
+			$html->appendChild
+			(
+				( new DOMLink() )
+				->setName( 'Saltar al contenido' )
+				->setUrl( '#'.$htmlid )
+				->setAccessKey( 'O' )
+				->setAttribute( 'tabindex' , 2 )
+				->setAttribute( 'id' , 'skip-to-content' )
+				->setCol( [ 'xs' => 12 , 'sm' => 10 , 'md' => 10 , 'lg' => 10 ] )
+			);
+		}
 
 		if( $seccionAct['AtajoID'] !== NULL )
 		{

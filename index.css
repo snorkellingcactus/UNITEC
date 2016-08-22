@@ -262,3 +262,23 @@ section .target, section:target
 		margin-right:0px;
 	}
 }
+#skip-to-content, #skip-to-navigation, #skip-to-footer
+{
+	z-index: 50;
+	position: absolute;
+	top:-1000;
+	right:-1000;
+	display: block;
+	text-align: center;
+	font-family: monospace;
+	transition: color 0.5s;
+	transition: background-color 0.5s;
+}
+#skip-to-content:focus, #skip-to-navigation:focus, #skip-to-footer:focus
+{
+	z-index: 50;
+	top:0;
+	right:0;
+	color:black;
+	background-color: white
+}

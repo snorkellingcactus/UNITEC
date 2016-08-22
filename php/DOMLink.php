@@ -9,51 +9,47 @@
 		public $offsetSuffix;
 		public $accessKey;
 
-		function __construct()
+		function __construct( )
 		{
 			parent::__construct('a');
 
-			$this->setOffsetSuffix('')->setOpensNewWindow( false )->setAccessKey(false);
+			$this->setOffsetSuffix('')->setOpensNewWindow( false )->setAccessKey( false );
 		}
-		function setUrl($url)
+		function setUrl( $url )
 		{
 			$this->url=$url;
 
 			return $this;
 		}
-		function setName($name)
+		function setName( $name )
 		{
 			$this->name=$name;
 
 			return $this;
 		}
-		function setOpensNewWindow($opensNewWindow)
+		function setOpensNewWindow( $opensNewWindow )
 		{
 			$this->opensNewWindow=$opensNewWindow;
 
 			return $this;
 		}
-		function setOffsetSuffix($offsetSuffix)
+		function setOffsetSuffix( $offsetSuffix )
 		{
 			$this->offsetSuffix=$offsetSuffix;
 
 			return $this;
 		}
-		function setAccessKey($accessKey)
+		function setAccessKey( $accessKey )
 		{
 			$this->accessKey=$accessKey;
 
 			return $this;
 		}
-		function renderChilds(&$tag)
+		function renderChilds( &$tag )
 		{
-			$this->setAttribute
-			(
-				'href',
-				$this->url
-			);
+			$this->setAttribute( 'href', $this->url );
 
-			if(!empty($this->accessKey))
+			if( !empty( $this->accessKey ) )
 			{
 				include_once $_SERVER['DOCUMENT_ROOT'] . '/php/ShortcutSpan.php';
 
@@ -77,30 +73,30 @@
 				);
 			}
 
-			if($this->accessKey!==false)
+			if( $this->accessKey !== false )
 			{
-				$this->setAttribute('accesskey' , $this->accessKey);
+				$this->setAttribute( 'accesskey' , $this->accessKey );
 			}
-			if($this->opensNewWindow!==false)
+
+			if( $this->opensNewWindow !== false )
 			{
-				$span=new DOMTag
+				$this->setAttribute( 'target' , '_blank' )->appendChild
 				(
-					'span',
-					sprintf
 					(
-						gettext('%s en una nueva ventana.'),
-						$this->offsetSuffix
-					)
-				);
-				$span->addToAttribute('class' , 'offscreen');
-
-				$this->setAttribute('target' , '_blank')->appendChild
-				(
-					$span
+						new DOMTag
+						(
+							'span',
+							sprintf
+							(
+								gettext( '%s en una nueva ventana.' ),
+								$this->offsetSuffix
+							)
+						)
+					)->addToAttribute( 'class' , 'offscreen' )
 				);
 			}
 
-			return parent::renderChilds($tag);
+			return parent::renderChilds( $tag );
 		}
 	}
 ?>

@@ -342,7 +342,7 @@ body .shortcutSpan
 	height: 2em;
 	word-wrap:  break-word;
 }
-.zoom-minus:hover, .zoom-more:hover, .zoom-reset:hover
+.zoom-minus:hover, .zoom-minus:focus, .zoom-more:hover,.zoom-more:focus ,.zoom-reset:hover ,.zoom-reset:focus
 {
 	color:white;
 }
