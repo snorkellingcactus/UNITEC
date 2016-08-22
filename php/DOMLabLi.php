@@ -11,6 +11,8 @@
 		private $target;
 		private $mainTitle;
 
+		private $priority;
+
 
 		function __construct()
 		{

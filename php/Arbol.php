@@ -14,7 +14,6 @@
 			$this->dep=array();
 			$this->main=array( 0 );
 			$this->mLen=&$this->main[0];
-
 		}
 		protected function onNewNode()
 		{
@@ -28,7 +27,6 @@
 		{
 			return $this->actions->onHasChilds( $newChild , $newNode );
 		}
-
 		protected function solve_new_node( $index , $data )
 		{
 			$this->dep[ $index ]=[ $data , [ 0 ] ];

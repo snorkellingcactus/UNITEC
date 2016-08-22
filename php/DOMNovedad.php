@@ -14,7 +14,7 @@
 
 		function __construct()
 		{
-			parent::__construct('div');
+			parent::__construct('article');
 
 			$this->addToAttribute('class' , 'novedad');
 			$this->col=['xs'=>12 , 'sm'=>12 , 'md'=>12 , 'lg'=>12];

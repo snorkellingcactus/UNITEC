@@ -51,7 +51,7 @@
 			}
 			else
 			{
-				$this->setFecha(new DateTime('now' , new DateTimeZone('America/Argentina/Buenos_Aires')));
+				$this->setFecha(new DateTime('now' , new DateTimeZone( getTimeZone( ) )));
 			}
 		}
 
@@ -197,7 +197,7 @@
 
 			$diaReal=$this->fecha->format('d');
 
-			$fechaInicio=new DateTime('now' , new DateTimeZone('America/Argentina/Buenos_Aires'));
+			$fechaInicio=new DateTime('now' , new DateTimeZone( getTimeZone( ) ));
 			$fechaInicio->setTimestamp($fechaDest->getTimestamp());
 
 			$this->calcFilas($fechaInicio);
@@ -249,15 +249,10 @@
 			}
 
 			//Revisar. Internacionalizar. Buscar new DateTime en otros archivos y reemplazar.
-			$fecha=new DateTime('now' , new DateTimeZone('America/Argentina/Buenos_Aires'));
-			$fecha->setDate
-			(
-				$nAno,
-				$nMes,
-				1
-			);
+			$fecha=new DateTime( 'now' , new DateTimeZone( getTimeZone( ) ) );
+			$fecha->setDate( $nAno , $nMes , 1 );
 
-			$mesReal=$this->fecha->format('m');
+			$mesReal=$this->fecha->format( 'm' );
 
 			$table=new DOMTable();
 			$thead=new DOMThead();

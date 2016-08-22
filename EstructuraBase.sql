@@ -140,6 +140,7 @@ CREATE TABLE IF NOT EXISTS `Lenguajes` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `Nombre` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
   `Pais` varchar(5) COLLATE utf8_unicode_ci NOT NULL,
+  `TimeZone` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`ID`)
 );
 

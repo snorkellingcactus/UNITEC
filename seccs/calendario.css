@@ -1,4 +1,4 @@
-.calendario table,.calendario h3{font-family:georgia}
+.calendario table,.calendario .no-events-title{font-family:georgia}
 .calendario table p{margin:0px}
 .calendario table
 {
@@ -65,9 +65,10 @@
 	/*color:dimgray;*/
 	margin:0px;
 }
-.calendario .desc h3
+.calendario .desc .no-events-title
 {
 	margin:10px 0px 10px 10px;
+	font-size: 1.5em
 }
 .calendario .desc p{margin-left:2%;}
 .calendario thead

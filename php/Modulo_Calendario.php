@@ -44,7 +44,7 @@
 			{
 				$mes=intVal(getdate()['mon']);
 
-				$mesAct=new DateTime('now' , new DateTimeZone('America/Argentina/Buenos_Aires'));
+				$mesAct=new DateTime('now' , new DateTimeZone(getTimeZone( )));
 				$mesAct->setDate
 				(
 					$cal->fecha->format('Y'),
@@ -52,7 +52,7 @@
 					1
 				);
 
-				$mesSig=new DateTime('now' , new DateTimeZone('America/Argentina/Buenos_Aires'));
+				$mesSig=new DateTime('now' , new DateTimeZone(getTimeZone( )));
 				$mesSig->setTimestamp($mesAct->getTimestamp());
 				$mesSig->add(new DateInterval('P1M'));
 
@@ -187,11 +187,13 @@
 			{
 				$desc->appendChild
 				(
-					new DOMTag
 					(
-						'h3',
-						gettext('Ningún evento este mes.')
-					)
+						new DOMTag
+						(
+							'p',
+							gettext('Ningún evento este mes.')
+						)
+					)->addToAttribute( 'class' , 'no-events-title' )
 				);
 			}
 
@@ -254,14 +256,14 @@
 			
 			$this->appendChild
 			(
-				$contenedor->appendChild
+				$contenedor /*:::Rompe la jerarquía de titulos:::->appendChild
 				(
 					new OffText
 					(
 						'h2',
 						gettext('Calendario de eventos')
 					)
-				)->appendChild
+				)*/->appendChild
 				(
 					$calCont->appendChild
 					(

@@ -26,7 +26,7 @@
 	(
 		$con->query
 		(
-			'	SELECT Laboratorios.ID
+			'	SELECT Laboratorios.NombreID
 				FROM Laboratorios
 				WHERE Enlace=1
 			'
@@ -88,8 +88,18 @@
 	{
 		$labRef=& $labsRef[$labs[$i][0]];
 
-		$name=getLabName($labs[$i][0]);
-		$url=getLabUrl($name);
+		$name=$labRef[0]=getTraduccion
+		(
+			$labs[$i][0],
+			$_SESSION['lang']
+		);
+		$url=$labRef[1]='espacios/'.rawurlencode
+		(
+			strtolower
+			(
+				$name
+			)
+		);
 
 		$urlSet->appendChild
 		(
@@ -116,7 +126,7 @@
 		{
 			$li=new DOMLabLi($tables[$j] , 'colorD');
 
-			$labRef[0]=$ulSeccs=new DOMLabUl();
+			$labRef[$j+3]=$ulSeccs=new DOMLabUl();
 
 			$li->appendChild($ulSeccs);
 
@@ -188,6 +198,8 @@
 				++$i;
 				continue;
 			}
+
+			$url=getLabUrl($labsRef[$rec['LabNameID']][0]);
 
 			if(isset($rec['Fecha']))
 			{

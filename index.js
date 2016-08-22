@@ -159,6 +159,49 @@ function stopActive()
 {
 	clearTimeout(window.timerGetActive);
 }
+function arrowsGetSibling( node ,  next_or_prev )
+{
+	if( next_or_prev )
+	{
+		return node.nextElementSibling
+	}
+	
+	return node.previousElementSibling;
+}
+function arrowsActions( event )
+{
+	next_or_prev = undefined;
+
+	switch ( event.keyCode )
+	{
+		//Up
+		case 38:
+			window.console.log( 'Up' );
+
+			next_or_prev=false;
+		break;
+		//Down
+		case 40:
+			window.console.log( 'Down' );
+
+			next_or_prev=true;
+		break;
+	}
+
+	if( next_or_prev !== undefined )
+	{
+		parent=event.target.parentNode;
+
+		sibling=arrowsGetSibling( parent , next_or_prev );
+
+		if( sibling )
+		{
+			event.preventDefault();
+			window.console.log(sibling.nodeName);
+			sibling.getElementsByTagName( 'a' )[0].focus();
+		}
+	}
+}
 function langSwitching(ele)
 {
 	
@@ -172,24 +215,25 @@ function quitFocusOnFirst(event)
 }
 function quitFocusOnLast(event)
 {
-	if(quitFocus(event , false))
+	if( quitFocus( event , false ) )
 	{
 		this.removeEventListener('keydown' , quitFocusOnLast);
 	}
 }
 function quitFocusOnEsc(event)
 {
-	if(event.keyCode===27)
+	if( event.keyCode === 27 )
 	{
 		document.getElementsByClassName('focus')[0].classList.remove('focus');
 
 		this.removeEventListener('keydown' , quitFocusOnEsc);
+		this.removeEventListener('keydown' , arrowsActions );
 		event.target.blur();
 	}
 }
 function quitFocus(event , shift)
 {
-	window.console.log(event);
+	//window.console.log(event);
 	//window.console.log('Captando tecla en primer elemento');
 
 	if(event.keyCode===9)
@@ -202,6 +246,8 @@ function quitFocus(event , shift)
 
 			document.getElementsByClassName('focus')[0].classList.remove('focus');
 			document.body.removeEventListener('keydown' , quitFocusOnEsc);
+
+			document.body.removeEventListener( 'keydown' , arrowsActions );
 		}
 		return 1;
 	}
@@ -217,7 +263,7 @@ function inicializa()
 		'focus',
 		function()
 		{
-			this.parentNode.parentNode.classList.add('focus');
+			this.parentNode.parentNode.classList.add( 'focus' );
 			
 			document.body.addEventListener
 			(
@@ -229,6 +275,11 @@ function inicializa()
 				'keydown',
 				quitFocusOnLast
 			);
+			document.body.addEventListener
+			(
+				'keydown',
+				arrowsActions
+			)
 		}
 	);
 
@@ -249,6 +300,11 @@ function inicializa()
 				'keydown',
 				quitFocusOnFirst
 			);
+			document.body.addEventListener
+			(
+				'keydown',
+				arrowsActions
+			)
 		}
 	);
 }

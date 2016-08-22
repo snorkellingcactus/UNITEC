@@ -58,7 +58,7 @@ function setLangFromID($langID)
 		(
 			$con->query
 			(
-				'	SELECT Pais
+				'	SELECT Lenguajes.Pais
 					FROM Lenguajes
 					WHERE ID='.$langID
 			),
@@ -96,12 +96,12 @@ function detectLang()
 
 	start_session_if_not();
 
-	if(!isset($_SESSION['lang']))
+	if( !isset( $_SESSION['lang'] ) )
 	{
 		//echo '<pre>Creando $_SESSION["lang"] con valor por defecto (1).';echo '</pre>';
 		$_SESSION['lang']=1;
 	}
-	if(isset($_GET['lang']))
+	if( isset( $_GET['lang'] ) )
 	{
 		//echo '<pre>Existe un $_GET["lang"]. Se seteara.';echo '</pre>';
 		setLangFromName
@@ -124,5 +124,31 @@ function detectLang()
 function getLangCode()
 {
 	return substr( getenv( 'LANG' ), 0 , 2 );
+}
+function getTimeZone( )
+{
+	global $con;
+	
+	$args=func_get_args();
+
+	if( isset( $args[0] ) )
+	{
+		$lang_id=$args[0];
+	}
+	else
+	{
+		$lang_id=$_SESSION['lang'];
+	}
+
+	return fetch_all
+	(
+		$con->query
+		(
+			'	SELECT Lenguajes.TimeZone
+				FROM Lenguajes
+				WHERE ID='.$lang_id
+		),
+		MYSQL_NUM
+	)[0][0];
 }
 ?>
