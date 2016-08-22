@@ -4,8 +4,6 @@
 
 	class PasoA extends SrvStepBodyCommon
 	{
-		private $session;
-
 		function onNew()
 		{
 			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/FormSession.php';
@@ -14,23 +12,23 @@
 
 			$session->loadLabels( 'Asunto' , 'Mensaje' , 'Correo');
 
-			//Revisar. Hacer configurable el mail.
-			mail
-			(
-				'snorkellingcactus@gmail.com'		,
-				$session->getLabel( 'Asunto'	)	,
-				$session->getLabel( 'Mensaje'	)	.'
-				Correo del consultante: '			.
-				$session->getLabel( 'Correo' )		,
-				'From: garciazavalanadal@gmail.com'
-			);
+			$session->save();
 
-			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/SrvFormMailSend.php';
+			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/SrvFormMailConfirm.php';
 
 			$this->setLabels
 			(
-				new SrvFormMailSend()
+				new SrvFormMailConfirm()
 			);
+		}
+		function onSetRouter()
+		{
+			$this->setNextStepName
+			(
+				'10_Send.php'
+			);
+
+			parent::onSetRouter();
 		}
 	}
 ?>

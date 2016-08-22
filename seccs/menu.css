@@ -4,7 +4,6 @@
 	/*:::Impide el funcinamiento del selector de lenguaje:::*/
 	/*overflow:hidden;*/
 	color:silver;
-	position:fixed;
 	margin:0;
 	left:0;
 	top:0;
@@ -42,8 +41,15 @@
 {
 	position:relative;
 
+	/*:::Igual que en .zoom y .titulo:::*/
+	color:dimgray;
+
 	/*:::Revert Bootstrap:::*/
 	margin-bottom: 0px;
+}
+.MenuNavLang:hover
+{
+	color:white;
 }
 /*:::Boton Lenguaje:::*/
 .MenuNavLang .FirstLang span
@@ -164,10 +170,17 @@ nav ul
 	{
 		width:100%;
 	}
+	.zoom
+{
+	overflow: hidden;
+	margin-top:10px;
+}
+
 	div.menu
 	{
 		height: 100%;
 		padding-top:30px;
+		position: fixed;
 	}
 	nav.MenuNavMain
 	{
@@ -307,8 +320,33 @@ nav ul
 		margin-left:50%;
 		left:-16px;
 	}
+	h1.titulo, body .MenuNavLang,body .zoom
+	{
+		float:left;
+		margin-left:10px;
+		color:dimgray;
+	}
 }
 body .shortcutSpan
 {
 	text-decoration: underline;
+}
+.zoom .zoom-minus, .zoom .zoom-more, .zoom .zoom-reset
+{
+	background:inherit;
+	color:inherit;
+	padding: 0;
+	border-radius: 3px;
+	transition: color 0.5s;
+	text-align: center;
+	height: 2em;
+	word-wrap:  break-word;
+}
+.zoom-minus:hover, .zoom-more:hover, .zoom-reset:hover
+{
+	color:white;
+}
+.zoom
+{
+	color:dimgray;
 }

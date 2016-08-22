@@ -1,9 +1,9 @@
 <?php
 	include_once $_SERVER['DOCUMENT_ROOT'] . '/php/DOMLabelsCollection.php';
 
-	class LabelsMail extends DOMLabelsCollection
+	class LabelsMailConfirm extends DOMLabelsCollection
 	{
-		function __construct(&$index)
+		function __construct( &$index )
 		{
 			parent::__construct($index);
 
@@ -13,7 +13,10 @@
 			(
 				new MSGBox
 				(
-					gettext('Muchas Gracias. Su consulta fué enviada')
+					gettext
+					(
+						'Muy bien!. Estás a un paso de enviarnos tu mensaje. Si estás seguro de lo que escribiste, hacé clic en continuar.'
+					)
 				)
 			);
 

@@ -28,7 +28,7 @@
 
 			start_session_if_not();
 
-			if(!isset($_SESSION['referer']))
+			if( !isset( $_SESSION['referer'] ) )
 			{
 				$_SESSION['referer']=$_SERVER['HTTP_REFERER'];
 			}
@@ -38,11 +38,11 @@
 			$this->vPressed=false;
 			$this->cPressed=false;
 
-			if(isset($_POST['Continuar']))
+			if( isset( $_POST [ 'Continuar' ] ) )
 			{
 				$this->cPressed=true;
 			}
-			if(isset($_POST['Volver']))
+			if( isset( $_POST [ 'Volver' ] ) )
 			{
 				echo '<pre>Volver';
 
@@ -50,9 +50,9 @@
 				$this->vPressed=true;
 			}
 
-			if(isset($_POST['lab']))
+			if( isset( $_POST[ 'lab' ] ) )
 			{
-				$_SESSION['lab']=$_POST['lab'][0];
+				$_SESSION [ 'lab' ] = $_POST [ 'lab' ][ 0 ];
 			}
 			
 			if(!isset($_SESSION['form']) && isset($_POST['form']))
@@ -83,41 +83,41 @@
 			}
 				
 
-			if(!isset($_SESSION['HISTORY']))
+			if( !isset( $_SESSION[ 'HISTORY' ] ) )
 			{
-				$_SESSION['HISTORY']=[-1];
+				$_SESSION[ 'HISTORY' ]=[ -1 ];
 			}
 
 			$this->historyLen=count($_SESSION['HISTORY']);
 
-			if($this->vPressed)
+			if( $this->vPressed )
 			{
-				if(isset($_SESSION['HISTORY'][$this->historyLen-2]))
+				if( isset( $_SESSION [ 'HISTORY' ][ $this->historyLen-2 ] ) )
 				{
 					$this->redirectToStepN
 					(
-						$_SESSION['HISTORY'][$this->historyLen-2]
+						$_SESSION [ 'HISTORY' ][ $this->historyLen-2 ]
 					);
-				}
+				} 
 				else
 				{
-					$this->gotoOrigin();
+					$this->gotoOrigin ( );
 				}
 			}
 
 
-			$nStep=$desp->getRelIndexN(0);
+			$nStep=$desp->getRelIndexN ( 0 );
 
 
 			$inHistory=array_search
 			(
 				$nStep,
-				$_SESSION['HISTORY']
+				$_SESSION[ 'HISTORY' ]
 			);
 
 			if($inHistory === false)
 			{
-				$_SESSION['HISTORY'][$this->historyLen]=$nStep;
+				$_SESSION[ 'HISTORY' ][ $this->historyLen ]=$nStep;
 			}
 			else
 			{
@@ -125,7 +125,7 @@
 				{
 					unset
 					(
-						$_SESSION['HISTORY'][$i]
+						$_SESSION[ 'HISTORY' ][ $i ]
 					);
 				}
 
@@ -139,10 +139,7 @@
 			);
 			echo '</pre>';
 */
-			$this->invokeStepNumber
-			(
-				$nStep
-			);
+			$this->invokeStepNumber( $nStep );
 		}
 		public function setFormDir($formDir)
 		{

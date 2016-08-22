@@ -36,14 +36,14 @@
 		opacity: 1
 	}
 }
-body input ,body select{font-size:1em;color:black;font-family:monospace;text-align:center}
-body input ,body select, .indicator-invisible
+main input, footer input ,body select{font-size:1em;color:black;font-family:monospace;text-align:center}
+.zoom-minus , .zoom-more, main input, footer input ,body select, .indicator-invisible
 {
 	/*
 		Las medidas height y margin deben ser las mismas que
 		las de los input dentro de .acciones
 	*/
-	/*height:25px;*/
+	height:25px;
 }
 
 .fin{margin:50px 0px 50px 0px;border-bottom:2px solid dimgray;}

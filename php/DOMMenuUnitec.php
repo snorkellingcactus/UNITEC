@@ -36,16 +36,19 @@
 
 			$this->span->appendChild
 			(
-				new DOMTag( 'h1' , gettext( 'Fuente ' ) )
+				( new DOMTag( 'h1' , gettext( 'Fuente ' ) ) )->addToAttribute( 'class' , 'titulo' )
 			)->appendChild
 			(
 				( new FormCliBase( 'accionesFuente' ) )->appendChild
 				(
-					( new FormInput( 'image' ) )->setAttribute( 'alt' , gettext( 'Aumentar' ) )->setValue('A+')->setName( FormActions::FORM_ACTION_PREFIX.FormActions::FORM_ACTIONS_NEW )
+					( new FormInput( 'image' ) )->setAttribute( 'alt' , gettext( 'Aumentar' ) )->setValue('A+')->setName( FormActions::FORM_ACTION_PREFIX.FormActions::FORM_ACTIONS_NEW )->setCol( [ 'xs'=>6 , 'sm'=>6 , 'md'=>6 , 'lg'=>6 ] )->addToAttribute( 'class' , 'zoom-more' )
 				)->appendChild
 				(
-					( new FormInput( 'image' ) )->setAttribute( 'alt' ,  gettext( 'Disminuir' ) )->setValue('A-')->setName( FormActions::FORM_ACTION_PREFIX.FormActions::FORM_ACTIONS_DELETE )
-				)
+					( new FormInput( 'image' ) )->setAttribute( 'alt' ,  gettext( 'Disminuir' ) )->setValue('A-')->setName( FormActions::FORM_ACTION_PREFIX.FormActions::FORM_ACTIONS_DELETE )->setCol( [ 'xs'=>6 , 'sm'=>6 , 'md'=>6 , 'lg'=>6 ] )->addToAttribute( 'class' , 'zoom-minus' )
+				)->appendChild
+				(
+					( new FormInput( 'image' ) )->setAttribute( 'alt' , gettext( 'Reestablecer' ) )->setValue('A')->setName( FormActions::FORM_ACTION_PREFIX.FormActions::FORM_ACTIONS_EDIT )->setCol( [ 'xs'=>12 , 'sm'=>12 , 'md'=>12 , 'lg'=>12 ] )->addToAttribute( 'class' , 'zoom-reset' )
+				)->addToAttribute('class' , 'zoom')
 			);
 
 			$this->navLang=new DOMLangUnitec();
@@ -54,7 +57,7 @@
 			(
 				(
 					new DOMTag( 'h1' , gettext( 'Idioma ' ) )
-				)->addToAttribute( 'class' , 'hidden-xs' )
+				)->addToAttribute( 'class' , 'titulo' )
 			)->appendChild
 			(
 				$this->navLang->appendChild

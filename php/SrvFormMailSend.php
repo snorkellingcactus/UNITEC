@@ -3,11 +3,11 @@
 	
 	class SrvFormMailSend extends SrvStepRepeatedForm
 	{
-		function newLabelsCollection(&$index)
+		function newLabelsCollection ( &$index )
 		{
-			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/LabelsMail.php';
+			include_once $_SERVER['DOCUMENT_ROOT'] . '/php/LabelsMailSend.php';
 			
-			return new LabelsMail($index);
+			return new LabelsMailSend( $index );
 		}
 	}
 ?>

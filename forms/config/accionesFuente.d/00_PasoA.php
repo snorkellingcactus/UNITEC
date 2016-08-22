@@ -6,7 +6,7 @@
 
 	class PasoA extends SrvStepCommon
 	{
-		function onDelete(  )
+		function onDelete ( )
 		{
 			$newVal=floatVal( $_SESSION['FONT_SIZE'] )-1;
 			if( $newVal >= 0 )
@@ -14,9 +14,13 @@
 				$_SESSION['FONT_SIZE']=$newVal;
 			}
 		}
-		function onNew(  )
+		function onNew ( )
 		{
 			$_SESSION['FONT_SIZE']=floatVal( $_SESSION['FONT_SIZE'] )+1;
+		}
+		function onEdit ( )
+		{
+			$_SESSION['FONT_SIZE']=15;
 		}
 		function onSetRouter()
 		{
