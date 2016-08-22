@@ -66,7 +66,7 @@ if($_SESSION['lab']!==false)
 	$html->appendChild
 	(
 		( new DOMLink() )
-		->setName( 'Saltar al pie' )
+		->setName( gettext( 'Saltar al pie' ) )
 		->setUrl( '#footer' )
 		->setAccessKey( 'P' )
 		->setAttribute( 'tabindex' , 3 )
@@ -111,7 +111,7 @@ if($_SESSION['lab']!==false)
 			$html->appendChild
 			(
 				( new DOMLink() )
-				->setName( 'Saltar al contenido' )
+				->setName( gettext( 'Saltar al contenido' ) )
 				->setUrl( '#'.$htmlid )
 				->setAccessKey( 'O' )
 				->setAttribute( 'tabindex' , 2 )

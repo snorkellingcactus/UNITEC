@@ -18,7 +18,7 @@
 			)->appendChild
 			(
 				( new DOMLink() )
-				->setName( 'Saltar a la navegación' )
+				->setName( gettext( 'Saltar a la navegación' ) )
 				->setUrl( '#navigation' )
 				->setAccessKey( 'N' )
 				->setAttribute( 'tabindex' , 3 )
